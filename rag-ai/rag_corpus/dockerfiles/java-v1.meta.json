@@ -1,0 +1,7 @@
+{
+  "template_type": "runtime",
+  "stack": "java",
+  "tags": ["multistage", "temurin", "maven"],
+  "priority": "gold",
+  "description": "Java Spring Boot Dockerfile with multi-stage build"
+}
