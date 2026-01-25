@@ -1,0 +1,35 @@
+"""
+title: Dockerfile Generator
+author: AI Platform
+version: 1.0
+"""
+
+import requests
+from typing import Callable, Any
+
+
+class Tools:
+    def __init__(self):
+        self.valves = None
+        
+    async def generate_dockerfile(
+        self,
+        stack: str,
+        __user__: dict = {},
+        __event_emitter__: Callable[[dict], Any] = None
+    ) -> str:
+        """
+        Generate Dockerfile from templates
+        
+        :param stack: Technology stack (java, python, node)
+        """
+        try:
+            response = requests.post(
+                "http://host.docker.internal:8080/generate/dockerfile",
+                json={"stack": stack, "port": 8080},
+                timeout=10
+            )
+            result = response.json()
+            return f"```dockerfile\n{result['content']}\n```"
+        except Exception as e:
+            return f"Error: {str(e)}"

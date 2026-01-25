@@ -1,0 +1,11 @@
+import sqlite3, json
+conn = sqlite3.connect("/app/backend/data/webui.db")
+c = conn.cursor()
+c.execute("SELECT id, name, meta, params, base_model_id FROM model WHERE id=?", ("qwen-mymodel",))
+row = c.fetchone()
+print("ID:", row[0])
+print("Name:", row[1])
+print("Meta:", row[2])
+print("Params:", row[3])
+print("Base model:", row[4])
+conn.close()

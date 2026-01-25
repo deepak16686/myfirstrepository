@@ -1,0 +1,7 @@
+{
+  "template_type": "runtime",
+  "stack": "python",
+  "tags": ["fastapi", "uvicorn", "pip"],
+  "priority": "gold",
+  "description": "Python FastAPI Dockerfile with slim base image"
+}

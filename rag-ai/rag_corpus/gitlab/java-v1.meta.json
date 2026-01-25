@@ -1,0 +1,7 @@
+{
+  "template_type": "pipeline",
+  "stack": "java",
+  "tags": ["trivy", "sonar", "nexus_push", "security_scan", "maven"],
+  "priority": "gold",
+  "description": "Java GitLab CI pipeline with 13-stage scanning (security, quality, docker)"
+}

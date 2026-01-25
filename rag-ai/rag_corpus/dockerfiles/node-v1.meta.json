@@ -1,0 +1,7 @@
+{
+  "template_type": "runtime",
+  "stack": "node",
+  "tags": ["express", "npm", "alpine"],
+  "priority": "gold",
+  "description": "Node.js application Dockerfile with Alpine base"
+}

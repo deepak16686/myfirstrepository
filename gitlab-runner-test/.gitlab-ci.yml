@@ -1,0 +1,56 @@
+stages:
+  - build
+  - test
+  - push
+
+variables:
+  NEXUS_REGISTRY: "ai-nexus:5001"
+  IMAGE_NAME: "gitlab-runner-test"
+  IMAGE_TAG: "${CI_COMMIT_SHORT_SHA}"
+
+build_image:
+  stage: build
+  image: docker:24-cli
+  services:
+    - docker:24-dind
+  tags:
+    - docker
+  script:
+    - echo "Building Docker image..."
+    - docker build -t ${NEXUS_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} .
+    - docker tag ${NEXUS_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ${NEXUS_REGISTRY}/${IMAGE_NAME}:latest
+    - echo "Build completed successfully!"
+
+test_image:
+  stage: test
+  image: docker:24-cli
+  services:
+    - docker:24-dind
+  tags:
+    - docker
+  script:
+    - echo "Testing Docker image..."
+    - docker run --rm -d --name test-container ${NEXUS_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+    - sleep 5
+    - docker ps | grep test-container
+    - docker stop test-container
+    - echo "Test completed successfully!"
+  dependencies:
+    - build_image
+
+push_to_nexus:
+  stage: push
+  image: docker:24-cli
+  services:
+    - docker:24-dind
+  tags:
+    - docker
+  script:
+    - echo "Logging into Nexus..."
+    - echo "${NEXUS_PASSWORD}" | docker login -u "${NEXUS_USERNAME}" --password-stdin ${NEXUS_REGISTRY}
+    - echo "Pushing to Nexus..."
+    - docker push ${NEXUS_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+    - docker push ${NEXUS_REGISTRY}/${IMAGE_NAME}:latest
+    - echo "Push completed successfully!"
+  dependencies:
+    - test_image

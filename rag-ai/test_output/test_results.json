@@ -1,0 +1,132 @@
+{
+  "passed": 25,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "chromadb_connectivity",
+      "status": "passed",
+      "detail": "ChromaDB is reachable"
+    },
+    {
+      "name": "api_connectivity",
+      "status": "passed",
+      "detail": "API version: 1.1"
+    },
+    {
+      "name": "collection_templates_dockerfile",
+      "status": "passed",
+      "detail": "3 documents found"
+    },
+    {
+      "name": "collection_templates_gitlab",
+      "status": "passed",
+      "detail": "3 documents found"
+    },
+    {
+      "name": "collection_golden_rules",
+      "status": "passed",
+      "detail": "1 documents found"
+    },
+    {
+      "name": "retrieval_dockerfile_java",
+      "status": "passed",
+      "detail": "Template ID: java-v1"
+    },
+    {
+      "name": "retrieval_gitlab_java",
+      "status": "passed",
+      "detail": "Template ID: java-v1"
+    },
+    {
+      "name": "retrieval_dockerfile_python",
+      "status": "passed",
+      "detail": "Template ID: python-v1"
+    },
+    {
+      "name": "retrieval_gitlab_python",
+      "status": "passed",
+      "detail": "Template ID: python-v1"
+    },
+    {
+      "name": "retrieval_dockerfile_node",
+      "status": "passed",
+      "detail": "Template ID: node-v1"
+    },
+    {
+      "name": "retrieval_gitlab_node",
+      "status": "passed",
+      "detail": "Template ID: node-v1"
+    },
+    {
+      "name": "generate_dockerfile_java",
+      "status": "passed",
+      "detail": "Generated (225 chars), base: localhost:5001/apm-repo/demo/amazoncorretto:17-alpine-jdk"
+    },
+    {
+      "name": "generate_gitlabci_java",
+      "status": "passed",
+      "detail": "Generated (9393 chars), template: java-v1"
+    },
+    {
+      "name": "generate_dockerfile_python",
+      "status": "passed",
+      "detail": "Generated (290 chars), base: localhost:5001/apm-repo/demo/python:3.12-slim"
+    },
+    {
+      "name": "generate_gitlabci_python",
+      "status": "passed",
+      "detail": "Generated (3153 chars), template: python-v1"
+    },
+    {
+      "name": "generate_dockerfile_node",
+      "status": "passed",
+      "detail": "Generated (217 chars), base: localhost:5001/apm-repo/demo/node:20-alpine"
+    },
+    {
+      "name": "generate_gitlabci_node",
+      "status": "passed",
+      "detail": "Generated (3030 chars), template: node-v1"
+    },
+    {
+      "name": "generate_invalid_stack",
+      "status": "passed",
+      "detail": "Correct TEMPLATE_MISSING error"
+    },
+    {
+      "name": "validate_dockerfile_java",
+      "status": "passed",
+      "detail": "All validation rules passed"
+    },
+    {
+      "name": "validate_dockerfile_python",
+      "status": "passed",
+      "detail": "All validation rules passed"
+    },
+    {
+      "name": "validate_dockerfile_node",
+      "status": "passed",
+      "detail": "All validation rules passed"
+    },
+    {
+      "name": "validate_gitlabci_java",
+      "status": "passed",
+      "detail": "All validation rules passed"
+    },
+    {
+      "name": "validate_gitlabci_python",
+      "status": "passed",
+      "detail": "All validation rules passed"
+    },
+    {
+      "name": "validate_gitlabci_node",
+      "status": "passed",
+      "detail": "All validation rules passed"
+    },
+    {
+      "name": "catalog_check",
+      "status": "passed",
+      "detail": "41 images, all required stacks present"
+    }
+  ]
+}
