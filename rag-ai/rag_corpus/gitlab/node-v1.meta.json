@@ -1,0 +1,7 @@
+{
+  "template_type": "pipeline",
+  "stack": "node",
+  "tags": ["npm", "jest", "trivy", "sonar", "nexus_push"],
+  "priority": "gold",
+  "description": "Node.js GitLab CI pipeline with testing, security scanning, and Nexus push"
+}

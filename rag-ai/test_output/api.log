@@ -1,0 +1,41 @@
+2026-01-24 00:48:51,742 [INFO] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2026-01-24 00:48:52,017 [INFO] HTTP Request: GET http://localhost:8000/api/v2/auth/identity "HTTP/1.1 200 OK"
+2026-01-24 00:48:52,018 [INFO] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2026-01-24 00:48:52,197 [INFO] HTTP Request: GET http://localhost:8000/api/v2/tenants/default_tenant "HTTP/1.1 200 OK"
+2026-01-24 00:48:52,198 [INFO] HTTP Request: GET http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database "HTTP/1.1 200 OK"
+2026-01-24 00:48:52,212 [INFO] HTTP Request: GET http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/templates_dockerfile "HTTP/1.1 200 OK"
+2026-01-24 00:48:52,214 [INFO] HTTP Request: GET http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/templates_gitlab "HTTP/1.1 200 OK"
+2026-01-24 00:48:52,216 [INFO] HTTP Request: GET http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/golden_rules "HTTP/1.1 200 OK"
+INFO:     Started server process [73672]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59954 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59982 - "GET / HTTP/1.1" 200 OK
+2026-01-24 00:49:12,248 [INFO] Dockerfile request: stack=java, framework=spring-boot
+2026-01-24 00:49:12,460 [INFO] HTTP Request: POST http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/5945fd80-c577-43a5-a956-3c8c29c7176d/query "HTTP/1.1 200 OK"
+2026-01-24 00:49:12,461 [INFO] Dockerfile generated: template=java-v1, base=localhost:5001/apm-repo/demo/amazoncorretto:17-alpine-jdk
+INFO:     127.0.0.1:57415 - "POST /generate/dockerfile HTTP/1.1" 200 OK
+2026-01-24 00:49:14,507 [INFO] GitLab CI request: stack=java, build_tool=maven
+2026-01-24 00:49:14,668 [INFO] HTTP Request: POST http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/fe36620d-bf38-4e07-8bff-84dab6fea4be/query "HTTP/1.1 200 OK"
+2026-01-24 00:49:14,668 [INFO] GitLab CI generated: template=java-v1, stages=9
+INFO:     127.0.0.1:57418 - "POST /generate/gitlabci HTTP/1.1" 200 OK
+2026-01-24 00:49:16,717 [INFO] Dockerfile request: stack=python, framework=fastapi
+2026-01-24 00:49:16,877 [INFO] HTTP Request: POST http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/5945fd80-c577-43a5-a956-3c8c29c7176d/query "HTTP/1.1 200 OK"
+2026-01-24 00:49:16,877 [INFO] Dockerfile generated: template=python-v1, base=localhost:5001/apm-repo/demo/python:3.12-slim
+INFO:     127.0.0.1:57421 - "POST /generate/dockerfile HTTP/1.1" 200 OK
+2026-01-24 00:49:18,913 [INFO] GitLab CI request: stack=python, build_tool=pip
+2026-01-24 00:49:19,059 [INFO] HTTP Request: POST http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/fe36620d-bf38-4e07-8bff-84dab6fea4be/query "HTTP/1.1 200 OK"
+2026-01-24 00:49:19,060 [INFO] GitLab CI generated: template=python-v1, stages=6
+INFO:     127.0.0.1:57423 - "POST /generate/gitlabci HTTP/1.1" 200 OK
+2026-01-24 00:49:21,121 [INFO] Dockerfile request: stack=node, framework=express
+2026-01-24 00:49:21,271 [INFO] HTTP Request: POST http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/5945fd80-c577-43a5-a956-3c8c29c7176d/query "HTTP/1.1 200 OK"
+2026-01-24 00:49:21,272 [INFO] Dockerfile generated: template=node-v1, base=localhost:5001/apm-repo/demo/node:20-alpine
+INFO:     127.0.0.1:57426 - "POST /generate/dockerfile HTTP/1.1" 200 OK
+2026-01-24 00:49:23,319 [INFO] GitLab CI request: stack=node, build_tool=npm
+2026-01-24 00:49:23,467 [INFO] HTTP Request: POST http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections/fe36620d-bf38-4e07-8bff-84dab6fea4be/query "HTTP/1.1 200 OK"
+2026-01-24 00:49:23,468 [INFO] GitLab CI generated: template=node-v1, stages=6
+INFO:     127.0.0.1:57429 - "POST /generate/gitlabci HTTP/1.1" 200 OK
+2026-01-24 00:49:25,524 [INFO] Dockerfile request: stack=cobol, framework=None
+INFO:     127.0.0.1:50967 - "POST /generate/dockerfile HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50970 - "GET /catalog HTTP/1.1" 200 OK

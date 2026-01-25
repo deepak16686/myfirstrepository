@@ -1,0 +1,7 @@
+{
+  "template_type": "pipeline",
+  "stack": "python",
+  "tags": ["pytest", "trivy", "sonar", "nexus_push", "fastapi"],
+  "priority": "gold",
+  "description": "Python FastAPI GitLab CI pipeline with testing, security scanning, and Nexus push"
+}

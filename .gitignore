@@ -1,0 +1,43 @@
+# Secrets / local credentials
+*.key
+*.pem
+*.pfx
+*.p12
+*.cer
+*.crt
+*.der
+*.env
+.env.*
+*credentials*
+*credential*
+*secrets*
+*secret*
+Credentials Details.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Local data / vector DB / generated content
+chromadb-data/
+desktop-content/
+files.zip
+files/
+nul
+
+# Tooling / misc
+.DS_Store
+Thumbs.db
+
+# GitHub/Claude metadata (optional: keep if you want)
+# .github/
+# .claude/
+# Local editor/agent settings (machine-specific)
+.claude/settings.local.json
+
+java-pipeline/
+test/
