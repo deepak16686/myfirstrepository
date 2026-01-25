@@ -1,0 +1,365 @@
+{
+  "alpine": {
+    "image_path": "localhost:5001/apm-repo/demo/alpine",
+    "tags": [
+      "3.20",
+      "latest"
+    ],
+    "selected_tag": "latest",
+    "selection_rule": "preferred or latest"
+  },
+  "alpine-3-20": {
+    "image_path": "localhost:5001/apm-repo/demo/alpine-3-20",
+    "tags": [
+      "demo-07"
+    ],
+    "selected_tag": "demo-07",
+    "selection_rule": "preferred or latest"
+  },
+  "alpine-curl": {
+    "image_path": "localhost:5001/apm-repo/demo/alpine-curl",
+    "tags": [
+      "latest"
+    ],
+    "selected_tag": "latest",
+    "selection_rule": "preferred or latest"
+  },
+  "java": {
+    "image_path": "localhost:5001/apm-repo/demo/amazoncorretto",
+    "tags": [
+      "17-alpine-jdk"
+    ],
+    "selected_tag": "17-alpine-jdk",
+    "selection_rule": "preferred or latest"
+  },
+  "aquasec-trivy": {
+    "image_path": "localhost:5001/apm-repo/demo/aquasec-trivy",
+    "tags": [
+      "latest"
+    ],
+    "selected_tag": "latest",
+    "selection_rule": "preferred or latest"
+  },
+  "bitnami-kubectl-latest": {
+    "image_path": "localhost:5001/apm-repo/demo/bitnami-kubectl-latest",
+    "tags": [
+      "demo-19"
+    ],
+    "selected_tag": "demo-19",
+    "selection_rule": "preferred or latest"
+  },
+  "busybox": {
+    "image_path": "localhost:5001/apm-repo/demo/busybox",
+    "tags": [
+      "1.36"
+    ],
+    "selected_tag": "1.36",
+    "selection_rule": "preferred or latest"
+  },
+  "busybox-1-36": {
+    "image_path": "localhost:5001/apm-repo/demo/busybox-1-36",
+    "tags": [
+      "demo-08"
+    ],
+    "selected_tag": "demo-08",
+    "selection_rule": "preferred or latest"
+  },
+  "caddy": {
+    "image_path": "localhost:5001/apm-repo/demo/caddy",
+    "tags": [
+      "2.9-alpine"
+    ],
+    "selected_tag": "2.9-alpine",
+    "selection_rule": "preferred or latest"
+  },
+  "chromadb-chroma-latest": {
+    "image_path": "localhost:5001/apm-repo/demo/chromadb-chroma-latest",
+    "tags": [
+      "demo-01"
+    ],
+    "selected_tag": "demo-01",
+    "selection_rule": "preferred or latest"
+  },
+  "debian": {
+    "image_path": "localhost:5001/apm-repo/demo/debian",
+    "tags": [
+      "bookworm-slim"
+    ],
+    "selected_tag": "bookworm-slim",
+    "selection_rule": "preferred or latest"
+  },
+  "docker": {
+    "image_path": "localhost:5001/apm-repo/demo/docker",
+    "tags": [
+      "24-cli",
+      "24-dind"
+    ],
+    "selected_tag": "24-cli",
+    "selection_rule": "preferred or latest"
+  },
+  "temurin": {
+    "image_path": "localhost:5001/apm-repo/demo/eclipse-temurin",
+    "tags": [
+      "11-jre",
+      "17-jdk",
+      "17-jre",
+      "21-jdk",
+      "21-jre"
+    ],
+    "selected_tag": "17-jdk",
+    "selection_rule": "preferred or latest"
+  },
+  "ghcr-io-open-webui-open-webui-main": {
+    "image_path": "localhost:5001/apm-repo/demo/ghcr-io-open-webui-open-webui-main",
+    "tags": [
+      "demo-02"
+    ],
+    "selected_tag": "demo-02",
+    "selection_rule": "preferred or latest"
+  },
+  "gitlab-runner-test": {
+    "image_path": "localhost:5001/apm-repo/demo/gitlab-runner-test",
+    "tags": [
+      "24.04"
+    ],
+    "selected_tag": "24.04",
+    "selection_rule": "preferred or latest"
+  },
+  "grafana-grafana-11-1-0": {
+    "image_path": "localhost:5001/apm-repo/demo/grafana-grafana-11-1-0",
+    "tags": [
+      "demo-17"
+    ],
+    "selected_tag": "demo-17",
+    "selection_rule": "preferred or latest"
+  },
+  "haproxy": {
+    "image_path": "localhost:5001/apm-repo/demo/haproxy",
+    "tags": [
+      "3.1-alpine"
+    ],
+    "selected_tag": "3.1-alpine",
+    "selection_rule": "preferred or latest"
+  },
+  "hashicorp-vault-1-17": {
+    "image_path": "localhost:5001/apm-repo/demo/hashicorp-vault-1-17",
+    "tags": [
+      "demo-16"
+    ],
+    "selected_tag": "demo-16",
+    "selection_rule": "preferred or latest"
+  },
+  "hello-world-latest": {
+    "image_path": "localhost:5001/apm-repo/demo/hello-world-latest",
+    "tags": [
+      "demo-09"
+    ],
+    "selected_tag": "demo-09",
+    "selection_rule": "preferred or latest"
+  },
+  "httpd-2-4-alpine": {
+    "image_path": "localhost:5001/apm-repo/demo/httpd-2-4-alpine",
+    "tags": [
+      "demo-11"
+    ],
+    "selected_tag": "demo-11",
+    "selection_rule": "preferred or latest"
+  },
+  "kaniko-executor": {
+    "image_path": "localhost:5001/apm-repo/demo/kaniko-executor",
+    "tags": [
+      "debug",
+      "latest"
+    ],
+    "selected_tag": "latest",
+    "selection_rule": "preferred or latest"
+  },
+  "maven": {
+    "image_path": "localhost:5001/apm-repo/demo/maven",
+    "tags": [
+      "3.9-eclipse-temurin-17"
+    ],
+    "selected_tag": "3.9-eclipse-temurin-17",
+    "selection_rule": "preferred or latest"
+  },
+  "memcached-1-6-alpine": {
+    "image_path": "localhost:5001/apm-repo/demo/memcached-1-6-alpine",
+    "tags": [
+      "demo-15"
+    ],
+    "selected_tag": "demo-15",
+    "selection_rule": "preferred or latest"
+  },
+  "minio-minio": {
+    "image_path": "localhost:5001/apm-repo/demo/minio-minio",
+    "tags": [
+      "demo-03"
+    ],
+    "selected_tag": "demo-03",
+    "selection_rule": "preferred or latest"
+  },
+  "mongo": {
+    "image_path": "localhost:5001/apm-repo/demo/mongo",
+    "tags": [
+      "7"
+    ],
+    "selected_tag": "7",
+    "selection_rule": "preferred or latest"
+  },
+  "my-image-test": {
+    "image_path": "localhost:5001/apm-repo/demo/my-image-test",
+    "tags": [
+      "1.0.104",
+      "1.0.105",
+      "1.0.106",
+      "1.0.107",
+      "1.0.111",
+      "1.0.release-105",
+      "1.0.release-106",
+      "1.0.release-107",
+      "1.0.release-111",
+      "1.0.release-79",
+      "1.0.release-80",
+      "1.0.release-82",
+      "1.0.release-83",
+      "1.0.release-84",
+      "1.0.release-85",
+      "1.0.release-86",
+      "1.0.release-87",
+      "1.0.release-88",
+      "1.0.release-89",
+      "1.0.release-90",
+      "latest"
+    ],
+    "selected_tag": "latest",
+    "selection_rule": "preferred or latest"
+  },
+  "nginx": {
+    "image_path": "localhost:5001/apm-repo/demo/nginx",
+    "tags": [
+      "1.27-alpine"
+    ],
+    "selected_tag": "1.27-alpine",
+    "selection_rule": "preferred or latest"
+  },
+  "nginx-1-27-alpine": {
+    "image_path": "localhost:5001/apm-repo/demo/nginx-1-27-alpine",
+    "tags": [
+      "demo-10"
+    ],
+    "selected_tag": "demo-10",
+    "selection_rule": "preferred or latest"
+  },
+  "node": {
+    "image_path": "localhost:5001/apm-repo/demo/node",
+    "tags": [
+      "18-alpine",
+      "20-alpine",
+      "20-slim",
+      "22-alpine",
+      "22-slim"
+    ],
+    "selected_tag": "20-alpine",
+    "selection_rule": "preferred or latest"
+  },
+  "ollama-ollama-latest": {
+    "image_path": "localhost:5001/apm-repo/demo/ollama-ollama-latest",
+    "tags": [
+      "demo-04"
+    ],
+    "selected_tag": "demo-04",
+    "selection_rule": "preferred or latest"
+  },
+  "postgres": {
+    "image_path": "localhost:5001/apm-repo/demo/postgres",
+    "tags": [
+      "16-alpine"
+    ],
+    "selected_tag": "16-alpine",
+    "selection_rule": "preferred or latest"
+  },
+  "prom-prometheus-v2-55-0": {
+    "image_path": "localhost:5001/apm-repo/demo/prom-prometheus-v2-55-0",
+    "tags": [
+      "demo-18"
+    ],
+    "selected_tag": "demo-18",
+    "selection_rule": "preferred or latest"
+  },
+  "python": {
+    "image_path": "localhost:5001/apm-repo/demo/python",
+    "tags": [
+      "3.10-slim",
+      "3.11-slim",
+      "3.12-slim",
+      "3.13-slim",
+      "3.9-slim"
+    ],
+    "selected_tag": "3.12-slim",
+    "selection_rule": "preferred or latest"
+  },
+  "rabbitmq": {
+    "image_path": "localhost:5001/apm-repo/demo/rabbitmq",
+    "tags": [
+      "3-alpine"
+    ],
+    "selected_tag": "3-alpine",
+    "selection_rule": "preferred or latest"
+  },
+  "rabbitmq-3-alpine": {
+    "image_path": "localhost:5001/apm-repo/demo/rabbitmq-3-alpine",
+    "tags": [
+      "demo-14"
+    ],
+    "selected_tag": "demo-14",
+    "selection_rule": "preferred or latest"
+  },
+  "redis": {
+    "image_path": "localhost:5001/apm-repo/demo/redis-7-alpine",
+    "tags": [
+      "demo-05"
+    ],
+    "selected_tag": "demo-05",
+    "selection_rule": "preferred or latest"
+  },
+  "registry-2": {
+    "image_path": "localhost:5001/apm-repo/demo/registry-2",
+    "tags": [
+      "demo-13"
+    ],
+    "selected_tag": "demo-13",
+    "selection_rule": "preferred or latest"
+  },
+  "sonatype-nexus3-latest": {
+    "image_path": "localhost:5001/apm-repo/demo/sonatype-nexus3-latest",
+    "tags": [
+      "demo-06"
+    ],
+    "selected_tag": "demo-06",
+    "selection_rule": "preferred or latest"
+  },
+  "traefik": {
+    "image_path": "localhost:5001/apm-repo/demo/traefik",
+    "tags": [
+      "v3.1"
+    ],
+    "selected_tag": "v3.1",
+    "selection_rule": "preferred or latest"
+  },
+  "traefik-v3-1": {
+    "image_path": "localhost:5001/apm-repo/demo/traefik-v3-1",
+    "tags": [
+      "demo-12"
+    ],
+    "selected_tag": "demo-12",
+    "selection_rule": "preferred or latest"
+  },
+  "ubuntu": {
+    "image_path": "localhost:5001/apm-repo/demo/ubuntu",
+    "tags": [
+      "24.04"
+    ],
+    "selected_tag": "24.04",
+    "selection_rule": "preferred or latest"
+  }
+}
