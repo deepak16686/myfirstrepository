@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    restart: unless-stopped
+    volumes:
+      # Mount host Docker socket for Docker-in-Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Runner configuration persistence
+      - ./config:/etc/gitlab-runner
+      # Optional: Cache for build artifacts
+      - ./cache:/cache
+    networks:
+      - modernization-network
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    privileged: true  # Required for Docker operations
+
+networks:
+  modernization-network:
+    external: true

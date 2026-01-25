@@ -1,0 +1,106 @@
+stages:
+  - test
+  - build
+  - security
+  - quality
+  - push
+  - notify
+
+variables:
+  RELEASE_TAG: "1.0.release-${CI_PIPELINE_IID}"
+  NEXUS_REGISTRY: "ai-nexus:5001"
+  NEXUS_PULL_REGISTRY: "localhost:5001"
+  NEXUS_USERNAME: "admin"
+  NEXUS_PASSWORD: "r"
+  IMAGE_NAME: "my-python-app"
+  IMAGE_TAG: "1.0.${CI_PIPELINE_IID}"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://docker:2375
+  FF_NETWORK_PER_BUILD: "true"
+
+unit_test:
+  stage: test
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/python:3.12-slim
+  tags:
+    - docker
+  script:
+    - pip install -r requirements.txt
+    - pip install pytest pytest-cov
+    - pytest --cov=app tests/ --junitxml=report.xml
+  artifacts:
+    reports:
+      junit: report.xml
+    paths:
+      - htmlcov/
+    expire_in: 1 week
+
+build_image:
+  stage: build
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags:
+    - docker
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${NEXUS_REGISTRY}\":{\"username\":\"${NEXUS_USERNAME}\",\"password\":\"${NEXUS_PASSWORD}\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${NEXUS_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${IMAGE_TAG}"
+      --destination "${NEXUS_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:latest"
+      --insecure
+      --skip-tls-verify
+      --insecure-registry "${NEXUS_REGISTRY}"
+
+trivy_scan:
+  stage: security
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  script:
+    - apk add --no-cache curl
+    - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+    - export TRIVY_USERNAME="${NEXUS_USERNAME}"
+    - export TRIVY_PASSWORD="${NEXUS_PASSWORD}"
+    - trivy image --severity HIGH,CRITICAL --insecure ${NEXUS_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:latest
+  allow_failure: true
+
+sonarqube:
+  stage: quality
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/python:3.12-slim
+  tags:
+    - docker
+  script:
+    - pip install sonar-scanner-cli
+    - sonar-scanner -Dsonar.projectKey=${CI_PROJECT_NAME} -Dsonar.host.url=http://172.20.0.9:9000
+  allow_failure: true
+
+push_to_nexus:
+  stage: push
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  script:
+    - apk add --no-cache curl jq
+    - |
+      MANIFEST=$(curl -s -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" \
+        -H "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+        "http://${NEXUS_REGISTRY}/v2/apm-repo/demo/${IMAGE_NAME}/manifests/latest")
+    - |
+      curl -s -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" \
+        -X PUT \
+        -H "Content-Type: application/vnd.docker.distribution.manifest.v2+json" \
+        -d "$MANIFEST" \
+        "http://${NEXUS_REGISTRY}/v2/apm-repo/demo/${IMAGE_NAME}/manifests/${RELEASE_TAG}"
+
+notify_splunk:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  script:
+    - apk add --no-cache curl
+    - echo "Pipeline ${CI_PIPELINE_ID} completed"
+  when: always
+  allow_failure: true

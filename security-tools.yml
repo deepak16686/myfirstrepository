@@ -1,0 +1,49 @@
+﻿version: '3.8'
+
+services:
+  # Trivy - Container & dependency vulnerability scanner
+  trivy-server:
+    image: aquasec/trivy:latest
+    container_name: trivy-server
+    restart: unless-stopped
+    networks:
+      - ai-platform-net
+    ports:
+      - "8083:8080"
+    command: server --listen 0.0.0.0:8080
+
+  # Loki - Log aggregation
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    networks:
+      - monitoring-network
+      - ai-platform-net
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki
+
+  # Jaeger - Distributed tracing
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    restart: unless-stopped
+    networks:
+      - monitoring-network
+      - ai-platform-net
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+
+volumes:
+  loki-data:
+
+networks:
+  ai-platform-net:
+    external: true
+  monitoring-network:
+    external: true
