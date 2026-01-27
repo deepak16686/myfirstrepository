@@ -1,0 +1,159 @@
+# Complete GitLab CI/CD Pipeline Example with DinD
+# This file shows a full pipeline with build, test, and Docker image push stages
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  DOCKER_REGISTRY: "${DOCKER_REGISTRY:-nexus-docker:5001}"
+  DOCKER_IMAGE_NAME: "${DOCKER_IMAGE_NAME:-java-app}"
+
+stages:
+  - build
+  - test
+  - sonarqube
+  - docker
+  - deploy
+
+# ============================================================================
+# Build Stage: Compile and package Java application
+# ============================================================================
+build:
+  stage: build
+  image: maven:3.9-eclipse-temurin-17
+  script:
+    - echo "Building Java application with Maven..."
+    - mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - target/java-pipeline-*.jar
+    expire_in: 1 hour
+  cache:
+    paths:
+      - .m2/repository
+  only:
+    - main
+    - develop
+    - merge_requests
+
+# ============================================================================
+# Test Stage: Run unit tests with coverage
+# ============================================================================
+test:
+  stage: test
+  image: maven:3.9-eclipse-temurin-17
+  dependencies:
+    - build
+  script:
+    - echo "Running unit tests..."
+    - mvn test
+  coverage: '/TOTAL.+?(\d+%)$/'
+  artifacts:
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: target/site/cobertura/coverage.xml
+  cache:
+    paths:
+      - .m2/repository
+  only:
+    - main
+    - develop
+    - merge_requests
+
+# ============================================================================
+# SonarQube Stage: Code quality analysis (optional)
+# ============================================================================
+sonarqube:
+  stage: sonarqube
+  image: maven:3.9-eclipse-temurin-17
+  dependencies:
+    - test
+  script:
+    - echo "Running SonarQube analysis..."
+    - mvn sonar:sonar \
+        -Dsonar.projectKey=java-pipeline \
+        -Dsonar.sources=src/main \
+        -Dsonar.tests=src/test \
+        -Dsonar.qualitygate.wait=true \
+        || echo "SonarQube analysis completed (may fail if quality gate not passed)"
+  cache:
+    paths:
+      - .m2/repository
+  allow_failure: true
+  only:
+    - main
+    - develop
+    - merge_requests
+
+# ============================================================================
+# Docker Build & Push Stage: Build image and push to Nexus with DinD
+# ============================================================================
+docker_build:
+  stage: docker
+  image: docker:24-cli
+  services:
+    - name: docker:24-dind
+      alias: docker
+      command: ["--tls=false"]  # Explicitly disable TLS for reliability
+  variables:
+    DOCKER_TLS_CERTDIR: ""                    # Required for DinD without TLS
+    DOCKER_HOST: tcp://docker:2375            # DinD service endpoint
+    DOCKER_DRIVER: overlay2                   # Efficient storage driver
+    FF_NETWORK_PER_BUILD: "true"              # Enable per-build network isolation
+    FF_DOCKER_LAYER_CACHING: "true"           # Cache Docker layers between builds
+  before_script:
+    - sleep 5                                 # Give DinD service time to start
+    - docker info                             # Verify Docker daemon connectivity
+    - echo "Logging into Nexus Docker registry at $DOCKER_REGISTRY..."
+    - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USER" --password-stdin $DOCKER_REGISTRY
+  script:
+    - echo "Building Docker image..."
+    # Tag with multiple identifiers: latest, commit SHA, and branch
+    - docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest .
+    - docker tag $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_SHA:0:8}
+    - docker tag $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_REF_SLUG}
+    
+    - echo "Pushing Docker images to Nexus on port 5001..."
+    - docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest
+    - docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_SHA:0:8}
+    - docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_REF_SLUG}
+    
+    - echo "Docker images pushed successfully!"
+    - echo "Images available at:"
+    - echo "  - $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest"
+    - echo "  - $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_SHA:0:8}"
+    - echo "  - $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_REF_SLUG}"
+  after_script:
+    - docker logout $DOCKER_REGISTRY || true
+  dependencies:
+    - build
+  only:
+    - main
+    - develop
+  allow_failure: false
+
+# ============================================================================
+# Deploy Stage: Deploy to target environment (optional)
+# ============================================================================
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying application..."
+    - echo "Image: $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_SHA:0:8}"
+    - echo "Deployment would happen here (e.g., kubectl apply, docker stack deploy, etc.)"
+  only:
+    - main
+  allow_failure: true
+
+# ============================================================================
+# Environment Variables Required (Set in GitLab UI)
+# ============================================================================
+# Settings > CI/CD > Variables:
+#
+# DOCKER_REGISTRY_USER          = nexus-username
+# DOCKER_REGISTRY_PASSWORD      = nexus-password (mark as MASKED)
+# DOCKER_REGISTRY               = nexus-docker:5001 (optional, has default)
+# DOCKER_IMAGE_NAME             = java-app (optional, has default)
+# SONAR_HOST_URL                = http://sonarqube:9000 (if using SonarQube)
+# SONAR_LOGIN                   = <sonarqube-token> (if using SonarQube)
