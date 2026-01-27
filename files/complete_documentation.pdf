@@ -1,0 +1,4033 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R 44 0 R 46 0 R 48 0 R 50 0 R 52 0 R 54 0 R 56 0 R 58 0 R 60 0 R 62 0 R 64 0 R 66 0 R 68 0 R 70 0 R 72 0 R 74 0 R 76 0 R 78 0 R 80 0 R 82 0 R 84 0 R 86 0 R 88 0 R 90 0 R 92 0 R 94 0 R 96 0 R 98 0 R 100 0 R 102 0 R 104 0 R] /Count 50 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+5 0 obj
+<< /Length 2328 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (SOURCE: README.md) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+1 0 0 1 50 754 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 740 Tm (Legacy Application Modernization Platform - Setup Guide) Tj
+/F1 12 Tf
+1 0 0 1 50 710 Tm () Tj
+1 0 0 1 50 704 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 690 Tm (? Quick Start) Tj
+/F1 12 Tf
+1 0 0 1 50 664 Tm () Tj
+1 0 0 1 50 658 Tm () Tj
+1 0 0 1 50 644 Tm (After reinstalling Docker Desktop, you have **two deployment options**:) Tj
+1 0 0 1 50 628 Tm () Tj
+1 0 0 1 50 618 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 604 Tm (Option 1: PowerShell Script \(Recommended\)) Tj
+/F1 12 Tf
+1 0 0 1 50 582 Tm () Tj
+1 0 0 1 50 576 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 572 Tm (# Full deployment with all services and AI models) Tj
+1 0 0 1 50 559 Tm (.\\rebuild-platform.ps1) Tj
+1 0 0 1 50 546 Tm () Tj
+1 0 0 1 50 533 Tm (# Skip AI model downloads \(if already downloaded\)) Tj
+1 0 0 1 50 520 Tm (.\\rebuild-platform.ps1 -SkipModels) Tj
+1 0 0 1 50 507 Tm () Tj
+1 0 0 1 50 494 Tm (# Skip monitoring stack) Tj
+1 0 0 1 50 481 Tm (.\\rebuild-platform.ps1 -SkipMonitoring) Tj
+1 0 0 1 50 468 Tm () Tj
+1 0 0 1 50 455 Tm (# Validation only) Tj
+1 0 0 1 50 442 Tm (.\\rebuild-platform.ps1 -Validate) Tj
+/F1 12 Tf
+1 0 0 1 50 429 Tm () Tj
+1 0 0 1 50 417 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 403 Tm (Option 2: Docker Compose) Tj
+/F1 12 Tf
+1 0 0 1 50 381 Tm () Tj
+1 0 0 1 50 375 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 371 Tm (# Start all services) Tj
+1 0 0 1 50 358 Tm (docker-compose up -d) Tj
+1 0 0 1 50 345 Tm () Tj
+1 0 0 1 50 332 Tm (# View logs) Tj
+1 0 0 1 50 319 Tm (docker-compose logs -f) Tj
+1 0 0 1 50 306 Tm () Tj
+1 0 0 1 50 293 Tm (# Stop all services) Tj
+1 0 0 1 50 280 Tm (docker-compose down) Tj
+1 0 0 1 50 267 Tm () Tj
+1 0 0 1 50 254 Tm (# Stop and remove volumes \(CAUTION: data loss\)) Tj
+1 0 0 1 50 241 Tm (docker-compose down -v) Tj
+/F1 12 Tf
+1 0 0 1 50 228 Tm () Tj
+1 0 0 1 50 216 Tm () Tj
+1 0 0 1 50 202 Tm (? --) Tj
+1 0 0 1 50 186 Tm () Tj
+1 0 0 1 50 176 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 162 Tm (? Prerequisites) Tj
+/F1 12 Tf
+1 0 0 1 50 136 Tm () Tj
+1 0 0 1 50 130 Tm () Tj
+1 0 0 1 50 116 Tm (? **Docker Desktop** installed and running) Tj
+1 0 0 1 50 100 Tm (? **Windows 11 Pro** with WSL2 enabled) Tj
+1 0 0 1 50 84 Tm (? **GPU Support** configured \(for Ollama\)) Tj
+1 0 0 1 50 68 Tm (? **PowerShell 5.1+** or PowerShell Core 7+) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 5 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 3364 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (? **Minimum 32GB RAM** \(64GB+ recommended\)) Tj
+1 0 0 1 50 774 Tm (? **500GB+ available disk space** \(for models and data\)) Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 748 Tm () Tj
+1 0 0 1 50 734 Tm (? --) Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 708 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 694 Tm (?? Platform Architecture) Tj
+/F1 12 Tf
+1 0 0 1 50 668 Tm () Tj
+1 0 0 1 50 662 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 648 Tm (Infrastructure Services) Tj
+/F1 12 Tf
+1 0 0 1 50 626 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 620 Tm (+------------+------------+---------------------+--------------------------------------+) Tj
+1 0 0 1 50 607 Tm (| Service    | Port       | Purpose             | Credentials                          |) Tj
+1 0 0 1 50 594 Tm (+------------+------------+---------------------+--------------------------------------+) Tj
+1 0 0 1 50 581 Tm (| PostgreSQL | 5432       | Relational database | `modernization` / `modernization123` |) Tj
+1 0 0 1 50 568 Tm (| Redis      | 6379       | Caching layer       | No authentication                    |) Tj
+1 0 0 1 50 555 Tm (| MinIO      | 9000, 9001 | Object storage      | `minioadmin` / `minioadmin123`       |) Tj
+1 0 0 1 50 542 Tm (| ChromaDB   | 8000       | Vector database     | No authentication                    |) Tj
+1 0 0 1 50 529 Tm (| Ollama     | 11434      | AI model server     | No authentication                    |) Tj
+1 0 0 1 50 516 Tm (+------------+------------+---------------------+--------------------------------------+) Tj
+/F1 12 Tf
+1 0 0 1 50 503 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 491 Tm (Monitoring Stack) Tj
+/F1 12 Tf
+1 0 0 1 50 469 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 463 Tm (+------------+-------+---------------------+----------------------+) Tj
+1 0 0 1 50 450 Tm (| Service    | Port  | Purpose             | Credentials          |) Tj
+1 0 0 1 50 437 Tm (+------------+-------+---------------------+----------------------+) Tj
+1 0 0 1 50 424 Tm (| Prometheus | 9090  | Metrics collection  | No authentication    |) Tj
+1 0 0 1 50 411 Tm (| Grafana    | 3000  | Visualization       | `admin` / `admin123` |) Tj
+1 0 0 1 50 398 Tm (| Loki       | 3100  | Log aggregation     | No authentication    |) Tj
+1 0 0 1 50 385 Tm (| Jaeger     | 16686 | Distributed tracing | No authentication    |) Tj
+1 0 0 1 50 372 Tm (+------------+-------+---------------------+----------------------+) Tj
+/F1 12 Tf
+1 0 0 1 50 359 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 347 Tm (AI Models \(Ollama\)) Tj
+/F1 12 Tf
+1 0 0 1 50 325 Tm () Tj
+1 0 0 1 50 319 Tm (? **DeepSeek Coder 33B** \(`deepseek-coder:33b-instruct-q4_K_M`\) - ~18GB) Tj
+1 0 0 1 50 303 Tm (? **Qwen2.5-Coder 32B** \(`qwen2.5-coder:32b-instruct-q4_K_M`\) - ~18GB) Tj
+1 0 0 1 50 287 Tm () Tj
+1 0 0 1 50 277 Tm () Tj
+1 0 0 1 50 263 Tm (? --) Tj
+1 0 0 1 50 247 Tm () Tj
+1 0 0 1 50 237 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 223 Tm (? Validation & Health Checks) Tj
+/F1 12 Tf
+1 0 0 1 50 197 Tm () Tj
+1 0 0 1 50 191 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 177 Tm (Quick Health Check) Tj
+/F1 12 Tf
+1 0 0 1 50 155 Tm () Tj
+1 0 0 1 50 149 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 145 Tm (.\\validate-platform.ps1) Tj
+/F1 12 Tf
+1 0 0 1 50 132 Tm () Tj
+1 0 0 1 50 120 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 106 Tm (Detailed Health Check) Tj
+/F1 12 Tf
+1 0 0 1 50 84 Tm () Tj
+1 0 0 1 50 78 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 74 Tm (.\\validate-platform.ps1 -Detailed) Tj
+/F1 12 Tf
+1 0 0 1 50 61 Tm () Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 7 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+9 0 obj
+<< /Length 2528 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 776 Tm (Continuous Monitoring) Tj
+/F1 12 Tf
+1 0 0 1 50 754 Tm () Tj
+1 0 0 1 50 748 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 744 Tm (# Check every 30 seconds) Tj
+1 0 0 1 50 731 Tm (.\\validate-platform.ps1 -Continuous -Interval 30) Tj
+/F1 12 Tf
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 706 Tm () Tj
+1 0 0 1 50 692 Tm (? --) Tj
+1 0 0 1 50 676 Tm () Tj
+1 0 0 1 50 666 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 652 Tm (?? Manual AI Model Management) Tj
+/F1 12 Tf
+1 0 0 1 50 626 Tm () Tj
+1 0 0 1 50 620 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 606 Tm (Pull Additional Models) Tj
+/F1 12 Tf
+1 0 0 1 50 584 Tm () Tj
+1 0 0 1 50 578 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 574 Tm (# List available models) Tj
+1 0 0 1 50 561 Tm (docker exec ollama ollama list) Tj
+1 0 0 1 50 548 Tm () Tj
+1 0 0 1 50 535 Tm (# Pull a specific model) Tj
+1 0 0 1 50 522 Tm (docker exec ollama ollama pull deepseek-coder:6.7b-instruct-q4_K_M) Tj
+1 0 0 1 50 509 Tm () Tj
+1 0 0 1 50 496 Tm (# Pull larger models \(70B+\)) Tj
+1 0 0 1 50 483 Tm (docker exec ollama ollama pull qwen2.5-coder:72b-instruct-q4_K_M) Tj
+/F1 12 Tf
+1 0 0 1 50 470 Tm () Tj
+1 0 0 1 50 458 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 444 Tm (Test Model Inference) Tj
+/F1 12 Tf
+1 0 0 1 50 422 Tm () Tj
+1 0 0 1 50 416 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 412 Tm (# Test DeepSeek Coder) Tj
+1 0 0 1 50 399 Tm (docker exec ollama ollama run deepseek-coder:33b-instruct-q4_K_M "Write a Python function to reverse a string") Tj
+1 0 0 1 50 386 Tm () Tj
+1 0 0 1 50 373 Tm (# Test Qwen2.5-Coder) Tj
+1 0 0 1 50 360 Tm (docker exec ollama ollama run qwen2.5-coder:32b-instruct-q4_K_M "Explain what a microservice is") Tj
+/F1 12 Tf
+1 0 0 1 50 347 Tm () Tj
+1 0 0 1 50 335 Tm () Tj
+1 0 0 1 50 321 Tm (? --) Tj
+1 0 0 1 50 305 Tm () Tj
+1 0 0 1 50 295 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 281 Tm (? Accessing Services) Tj
+/F1 12 Tf
+1 0 0 1 50 255 Tm () Tj
+1 0 0 1 50 249 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 235 Tm (Web Interfaces) Tj
+/F1 12 Tf
+1 0 0 1 50 213 Tm () Tj
+1 0 0 1 50 207 Tm (? **MinIO Console**: http://localhost:9001) Tj
+1 0 0 1 50 191 Tm (? **Prometheus**: http://localhost:9090) Tj
+1 0 0 1 50 175 Tm (? **Grafana**: http://localhost:3000) Tj
+1 0 0 1 50 159 Tm (? **Jaeger**: http://localhost:16686) Tj
+1 0 0 1 50 143 Tm () Tj
+1 0 0 1 50 133 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 119 Tm (API Endpoints) Tj
+/F1 12 Tf
+1 0 0 1 50 97 Tm () Tj
+1 0 0 1 50 91 Tm (? **Ollama API**: http://localhost:11434) Tj
+1 0 0 1 50 75 Tm (? **ChromaDB API**: http://localhost:8000) Tj
+1 0 0 1 50 59 Tm (? **Loki API**: http://localhost:3100) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 9 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+11 0 obj
+<< /Length 2299 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+1 0 0 1 50 780 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 766 Tm (Database Connections) Tj
+/F1 12 Tf
+1 0 0 1 50 744 Tm () Tj
+1 0 0 1 50 738 Tm () Tj
+1 0 0 1 50 724 Tm (? *PostgreSQL**:) Tj
+1 0 0 1 50 708 Tm () Tj
+1 0 0 1 50 698 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 694 Tm (# Via Docker) Tj
+1 0 0 1 50 681 Tm (docker exec -it postgres psql -U modernization -d legacy_modernization) Tj
+1 0 0 1 50 668 Tm () Tj
+1 0 0 1 50 655 Tm (# Connection string) Tj
+1 0 0 1 50 642 Tm (postgresql://modernization:modernization123@localhost:5432/legacy_modernization) Tj
+/F1 12 Tf
+1 0 0 1 50 629 Tm () Tj
+1 0 0 1 50 617 Tm () Tj
+1 0 0 1 50 603 Tm (? *Redis**:) Tj
+1 0 0 1 50 587 Tm () Tj
+1 0 0 1 50 577 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 573 Tm (# Via Docker) Tj
+1 0 0 1 50 560 Tm (docker exec -it redis redis-cli) Tj
+1 0 0 1 50 547 Tm () Tj
+1 0 0 1 50 534 Tm (# Connection string) Tj
+1 0 0 1 50 521 Tm (redis://localhost:6379) Tj
+/F1 12 Tf
+1 0 0 1 50 508 Tm () Tj
+1 0 0 1 50 496 Tm () Tj
+1 0 0 1 50 482 Tm (? --) Tj
+1 0 0 1 50 466 Tm () Tj
+1 0 0 1 50 456 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 442 Tm (? Troubleshooting) Tj
+/F1 12 Tf
+1 0 0 1 50 416 Tm () Tj
+1 0 0 1 50 410 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 396 Tm (Check Container Status) Tj
+/F1 12 Tf
+1 0 0 1 50 374 Tm () Tj
+1 0 0 1 50 368 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 364 Tm (# View all containers) Tj
+1 0 0 1 50 351 Tm (docker ps -a) Tj
+1 0 0 1 50 338 Tm () Tj
+1 0 0 1 50 325 Tm (# View specific container logs) Tj
+1 0 0 1 50 312 Tm (docker logs -f <container-name>) Tj
+1 0 0 1 50 299 Tm () Tj
+1 0 0 1 50 286 Tm (# Check container resource usage) Tj
+1 0 0 1 50 273 Tm (docker stats) Tj
+/F1 12 Tf
+1 0 0 1 50 260 Tm () Tj
+1 0 0 1 50 248 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 234 Tm (Common Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 212 Tm () Tj
+1 0 0 1 50 206 Tm () Tj
+/F1 14 Tf
+1 0 0 1 50 192 Tm (1. Port Already in Use) Tj
+/F1 12 Tf
+1 0 0 1 50 172 Tm () Tj
+1 0 0 1 50 166 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 162 Tm (# Find process using port) Tj
+1 0 0 1 50 149 Tm (netstat -ano | findstr :<port>) Tj
+1 0 0 1 50 136 Tm () Tj
+1 0 0 1 50 123 Tm (# Kill process) Tj
+1 0 0 1 50 110 Tm (Stop-Process -Id <PID> -Force) Tj
+/F1 12 Tf
+1 0 0 1 50 97 Tm () Tj
+1 0 0 1 50 85 Tm () Tj
+/F1 14 Tf
+1 0 0 1 50 71 Tm (2. Container Won't Start) Tj
+/F1 12 Tf
+1 0 0 1 50 51 Tm () Tj
+1 0 0 1 50 45 Tm () Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 11 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 2537 >>
+stream
+BT
+/F1 12 Tf
+/F2 11 Tf
+1 0 0 1 50 790 Tm (# Check logs) Tj
+1 0 0 1 50 777 Tm (docker logs <container-name>) Tj
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 751 Tm (# Restart container) Tj
+1 0 0 1 50 738 Tm (docker restart <container-name>) Tj
+1 0 0 1 50 725 Tm () Tj
+1 0 0 1 50 712 Tm (# Remove and recreate) Tj
+1 0 0 1 50 699 Tm (docker rm -f <container-name>) Tj
+1 0 0 1 50 686 Tm (.\\rebuild-platform.ps1) Tj
+/F1 12 Tf
+1 0 0 1 50 673 Tm () Tj
+1 0 0 1 50 661 Tm () Tj
+/F1 14 Tf
+1 0 0 1 50 647 Tm (3. Ollama GPU Not Detected) Tj
+/F1 12 Tf
+1 0 0 1 50 627 Tm () Tj
+1 0 0 1 50 621 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 617 Tm (# Verify GPU support in Docker) Tj
+1 0 0 1 50 604 Tm (docker run --rm --gpus all nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi) Tj
+1 0 0 1 50 591 Tm () Tj
+1 0 0 1 50 578 Tm (# Check Ollama container GPU access) Tj
+1 0 0 1 50 565 Tm (docker exec ollama nvidia-smi) Tj
+/F1 12 Tf
+1 0 0 1 50 552 Tm () Tj
+1 0 0 1 50 540 Tm () Tj
+/F1 14 Tf
+1 0 0 1 50 526 Tm (4. Out of Memory) Tj
+/F1 12 Tf
+1 0 0 1 50 506 Tm () Tj
+1 0 0 1 50 500 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 496 Tm (# Check memory usage) Tj
+1 0 0 1 50 483 Tm (docker stats --no-stream) Tj
+1 0 0 1 50 470 Tm () Tj
+1 0 0 1 50 457 Tm (# Restart Docker Desktop) Tj
+1 0 0 1 50 444 Tm (# Or reduce number of running models) Tj
+/F1 12 Tf
+1 0 0 1 50 431 Tm () Tj
+1 0 0 1 50 419 Tm () Tj
+1 0 0 1 50 405 Tm (? --) Tj
+1 0 0 1 50 389 Tm () Tj
+1 0 0 1 50 379 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 365 Tm (?? Cleanup & Reset) Tj
+/F1 12 Tf
+1 0 0 1 50 339 Tm () Tj
+1 0 0 1 50 333 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 319 Tm (Stop All Containers) Tj
+/F1 12 Tf
+1 0 0 1 50 297 Tm () Tj
+1 0 0 1 50 291 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 287 Tm (docker stop $\(docker ps -aq\)) Tj
+/F1 12 Tf
+1 0 0 1 50 274 Tm () Tj
+1 0 0 1 50 262 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 248 Tm (Remove All Containers) Tj
+/F1 12 Tf
+1 0 0 1 50 226 Tm () Tj
+1 0 0 1 50 220 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 216 Tm (docker rm $\(docker ps -aq\)) Tj
+/F1 12 Tf
+1 0 0 1 50 203 Tm () Tj
+1 0 0 1 50 191 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 177 Tm (Remove Volumes \(?? DATA LOSS\)) Tj
+/F1 12 Tf
+1 0 0 1 50 155 Tm () Tj
+1 0 0 1 50 149 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 145 Tm (docker volume rm postgres-data redis-data minio-data chromadb-data ollama-data prometheus-data grafana-data loki-data) Tj
+/F1 12 Tf
+1 0 0 1 50 132 Tm () Tj
+1 0 0 1 50 120 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 106 Tm (Complete Reset) Tj
+/F1 12 Tf
+1 0 0 1 50 84 Tm () Tj
+1 0 0 1 50 78 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 74 Tm (# Stop and remove everything) Tj
+1 0 0 1 50 61 Tm (docker stop $\(docker ps -aq\)) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 13 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+15 0 obj
+<< /Length 2422 >>
+stream
+BT
+/F1 12 Tf
+/F2 11 Tf
+1 0 0 1 50 790 Tm (docker rm $\(docker ps -aq\)) Tj
+1 0 0 1 50 777 Tm (docker volume prune -f) Tj
+1 0 0 1 50 764 Tm (docker network prune -f) Tj
+1 0 0 1 50 751 Tm () Tj
+1 0 0 1 50 738 Tm (# Rebuild from scratch) Tj
+1 0 0 1 50 725 Tm (.\\rebuild-platform.ps1) Tj
+/F1 12 Tf
+1 0 0 1 50 712 Tm () Tj
+1 0 0 1 50 700 Tm () Tj
+1 0 0 1 50 686 Tm (? --) Tj
+1 0 0 1 50 670 Tm () Tj
+1 0 0 1 50 660 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 646 Tm (? Monitoring & Metrics) Tj
+/F1 12 Tf
+1 0 0 1 50 620 Tm () Tj
+1 0 0 1 50 614 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 600 Tm (Prometheus Targets) Tj
+/F1 12 Tf
+1 0 0 1 50 578 Tm () Tj
+1 0 0 1 50 572 Tm (Visit http://localhost:9090/targets to verify all scrape targets are UP.) Tj
+1 0 0 1 50 556 Tm () Tj
+1 0 0 1 50 546 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 532 Tm (Grafana Dashboards) Tj
+/F1 12 Tf
+1 0 0 1 50 510 Tm () Tj
+1 0 0 1 50 504 Tm (1. Log in to Grafana: http://localhost:3000 \(admin / admin123\) 2. Add Prometheus data source: -) Tj
+1 0 0 1 50 488 Tm ( URL: `http://prometheus:9090` 3. Add Loki data source: - URL: `http://loki:3100` 4. Import ) Tj
+1 0 0 1 50 472 Tm (dashboards for: - Ollama metrics - System metrics - Container metrics - GPU metrics) Tj
+1 0 0 1 50 456 Tm () Tj
+1 0 0 1 50 446 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 432 Tm (Common Queries) Tj
+/F1 12 Tf
+1 0 0 1 50 410 Tm () Tj
+1 0 0 1 50 404 Tm () Tj
+1 0 0 1 50 390 Tm (? *Prometheus**:) Tj
+1 0 0 1 50 374 Tm () Tj
+1 0 0 1 50 364 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 360 Tm (# Ollama request rate) Tj
+1 0 0 1 50 347 Tm (rate\(ollama_request_total[5m]\)) Tj
+1 0 0 1 50 334 Tm () Tj
+1 0 0 1 50 321 Tm (# Container CPU usage) Tj
+1 0 0 1 50 308 Tm (rate\(container_cpu_usage_seconds_total[5m]\)) Tj
+1 0 0 1 50 295 Tm () Tj
+1 0 0 1 50 282 Tm (# Memory usage) Tj
+1 0 0 1 50 269 Tm (container_memory_usage_bytes / 1024 / 1024 / 1024) Tj
+/F1 12 Tf
+1 0 0 1 50 256 Tm () Tj
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 230 Tm (? --) Tj
+1 0 0 1 50 214 Tm () Tj
+1 0 0 1 50 204 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 190 Tm (? Security Considerations) Tj
+/F1 12 Tf
+1 0 0 1 50 164 Tm () Tj
+1 0 0 1 50 158 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 144 Tm (Default Credentials \(Change in Production!\)) Tj
+/F1 12 Tf
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 116 Tm (? PostgreSQL: `modernization` / `modernization123`) Tj
+1 0 0 1 50 100 Tm (? MinIO: `minioadmin` / `minioadmin123`) Tj
+1 0 0 1 50 84 Tm (? Grafana: `admin` / `admin123`) Tj
+1 0 0 1 50 68 Tm () Tj
+1 0 0 1 50 58 Tm () Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 15 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+17 0 obj
+<< /Length 2379 >>
+stream
+BT
+/F1 12 Tf
+/F1 16 Tf
+1 0 0 1 50 790 Tm (Network Isolation) Tj
+/F1 12 Tf
+1 0 0 1 50 768 Tm () Tj
+1 0 0 1 50 762 Tm (? Services are isolated in Docker networks) Tj
+1 0 0 1 50 746 Tm (? Only necessary ports are exposed to host) Tj
+1 0 0 1 50 730 Tm (? Consider using reverse proxy \(Traefik/Nginx\) for production) Tj
+1 0 0 1 50 714 Tm () Tj
+1 0 0 1 50 704 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 690 Tm (Data Persistence) Tj
+/F1 12 Tf
+1 0 0 1 50 668 Tm () Tj
+1 0 0 1 50 662 Tm (? All data stored in Docker volumes) Tj
+1 0 0 1 50 646 Tm (? Volumes persist after container removal) Tj
+1 0 0 1 50 630 Tm (? Regular backup recommended for production) Tj
+1 0 0 1 50 614 Tm () Tj
+1 0 0 1 50 604 Tm () Tj
+1 0 0 1 50 590 Tm (? --) Tj
+1 0 0 1 50 574 Tm () Tj
+1 0 0 1 50 564 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 550 Tm (? Next Steps) Tj
+/F1 12 Tf
+1 0 0 1 50 524 Tm () Tj
+1 0 0 1 50 518 Tm () Tj
+1 0 0 1 50 504 Tm (1. **Test Core Workflows**: - Legacy code analysis - Architecture diagram generation - Jira ) Tj
+1 0 0 1 50 488 Tm (ticket generation) Tj
+1 0 0 1 50 472 Tm () Tj
+1 0 0 1 50 462 Tm () Tj
+1 0 0 1 50 448 Tm (2. **Configure Monitoring**: - Set up Grafana dashboards - Configure alert rules in Prometheus ) Tj
+1 0 0 1 50 432 Tm (- Set up log forwarding to Loki) Tj
+1 0 0 1 50 416 Tm () Tj
+1 0 0 1 50 406 Tm () Tj
+1 0 0 1 50 392 Tm (3. **Deploy Application Layer**: - REST API services - Web UI components - Integration services) Tj
+1 0 0 1 50 376 Tm () Tj
+1 0 0 1 50 366 Tm () Tj
+1 0 0 1 50 352 Tm (4. **Scale to Cloud**: - Plan Kubernetes migration - Set up CI/CD pipelines - Configure auto-) Tj
+1 0 0 1 50 336 Tm (scaling) Tj
+1 0 0 1 50 320 Tm () Tj
+1 0 0 1 50 310 Tm () Tj
+1 0 0 1 50 296 Tm (? --) Tj
+1 0 0 1 50 280 Tm () Tj
+1 0 0 1 50 270 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 256 Tm (? Support & Resources) Tj
+/F1 12 Tf
+1 0 0 1 50 230 Tm () Tj
+1 0 0 1 50 224 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 210 Tm (Platform Status) Tj
+/F1 12 Tf
+1 0 0 1 50 188 Tm () Tj
+1 0 0 1 50 182 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 178 Tm (.\\validate-platform.ps1 -Detailed) Tj
+/F1 12 Tf
+1 0 0 1 50 165 Tm () Tj
+1 0 0 1 50 153 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 139 Tm (Docker Desktop Settings) Tj
+/F1 12 Tf
+1 0 0 1 50 117 Tm () Tj
+1 0 0 1 50 111 Tm (? **WSL Integration**: Enabled) Tj
+1 0 0 1 50 95 Tm (? **GPU Support**: Enabled) Tj
+1 0 0 1 50 79 Tm (? **Memory**: 64GB+ allocated) Tj
+1 0 0 1 50 63 Tm (? **Disk**: 500GB+ available) Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 17 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+19 0 obj
+<< /Length 2289 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+1 0 0 1 50 780 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 766 Tm (Useful Links) Tj
+/F1 12 Tf
+1 0 0 1 50 744 Tm () Tj
+1 0 0 1 50 738 Tm (? [Docker Documentation]\(https://docs.docker.com/\)) Tj
+1 0 0 1 50 722 Tm (? [Ollama Documentation]\(https://github.com/ollama/ollama\)) Tj
+1 0 0 1 50 706 Tm (? [Prometheus Documentation]\(https://prometheus.io/docs/\)) Tj
+1 0 0 1 50 690 Tm (? [Grafana Documentation]\(https://grafana.com/docs/\)) Tj
+1 0 0 1 50 674 Tm () Tj
+1 0 0 1 50 664 Tm () Tj
+1 0 0 1 50 650 Tm (? --) Tj
+1 0 0 1 50 634 Tm () Tj
+1 0 0 1 50 624 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 610 Tm (? License & Attribution) Tj
+/F1 12 Tf
+1 0 0 1 50 584 Tm () Tj
+1 0 0 1 50 578 Tm () Tj
+1 0 0 1 50 564 Tm (Legacy Application Modernization Platform Copyright ? 2026 - Cloud, AI & DevOps Architecture ) Tj
+1 0 0 1 50 548 Tm (Team) Tj
+1 0 0 1 50 532 Tm () Tj
+1 0 0 1 50 522 Tm () Tj
+1 0 0 1 50 508 Tm (? --) Tj
+1 0 0 1 50 492 Tm () Tj
+1 0 0 1 50 482 Tm () Tj
+1 0 0 1 50 468 Tm (? *Last Updated**: 2026-01-16) Tj
+1 0 0 1 50 452 Tm (? *Platform Version**: 1.0.0) Tj
+1 0 0 1 50 436 Tm (? *Deployment Environment**: Windows 11 Pro + Docker Desktop + WSL2) Tj
+1 0 0 1 50 420 Tm () Tj
+1 0 0 1 50 410 Tm () Tj
+1 0 0 1 50 396 Tm () Tj
+1 0 0 1 50 382 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 368 Tm (SOURCE: INSTALL.md) Tj
+/F1 12 Tf
+1 0 0 1 50 338 Tm () Tj
+1 0 0 1 50 332 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 318 Tm (INSTALLATION INSTRUCTIONS) Tj
+/F1 12 Tf
+1 0 0 1 50 288 Tm () Tj
+1 0 0 1 50 282 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 268 Tm (? Download Complete!) Tj
+/F1 12 Tf
+1 0 0 1 50 242 Tm () Tj
+1 0 0 1 50 236 Tm () Tj
+1 0 0 1 50 222 Tm (You have downloaded the **Legacy Application Modernization Platform** deployment package.) Tj
+1 0 0 1 50 206 Tm () Tj
+1 0 0 1 50 196 Tm () Tj
+1 0 0 1 50 182 Tm (? --) Tj
+1 0 0 1 50 166 Tm () Tj
+1 0 0 1 50 156 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 142 Tm (? Package Contents) Tj
+/F1 12 Tf
+1 0 0 1 50 116 Tm () Tj
+1 0 0 1 50 110 Tm () Tj
+1 0 0 1 50 96 Tm (This ZIP file contains: - `rebuild-platform.ps1` - Main deployment script - `validate-) Tj
+1 0 0 1 50 80 Tm (platform.ps1` - Health check and validation script - `docker-compose.yml` - Docker Compose ) Tj
+1 0 0 1 50 64 Tm (configuration - `prometheus.yml` - Prometheus monitoring configuration - `loki-config.yml` - ) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 19 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+21 0 obj
+<< /Length 2486 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (Loki log aggregation configuration - `promtail-config.yml` - Promtail log collector ) Tj
+1 0 0 1 50 774 Tm (configuration - `README.md` - Complete documentation - `QUICK-REFERENCE.md` - Command reference) Tj
+1 0 0 1 50 758 Tm ( guide - `TROUBLESHOOTING.md` - Troubleshooting guide) Tj
+1 0 0 1 50 742 Tm () Tj
+1 0 0 1 50 732 Tm () Tj
+1 0 0 1 50 718 Tm (? --) Tj
+1 0 0 1 50 702 Tm () Tj
+1 0 0 1 50 692 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 678 Tm (? Quick Start \(3 Steps\)) Tj
+/F1 12 Tf
+1 0 0 1 50 652 Tm () Tj
+1 0 0 1 50 646 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 632 Tm (Step 1: Extract Files) Tj
+/F1 12 Tf
+1 0 0 1 50 610 Tm () Tj
+1 0 0 1 50 604 Tm (Extract the ZIP file to a folder on your desktop, for example: ``` ) Tj
+1 0 0 1 50 588 Tm (C:\\LegacyModernizationPlatform\\ ```) Tj
+1 0 0 1 50 572 Tm () Tj
+1 0 0 1 50 562 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 548 Tm (Step 2: Open PowerShell) Tj
+/F1 12 Tf
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 520 Tm (Right-click on the folder and select **"Open in Terminal"** or: ```powershell # Navigate to the) Tj
+1 0 0 1 50 504 Tm ( folder cd C:\\LegacyModernizationPlatform ```) Tj
+1 0 0 1 50 488 Tm () Tj
+1 0 0 1 50 478 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 464 Tm (Step 3: Run Deployment) Tj
+/F1 12 Tf
+1 0 0 1 50 442 Tm () Tj
+1 0 0 1 50 436 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 432 Tm (# Deploy everything) Tj
+1 0 0 1 50 419 Tm (.\\rebuild-platform.ps1) Tj
+/F1 12 Tf
+1 0 0 1 50 406 Tm () Tj
+1 0 0 1 50 394 Tm () Tj
+1 0 0 1 50 380 Tm (That's it! The script will: ? Deploy all infrastructure services ? Deploy monitoring stack ? ) Tj
+1 0 0 1 50 364 Tm (Download AI models ? Validate everything) Tj
+1 0 0 1 50 348 Tm () Tj
+1 0 0 1 50 338 Tm () Tj
+1 0 0 1 50 324 Tm (? --) Tj
+1 0 0 1 50 308 Tm () Tj
+1 0 0 1 50 298 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 284 Tm (?? Expected Deployment Time) Tj
+/F1 12 Tf
+1 0 0 1 50 258 Tm () Tj
+1 0 0 1 50 252 Tm () Tj
+1 0 0 1 50 238 Tm (? **Infrastructure Services**: 2-3 minutes) Tj
+1 0 0 1 50 222 Tm (? **Monitoring Stack**: 1-2 minutes) Tj
+1 0 0 1 50 206 Tm (? **AI Models Download**: 15-30 minutes \(one-time\)) Tj
+1 0 0 1 50 190 Tm (? **Total**: ~20-35 minutes for first run) Tj
+1 0 0 1 50 174 Tm () Tj
+1 0 0 1 50 164 Tm () Tj
+1 0 0 1 50 150 Tm (Subsequent runs \(with models already downloaded\): ```powershell .\\rebuild-platform.ps1 ) Tj
+1 0 0 1 50 134 Tm (-SkipModels ``` Takes only: ~3-5 minutes) Tj
+1 0 0 1 50 118 Tm () Tj
+1 0 0 1 50 108 Tm () Tj
+1 0 0 1 50 94 Tm (? --) Tj
+1 0 0 1 50 78 Tm () Tj
+1 0 0 1 50 68 Tm () Tj
+ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 21 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+23 0 obj
+<< /Length 2377 >>
+stream
+BT
+/F1 12 Tf
+/F1 20 Tf
+1 0 0 1 50 790 Tm (? Prerequisites Check) Tj
+/F1 12 Tf
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 744 Tm (Before running, ensure: - ? Docker Desktop is installed and running - ? WSL2 is enabled - ? GPU) Tj
+1 0 0 1 50 728 Tm ( support is configured \(for Ollama\) - ? At least 32GB RAM available - ? At least 100GB free ) Tj
+1 0 0 1 50 712 Tm (disk space - ? PowerShell 5.1+ or PowerShell Core 7+) Tj
+1 0 0 1 50 696 Tm () Tj
+1 0 0 1 50 686 Tm () Tj
+1 0 0 1 50 672 Tm (Check Docker: ```powershell docker --version docker info ```) Tj
+1 0 0 1 50 656 Tm () Tj
+1 0 0 1 50 646 Tm () Tj
+1 0 0 1 50 632 Tm (? --) Tj
+1 0 0 1 50 616 Tm () Tj
+1 0 0 1 50 606 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 592 Tm (? Script Parameters) Tj
+/F1 12 Tf
+1 0 0 1 50 566 Tm () Tj
+1 0 0 1 50 560 Tm () Tj
+1 0 0 1 50 546 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 542 Tm (# Full deployment \(first time\)) Tj
+1 0 0 1 50 529 Tm (.\\rebuild-platform.ps1) Tj
+1 0 0 1 50 516 Tm () Tj
+1 0 0 1 50 503 Tm (# Skip AI model downloads \(if already downloaded\)) Tj
+1 0 0 1 50 490 Tm (.\\rebuild-platform.ps1 -SkipModels) Tj
+1 0 0 1 50 477 Tm () Tj
+1 0 0 1 50 464 Tm (# Skip monitoring stack \(minimal deployment\)) Tj
+1 0 0 1 50 451 Tm (.\\rebuild-platform.ps1 -SkipMonitoring) Tj
+1 0 0 1 50 438 Tm () Tj
+1 0 0 1 50 425 Tm (# Validation only \(check if everything is running\)) Tj
+1 0 0 1 50 412 Tm (.\\rebuild-platform.ps1 -Validate) Tj
+/F1 12 Tf
+1 0 0 1 50 399 Tm () Tj
+1 0 0 1 50 387 Tm () Tj
+1 0 0 1 50 373 Tm (? --) Tj
+1 0 0 1 50 357 Tm () Tj
+1 0 0 1 50 347 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 333 Tm (? Post-Deployment Validation) Tj
+/F1 12 Tf
+1 0 0 1 50 307 Tm () Tj
+1 0 0 1 50 301 Tm () Tj
+1 0 0 1 50 287 Tm (After deployment completes, validate everything: ```powershell .\\validate-platform.ps1 ) Tj
+1 0 0 1 50 271 Tm (-Detailed ```) Tj
+1 0 0 1 50 255 Tm () Tj
+1 0 0 1 50 245 Tm () Tj
+1 0 0 1 50 231 Tm (This shows: - Service health status - Port availability - Container status - AI models ) Tj
+1 0 0 1 50 215 Tm (installed - Connectivity tests) Tj
+1 0 0 1 50 199 Tm () Tj
+1 0 0 1 50 189 Tm () Tj
+1 0 0 1 50 175 Tm (? --) Tj
+1 0 0 1 50 159 Tm () Tj
+1 0 0 1 50 149 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 135 Tm (? Access Your Platform) Tj
+/F1 12 Tf
+1 0 0 1 50 109 Tm () Tj
+1 0 0 1 50 103 Tm () Tj
+1 0 0 1 50 89 Tm (After deployment, access services at:) Tj
+1 0 0 1 50 73 Tm () Tj
+1 0 0 1 50 63 Tm () Tj
+ET
+endstream
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 23 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+25 0 obj
+<< /Length 2386 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (? *Infrastructure:**) Tj
+1 0 0 1 50 774 Tm (? PostgreSQL: `localhost:5432`) Tj
+1 0 0 1 50 758 Tm (? Redis: `localhost:6379`) Tj
+1 0 0 1 50 742 Tm (? MinIO Console: http://localhost:9001) Tj
+1 0 0 1 50 726 Tm (? ChromaDB: http://localhost:8000) Tj
+1 0 0 1 50 710 Tm (? Ollama: http://localhost:11434) Tj
+1 0 0 1 50 694 Tm () Tj
+1 0 0 1 50 684 Tm () Tj
+1 0 0 1 50 670 Tm (? *Monitoring:**) Tj
+1 0 0 1 50 654 Tm (? Prometheus: http://localhost:9090) Tj
+1 0 0 1 50 638 Tm (? Grafana: http://localhost:3000 \(admin/admin123\)) Tj
+1 0 0 1 50 622 Tm (? Loki: http://localhost:3100) Tj
+1 0 0 1 50 606 Tm (? Jaeger: http://localhost:16686) Tj
+1 0 0 1 50 590 Tm () Tj
+1 0 0 1 50 580 Tm () Tj
+1 0 0 1 50 566 Tm (? --) Tj
+1 0 0 1 50 550 Tm () Tj
+1 0 0 1 50 540 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 526 Tm (? Need Help?) Tj
+/F1 12 Tf
+1 0 0 1 50 500 Tm () Tj
+1 0 0 1 50 494 Tm () Tj
+1 0 0 1 50 480 Tm (1. **Check README.md** - Complete documentation 2. **Check QUICK-REFERENCE.md** - Common ) Tj
+1 0 0 1 50 464 Tm (commands 3. **Check TROUBLESHOOTING.md** - Fix common issues) Tj
+1 0 0 1 50 448 Tm () Tj
+1 0 0 1 50 438 Tm () Tj
+1 0 0 1 50 424 Tm (? *Common Issues:**) Tj
+1 0 0 1 50 408 Tm () Tj
+1 0 0 1 50 398 Tm () Tj
+1 0 0 1 50 384 Tm (Port already in use: ```powershell netstat -ano | findstr :<port> Stop-Process -Id <PID> -Force) Tj
+1 0 0 1 50 368 Tm ( ```) Tj
+1 0 0 1 50 352 Tm () Tj
+1 0 0 1 50 342 Tm () Tj
+1 0 0 1 50 328 Tm (Container won't start: ```powershell docker logs <container-name> ```) Tj
+1 0 0 1 50 312 Tm () Tj
+1 0 0 1 50 302 Tm () Tj
+1 0 0 1 50 288 Tm (Complete reset: ```powershell .\\rebuild-platform.ps1 ```) Tj
+1 0 0 1 50 272 Tm () Tj
+1 0 0 1 50 262 Tm () Tj
+1 0 0 1 50 248 Tm (? --) Tj
+1 0 0 1 50 232 Tm () Tj
+1 0 0 1 50 222 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 208 Tm (? Verify Deployment Success) Tj
+/F1 12 Tf
+1 0 0 1 50 182 Tm () Tj
+1 0 0 1 50 176 Tm () Tj
+1 0 0 1 50 162 Tm (You should see output like: ``` ? Platform Deployment Completed Successfully! ?) Tj
+1 0 0 1 50 146 Tm () Tj
+1 0 0 1 50 136 Tm () Tj
+1 0 0 1 50 122 Tm (Infrastructure Services: ? PostgreSQL:      localhost:5432 ? ? Redis:           localhost:6379 ) Tj
+1 0 0 1 50 106 Tm (? ? MinIO Console:   http://localhost:9001 ? ? ChromaDB:        http://localhost:8000 ? ? ) Tj
+1 0 0 1 50 90 Tm (Ollama:          http://localhost:11434 ?) Tj
+1 0 0 1 50 74 Tm () Tj
+1 0 0 1 50 64 Tm () Tj
+ET
+endstream
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 25 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+27 0 obj
+<< /Length 2500 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (Monitoring Stack: ? Prometheus:      http://localhost:9090 ? ? Grafana:         ) Tj
+1 0 0 1 50 774 Tm (http://localhost:3000 ? ? Loki:            http://localhost:3100 ? ? Jaeger:          ) Tj
+1 0 0 1 50 758 Tm (http://localhost:16686 ? ```) Tj
+1 0 0 1 50 742 Tm () Tj
+1 0 0 1 50 732 Tm () Tj
+1 0 0 1 50 718 Tm (? --) Tj
+1 0 0 1 50 702 Tm () Tj
+1 0 0 1 50 692 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 678 Tm (? Support) Tj
+/F1 12 Tf
+1 0 0 1 50 652 Tm () Tj
+1 0 0 1 50 646 Tm () Tj
+1 0 0 1 50 632 Tm (If you encounter any issues:) Tj
+1 0 0 1 50 616 Tm () Tj
+1 0 0 1 50 606 Tm () Tj
+1 0 0 1 50 592 Tm (1. Run validation: ```powershell .\\validate-platform.ps1 -Detailed ```) Tj
+1 0 0 1 50 576 Tm () Tj
+1 0 0 1 50 566 Tm () Tj
+1 0 0 1 50 552 Tm (2. Check container logs: ```powershell docker logs <container-name> ```) Tj
+1 0 0 1 50 536 Tm () Tj
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 512 Tm (3. Review TROUBLESHOOTING.md for solutions) Tj
+1 0 0 1 50 496 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 472 Tm (4. Generate diagnostic report: ```powershell docker info > diagnostic-report.txt docker ps -a ) Tj
+1 0 0 1 50 456 Tm (>> diagnostic-report.txt .\\validate-platform.ps1 -Detailed >> diagnostic-report.txt ```) Tj
+1 0 0 1 50 440 Tm () Tj
+1 0 0 1 50 430 Tm () Tj
+1 0 0 1 50 416 Tm (? --) Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 390 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 376 Tm (? Next Steps) Tj
+/F1 12 Tf
+1 0 0 1 50 350 Tm () Tj
+1 0 0 1 50 344 Tm () Tj
+1 0 0 1 50 330 Tm (After successful deployment:) Tj
+1 0 0 1 50 314 Tm () Tj
+1 0 0 1 50 304 Tm () Tj
+1 0 0 1 50 290 Tm (1. **Test Core Services** ```powershell # Test Ollama docker exec ollama ollama list) Tj
+1 0 0 1 50 274 Tm () Tj
+1 0 0 1 50 264 Tm () Tj
+1 0 0 1 50 250 Tm (# Test PostgreSQL docker exec postgres psql -U modernization -d legacy_modernization -c "SELECT) Tj
+1 0 0 1 50 234 Tm ( version\(\);") Tj
+1 0 0 1 50 218 Tm () Tj
+1 0 0 1 50 208 Tm () Tj
+1 0 0 1 50 194 Tm (# Test Redis docker exec redis redis-cli PING ```) Tj
+1 0 0 1 50 178 Tm () Tj
+1 0 0 1 50 168 Tm () Tj
+1 0 0 1 50 154 Tm (2. **Configure Grafana Dashboards** - Visit http://localhost:3000 - Add Prometheus data source:) Tj
+1 0 0 1 50 138 Tm ( http://prometheus:9090 - Add Loki data source: http://loki:3100) Tj
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 112 Tm () Tj
+1 0 0 1 50 98 Tm (3. **Run Your Workflows** - Legacy code analysis - Architecture diagram generation - Jira ) Tj
+1 0 0 1 50 82 Tm (ticket generation) Tj
+1 0 0 1 50 66 Tm () Tj
+1 0 0 1 50 56 Tm () Tj
+ET
+endstream
+endobj
+28 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 27 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+29 0 obj
+<< /Length 2202 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (? --) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 750 Tm (? Default Credentials) Tj
+/F1 12 Tf
+1 0 0 1 50 724 Tm () Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 704 Tm (Remember to change these in production:) Tj
+1 0 0 1 50 688 Tm () Tj
+1 0 0 1 50 678 Tm () Tj
+1 0 0 1 50 664 Tm (? **PostgreSQL**: modernization / modernization123) Tj
+1 0 0 1 50 648 Tm (? **MinIO**: minioadmin / minioadmin123) Tj
+1 0 0 1 50 632 Tm (? **Grafana**: admin / admin123) Tj
+1 0 0 1 50 616 Tm () Tj
+1 0 0 1 50 606 Tm () Tj
+1 0 0 1 50 592 Tm (? --) Tj
+1 0 0 1 50 576 Tm () Tj
+1 0 0 1 50 566 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 552 Tm (? Enjoy Your Platform!) Tj
+/F1 12 Tf
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 520 Tm () Tj
+1 0 0 1 50 506 Tm (You now have a complete AI-powered Legacy Application Modernization Platform running locally ) Tj
+1 0 0 1 50 490 Tm (with full monitoring and observability!) Tj
+1 0 0 1 50 474 Tm () Tj
+1 0 0 1 50 464 Tm () Tj
+1 0 0 1 50 450 Tm (For detailed documentation, refer to README.md) Tj
+1 0 0 1 50 434 Tm () Tj
+1 0 0 1 50 424 Tm () Tj
+1 0 0 1 50 410 Tm (? *Last Updated**: 2026-01-16) Tj
+1 0 0 1 50 394 Tm (? *Platform Version**: 1.0.0) Tj
+1 0 0 1 50 378 Tm () Tj
+1 0 0 1 50 368 Tm () Tj
+1 0 0 1 50 354 Tm () Tj
+1 0 0 1 50 340 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 326 Tm (SOURCE: QUICK-REFERENCE.md) Tj
+/F1 12 Tf
+1 0 0 1 50 296 Tm () Tj
+1 0 0 1 50 290 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 276 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 246 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 240 Tm (QUICK REFERENCE CARD - Common Commands) Tj
+/F1 12 Tf
+1 0 0 1 50 210 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 204 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 174 Tm () Tj
+1 0 0 1 50 168 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 154 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 124 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 118 Tm (? DEPLOYMENT COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 88 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 82 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 52 Tm () Tj
+ET
+endstream
+endobj
+30 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 29 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+31 0 obj
+<< /Length 2064 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 776 Tm (Full platform rebuild) Tj
+/F1 12 Tf
+1 0 0 1 50 746 Tm () Tj
+1 0 0 1 50 740 Tm (.\\rebuild-platform.ps1) Tj
+1 0 0 1 50 724 Tm () Tj
+1 0 0 1 50 714 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 700 Tm (Rebuild without AI models) Tj
+/F1 12 Tf
+1 0 0 1 50 670 Tm () Tj
+1 0 0 1 50 664 Tm (.\\rebuild-platform.ps1 -SkipModels) Tj
+1 0 0 1 50 648 Tm () Tj
+1 0 0 1 50 638 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 624 Tm (Rebuild without monitoring) Tj
+/F1 12 Tf
+1 0 0 1 50 594 Tm () Tj
+1 0 0 1 50 588 Tm (.\\rebuild-platform.ps1 -SkipMonitoring) Tj
+1 0 0 1 50 572 Tm () Tj
+1 0 0 1 50 562 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 548 Tm (Docker Compose deployment) Tj
+/F1 12 Tf
+1 0 0 1 50 518 Tm () Tj
+1 0 0 1 50 512 Tm (docker-compose up -d) Tj
+1 0 0 1 50 496 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 472 Tm (Docker Compose with rebuild) Tj
+/F1 12 Tf
+1 0 0 1 50 442 Tm () Tj
+1 0 0 1 50 436 Tm (docker-compose up -d --build --force-recreate) Tj
+1 0 0 1 50 420 Tm () Tj
+1 0 0 1 50 410 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 396 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 366 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 360 Tm (? VALIDATION & HEALTH CHECKS) Tj
+/F1 12 Tf
+1 0 0 1 50 330 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 324 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 294 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 274 Tm (Quick health check) Tj
+/F1 12 Tf
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 238 Tm (.\\validate-platform.ps1) Tj
+1 0 0 1 50 222 Tm () Tj
+1 0 0 1 50 212 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 198 Tm (Detailed health check with connectivity tests) Tj
+/F1 12 Tf
+1 0 0 1 50 168 Tm () Tj
+1 0 0 1 50 162 Tm (.\\validate-platform.ps1 -Detailed) Tj
+1 0 0 1 50 146 Tm () Tj
+1 0 0 1 50 136 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 122 Tm (Continuous monitoring \(30 second intervals\)) Tj
+/F1 12 Tf
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 86 Tm (.\\validate-platform.ps1 -Continuous -Interval 30) Tj
+1 0 0 1 50 70 Tm () Tj
+1 0 0 1 50 60 Tm () Tj
+ET
+endstream
+endobj
+32 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 31 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+33 0 obj
+<< /Length 1941 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (Check all container status) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+1 0 0 1 50 754 Tm (docker ps -a) Tj
+1 0 0 1 50 738 Tm () Tj
+1 0 0 1 50 728 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 714 Tm (Check specific service) Tj
+/F1 12 Tf
+1 0 0 1 50 684 Tm () Tj
+1 0 0 1 50 678 Tm (docker ps --filter "name=ollama") Tj
+1 0 0 1 50 662 Tm () Tj
+1 0 0 1 50 652 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 638 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 608 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 602 Tm (? MONITORING COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 572 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 566 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 536 Tm () Tj
+1 0 0 1 50 530 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 516 Tm (View container logs \(live\)) Tj
+/F1 12 Tf
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 480 Tm (docker logs -f <container-name>) Tj
+1 0 0 1 50 464 Tm () Tj
+1 0 0 1 50 454 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 440 Tm (View last 100 lines) Tj
+/F1 12 Tf
+1 0 0 1 50 410 Tm () Tj
+1 0 0 1 50 404 Tm (docker logs --tail 100 <container-name>) Tj
+1 0 0 1 50 388 Tm () Tj
+1 0 0 1 50 378 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 364 Tm (View logs with timestamps) Tj
+/F1 12 Tf
+1 0 0 1 50 334 Tm () Tj
+1 0 0 1 50 328 Tm (docker logs -t <container-name>) Tj
+1 0 0 1 50 312 Tm () Tj
+1 0 0 1 50 302 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 288 Tm (Resource usage \(real-time\)) Tj
+/F1 12 Tf
+1 0 0 1 50 258 Tm () Tj
+1 0 0 1 50 252 Tm (docker stats) Tj
+1 0 0 1 50 236 Tm () Tj
+1 0 0 1 50 226 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 212 Tm (Resource usage \(snapshot\)) Tj
+/F1 12 Tf
+1 0 0 1 50 182 Tm () Tj
+1 0 0 1 50 176 Tm (docker stats --no-stream) Tj
+1 0 0 1 50 160 Tm () Tj
+1 0 0 1 50 150 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 136 Tm (Container inspection) Tj
+/F1 12 Tf
+1 0 0 1 50 106 Tm () Tj
+1 0 0 1 50 100 Tm (docker inspect <container-name>) Tj
+1 0 0 1 50 84 Tm () Tj
+1 0 0 1 50 74 Tm () Tj
+ET
+endstream
+endobj
+34 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 33 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+35 0 obj
+<< /Length 2282 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 754 Tm (? OLLAMA AI MODEL COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 724 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 718 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 688 Tm () Tj
+1 0 0 1 50 682 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 668 Tm (List installed models) Tj
+/F1 12 Tf
+1 0 0 1 50 638 Tm () Tj
+1 0 0 1 50 632 Tm (docker exec ollama ollama list) Tj
+1 0 0 1 50 616 Tm () Tj
+1 0 0 1 50 606 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 592 Tm (Pull new model) Tj
+/F1 12 Tf
+1 0 0 1 50 562 Tm () Tj
+1 0 0 1 50 556 Tm (docker exec ollama ollama pull <model-name>) Tj
+1 0 0 1 50 540 Tm () Tj
+1 0 0 1 50 530 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 516 Tm (Examples:) Tj
+/F1 12 Tf
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 480 Tm (docker exec ollama ollama pull deepseek-coder:6.7b-instruct-q4_K_M docker exec ollama ollama ) Tj
+1 0 0 1 50 464 Tm (pull qwen2.5-coder:7b-instruct-q4_K_M docker exec ollama ollama pull ) Tj
+1 0 0 1 50 448 Tm (codellama:13b-instruct-q4_K_M) Tj
+1 0 0 1 50 432 Tm () Tj
+1 0 0 1 50 422 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 408 Tm (Run model interactively) Tj
+/F1 12 Tf
+1 0 0 1 50 378 Tm () Tj
+1 0 0 1 50 372 Tm (docker exec -it ollama ollama run deepseek-coder:33b-instruct-q4_K_M) Tj
+1 0 0 1 50 356 Tm () Tj
+1 0 0 1 50 346 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 332 Tm (Test model with prompt) Tj
+/F1 12 Tf
+1 0 0 1 50 302 Tm () Tj
+1 0 0 1 50 296 Tm (docker exec ollama ollama run deepseek-coder:33b-instruct-q4_K_M "Write a Python function to ) Tj
+1 0 0 1 50 280 Tm (calculate factorial") Tj
+1 0 0 1 50 264 Tm () Tj
+1 0 0 1 50 254 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 240 Tm (Remove model) Tj
+/F1 12 Tf
+1 0 0 1 50 210 Tm () Tj
+1 0 0 1 50 204 Tm (docker exec ollama ollama rm <model-name>) Tj
+1 0 0 1 50 188 Tm () Tj
+1 0 0 1 50 178 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 164 Tm (Show model info) Tj
+/F1 12 Tf
+1 0 0 1 50 134 Tm () Tj
+1 0 0 1 50 128 Tm (docker exec ollama ollama show deepseek-coder:33b-instruct-q4_K_M) Tj
+1 0 0 1 50 112 Tm () Tj
+1 0 0 1 50 102 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 88 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 58 Tm () Tj
+ET
+endstream
+endobj
+36 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 35 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+37 0 obj
+<< /Length 2065 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (? DATABASE COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 754 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 724 Tm () Tj
+1 0 0 1 50 718 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 704 Tm (PostgreSQL) Tj
+/F1 12 Tf
+1 0 0 1 50 674 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 668 Tm (-----------) Tj
+/F1 12 Tf
+1 0 0 1 50 638 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 632 Tm (Connect to PostgreSQL) Tj
+/F1 12 Tf
+1 0 0 1 50 602 Tm () Tj
+1 0 0 1 50 596 Tm (docker exec -it postgres psql -U modernization -d legacy_modernization) Tj
+1 0 0 1 50 580 Tm () Tj
+1 0 0 1 50 570 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 556 Tm (Run SQL query) Tj
+/F1 12 Tf
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 520 Tm (docker exec postgres psql -U modernization -d legacy_modernization -c "SELECT version\(\);") Tj
+1 0 0 1 50 504 Tm () Tj
+1 0 0 1 50 494 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 480 Tm (Backup database) Tj
+/F1 12 Tf
+1 0 0 1 50 450 Tm () Tj
+1 0 0 1 50 444 Tm (docker exec postgres pg_dump -U modernization legacy_modernization > backup.sql) Tj
+1 0 0 1 50 428 Tm () Tj
+1 0 0 1 50 418 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 404 Tm (Restore database) Tj
+/F1 12 Tf
+1 0 0 1 50 374 Tm () Tj
+1 0 0 1 50 368 Tm (cat backup.sql | docker exec -i postgres psql -U modernization -d legacy_modernization) Tj
+1 0 0 1 50 352 Tm () Tj
+1 0 0 1 50 342 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 328 Tm (Redis) Tj
+/F1 12 Tf
+1 0 0 1 50 298 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 292 Tm (-----) Tj
+/F1 12 Tf
+1 0 0 1 50 262 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 256 Tm (Connect to Redis) Tj
+/F1 12 Tf
+1 0 0 1 50 226 Tm () Tj
+1 0 0 1 50 220 Tm (docker exec -it redis redis-cli) Tj
+1 0 0 1 50 204 Tm () Tj
+1 0 0 1 50 194 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 180 Tm (Get all keys) Tj
+/F1 12 Tf
+1 0 0 1 50 150 Tm () Tj
+1 0 0 1 50 144 Tm (docker exec redis redis-cli KEYS '*') Tj
+1 0 0 1 50 128 Tm () Tj
+1 0 0 1 50 118 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 104 Tm (Get specific key) Tj
+/F1 12 Tf
+1 0 0 1 50 74 Tm () Tj
+1 0 0 1 50 68 Tm (docker exec redis redis-cli GET <key>) Tj
+1 0 0 1 50 52 Tm () Tj
+ET
+endstream
+endobj
+38 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 37 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+39 0 obj
+<< /Length 2052 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 776 Tm (Flush all data \(CAUTION!\)) Tj
+/F1 12 Tf
+1 0 0 1 50 746 Tm () Tj
+1 0 0 1 50 740 Tm (docker exec redis redis-cli FLUSHALL) Tj
+1 0 0 1 50 724 Tm () Tj
+1 0 0 1 50 714 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 700 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 670 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 664 Tm (?? STORAGE COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 634 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 628 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 598 Tm () Tj
+1 0 0 1 50 592 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 578 Tm (MinIO) Tj
+/F1 12 Tf
+1 0 0 1 50 548 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 542 Tm (-----) Tj
+/F1 12 Tf
+1 0 0 1 50 512 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 506 Tm (Access MinIO console: http://localhost:9001) Tj
+/F1 12 Tf
+1 0 0 1 50 476 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 470 Tm (Credentials: minioadmin / minioadmin123) Tj
+/F1 12 Tf
+1 0 0 1 50 440 Tm () Tj
+1 0 0 1 50 434 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 420 Tm (ChromaDB) Tj
+/F1 12 Tf
+1 0 0 1 50 390 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 384 Tm (--------) Tj
+/F1 12 Tf
+1 0 0 1 50 354 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 348 Tm (Access ChromaDB API: http://localhost:8000) Tj
+/F1 12 Tf
+1 0 0 1 50 318 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 312 Tm (Check health) Tj
+/F1 12 Tf
+1 0 0 1 50 282 Tm () Tj
+1 0 0 1 50 276 Tm (curl http://localhost:8000/api/v1/heartbeat) Tj
+1 0 0 1 50 260 Tm () Tj
+1 0 0 1 50 250 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 236 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 206 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 200 Tm (? CONTAINER MANAGEMENT) Tj
+/F1 12 Tf
+1 0 0 1 50 170 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 164 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 134 Tm () Tj
+1 0 0 1 50 128 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 114 Tm (Start all containers) Tj
+/F1 12 Tf
+1 0 0 1 50 84 Tm () Tj
+1 0 0 1 50 78 Tm (docker start $\(docker ps -aq\)) Tj
+1 0 0 1 50 62 Tm () Tj
+ET
+endstream
+endobj
+40 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 39 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+41 0 obj
+<< /Length 1948 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 776 Tm (Stop all containers) Tj
+/F1 12 Tf
+1 0 0 1 50 746 Tm () Tj
+1 0 0 1 50 740 Tm (docker stop $\(docker ps -aq\)) Tj
+1 0 0 1 50 724 Tm () Tj
+1 0 0 1 50 714 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 700 Tm (Restart specific container) Tj
+/F1 12 Tf
+1 0 0 1 50 670 Tm () Tj
+1 0 0 1 50 664 Tm (docker restart <container-name>) Tj
+1 0 0 1 50 648 Tm () Tj
+1 0 0 1 50 638 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 624 Tm (Remove container) Tj
+/F1 12 Tf
+1 0 0 1 50 594 Tm () Tj
+1 0 0 1 50 588 Tm (docker rm <container-name>) Tj
+1 0 0 1 50 572 Tm () Tj
+1 0 0 1 50 562 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 548 Tm (Remove container \(force\)) Tj
+/F1 12 Tf
+1 0 0 1 50 518 Tm () Tj
+1 0 0 1 50 512 Tm (docker rm -f <container-name>) Tj
+1 0 0 1 50 496 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 472 Tm (Recreate container) Tj
+/F1 12 Tf
+1 0 0 1 50 442 Tm () Tj
+1 0 0 1 50 436 Tm (docker rm -f <container-name> .\\rebuild-platform.ps1) Tj
+1 0 0 1 50 420 Tm () Tj
+1 0 0 1 50 410 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 396 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 366 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 360 Tm (? VOLUME MANAGEMENT) Tj
+/F1 12 Tf
+1 0 0 1 50 330 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 324 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 294 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 274 Tm (List volumes) Tj
+/F1 12 Tf
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 238 Tm (docker volume ls) Tj
+1 0 0 1 50 222 Tm () Tj
+1 0 0 1 50 212 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 198 Tm (Inspect volume) Tj
+/F1 12 Tf
+1 0 0 1 50 168 Tm () Tj
+1 0 0 1 50 162 Tm (docker volume inspect <volume-name>) Tj
+1 0 0 1 50 146 Tm () Tj
+1 0 0 1 50 136 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 122 Tm (Remove unused volumes) Tj
+/F1 12 Tf
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 86 Tm (docker volume prune -f) Tj
+1 0 0 1 50 70 Tm () Tj
+1 0 0 1 50 60 Tm () Tj
+ET
+endstream
+endobj
+42 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 41 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+43 0 obj
+<< /Length 2160 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (Remove specific volume) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+1 0 0 1 50 754 Tm (docker volume rm <volume-name>) Tj
+1 0 0 1 50 738 Tm () Tj
+1 0 0 1 50 728 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 714 Tm (Backup volume) Tj
+/F1 12 Tf
+1 0 0 1 50 684 Tm () Tj
+1 0 0 1 50 678 Tm (docker run --rm -v <volume-name>:/data -v ${PWD}:/backup alpine tar czf /backup/volume-) Tj
+1 0 0 1 50 662 Tm (backup.tar.gz -C /data .) Tj
+1 0 0 1 50 646 Tm () Tj
+1 0 0 1 50 636 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 622 Tm (Restore volume) Tj
+/F1 12 Tf
+1 0 0 1 50 592 Tm () Tj
+1 0 0 1 50 586 Tm (docker run --rm -v <volume-name>:/data -v ${PWD}:/backup alpine tar xzf /backup/volume-) Tj
+1 0 0 1 50 570 Tm (backup.tar.gz -C /data) Tj
+1 0 0 1 50 554 Tm () Tj
+1 0 0 1 50 544 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 530 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 500 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 494 Tm (? NETWORK COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 464 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 458 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 428 Tm () Tj
+1 0 0 1 50 422 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 408 Tm (List networks) Tj
+/F1 12 Tf
+1 0 0 1 50 378 Tm () Tj
+1 0 0 1 50 372 Tm (docker network ls) Tj
+1 0 0 1 50 356 Tm () Tj
+1 0 0 1 50 346 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 332 Tm (Inspect network) Tj
+/F1 12 Tf
+1 0 0 1 50 302 Tm () Tj
+1 0 0 1 50 296 Tm (docker network inspect modernization-network) Tj
+1 0 0 1 50 280 Tm () Tj
+1 0 0 1 50 270 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 256 Tm (Connect container to network) Tj
+/F1 12 Tf
+1 0 0 1 50 226 Tm () Tj
+1 0 0 1 50 220 Tm (docker network connect <network-name> <container-name>) Tj
+1 0 0 1 50 204 Tm () Tj
+1 0 0 1 50 194 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 180 Tm (Disconnect container from network) Tj
+/F1 12 Tf
+1 0 0 1 50 150 Tm () Tj
+1 0 0 1 50 144 Tm (docker network disconnect <network-name> <container-name>) Tj
+1 0 0 1 50 128 Tm () Tj
+1 0 0 1 50 118 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 104 Tm (Remove network) Tj
+/F1 12 Tf
+1 0 0 1 50 74 Tm () Tj
+1 0 0 1 50 68 Tm (docker network rm <network-name>) Tj
+1 0 0 1 50 52 Tm () Tj
+ET
+endstream
+endobj
+44 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 43 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+45 0 obj
+<< /Length 2087 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 776 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 746 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 740 Tm (? CLEANUP COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 710 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 704 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 674 Tm () Tj
+1 0 0 1 50 668 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 654 Tm (Stop all containers) Tj
+/F1 12 Tf
+1 0 0 1 50 624 Tm () Tj
+1 0 0 1 50 618 Tm (docker stop $\(docker ps -aq\)) Tj
+1 0 0 1 50 602 Tm () Tj
+1 0 0 1 50 592 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 578 Tm (Remove all containers) Tj
+/F1 12 Tf
+1 0 0 1 50 548 Tm () Tj
+1 0 0 1 50 542 Tm (docker rm $\(docker ps -aq\)) Tj
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 516 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 502 Tm (Remove unused images) Tj
+/F1 12 Tf
+1 0 0 1 50 472 Tm () Tj
+1 0 0 1 50 466 Tm (docker image prune -a -f) Tj
+1 0 0 1 50 450 Tm () Tj
+1 0 0 1 50 440 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 426 Tm (Remove unused volumes) Tj
+/F1 12 Tf
+1 0 0 1 50 396 Tm () Tj
+1 0 0 1 50 390 Tm (docker volume prune -f) Tj
+1 0 0 1 50 374 Tm () Tj
+1 0 0 1 50 364 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 350 Tm (Remove unused networks) Tj
+/F1 12 Tf
+1 0 0 1 50 320 Tm () Tj
+1 0 0 1 50 314 Tm (docker network prune -f) Tj
+1 0 0 1 50 298 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 274 Tm (Complete cleanup \(CAUTION: removes everything\)) Tj
+/F1 12 Tf
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 238 Tm (docker system prune -a -f --volumes) Tj
+1 0 0 1 50 222 Tm () Tj
+1 0 0 1 50 212 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 198 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 168 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 162 Tm (? TROUBLESHOOTING COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 132 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 126 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 96 Tm () Tj
+1 0 0 1 50 90 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 76 Tm (Check Docker Desktop status) Tj
+/F1 12 Tf
+1 0 0 1 50 46 Tm () Tj
+ET
+endstream
+endobj
+46 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 45 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+47 0 obj
+<< /Length 2152 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (docker info) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 750 Tm (Check WSL2 integration) Tj
+/F1 12 Tf
+1 0 0 1 50 720 Tm () Tj
+1 0 0 1 50 714 Tm (wsl -l -v) Tj
+1 0 0 1 50 698 Tm () Tj
+1 0 0 1 50 688 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 674 Tm (Check GPU availability) Tj
+/F1 12 Tf
+1 0 0 1 50 644 Tm () Tj
+1 0 0 1 50 638 Tm (docker run --rm --gpus all nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi) Tj
+1 0 0 1 50 622 Tm () Tj
+1 0 0 1 50 612 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 598 Tm (Check port usage) Tj
+/F1 12 Tf
+1 0 0 1 50 568 Tm () Tj
+1 0 0 1 50 562 Tm (netstat -ano | findstr :<port>) Tj
+1 0 0 1 50 546 Tm () Tj
+1 0 0 1 50 536 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 522 Tm (Test connectivity to service) Tj
+/F1 12 Tf
+1 0 0 1 50 492 Tm () Tj
+1 0 0 1 50 486 Tm (Test-NetConnection -ComputerName localhost -Port <port>) Tj
+1 0 0 1 50 470 Tm () Tj
+1 0 0 1 50 460 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 446 Tm (Check container IP address) Tj
+/F1 12 Tf
+1 0 0 1 50 416 Tm () Tj
+1 0 0 1 50 410 Tm (docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container-name>) Tj
+1 0 0 1 50 394 Tm () Tj
+1 0 0 1 50 384 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 370 Tm (Execute command in container) Tj
+/F1 12 Tf
+1 0 0 1 50 340 Tm () Tj
+1 0 0 1 50 334 Tm (docker exec <container-name> <command>) Tj
+1 0 0 1 50 318 Tm () Tj
+1 0 0 1 50 308 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 294 Tm (Get shell in container) Tj
+/F1 12 Tf
+1 0 0 1 50 264 Tm () Tj
+1 0 0 1 50 258 Tm (docker exec -it <container-name> /bin/sh docker exec -it <container-name> /bin/bash) Tj
+1 0 0 1 50 242 Tm () Tj
+1 0 0 1 50 232 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 218 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 188 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 182 Tm (? PROMETHEUS QUERIES) Tj
+/F1 12 Tf
+1 0 0 1 50 152 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 146 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 116 Tm () Tj
+1 0 0 1 50 110 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 96 Tm (Access Prometheus: http://localhost:9090) Tj
+/F1 12 Tf
+1 0 0 1 50 66 Tm () Tj
+1 0 0 1 50 60 Tm () Tj
+ET
+endstream
+endobj
+48 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 47 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+49 0 obj
+<< /Length 2076 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (Example queries:) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 754 Tm (-----------------) Tj
+/F1 12 Tf
+1 0 0 1 50 724 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 718 Tm (Ollama request rate) Tj
+/F1 12 Tf
+1 0 0 1 50 688 Tm () Tj
+1 0 0 1 50 682 Tm (rate\(ollama_request_total[5m]\)) Tj
+1 0 0 1 50 666 Tm () Tj
+1 0 0 1 50 656 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 642 Tm (Container CPU usage) Tj
+/F1 12 Tf
+1 0 0 1 50 612 Tm () Tj
+1 0 0 1 50 606 Tm (rate\(container_cpu_usage_seconds_total[5m]\) * 100) Tj
+1 0 0 1 50 590 Tm () Tj
+1 0 0 1 50 580 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 566 Tm (Container memory usage \(GB\)) Tj
+/F1 12 Tf
+1 0 0 1 50 536 Tm () Tj
+1 0 0 1 50 530 Tm (container_memory_usage_bytes / 1024 / 1024 / 1024) Tj
+1 0 0 1 50 514 Tm () Tj
+1 0 0 1 50 504 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 490 Tm (GPU utilization) Tj
+/F1 12 Tf
+1 0 0 1 50 460 Tm () Tj
+1 0 0 1 50 454 Tm (nvidia_gpu_utilization) Tj
+1 0 0 1 50 438 Tm () Tj
+1 0 0 1 50 428 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 414 Tm (Disk usage) Tj
+/F1 12 Tf
+1 0 0 1 50 384 Tm () Tj
+1 0 0 1 50 378 Tm (\(node_filesystem_size_bytes - node_filesystem_free_bytes\) / node_filesystem_size_bytes * 100) Tj
+1 0 0 1 50 362 Tm () Tj
+1 0 0 1 50 352 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 338 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 308 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 302 Tm (? GRAFANA COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 272 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 266 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 236 Tm () Tj
+1 0 0 1 50 230 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 216 Tm (Access Grafana: http://localhost:3000) Tj
+/F1 12 Tf
+1 0 0 1 50 186 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 180 Tm (Default credentials: admin / admin123) Tj
+/F1 12 Tf
+1 0 0 1 50 150 Tm () Tj
+1 0 0 1 50 144 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 130 Tm (Add Prometheus data source:) Tj
+/F1 12 Tf
+1 0 0 1 50 100 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 94 Tm (Configuration > Data Sources > Add data source > Prometheus) Tj
+/F1 12 Tf
+1 0 0 1 50 64 Tm () Tj
+ET
+endstream
+endobj
+50 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 49 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+51 0 obj
+<< /Length 2180 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (URL: http://prometheus:9090) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+1 0 0 1 50 754 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 740 Tm (Add Loki data source:) Tj
+/F1 12 Tf
+1 0 0 1 50 710 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 704 Tm (Configuration > Data Sources > Add data source > Loki) Tj
+/F1 12 Tf
+1 0 0 1 50 674 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 668 Tm (URL: http://loki:3100) Tj
+/F1 12 Tf
+1 0 0 1 50 638 Tm () Tj
+1 0 0 1 50 632 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 618 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 588 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 582 Tm (? SECURITY COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 552 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 546 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 516 Tm () Tj
+1 0 0 1 50 510 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 496 Tm (View container environment variables) Tj
+/F1 12 Tf
+1 0 0 1 50 466 Tm () Tj
+1 0 0 1 50 460 Tm (docker exec <container-name> env) Tj
+1 0 0 1 50 444 Tm () Tj
+1 0 0 1 50 434 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 420 Tm (Check file permissions in container) Tj
+/F1 12 Tf
+1 0 0 1 50 390 Tm () Tj
+1 0 0 1 50 384 Tm (docker exec <container-name> ls -la /path) Tj
+1 0 0 1 50 368 Tm () Tj
+1 0 0 1 50 358 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 344 Tm (Update password \(example: Grafana\)) Tj
+/F1 12 Tf
+1 0 0 1 50 314 Tm () Tj
+1 0 0 1 50 308 Tm (docker exec grafana grafana-cli admin reset-admin-password <new-password>) Tj
+1 0 0 1 50 292 Tm () Tj
+1 0 0 1 50 282 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 268 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 238 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 232 Tm (? LOGGING COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 202 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 196 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 166 Tm () Tj
+1 0 0 1 50 160 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 146 Tm (View logs from all containers) Tj
+/F1 12 Tf
+1 0 0 1 50 116 Tm () Tj
+1 0 0 1 50 110 Tm (docker-compose logs -f) Tj
+1 0 0 1 50 94 Tm () Tj
+1 0 0 1 50 84 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 70 Tm (View logs from specific service) Tj
+ET
+endstream
+endobj
+52 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 51 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+53 0 obj
+<< /Length 2132 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+1 0 0 1 50 784 Tm (docker-compose logs -f <service-name>) Tj
+1 0 0 1 50 768 Tm () Tj
+1 0 0 1 50 758 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 744 Tm (Export logs to file) Tj
+/F1 12 Tf
+1 0 0 1 50 714 Tm () Tj
+1 0 0 1 50 708 Tm (docker logs <container-name> > container-logs.txt 2>&1) Tj
+1 0 0 1 50 692 Tm () Tj
+1 0 0 1 50 682 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 668 Tm (Follow logs with grep filter) Tj
+/F1 12 Tf
+1 0 0 1 50 638 Tm () Tj
+1 0 0 1 50 632 Tm (docker logs -f <container-name> | grep ERROR) Tj
+1 0 0 1 50 616 Tm () Tj
+1 0 0 1 50 606 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 592 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 562 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 556 Tm (? EMERGENCY COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 526 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 520 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 490 Tm () Tj
+1 0 0 1 50 484 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 470 Tm (Complete platform restart) Tj
+/F1 12 Tf
+1 0 0 1 50 440 Tm () Tj
+1 0 0 1 50 434 Tm (docker restart $\(docker ps -aq\)) Tj
+1 0 0 1 50 418 Tm () Tj
+1 0 0 1 50 408 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 394 Tm (Force stop all containers) Tj
+/F1 12 Tf
+1 0 0 1 50 364 Tm () Tj
+1 0 0 1 50 358 Tm (docker kill $\(docker ps -aq\)) Tj
+1 0 0 1 50 342 Tm () Tj
+1 0 0 1 50 332 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 318 Tm (Rebuild everything from scratch) Tj
+/F1 12 Tf
+1 0 0 1 50 288 Tm () Tj
+1 0 0 1 50 282 Tm (docker stop $\(docker ps -aq\) docker rm $\(docker ps -aq\) docker volume rm $\(docker volume ls -q\)) Tj
+1 0 0 1 50 266 Tm ( docker network rm modernization-network monitoring-network .\\rebuild-platform.ps1) Tj
+1 0 0 1 50 250 Tm () Tj
+1 0 0 1 50 240 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 226 Tm (Restart Docker Desktop) Tj
+/F1 12 Tf
+1 0 0 1 50 196 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 190 Tm (Stop-Service docker) Tj
+/F1 12 Tf
+1 0 0 1 50 160 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 154 Tm (Start-Service docker) Tj
+/F1 12 Tf
+1 0 0 1 50 124 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 118 Tm (Or restart via Docker Desktop UI) Tj
+/F1 12 Tf
+1 0 0 1 50 88 Tm () Tj
+1 0 0 1 50 82 Tm () Tj
+ET
+endstream
+endobj
+54 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 53 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+55 0 obj
+<< /Length 2181 >>
+stream
+BT
+/F1 12 Tf
+/F1 24 Tf
+1 0 0 1 50 790 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 760 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 754 Tm (? SUPPORT COMMANDS) Tj
+/F1 12 Tf
+1 0 0 1 50 724 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 718 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 688 Tm () Tj
+1 0 0 1 50 682 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 668 Tm (Generate system report) Tj
+/F1 12 Tf
+1 0 0 1 50 638 Tm () Tj
+1 0 0 1 50 632 Tm (docker info > system-report.txt docker ps -a >> system-report.txt docker stats --no-stream >> ) Tj
+1 0 0 1 50 616 Tm (system-report.txt docker volume ls >> system-report.txt docker network ls >> system-report.txt) Tj
+1 0 0 1 50 600 Tm () Tj
+1 0 0 1 50 590 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 576 Tm (Export configuration) Tj
+/F1 12 Tf
+1 0 0 1 50 546 Tm () Tj
+1 0 0 1 50 540 Tm (docker-compose config > current-config.yml) Tj
+1 0 0 1 50 524 Tm () Tj
+1 0 0 1 50 514 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 500 Tm (Check version information) Tj
+/F1 12 Tf
+1 0 0 1 50 470 Tm () Tj
+1 0 0 1 50 464 Tm (docker version docker-compose version) Tj
+1 0 0 1 50 448 Tm () Tj
+1 0 0 1 50 438 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 424 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 394 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 388 Tm (END OF QUICK REFERENCE) Tj
+/F1 12 Tf
+1 0 0 1 50 358 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 352 Tm (============================================================================) Tj
+/F1 12 Tf
+1 0 0 1 50 322 Tm () Tj
+1 0 0 1 50 316 Tm () Tj
+1 0 0 1 50 302 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 274 Tm (SOURCE: TROUBLESHOOTING.md) Tj
+/F1 12 Tf
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 238 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 224 Tm (? Troubleshooting Guide) Tj
+/F1 12 Tf
+1 0 0 1 50 194 Tm () Tj
+1 0 0 1 50 188 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 174 Tm (Common Issues and Solutions) Tj
+/F1 12 Tf
+1 0 0 1 50 148 Tm () Tj
+1 0 0 1 50 142 Tm () Tj
+1 0 0 1 50 128 Tm (? --) Tj
+1 0 0 1 50 112 Tm () Tj
+1 0 0 1 50 102 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 88 Tm (? Docker Desktop Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 62 Tm () Tj
+1 0 0 1 50 56 Tm () Tj
+ET
+endstream
+endobj
+56 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 55 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+57 0 obj
+<< /Length 2565 >>
+stream
+BT
+/F1 12 Tf
+/F1 16 Tf
+1 0 0 1 50 790 Tm (Issue: Docker Desktop Won't Start) Tj
+/F1 12 Tf
+1 0 0 1 50 768 Tm () Tj
+1 0 0 1 50 762 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 746 Tm (? Docker Desktop stuck at "Starting...") Tj
+1 0 0 1 50 730 Tm (? Error: "Docker Desktop is not running") Tj
+1 0 0 1 50 714 Tm () Tj
+1 0 0 1 50 704 Tm () Tj
+1 0 0 1 50 690 Tm (? *Solutions:**) Tj
+1 0 0 1 50 674 Tm () Tj
+1 0 0 1 50 664 Tm (1. **Restart Docker Desktop**: ```powershell # Via PowerShell \(as Administrator\) Stop-Service ) Tj
+1 0 0 1 50 648 Tm (docker Start-Service docker) Tj
+1 0 0 1 50 632 Tm () Tj
+1 0 0 1 50 622 Tm () Tj
+1 0 0 1 50 608 Tm (# Or restart via Docker Desktop UI ```) Tj
+1 0 0 1 50 592 Tm () Tj
+1 0 0 1 50 582 Tm () Tj
+1 0 0 1 50 568 Tm (2. **Check WSL2 Status**: ```powershell wsl -l -v # Ensure WSL2 is running wsl --update ```) Tj
+1 0 0 1 50 552 Tm () Tj
+1 0 0 1 50 542 Tm () Tj
+1 0 0 1 50 528 Tm (3. **Reset Docker Desktop**: - Open Docker Desktop - Settings > Trouble shoot > Reset to ) Tj
+1 0 0 1 50 512 Tm (factory defaults - **WARNING**: This will delete all containers, images, and volumes) Tj
+1 0 0 1 50 496 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 472 Tm (4. **Check Windows Services**: - Open Services \(services.msc\) - Ensure "Docker Desktop Service") Tj
+1 0 0 1 50 456 Tm ( is running - Start type should be "Automatic") Tj
+1 0 0 1 50 440 Tm () Tj
+1 0 0 1 50 430 Tm () Tj
+1 0 0 1 50 416 Tm (? --) Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 390 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 376 Tm (? Port Already in Use) Tj
+/F1 12 Tf
+1 0 0 1 50 350 Tm () Tj
+1 0 0 1 50 344 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 330 Tm (Issue: Port Conflict When Starting Containers) Tj
+/F1 12 Tf
+1 0 0 1 50 308 Tm () Tj
+1 0 0 1 50 302 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 286 Tm (? Error: "Bind for 0.0.0.0:5432 failed: port is already allocated") Tj
+1 0 0 1 50 270 Tm (? Container fails to start) Tj
+1 0 0 1 50 254 Tm () Tj
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 230 Tm (? *Solutions:**) Tj
+1 0 0 1 50 214 Tm () Tj
+1 0 0 1 50 204 Tm (1. **Identify Process Using Port**: ```powershell # Find process ID netstat -ano | findstr ) Tj
+1 0 0 1 50 188 Tm (:<port>) Tj
+1 0 0 1 50 172 Tm () Tj
+1 0 0 1 50 162 Tm () Tj
+1 0 0 1 50 148 Tm (# Example for PostgreSQL \(port 5432\) netstat -ano | findstr :5432 ```) Tj
+1 0 0 1 50 132 Tm () Tj
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 108 Tm (2. **Kill Process**: ```powershell # Kill process by PID Stop-Process -Id <PID> -Force) Tj
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 82 Tm () Tj
+1 0 0 1 50 68 Tm (# Example Stop-Process -Id 12345 -Force ```) Tj
+1 0 0 1 50 52 Tm () Tj
+ET
+endstream
+endobj
+58 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 57 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+59 0 obj
+<< /Length 2471 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+1 0 0 1 50 776 Tm (3. **Change Port in Configuration**: - Edit docker-compose.yml - Change port mapping \(e.g., ) Tj
+1 0 0 1 50 760 Tm ("5433:5432" instead of "5432:5432"\)) Tj
+1 0 0 1 50 744 Tm () Tj
+1 0 0 1 50 734 Tm () Tj
+1 0 0 1 50 720 Tm (? --) Tj
+1 0 0 1 50 704 Tm () Tj
+1 0 0 1 50 694 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 680 Tm (? Container Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 654 Tm () Tj
+1 0 0 1 50 648 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 634 Tm (Issue: Container Keeps Restarting) Tj
+/F1 12 Tf
+1 0 0 1 50 612 Tm () Tj
+1 0 0 1 50 606 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 590 Tm (? Container status shows "Restarting") Tj
+1 0 0 1 50 574 Tm (? Container exits immediately after start) Tj
+1 0 0 1 50 558 Tm () Tj
+1 0 0 1 50 548 Tm () Tj
+1 0 0 1 50 534 Tm (? *Solutions:**) Tj
+1 0 0 1 50 518 Tm () Tj
+1 0 0 1 50 508 Tm (1. **Check Container Logs**: ```powershell docker logs <container-name> ```) Tj
+1 0 0 1 50 492 Tm () Tj
+1 0 0 1 50 482 Tm () Tj
+1 0 0 1 50 468 Tm (2. **Inspect Container**: ```powershell docker inspect <container-name> ```) Tj
+1 0 0 1 50 452 Tm () Tj
+1 0 0 1 50 442 Tm () Tj
+1 0 0 1 50 428 Tm (3. **Common Causes**: - **Configuration Error**: Check environment variables - **Port ) Tj
+1 0 0 1 50 412 Tm (Conflict**: Ensure port is available - **Volume Mount Issue**: Verify volume paths exist - ) Tj
+1 0 0 1 50 396 Tm (**Insufficient Resources**: Check RAM/CPU allocation) Tj
+1 0 0 1 50 380 Tm () Tj
+1 0 0 1 50 370 Tm () Tj
+1 0 0 1 50 356 Tm (4. **Fix and Restart**: ```powershell # Remove problematic container docker rm -f <container-) Tj
+1 0 0 1 50 340 Tm (name>) Tj
+1 0 0 1 50 324 Tm () Tj
+1 0 0 1 50 314 Tm () Tj
+1 0 0 1 50 300 Tm (# Rebuild .\\rebuild-platform.ps1 ```) Tj
+1 0 0 1 50 284 Tm () Tj
+1 0 0 1 50 274 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 260 Tm (Issue: Container is Unhealthy) Tj
+/F1 12 Tf
+1 0 0 1 50 238 Tm () Tj
+1 0 0 1 50 232 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 216 Tm (? Docker ps shows "unhealthy" status) Tj
+1 0 0 1 50 200 Tm (? Health check failing) Tj
+1 0 0 1 50 184 Tm () Tj
+1 0 0 1 50 174 Tm () Tj
+1 0 0 1 50 160 Tm (? *Solutions:**) Tj
+1 0 0 1 50 144 Tm () Tj
+1 0 0 1 50 134 Tm (1. **Check Health Check Logs**: ```powershell docker inspect --format='{{json .State.Health}}' ) Tj
+1 0 0 1 50 118 Tm (<container-name> ```) Tj
+1 0 0 1 50 102 Tm () Tj
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 78 Tm (2. **Manual Health Check**: ```powershell # Example for Ollama curl http://localhost:11434/) Tj
+1 0 0 1 50 62 Tm () Tj
+ET
+endstream
+endobj
+60 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 59 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+61 0 obj
+<< /Length 2400 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+1 0 0 1 50 776 Tm (# Example for ChromaDB curl http://localhost:8000/api/v1/heartbeat ```) Tj
+1 0 0 1 50 760 Tm () Tj
+1 0 0 1 50 750 Tm () Tj
+1 0 0 1 50 736 Tm (3. **Restart Container**: ```powershell docker restart <container-name> ```) Tj
+1 0 0 1 50 720 Tm () Tj
+1 0 0 1 50 710 Tm () Tj
+1 0 0 1 50 696 Tm (? --) Tj
+1 0 0 1 50 680 Tm () Tj
+1 0 0 1 50 670 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 656 Tm (? Ollama Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 630 Tm () Tj
+1 0 0 1 50 624 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 610 Tm (Issue: GPU Not Detected by Ollama) Tj
+/F1 12 Tf
+1 0 0 1 50 588 Tm () Tj
+1 0 0 1 50 582 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 566 Tm (? Ollama running on CPU only) Tj
+1 0 0 1 50 550 Tm (? Slow model inference) Tj
+1 0 0 1 50 534 Tm (? nvidia-smi not working in container) Tj
+1 0 0 1 50 518 Tm () Tj
+1 0 0 1 50 508 Tm () Tj
+1 0 0 1 50 494 Tm (? *Solutions:**) Tj
+1 0 0 1 50 478 Tm () Tj
+1 0 0 1 50 468 Tm (1. **Verify Docker GPU Support**: ```powershell docker run --rm --gpus all ) Tj
+1 0 0 1 50 452 Tm (nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi ```) Tj
+1 0 0 1 50 436 Tm () Tj
+1 0 0 1 50 426 Tm () Tj
+1 0 0 1 50 412 Tm (2. **Check Ollama Container GPU Access**: ```powershell docker exec ollama nvidia-smi ```) Tj
+1 0 0 1 50 396 Tm () Tj
+1 0 0 1 50 386 Tm () Tj
+1 0 0 1 50 372 Tm (3. **Verify Docker Desktop GPU Settings**: - Docker Desktop > Settings > Resources - Ensure ) Tj
+1 0 0 1 50 356 Tm ("Use GPU" is enabled - Restart Docker Desktop) Tj
+1 0 0 1 50 340 Tm () Tj
+1 0 0 1 50 330 Tm () Tj
+1 0 0 1 50 316 Tm (4. **Recreate Ollama Container**: ```powershell docker rm -f ollama .\\rebuild-platform.ps1 ```) Tj
+1 0 0 1 50 300 Tm () Tj
+1 0 0 1 50 290 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 276 Tm (Issue: Model Download Fails) Tj
+/F1 12 Tf
+1 0 0 1 50 254 Tm () Tj
+1 0 0 1 50 248 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 232 Tm (? Error: "pull model manifest") Tj
+1 0 0 1 50 216 Tm (? Download interrupted) Tj
+1 0 0 1 50 200 Tm (? Insufficient disk space) Tj
+1 0 0 1 50 184 Tm () Tj
+1 0 0 1 50 174 Tm () Tj
+1 0 0 1 50 160 Tm (? *Solutions:**) Tj
+1 0 0 1 50 144 Tm () Tj
+1 0 0 1 50 134 Tm (1. **Check Disk Space**: ```powershell # Check available space Get-PSDrive C ```) Tj
+1 0 0 1 50 118 Tm () Tj
+1 0 0 1 50 108 Tm () Tj
+1 0 0 1 50 94 Tm (2. **Retry Download**: ```powershell docker exec ollama ollama pull <model-name> ```) Tj
+1 0 0 1 50 78 Tm () Tj
+1 0 0 1 50 68 Tm () Tj
+ET
+endstream
+endobj
+62 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 61 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+63 0 obj
+<< /Length 2438 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (3. **Download Smaller Model**: ```powershell # Use 7B instead of 33B docker exec ollama ollama ) Tj
+1 0 0 1 50 774 Tm (pull deepseek-coder:6.7b-instruct-q4_K_M ```) Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 748 Tm () Tj
+1 0 0 1 50 734 Tm (4. **Clear Failed Downloads**: ```powershell docker exec ollama ollama rm <model-name> ```) Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 708 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 694 Tm (Issue: Model Inference is Slow) Tj
+/F1 12 Tf
+1 0 0 1 50 672 Tm () Tj
+1 0 0 1 50 666 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 650 Tm (? Long response times) Tj
+1 0 0 1 50 634 Tm (? High CPU usage) Tj
+1 0 0 1 50 618 Tm (? Out of memory errors) Tj
+1 0 0 1 50 602 Tm () Tj
+1 0 0 1 50 592 Tm () Tj
+1 0 0 1 50 578 Tm (? *Solutions:**) Tj
+1 0 0 1 50 562 Tm () Tj
+1 0 0 1 50 552 Tm (1. **Check GPU Utilization**: ```powershell nvidia-smi ```) Tj
+1 0 0 1 50 536 Tm () Tj
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 512 Tm (2. **Use Smaller Model or Lower Quantization**: - Q4_K_M \(medium quality, faster\) - Q2_K \(lower) Tj
+1 0 0 1 50 496 Tm ( quality, fastest\)) Tj
+1 0 0 1 50 480 Tm () Tj
+1 0 0 1 50 470 Tm () Tj
+1 0 0 1 50 456 Tm (3. **Reduce Concurrent Requests**: - Limit parallel inference calls - Implement request queuing) Tj
+1 0 0 1 50 440 Tm () Tj
+1 0 0 1 50 430 Tm () Tj
+1 0 0 1 50 416 Tm (4. **Increase GPU Memory**: - Close other GPU-intensive applications - Use model with smaller ) Tj
+1 0 0 1 50 400 Tm (parameters) Tj
+1 0 0 1 50 384 Tm () Tj
+1 0 0 1 50 374 Tm () Tj
+1 0 0 1 50 360 Tm (? --) Tj
+1 0 0 1 50 344 Tm () Tj
+1 0 0 1 50 334 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 320 Tm (? Database Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 294 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 274 Tm (Issue: PostgreSQL Connection Refused) Tj
+/F1 12 Tf
+1 0 0 1 50 252 Tm () Tj
+1 0 0 1 50 246 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 230 Tm (? Error: "could not connect to server") Tj
+1 0 0 1 50 214 Tm (? Connection timeout) Tj
+1 0 0 1 50 198 Tm () Tj
+1 0 0 1 50 188 Tm () Tj
+1 0 0 1 50 174 Tm (? *Solutions:**) Tj
+1 0 0 1 50 158 Tm () Tj
+1 0 0 1 50 148 Tm (1. **Verify Container is Running**: ```powershell docker ps --filter "name=postgres" ```) Tj
+1 0 0 1 50 132 Tm () Tj
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 108 Tm (2. **Check Logs**: ```powershell docker logs postgres ```) Tj
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 82 Tm () Tj
+1 0 0 1 50 68 Tm (3. **Test Connection**: ```powershell docker exec postgres psql -U modernization -d ) Tj
+ET
+endstream
+endobj
+64 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 63 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+65 0 obj
+<< /Length 2405 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (legacy_modernization -c "SELECT version\(\);" ```) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 750 Tm (4. **Verify Port is Open**: ```powershell Test-NetConnection -ComputerName localhost -Port 5432) Tj
+1 0 0 1 50 734 Tm ( ```) Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 708 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 694 Tm (Issue: Redis Connection Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 672 Tm () Tj
+1 0 0 1 50 666 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 650 Tm (? Error: "Could not connect to Redis") Tj
+1 0 0 1 50 634 Tm (? Commands timing out) Tj
+1 0 0 1 50 618 Tm () Tj
+1 0 0 1 50 608 Tm () Tj
+1 0 0 1 50 594 Tm (? *Solutions:**) Tj
+1 0 0 1 50 578 Tm () Tj
+1 0 0 1 50 568 Tm (1. **Test Redis**: ```powershell docker exec redis redis-cli PING # Should return PONG ```) Tj
+1 0 0 1 50 552 Tm () Tj
+1 0 0 1 50 542 Tm () Tj
+1 0 0 1 50 528 Tm (2. **Check Redis Logs**: ```powershell docker logs redis ```) Tj
+1 0 0 1 50 512 Tm () Tj
+1 0 0 1 50 502 Tm () Tj
+1 0 0 1 50 488 Tm (3. **Restart Redis**: ```powershell docker restart redis ```) Tj
+1 0 0 1 50 472 Tm () Tj
+1 0 0 1 50 462 Tm () Tj
+1 0 0 1 50 448 Tm (? --) Tj
+1 0 0 1 50 432 Tm () Tj
+1 0 0 1 50 422 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 408 Tm (? Monitoring Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 382 Tm () Tj
+1 0 0 1 50 376 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 362 Tm (Issue: Prometheus Targets Down) Tj
+/F1 12 Tf
+1 0 0 1 50 340 Tm () Tj
+1 0 0 1 50 334 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 318 Tm (? Targets showing as "DOWN" in Prometheus UI) Tj
+1 0 0 1 50 302 Tm (? No metrics being collected) Tj
+1 0 0 1 50 286 Tm () Tj
+1 0 0 1 50 276 Tm () Tj
+1 0 0 1 50 262 Tm (? *Solutions:**) Tj
+1 0 0 1 50 246 Tm () Tj
+1 0 0 1 50 236 Tm (1. **Check Target Accessibility**: ```powershell # Test Ollama metrics curl ) Tj
+1 0 0 1 50 220 Tm (http://localhost:11434/metrics ```) Tj
+1 0 0 1 50 204 Tm () Tj
+1 0 0 1 50 194 Tm () Tj
+1 0 0 1 50 180 Tm (2. **Verify Network Connectivity**: ```powershell docker exec prometheus wget -O- ) Tj
+1 0 0 1 50 164 Tm (http://ollama:11434/metrics ```) Tj
+1 0 0 1 50 148 Tm () Tj
+1 0 0 1 50 138 Tm () Tj
+1 0 0 1 50 124 Tm (3. **Check Prometheus Configuration**: ```powershell docker exec prometheus cat ) Tj
+1 0 0 1 50 108 Tm (/etc/prometheus/prometheus.yml ```) Tj
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 82 Tm () Tj
+1 0 0 1 50 68 Tm (4. **Reload Prometheus Configuration**: ```powershell # Via API Invoke-WebRequest -Method POST ) Tj
+ET
+endstream
+endobj
+66 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 65 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+67 0 obj
+<< /Length 2281 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (http://localhost:9090/-/reload) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 750 Tm (# Or restart docker restart prometheus ```) Tj
+1 0 0 1 50 734 Tm () Tj
+1 0 0 1 50 724 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 710 Tm (Issue: Grafana Dashboard Shows No Data) Tj
+/F1 12 Tf
+1 0 0 1 50 688 Tm () Tj
+1 0 0 1 50 682 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 666 Tm (? Empty graphs) Tj
+1 0 0 1 50 650 Tm (? "No data" message) Tj
+1 0 0 1 50 634 Tm () Tj
+1 0 0 1 50 624 Tm () Tj
+1 0 0 1 50 610 Tm (? *Solutions:**) Tj
+1 0 0 1 50 594 Tm () Tj
+1 0 0 1 50 584 Tm (1. **Verify Data Source Connection**: - Grafana > Configuration > Data Sources - Test ) Tj
+1 0 0 1 50 568 Tm (connection to Prometheus/Loki) Tj
+1 0 0 1 50 552 Tm () Tj
+1 0 0 1 50 542 Tm () Tj
+1 0 0 1 50 528 Tm (2. **Check Query Syntax**: - Verify PromQL/LogQL queries - Test queries in Prometheus UI first) Tj
+1 0 0 1 50 512 Tm () Tj
+1 0 0 1 50 502 Tm () Tj
+1 0 0 1 50 488 Tm (3. **Verify Time Range**: - Check dashboard time picker - Ensure data exists for selected time ) Tj
+1 0 0 1 50 472 Tm (range) Tj
+1 0 0 1 50 456 Tm () Tj
+1 0 0 1 50 446 Tm () Tj
+1 0 0 1 50 432 Tm (4. **Check Prometheus Scrape Status**: - Visit http://localhost:9090/targets - Verify all ) Tj
+1 0 0 1 50 416 Tm (targets are UP) Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 390 Tm () Tj
+1 0 0 1 50 376 Tm (? --) Tj
+1 0 0 1 50 360 Tm () Tj
+1 0 0 1 50 350 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 336 Tm (?? Storage Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 310 Tm () Tj
+1 0 0 1 50 304 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 290 Tm (Issue: Volume Mount Fails) Tj
+/F1 12 Tf
+1 0 0 1 50 268 Tm () Tj
+1 0 0 1 50 262 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 246 Tm (? Container can't access volume) Tj
+1 0 0 1 50 230 Tm (? Permission denied errors) Tj
+1 0 0 1 50 214 Tm (? Data not persisting) Tj
+1 0 0 1 50 198 Tm () Tj
+1 0 0 1 50 188 Tm () Tj
+1 0 0 1 50 174 Tm (? *Solutions:**) Tj
+1 0 0 1 50 158 Tm () Tj
+1 0 0 1 50 148 Tm (1. **Check Volume Exists**: ```powershell docker volume ls | Select-String <volume-name> ```) Tj
+1 0 0 1 50 132 Tm () Tj
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 108 Tm (2. **Recreate Volume**: ```powershell docker volume rm <volume-name> docker volume create ) Tj
+1 0 0 1 50 92 Tm (<volume-name> ```) Tj
+1 0 0 1 50 76 Tm () Tj
+1 0 0 1 50 66 Tm () Tj
+ET
+endstream
+endobj
+68 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 67 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+69 0 obj
+<< /Length 2419 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (3. **Check Volume Permissions**: ```powershell docker exec <container-name> ls -la ) Tj
+1 0 0 1 50 774 Tm (/path/to/mount ```) Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 748 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 734 Tm (Issue: Disk Space Full) Tj
+/F1 12 Tf
+1 0 0 1 50 712 Tm () Tj
+1 0 0 1 50 706 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 690 Tm (? "No space left on device") Tj
+1 0 0 1 50 674 Tm (? Containers failing to start) Tj
+1 0 0 1 50 658 Tm (? Unable to download models) Tj
+1 0 0 1 50 642 Tm () Tj
+1 0 0 1 50 632 Tm () Tj
+1 0 0 1 50 618 Tm (? *Solutions:**) Tj
+1 0 0 1 50 602 Tm () Tj
+1 0 0 1 50 592 Tm (1. **Check Disk Usage**: ```powershell docker system df ```) Tj
+1 0 0 1 50 576 Tm () Tj
+1 0 0 1 50 566 Tm () Tj
+1 0 0 1 50 552 Tm (2. **Clean Up Docker**: ```powershell # Remove unused images docker image prune -a -f) Tj
+1 0 0 1 50 536 Tm () Tj
+1 0 0 1 50 526 Tm () Tj
+1 0 0 1 50 512 Tm (# Remove unused volumes \(CAUTION\) docker volume prune -f) Tj
+1 0 0 1 50 496 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 472 Tm (# Complete cleanup docker system prune -a -f --volumes ```) Tj
+1 0 0 1 50 456 Tm () Tj
+1 0 0 1 50 446 Tm () Tj
+1 0 0 1 50 432 Tm (3. **Move Docker Data Location**: - Docker Desktop > Settings > Resources > Advanced - Change ) Tj
+1 0 0 1 50 416 Tm ("Disk image location") Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 390 Tm () Tj
+1 0 0 1 50 376 Tm (? --) Tj
+1 0 0 1 50 360 Tm () Tj
+1 0 0 1 50 350 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 336 Tm (? Network Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 310 Tm () Tj
+1 0 0 1 50 304 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 290 Tm (Issue: Containers Can't Communicate) Tj
+/F1 12 Tf
+1 0 0 1 50 268 Tm () Tj
+1 0 0 1 50 262 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 246 Tm (? Services can't reach each other) Tj
+1 0 0 1 50 230 Tm (? Network timeout errors) Tj
+1 0 0 1 50 214 Tm () Tj
+1 0 0 1 50 204 Tm () Tj
+1 0 0 1 50 190 Tm (? *Solutions:**) Tj
+1 0 0 1 50 174 Tm () Tj
+1 0 0 1 50 164 Tm (1. **Verify Network Exists**: ```powershell docker network ls | Select-String modernization ```) Tj
+1 0 0 1 50 148 Tm () Tj
+1 0 0 1 50 138 Tm () Tj
+1 0 0 1 50 124 Tm (2. **Check Container Network Connections**: ```powershell docker inspect <container-name> ) Tj
+1 0 0 1 50 108 Tm (--format='{{json .NetworkSettings.Networks}}' ```) Tj
+1 0 0 1 50 92 Tm () Tj
+1 0 0 1 50 82 Tm () Tj
+1 0 0 1 50 68 Tm (3. **Reconnect Container to Network**: ```powershell docker network connect modernization-) Tj
+ET
+endstream
+endobj
+70 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 69 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+71 0 obj
+<< /Length 2257 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (network <container-name> ```) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 750 Tm (4. **Recreate Network**: ```powershell docker network rm modernization-network docker network ) Tj
+1 0 0 1 50 734 Tm (create modernization-network ```) Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 708 Tm () Tj
+1 0 0 1 50 694 Tm (? --) Tj
+1 0 0 1 50 678 Tm () Tj
+1 0 0 1 50 668 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 654 Tm (? Authentication Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 628 Tm () Tj
+1 0 0 1 50 622 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 608 Tm (Issue: Can't Connect to MinIO Console) Tj
+/F1 12 Tf
+1 0 0 1 50 586 Tm () Tj
+1 0 0 1 50 580 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 564 Tm (? Login fails) Tj
+1 0 0 1 50 548 Tm (? "Access Denied" error) Tj
+1 0 0 1 50 532 Tm () Tj
+1 0 0 1 50 522 Tm () Tj
+1 0 0 1 50 508 Tm (? *Solutions:**) Tj
+1 0 0 1 50 492 Tm () Tj
+1 0 0 1 50 482 Tm (1. **Verify Credentials**: - Username: `minioadmin` - Password: `minioadmin123`) Tj
+1 0 0 1 50 466 Tm () Tj
+1 0 0 1 50 456 Tm () Tj
+1 0 0 1 50 442 Tm (2. **Check Environment Variables**: ```powershell docker exec minio env | Select-String ) Tj
+1 0 0 1 50 426 Tm (MINIO_ROOT ```) Tj
+1 0 0 1 50 410 Tm () Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 386 Tm (3. **Reset MinIO**: ```powershell docker rm -f minio docker volume rm minio-data .\\rebuild-) Tj
+1 0 0 1 50 370 Tm (platform.ps1 ```) Tj
+1 0 0 1 50 354 Tm () Tj
+1 0 0 1 50 344 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 330 Tm (Issue: Grafana Login Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 308 Tm () Tj
+1 0 0 1 50 302 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 286 Tm (? Default credentials not working) Tj
+1 0 0 1 50 270 Tm (? Locked out of Grafana) Tj
+1 0 0 1 50 254 Tm () Tj
+1 0 0 1 50 244 Tm () Tj
+1 0 0 1 50 230 Tm (? *Solutions:**) Tj
+1 0 0 1 50 214 Tm () Tj
+1 0 0 1 50 204 Tm (1. **Reset Admin Password**: ```powershell docker exec grafana grafana-cli admin reset-admin-) Tj
+1 0 0 1 50 188 Tm (password newpassword123 ```) Tj
+1 0 0 1 50 172 Tm () Tj
+1 0 0 1 50 162 Tm () Tj
+1 0 0 1 50 148 Tm (2. **Check Environment Variables**: ```powershell docker exec grafana env | Select-String ) Tj
+1 0 0 1 50 132 Tm (GF_SECURITY ```) Tj
+1 0 0 1 50 116 Tm () Tj
+1 0 0 1 50 106 Tm () Tj
+1 0 0 1 50 92 Tm (? --) Tj
+1 0 0 1 50 76 Tm () Tj
+1 0 0 1 50 66 Tm () Tj
+ET
+endstream
+endobj
+72 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 71 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+73 0 obj
+<< /Length 2340 >>
+stream
+BT
+/F1 12 Tf
+/F1 20 Tf
+1 0 0 1 50 790 Tm (? Performance Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 758 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 744 Tm (Issue: High CPU Usage) Tj
+/F1 12 Tf
+1 0 0 1 50 722 Tm () Tj
+1 0 0 1 50 716 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 700 Tm (? System running slow) Tj
+1 0 0 1 50 684 Tm (? Containers using 100% CPU) Tj
+1 0 0 1 50 668 Tm () Tj
+1 0 0 1 50 658 Tm () Tj
+1 0 0 1 50 644 Tm (? *Solutions:**) Tj
+1 0 0 1 50 628 Tm () Tj
+1 0 0 1 50 618 Tm (1. **Identify Resource Hog**: ```powershell docker stats --no-stream ```) Tj
+1 0 0 1 50 602 Tm () Tj
+1 0 0 1 50 592 Tm () Tj
+1 0 0 1 50 578 Tm (2. **Limit Container Resources**: ```yaml # In docker-compose.yml services: ollama: deploy: ) Tj
+1 0 0 1 50 562 Tm (resources: limits: cpus: '8' memory: 32G ```) Tj
+1 0 0 1 50 546 Tm () Tj
+1 0 0 1 50 536 Tm () Tj
+1 0 0 1 50 522 Tm (3. **Reduce Concurrent Operations**: - Limit parallel model inference - Reduce scrape frequency) Tj
+1 0 0 1 50 506 Tm ( in Prometheus) Tj
+1 0 0 1 50 490 Tm () Tj
+1 0 0 1 50 480 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 466 Tm (Issue: High Memory Usage) Tj
+/F1 12 Tf
+1 0 0 1 50 444 Tm () Tj
+1 0 0 1 50 438 Tm (? *Symptoms:**) Tj
+1 0 0 1 50 422 Tm (? System running out of RAM) Tj
+1 0 0 1 50 406 Tm (? OOM \(Out of Memory\) errors) Tj
+1 0 0 1 50 390 Tm () Tj
+1 0 0 1 50 380 Tm () Tj
+1 0 0 1 50 366 Tm (? *Solutions:**) Tj
+1 0 0 1 50 350 Tm () Tj
+1 0 0 1 50 340 Tm (1. **Check Memory Usage**: ```powershell docker stats --no-stream --format "table ) Tj
+1 0 0 1 50 324 Tm ({{.Container}}\\t{{.MemUsage}}" ```) Tj
+1 0 0 1 50 308 Tm () Tj
+1 0 0 1 50 298 Tm () Tj
+1 0 0 1 50 284 Tm (2. **Increase Docker Memory Allocation**: - Docker Desktop > Settings > Resources - Increase ) Tj
+1 0 0 1 50 268 Tm (Memory slider) Tj
+1 0 0 1 50 252 Tm () Tj
+1 0 0 1 50 242 Tm () Tj
+1 0 0 1 50 228 Tm (3. **Use Smaller Models**: - Switch to 7B models instead of 33B - Use higher quantization \(Q2_K) Tj
+1 0 0 1 50 212 Tm ( instead of Q4_K_M\)) Tj
+1 0 0 1 50 196 Tm () Tj
+1 0 0 1 50 186 Tm () Tj
+1 0 0 1 50 172 Tm (? --) Tj
+1 0 0 1 50 156 Tm () Tj
+1 0 0 1 50 146 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 132 Tm (? Configuration Issues) Tj
+/F1 12 Tf
+1 0 0 1 50 106 Tm () Tj
+1 0 0 1 50 100 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 86 Tm (Issue: Changes Not Taking Effect) Tj
+/F1 12 Tf
+1 0 0 1 50 64 Tm () Tj
+1 0 0 1 50 58 Tm (? *Symptoms:**) Tj
+ET
+endstream
+endobj
+74 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 73 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+75 0 obj
+<< /Length 2253 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (? Configuration updates ignored) Tj
+1 0 0 1 50 774 Tm (? Old settings persist) Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 748 Tm () Tj
+1 0 0 1 50 734 Tm (? *Solutions:**) Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 708 Tm (1. **Reload Configuration**: ```powershell # For Prometheus Invoke-WebRequest -Method POST ) Tj
+1 0 0 1 50 692 Tm (http://localhost:9090/-/reload ```) Tj
+1 0 0 1 50 676 Tm () Tj
+1 0 0 1 50 666 Tm () Tj
+1 0 0 1 50 652 Tm (2. **Recreate Containers**: ```powershell docker-compose down docker-compose up -d --force-) Tj
+1 0 0 1 50 636 Tm (recreate ```) Tj
+1 0 0 1 50 620 Tm () Tj
+1 0 0 1 50 610 Tm () Tj
+1 0 0 1 50 596 Tm (3. **Clear Docker Cache**: ```powershell docker-compose build --no-cache docker-compose up -d ) Tj
+1 0 0 1 50 580 Tm (```) Tj
+1 0 0 1 50 564 Tm () Tj
+1 0 0 1 50 554 Tm () Tj
+1 0 0 1 50 540 Tm (? --) Tj
+1 0 0 1 50 524 Tm () Tj
+1 0 0 1 50 514 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 500 Tm (? Emergency Recovery) Tj
+/F1 12 Tf
+1 0 0 1 50 474 Tm () Tj
+1 0 0 1 50 468 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 454 Tm (Complete Platform Reset) Tj
+/F1 12 Tf
+1 0 0 1 50 432 Tm () Tj
+1 0 0 1 50 426 Tm (If nothing else works, perform a complete reset:) Tj
+1 0 0 1 50 410 Tm () Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 386 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 382 Tm (# 1. Stop everything) Tj
+1 0 0 1 50 369 Tm (docker stop $\(docker ps -aq\)) Tj
+1 0 0 1 50 356 Tm () Tj
+1 0 0 1 50 343 Tm (# 2. Remove all containers) Tj
+1 0 0 1 50 330 Tm (docker rm $\(docker ps -aq\)) Tj
+1 0 0 1 50 317 Tm () Tj
+1 0 0 1 50 304 Tm (# 3. Remove all volumes \(DATA LOSS!\)) Tj
+1 0 0 1 50 291 Tm (docker volume prune -f) Tj
+1 0 0 1 50 278 Tm () Tj
+1 0 0 1 50 265 Tm (# 4. Remove all networks) Tj
+1 0 0 1 50 252 Tm (docker network prune -f) Tj
+1 0 0 1 50 239 Tm () Tj
+1 0 0 1 50 226 Tm (# 5. Remove all images \(optional\)) Tj
+1 0 0 1 50 213 Tm (docker image prune -a -f) Tj
+1 0 0 1 50 200 Tm () Tj
+1 0 0 1 50 187 Tm (# 6. Restart Docker Desktop) Tj
+1 0 0 1 50 174 Tm (# - Docker Desktop > Restart) Tj
+1 0 0 1 50 161 Tm () Tj
+1 0 0 1 50 148 Tm (# 7. Rebuild platform) Tj
+1 0 0 1 50 135 Tm (.\\rebuild-platform.ps1) Tj
+/F1 12 Tf
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 110 Tm () Tj
+1 0 0 1 50 96 Tm (? --) Tj
+1 0 0 1 50 80 Tm () Tj
+1 0 0 1 50 70 Tm () Tj
+ET
+endstream
+endobj
+76 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 75 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+77 0 obj
+<< /Length 2517 >>
+stream
+BT
+/F1 12 Tf
+/F1 20 Tf
+1 0 0 1 50 790 Tm (? Getting Help) Tj
+/F1 12 Tf
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 758 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 744 Tm (Collect Diagnostic Information) Tj
+/F1 12 Tf
+1 0 0 1 50 722 Tm () Tj
+1 0 0 1 50 716 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 712 Tm (# Generate system report) Tj
+1 0 0 1 50 699 Tm (docker info > system-report.txt) Tj
+1 0 0 1 50 686 Tm (docker ps -a >> system-report.txt) Tj
+1 0 0 1 50 673 Tm (docker stats --no-stream >> system-report.txt) Tj
+1 0 0 1 50 660 Tm (docker volume ls >> system-report.txt) Tj
+1 0 0 1 50 647 Tm (docker network ls >> system-report.txt) Tj
+1 0 0 1 50 634 Tm (.\\validate-platform.ps1 -Detailed >> system-report.txt) Tj
+/F1 12 Tf
+1 0 0 1 50 621 Tm () Tj
+1 0 0 1 50 609 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 595 Tm (Check Service Logs) Tj
+/F1 12 Tf
+1 0 0 1 50 573 Tm () Tj
+1 0 0 1 50 567 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 563 Tm (# Export logs from all containers) Tj
+1 0 0 1 50 550 Tm (docker logs postgres > logs/postgres.log 2>&1) Tj
+1 0 0 1 50 537 Tm (docker logs redis > logs/redis.log 2>&1) Tj
+1 0 0 1 50 524 Tm (docker logs ollama > logs/ollama.log 2>&1) Tj
+1 0 0 1 50 511 Tm (docker logs prometheus > logs/prometheus.log 2>&1) Tj
+/F1 12 Tf
+1 0 0 1 50 498 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 472 Tm (? --) Tj
+1 0 0 1 50 456 Tm () Tj
+1 0 0 1 50 446 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 432 Tm (? Prevention Tips) Tj
+/F1 12 Tf
+1 0 0 1 50 406 Tm () Tj
+1 0 0 1 50 400 Tm () Tj
+1 0 0 1 50 386 Tm (1. **Regular Health Checks**: ```powershell .\\validate-platform.ps1 -Continuous -Interval 300 ) Tj
+1 0 0 1 50 370 Tm (```) Tj
+1 0 0 1 50 354 Tm () Tj
+1 0 0 1 50 344 Tm () Tj
+1 0 0 1 50 330 Tm (2. **Monitor Resource Usage**: - Keep an eye on CPU/RAM/Disk usage - Set up alerts in ) Tj
+1 0 0 1 50 314 Tm (Prometheus) Tj
+1 0 0 1 50 298 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+1 0 0 1 50 274 Tm (3. **Regular Backups**: - Backup volumes regularly - Export important configurations) Tj
+1 0 0 1 50 258 Tm () Tj
+1 0 0 1 50 248 Tm () Tj
+1 0 0 1 50 234 Tm (4. **Keep Docker Updated**: - Update Docker Desktop regularly - Update container images ) Tj
+1 0 0 1 50 218 Tm (periodically) Tj
+1 0 0 1 50 202 Tm () Tj
+1 0 0 1 50 192 Tm () Tj
+1 0 0 1 50 178 Tm (5. **Documentation**: - Document custom configurations - Keep track of changes) Tj
+1 0 0 1 50 162 Tm () Tj
+1 0 0 1 50 152 Tm () Tj
+1 0 0 1 50 138 Tm (? --) Tj
+1 0 0 1 50 122 Tm () Tj
+1 0 0 1 50 112 Tm () Tj
+1 0 0 1 50 98 Tm (? *Last Updated**: 2026-01-16) Tj
+1 0 0 1 50 82 Tm () Tj
+1 0 0 1 50 72 Tm () Tj
+1 0 0 1 50 58 Tm () Tj
+ET
+endstream
+endobj
+78 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 77 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+79 0 obj
+<< /Length 2407 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 776 Tm (SOURCE: RUNNER-SETUP.md) Tj
+/F1 12 Tf
+1 0 0 1 50 746 Tm () Tj
+1 0 0 1 50 740 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 726 Tm (GitLab Runner with Docker-in-Docker \(DinD\) Setup) Tj
+/F1 12 Tf
+1 0 0 1 50 696 Tm () Tj
+1 0 0 1 50 690 Tm () Tj
+1 0 0 1 50 676 Tm (Complete guide for configuring a GitLab runner capable of building and pushing Docker images to) Tj
+1 0 0 1 50 660 Tm ( Nexus registry.) Tj
+1 0 0 1 50 644 Tm () Tj
+1 0 0 1 50 634 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 620 Tm (Quick Start) Tj
+/F1 12 Tf
+1 0 0 1 50 594 Tm () Tj
+1 0 0 1 50 588 Tm () Tj
+1 0 0 1 50 574 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 570 Tm (cd files) Tj
+1 0 0 1 50 557 Tm (.\\setup-gitlab-runner-dind.ps1 -GitLabUrl "http://gitlab-server" -RunnerName "docker-dind-runner") Tj
+/F1 12 Tf
+1 0 0 1 50 544 Tm () Tj
+1 0 0 1 50 532 Tm () Tj
+1 0 0 1 50 518 Tm (The script will: 1. Verify Docker is running 2. Create the `modernization-network` bridge \(if ) Tj
+1 0 0 1 50 502 Tm (needed\) 3. Generate runner configuration with DinD support 4. Optionally start the runner ) Tj
+1 0 0 1 50 486 Tm (container) Tj
+1 0 0 1 50 470 Tm () Tj
+1 0 0 1 50 460 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 446 Tm (Architecture) Tj
+/F1 12 Tf
+1 0 0 1 50 420 Tm () Tj
+1 0 0 1 50 414 Tm () Tj
+1 0 0 1 50 400 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 396 Tm (GitLab CI/CD Pipeline \(.gitlab-ci.yml\)) Tj
+1 0 0 1 50 383 Tm (        ?) Tj
+1 0 0 1 50 370 Tm (  docker_build job) Tj
+1 0 0 1 50 357 Tm (        ?) Tj
+1 0 0 1 50 344 Tm (Runner \(docker executor\)) Tj
+1 0 0 1 50 331 Tm (        ?) Tj
+1 0 0 1 50 318 Tm (DinD Service \(docker:24-dind\)) Tj
+1 0 0 1 50 305 Tm (        ?) Tj
+1 0 0 1 50 292 Tm (Docker Socket Sharing \(/var/run/docker.sock\)) Tj
+1 0 0 1 50 279 Tm (        ?) Tj
+1 0 0 1 50 266 Tm (Build & Push to Nexus Registry) Tj
+/F1 12 Tf
+1 0 0 1 50 253 Tm () Tj
+1 0 0 1 50 241 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 227 Tm (Configuration Details) Tj
+/F1 12 Tf
+1 0 0 1 50 201 Tm () Tj
+1 0 0 1 50 195 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 181 Tm (Runner Configuration \(`runner-config.toml`\)) Tj
+/F1 12 Tf
+1 0 0 1 50 159 Tm () Tj
+1 0 0 1 50 153 Tm () Tj
+1 0 0 1 50 139 Tm (Key settings for Docker-in-Docker:) Tj
+1 0 0 1 50 123 Tm () Tj
+1 0 0 1 50 113 Tm () Tj
+1 0 0 1 50 99 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 95 Tm ([[runners]]) Tj
+1 0 0 1 50 82 Tm (  name = "docker-dind-runner") Tj
+1 0 0 1 50 69 Tm (  executor = "docker") Tj
+1 0 0 1 50 56 Tm (  ) Tj
+ET
+endstream
+endobj
+80 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 79 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+81 0 obj
+<< /Length 2976 >>
+stream
+BT
+/F1 12 Tf
+/F2 11 Tf
+1 0 0 1 50 790 Tm (  [runners.docker]) Tj
+1 0 0 1 50 777 Tm (    image = "docker:24-cli"           # Lightweight Docker client) Tj
+1 0 0 1 50 764 Tm (    privileged = true                 # Required for Docker operations) Tj
+1 0 0 1 50 751 Tm (    volumes = [) Tj
+1 0 0 1 50 738 Tm (      "/cache",) Tj
+1 0 0 1 50 725 Tm (      "/var/run/docker.sock:/var/run/docker.sock"  # Access host Docker daemon) Tj
+1 0 0 1 50 712 Tm (    ]) Tj
+1 0 0 1 50 699 Tm (    shm_size = 2147483648            # 2GB for builds) Tj
+1 0 0 1 50 686 Tm (    network_mode = "modernization-network") Tj
+1 0 0 1 50 673 Tm (    ) Tj
+1 0 0 1 50 660 Tm (    [[runners.docker.services]]) Tj
+1 0 0 1 50 647 Tm (      name = "docker:24-dind"         # Docker-in-Docker service) Tj
+1 0 0 1 50 634 Tm (      alias = "docker") Tj
+1 0 0 1 50 621 Tm (      command = ["--tls=false"]       # Disable TLS for reliability) Tj
+/F1 12 Tf
+1 0 0 1 50 608 Tm () Tj
+1 0 0 1 50 596 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 582 Tm (CI/CD Pipeline Configuration) Tj
+/F1 12 Tf
+1 0 0 1 50 560 Tm () Tj
+1 0 0 1 50 554 Tm () Tj
+1 0 0 1 50 540 Tm (In your `.gitlab-ci.yml`:) Tj
+1 0 0 1 50 524 Tm () Tj
+1 0 0 1 50 514 Tm () Tj
+1 0 0 1 50 500 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 496 Tm (docker_build:) Tj
+1 0 0 1 50 483 Tm (  stage: docker) Tj
+1 0 0 1 50 470 Tm (  image: docker:24-cli) Tj
+1 0 0 1 50 457 Tm (  services:) Tj
+1 0 0 1 50 444 Tm (    - name: docker:24-dind) Tj
+1 0 0 1 50 431 Tm (      alias: docker) Tj
+1 0 0 1 50 418 Tm (      command: ["--tls=false"]) Tj
+1 0 0 1 50 405 Tm (  ) Tj
+1 0 0 1 50 392 Tm (  variables:) Tj
+1 0 0 1 50 379 Tm (    DOCKER_TLS_CERTDIR: ""             # Required for DinD) Tj
+1 0 0 1 50 366 Tm (    DOCKER_HOST: tcp://docker:2375     # DinD endpoint) Tj
+1 0 0 1 50 353 Tm (    DOCKER_DRIVER: overlay2) Tj
+1 0 0 1 50 340 Tm (    FF_NETWORK_PER_BUILD: "true"       # Per-build network isolation) Tj
+1 0 0 1 50 327 Tm (    FF_DOCKER_LAYER_CACHING: "true"    # Cache Docker layers) Tj
+1 0 0 1 50 314 Tm (    DOCKER_REGISTRY: nexus-docker:5001) Tj
+1 0 0 1 50 301 Tm (    DOCKER_IMAGE_NAME: java-app) Tj
+1 0 0 1 50 288 Tm (  ) Tj
+1 0 0 1 50 275 Tm (  before_script:) Tj
+1 0 0 1 50 262 Tm (    - sleep 5                          # Wait for DinD service) Tj
+1 0 0 1 50 249 Tm (    - docker info                      # Verify connectivity) Tj
+1 0 0 1 50 236 Tm (    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY) Tj
+1 0 0 1 50 223 Tm (  ) Tj
+1 0 0 1 50 210 Tm (  script:) Tj
+1 0 0 1 50 197 Tm (    - docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest .) Tj
+1 0 0 1 50 184 Tm (    - docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest) Tj
+/F1 12 Tf
+1 0 0 1 50 171 Tm () Tj
+1 0 0 1 50 159 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 145 Tm (Manual Runner Registration) Tj
+/F1 12 Tf
+1 0 0 1 50 119 Tm () Tj
+1 0 0 1 50 113 Tm () Tj
+1 0 0 1 50 99 Tm (If you prefer manual setup instead of the PowerShell script:) Tj
+1 0 0 1 50 83 Tm () Tj
+1 0 0 1 50 73 Tm () Tj
+ET
+endstream
+endobj
+82 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 81 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+83 0 obj
+<< /Length 2549 >>
+stream
+BT
+/F1 12 Tf
+/F1 16 Tf
+1 0 0 1 50 790 Tm (1. Create Configuration File) Tj
+/F1 12 Tf
+1 0 0 1 50 768 Tm () Tj
+1 0 0 1 50 762 Tm () Tj
+1 0 0 1 50 748 Tm (Create `~/.gitlab-runner/config.toml`:) Tj
+1 0 0 1 50 732 Tm () Tj
+1 0 0 1 50 722 Tm () Tj
+1 0 0 1 50 708 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 704 Tm (concurrent = 3) Tj
+1 0 0 1 50 691 Tm (check_interval = 0) Tj
+1 0 0 1 50 678 Tm () Tj
+1 0 0 1 50 665 Tm ([session_server]) Tj
+1 0 0 1 50 652 Tm (  session_timeout = 1800) Tj
+1 0 0 1 50 639 Tm () Tj
+1 0 0 1 50 626 Tm ([[runners]]) Tj
+1 0 0 1 50 613 Tm (  name = "docker-dind-runner") Tj
+1 0 0 1 50 600 Tm (  url = "http://gitlab-server") Tj
+1 0 0 1 50 587 Tm (  token = "YOUR_REGISTRATION_TOKEN") Tj
+1 0 0 1 50 574 Tm (  executor = "docker") Tj
+1 0 0 1 50 561 Tm (  ) Tj
+1 0 0 1 50 548 Tm (  [runners.docker]) Tj
+1 0 0 1 50 535 Tm (    image = "docker:24-cli") Tj
+1 0 0 1 50 522 Tm (    privileged = true) Tj
+1 0 0 1 50 509 Tm (    volumes = ["/cache", "/var/run/docker.sock:/var/run/docker.sock"]) Tj
+1 0 0 1 50 496 Tm (    shm_size = 2147483648) Tj
+1 0 0 1 50 483 Tm (    network_mode = "modernization-network") Tj
+1 0 0 1 50 470 Tm (    ) Tj
+1 0 0 1 50 457 Tm (    [[runners.docker.services]]) Tj
+1 0 0 1 50 444 Tm (      name = "docker:24-dind") Tj
+1 0 0 1 50 431 Tm (      alias = "docker") Tj
+1 0 0 1 50 418 Tm (      command = ["--tls=false"]) Tj
+/F1 12 Tf
+1 0 0 1 50 405 Tm () Tj
+1 0 0 1 50 393 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 379 Tm (2. Run the Runner Container) Tj
+/F1 12 Tf
+1 0 0 1 50 357 Tm () Tj
+1 0 0 1 50 351 Tm () Tj
+1 0 0 1 50 337 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 333 Tm (docker run -d \\) Tj
+1 0 0 1 50 320 Tm (  --name gitlab-runner \\) Tj
+1 0 0 1 50 307 Tm (  --restart unless-stopped \\) Tj
+1 0 0 1 50 294 Tm (  --network modernization-network \\) Tj
+1 0 0 1 50 281 Tm (  -v ~/.gitlab-runner/config.toml:/etc/gitlab-runner/config.toml:ro \\) Tj
+1 0 0 1 50 268 Tm (  -v /var/run/docker.sock:/var/run/docker.sock \\) Tj
+1 0 0 1 50 255 Tm (  gitlab/gitlab-runner:latest) Tj
+/F1 12 Tf
+1 0 0 1 50 242 Tm () Tj
+1 0 0 1 50 230 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 216 Tm (3. Verify the Runner is Running) Tj
+/F1 12 Tf
+1 0 0 1 50 194 Tm () Tj
+1 0 0 1 50 188 Tm () Tj
+1 0 0 1 50 174 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 170 Tm (docker logs -f gitlab-runner) Tj
+/F1 12 Tf
+1 0 0 1 50 157 Tm () Tj
+1 0 0 1 50 145 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 131 Tm (GitLab CI/CD Variables Setup) Tj
+/F1 12 Tf
+1 0 0 1 50 105 Tm () Tj
+1 0 0 1 50 99 Tm () Tj
+1 0 0 1 50 85 Tm (Set these in GitLab \(Settings > CI/CD > Variables\):) Tj
+1 0 0 1 50 69 Tm () Tj
+1 0 0 1 50 59 Tm () Tj
+ET
+endstream
+endobj
+84 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 83 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+85 0 obj
+<< /Length 2868 >>
+stream
+BT
+/F1 12 Tf
+/F2 11 Tf
+1 0 0 1 50 790 Tm (+----------------------------+---------------------+---------+) Tj
+1 0 0 1 50 777 Tm (| Variable                   | Value               | Masked  |) Tj
+1 0 0 1 50 764 Tm (+----------------------------+---------------------+---------+) Tj
+1 0 0 1 50 751 Tm (| `DOCKER_REGISTRY_USER`     | Nexus username      | No      |) Tj
+1 0 0 1 50 738 Tm (| `DOCKER_REGISTRY_PASSWORD` | Nexus password      | **Yes** |) Tj
+1 0 0 1 50 725 Tm (| `DOCKER_REGISTRY`          | `nexus-docker:5001` | No      |) Tj
+1 0 0 1 50 712 Tm (| `DOCKER_IMAGE_NAME`        | `java-app`          | No      |) Tj
+1 0 0 1 50 699 Tm (+----------------------------+---------------------+---------+) Tj
+/F1 12 Tf
+1 0 0 1 50 686 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 674 Tm (Network Configuration) Tj
+/F1 12 Tf
+1 0 0 1 50 648 Tm () Tj
+1 0 0 1 50 642 Tm () Tj
+1 0 0 1 50 628 Tm (The runner must be on the same Docker network as Nexus:) Tj
+1 0 0 1 50 612 Tm () Tj
+1 0 0 1 50 602 Tm () Tj
+1 0 0 1 50 588 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 584 Tm (# Verify network exists) Tj
+1 0 0 1 50 571 Tm (docker network ls | grep modernization-network) Tj
+1 0 0 1 50 558 Tm () Tj
+1 0 0 1 50 545 Tm (# Create if missing) Tj
+1 0 0 1 50 532 Tm (docker network create modernization-network) Tj
+/F1 12 Tf
+1 0 0 1 50 519 Tm () Tj
+1 0 0 1 50 507 Tm () Tj
+1 0 0 1 50 493 Tm (All services communicate by container name: - `nexus-docker:5001` ? Nexus Docker registry - ) Tj
+1 0 0 1 50 477 Tm (`docker:2375` ? DinD service endpoint) Tj
+1 0 0 1 50 461 Tm () Tj
+1 0 0 1 50 451 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 437 Tm (Troubleshooting) Tj
+/F1 12 Tf
+1 0 0 1 50 411 Tm () Tj
+1 0 0 1 50 405 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 391 Tm (Runner Won't Connect to GitLab) Tj
+/F1 12 Tf
+1 0 0 1 50 369 Tm () Tj
+1 0 0 1 50 363 Tm () Tj
+1 0 0 1 50 349 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 345 Tm (# Check runner logs) Tj
+1 0 0 1 50 332 Tm (docker logs gitlab-runner) Tj
+1 0 0 1 50 319 Tm () Tj
+1 0 0 1 50 306 Tm (# Verify GitLab is reachable) Tj
+1 0 0 1 50 293 Tm (docker exec gitlab-runner ping gitlab-server) Tj
+1 0 0 1 50 280 Tm () Tj
+1 0 0 1 50 267 Tm (# Test from runner container) Tj
+1 0 0 1 50 254 Tm (docker run --rm --network modernization-network curlimages/curl curl http://gitlab-server) Tj
+/F1 12 Tf
+1 0 0 1 50 241 Tm () Tj
+1 0 0 1 50 229 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 215 Tm (Docker Commands Fail in Pipeline) Tj
+/F1 12 Tf
+1 0 0 1 50 193 Tm () Tj
+1 0 0 1 50 187 Tm () Tj
+1 0 0 1 50 173 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 169 Tm (# Check DinD service connectivity) Tj
+1 0 0 1 50 156 Tm (docker exec gitlab-runner docker info) Tj
+1 0 0 1 50 143 Tm () Tj
+1 0 0 1 50 130 Tm (# Verify socket binding) Tj
+1 0 0 1 50 117 Tm (docker inspect gitlab-runner | grep -A 10 Mounts) Tj
+/F1 12 Tf
+1 0 0 1 50 104 Tm () Tj
+1 0 0 1 50 92 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 78 Tm (Image Push Fails to Nexus) Tj
+/F1 12 Tf
+1 0 0 1 50 56 Tm () Tj
+ET
+endstream
+endobj
+86 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 85 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+87 0 obj
+<< /Length 2761 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+1 0 0 1 50 776 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 772 Tm (# Verify Nexus is accessible) Tj
+1 0 0 1 50 759 Tm (docker run --rm --network modernization-network curlimages/curl curl http://nexus-docker:5001/v2/) Tj
+1 0 0 1 50 746 Tm () Tj
+1 0 0 1 50 733 Tm (# Check registry credentials in pipeline logs) Tj
+1 0 0 1 50 720 Tm (# \(ensure DOCKER_REGISTRY_PASSWORD is masked in CI/CD variables\)) Tj
+1 0 0 1 50 707 Tm () Tj
+1 0 0 1 50 694 Tm (# Test login locally) Tj
+1 0 0 1 50 681 Tm (docker login -u admin -p admin123 nexus-docker:5001) Tj
+/F1 12 Tf
+1 0 0 1 50 668 Tm () Tj
+1 0 0 1 50 656 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 642 Tm (Out of Disk Space During Builds) Tj
+/F1 12 Tf
+1 0 0 1 50 620 Tm () Tj
+1 0 0 1 50 614 Tm () Tj
+1 0 0 1 50 600 Tm (The `shm_size = 2147483648` \(2GB\) might need adjustment: - Increase for large Docker image ) Tj
+1 0 0 1 50 584 Tm (builds - Decrease if system RAM is limited) Tj
+1 0 0 1 50 568 Tm () Tj
+1 0 0 1 50 558 Tm () Tj
+1 0 0 1 50 544 Tm (Update in `runner-config.toml` and restart runner:) Tj
+1 0 0 1 50 528 Tm () Tj
+1 0 0 1 50 518 Tm () Tj
+1 0 0 1 50 504 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 500 Tm (docker restart gitlab-runner) Tj
+/F1 12 Tf
+1 0 0 1 50 487 Tm () Tj
+1 0 0 1 50 475 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 461 Tm (Maintenance) Tj
+/F1 12 Tf
+1 0 0 1 50 435 Tm () Tj
+1 0 0 1 50 429 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 415 Tm (View Active Jobs) Tj
+/F1 12 Tf
+1 0 0 1 50 393 Tm () Tj
+1 0 0 1 50 387 Tm () Tj
+1 0 0 1 50 373 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 369 Tm (docker exec gitlab-runner gitlab-runner --debug list) Tj
+/F1 12 Tf
+1 0 0 1 50 356 Tm () Tj
+1 0 0 1 50 344 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 330 Tm (Update Runner Version) Tj
+/F1 12 Tf
+1 0 0 1 50 308 Tm () Tj
+1 0 0 1 50 302 Tm () Tj
+1 0 0 1 50 288 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 284 Tm (docker pull gitlab/gitlab-runner:latest) Tj
+1 0 0 1 50 271 Tm (docker restart gitlab-runner) Tj
+/F1 12 Tf
+1 0 0 1 50 258 Tm () Tj
+1 0 0 1 50 246 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 232 Tm (Rotate Runner Token) Tj
+/F1 12 Tf
+1 0 0 1 50 210 Tm () Tj
+1 0 0 1 50 204 Tm () Tj
+1 0 0 1 50 190 Tm (1. In GitLab: Settings > CI/CD > Runners > Click runner > Rotate token 2. Update `runner-) Tj
+1 0 0 1 50 174 Tm (config.toml` with new token 3. Restart runner: `docker restart gitlab-runner`) Tj
+1 0 0 1 50 158 Tm () Tj
+1 0 0 1 50 148 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 134 Tm (Performance Tips) Tj
+/F1 12 Tf
+1 0 0 1 50 108 Tm () Tj
+1 0 0 1 50 102 Tm () Tj
+1 0 0 1 50 88 Tm (1. **Cache Docker Layers**: Enable `FF_DOCKER_LAYER_CACHING` to reuse build layers 2. ) Tj
+1 0 0 1 50 72 Tm (**Parallel Builds**: Set `concurrent = 3` \(or higher\) for multiple simultaneous jobs 3. ) Tj
+1 0 0 1 50 56 Tm (**Shared Memory**: Increase `shm_size` if experiencing OOM errors 4. **Network**: Use ) Tj
+ET
+endstream
+endobj
+88 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 87 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+89 0 obj
+<< /Length 2679 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (`network_mode = "modernization-network"` for service communication) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 750 Tm (Security Considerations) Tj
+/F1 12 Tf
+1 0 0 1 50 724 Tm () Tj
+1 0 0 1 50 718 Tm () Tj
+1 0 0 1 50 704 Tm (?? **Production Deployment**: - Use TLS with proper certificates \(set `tls_verify = true`\) - ) Tj
+1 0 0 1 50 688 Tm (Don't share `/var/run/docker.sock` in production \(security risk\) - Use dedicated runner host ) Tj
+1 0 0 1 50 672 Tm (with proper isolation - Rotate credentials regularly - Use masked CI/CD variables for secrets -) Tj
+1 0 0 1 50 656 Tm ( Restrict runner to specific projects/tags) Tj
+1 0 0 1 50 640 Tm () Tj
+1 0 0 1 50 630 Tm () Tj
+1 0 0 1 50 616 Tm (For production, consider using Kubernetes executor with isolated pod security policies instead ) Tj
+1 0 0 1 50 600 Tm (of Docker executor.) Tj
+1 0 0 1 50 584 Tm () Tj
+1 0 0 1 50 574 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 560 Tm (References) Tj
+/F1 12 Tf
+1 0 0 1 50 534 Tm () Tj
+1 0 0 1 50 528 Tm () Tj
+1 0 0 1 50 514 Tm (? [GitLab Runner Documentation]\(https://docs.gitlab.com/runner/\)) Tj
+1 0 0 1 50 498 Tm (? [Docker-in-Docker ) Tj
+1 0 0 1 50 482 Tm (  Executor]\(https://docs.gitlab.com/runner/executors/docker.html#docker-in-docker\)) Tj
+1 0 0 1 50 466 Tm (? [Docker Service Variables]\(https://docs.gitlab.com/ee/ci/services/\)) Tj
+1 0 0 1 50 450 Tm (? [Nexus Docker Repository]\(https://help.sonatype.com/repomanager3/formats/docker-) Tj
+1 0 0 1 50 434 Tm (  registry\)) Tj
+1 0 0 1 50 418 Tm () Tj
+1 0 0 1 50 408 Tm () Tj
+1 0 0 1 50 394 Tm () Tj
+1 0 0 1 50 380 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 366 Tm (SOURCE: RUNNER-SETUP-SUMMARY.md) Tj
+/F1 12 Tf
+1 0 0 1 50 336 Tm () Tj
+1 0 0 1 50 330 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 316 Tm (GitLab Runner DinD Configuration - Complete Setup) Tj
+/F1 12 Tf
+1 0 0 1 50 286 Tm () Tj
+1 0 0 1 50 280 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 266 Tm (What Was Configured) Tj
+/F1 12 Tf
+1 0 0 1 50 240 Tm () Tj
+1 0 0 1 50 234 Tm () Tj
+1 0 0 1 50 220 Tm (Your GitLab runner is now configured with **Docker-in-Docker \(DinD\)** capability for building ) Tj
+1 0 0 1 50 204 Tm (and pushing Docker images to Nexus registry.) Tj
+1 0 0 1 50 188 Tm () Tj
+1 0 0 1 50 178 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 164 Tm (Files Modified/Created) Tj
+/F1 12 Tf
+1 0 0 1 50 138 Tm () Tj
+1 0 0 1 50 132 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 118 Tm (1. Runner Configuration) Tj
+/F1 12 Tf
+1 0 0 1 50 96 Tm () Tj
+1 0 0 1 50 90 Tm (? *[java-pipeline/runner-config.toml]\(java-pipeline/runner-config.toml\)**) Tj
+1 0 0 1 50 74 Tm (? Updated concurrent jobs from 1 to 3) Tj
+1 0 0 1 50 58 Tm (? Added DinD service configuration with `docker:24-dind`) Tj
+ET
+endstream
+endobj
+90 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 89 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+91 0 obj
+<< /Length 2841 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (? Enabled Docker socket sharing \(`/var/run/docker.sock`\)) Tj
+1 0 0 1 50 774 Tm (? Configured `modernization-network` for service communication) Tj
+1 0 0 1 50 758 Tm (? Set 2GB shared memory for Docker operations) Tj
+1 0 0 1 50 742 Tm () Tj
+1 0 0 1 50 732 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 718 Tm (2. CI/CD Pipeline) Tj
+/F1 12 Tf
+1 0 0 1 50 696 Tm () Tj
+1 0 0 1 50 690 Tm (? *[java-pipeline/.gitlab-ci.yml]\(java-pipeline/.gitlab-ci.yml\)**) Tj
+1 0 0 1 50 674 Tm (? Enhanced Docker build job with DinD variables) Tj
+1 0 0 1 50 658 Tm (? Added environment variables for Docker registry) Tj
+1 0 0 1 50 642 Tm (? Configured DinD service with TLS disabled \(for reliability\)) Tj
+1 0 0 1 50 626 Tm (? Added layer caching flags for faster builds) Tj
+1 0 0 1 50 610 Tm () Tj
+1 0 0 1 50 600 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 586 Tm (3. Setup Script \(NEW\)) Tj
+/F1 12 Tf
+1 0 0 1 50 564 Tm () Tj
+1 0 0 1 50 558 Tm (? *[files/setup-gitlab-runner-dind.ps1]\(files/setup-gitlab-runner-dind.ps1\)**) Tj
+1 0 0 1 50 542 Tm (? PowerShell script for automatic runner setup) Tj
+1 0 0 1 50 526 Tm (? Creates runner configuration with DinD enabled) Tj
+1 0 0 1 50 510 Tm (? Starts GitLab runner container) Tj
+1 0 0 1 50 494 Tm (? Provides comprehensive setup guidance) Tj
+1 0 0 1 50 478 Tm () Tj
+1 0 0 1 50 468 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 454 Tm (4. Documentation \(NEW\)) Tj
+/F1 12 Tf
+1 0 0 1 50 432 Tm () Tj
+1 0 0 1 50 426 Tm (? *[files/RUNNER-SETUP.md]\(files/RUNNER-SETUP.md\)**) Tj
+1 0 0 1 50 410 Tm (? Complete runner setup guide) Tj
+1 0 0 1 50 394 Tm (? Configuration explanations) Tj
+1 0 0 1 50 378 Tm (? Troubleshooting section) Tj
+1 0 0 1 50 362 Tm (? Security considerations) Tj
+1 0 0 1 50 346 Tm (? Performance optimization tips) Tj
+1 0 0 1 50 330 Tm () Tj
+1 0 0 1 50 320 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 306 Tm (Quick Setup Steps) Tj
+/F1 12 Tf
+1 0 0 1 50 280 Tm () Tj
+1 0 0 1 50 274 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 260 Tm (Step 1: Run the Setup Script) Tj
+/F1 12 Tf
+1 0 0 1 50 238 Tm () Tj
+1 0 0 1 50 232 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 228 Tm (cd files) Tj
+1 0 0 1 50 215 Tm (.\\setup-gitlab-runner-dind.ps1 -GitLabUrl "http://gitlab-server" -RunnerName "docker-dind-runner") Tj
+/F1 12 Tf
+1 0 0 1 50 202 Tm () Tj
+1 0 0 1 50 190 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 176 Tm (Step 2: Configure GitLab CI/CD Variables) Tj
+/F1 12 Tf
+1 0 0 1 50 154 Tm () Tj
+1 0 0 1 50 148 Tm (In GitLab UI \(Settings > CI/CD > Variables\): - `DOCKER_REGISTRY_USER`: Your Nexus username - ) Tj
+1 0 0 1 50 132 Tm (`DOCKER_REGISTRY_PASSWORD`: Your Nexus password \(mark as **Masked**\) - `DOCKER_REGISTRY`: ) Tj
+1 0 0 1 50 116 Tm (`nexus-docker:5001` - `DOCKER_IMAGE_NAME`: `java-app`) Tj
+1 0 0 1 50 100 Tm () Tj
+1 0 0 1 50 90 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 76 Tm (Step 3: Verify Runner is Running) Tj
+/F1 12 Tf
+1 0 0 1 50 54 Tm () Tj
+1 0 0 1 50 48 Tm () Tj
+ET
+endstream
+endobj
+92 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 91 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+93 0 obj
+<< /Length 2733 >>
+stream
+BT
+/F1 12 Tf
+/F2 11 Tf
+1 0 0 1 50 790 Tm (docker logs -f gitlab-runner) Tj
+/F1 12 Tf
+1 0 0 1 50 777 Tm () Tj
+1 0 0 1 50 765 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 751 Tm (Key Configuration Points) Tj
+/F1 12 Tf
+1 0 0 1 50 725 Tm () Tj
+1 0 0 1 50 719 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 705 Tm (DinD Service Setup) Tj
+/F1 12 Tf
+1 0 0 1 50 683 Tm () Tj
+1 0 0 1 50 677 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 673 Tm (services:) Tj
+1 0 0 1 50 660 Tm (  - name: docker:24-dind) Tj
+1 0 0 1 50 647 Tm (    alias: docker) Tj
+1 0 0 1 50 634 Tm (    command: ["--tls=false"]  # Reliability without TLS in dev) Tj
+/F1 12 Tf
+1 0 0 1 50 621 Tm () Tj
+1 0 0 1 50 609 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 595 Tm (Docker Socket Sharing) Tj
+/F1 12 Tf
+1 0 0 1 50 573 Tm () Tj
+1 0 0 1 50 567 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 563 Tm (volumes = [) Tj
+1 0 0 1 50 550 Tm (  "/cache",) Tj
+1 0 0 1 50 537 Tm (  "/var/run/docker.sock:/var/run/docker.sock"  # Access host Docker) Tj
+1 0 0 1 50 524 Tm (]) Tj
+/F1 12 Tf
+1 0 0 1 50 511 Tm () Tj
+1 0 0 1 50 499 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 485 Tm (Environment Variables) Tj
+/F1 12 Tf
+1 0 0 1 50 463 Tm () Tj
+1 0 0 1 50 457 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 453 Tm (DOCKER_TLS_CERTDIR: ""              # Required for DinD) Tj
+1 0 0 1 50 440 Tm (DOCKER_HOST: tcp://docker:2375      # DinD endpoint) Tj
+1 0 0 1 50 427 Tm (DOCKER_DRIVER: overlay2              # Efficient storage) Tj
+1 0 0 1 50 414 Tm (FF_DOCKER_LAYER_CACHING: "true"     # Reuse build layers) Tj
+/F1 12 Tf
+1 0 0 1 50 401 Tm () Tj
+1 0 0 1 50 389 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 375 Tm (How It Works) Tj
+/F1 12 Tf
+1 0 0 1 50 349 Tm () Tj
+1 0 0 1 50 343 Tm () Tj
+1 0 0 1 50 329 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 325 Tm (1. GitLab CI/CD triggers docker_build job) Tj
+1 0 0 1 50 312 Tm (   ?) Tj
+1 0 0 1 50 299 Tm (2. Job runs in docker:24-cli container) Tj
+1 0 0 1 50 286 Tm (   ?) Tj
+1 0 0 1 50 273 Tm (3. DinD service \(docker:24-dind\) provides Docker daemon) Tj
+1 0 0 1 50 260 Tm (   ?) Tj
+1 0 0 1 50 247 Tm (4. Job executes docker build/push commands) Tj
+1 0 0 1 50 234 Tm (   ?) Tj
+1 0 0 1 50 221 Tm (5. Image gets pushed to nexus-docker:5001 registry) Tj
+/F1 12 Tf
+1 0 0 1 50 208 Tm () Tj
+1 0 0 1 50 196 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 182 Tm (Docker Build Commands in Your Pipeline) Tj
+/F1 12 Tf
+1 0 0 1 50 156 Tm () Tj
+1 0 0 1 50 150 Tm () Tj
+1 0 0 1 50 136 Tm (Example in `.gitlab-ci.yml`: ```yaml script: - echo "$DOCKER_REGISTRY_PASSWORD" | docker login ) Tj
+1 0 0 1 50 120 Tm (-u "$DOCKER_REGISTRY_USER" --password-stdin $DOCKER_REGISTRY - docker build -t ) Tj
+1 0 0 1 50 104 Tm ($DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_SHA:0:8} . - docker push ) Tj
+1 0 0 1 50 88 Tm ($DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${CI_COMMIT_SHA:0:8} ```) Tj
+1 0 0 1 50 72 Tm () Tj
+1 0 0 1 50 62 Tm () Tj
+ET
+endstream
+endobj
+94 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 93 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+95 0 obj
+<< /Length 2481 >>
+stream
+BT
+/F1 12 Tf
+/F1 20 Tf
+1 0 0 1 50 790 Tm (Networking) Tj
+/F1 12 Tf
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 744 Tm (? All components use `modernization-network` bridge) Tj
+1 0 0 1 50 728 Tm (? Service discovery by container name:) Tj
+1 0 0 1 50 712 Tm (? `docker:2375` ? DinD daemon) Tj
+1 0 0 1 50 696 Tm (? `nexus-docker:5001` ? Nexus registry) Tj
+1 0 0 1 50 680 Tm (? `gitlab-server` ? GitLab instance) Tj
+1 0 0 1 50 664 Tm () Tj
+1 0 0 1 50 654 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 640 Tm (Validation) Tj
+/F1 12 Tf
+1 0 0 1 50 614 Tm () Tj
+1 0 0 1 50 608 Tm () Tj
+1 0 0 1 50 594 Tm (Check runner status: ```bash # View runner logs docker logs gitlab-runner) Tj
+1 0 0 1 50 578 Tm () Tj
+1 0 0 1 50 568 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 554 Tm (Test Docker connectivity) Tj
+/F1 12 Tf
+1 0 0 1 50 524 Tm () Tj
+1 0 0 1 50 518 Tm (docker exec gitlab-runner docker ps) Tj
+1 0 0 1 50 502 Tm () Tj
+1 0 0 1 50 492 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 478 Tm (List active jobs) Tj
+/F1 12 Tf
+1 0 0 1 50 448 Tm () Tj
+1 0 0 1 50 442 Tm (docker exec gitlab-runner gitlab-runner --debug list ```) Tj
+1 0 0 1 50 426 Tm () Tj
+1 0 0 1 50 416 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 402 Tm (Next Steps) Tj
+/F1 12 Tf
+1 0 0 1 50 376 Tm () Tj
+1 0 0 1 50 370 Tm () Tj
+1 0 0 1 50 356 Tm (1. Register runner with GitLab if not done automatically 2. Set CI/CD variables for Nexus ) Tj
+1 0 0 1 50 340 Tm (authentication 3. Trigger a test pipeline to verify Docker build works 4. Monitor logs: `docker) Tj
+1 0 0 1 50 324 Tm ( logs -f gitlab-runner`) Tj
+1 0 0 1 50 308 Tm () Tj
+1 0 0 1 50 298 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 284 Tm (Troubleshooting Reference) Tj
+/F1 12 Tf
+1 0 0 1 50 258 Tm () Tj
+1 0 0 1 50 252 Tm () Tj
+1 0 0 1 50 238 Tm (See [files/RUNNER-SETUP.md]\(files/RUNNER-SETUP.md\) for detailed troubleshooting: - Runner ) Tj
+1 0 0 1 50 222 Tm (connection issues - Docker daemon connectivity - Nexus registry authentication - Disk space and) Tj
+1 0 0 1 50 206 Tm ( memory issues) Tj
+1 0 0 1 50 190 Tm () Tj
+1 0 0 1 50 180 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 166 Tm (Security Notes) Tj
+/F1 12 Tf
+1 0 0 1 50 140 Tm () Tj
+1 0 0 1 50 134 Tm () Tj
+1 0 0 1 50 120 Tm (? **Development**: Current setup is fine for local development ?? **Production**: - Enable TLS ) Tj
+1 0 0 1 50 104 Tm (for DinD - Don't share docker.sock \(use Kubernetes executor instead\) - Use proper registry ) Tj
+1 0 0 1 50 88 Tm (authentication - Rotate credentials regularly - Add network policies) Tj
+1 0 0 1 50 72 Tm () Tj
+1 0 0 1 50 62 Tm () Tj
+ET
+endstream
+endobj
+96 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 95 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+97 0 obj
+<< /Length 3046 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm (For production, consider Kubernetes executor with pod security policies.) Tj
+1 0 0 1 50 774 Tm () Tj
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 750 Tm () Tj
+1 0 0 1 50 736 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 722 Tm (SOURCE: RUNNER-QUICK-REFERENCE.md) Tj
+/F1 12 Tf
+1 0 0 1 50 692 Tm () Tj
+1 0 0 1 50 686 Tm () Tj
+/F1 24 Tf
+1 0 0 1 50 672 Tm (GitLab Runner DinD - Quick Reference Card) Tj
+/F1 12 Tf
+1 0 0 1 50 642 Tm () Tj
+1 0 0 1 50 636 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 622 Tm (? Files Modified/Created) Tj
+/F1 12 Tf
+1 0 0 1 50 596 Tm () Tj
+1 0 0 1 50 590 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 576 Tm (+--------------------------------------+-------------+----------------------------------------+) Tj
+1 0 0 1 50 563 Tm (| File                                 | Change      | Purpose                                |) Tj
+1 0 0 1 50 550 Tm (+--------------------------------------+-------------+----------------------------------------+) Tj
+1 0 0 1 50 537 Tm (| `java-pipeline/runner-config.toml`   | ?? Modified | DinD runner config with socket sharing |) Tj
+1 0 0 1 50 524 Tm (| `java-pipeline/.gitlab-ci.yml`       | ?? Modified | Enhanced Docker build job variables    |) Tj
+1 0 0 1 50 511 Tm (| `files/setup-gitlab-runner-dind.ps1` | ? Created   | Automated runner setup script          |) Tj
+1 0 0 1 50 498 Tm (| `files/RUNNER-SETUP.md`              | ? Created   | Complete setup guide & troubleshooting |) Tj
+1 0 0 1 50 485 Tm (| `files/RUNNER-SETUP-SUMMARY.md`      | ? Created   | Configuration overview                 |) Tj
+1 0 0 1 50 472 Tm (| `files/gitlab-ci-dind-example.yml`   | ? Created   | Complete pipeline example              |) Tj
+1 0 0 1 50 459 Tm (+--------------------------------------+-------------+----------------------------------------+) Tj
+/F1 12 Tf
+1 0 0 1 50 446 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 434 Tm (? Quick Start) Tj
+/F1 12 Tf
+1 0 0 1 50 408 Tm () Tj
+1 0 0 1 50 402 Tm () Tj
+1 0 0 1 50 388 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 384 Tm (# 1. Run setup script) Tj
+1 0 0 1 50 371 Tm (cd files) Tj
+1 0 0 1 50 358 Tm (.\\setup-gitlab-runner-dind.ps1) Tj
+1 0 0 1 50 345 Tm () Tj
+1 0 0 1 50 332 Tm (# 2. Enter registration token when prompted \(from GitLab\)) Tj
+1 0 0 1 50 319 Tm (# 3. Script will start the runner) Tj
+1 0 0 1 50 306 Tm () Tj
+1 0 0 1 50 293 Tm (# 4. Set CI/CD variables in GitLab UI) Tj
+1 0 0 1 50 280 Tm (#    Settings > CI/CD > Variables:) Tj
+1 0 0 1 50 267 Tm (#    - DOCKER_REGISTRY_USER \(your Nexus username\)) Tj
+1 0 0 1 50 254 Tm (#    - DOCKER_REGISTRY_PASSWORD \(masked\)) Tj
+/F1 12 Tf
+1 0 0 1 50 241 Tm () Tj
+1 0 0 1 50 229 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 215 Tm (? Key Configuration) Tj
+/F1 12 Tf
+1 0 0 1 50 189 Tm () Tj
+1 0 0 1 50 183 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 169 Tm (DinD Service) Tj
+/F1 12 Tf
+1 0 0 1 50 147 Tm () Tj
+1 0 0 1 50 141 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 137 Tm (services:) Tj
+1 0 0 1 50 124 Tm (  - name: docker:24-dind) Tj
+1 0 0 1 50 111 Tm (    alias: docker) Tj
+1 0 0 1 50 98 Tm (    command: ["--tls=false"]) Tj
+/F1 12 Tf
+1 0 0 1 50 85 Tm () Tj
+1 0 0 1 50 73 Tm () Tj
+ET
+endstream
+endobj
+98 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 97 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+99 0 obj
+<< /Length 2698 >>
+stream
+BT
+/F1 12 Tf
+/F1 16 Tf
+1 0 0 1 50 790 Tm (Environment Variables) Tj
+/F1 12 Tf
+1 0 0 1 50 768 Tm () Tj
+1 0 0 1 50 762 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 758 Tm (DOCKER_TLS_CERTDIR: ""              # Required for DinD) Tj
+1 0 0 1 50 745 Tm (DOCKER_HOST: tcp://docker:2375      # DinD endpoint) Tj
+1 0 0 1 50 732 Tm (DOCKER_DRIVER: overlay2              # Storage driver) Tj
+/F1 12 Tf
+1 0 0 1 50 719 Tm () Tj
+1 0 0 1 50 707 Tm () Tj
+/F1 16 Tf
+1 0 0 1 50 693 Tm (Runner Settings) Tj
+/F1 12 Tf
+1 0 0 1 50 671 Tm () Tj
+1 0 0 1 50 665 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 661 Tm (privileged = true                    # Docker access) Tj
+1 0 0 1 50 648 Tm (volumes = [) Tj
+1 0 0 1 50 635 Tm (  "/var/run/docker.sock:/var/run/docker.sock"  # Socket sharing) Tj
+1 0 0 1 50 622 Tm (]) Tj
+1 0 0 1 50 609 Tm (shm_size = 2147483648               # 2GB shared memory) Tj
+/F1 12 Tf
+1 0 0 1 50 596 Tm () Tj
+1 0 0 1 50 584 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 570 Tm (? Verification Steps) Tj
+/F1 12 Tf
+1 0 0 1 50 544 Tm () Tj
+1 0 0 1 50 538 Tm () Tj
+1 0 0 1 50 524 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 520 Tm (# 1. Check runner is running) Tj
+1 0 0 1 50 507 Tm (docker ps | grep gitlab-runner) Tj
+1 0 0 1 50 494 Tm () Tj
+1 0 0 1 50 481 Tm (# 2. View logs) Tj
+1 0 0 1 50 468 Tm (docker logs -f gitlab-runner) Tj
+1 0 0 1 50 455 Tm () Tj
+1 0 0 1 50 442 Tm (# 3. Test Docker in runner) Tj
+1 0 0 1 50 429 Tm (docker exec gitlab-runner docker ps) Tj
+1 0 0 1 50 416 Tm () Tj
+1 0 0 1 50 403 Tm (# 4. Trigger test pipeline in GitLab) Tj
+1 0 0 1 50 390 Tm (# Watch the docker_build job in GitLab UI) Tj
+/F1 12 Tf
+1 0 0 1 50 377 Tm () Tj
+1 0 0 1 50 365 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 351 Tm (? GitLab CI/CD Variables Required) Tj
+/F1 12 Tf
+1 0 0 1 50 325 Tm () Tj
+1 0 0 1 50 319 Tm () Tj
+1 0 0 1 50 305 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 301 Tm (DOCKER_REGISTRY_USER       = <nexus-username>) Tj
+1 0 0 1 50 288 Tm (DOCKER_REGISTRY_PASSWORD   = <nexus-password> [MASKED]) Tj
+1 0 0 1 50 275 Tm (DOCKER_REGISTRY            = nexus-docker:5001) Tj
+1 0 0 1 50 262 Tm (DOCKER_IMAGE_NAME          = java-app) Tj
+/F1 12 Tf
+1 0 0 1 50 249 Tm () Tj
+1 0 0 1 50 237 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 223 Tm (? How DinD Works) Tj
+/F1 12 Tf
+1 0 0 1 50 197 Tm () Tj
+1 0 0 1 50 191 Tm () Tj
+1 0 0 1 50 177 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 173 Tm (CI Pipeline) Tj
+1 0 0 1 50 160 Tm (   ?) Tj
+1 0 0 1 50 147 Tm (Docker executor \(docker:24-cli\)) Tj
+1 0 0 1 50 134 Tm (   ?) Tj
+1 0 0 1 50 121 Tm (DinD service \(docker:24-dind\) provides Docker daemon) Tj
+1 0 0 1 50 108 Tm (   ?) Tj
+1 0 0 1 50 95 Tm (Runner can execute: docker build, docker push, etc.) Tj
+1 0 0 1 50 82 Tm (   ?) Tj
+1 0 0 1 50 69 Tm (Images pushed to Nexus registry \(5001\)) Tj
+/F1 12 Tf
+1 0 0 1 50 56 Tm () Tj
+ET
+endstream
+endobj
+100 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 99 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+101 0 obj
+<< /Length 2604 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 790 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 776 Tm (? Common Commands) Tj
+/F1 12 Tf
+1 0 0 1 50 750 Tm () Tj
+1 0 0 1 50 744 Tm () Tj
+1 0 0 1 50 730 Tm () Tj
+/F2 11 Tf
+1 0 0 1 50 726 Tm (# View runner logs) Tj
+1 0 0 1 50 713 Tm (docker logs gitlab-runner) Tj
+1 0 0 1 50 700 Tm () Tj
+1 0 0 1 50 687 Tm (# Restart runner) Tj
+1 0 0 1 50 674 Tm (docker restart gitlab-runner) Tj
+1 0 0 1 50 661 Tm () Tj
+1 0 0 1 50 648 Tm (# Check Docker daemon in runner) Tj
+1 0 0 1 50 635 Tm (docker exec gitlab-runner docker info) Tj
+1 0 0 1 50 622 Tm () Tj
+1 0 0 1 50 609 Tm (# List active jobs) Tj
+1 0 0 1 50 596 Tm (docker exec gitlab-runner gitlab-runner --debug list) Tj
+1 0 0 1 50 583 Tm () Tj
+1 0 0 1 50 570 Tm (# Rotate runner token \(after updating in GitLab\)) Tj
+1 0 0 1 50 557 Tm (docker restart gitlab-runner) Tj
+/F1 12 Tf
+1 0 0 1 50 544 Tm () Tj
+1 0 0 1 50 532 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 518 Tm (?? Important Notes) Tj
+/F1 12 Tf
+1 0 0 1 50 492 Tm () Tj
+1 0 0 1 50 486 Tm () Tj
+1 0 0 1 50 472 Tm (1. **TLS Disabled**: Using `--tls=false` for development reliability 2. **Privileged Mode**: ) Tj
+1 0 0 1 50 456 Tm (Required for Docker operations in CI 3. **Socket Sharing**: Allows accessing host Docker daemon) Tj
+1 0 0 1 50 440 Tm ( 4. **Network**: Runner must be on `modernization-network` 5. **Credentials**: Always mask ) Tj
+1 0 0 1 50 424 Tm (sensitive variables in GitLab) Tj
+1 0 0 1 50 408 Tm () Tj
+1 0 0 1 50 398 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 384 Tm (? Troubleshooting Quick Links) Tj
+/F1 12 Tf
+1 0 0 1 50 358 Tm () Tj
+1 0 0 1 50 352 Tm () Tj
+1 0 0 1 50 338 Tm (? Runner won't connect: Check GitLab URL and token in config) Tj
+1 0 0 1 50 322 Tm (? Docker commands fail: Verify `docker info` works in runner) Tj
+1 0 0 1 50 306 Tm (? Image push fails: Check Nexus credentials and registry URL) Tj
+1 0 0 1 50 290 Tm (? Out of memory: Increase `shm_size` in config) Tj
+1 0 0 1 50 274 Tm () Tj
+1 0 0 1 50 264 Tm () Tj
+1 0 0 1 50 250 Tm (See `files/RUNNER-SETUP.md` for detailed troubleshooting.) Tj
+1 0 0 1 50 234 Tm () Tj
+1 0 0 1 50 224 Tm () Tj
+/F1 20 Tf
+1 0 0 1 50 210 Tm (? Full Documentation) Tj
+/F1 12 Tf
+1 0 0 1 50 184 Tm () Tj
+1 0 0 1 50 178 Tm () Tj
+1 0 0 1 50 164 Tm (? **Setup Guide**: `files/RUNNER-SETUP.md`) Tj
+1 0 0 1 50 148 Tm (? **Configuration Summary**: `files/RUNNER-SETUP-SUMMARY.md`) Tj
+1 0 0 1 50 132 Tm (? **Pipeline Example**: `files/gitlab-ci-dind-example.yml`) Tj
+1 0 0 1 50 116 Tm (? **Runner Config**: `java-pipeline/runner-config.toml`) Tj
+1 0 0 1 50 100 Tm (? **CI/CD Config**: `java-pipeline/.gitlab-ci.yml`) Tj
+1 0 0 1 50 84 Tm () Tj
+1 0 0 1 50 74 Tm () Tj
+ET
+endstream
+endobj
+102 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 101 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+103 0 obj
+<< /Length 569 >>
+stream
+BT
+/F1 12 Tf
+/F1 20 Tf
+1 0 0 1 50 790 Tm (? Next Steps) Tj
+/F1 12 Tf
+1 0 0 1 50 764 Tm () Tj
+1 0 0 1 50 758 Tm () Tj
+1 0 0 1 50 744 Tm (1. ? Run `setup-gitlab-runner-dind.ps1` to create/start runner 2. ? Get registration token from) Tj
+1 0 0 1 50 728 Tm ( GitLab \(Settings > CI/CD > Runners\) 3. ? Set Docker registry credentials in GitLab variables ) Tj
+1 0 0 1 50 712 Tm (4. ? Push changes to trigger `docker_build` job 5. ? Verify images appear in Nexus registry) Tj
+1 0 0 1 50 696 Tm () Tj
+1 0 0 1 50 686 Tm () Tj
+1 0 0 1 50 672 Tm () Tj
+1 0 0 1 50 658 Tm () Tj
+ET
+endstream
+endobj
+104 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 103 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> >>
+endobj
+xref
+0 105
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000461 00000 n 
+0000000531 00000 n 
+0000000599 00000 n 
+0000002979 00000 n 
+0000003115 00000 n 
+0000006531 00000 n 
+0000006667 00000 n 
+0000009247 00000 n 
+0000009384 00000 n 
+0000011736 00000 n 
+0000011874 00000 n 
+0000014464 00000 n 
+0000014602 00000 n 
+0000017077 00000 n 
+0000017215 00000 n 
+0000019647 00000 n 
+0000019785 00000 n 
+0000022127 00000 n 
+0000022265 00000 n 
+0000024804 00000 n 
+0000024942 00000 n 
+0000027372 00000 n 
+0000027510 00000 n 
+0000029949 00000 n 
+0000030087 00000 n 
+0000032640 00000 n 
+0000032778 00000 n 
+0000035033 00000 n 
+0000035171 00000 n 
+0000037288 00000 n 
+0000037426 00000 n 
+0000039420 00000 n 
+0000039558 00000 n 
+0000041893 00000 n 
+0000042031 00000 n 
+0000044149 00000 n 
+0000044287 00000 n 
+0000046392 00000 n 
+0000046530 00000 n 
+0000048531 00000 n 
+0000048669 00000 n 
+0000050882 00000 n 
+0000051020 00000 n 
+0000053160 00000 n 
+0000053298 00000 n 
+0000055503 00000 n 
+0000055641 00000 n 
+0000057770 00000 n 
+0000057908 00000 n 
+0000060141 00000 n 
+0000060279 00000 n 
+0000062464 00000 n 
+0000062602 00000 n 
+0000064836 00000 n 
+0000064974 00000 n 
+0000067592 00000 n 
+0000067730 00000 n 
+0000070254 00000 n 
+0000070392 00000 n 
+0000072845 00000 n 
+0000072983 00000 n 
+0000075474 00000 n 
+0000075612 00000 n 
+0000078070 00000 n 
+0000078208 00000 n 
+0000080542 00000 n 
+0000080680 00000 n 
+0000083152 00000 n 
+0000083290 00000 n 
+0000085600 00000 n 
+0000085738 00000 n 
+0000088131 00000 n 
+0000088269 00000 n 
+0000090575 00000 n 
+0000090713 00000 n 
+0000093283 00000 n 
+0000093421 00000 n 
+0000095881 00000 n 
+0000096019 00000 n 
+0000099048 00000 n 
+0000099186 00000 n 
+0000101788 00000 n 
+0000101926 00000 n 
+0000104847 00000 n 
+0000104985 00000 n 
+0000107799 00000 n 
+0000107937 00000 n 
+0000110669 00000 n 
+0000110807 00000 n 
+0000113701 00000 n 
+0000113839 00000 n 
+0000116625 00000 n 
+0000116763 00000 n 
+0000119297 00000 n 
+0000119435 00000 n 
+0000122534 00000 n 
+0000122672 00000 n 
+0000125423 00000 n 
+0000125562 00000 n 
+0000128220 00000 n 
+0000128360 00000 n 
+0000128982 00000 n 
+trailer
+<< /Size 105 /Root 1 0 R >>
+startxref
+129122
+%%EOF
