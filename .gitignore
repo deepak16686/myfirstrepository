@@ -1,43 +1,53 @@
-# Secrets / local credentials
-*.key
-*.pem
-*.pfx
-*.p12
-*.cer
-*.crt
-*.der
-*.env
-.env.*
-*credentials*
-*credential*
-*secrets*
-*secret*
-Credentials Details.txt
-
-# Python
+﻿# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.venv/
+*.py[cod]
+*.class
+*.so
+.Python
+env/
 venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
 
-# Local data / vector DB / generated content
-chromadb-data/
-desktop-content/
-files.zip
-files/
-nul
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Tooling / misc
+# OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# GitHub/Claude metadata (optional: keep if you want)
-# .github/
-# .claude/
-# Local editor/agent settings (machine-specific)
-.claude/settings.local.json
+# Project specific
+chromadb-data/
+*.log
+nul
+files.zip
 
-java-pipeline/
-test/
+# Credentials
+*credentials*.txt
+*password*.txt
+.env
+*.pem
+*.key
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Docker
+docker-compose.override.yml
+
+# Temp
+*.tmp
+*.bak
+*.backup-*
