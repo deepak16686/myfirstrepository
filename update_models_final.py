@@ -51,6 +51,13 @@ EXAMPLES:
 
 TOOL_IDS = ["nexus_docker_images", "gitlab_pipeline_generator"]
 
+SUGGESTION_PROMPTS = [
+    {"title": ["Generate GitLab Pipeline"], "content": "Generate a GitLab CI/CD pipeline for my project"},
+    {"title": ["Create Dockerfile"], "content": "Create a Dockerfile for my application"},
+    {"title": ["Test Tool Connection"], "content": "Test the connection to available tools and verify they are working"},
+    {"title": ["Pipeline + Dockerfile"], "content": "Generate both GitLab pipeline and Dockerfile for my project"}
+]
+
 rows = conn.execute("SELECT id, params, meta FROM model").fetchall()
 for row in rows:
     model_id = row[0]
@@ -67,6 +74,9 @@ for row in rows:
     # Remove old tool
     if "nexus_python_images" in meta["toolIds"]:
         meta["toolIds"].remove("nexus_python_images")
+
+    # Add suggestion prompts for the chat interface
+    meta["suggestion_prompts"] = SUGGESTION_PROMPTS
 
     conn.execute("UPDATE model SET params = ?, meta = ? WHERE id = ?", (json.dumps(params), json.dumps(meta), model_id))
     print(f"Updated {model_id}: tools={meta['toolIds']}")
