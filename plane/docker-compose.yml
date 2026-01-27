@@ -1,0 +1,61 @@
+services:
+  # Redmine - Classic issue tracking and project management
+  # Has excellent REST API for integration
+  redmine-db:
+    image: postgres:15-alpine
+    container_name: redmine-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: redmine
+      POSTGRES_PASSWORD: redmine123
+      POSTGRES_DB: redmine
+    volumes:
+      - redmine-db-data:/var/lib/postgresql/data
+    networks:
+      - ticketing-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U redmine -d redmine"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redmine:
+    image: redmine:5-alpine
+    container_name: redmine
+    restart: unless-stopped
+    ports:
+      - "8090:3000"
+    environment:
+      REDMINE_DB_POSTGRES: redmine-db
+      REDMINE_DB_PORT: 5432
+      REDMINE_DB_USERNAME: redmine
+      REDMINE_DB_PASSWORD: redmine123
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_SECRET_KEY_BASE: redmine-secret-key-base-change-in-production
+    volumes:
+      - redmine-data:/usr/src/redmine/files
+      - redmine-plugins:/usr/src/redmine/plugins
+      - redmine-themes:/usr/src/redmine/public/themes
+    depends_on:
+      redmine-db:
+        condition: service_healthy
+    networks:
+      - ticketing-net
+      - ai-platform-net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  redmine-db-data:
+  redmine-data:
+  redmine-plugins:
+  redmine-themes:
+
+networks:
+  ticketing-net:
+    driver: bridge
+  ai-platform-net:
+    external: true
