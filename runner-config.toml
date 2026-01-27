@@ -1,0 +1,49 @@
+concurrent = 3
+request_concurrency = 3
+check_interval = 0
+shutdown_timeout = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "docker-dind-runner"
+  url = "http://gitlab-server"
+  token = "glrtr-Xux5A8ZxtYcRA1xfBxQv"
+  executor = "docker"
+  clone_url = "http://gitlab-server"
+  shell = "sh"
+  tags = ["docker"]
+
+  [runners.custom_build_dir]
+    enabled = false
+
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+
+  [runners.docker]
+    tls_verify = false
+    image = "docker:24-cli"
+    privileged = true
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/cache"]
+    shm_size = 2147483648
+    network_mode = "gitlab-net"
+    extra_hosts = ["gitlab-server:172.21.0.5", "ai-nexus:172.21.0.5"]
+    wait_for_services_timeout = 60
+    insecure_registries = ["ai-nexus:5001", "localhost:5001", "127.0.0.1:5001"]
+
+    [[runners.docker.services]]
+      name = "docker:24-dind"
+      alias = "docker"
+      command = ["--tls=false", "--insecure-registry=ai-nexus:5001"]
+
+    [runners.docker.services.extra_hosts]
+      "docker" = "127.0.0.1"
+      "nexus-docker" = "127.0.0.1"
+      "gitlab-server" = "172.21.0.5"
+      "ai-nexus" = "172.21.0.5"
