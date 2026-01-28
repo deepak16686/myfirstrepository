@@ -112,7 +112,25 @@
       "Bash(echo \"Docker command failed with exit code $?\")",
       "Bash(docker.exe exec:*)",
       "Bash(find:*)",
-      "Bash(wsl docker ps:*)"
+      "Bash(wsl docker ps:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)",
+      "Bash(pip --version:*)",
+      "Bash(git config:*)",
+      "Bash(env)",
+      "Bash(systeminfo:*)",
+      "Bash(powershell.exe -Command \"Get-Process ''Docker Desktop'' -ErrorAction SilentlyContinue | Select-Object Name, Status\")",
+      "Bash(powershell.exe -Command \"docker ps 2>&1\")",
+      "Bash(powershell.exe -Command \"Get-Service | Where-Object {$_Name -like ''*docker*''} | Select-Object Name, Status\")",
+      "Bash(/c/Program Files/Docker/Docker/resources/bin/docker ps)",
+      "Bash(powershell.exe -Command \"docker stats --no-stream --format ''table {{.Name}}\\\\t{{.CPUPerc}}\\\\t{{.MemUsage}}\\\\t{{.NetIO}}\\\\t{{.BlockIO}}''\")",
+      "Bash(powershell.exe -Command \"docker ps --format ''table {{.Names}}\\\\t{{.Status}}\\\\t{{.Ports}}'' | Format-Table -AutoSize\")",
+      "Bash(powershell.exe -Command \"docker volume ls\")",
+      "Bash(powershell.exe -Command \"docker ps -a | Select-String -Pattern ''prometheus|grafana|node-exporter|cadvisor|dcgm|loki|jaeger''\")",
+      "Bash(powershell.exe:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)"
     ]
   }
 }
