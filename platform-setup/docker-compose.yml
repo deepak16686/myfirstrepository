@@ -1,0 +1,381 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: platform-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - platform-postgres-data:/var/lib/postgresql/data
+    networks:
+      - platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: platform-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - platform-redis-data:/data
+    networks:
+      - platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: platform-minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    command: server /data --console-address ":9001"
+    ports:
+      - "${MINIO_PORT}:9000"
+      - "${MINIO_CONSOLE_PORT}:9001"
+    volumes:
+      - platform-minio-data:/data
+    networks:
+      - platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: platform-chromadb
+    environment:
+      ANONYMIZED_TELEMETRY: "False"
+    ports:
+      - "${CHROMA_PORT}:8000"
+    volumes:
+      - platform-chromadb-data:/chroma/chroma
+    networks:
+      - platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: platform-ollama
+    ports:
+      - "${OLLAMA_PORT}:11434"
+    volumes:
+      - platform-ollama-data:/root/.ollama
+    networks:
+      - platform-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: platform-open-webui
+    environment:
+      WEBUI_SECRET_KEY: ${OPENWEBUI_SECRET}
+      OLLAMA_BASE_URL: http://ollama:11434
+    ports:
+      - "${OPENWEBUI_PORT}:8080"
+    volumes:
+      - platform-open-webui-data:/app/backend/data
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - ollama
+
+  modernization-api:
+    build:
+      context: ../legacy-modernization-api
+      dockerfile: Dockerfile
+    container_name: platform-modernization-api
+    ports:
+      - "${MODERNIZATION_API_PORT}:8000"
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+      OLLAMA_URL: http://ollama:11434
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      CHROMADB_URL: http://chromadb:8000
+    volumes:
+      - ../legacy-modernization-api/app:/app/app
+      - ../legacy-modernization-api/logs:/app/logs
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+      - minio
+      - chromadb
+      - ollama
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: platform-nexus
+    ports:
+      - "${NEXUS_UI_PORT}:8081"
+      - "${NEXUS_REGISTRY_PORT}:5001"
+    volumes:
+      - platform-nexus-data:/nexus-data
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  sonarqube-db:
+    image: postgres:15-alpine
+    container_name: platform-sonarqube-db
+    environment:
+      POSTGRES_USER: ${SONARQUBE_DB_USER}
+      POSTGRES_PASSWORD: ${SONARQUBE_DB_PASSWORD}
+      POSTGRES_DB: ${SONARQUBE_DB_NAME}
+    volumes:
+      - platform-sonarqube-db-data:/var/lib/postgresql/data
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: platform-sonarqube
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube-db:5432/${SONARQUBE_DB_NAME}
+      SONAR_JDBC_USERNAME: ${SONARQUBE_DB_USER}
+      SONAR_JDBC_PASSWORD: ${SONARQUBE_DB_PASSWORD}
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    ports:
+      - "${SONARQUBE_PORT}:9000"
+    volumes:
+      - platform-sonarqube-data:/opt/sonarqube/data
+      - platform-sonarqube-extensions:/opt/sonarqube/extensions
+      - platform-sonarqube-logs:/opt/sonarqube/logs
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - sonarqube-db
+
+  redmine-db:
+    image: postgres:15-alpine
+    container_name: platform-redmine-db
+    environment:
+      POSTGRES_USER: ${REDMINE_DB_USER}
+      POSTGRES_PASSWORD: ${REDMINE_DB_PASSWORD}
+      POSTGRES_DB: ${REDMINE_DB_NAME}
+    volumes:
+      - platform-redmine-db-data:/var/lib/postgresql/data
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  redmine:
+    image: redmine:5-alpine
+    container_name: platform-redmine
+    environment:
+      REDMINE_DB_POSTGRES: redmine-db
+      REDMINE_DB_PORT: 5432
+      REDMINE_DB_USERNAME: ${REDMINE_DB_USER}
+      REDMINE_DB_PASSWORD: ${REDMINE_DB_PASSWORD}
+      REDMINE_DB_DATABASE: ${REDMINE_DB_NAME}
+      REDMINE_SECRET_KEY_BASE: redmine-secret-key-base-change-in-production
+    ports:
+      - "${REDMINE_PORT}:3000"
+    volumes:
+      - platform-redmine-data:/usr/src/redmine/files
+      - platform-redmine-plugins:/usr/src/redmine/plugins
+      - platform-redmine-themes:/usr/src/redmine/public/themes
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - redmine-db
+
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    container_name: platform-gitlab
+    hostname: gitlab-server
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url '${GITLAB_EXTERNAL_URL}'
+        gitlab_rails['initial_root_password'] = '${GITLAB_ROOT_PASSWORD}'
+        gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_SSH_PORT}
+    ports:
+      - "${GITLAB_HTTP_PORT}:80"
+      - "${GITLAB_SSH_PORT}:22"
+    volumes:
+      - platform-gitlab-config:/etc/gitlab
+      - platform-gitlab-logs:/var/log/gitlab
+      - platform-gitlab-data:/var/opt/gitlab
+    networks:
+      - platform-net
+    restart: unless-stopped
+    shm_size: "256m"
+
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    container_name: platform-gitlab-runner
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - platform-gitlab-runner-config:/etc/gitlab-runner
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - gitlab
+
+  trivy-server:
+    image: aquasec/trivy:latest
+    container_name: platform-trivy
+    command: ["server", "--listen", "0.0.0.0:8080", "--cache-dir", "/var/lib/trivy", "--timeout", "10m"]
+    ports:
+      - "${TRIVY_PORT}:8080"
+    volumes:
+      - platform-trivy-cache:/var/lib/trivy
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: platform-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    ports:
+      - "${PROMETHEUS_PORT}:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - platform-prometheus-data:/prometheus
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: platform-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_ROOT_URL: http://localhost:${GRAFANA_PORT}
+    ports:
+      - "${GRAFANA_PORT}:3000"
+    volumes:
+      - platform-grafana-data:/var/lib/grafana
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+      - loki
+
+  loki:
+    image: grafana/loki:latest
+    container_name: platform-loki
+    ports:
+      - "${LOKI_PORT}:3100"
+    volumes:
+      - ./config/loki/loki-config.yml:/etc/loki/local-config.yaml
+      - platform-loki-data:/loki
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: platform-jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports:
+      - "${JAEGER_UI_PORT}:16686"
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - platform-net
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: platform-promtail
+    volumes:
+      - ./config/promtail/promtail-config.yml:/etc/promtail/config.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/log:/var/log:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - platform-net
+    restart: unless-stopped
+    depends_on:
+      - loki
+
+networks:
+  platform-net:
+    driver: bridge
+
+volumes:
+  platform-postgres-data:
+  platform-redis-data:
+  platform-minio-data:
+  platform-chromadb-data:
+  platform-ollama-data:
+  platform-open-webui-data:
+  platform-nexus-data:
+  platform-sonarqube-db-data:
+  platform-sonarqube-data:
+  platform-sonarqube-extensions:
+  platform-sonarqube-logs:
+  platform-redmine-db-data:
+  platform-redmine-data:
+  platform-redmine-plugins:
+  platform-redmine-themes:
+  platform-gitlab-config:
+  platform-gitlab-logs:
+  platform-gitlab-data:
+  platform-gitlab-runner-config:
+  platform-trivy-cache:
+  platform-prometheus-data:
+  platform-grafana-data:
+  platform-loki-data:
+
+
