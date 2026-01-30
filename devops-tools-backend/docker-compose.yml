@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  devops-tools-backend:
+    build: .
+    container_name: devops-tools-backend
+    ports:
+      - "8003:8003"
+    environment:
+      # GitLab
+      - GITLAB_URL=http://host.docker.internal:8929
+      - GITLAB_TOKEN=${GITLAB_TOKEN:-}
+
+      # SonarQube
+      - SONARQUBE_URL=http://host.docker.internal:9002
+      - SONARQUBE_USERNAME=admin
+      - SONARQUBE_PASSWORD=${SONARQUBE_PASSWORD:-N7@qL9!fR2#XwA8$}
+
+      # Trivy
+      - TRIVY_URL=http://host.docker.internal:8083
+
+      # Nexus
+      - NEXUS_URL=http://host.docker.internal:8081
+      - NEXUS_USERNAME=admin
+      - NEXUS_PASSWORD=${NEXUS_PASSWORD:-}
+
+      # ChromaDB
+      - CHROMADB_URL=http://host.docker.internal:8000
+
+      # Ollama
+      - OLLAMA_URL=http://host.docker.internal:11434
+
+      # Redis
+      - REDIS_URL=redis://host.docker.internal:6379/0
+
+      # PostgreSQL
+      - POSTGRES_URL=postgresql://modernization:modernization123@host.docker.internal:5432/legacy_modernization
+
+      # Debug mode
+      - DEBUG=false
+    volumes:
+      - devops-tools-config:/app/config
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  devops-tools-config:
