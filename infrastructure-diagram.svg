@@ -1,0 +1,455 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1800">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#11998e"/>
+      <stop offset="100%" style="stop-color:#38ef7d"/>
+    </linearGradient>
+    <linearGradient id="aiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ee0979"/>
+      <stop offset="100%" style="stop-color:#ff6a00"/>
+    </linearGradient>
+    <linearGradient id="devopsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe"/>
+      <stop offset="100%" style="stop-color:#00f2fe"/>
+    </linearGradient>
+    <linearGradient id="monitorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a"/>
+      <stop offset="100%" style="stop-color:#fee140"/>
+    </linearGradient>
+    <linearGradient id="securityGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb"/>
+      <stop offset="100%" style="stop-color:#f5576c"/>
+    </linearGradient>
+
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Glow Effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1800" fill="#0f0f1a"/>
+
+  <!-- Grid Pattern -->
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#1a1a2e" stroke-width="0.5"/>
+  </pattern>
+  <rect width="1400" height="1800" fill="url(#grid)"/>
+
+  <!-- Title Header -->
+  <rect x="50" y="20" width="1300" height="80" rx="15" fill="url(#headerGrad)" filter="url(#shadow)"/>
+  <text x="700" y="55" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="28" font-weight="bold">Legacy Application Modernization Platform</text>
+  <text x="700" y="80" text-anchor="middle" fill="#8892b0" font-family="Arial, sans-serif" font-size="14">Infrastructure Architecture Diagram</text>
+
+  <!-- External Access Layer -->
+  <rect x="50" y="120" width="1300" height="100" rx="10" fill="#1a1a2e" stroke="#3d5a80" stroke-width="2"/>
+  <text x="70" y="145" fill="#64ffda" font-family="Arial, sans-serif" font-size="14" font-weight="bold">EXTERNAL ACCESS LAYER</text>
+
+  <!-- External Ports -->
+  <g transform="translate(80, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:8002</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">FastAPI</text>
+  </g>
+  <g transform="translate(210, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:3000</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Grafana</text>
+  </g>
+  <g transform="translate(340, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:9002</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">SonarQube</text>
+  </g>
+  <g transform="translate(470, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:8081</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Nexus UI</text>
+  </g>
+  <g transform="translate(600, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:5001</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Registry</text>
+  </g>
+  <g transform="translate(730, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:9090</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Prometheus</text>
+  </g>
+  <g transform="translate(860, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:16686</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Jaeger</text>
+  </g>
+  <g transform="translate(990, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:8090</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Plane</text>
+  </g>
+  <g transform="translate(1120, 160)">
+    <rect width="110" height="45" rx="5" fill="#2d3748" stroke="#4fd1c5" stroke-width="1"/>
+    <text x="55" y="20" text-anchor="middle" fill="#4fd1c5" font-family="monospace" font-size="12">:11434</text>
+    <text x="55" y="35" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Ollama</text>
+  </g>
+
+  <!-- Core Application Layer -->
+  <rect x="50" y="240" width="1300" height="200" rx="10" fill="#1a1a2e" stroke="#667eea" stroke-width="2"/>
+  <text x="70" y="265" fill="#667eea" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CORE APPLICATION LAYER</text>
+
+  <!-- FastAPI Service -->
+  <rect x="80" y="280" width="400" height="140" rx="10" fill="url(#apiGrad)" filter="url(#shadow)"/>
+  <text x="280" y="305" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">FastAPI Modernization API</text>
+  <text x="280" y="325" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 8000 (internal) → 8002 (external)</text>
+
+  <rect x="100" y="340" width="160" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="180" y="360" text-anchor="middle" fill="#fff" font-family="Arial" font-size="11" font-weight="bold">API Endpoints</text>
+  <text x="180" y="378" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">POST /analysis/start</text>
+  <text x="180" y="392" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">GET /analysis/{id}</text>
+
+  <rect x="280" y="340" width="180" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="370" y="360" text-anchor="middle" fill="#fff" font-family="Arial" font-size="11" font-weight="bold">Tech Stack</text>
+  <text x="370" y="378" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">Python 3.11 | Pydantic</text>
+  <text x="370" y="392" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">SQLAlchemy | Uvicorn</text>
+
+  <!-- RAG AI Service -->
+  <rect x="520" y="280" width="400" height="140" rx="10" fill="url(#apiGrad)" filter="url(#shadow)"/>
+  <text x="720" y="305" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">RAG AI Generator Service</text>
+  <text x="720" y="325" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 8080</text>
+
+  <rect x="540" y="340" width="160" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="620" y="360" text-anchor="middle" fill="#fff" font-family="Arial" font-size="11" font-weight="bold">Generation</text>
+  <text x="620" y="378" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">/generate/dockerfile</text>
+  <text x="620" y="392" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">/generate/gitlabci</text>
+
+  <rect x="720" y="340" width="180" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="810" y="360" text-anchor="middle" fill="#fff" font-family="Arial" font-size="11" font-weight="bold">Validation</text>
+  <text x="810" y="378" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">/validate/dockerfile</text>
+  <text x="810" y="392" text-anchor="middle" fill="#ccc" font-family="monospace" font-size="9">/validate/gitlabci</text>
+
+  <!-- Health Checks Box -->
+  <rect x="960" y="280" width="360" height="140" rx="10" fill="#2d3748" stroke="#4fd1c5" stroke-width="2"/>
+  <text x="1140" y="305" text-anchor="middle" fill="#4fd1c5" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Kubernetes Health Probes</text>
+  <rect x="980" y="320" width="100" height="40" rx="5" fill="#1a365d"/>
+  <text x="1030" y="345" text-anchor="middle" fill="#63b3ed" font-family="monospace" font-size="10">/health</text>
+  <rect x="1095" y="320" width="100" height="40" rx="5" fill="#1a365d"/>
+  <text x="1145" y="345" text-anchor="middle" fill="#63b3ed" font-family="monospace" font-size="10">/health/ready</text>
+  <rect x="1210" y="320" width="100" height="40" rx="5" fill="#1a365d"/>
+  <text x="1260" y="345" text-anchor="middle" fill="#63b3ed" font-family="monospace" font-size="10">/health/live</text>
+  <text x="1140" y="395" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="10">System metrics, DB status, Redis status</text>
+
+  <!-- Data Layer -->
+  <rect x="50" y="460" width="1300" height="180" rx="10" fill="#1a1a2e" stroke="#38ef7d" stroke-width="2"/>
+  <text x="70" y="485" fill="#38ef7d" font-family="Arial, sans-serif" font-size="14" font-weight="bold">DATA LAYER</text>
+
+  <!-- PostgreSQL -->
+  <rect x="80" y="500" width="200" height="120" rx="10" fill="url(#dataGrad)" filter="url(#shadow)"/>
+  <text x="180" y="530" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">PostgreSQL 15</text>
+  <text x="180" y="550" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 5432</text>
+  <text x="180" y="575" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">DB: modernization</text>
+  <text x="180" y="590" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Jobs | Results | Metadata</text>
+  <text x="180" y="605" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Volume: postgres-data</text>
+
+  <!-- Redis -->
+  <rect x="300" y="500" width="200" height="120" rx="10" fill="url(#dataGrad)" filter="url(#shadow)"/>
+  <text x="400" y="530" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Redis 7</text>
+  <text x="400" y="550" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 6379</text>
+  <text x="400" y="575" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Caching</text>
+  <text x="400" y="590" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Job Queues | Sessions</text>
+  <text x="400" y="605" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Volume: redis-data</text>
+
+  <!-- ChromaDB -->
+  <rect x="520" y="500" width="200" height="120" rx="10" fill="url(#dataGrad)" filter="url(#shadow)"/>
+  <text x="620" y="530" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ChromaDB</text>
+  <text x="620" y="550" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 8000</text>
+  <text x="620" y="575" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Vector Database</text>
+  <text x="620" y="590" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">RAG Embeddings</text>
+  <text x="620" y="605" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Templates | Golden Rules</text>
+
+  <!-- MinIO -->
+  <rect x="740" y="500" width="200" height="120" rx="10" fill="url(#dataGrad)" filter="url(#shadow)"/>
+  <text x="840" y="530" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">MinIO</text>
+  <text x="840" y="550" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 9000</text>
+  <text x="840" y="575" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">S3-Compatible</text>
+  <text x="840" y="590" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Binary Artifacts | JARs</text>
+  <text x="840" y="605" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Volume: minio-data</text>
+
+  <!-- MongoDB -->
+  <rect x="960" y="500" width="200" height="120" rx="10" fill="#2d3748" stroke="#38ef7d" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="1060" y="530" text-anchor="middle" fill="#38ef7d" font-family="Arial, sans-serif" font-size="14" font-weight="bold">MongoDB 7</text>
+  <text x="1060" y="550" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 27017</text>
+  <text x="1060" y="575" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="10">(Optional)</text>
+  <text x="1060" y="590" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Unstructured Data</text>
+  <text x="1060" y="605" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Document Storage</text>
+
+  <!-- AI/ML Layer -->
+  <rect x="50" y="660" width="1300" height="180" rx="10" fill="#1a1a2e" stroke="#ff6a00" stroke-width="2"/>
+  <text x="70" y="685" fill="#ff6a00" font-family="Arial, sans-serif" font-size="14" font-weight="bold">AI / ML SERVICES LAYER</text>
+
+  <!-- Ollama -->
+  <rect x="80" y="700" width="500" height="120" rx="10" fill="url(#aiGrad)" filter="url(#shadow)"/>
+  <text x="330" y="725" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Ollama - Local LLM Inference</text>
+  <text x="330" y="745" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 11434 | GPU Accelerated</text>
+
+  <rect x="100" y="760" width="200" height="45" rx="5" fill="rgba(255,255,255,0.15)"/>
+  <text x="200" y="780" text-anchor="middle" fill="#fff" font-family="Arial" font-size="11" font-weight="bold">deepseek-coder:33b</text>
+  <text x="200" y="795" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Code Analysis | Patterns</text>
+
+  <rect x="320" y="760" width="200" height="45" rx="5" fill="rgba(255,255,255,0.15)"/>
+  <text x="420" y="780" text-anchor="middle" fill="#fff" font-family="Arial" font-size="11" font-weight="bold">qwen2.5-coder:32b</text>
+  <text x="420" y="795" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Code Generation | Docs</text>
+
+  <!-- RAG Pipeline -->
+  <rect x="620" y="700" width="700" height="120" rx="10" fill="#2d3748" stroke="#ff6a00" stroke-width="2"/>
+  <text x="970" y="725" text-anchor="middle" fill="#ff6a00" font-family="Arial, sans-serif" font-size="14" font-weight="bold">RAG Pipeline Flow</text>
+
+  <!-- Pipeline Steps -->
+  <rect x="640" y="745" width="90" height="55" rx="5" fill="#4a5568"/>
+  <text x="685" y="768" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9" font-weight="bold">Request</text>
+  <text x="685" y="785" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="8">User Input</text>
+
+  <text x="745" y="775" fill="#ff6a00" font-family="Arial" font-size="16">→</text>
+
+  <rect x="765" y="745" width="90" height="55" rx="5" fill="#4a5568"/>
+  <text x="810" y="768" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9" font-weight="bold">Embed</text>
+  <text x="810" y="785" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="8">Query Vector</text>
+
+  <text x="870" y="775" fill="#ff6a00" font-family="Arial" font-size="16">→</text>
+
+  <rect x="890" y="745" width="90" height="55" rx="5" fill="#4a5568"/>
+  <text x="935" y="768" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9" font-weight="bold">Retrieve</text>
+  <text x="935" y="785" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="8">ChromaDB</text>
+
+  <text x="995" y="775" fill="#ff6a00" font-family="Arial" font-size="16">→</text>
+
+  <rect x="1015" y="745" width="90" height="55" rx="5" fill="#4a5568"/>
+  <text x="1060" y="768" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9" font-weight="bold">Augment</text>
+  <text x="1060" y="785" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="8">LLM Prompt</text>
+
+  <text x="1120" y="775" fill="#ff6a00" font-family="Arial" font-size="16">→</text>
+
+  <rect x="1140" y="745" width="90" height="55" rx="5" fill="#4a5568"/>
+  <text x="1185" y="768" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9" font-weight="bold">Generate</text>
+  <text x="1185" y="785" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="8">Output</text>
+
+  <text x="1245" y="775" fill="#ff6a00" font-family="Arial" font-size="16">→</text>
+
+  <rect x="1265" y="745" width="70" height="55" rx="5" fill="#22543d"/>
+  <text x="1300" y="768" text-anchor="middle" fill="#68d391" font-family="Arial" font-size="9" font-weight="bold">Validate</text>
+  <text x="1300" y="785" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="8">Rules</text>
+
+  <!-- DevOps Layer -->
+  <rect x="50" y="860" width="1300" height="200" rx="10" fill="#1a1a2e" stroke="#00f2fe" stroke-width="2"/>
+  <text x="70" y="885" fill="#00f2fe" font-family="Arial, sans-serif" font-size="14" font-weight="bold">DEVOPS &amp; CI/CD INFRASTRUCTURE</text>
+
+  <!-- GitLab Runner -->
+  <rect x="80" y="900" width="280" height="140" rx="10" fill="url(#devopsGrad)" filter="url(#shadow)"/>
+  <text x="220" y="925" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">GitLab CI/CD Runner</text>
+  <text x="220" y="945" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="10">Server: http://gitlab-server</text>
+  <rect x="100" y="960" width="240" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="220" y="980" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Executor: Docker | DinD Enabled</text>
+  <text x="220" y="995" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Concurrent: 3 Runners</text>
+  <text x="220" y="1010" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Kaniko Multi-platform Build</text>
+
+  <!-- Nexus -->
+  <rect x="380" y="900" width="280" height="140" rx="10" fill="url(#devopsGrad)" filter="url(#shadow)"/>
+  <text x="520" y="925" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Nexus Repository</text>
+  <text x="520" y="945" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="10">UI: 8081 | Registry: 5001</text>
+  <rect x="400" y="960" width="240" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="520" y="980" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Private Docker Registry</text>
+  <text x="520" y="995" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">40+ Pre-cached Images</text>
+  <text x="520" y="1010" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Python | Java | Node | Infra</text>
+
+  <!-- SonarQube -->
+  <rect x="680" y="900" width="280" height="140" rx="10" fill="url(#devopsGrad)" filter="url(#shadow)"/>
+  <text x="820" y="925" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SonarQube</text>
+  <text x="820" y="945" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="10">Port: 9002</text>
+  <rect x="700" y="960" width="240" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="820" y="980" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Code Quality Analysis</text>
+  <text x="820" y="995" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">20 Legacy Projects Configured</text>
+  <text x="820" y="1010" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Quality Gates | Security Rules</text>
+
+  <!-- Trivy -->
+  <rect x="980" y="900" width="280" height="140" rx="10" fill="url(#securityGrad)" filter="url(#shadow)"/>
+  <text x="1120" y="925" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Trivy Scanner</text>
+  <text x="1120" y="945" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="10">Port: 8083</text>
+  <rect x="1000" y="960" width="240" height="65" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <text x="1120" y="980" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">Vulnerability Scanner</text>
+  <text x="1120" y="995" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">Container | Filesystem | Git</text>
+  <text x="1120" y="1010" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="9">SBOM | CVE Database</text>
+
+  <!-- CI/CD Pipeline Stages -->
+  <rect x="80" y="1050" width="1180" height="40" rx="5" fill="#2d3748"/>
+  <text x="100" y="1075" fill="#4fd1c5" font-family="Arial" font-size="11" font-weight="bold">Pipeline:</text>
+
+  <rect x="180" y="1055" width="80" height="30" rx="3" fill="#4a5568"/>
+  <text x="220" y="1075" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">BUILD</text>
+  <text x="275" y="1075" fill="#4fd1c5">→</text>
+  <rect x="295" y="1055" width="80" height="30" rx="3" fill="#4a5568"/>
+  <text x="335" y="1075" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">TEST</text>
+  <text x="390" y="1075" fill="#4fd1c5">→</text>
+  <rect x="410" y="1055" width="80" height="30" rx="3" fill="#4a5568"/>
+  <text x="450" y="1075" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">PUSH</text>
+  <text x="505" y="1075" fill="#4fd1c5">→</text>
+  <rect x="525" y="1055" width="80" height="30" rx="3" fill="#4a5568"/>
+  <text x="565" y="1075" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">DEPLOY</text>
+  <text x="620" y="1075" fill="#4fd1c5">→</text>
+  <rect x="640" y="1055" width="90" height="30" rx="3" fill="#4a5568"/>
+  <text x="685" y="1075" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">ANALYZE</text>
+  <text x="745" y="1075" fill="#4fd1c5">→</text>
+  <rect x="765" y="1055" width="90" height="30" rx="3" fill="#553c9a"/>
+  <text x="810" y="1075" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10">SECURITY</text>
+
+  <!-- Monitoring Layer -->
+  <rect x="50" y="1110" width="1300" height="180" rx="10" fill="#1a1a2e" stroke="#fee140" stroke-width="2"/>
+  <text x="70" y="1135" fill="#fee140" font-family="Arial, sans-serif" font-size="14" font-weight="bold">MONITORING &amp; OBSERVABILITY STACK</text>
+
+  <!-- Prometheus -->
+  <rect x="80" y="1150" width="220" height="120" rx="10" fill="url(#monitorGrad)" filter="url(#shadow)"/>
+  <text x="190" y="1180" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Prometheus</text>
+  <text x="190" y="1200" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 9090</text>
+  <text x="190" y="1225" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Metrics Collection</text>
+  <text x="190" y="1240" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Scrape: 15s interval</text>
+  <text x="190" y="1255" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Volume: prometheus-data</text>
+
+  <!-- Grafana -->
+  <rect x="320" y="1150" width="220" height="120" rx="10" fill="url(#monitorGrad)" filter="url(#shadow)"/>
+  <text x="430" y="1180" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Grafana</text>
+  <text x="430" y="1200" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 3000</text>
+  <text x="430" y="1225" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Dashboards &amp; Alerts</text>
+  <text x="430" y="1240" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Plugin: redis-datasource</text>
+  <text x="430" y="1255" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Volume: grafana-data</text>
+
+  <!-- Jaeger -->
+  <rect x="560" y="1150" width="220" height="120" rx="10" fill="url(#monitorGrad)" filter="url(#shadow)"/>
+  <text x="670" y="1180" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Jaeger</text>
+  <text x="670" y="1200" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">UI: 16686 | Collector: 14268</text>
+  <text x="670" y="1225" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Distributed Tracing</text>
+  <text x="670" y="1240" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Request Tracking</text>
+  <text x="670" y="1255" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Zipkin: 9411</text>
+
+  <!-- Loki -->
+  <rect x="800" y="1150" width="220" height="120" rx="10" fill="url(#monitorGrad)" filter="url(#shadow)"/>
+  <text x="910" y="1180" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Loki</text>
+  <text x="910" y="1200" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="11">Port: 3100</text>
+  <text x="910" y="1225" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Log Aggregation</text>
+  <text x="910" y="1240" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="10">Centralized Logging</text>
+  <text x="910" y="1255" text-anchor="middle" fill="#90cdf4" font-family="Arial" font-size="9">Volume: loki-data</text>
+
+  <!-- Exporters -->
+  <rect x="1040" y="1150" width="280" height="120" rx="10" fill="#2d3748" stroke="#fee140" stroke-width="2"/>
+  <text x="1180" y="1175" text-anchor="middle" fill="#fee140" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Metric Exporters</text>
+
+  <rect x="1060" y="1190" width="110" height="35" rx="3" fill="#4a5568"/>
+  <text x="1115" y="1205" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9">Node Exporter</text>
+  <text x="1115" y="1218" text-anchor="middle" fill="#a0aec0" font-family="monospace" font-size="8">:9100</text>
+
+  <rect x="1190" y="1190" width="110" height="35" rx="3" fill="#4a5568"/>
+  <text x="1245" y="1205" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9">cAdvisor</text>
+  <text x="1245" y="1218" text-anchor="middle" fill="#a0aec0" font-family="monospace" font-size="8">:8082</text>
+
+  <rect x="1060" y="1235" width="110" height="35" rx="3" fill="#4a5568"/>
+  <text x="1115" y="1250" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9">DCGM (GPU)</text>
+  <text x="1115" y="1263" text-anchor="middle" fill="#a0aec0" font-family="monospace" font-size="8">:9400</text>
+
+  <rect x="1190" y="1235" width="110" height="35" rx="3" fill="#4a5568"/>
+  <text x="1245" y="1250" text-anchor="middle" fill="#fff" font-family="Arial" font-size="9">Ollama Metrics</text>
+  <text x="1245" y="1263" text-anchor="middle" fill="#a0aec0" font-family="monospace" font-size="8">:11434</text>
+
+  <!-- Network Layer -->
+  <rect x="50" y="1310" width="1300" height="120" rx="10" fill="#1a1a2e" stroke="#8892b0" stroke-width="2"/>
+  <text x="70" y="1335" fill="#8892b0" font-family="Arial, sans-serif" font-size="14" font-weight="bold">DOCKER BRIDGE NETWORKS</text>
+
+  <rect x="80" y="1355" width="230" height="55" rx="8" fill="#2d3748" stroke="#667eea" stroke-width="2"/>
+  <text x="195" y="1380" text-anchor="middle" fill="#667eea" font-family="Arial" font-size="11" font-weight="bold">modernization-network</text>
+  <text x="195" y="1398" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">API | Databases | AI Services</text>
+
+  <rect x="330" y="1355" width="230" height="55" rx="8" fill="#2d3748" stroke="#fee140" stroke-width="2"/>
+  <text x="445" y="1380" text-anchor="middle" fill="#fee140" font-family="Arial" font-size="11" font-weight="bold">monitoring-network</text>
+  <text x="445" y="1398" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Prometheus | Grafana | Jaeger</text>
+
+  <rect x="580" y="1355" width="230" height="55" rx="8" fill="#2d3748" stroke="#4fd1c5" stroke-width="2"/>
+  <text x="695" y="1380" text-anchor="middle" fill="#4fd1c5" font-family="Arial" font-size="11" font-weight="bold">ai-platform-net</text>
+  <text x="695" y="1398" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Cross-stack Communication</text>
+
+  <rect x="830" y="1355" width="230" height="55" rx="8" fill="#2d3748" stroke="#f5576c" stroke-width="2"/>
+  <text x="945" y="1380" text-anchor="middle" fill="#f5576c" font-family="Arial" font-size="11" font-weight="bold">ticketing-net</text>
+  <text x="945" y="1398" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Redmine | Project Mgmt</text>
+
+  <rect x="1080" y="1355" width="230" height="55" rx="8" fill="#2d3748" stroke="#00f2fe" stroke-width="2"/>
+  <text x="1195" y="1380" text-anchor="middle" fill="#00f2fe" font-family="Arial" font-size="11" font-weight="bold">gitlab-net</text>
+  <text x="1195" y="1398" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">GitLab Runner | DinD</text>
+
+  <!-- Ticketing / Project Management -->
+  <rect x="50" y="1450" width="640" height="120" rx="10" fill="#1a1a2e" stroke="#f5576c" stroke-width="2"/>
+  <text x="70" y="1475" fill="#f5576c" font-family="Arial, sans-serif" font-size="14" font-weight="bold">PROJECT MANAGEMENT &amp; TICKETING</text>
+
+  <rect x="80" y="1495" width="200" height="60" rx="8" fill="url(#securityGrad)" filter="url(#shadow)"/>
+  <text x="180" y="1520" text-anchor="middle" fill="#fff" font-family="Arial" font-size="12" font-weight="bold">Plane / Redmine</text>
+  <text x="180" y="1540" text-anchor="middle" fill="#e0e0e0" font-family="monospace" font-size="10">Port: 8090</text>
+
+  <rect x="300" y="1495" width="370" height="60" rx="8" fill="#2d3748"/>
+  <text x="485" y="1515" text-anchor="middle" fill="#fff" font-family="Arial" font-size="10" font-weight="bold">Supported Integrations</text>
+  <text x="485" y="1540" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Redmine | Jira | ServiceNow | GitLab Issues | Generic HTTP</text>
+
+  <!-- Technology Stack Summary -->
+  <rect x="710" y="1450" width="640" height="120" rx="10" fill="#1a1a2e" stroke="#64ffda" stroke-width="2"/>
+  <text x="730" y="1475" fill="#64ffda" font-family="Arial, sans-serif" font-size="14" font-weight="bold">TECHNOLOGY STACK</text>
+
+  <rect x="730" y="1490" width="150" height="65" rx="5" fill="#2d3748"/>
+  <text x="805" y="1510" text-anchor="middle" fill="#667eea" font-family="Arial" font-size="10" font-weight="bold">Languages</text>
+  <text x="805" y="1528" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Python 3.11</text>
+  <text x="805" y="1543" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Java 17 | Node.js</text>
+
+  <rect x="895" y="1490" width="150" height="65" rx="5" fill="#2d3748"/>
+  <text x="970" y="1510" text-anchor="middle" fill="#38ef7d" font-family="Arial" font-size="10" font-weight="bold">Databases</text>
+  <text x="970" y="1528" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">PostgreSQL | Redis</text>
+  <text x="970" y="1543" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">ChromaDB | MinIO</text>
+
+  <rect x="1060" y="1490" width="150" height="65" rx="5" fill="#2d3748"/>
+  <text x="1135" y="1510" text-anchor="middle" fill="#ff6a00" font-family="Arial" font-size="10" font-weight="bold">AI/ML</text>
+  <text x="1135" y="1528" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Ollama | Langchain</text>
+  <text x="1135" y="1543" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">RAG Pipeline</text>
+
+  <rect x="1225" y="1490" width="110" height="65" rx="5" fill="#2d3748"/>
+  <text x="1280" y="1510" text-anchor="middle" fill="#00f2fe" font-family="Arial" font-size="10" font-weight="bold">Containers</text>
+  <text x="1280" y="1528" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Docker 24</text>
+  <text x="1280" y="1543" text-anchor="middle" fill="#a0aec0" font-family="Arial" font-size="9">Compose | K8s</text>
+
+  <!-- Footer -->
+  <rect x="50" y="1590" width="1300" height="50" rx="10" fill="#1a1a2e"/>
+  <text x="700" y="1615" text-anchor="middle" fill="#4fd1c5" font-family="Arial, sans-serif" font-size="12">Legacy Application Modernization Platform - Infrastructure Architecture v1.0</text>
+  <text x="700" y="1632" text-anchor="middle" fill="#8892b0" font-family="Arial, sans-serif" font-size="10">Docker Compose Deployment | On-Premise / Hybrid Cloud Ready | Kubernetes Compatible</text>
+
+  <!-- Connection Lines (simplified) -->
+  <!-- API to Data connections -->
+  <line x1="280" y1="420" x2="180" y2="500" stroke="#667eea" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  <line x1="280" y1="420" x2="400" y2="500" stroke="#667eea" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- RAG to ChromaDB -->
+  <line x1="620" y1="420" x2="620" y2="500" stroke="#667eea" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- API to Ollama -->
+  <line x1="400" y1="440" x2="330" y2="700" stroke="#ff6a00" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- Prometheus to exporters -->
+  <line x1="190" y1="1270" x2="1115" y2="1270" stroke="#fee140" stroke-width="1" stroke-dasharray="4,2" opacity="0.3"/>
+
+</svg>
