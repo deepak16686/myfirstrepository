@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 850" width="1100" height="850">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="850" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <rect x="0" y="0" width="1100" height="50" fill="url(#headerGrad)"/>
+  <text x="550" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">DevOps Tools Backend - API Endpoints Reference</text>
+
+  <!-- Base URL -->
+  <rect x="30" y="65" width="1040" height="35" rx="5" fill="#1e293b" filter="url(#shadow)"/>
+  <text x="50" y="88" font-family="monospace" font-size="14" fill="#22c55e">Base URL: http://localhost:8003/api/v1</text>
+  <text x="500" y="88" font-family="monospace" font-size="12" fill="#64748b">| Swagger UI: http://localhost:8003/docs</text>
+
+  <!-- Pipeline Generator Endpoints -->
+  <g transform="translate(30, 115)">
+    <rect x="0" y="0" width="500" height="280" rx="8" fill="white" stroke="#22c55e" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="500" height="35" rx="8" fill="#22c55e"/>
+    <rect x="0" y="20" width="500" height="15" fill="#22c55e"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">🔧 Pipeline Generator (/pipeline)</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/analyze</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Analyze repository structure</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/generate</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Generate CI/CD files</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/commit</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Commit to new branch</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/status</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Get pipeline status</text>
+    </g>
+
+    <g transform="translate(15, 170)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/feedback</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Store RL feedback</text>
+    </g>
+
+    <g transform="translate(15, 200)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/workflow</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Full workflow (all-in-one)</text>
+    </g>
+
+    <g transform="translate(15, 230)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/feedback/history</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Get feedback history</text>
+    </g>
+  </g>
+
+  <!-- GitLab Endpoints -->
+  <g transform="translate(570, 115)">
+    <rect x="0" y="0" width="500" height="280" rx="8" fill="white" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="500" height="35" rx="8" fill="#f97316"/>
+    <rect x="0" y="20" width="500" height="15" fill="#f97316"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">🦊 GitLab (/gitlab)</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">List projects</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{id}/pipelines</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">List pipelines</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{id}/pipelines</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Trigger pipeline</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/.../pipelines/{id}/cancel</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Cancel pipeline</text>
+    </g>
+
+    <g transform="translate(15, 170)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{id}/branches</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">List branches</text>
+    </g>
+
+    <g transform="translate(15, 200)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{id}/jobs/{id}/log</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Get job log</text>
+    </g>
+
+    <g transform="translate(15, 230)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{id}/merge_requests</text>
+      <text x="220" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Create MR</text>
+    </g>
+  </g>
+
+  <!-- SonarQube Endpoints -->
+  <g transform="translate(30, 410)">
+    <rect x="0" y="0" width="340" height="210" rx="8" fill="white" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="340" height="35" rx="8" fill="#8b5cf6"/>
+    <rect x="0" y="20" width="340" height="15" fill="#8b5cf6"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">🔍 SonarQube (/sonarqube)</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{key}/quality-gate</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{key}/metrics</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{key}/issues</text>
+    </g>
+
+    <g transform="translate(15, 170)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/projects/{key}/summary</text>
+    </g>
+  </g>
+
+  <!-- Trivy Endpoints -->
+  <g transform="translate(390, 410)">
+    <rect x="0" y="0" width="340" height="210" rx="8" fill="white" stroke="#0891b2" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="340" height="35" rx="8" fill="#0891b2"/>
+    <rect x="0" y="20" width="340" height="15" fill="#0891b2"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">🛡️ Trivy Security (/trivy)</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/status</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/scan/image</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/scan/repo</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/sbom/{image}</text>
+    </g>
+
+    <g transform="translate(15, 170)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/scan/config</text>
+    </g>
+  </g>
+
+  <!-- Nexus Endpoints -->
+  <g transform="translate(750, 410)">
+    <rect x="0" y="0" width="320" height="210" rx="8" fill="white" stroke="#059669" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="320" height="35" rx="8" fill="#059669"/>
+    <rect x="0" y="20" width="320" height="15" fill="#059669"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">📦 Nexus (/nexus)</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/repositories</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/components</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/docker/{repo}/images</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/blob-stores</text>
+    </g>
+
+    <g transform="translate(15, 170)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/tasks/{id}/run</text>
+    </g>
+  </g>
+
+  <!-- Unified Tool Caller -->
+  <g transform="translate(30, 640)">
+    <rect x="0" y="0" width="520" height="180" rx="8" fill="white" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="520" height="35" rx="8" fill="#1e293b"/>
+    <rect x="0" y="20" width="520" height="15" fill="#1e293b"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">🤖 Unified Tool Caller (/call) - For AI Integration</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/</text>
+      <text x="85" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Execute any tool action</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/actions/{tool}</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">List tool actions</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/schema</text>
+      <text x="200" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Get complete tool schema</text>
+    </g>
+
+    <!-- Example -->
+    <rect x="15" y="140" width="490" height="30" rx="3" fill="#f1f5f9"/>
+    <text x="25" y="160" font-family="monospace" font-size="10" fill="#475569">{"tool": "sonarqube", "action": "list_projects", "params": {}}</text>
+  </g>
+
+  <!-- Tools Management -->
+  <g transform="translate(570, 640)">
+    <rect x="0" y="0" width="500" height="180" rx="8" fill="white" stroke="#6366f1" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="500" height="35" rx="8" fill="#6366f1"/>
+    <rect x="0" y="20" width="500" height="15" fill="#6366f1"/>
+    <text x="20" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">⚙️ Tools Management (/tools)</text>
+
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#3b82f6"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">GET</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/</text>
+      <text x="85" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">List all tools with status</text>
+    </g>
+
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/</text>
+      <text x="85" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Add new tool configuration</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#f59e0b"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">PUT</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/{tool_name}</text>
+      <text x="180" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Update tool config</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect x="0" y="0" width="50" height="20" rx="3" fill="#22c55e"/>
+      <text x="25" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="white">POST</text>
+      <text x="60" y="14" font-family="monospace" font-size="11" fill="#1e293b">/{tool_name}/test</text>
+      <text x="180" y="14" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Test connection</text>
+    </g>
+  </g>
+</svg>
