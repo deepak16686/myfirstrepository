@@ -52,13 +52,15 @@ class Tools:
         try:
             catalog = requests.get(f"{REGISTRY}/v2/_catalog", auth=auth, timeout=10)
             catalog.raise_for_status()
-            repos = catalog.json().get("repositories", [])
+            catalog_data = catalog.json() or {}
+            repos = catalog_data.get("repositories", [])
             matched = [r for r in repos if image_keyword in r.lower()]
             main_image = ""
             if matched:
                 resp = requests.get(f"{REGISTRY}/v2/{matched[0]}/tags/list", auth=auth, timeout=10)
                 resp.raise_for_status()
-                tags = resp.json().get("tags", [])
+                resp_data = resp.json() or {}
+                tags = resp_data.get("tags", []) or []
                 if tags:
                     main_image = f"${{NEXUS_PULL_REGISTRY}}/{matched[0]}:{tags[0]}"
             # Find kaniko
@@ -66,21 +68,24 @@ class Tools:
             kaniko_image = ""
             if kaniko_repos:
                 resp = requests.get(f"{REGISTRY}/v2/{kaniko_repos[0]}/tags/list", auth=auth, timeout=10)
-                tags = resp.json().get("tags", [])
+                kaniko_data = resp.json() or {}
+                tags = kaniko_data.get("tags", []) or []
                 kaniko_image = f"${{NEXUS_PULL_REGISTRY}}/{kaniko_repos[0]}:{tags[0] if tags else 'latest'}"
             # Find alpine-curl
             alpine_repos = [r for r in repos if "alpine-curl" in r.lower()]
             alpine_image = ""
             if alpine_repos:
                 resp = requests.get(f"{REGISTRY}/v2/{alpine_repos[0]}/tags/list", auth=auth, timeout=10)
-                tags = resp.json().get("tags", [])
+                alpine_data = resp.json() or {}
+                tags = alpine_data.get("tags", []) or []
                 alpine_image = f"${{NEXUS_PULL_REGISTRY}}/{alpine_repos[0]}:{tags[0] if tags else 'latest'}"
             # Find trivy
             trivy_repos = [r for r in repos if "trivy" in r.lower()]
             trivy_image = ""
             if trivy_repos:
                 resp = requests.get(f"{REGISTRY}/v2/{trivy_repos[0]}/tags/list", auth=auth, timeout=10)
-                tags = resp.json().get("tags", [])
+                trivy_data = resp.json() or {}
+                tags = trivy_data.get("tags", []) or []
                 trivy_image = f"${{NEXUS_PULL_REGISTRY}}/{trivy_repos[0]}:{tags[0] if tags else 'latest'}"
         except Exception as e:
             return f"Error connecting to Nexus registry: {str(e)}"

@@ -167,7 +167,8 @@ class Tools:
         try:
             catalog = requests.get(f"{REGISTRY}/v2/_catalog", auth=auth, timeout=10)
             catalog.raise_for_status()
-            repos = catalog.json().get("repositories", [])
+            catalog_data = catalog.json() or {}
+            repos = catalog_data.get("repositories", [])
 
             if query:
                 query_words = [w.lower().strip() for w in query.replace(",", " ").split() if len(w.strip()) > 1]
@@ -188,11 +189,13 @@ class Tools:
             for repo in repos:
                 resp = requests.get(f"{REGISTRY}/v2/{repo}/tags/list", auth=auth, timeout=10)
                 resp.raise_for_status()
-                data = resp.json()
-                results.append({
-                    "repository": data.get("name", repo),
-                    "tags": data.get("tags", [])
-                })
+                data = resp.json() or {}
+                tags = data.get("tags", []) or []
+                if tags:  # Only add repos with tags
+                    results.append({
+                        "repository": data.get("name", repo),
+                        "tags": tags
+                    })
 
             # Build image list
             image_list = "Available images in private Nexus registry:\\n"
@@ -202,11 +205,13 @@ class Tools:
 
             # Find alpine image for multi-stage builds
             alpine_image = f"{PULL_REGISTRY}/apm-repo/demo/alpine:latest"
-            for repo in catalog.json().get("repositories", []):
+            all_repos = catalog_data.get("repositories", [])
+            for repo in all_repos:
                 if "alpine" in repo.lower() and "curl" not in repo.lower():
                     try:
                         aresp = requests.get(f"{REGISTRY}/v2/{repo}/tags/list", auth=auth, timeout=5)
-                        atags = aresp.json().get("tags", [])
+                        aresp_data = aresp.json() or {}
+                        atags = aresp_data.get("tags", []) or []
                         if atags:
                             alpine_image = f"{PULL_REGISTRY}/{repo}:{atags[0]}"
                             break
@@ -215,11 +220,12 @@ class Tools:
 
             # Find eclipse-temurin for java
             eclipse_image = f"{PULL_REGISTRY}/apm-repo/demo/eclipse-temurin:latest"
-            for repo in catalog.json().get("repositories", []):
+            for repo in all_repos:
                 if "eclipse-temurin" in repo.lower() or "amazoncorretto" in repo.lower():
                     try:
                         eresp = requests.get(f"{REGISTRY}/v2/{repo}/tags/list", auth=auth, timeout=5)
-                        etags = eresp.json().get("tags", [])
+                        eresp_data = eresp.json() or {}
+                        etags = eresp_data.get("tags", []) or []
                         if etags:
                             eclipse_image = f"{PULL_REGISTRY}/{repo}:{etags[0]}"
                             break
@@ -228,6 +234,8 @@ class Tools:
 
             # Generate Dockerfile if template exists
             tech_key = query.lower().strip()
+            if not results or not results[0].get('tags'):
+                return f"No images with tags found for '{query}' in Nexus registry."
             best_image = f"{PULL_REGISTRY}/{results[0]['repository']}:{results[0]['tags'][0]}"
 
             if tech_key in DOCKERFILE_TEMPLATES:

@@ -6,7 +6,9 @@ Provides endpoints for:
 2. Committing to GitLab repositories
 3. Monitoring pipeline status
 4. Storing and retrieving feedback for reinforcement learning
+5. Automatic reinforcement learning from pipeline results
 """
+import asyncio
 from fastapi import APIRouter, HTTPException, BackgroundTasks
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
@@ -15,6 +17,91 @@ from datetime import datetime
 from app.services.pipeline_generator import pipeline_generator
 
 router = APIRouter(prefix="/pipeline", tags=["Pipeline Generator"])
+
+
+# ============================================================================
+# Background Task for Reinforcement Learning
+# ============================================================================
+
+async def monitor_pipeline_for_learning(
+    repo_url: str,
+    gitlab_token: str,
+    branch: str,
+    project_id: int,
+    max_wait_minutes: int = 15,
+    check_interval_seconds: int = 30
+):
+    """
+    Background task to monitor pipeline status and record results for RL.
+
+    This task:
+    1. Waits for the pipeline to start
+    2. Monitors until completion or timeout
+    3. Records the result (success/failure) in ChromaDB for learning
+
+    Args:
+        repo_url: GitLab repository URL
+        gitlab_token: GitLab access token
+        branch: Branch name where pipeline is running
+        project_id: GitLab project ID
+        max_wait_minutes: Maximum time to wait for pipeline completion
+        check_interval_seconds: Time between status checks
+    """
+    import httpx
+
+    print(f"[RL Background] Starting pipeline monitor for {branch}")
+
+    max_checks = (max_wait_minutes * 60) // check_interval_seconds
+    pipeline_id = None
+
+    for check_num in range(max_checks):
+        try:
+            # Wait before checking (except first check)
+            if check_num > 0:
+                await asyncio.sleep(check_interval_seconds)
+
+            async with httpx.AsyncClient() as client:
+                headers = {"PRIVATE-TOKEN": gitlab_token}
+
+                # Get latest pipeline for branch
+                pipelines_url = f"http://gitlab-server/api/v4/projects/{project_id}/pipelines"
+                resp = await client.get(
+                    pipelines_url,
+                    headers=headers,
+                    params={"ref": branch, "per_page": 1}
+                )
+
+                if resp.status_code != 200:
+                    print(f"[RL Background] Failed to get pipelines: {resp.status_code}")
+                    continue
+
+                pipelines = resp.json()
+                if not pipelines:
+                    print(f"[RL Background] No pipeline found yet for {branch}")
+                    continue
+
+                pipeline = pipelines[0]
+                pipeline_id = pipeline['id']
+                status = pipeline['status']
+
+                print(f"[RL Background] Pipeline {pipeline_id} status: {status}")
+
+                # Check if pipeline is complete
+                if status in ['success', 'failed', 'canceled', 'skipped']:
+                    # Record the result
+                    result = await pipeline_generator.record_pipeline_result(
+                        repo_url=repo_url,
+                        gitlab_token=gitlab_token,
+                        branch=branch,
+                        pipeline_id=pipeline_id
+                    )
+                    print(f"[RL Background] Pipeline {pipeline_id} completed with status '{status}'. RL result: {result.get('message', 'recorded')}")
+                    return
+
+        except Exception as e:
+            print(f"[RL Background] Error checking pipeline: {e}")
+
+    print(f"[RL Background] Timeout waiting for pipeline on {branch} after {max_wait_minutes} minutes")
 
 
 # ============================================================================
@@ -30,8 +117,12 @@ class GeneratePipelineRequest(BaseModel):
         description="Additional requirements or context for generation"
     )
     model: str = Field(
-        default="qwen2.5-coder:32b-instruct-q4_K_M",
+        default="pipeline-generator-v4",
         description="Ollama model to use for generation"
+    )
+    use_template_only: bool = Field(
+        default=False,
+        description="If True, skip LLM and use default templates directly"
     )
 
 
@@ -92,9 +183,13 @@ class FullWorkflowRequest(BaseModel):
     repo_url: str
     gitlab_token: str
     additional_context: Optional[str] = None
-    model: str = "qwen2.5-coder:32b-instruct-q4_K_M"
-    auto_commit: bool = True
+    model: str = "pipeline-generator-v4"
+    auto_commit: bool = False  # Default to False - require user approval
     branch_name: Optional[str] = None
+    use_template_only: bool = Field(
+        default=False,
+        description="If True, skip LLM and use default templates directly"
+    )
 
 
 # ============================================================================
@@ -132,7 +227,8 @@ async def generate_pipeline(request: GeneratePipelineRequest):
             repo_url=request.repo_url,
             gitlab_token=request.gitlab_token,
             additional_context=request.additional_context or "",
-            model=request.model
+            model=request.model,
+            use_template_only=request.use_template_only
         )
 
         return GeneratePipelineResponse(
@@ -291,6 +387,146 @@ async def get_feedback_history(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============================================================================
+# Reinforcement Learning Endpoints
+# ============================================================================
+
+class RecordPipelineResultRequest(BaseModel):
+    """Request to record pipeline result for RL"""
+    repo_url: str
+    gitlab_token: str
+    branch: str
+    pipeline_id: int
+
+
+@router.post("/learn/record")
+async def record_pipeline_result(request: RecordPipelineResultRequest):
+    """
+    Record the result of a pipeline for reinforcement learning.
+
+    Call this endpoint after a pipeline completes (success or failure).
+    - If successful: The configuration is stored in ChromaDB for future use
+    - If failed: The failure pattern is recorded for analysis
+
+    This enables the system to learn from real pipeline executions and
+    improve future generations.
+    """
+    try:
+        result = await pipeline_generator.record_pipeline_result(
+            repo_url=request.repo_url,
+            gitlab_token=request.gitlab_token,
+            branch=request.branch,
+            pipeline_id=request.pipeline_id
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/learn/successful")
+async def get_successful_pipelines(
+    language: str,
+    framework: Optional[str] = None,
+    limit: int = 5
+):
+    """
+    Get successful pipeline configurations for a language/framework.
+
+    Returns stored configurations that have been proven to work,
+    sorted by performance (stages passed, duration).
+    """
+    try:
+        pipelines = await pipeline_generator.get_successful_pipelines(
+            language=language,
+            framework=framework or "",
+            limit=limit
+        )
+        return {
+            "success": True,
+            "language": language,
+            "framework": framework,
+            "pipelines": pipelines,
+            "count": len(pipelines)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/learn/best")
+async def get_best_config(
+    language: str,
+    framework: Optional[str] = None
+):
+    """
+    Get the best performing pipeline configuration for a language/framework.
+
+    This returns the optimal configuration based on:
+    - Number of stages that passed
+    - Pipeline duration (faster is better)
+    """
+    try:
+        config = await pipeline_generator.get_best_pipeline_config(
+            language=language,
+            framework=framework or ""
+        )
+        if config:
+            return {
+                "success": True,
+                "language": language,
+                "framework": framework,
+                "config": config,
+                "source": "reinforcement_learning"
+            }
+        else:
+            return {
+                "success": True,
+                "language": language,
+                "framework": framework,
+                "config": None,
+                "message": "No successful pipeline configurations found for this language/framework"
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class StoreTemplateRequest(BaseModel):
+    """Request to store a pipeline template manually"""
+    language: str
+    framework: str = "generic"
+    gitlab_ci: str
+    dockerfile: Optional[str] = None
+    description: Optional[str] = None
+
+
+@router.post("/learn/store-template")
+async def store_template(request: StoreTemplateRequest):
+    """
+    Manually store a proven pipeline configuration.
+
+    Use this to add a working pipeline configuration to the RL database
+    so it can be used as a reference for future pipeline generation.
+    """
+    try:
+        success = await pipeline_generator.store_manual_template(
+            language=request.language,
+            framework=request.framework,
+            gitlab_ci=request.gitlab_ci,
+            dockerfile=request.dockerfile,
+            description=request.description
+        )
+        if success:
+            return {
+                "success": True,
+                "message": f"Template stored successfully for {request.language}/{request.framework}",
+                "language": request.language,
+                "framework": request.framework
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Failed to store template")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.post("/workflow")
 async def full_workflow(request: FullWorkflowRequest, background_tasks: BackgroundTasks):
     """
@@ -310,7 +546,8 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
             repo_url=request.repo_url,
             gitlab_token=request.gitlab_token,
             additional_context=request.additional_context or "",
-            model=request.model
+            model=request.model,
+            use_template_only=request.use_template_only
         )
 
         response = {
@@ -353,11 +590,21 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
                 "project_id": commit_result['project_id']
             }
 
-            # Note: Pipeline status check can be done separately
-            # as it takes time for the pipeline to start
+            # Schedule background task to monitor pipeline and record result for RL
+            background_tasks.add_task(
+                monitor_pipeline_for_learning,
+                repo_url=request.repo_url,
+                gitlab_token=request.gitlab_token,
+                branch=branch_name,
+                project_id=commit_result['project_id'],
+                max_wait_minutes=15,
+                check_interval_seconds=30
+            )
+
             response["pipeline"] = {
-                "message": "Pipeline triggered. Use /pipeline/status to monitor progress.",
-                "branch": branch_name
+                "message": "Pipeline triggered. Reinforcement learning enabled - results will be recorded automatically.",
+                "branch": branch_name,
+                "rl_enabled": True
             }
 
         return response

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DevOps Pipeline Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+    <!-- Marked for Markdown parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI DevOps Pipeline Generator</h1>
+            <p class="subtitle">Generate CI/CD pipelines for your GitLab repositories using AI</p>
+        </header>
+
+        <main>
+            <div class="chat-container" id="chatContainer">
+                <div class="messages" id="messages">
+                    <div class="message assistant">
+                        <div class="message-content">
+                            <p>Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.</p>
+                            <p>Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.</p>
+                            <p><strong>Example:</strong> "Generate a pipeline for http://gitlab-server/root/golang-sample-app"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <textarea
+                        id="messageInput"
+                        placeholder="Enter your message... (e.g., Generate a pipeline for http://gitlab-server/root/my-project)"
+                        rows="2"
+                    ></textarea>
+                    <button id="sendButton" onclick="sendMessage()">
+                        <span class="button-text">Send</span>
+                        <span class="button-loading" style="display: none;">
+                            <span class="spinner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="status-bar">
+                <span id="connectionStatus" class="status connected">Connected</span>
+                <span id="conversationId" class="conversation-id"></span>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Ollama LLM with RAG | GitLab Integration</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

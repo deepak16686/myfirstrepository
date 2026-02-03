@@ -90,14 +90,16 @@ class Tools:
         try:
             catalog = requests.get(f"{REGISTRY}/v2/_catalog", auth=auth, timeout=10)
             catalog.raise_for_status()
-            repos = catalog.json().get("repositories", [])
+            catalog_data = catalog.json() or {}
+            repos = catalog_data.get("repositories", [])
 
             def find_image(keyword):
                 matched = [r for r in repos if keyword.lower() in r.lower()]
                 if matched:
                     resp = requests.get(f"{REGISTRY}/v2/{matched[0]}/tags/list", auth=auth, timeout=10)
                     resp.raise_for_status()
-                    tags = resp.json().get("tags", [])
+                    resp_data = resp.json() or {}
+                    tags = resp_data.get("tags", []) or []
                     if tags:
                         return f"${{NEXUS_PULL_REGISTRY}}/{matched[0]}:{tags[0]}"
                 return ""
