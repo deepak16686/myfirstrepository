@@ -1,0 +1,44 @@
+services:
+  ai-splunk:
+    image: splunk/splunk:latest
+    container_name: ai-splunk
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+      - "10000:8000"
+    environment:
+      - SPLUNK_PASSWORD=Admin@1234
+      - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
+      - SPLUNK_START_ARGS=--accept-license
+    volumes:
+      - splunk-etc:/opt/splunk/etc
+      - splunk-var:/opt/splunk/var
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - modernization-network
+      - monitoring-network
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+volumes:
+  splunk-etc:
+    external: true
+    name: 4ab1508871e7553d3fc1fc3b4c36b8f5829f7ddd10a19524406793aeb42ea9c1
+  splunk-var:
+    external: true
+    name: 9dc29ee918744304858a17e8cd0228efe7076d256f699d4d216b1d1df0618624
+
+networks:
+  ai-platform-net:
+    external: true
+  gitlab-net:
+    external: true
+  modernization-network:
+    external: true
+  monitoring-network:
+    external: true

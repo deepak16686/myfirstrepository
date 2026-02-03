@@ -1,0 +1,9 @@
+{
+  "id": "golang-v1",
+  "name": "Golang 8-Stage Pipeline",
+  "language": "golang",
+  "framework": "standard",
+  "stages": "8",
+  "description": "Reference Go 8-Stage Pipeline for production CI/CD. Stages: compile, build, test, sast, quality, security, push, notify. Uses Nexus registry, Kaniko builds, SonarQube, Trivy scanning, Splunk notifications.",
+  "version": "1.0.0"
+}

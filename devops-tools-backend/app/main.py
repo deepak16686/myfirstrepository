@@ -17,11 +17,13 @@ Features:
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
+import os
 
 from app.config import settings, tools_manager
-from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline
+from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat
 
 
 @asynccontextmanager
@@ -60,7 +62,21 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    """Root endpoint - API info"""
+    """Serve frontend UI"""
+    frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "index.html")
+    if os.path.exists(frontend_path):
+        return FileResponse(frontend_path)
+    return {
+        "name": settings.app_name,
+        "version": settings.app_version,
+        "docs": "/docs",
+        "health": "/health"
+    }
+
+
+@app.get("/api")
+async def api_info():
+    """API info endpoint"""
     return {
         "name": settings.app_name,
         "version": settings.app_version,
@@ -101,6 +117,23 @@ app.include_router(trivy.router, prefix=settings.api_prefix)
 app.include_router(nexus.router, prefix=settings.api_prefix)
 app.include_router(unified.router, prefix=settings.api_prefix)
 app.include_router(pipeline.router, prefix=settings.api_prefix)
+app.include_router(chat.router)  # Chat API has its own prefix
+
+# ============================================================================
+# Static files for frontend
+# ============================================================================
+
+frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+if os.path.exists(frontend_dir):
+    app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
+    # Also serve CSS and JS directly
+    @app.get("/styles.css")
+    async def get_styles():
+        return FileResponse(os.path.join(frontend_dir, "styles.css"), media_type="text/css")
+
+    @app.get("/app.js")
+    async def get_app_js():
+        return FileResponse(os.path.join(frontend_dir, "app.js"), media_type="application/javascript")
 
 
 # ============================================================================

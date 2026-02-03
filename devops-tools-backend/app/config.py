@@ -31,27 +31,28 @@ class Settings(BaseSettings):
     cors_origins: list = ["*"]
 
     # Tool configurations - loaded from environment or config file
-    gitlab_url: str = "http://host.docker.internal:8929"
+    # Use container names for Docker network communication
+    gitlab_url: str = "http://gitlab-server"
     gitlab_token: Optional[str] = None
 
-    sonarqube_url: str = "http://host.docker.internal:9002"
+    sonarqube_url: str = "http://sonarqube:9000"
     sonarqube_token: Optional[str] = None
     sonarqube_username: str = "admin"
     sonarqube_password: Optional[str] = None
 
-    trivy_url: str = "http://host.docker.internal:8083"
+    trivy_url: str = "http://trivy:8083"
 
-    nexus_url: str = "http://host.docker.internal:8081"
+    nexus_url: str = "http://ai-nexus:8081"
     nexus_username: str = "admin"
     nexus_password: Optional[str] = None
 
-    chromadb_url: str = "http://host.docker.internal:8000"
+    chromadb_url: str = "http://chromadb:8000"
 
-    ollama_url: str = "http://host.docker.internal:11434"
+    ollama_url: str = "http://ollama:11434"
 
-    redis_url: str = "redis://host.docker.internal:6379/0"
+    redis_url: str = "redis://redis:6379/0"
 
-    postgres_url: str = "postgresql://modernization:modernization123@host.docker.internal:5432/legacy_modernization"
+    postgres_url: str = "postgresql://modernization:modernization123@postgres:5432/legacy_modernization"
 
     # Config file path for additional tools
     tools_config_path: str = "/app/config/tools.json"
