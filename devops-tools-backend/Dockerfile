@@ -9,6 +9,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY app/ ./app/
 
+# Copy frontend
+COPY frontend/ ./frontend/
+
 # Create config directory
 RUN mkdir -p /app/config
 

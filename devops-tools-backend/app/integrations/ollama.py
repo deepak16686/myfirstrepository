@@ -3,6 +3,7 @@ Ollama LLM API Integration
 """
 from typing import List, Optional, Dict, Any, AsyncGenerator
 import json
+import httpx
 from app.integrations.base import BaseIntegration
 from app.config import ToolConfig
 from app.models.schemas import ToolStatus
@@ -11,8 +12,13 @@ from app.models.schemas import ToolStatus
 class OllamaIntegration(BaseIntegration):
     """Ollama LLM API integration"""
 
+    # LLM generation can take a long time
+    GENERATION_TIMEOUT = 300.0  # 5 minutes
+
     def __init__(self, config: ToolConfig):
         super().__init__(config)
+        # Override the client with a longer timeout for LLM operations
+        self.client = httpx.AsyncClient(timeout=self.GENERATION_TIMEOUT)
 
     @property
     def name(self) -> str:
@@ -92,7 +98,8 @@ class OllamaIntegration(BaseIntegration):
 
         response = await self.post("/api/generate", json=payload)
         response.raise_for_status()
-        return response.json()
+        # FIX: Handle None response and return empty dict as fallback
+        return response.json() or {}
 
     async def chat(
         self,
@@ -115,7 +122,8 @@ class OllamaIntegration(BaseIntegration):
 
         response = await self.post("/api/chat", json=payload)
         response.raise_for_status()
-        return response.json()
+        # FIX: Handle None response and return empty dict as fallback
+        return response.json() or {}
 
     # ========================================================================
     # Embeddings

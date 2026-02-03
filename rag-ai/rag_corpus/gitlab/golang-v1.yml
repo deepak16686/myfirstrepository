@@ -1,0 +1,266 @@
+stages:
+  - compile
+  - build
+  - test
+  - sast
+  - quality
+  - security
+  - push
+  - notify
+
+variables:
+  RELEASE_TAG: "1.0.release-${CI_PIPELINE_IID}"
+  NEXUS_REGISTRY: "ai-nexus:5001"
+  NEXUS_PULL_REGISTRY: "localhost:5001"
+  NEXUS_USERNAME: "admin"
+  NEXUS_PASSWORD: "r"
+  IMAGE_NAME: "golang-sample-app"
+  IMAGE_TAG: "1.0.${CI_PIPELINE_IID}"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://docker:2375
+  FF_NETWORK_PER_BUILD: "true"
+  SPLUNK_HEC_URL: "http://ai-splunk:8088"
+  SPLUNK_HEC_TOKEN: "your-hec-token-here"
+  GO_VERSION: "1.21"
+
+compile_go:
+  stage: compile
+  image: golang:${GO_VERSION}-alpine
+  tags:
+    - docker
+  script:
+    - echo "Compiling Go application..."
+    - go mod download
+    - go build -o app .
+    - echo "Compilation completed!"
+  artifacts:
+    paths:
+      - app
+    expire_in: 1 hour
+  cache:
+    paths:
+      - /go/pkg/mod
+
+build_image:
+  stage: build
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags:
+    - docker
+  timeout: 10 minutes
+  dependencies:
+    - compile_go
+  script:
+    - echo "Building and pushing Docker image with Kaniko..."
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${NEXUS_REGISTRY}\":{\"username\":\"${NEXUS_USERNAME}\",\"password\":\"${NEXUS_PASSWORD}\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${NEXUS_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${IMAGE_TAG}"
+      --destination "${NEXUS_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:latest"
+      --insecure
+      --skip-tls-verify
+      --insecure-registry "${NEXUS_REGISTRY}"
+    - echo "Build completed successfully!"
+
+test_image:
+  stage: test
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - echo "Verifying image exists in registry..."
+    - |
+      RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" \
+        "http://${NEXUS_REGISTRY}/v2/apm-repo/demo/${IMAGE_NAME}/manifests/latest" \
+        -H "Accept: application/vnd.docker.distribution.manifest.v2+json")
+    - |
+      if [ "$RESPONSE" = "200" ]; then
+        echo "Image ${IMAGE_NAME}:latest found in registry!"
+      else
+        echo "ERROR: Image not found (HTTP $RESPONSE)"
+        exit 1
+      fi
+    - echo "Test completed successfully!"
+  dependencies:
+    - build_image
+
+static_analysis:
+  stage: sast
+  image: golang:${GO_VERSION}-alpine
+  tags:
+    - docker
+  before_script:
+    - echo "=== Go Version ==="
+    - go version
+    - echo "=== Installing staticcheck ==="
+    - go install honnef.co/go/tools/cmd/staticcheck@latest
+  script:
+    - echo "=== Running Go Vet ==="
+    - go vet ./... || true
+    - echo "=== Running Staticcheck ==="
+    - staticcheck ./... || true
+    - echo "=== Static Analysis Completed ==="
+  allow_failure: true
+
+sonarqube:
+  stage: quality
+  image: sonarsource/sonar-scanner-cli:latest
+  tags:
+    - docker
+  script:
+    - echo "=== Running SonarQube Analysis ==="
+    - sonar-scanner
+      -Dsonar.projectKey=${CI_PROJECT_NAME}
+      -Dsonar.projectName="${CI_PROJECT_NAME}"
+      -Dsonar.host.url=http://ai-sonarqube:9000
+      -Dsonar.sources=.
+      -Dsonar.exclusions=vendor/**
+  dependencies:
+    - test_image
+  only:
+    - merge_requests
+    - main
+    - develop
+  allow_failure: true
+
+trivy_scan:
+  stage: security
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  services:
+    - name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/aquasec-trivy:latest
+      alias: trivy-server
+      command: ["server", "--listen", "0.0.0.0:8080"]
+  tags:
+    - docker
+  timeout: 10 minutes
+  before_script:
+    - echo "=== Installing Trivy CLI ==="
+    - apk add --no-cache curl
+    - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+    - trivy --version
+    - echo "=== Waiting for Trivy Server ==="
+    - sh -c 'i=0; while [ $i -lt 30 ]; do curl -s http://trivy-server:8080/healthz > /dev/null 2>&1 && echo "Trivy server ready!" && break; i=$((i+1)); sleep 2; done'
+  script:
+    - echo "=== Running Trivy Image Scan ==="
+    - export TRIVY_USERNAME="${NEXUS_USERNAME}"
+    - export TRIVY_PASSWORD="${NEXUS_PASSWORD}"
+    - trivy image --server http://trivy-server:8080 --severity HIGH,CRITICAL --insecure ${NEXUS_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:latest
+    - echo "Trivy scan completed!"
+  dependencies:
+    - build_image
+  allow_failure: true
+
+push_to_nexus:
+  stage: push
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - echo "Tagging image with release tag via Registry API..."
+    - |
+      MANIFEST=$(curl -s -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" \
+        -H "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+        "http://${NEXUS_REGISTRY}/v2/apm-repo/demo/${IMAGE_NAME}/manifests/latest")
+    - echo "$MANIFEST" | jq .
+    - |
+      curl -s -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" \
+        -X PUT \
+        -H "Content-Type: application/vnd.docker.distribution.manifest.v2+json" \
+        -d "$MANIFEST" \
+        "http://${NEXUS_REGISTRY}/v2/apm-repo/demo/${IMAGE_NAME}/manifests/${RELEASE_TAG}"
+    - echo "Release tag ${RELEASE_TAG} created successfully!"
+  dependencies:
+    - test_image
+
+notify_splunk_success:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  before_script:
+    - apk add --no-cache curl
+  script:
+    - echo "=== Preparing SUCCESS Notification payload for Splunk ==="
+    - |
+      ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+      cat > payload_success.json <<EOF
+      {
+        "sourcetype": "gitlab_pipeline",
+        "event": {
+          "pipeline_id": "${CI_PIPELINE_ID}",
+          "pipeline_iid": "${CI_PIPELINE_IID}",
+          "pipeline_status": "success",
+          "project_name": "${CI_PROJECT_NAME}",
+          "project_path": "${CI_PROJECT_PATH}",
+          "triggered_by": "${GITLAB_USER_NAME}",
+          "user_email": "${GITLAB_USER_EMAIL}",
+          "branch": "${CI_COMMIT_REF_NAME}",
+          "commit_sha": "${CI_COMMIT_SHORT_SHA}",
+          "commit_message": "${CI_COMMIT_MESSAGE}",
+          "stages": "compile,build,test,sast,quality,security,push,notify",
+          "image_name": "${IMAGE_NAME}",
+          "image_tag": "${IMAGE_TAG}",
+          "release_tag": "${RELEASE_TAG}",
+          "pipeline_url": "${CI_PIPELINE_URL}",
+          "language": "golang",
+          "timestamp": "${ts}"
+        }
+      }
+      EOF
+      curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" \
+        -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" \
+        -H "Content-Type: application/json" \
+        --data @payload_success.json || true
+    - echo "=== SUCCESS notification processed ==="
+  when: on_success
+  allow_failure: true
+
+notify_splunk_failure:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/alpine-curl:latest
+  tags:
+    - docker
+  before_script:
+    - apk add --no-cache curl
+  script:
+    - echo "=== Preparing FAILURE Notification payload for Splunk ==="
+    - |
+      ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+      cat > payload_failure.json <<EOF
+      {
+        "sourcetype": "gitlab_pipeline",
+        "event": {
+          "pipeline_id": "${CI_PIPELINE_ID}",
+          "pipeline_iid": "${CI_PIPELINE_IID}",
+          "pipeline_status": "failed",
+          "project_name": "${CI_PROJECT_NAME}",
+          "project_path": "${CI_PROJECT_PATH}",
+          "triggered_by": "${GITLAB_USER_NAME}",
+          "user_email": "${GITLAB_USER_EMAIL}",
+          "branch": "${CI_COMMIT_REF_NAME}",
+          "commit_sha": "${CI_COMMIT_SHORT_SHA}",
+          "commit_message": "${CI_COMMIT_MESSAGE}",
+          "stages": "compile,build,test,sast,quality,security,push,notify",
+          "image_name": "${IMAGE_NAME}",
+          "image_tag": "${IMAGE_TAG}",
+          "release_tag": "${RELEASE_TAG}",
+          "pipeline_url": "${CI_PIPELINE_URL}",
+          "language": "golang",
+          "timestamp": "${ts}"
+        }
+      }
+      EOF
+      curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" \
+        -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" \
+        -H "Content-Type: application/json" \
+        --data @payload_failure.json || true
+    - echo "=== FAILURE notification processed ==="
+  when: on_failure
+  allow_failure: true

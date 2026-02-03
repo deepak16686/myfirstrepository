@@ -62,7 +62,8 @@ class Tools:
                 timeout=30
             )
             response.raise_for_status()
-            data = response.json()
+            # FIX: Handle None response
+            data = response.json() or {}
 
             if data.get("success"):
                 analysis = data["analysis"]
@@ -119,7 +120,8 @@ class Tools:
                 timeout=120
             )
             response.raise_for_status()
-            data = response.json()
+            # FIX: Handle None response
+            data = response.json() or {}
 
             if data.get("success"):
                 return f"""## Generated Pipeline Files
@@ -196,7 +198,8 @@ class Tools:
                 timeout=60
             )
             response.raise_for_status()
-            data = response.json()
+            # FIX: Handle None response
+            data = response.json() or {}
 
             if data.get("success"):
                 return f"""## Commit Successful!
@@ -251,7 +254,8 @@ The CI/CD pipeline should start automatically. Use `check_pipeline_status` to mo
                 timeout=30
             )
             response.raise_for_status()
-            data = response.json()
+            # FIX: Handle None response
+            data = response.json() or {}
 
             if data.get("success"):
                 status = data.get("status", "unknown")
@@ -329,7 +333,8 @@ The CI/CD pipeline should start automatically. Use `check_pipeline_status` to mo
                 timeout=30
             )
             response.raise_for_status()
-            data = response.json()
+            # FIX: Handle None response
+            data = response.json() or {}
 
             if data.get("success"):
                 return f"""## Feedback Stored Successfully!
@@ -380,7 +385,8 @@ I'll remember to avoid "{error_type}" errors and apply similar fixes automatical
                 timeout=180
             )
             response.raise_for_status()
-            data = response.json()
+            # FIX: Handle None response
+            data = response.json() or {}
 
             if data.get("success"):
                 gen = data.get("generation", {})
