@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1e293b">Traditional LLM vs RL-Direct Approach</text>
+
+  <!-- Left Side - Traditional LLM -->
+  <rect x="30" y="60" width="450" height="500" rx="15" fill="#fef2f2" stroke="#dc2626" stroke-width="3"/>
+  <text x="255" y="95" text-anchor="middle" font-size="18" font-weight="bold" fill="#dc2626">❌ Traditional (LLM-only)</text>
+
+  <!-- Step 1 -->
+  <rect x="60" y="120" width="390" height="50" rx="8" fill="#fecaca" stroke="#dc2626" stroke-width="1"/>
+  <text x="255" y="150" text-anchor="middle" font-size="12" fill="#991b1b">New Go Project Request</text>
+
+  <line x1="255" y1="170" x2="255" y2="190" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+  <!-- Step 2 -->
+  <rect x="60" y="200" width="390" height="60" rx="8" fill="#fecaca" stroke="#dc2626" stroke-width="1"/>
+  <text x="255" y="225" text-anchor="middle" font-size="12" fill="#991b1b">Send to LLM (Ollama)</text>
+  <text x="255" y="245" text-anchor="middle" font-size="10" fill="#b91c1c">Generates NEW pipeline each time</text>
+
+  <line x1="255" y1="260" x2="255" y2="280" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+  <!-- Step 3 - Problems -->
+  <rect x="60" y="290" width="390" height="120" rx="8" fill="#fecaca" stroke="#dc2626" stroke-width="1"/>
+  <text x="255" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#991b1b">⚠️ Potential Issues:</text>
+  <text x="80" y="340" font-size="11" fill="#b91c1c">• Wrong Docker images (snyk:latest, etc.)</text>
+  <text x="80" y="360" font-size="11" fill="#b91c1c">• Missing allow_failure flags</text>
+  <text x="80" y="380" font-size="11" fill="#b91c1c">• Bad YAML escaping</text>
+  <text x="80" y="400" font-size="11" fill="#b91c1c">• Different output each time</text>
+
+  <line x1="255" y1="410" x2="255" y2="430" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+  <!-- Result -->
+  <rect x="100" y="445" width="310" height="50" rx="25" fill="#dc2626"/>
+  <text x="255" y="475" text-anchor="middle" font-size="14" font-weight="bold" fill="white">❌ ~50% Success Rate</text>
+
+  <text x="255" y="520" text-anchor="middle" font-size="11" fill="#991b1b">Inconsistent &amp; Unreliable</text>
+
+  <!-- Right Side - RL-Direct -->
+  <rect x="520" y="60" width="450" height="500" rx="15" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <text x="745" y="95" text-anchor="middle" font-size="18" font-weight="bold" fill="#16a34a">✅ RL-Direct (Our Approach)</text>
+
+  <!-- Step 1 -->
+  <rect x="550" y="120" width="390" height="50" rx="8" fill="#bbf7d0" stroke="#16a34a" stroke-width="1"/>
+  <text x="745" y="150" text-anchor="middle" font-size="12" fill="#166534">New Go Project Request</text>
+
+  <line x1="745" y1="170" x2="745" y2="190" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Step 2 -->
+  <rect x="550" y="200" width="390" height="60" rx="8" fill="#bbf7d0" stroke="#16a34a" stroke-width="1"/>
+  <text x="745" y="225" text-anchor="middle" font-size="12" fill="#166534">Check ChromaDB for Go Template</text>
+  <text x="745" y="245" text-anchor="middle" font-size="10" fill="#15803d">✅ Found proven template!</text>
+
+  <line x1="745" y1="260" x2="745" y2="280" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Step 3 - Benefits -->
+  <rect x="550" y="290" width="390" height="120" rx="8" fill="#bbf7d0" stroke="#16a34a" stroke-width="1"/>
+  <text x="745" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#166534">✅ Use DIRECTLY (No LLM!):</text>
+  <text x="570" y="340" font-size="11" fill="#15803d">• Correct Docker images (verified)</text>
+  <text x="570" y="360" font-size="11" fill="#15803d">• All 10 stages with allow_failure</text>
+  <text x="570" y="380" font-size="11" fill="#15803d">• Proper YAML escaping</text>
+  <text x="570" y="400" font-size="11" fill="#15803d">• Same proven template every time</text>
+
+  <line x1="745" y1="410" x2="745" y2="430" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Result -->
+  <rect x="590" y="445" width="310" height="50" rx="25" fill="#16a34a"/>
+  <text x="745" y="475" text-anchor="middle" font-size="14" font-weight="bold" fill="white">✅ ~100% Success Rate</text>
+
+  <text x="745" y="520" text-anchor="middle" font-size="11" fill="#15803d">Consistent &amp; Reliable</text>
+
+  <!-- VS Divider -->
+  <circle cx="500" cy="310" r="30" fill="#1e293b"/>
+  <text x="500" y="318" text-anchor="middle" font-size="16" font-weight="bold" fill="white">VS</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom comparison table -->
+  <rect x="30" y="570" width="940" height="25" rx="5" fill="#e2e8f0"/>
+  <text x="150" y="587" text-anchor="middle" font-size="11" fill="#64748b">Speed: Slow (LLM call)</text>
+  <text x="350" y="587" text-anchor="middle" font-size="11" fill="#64748b">Model: ollama-llm</text>
+  <line x1="500" y1="570" x2="500" y2="595" stroke="#94a3b8" stroke-width="1"/>
+  <text x="650" y="587" text-anchor="middle" font-size="11" fill="#64748b">Speed: Fast (no LLM)</text>
+  <text x="850" y="587" text-anchor="middle" font-size="11" fill="#64748b">Model: chromadb-direct</text>
+</svg>
