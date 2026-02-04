@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI DevOps Pipeline Generator</title>
+    <title>AI Platform - DevOps & Infrastructure</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Highlight.js for code syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
@@ -14,47 +14,243 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>AI DevOps Pipeline Generator</h1>
-            <p class="subtitle">Generate CI/CD pipelines for your GitLab repositories using AI</p>
-        </header>
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <span class="brand-icon">AI</span>
+                <span class="brand-text">Platform</span>
+            </div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-category="devops">DevOps</button>
+                <button class="nav-tab" data-category="iac">IaC</button>
+                <button class="nav-tab" data-category="support">Support</button>
+                <button class="nav-tab" data-category="sre">SRE</button>
+            </div>
+            <div class="nav-status">
+                <span id="connectionStatus" class="status connected">Connected</span>
+            </div>
+        </nav>
 
-        <main>
-            <div class="chat-container" id="chatContainer">
-                <div class="messages" id="messages">
-                    <div class="message assistant">
-                        <div class="message-content">
-                            <p>Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.</p>
-                            <p>Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.</p>
-                            <p><strong>Example:</strong> "Generate a pipeline for http://gitlab-server/root/golang-sample-app"</p>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard View (Cards) -->
+            <div id="dashboardView" class="dashboard-view">
+                <div class="cards-container" id="cardsContainer">
+                    <!-- DevOps Cards -->
+                    <div class="tool-card" data-tool="pipeline-generator" data-category="devops">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-content">
+                            <h3>GitLab Pipeline Generator</h3>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="jenkins-generator" data-category="devops">
+                        <div class="card-icon">🔧</div>
+                        <div class="card-content">
+                            <h3>Jenkins Pipeline Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="github-actions" data-category="devops">
+                        <div class="card-icon">🐙</div>
+                        <div class="card-content">
+                            <h3>GitHub Actions Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="azure-devops" data-category="devops">
+                        <div class="card-icon">☁️</div>
+                        <div class="card-content">
+                            <h3>Azure DevOps Pipeline</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IaC Cards -->
+                    <div class="tool-card disabled" data-tool="terraform-generator" data-category="iac">
+                        <div class="card-icon">🌍</div>
+                        <div class="card-content">
+                            <h3>Terraform Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="ansible-generator" data-category="iac">
+                        <div class="card-icon">📜</div>
+                        <div class="card-content">
+                            <h3>Ansible Playbook Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="k8s-generator" data-category="iac">
+                        <div class="card-icon">☸️</div>
+                        <div class="card-content">
+                            <h3>Kubernetes Manifest Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="cloudformation" data-category="iac">
+                        <div class="card-icon">📦</div>
+                        <div class="card-content">
+                            <h3>CloudFormation Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support Cards -->
+                    <div class="tool-card disabled" data-tool="incident-assistant" data-category="support">
+                        <div class="card-icon">🚨</div>
+                        <div class="card-content">
+                            <h3>Incident Assistant</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="log-analyzer" data-category="support">
+                        <div class="card-icon">📋</div>
+                        <div class="card-content">
+                            <h3>Log Analyzer</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="troubleshooter" data-category="support">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-content">
+                            <h3>Troubleshooting Assistant</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="knowledge-base" data-category="support">
+                        <div class="card-icon">📚</div>
+                        <div class="card-content">
+                            <h3>Knowledge Base Search</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SRE Cards -->
+                    <div class="tool-card disabled" data-tool="slo-calculator" data-category="sre">
+                        <div class="card-icon">📈</div>
+                        <div class="card-content">
+                            <h3>SLO Calculator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="capacity-planner" data-category="sre">
+                        <div class="card-icon">📊</div>
+                        <div class="card-content">
+                            <h3>Capacity Planner</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="runbook-generator" data-category="sre">
+                        <div class="card-icon">📖</div>
+                        <div class="card-content">
+                            <h3>Runbook Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="postmortem" data-category="sre">
+                        <div class="card-icon">📝</div>
+                        <div class="card-content">
+                            <h3>Postmortem Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="input-container">
-                    <textarea
-                        id="messageInput"
-                        placeholder="Enter your message... (e.g., Generate a pipeline for http://gitlab-server/root/my-project)"
-                        rows="2"
-                    ></textarea>
-                    <button id="sendButton" onclick="sendMessage()">
-                        <span class="button-text">Send</span>
-                        <span class="button-loading" style="display: none;">
-                            <span class="spinner"></span>
-                        </span>
-                    </button>
-                </div>
             </div>
 
-            <div class="status-bar">
-                <span id="connectionStatus" class="status connected">Connected</span>
-                <span id="conversationId" class="conversation-id"></span>
+            <!-- Tool View (Chat Interface) -->
+            <div id="toolView" class="tool-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span id="toolIcon" class="tool-icon">🚀</span>
+                        <h2 id="toolName">GitLab Pipeline Generator</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="newConversation()">
+                        New Chat
+                    </button>
+                </div>
+
+                <div class="chat-container" id="chatContainer">
+                    <div class="messages" id="messages">
+                        <div class="message assistant">
+                            <div class="message-content">
+                                <p>Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.</p>
+                                <p>Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.</p>
+                                <p><strong>Example:</strong> "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <textarea
+                            id="messageInput"
+                            placeholder="Enter your message... (e.g., Generate a pipeline for http://gitlab-server/group/project)"
+                            rows="2"
+                        ></textarea>
+                        <button id="sendButton" onclick="sendMessage()">
+                            <span class="button-text">Send</span>
+                            <span class="button-loading" style="display: none;">
+                                <span class="spinner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="status-bar">
+                    <span id="sessionStatus" class="status connected">Ready</span>
+                    <span id="conversationId" class="conversation-id"></span>
+                </div>
             </div>
         </main>
 
-        <footer>
-            <p>Powered by Ollama LLM with RAG | GitLab Integration</p>
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Powered by AI with Reinforcement Learning | GitLab Integration</p>
         </footer>
     </div>
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1000" height="650" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1e293b">Technology Stack Overview</text>
+
+  <!-- Layer 1: Frontend -->
+  <rect x="50" y="70" width="900" height="90" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="80" y="100" font-size="14" font-weight="bold" fill="#1e40af">FRONTEND LAYER</text>
+
+  <rect x="80" y="115" width="120" height="35" rx="5" fill="#60a5fa"/>
+  <text x="140" y="138" text-anchor="middle" font-size="12" fill="white" font-weight="bold">React Chat UI</text>
+
+  <rect x="220" y="115" width="120" height="35" rx="5" fill="#60a5fa"/>
+  <text x="280" y="138" text-anchor="middle" font-size="12" fill="white" font-weight="bold">WebSocket</text>
+
+  <rect x="360" y="115" width="120" height="35" rx="5" fill="#60a5fa"/>
+  <text x="420" y="138" text-anchor="middle" font-size="12" fill="white" font-weight="bold">GitLab Web UI</text>
+
+  <!-- Layer 2: API Gateway -->
+  <rect x="50" y="175" width="900" height="90" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="80" y="205" font-size="14" font-weight="bold" fill="#b45309">API LAYER</text>
+
+  <rect x="80" y="220" width="160" height="35" rx="5" fill="#fbbf24"/>
+  <text x="160" y="243" text-anchor="middle" font-size="12" fill="#78350f" font-weight="bold">FastAPI :8003</text>
+
+  <rect x="260" y="220" width="180" height="35" rx="5" fill="#fbbf24"/>
+  <text x="350" y="243" text-anchor="middle" font-size="12" fill="#78350f" font-weight="bold">Pipeline Generator</text>
+
+  <rect x="460" y="220" width="140" height="35" rx="5" fill="#fbbf24"/>
+  <text x="530" y="243" text-anchor="middle" font-size="12" fill="#78350f" font-weight="bold">GitLab API Client</text>
+
+  <!-- Layer 3: AI/ML -->
+  <rect x="50" y="280" width="440" height="130" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="80" y="310" font-size="14" font-weight="bold" fill="#7c3aed">AI/ML LAYER</text>
+
+  <rect x="80" y="330" width="180" height="65" rx="5" fill="#a855f7"/>
+  <text x="170" y="355" text-anchor="middle" font-size="12" fill="white" font-weight="bold">ChromaDB</text>
+  <text x="170" y="372" text-anchor="middle" font-size="10" fill="#faf5ff">Vector Database</text>
+  <text x="170" y="385" text-anchor="middle" font-size="9" fill="#e9d5ff">Stores proven templates</text>
+
+  <rect x="280" y="330" width="180" height="65" rx="5" fill="#a855f7"/>
+  <text x="370" y="355" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Ollama LLM</text>
+  <text x="370" y="372" text-anchor="middle" font-size="10" fill="#faf5ff">Local AI Model</text>
+  <text x="370" y="385" text-anchor="middle" font-size="9" fill="#e9d5ff">Fallback generator</text>
+
+  <!-- Layer 3: DevOps Tools -->
+  <rect x="510" y="280" width="440" height="130" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="540" y="310" font-size="14" font-weight="bold" fill="#166534">DEVOPS TOOLS</text>
+
+  <rect x="540" y="330" width="120" height="65" rx="5" fill="#22c55e"/>
+  <text x="600" y="355" text-anchor="middle" font-size="12" fill="white" font-weight="bold">GitLab</text>
+  <text x="600" y="372" text-anchor="middle" font-size="10" fill="#f0fdf4">CI/CD Platform</text>
+
+  <rect x="680" y="330" width="120" height="65" rx="5" fill="#22c55e"/>
+  <text x="740" y="355" text-anchor="middle" font-size="12" fill="white" font-weight="bold">SonarQube</text>
+  <text x="740" y="372" text-anchor="middle" font-size="10" fill="#f0fdf4">Code Quality</text>
+
+  <rect x="820" y="330" width="110" height="65" rx="5" fill="#22c55e"/>
+  <text x="875" y="355" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Trivy</text>
+  <text x="875" y="372" text-anchor="middle" font-size="10" fill="#f0fdf4">Security Scan</text>
+
+  <!-- Layer 4: Infrastructure -->
+  <rect x="50" y="425" width="900" height="90" rx="10" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+  <text x="80" y="455" font-size="14" font-weight="bold" fill="#991b1b">INFRASTRUCTURE LAYER</text>
+
+  <rect x="80" y="470" width="130" height="35" rx="5" fill="#f87171"/>
+  <text x="145" y="493" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Docker</text>
+
+  <rect x="230" y="470" width="130" height="35" rx="5" fill="#f87171"/>
+  <text x="295" y="493" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Redis</text>
+
+  <rect x="380" y="470" width="130" height="35" rx="5" fill="#f87171"/>
+  <text x="445" y="493" text-anchor="middle" font-size="12" fill="white" font-weight="bold">PostgreSQL</text>
+
+  <rect x="530" y="470" width="130" height="35" rx="5" fill="#f87171"/>
+  <text x="595" y="493" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Nexus Registry</text>
+
+  <rect x="680" y="470" width="130" height="35" rx="5" fill="#f87171"/>
+  <text x="745" y="493" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Kaniko</text>
+
+  <!-- Data Flow Arrows (vertical) -->
+  <defs>
+    <marker id="arrow-down" markerWidth="10" markerHeight="7" refX="5" refY="7" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom Summary -->
+  <rect x="50" y="530" width="900" height="110" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="500" y="560" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155">System Components Summary</text>
+
+  <text x="200" y="590" text-anchor="middle" font-size="12" fill="#1e40af">Frontend: React</text>
+  <text x="400" y="590" text-anchor="middle" font-size="12" fill="#b45309">Backend: FastAPI (Python)</text>
+  <text x="600" y="590" text-anchor="middle" font-size="12" fill="#7c3aed">AI: ChromaDB + Ollama</text>
+  <text x="800" y="590" text-anchor="middle" font-size="12" fill="#166534">DevOps: GitLab CI/CD</text>
+
+  <text x="200" y="615" text-anchor="middle" font-size="11" fill="#64748b">Chatbot Interface</text>
+  <text x="400" y="615" text-anchor="middle" font-size="11" fill="#64748b">Port 8003</text>
+  <text x="600" y="615" text-anchor="middle" font-size="11" fill="#64748b">RL System</text>
+  <text x="800" y="615" text-anchor="middle" font-size="11" fill="#64748b">9-Stage Pipeline</text>
+</svg>
