@@ -2140,15 +2140,6 @@ Source: manual_upload
                 pipeline = pipeline_resp.json()
                 status = pipeline.get('status')
 
-                # Only process completed pipelines
-                if status not in ['success', 'failed']:
-                    return {
-                        "success": True,
-                        "status": status,
-                        "message": f"Pipeline still {status}, will record when complete",
-                        "recorded": False
-                    }
-
                 # Get pipeline jobs to see which stages passed
                 jobs_url = f"{parsed['host']}/api/v4/projects/{parsed['project_path']}/pipelines/{pipeline_id}/jobs"
                 jobs_resp = await client.get(jobs_url, headers=headers)
@@ -2156,6 +2147,35 @@ Source: manual_upload
 
                 stages_passed = [job['name'] for job in jobs if job.get('status') == 'success']
                 stages_failed = [job['name'] for job in jobs if job.get('status') == 'failed']
+                stages_running = [job['name'] for job in jobs if job.get('status') == 'running']
+
+                # Handle the case when called from the learn_record job itself
+                # If pipeline is "running" but only learn_record is running and all other jobs passed,
+                # we can consider it as a successful pipeline
+                effective_status = status
+                if status == 'running':
+                    # Check if only learn-related jobs are still running
+                    non_learn_running = [j for j in stages_running if 'learn' not in j.lower()]
+                    if not non_learn_running and not stages_failed:
+                        # All non-learn jobs have passed, treat as success
+                        effective_status = 'success'
+                        print(f"[RL] Pipeline {pipeline_id} is running but all non-learn stages passed - treating as success")
+                    else:
+                        return {
+                            "success": True,
+                            "status": status,
+                            "message": f"Pipeline still {status}, will record when complete",
+                            "recorded": False
+                        }
+                elif status not in ['success', 'failed']:
+                    return {
+                        "success": True,
+                        "status": status,
+                        "message": f"Pipeline still {status}, will record when complete",
+                        "recorded": False
+                    }
+
+                status = effective_status
 
                 # Analyze repository for language/framework
                 analysis = await self.analyze_repository(repo_url, gitlab_token)

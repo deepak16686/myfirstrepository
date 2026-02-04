@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#1e293b">CI/CD Variables Inheritance</text>
+  <text x="450" y="55" text-anchor="middle" font-size="14" fill="#64748b">Group-level variables are inherited by all child projects</text>
+
+  <!-- GitLab Instance Level (Top) -->
+  <rect x="300" y="80" width="300" height="60" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="3"/>
+  <text x="450" y="115" text-anchor="middle" font-size="16" font-weight="bold" fill="#4338ca">GitLab Instance</text>
+
+  <!-- Arrow down -->
+  <line x1="450" y1="140" x2="450" y2="170" stroke="#6366f1" stroke-width="3" marker-end="url(#arrow-down-indigo)"/>
+
+  <!-- Group Level -->
+  <rect x="200" y="180" width="500" height="140" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="450" y="210" text-anchor="middle" font-size="16" font-weight="bold" fill="#166534">go-projects (Group)</text>
+
+  <!-- Group Variables Box -->
+  <rect x="230" y="225" width="440" height="85" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/>
+  <text x="250" y="248" font-size="13" font-weight="bold" fill="#166534">Group CI/CD Variables:</text>
+  <text x="270" y="270" font-size="11" fill="#15803d">• NEXUS_USERNAME = admin</text>
+  <text x="270" y="288" font-size="11" fill="#15803d">• NEXUS_PASSWORD = ****</text>
+  <text x="500" y="270" font-size="11" fill="#15803d">• SONAR_TOKEN = ****</text>
+  <text x="500" y="288" font-size="11" fill="#15803d">• SPLUNK_HEC_TOKEN = ****</text>
+
+  <!-- Arrows down to projects -->
+  <line x1="250" y1="320" x2="150" y2="380" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="450" y1="320" x2="450" y2="380" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="650" y1="320" x2="750" y2="380" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Project 1 -->
+  <rect x="50" y="390" width="200" height="100" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="150" y="420" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">golang-sample</text>
+  <text x="150" y="445" text-anchor="middle" font-size="11" fill="#d97706">Inherits group vars</text>
+  <text x="150" y="465" text-anchor="middle" font-size="10" fill="#16a34a">✓ Pipeline works</text>
+  <text x="150" y="480" text-anchor="middle" font-size="9" fill="#64748b">No local vars needed</text>
+
+  <!-- Project 2 -->
+  <rect x="350" y="390" width="200" height="100" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="450" y="420" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">golang-demo-app</text>
+  <text x="450" y="445" text-anchor="middle" font-size="11" fill="#d97706">Inherits group vars</text>
+  <text x="450" y="465" text-anchor="middle" font-size="10" fill="#16a34a">✓ Pipeline works</text>
+  <text x="450" y="480" text-anchor="middle" font-size="9" fill="#64748b">No local vars needed</text>
+
+  <!-- Project 3 -->
+  <rect x="650" y="390" width="200" height="100" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="750" y="420" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">go-task-manager</text>
+  <text x="750" y="445" text-anchor="middle" font-size="11" fill="#d97706">Inherits group vars</text>
+  <text x="750" y="465" text-anchor="middle" font-size="10" fill="#16a34a">✓ Pipeline works</text>
+  <text x="750" y="480" text-anchor="middle" font-size="9" fill="#64748b">No local vars needed</text>
+
+  <!-- Benefits Section -->
+  <rect x="50" y="510" width="800" height="80" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="450" y="535" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">Benefits of Group-Level Variables</text>
+  <text x="200" y="560" text-anchor="middle" font-size="11" fill="#64748b">Single point of management</text>
+  <text x="450" y="560" text-anchor="middle" font-size="11" fill="#64748b">New projects auto-inherit</text>
+  <text x="700" y="560" text-anchor="middle" font-size="11" fill="#64748b">Consistent across all repos</text>
+  <text x="200" y="578" text-anchor="middle" font-size="10" fill="#16a34a">✓ Update once, applies everywhere</text>
+  <text x="450" y="578" text-anchor="middle" font-size="10" fill="#16a34a">✓ Zero config for new repos</text>
+  <text x="700" y="578" text-anchor="middle" font-size="10" fill="#16a34a">✓ No credential duplication</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-down-indigo" markerWidth="10" markerHeight="7" refX="5" refY="7" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#6366f1"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,21 +1,63 @@
 /**
- * AI DevOps Pipeline Generator - Frontend Application
+ * AI Platform - DevOps & Infrastructure Frontend Application
  */
 
 // Configuration
 const API_BASE_URL = window.location.origin;
 let conversationId = null;
 let isLoading = false;
+let currentCategory = 'devops';
+let currentTool = null;
+
+// Category configurations
+const categoryConfig = {
+    devops: {
+        title: 'DevOps Tools',
+        subtitle: 'AI-powered automation for your DevOps workflows'
+    },
+    iac: {
+        title: 'Infrastructure as Code',
+        subtitle: 'Generate and manage infrastructure configurations'
+    },
+    support: {
+        title: 'Support Tools',
+        subtitle: 'AI-assisted incident management and troubleshooting'
+    },
+    sre: {
+        title: 'SRE Tools',
+        subtitle: 'Site Reliability Engineering utilities and calculators'
+    }
+};
+
+// Tool configurations
+const toolConfig = {
+    'pipeline-generator': {
+        name: 'GitLab Pipeline Generator',
+        icon: '🚀',
+        welcomeMessage: `Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.
+
+Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.
+
+**Example:** "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"`
+    }
+};
 
 // DOM Elements
-const messagesContainer = document.getElementById('messages');
-const messageInput = document.getElementById('messageInput');
-const sendButton = document.getElementById('sendButton');
-const connectionStatus = document.getElementById('connectionStatus');
-const conversationIdElement = document.getElementById('conversationId');
+let messagesContainer;
+let messageInput;
+let sendButton;
+let connectionStatus;
+let conversationIdElement;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    // Get DOM elements
+    messagesContainer = document.getElementById('messages');
+    messageInput = document.getElementById('messageInput');
+    sendButton = document.getElementById('sendButton');
+    connectionStatus = document.getElementById('connectionStatus');
+    conversationIdElement = document.getElementById('conversationId');
+
     // Configure marked for markdown parsing
     marked.setOptions({
         highlight: function(code, lang) {
@@ -28,17 +70,139 @@ document.addEventListener('DOMContentLoaded', () => {
         gfm: true
     });
 
-    // Handle Enter key
-    messageInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
+    // Setup event listeners
+    setupEventListeners();
 
     // Check API health
     checkApiHealth();
+
+    // Initialize view
+    showCategory('devops');
 });
+
+/**
+ * Setup all event listeners
+ */
+function setupEventListeners() {
+    // Navigation tabs
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const category = tab.dataset.category;
+            showCategory(category);
+        });
+    });
+
+    // Tool cards
+    document.querySelectorAll('.tool-card').forEach(card => {
+        card.addEventListener('click', () => {
+            if (!card.classList.contains('disabled')) {
+                const tool = card.dataset.tool;
+                openTool(tool);
+            }
+        });
+    });
+
+    // Message input - Enter key
+    if (messageInput) {
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+}
+
+/**
+ * Show a specific category
+ */
+function showCategory(category) {
+    currentCategory = category;
+
+    // Update nav tabs
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        if (tab.dataset.category === category) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+
+    // Show/hide cards based on category
+    const cards = document.querySelectorAll('.tool-card');
+    cards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        if (cardCategory === category) {
+            card.classList.remove('hidden');
+            card.style.display = 'flex';
+        } else {
+            card.classList.add('hidden');
+            card.style.display = 'none';
+        }
+    });
+
+    // Show dashboard, hide tool view
+    document.getElementById('dashboardView').classList.remove('hidden');
+    document.getElementById('toolView').classList.add('hidden');
+
+    currentTool = null;
+}
+
+/**
+ * Open a specific tool
+ */
+function openTool(toolId) {
+    currentTool = toolId;
+    const config = toolConfig[toolId];
+
+    if (!config) {
+        console.error('Unknown tool:', toolId);
+        return;
+    }
+
+    // Update tool header
+    document.getElementById('toolIcon').textContent = config.icon;
+    document.getElementById('toolName').textContent = config.name;
+
+    // Reset chat with welcome message
+    resetChat(config.welcomeMessage);
+
+    // Hide dashboard, show tool view
+    document.getElementById('dashboardView').classList.add('hidden');
+    document.getElementById('toolView').classList.remove('hidden');
+
+    // Focus on input
+    if (messageInput) {
+        messageInput.focus();
+    }
+}
+
+/**
+ * Go back to dashboard
+ */
+function goBack() {
+    showCategory(currentCategory);
+}
+
+/**
+ * Reset chat with a welcome message
+ */
+function resetChat(welcomeMessage) {
+    conversationId = null;
+    if (conversationIdElement) {
+        conversationIdElement.textContent = '';
+    }
+
+    if (messagesContainer) {
+        messagesContainer.innerHTML = `
+            <div class="message assistant">
+                <div class="message-content">
+                    ${marked.parse(welcomeMessage)}
+                </div>
+            </div>
+        `;
+    }
+}
 
 /**
  * Check API health and update status
@@ -61,14 +225,24 @@ async function checkApiHealth() {
  * Update connection status indicator
  */
 function setConnectionStatus(status, text) {
-    connectionStatus.className = `status ${status}`;
-    connectionStatus.textContent = text;
+    if (connectionStatus) {
+        connectionStatus.className = `status ${status}`;
+        connectionStatus.textContent = text;
+    }
+
+    const sessionStatus = document.getElementById('sessionStatus');
+    if (sessionStatus) {
+        sessionStatus.className = `status ${status}`;
+        sessionStatus.textContent = text;
+    }
 }
 
 /**
  * Send a message to the chat API
  */
 async function sendMessage() {
+    if (!messageInput) return;
+
     const message = messageInput.value.trim();
     if (!message || isLoading) return;
 
@@ -102,7 +276,9 @@ async function sendMessage() {
 
         // Update conversation ID
         conversationId = data.conversation_id;
-        conversationIdElement.textContent = `Session: ${conversationId.substring(0, 8)}...`;
+        if (conversationIdElement) {
+            conversationIdElement.textContent = `Session: ${conversationId.substring(0, 8)}...`;
+        }
 
         // Remove loading indicator and add response
         removeLoadingMessage(loadingId);
@@ -121,6 +297,8 @@ async function sendMessage() {
  * Add a message to the chat UI
  */
 function addMessage(role, content) {
+    if (!messagesContainer) return;
+
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${role}`;
 
@@ -146,6 +324,8 @@ function addMessage(role, content) {
  * Add a loading message indicator
  */
 function addLoadingMessage() {
+    if (!messagesContainer) return null;
+
     const id = 'loading-' + Date.now();
     const messageDiv = document.createElement('div');
     messageDiv.className = 'message assistant loading';
@@ -166,6 +346,7 @@ function addLoadingMessage() {
  * Remove a loading message
  */
 function removeLoadingMessage(id) {
+    if (!id) return;
     const element = document.getElementById(id);
     if (element) {
         element.remove();
@@ -177,19 +358,22 @@ function removeLoadingMessage(id) {
  */
 function setLoading(loading) {
     isLoading = loading;
-    sendButton.disabled = loading;
 
-    const buttonText = sendButton.querySelector('.button-text');
-    const buttonLoading = sendButton.querySelector('.button-loading');
+    if (sendButton) {
+        sendButton.disabled = loading;
 
-    if (loading) {
-        buttonText.style.display = 'none';
-        buttonLoading.style.display = 'inline-flex';
-        setConnectionStatus('loading', 'Processing...');
-    } else {
-        buttonText.style.display = 'inline';
-        buttonLoading.style.display = 'none';
-        setConnectionStatus('connected', 'Connected');
+        const buttonText = sendButton.querySelector('.button-text');
+        const buttonLoading = sendButton.querySelector('.button-loading');
+
+        if (loading) {
+            if (buttonText) buttonText.style.display = 'none';
+            if (buttonLoading) buttonLoading.style.display = 'inline-flex';
+            setConnectionStatus('loading', 'Processing...');
+        } else {
+            if (buttonText) buttonText.style.display = 'inline';
+            if (buttonLoading) buttonLoading.style.display = 'none';
+            setConnectionStatus('connected', 'Connected');
+        }
     }
 }
 
@@ -197,13 +381,20 @@ function setLoading(loading) {
  * Scroll chat to bottom
  */
 function scrollToBottom() {
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 }
 
 /**
  * Start a new conversation
  */
 async function newConversation() {
+    if (!currentTool) return;
+
+    const config = toolConfig[currentTool];
+    if (!config) return;
+
     try {
         const response = await fetch(`${API_BASE_URL}/api/v1/chat/new`, {
             method: 'POST'
@@ -212,18 +403,12 @@ async function newConversation() {
         if (response.ok) {
             const data = await response.json();
             conversationId = data.conversation_id;
-            conversationIdElement.textContent = `Session: ${conversationId.substring(0, 8)}...`;
+            if (conversationIdElement) {
+                conversationIdElement.textContent = `Session: ${conversationId.substring(0, 8)}...`;
+            }
 
-            // Clear messages (keep welcome message)
-            messagesContainer.innerHTML = `
-                <div class="message assistant">
-                    <div class="message-content">
-                        <p>Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.</p>
-                        <p>Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.</p>
-                        <p><strong>Example:</strong> "Generate a pipeline for http://gitlab-server/root/golang-sample-app"</p>
-                    </div>
-                </div>
-            `;
+            // Reset chat with welcome message
+            resetChat(config.welcomeMessage);
         }
     } catch (error) {
         console.error('Error creating new conversation:', error);
