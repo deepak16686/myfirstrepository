@@ -46,6 +46,10 @@ class Settings(BaseSettings):
     nexus_username: str = "admin"
     nexus_password: Optional[str] = None
 
+    # GitHub/Gitea Configuration (Gitea for free self-hosted GitHub Actions alternative)
+    github_url: str = "http://gitea-server:3000"  # Gitea server URL
+    github_token: Optional[str] = None  # Personal access token
+
     chromadb_url: str = "http://chromadb:8000"
 
     ollama_url: str = "http://ollama:11434"
@@ -103,6 +107,11 @@ class ToolsManager:
             "ollama": ToolConfig(
                 base_url=self.settings.ollama_url,
                 enabled=True
+            ),
+            "github": ToolConfig(
+                base_url=self.settings.github_url,
+                token=self.settings.github_token,
+                enabled=bool(self.settings.github_token)
             )
         }
 

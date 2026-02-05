@@ -610,3 +610,252 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# SELF-HEALING PIPELINE ENDPOINTS
+# ============================================================================
+
+from app.services.dry_run_validator import dry_run_validator
+from app.services.llm_fixer import llm_fixer
+from app.services.self_healing_workflow import self_healing_workflow, WorkflowStatus
+
+
+class SelfHealRequest(BaseModel):
+    """Request for self-healing pipeline workflow"""
+    repo_url: str = Field(..., description="GitLab repository URL")
+    gitlab_token: str = Field(..., description="GitLab access token")
+    additional_context: Optional[str] = Field(
+        None,
+        description="Additional context for LLM generation"
+    )
+    auto_commit: bool = Field(
+        default=True,
+        description="Automatically commit and run pipeline"
+    )
+    max_attempts: int = Field(
+        default=3,
+        description="Maximum fix attempts before giving up"
+    )
+
+
+class DryRunRequest(BaseModel):
+    """Request for dry-run validation"""
+    gitlab_ci: str = Field(..., description=".gitlab-ci.yml content")
+    dockerfile: str = Field(..., description="Dockerfile content")
+    gitlab_token: Optional[str] = Field(None, description="GitLab token for lint API")
+
+
+class FixRequest(BaseModel):
+    """Request for LLM fix"""
+    dockerfile: str
+    gitlab_ci: str
+    error_log: str = Field(..., description="Error log from failed job")
+    job_name: str = Field(default="unknown", description="Name of failed job")
+    language: str = Field(default="unknown")
+    framework: str = Field(default="generic")
+
+
+class FixFromJobRequest(BaseModel):
+    """Request to fix from GitLab job ID"""
+    dockerfile: str
+    gitlab_ci: str
+    job_id: int
+    project_id: int
+    gitlab_token: str
+    language: str = "unknown"
+    framework: str = "generic"
+
+
+@router.post("/self-heal")
+async def self_heal_pipeline(request: SelfHealRequest, background_tasks: BackgroundTasks):
+    """
+    🔄 SELF-HEALING PIPELINE WORKFLOW
+
+    Complete automated workflow that:
+    1. Checks ChromaDB for existing templates
+    2. Generates new template via LLM if not found
+    3. Validates with dry-run before committing
+    4. Auto-fixes validation errors via LLM
+    5. Commits to GitLab and monitors pipeline
+    6. Auto-fixes failed pipelines via LLM (max 3 retries)
+    7. Stores successful templates in ChromaDB
+
+    This endpoint runs the full workflow synchronously.
+    For async execution, use /self-heal/async.
+    """
+    try:
+        result = await self_healing_workflow.run(
+            repo_url=request.repo_url,
+            gitlab_token=request.gitlab_token,
+            additional_context=request.additional_context or "",
+            auto_commit=request.auto_commit,
+            max_attempts=request.max_attempts
+        )
+
+        return {
+            "success": result.status == WorkflowStatus.SUCCESS,
+            "status": result.status.value,
+            "language": result.language,
+            "framework": result.framework,
+            "branch": result.branch,
+            "pipeline_id": result.pipeline_id,
+            "template_source": result.template_source,
+            "attempts": result.attempt,
+            "errors": result.errors,
+            "logs": result.logs,
+            "files": {
+                "dockerfile": result.dockerfile,
+                "gitlab_ci": result.gitlab_ci
+            } if result.dockerfile or result.gitlab_ci else None
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+async def run_self_heal_background(
+    repo_url: str,
+    gitlab_token: str,
+    additional_context: str,
+    auto_commit: bool,
+    max_attempts: int
+):
+    """Background task for self-healing workflow"""
+    print(f"[Background] Starting self-heal for {repo_url}")
+    result = await self_healing_workflow.run(
+        repo_url=repo_url,
+        gitlab_token=gitlab_token,
+        additional_context=additional_context,
+        auto_commit=auto_commit,
+        max_attempts=max_attempts
+    )
+    print(f"[Background] Self-heal completed: {result.status.value}")
+
+
+@router.post("/self-heal/async")
+async def self_heal_pipeline_async(request: SelfHealRequest, background_tasks: BackgroundTasks):
+    """
+    🔄 SELF-HEALING PIPELINE (ASYNC)
+
+    Same as /self-heal but runs in the background.
+    Returns immediately with a tracking ID.
+    """
+    try:
+        # Add to background tasks
+        background_tasks.add_task(
+            run_self_heal_background,
+            repo_url=request.repo_url,
+            gitlab_token=request.gitlab_token,
+            additional_context=request.additional_context or "",
+            auto_commit=request.auto_commit,
+            max_attempts=request.max_attempts
+        )
+
+        return {
+            "success": True,
+            "message": "Self-healing workflow started in background",
+            "repo_url": request.repo_url
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/dry-run")
+async def dry_run_validation(request: DryRunRequest):
+    """
+    🧪 DRY-RUN VALIDATION
+
+    Validates Dockerfile and .gitlab-ci.yml BEFORE committing:
+    - YAML syntax validation
+    - Dockerfile syntax validation
+    - GitLab CI structure validation
+    - GitLab CI Lint API validation
+    - Nexus image availability check
+
+    Use this to catch errors before running the actual pipeline.
+    """
+    try:
+        results = await dry_run_validator.validate_all(
+            gitlab_ci=request.gitlab_ci,
+            dockerfile=request.dockerfile,
+            gitlab_token=request.gitlab_token
+        )
+
+        all_valid, summary = dry_run_validator.get_validation_summary(results)
+
+        return {
+            "valid": all_valid,
+            "summary": summary,
+            "checks": {name: result.to_dict() for name, result in results.items()}
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/fix")
+async def fix_pipeline_error(request: FixRequest):
+    """
+    🔧 LLM FIX - Analyze Error and Generate Fix
+
+    Sends the error log to LLM which:
+    1. Analyzes the error pattern
+    2. Identifies the root cause
+    3. Generates fixed Dockerfile and .gitlab-ci.yml
+
+    Use this after a pipeline fails to get AI-generated fixes.
+    """
+    try:
+        result = await llm_fixer.generate_fix(
+            dockerfile=request.dockerfile,
+            gitlab_ci=request.gitlab_ci,
+            error_log=request.error_log,
+            job_name=request.job_name,
+            language=request.language,
+            framework=request.framework
+        )
+
+        return {
+            "success": result.success,
+            "error_identified": result.error_identified,
+            "fix_applied": result.fix_applied,
+            "explanation": result.explanation,
+            "fixed_files": {
+                "dockerfile": result.dockerfile,
+                "gitlab_ci": result.gitlab_ci
+            } if result.success else None
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/fix/from-job")
+async def fix_from_gitlab_job(request: FixFromJobRequest):
+    """
+    🔧 LLM FIX FROM JOB - Fetch Error Log and Generate Fix
+
+    Fetches the error log from a failed GitLab job and generates a fix.
+    Useful when you have a job ID but not the error log.
+    """
+    try:
+        result = await llm_fixer.fix_from_job_log(
+            dockerfile=request.dockerfile,
+            gitlab_ci=request.gitlab_ci,
+            job_id=request.job_id,
+            project_id=request.project_id,
+            gitlab_token=request.gitlab_token,
+            language=request.language,
+            framework=request.framework
+        )
+
+        return {
+            "success": result.success,
+            "error_identified": result.error_identified,
+            "fix_applied": result.fix_applied,
+            "explanation": result.explanation,
+            "fixed_files": {
+                "dockerfile": result.dockerfile,
+                "gitlab_ci": result.gitlab_ci
+            } if result.success else None
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

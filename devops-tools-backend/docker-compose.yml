@@ -24,6 +24,10 @@ services:
       - NEXUS_USERNAME=admin
       - NEXUS_PASSWORD=${NEXUS_PASSWORD:-}
 
+      # GitHub/Gitea (free self-hosted GitHub Actions alternative)
+      - GITHUB_URL=http://gitea-server:3000
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+
       # ChromaDB
       - CHROMADB_URL=http://chromadb:8000
 
