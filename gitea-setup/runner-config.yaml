@@ -1,0 +1,78 @@
+# Gitea Act Runner Configuration
+# This runner is compatible with GitHub Actions workflow syntax
+
+log:
+  level: info
+
+runner:
+  # Runner registration file
+  file: /data/.runner
+
+  # Runner capacity - number of concurrent jobs
+  capacity: 2
+
+  # Environment variables available to all jobs
+  envs:
+    # Nexus Registry Configuration
+    NEXUS_REGISTRY: "localhost:5001"
+    NEXUS_INTERNAL_REGISTRY: "ai-nexus:5001"
+
+    # Tool URLs (internal network)
+    SONARQUBE_URL: "http://ai-sonarqube:9000"
+    SPLUNK_HEC_URL: "http://ai-splunk:8088"
+    DEVOPS_BACKEND_URL: "http://devops-tools-backend:8003"
+
+  # Timeout for job execution
+  timeout: 3h
+
+  # Insecure mode (for self-signed certs)
+  insecure: false
+
+  # Fetch timeout
+  fetch_timeout: 5s
+  fetch_interval: 2s
+
+  # Labels for this runner
+  labels:
+    - "self-hosted"
+    - "docker"
+    - "linux"
+    - "x64"
+
+cache:
+  enabled: true
+  dir: /data/cache
+
+  # Cache host for actions/cache
+  host: ""
+  port: 0
+
+  # External cache server (optional)
+  external_server: ""
+
+container:
+  # Network mode for containers
+  network: "ai-platform-net"
+
+  # Enable privileged mode (needed for Docker-in-Docker)
+  privileged: true
+
+  # Additional container options
+  options: ""
+
+  # Workdir prefix
+  workdir_parent: /workspace
+
+  # Valid volumes for mounting
+  valid_volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+
+  # Docker host
+  docker_host: ""
+
+  # Force pull images
+  force_pull: false
+
+host:
+  # Workdir for host execution
+  workdir_parent: /data/workspace

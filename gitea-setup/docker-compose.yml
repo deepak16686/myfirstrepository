@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Gitea Server - Free GitHub Alternative
+  gitea-server:
+    image: gitea/gitea:latest
+    container_name: gitea-server
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__server__ROOT_URL=http://localhost:3002/
+      - GITEA__server__HTTP_PORT=3000
+      - GITEA__server__SSH_PORT=2222
+      - GITEA__service__DISABLE_REGISTRATION=false
+      - GITEA__service__REQUIRE_SIGNIN_VIEW=false
+      - GITEA__actions__ENABLED=true
+      - GITEA__actions__DEFAULT_ACTIONS_URL=https://github.com
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3002:3000"
+      - "2222:22"
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Gitea Act Runner - GitHub Actions Compatible Runner
+  gitea-runner:
+    image: gitea/act_runner:latest
+    container_name: gitea-runner
+    environment:
+      - GITEA_INSTANCE_URL=http://gitea-server:3000
+      - GITEA_RUNNER_REGISTRATION_TOKEN=${GITEA_RUNNER_TOKEN:-}
+      - GITEA_RUNNER_NAME=self-hosted-runner
+      - GITEA_RUNNER_LABELS=self-hosted,docker
+      - CONFIG_FILE=/config/config.yaml
+    volumes:
+      - gitea-runner-data:/data
+      - ./runner-config.yaml:/config/config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+    depends_on:
+      gitea-server:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  ai-platform-net:
+    external: true
+
+volumes:
+  gitea-data:
+  gitea-runner-data:

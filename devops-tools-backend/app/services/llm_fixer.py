@@ -55,7 +55,7 @@ class LLMFixer:
     def __init__(self):
         self.ollama_config = tools_manager.get_tool("ollama")
         self.gitlab_url = settings.gitlab_url
-        self.nexus_url = "http://localhost:5001"
+        self.nexus_url = "http://ai-nexus:5001"
 
     def _get_ollama(self) -> OllamaIntegration:
         return OllamaIntegration(self.ollama_config)
@@ -258,6 +258,8 @@ Analyze the error and provide FIXED versions of the files.
    - Python: pip install -r requirements.txt
    - Node.js: npm install && npm run build
    - Go: go build -o app ./...
+   - Rust: cargo build --release (needs rust image, NOT maven)
+   - Scala: sbt assembly or sbt package
 
 4. **artifact_missing**:
    - Ensure compile stage produces artifacts in correct path
@@ -272,6 +274,9 @@ Analyze the error and provide FIXED versions of the files.
 - NEXUS_INTERNAL_REGISTRY (ai-nexus:5001) for Kaniko destination
 - All jobs need: tags: [docker]
 - Use only images that exist in the AVAILABLE NEXUS IMAGES list
+- The compile/build image MUST match the project language (e.g. rust image for Rust, maven for Java, node for Node.js)
+- The Dockerfile MUST use the correct base image and build tools for the language (e.g. Cargo.toml → Rust, pom.xml → Java)
+- Fix the ROOT CAUSE job, not just notification/downstream jobs
 
 ═══════════════════════════════════════════════════════════════════════════════
 ## OUTPUT FORMAT (MUST FOLLOW EXACTLY):

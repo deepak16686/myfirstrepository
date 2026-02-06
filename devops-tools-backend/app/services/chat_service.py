@@ -83,7 +83,14 @@ Guidelines:
 - Always ask for confirmation before committing files
 - Explain what you're doing at each step
 - If there's an error, explain it clearly and suggest solutions
-- Be concise but informative"""
+- Be concise but informative
+
+IMPORTANT - Template Source Reporting:
+After generating a pipeline, ALWAYS tell the user about the template source using the "source_message" from the tool result:
+- If template_source is "rag": Tell the user "Template exists in RAG - using a proven pipeline that has succeeded before."
+- If template_source is "llm": Tell the user "No template in RAG for this language. LLM is creating and testing a new template."
+- If template_source is "builtin": Tell the user "Using a built-in default template for this language."
+After committing, mention the template_source in your response so the user knows the commit message reflects the source."""
 
     def __init__(self, config: Settings):
         self.config = config
@@ -176,6 +183,35 @@ Guidelines:
         # Extract assistant message
         assistant_message = response.get("message", {}).get("content", "")
 
+        # Prepend template source banner directly (don't rely on LLM to report it)
+        pending = self.pending_pipelines.get(conversation_id)
+        if pending and "template_source" in pending:
+            src = pending["template_source"]
+            if src == "rag":
+                banner = "**Template exists in RAG** - using a proven pipeline that has succeeded before.\n\n"
+            elif src == "llm":
+                banner = "**No template in RAG for this language.** LLM is creating and testing a new pipeline configuration.\n\n"
+            elif src == "builtin":
+                banner = "**Using a built-in default template** for this language.\n\n"
+            else:
+                banner = ""
+            # Only prepend if LLM didn't already include correct info
+            if banner and src == "llm" and "RAG" in assistant_message and "No template" not in assistant_message:
+                # LLM hallucinated "RAG" when source is actually LLM — replace
+                assistant_message = banner + assistant_message.replace(
+                    "Template exists in RAG - using a proven pipeline that has succeeded before.",
+                    ""
+                ).replace(
+                    "Template exists in RAG",
+                    ""
+                ).strip()
+            elif banner and src == "rag" and "LLM" in assistant_message and "RAG" not in assistant_message:
+                # LLM said LLM when source is actually RAG — replace
+                assistant_message = banner + assistant_message
+            elif banner:
+                # Prepend banner for clarity
+                assistant_message = banner + assistant_message
+
         # Add to conversation history
         self.conversations[conversation_id].append({
             "role": "assistant",
@@ -260,17 +296,33 @@ Guidelines:
                 result = response.json()
 
                 if result.get("success"):
+                    # Determine template source for user messaging
+                    model_used = result.get("model_used", "unknown")
+                    if model_used in ("chromadb-direct", "template-only"):
+                        template_source = "rag"
+                        source_message = "Template found in RAG (ChromaDB) - using a proven pipeline configuration that has succeeded before."
+                    elif model_used == "built-in-template":
+                        template_source = "builtin"
+                        source_message = "Using built-in default template for this language."
+                    else:
+                        template_source = "llm"
+                        source_message = "No existing template found in RAG. LLM is creating a new pipeline configuration. It will be tested automatically and stored if successful."
+
                     # Store the generated pipeline for later commit
                     self.pending_pipelines[conversation_id] = {
                         "repo_url": repo_url,
                         "dockerfile": result.get("dockerfile", ""),
                         "gitlab_ci": result.get("gitlab_ci", ""),
-                        "analysis": result.get("analysis", {})
+                        "analysis": result.get("analysis", {}),
+                        "template_source": template_source,
+                        "model_used": model_used
                     }
 
                     return {
                         "success": True,
                         "message": "Pipeline generated successfully",
+                        "template_source": template_source,
+                        "source_message": source_message,
                         "analysis": result.get("analysis", {}),
                         "dockerfile": result.get("dockerfile", ""),
                         "gitlab_ci": result.get("gitlab_ci", "")
@@ -298,6 +350,19 @@ Guidelines:
                     "error": "No pipeline generated yet. Please generate a pipeline first."
                 }
 
+            # Build commit message based on template source
+            template_source = pending.get("template_source", "unknown")
+            model_used = pending.get("model_used", "unknown")
+            language = pending.get("analysis", {}).get("language", "unknown")
+            framework = pending.get("analysis", {}).get("framework", "generic")
+
+            if template_source == "rag":
+                commit_message = f"Add CI/CD pipeline [RAG Template] - Proven {language}/{framework} config from ChromaDB"
+            elif template_source == "builtin":
+                commit_message = f"Add CI/CD pipeline [Built-in Template] - Default {language} configuration"
+            else:
+                commit_message = f"Add CI/CD pipeline [LLM Generated] - New {language}/{framework} config by {model_used}, will be auto-tested"
+
             # Use the stored pipeline data
             async with httpx.AsyncClient(timeout=180.0) as client:
                 response = await client.post(
@@ -307,7 +372,7 @@ Guidelines:
                         "gitlab_token": self.gitlab_token,
                         "dockerfile": pending["dockerfile"],
                         "gitlab_ci": pending["gitlab_ci"],
-                        "commit_message": "Add CI/CD pipeline [AI Generated]"
+                        "commit_message": commit_message
                     }
                 )
                 result = response.json()
@@ -317,7 +382,8 @@ Guidelines:
                     del self.pending_pipelines[conversation_id]
                     return {
                         "success": True,
-                        "message": "Pipeline committed successfully",
+                        "message": f"Pipeline committed successfully. Source: {commit_message}",
+                        "template_source": template_source,
                         "branch": result.get("branch", ""),
                         "commit_id": result.get("commit_id", "")
                     }
