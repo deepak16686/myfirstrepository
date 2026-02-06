@@ -447,6 +447,244 @@ class SelfHealingWorkflow:
         except Exception as e:
             state.log(f"Warning: Could not store template in ChromaDB: {e}")
 
+    async def _get_failed_job(
+        self,
+        project_id: int,
+        pipeline_id: int,
+        gitlab_token: str
+    ) -> Optional[Dict[str, Any]]:
+        """Find the root-cause failed job in a pipeline (earliest stage)."""
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                resp = await client.get(
+                    f"{self.gitlab_url}/api/v4/projects/{project_id}/pipelines/{pipeline_id}/jobs",
+                    headers={"PRIVATE-TOKEN": gitlab_token}
+                )
+                if resp.status_code == 200:
+                    jobs = resp.json()
+                    failed_jobs = [j for j in jobs if j['status'] == 'failed']
+                    if not failed_jobs:
+                        return None
+                    # GitLab returns jobs with latest stages first.
+                    # Reverse to get earliest-stage jobs first (root cause).
+                    # Also skip notify jobs (when: on_failure) since they're
+                    # symptoms, not root causes.
+                    failed_jobs.reverse()
+                    for job in failed_jobs:
+                        if job.get('name', '').startswith('notify_'):
+                            continue
+                        return job
+                    # If only notify jobs failed, return the first one
+                    return failed_jobs[0]
+        except Exception as e:
+            print(f"[SelfHealing] Error fetching failed job: {e}")
+        return None
+
+    async def _get_yaml_error(
+        self,
+        project_id: int,
+        branch: str,
+        gitlab_token: str
+    ) -> Optional[str]:
+        """
+        Check if pipeline failed due to YAML syntax errors (no jobs created).
+        Lints the .gitlab-ci.yml via GitLab CI Lint API and returns the error.
+        """
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                headers = {"PRIVATE-TOKEN": gitlab_token}
+                # Fetch .gitlab-ci.yml content
+                file_resp = await client.get(
+                    f"{self.gitlab_url}/api/v4/projects/{project_id}/repository/files/.gitlab-ci.yml/raw",
+                    headers=headers,
+                    params={"ref": branch}
+                )
+                if file_resp.status_code != 200:
+                    return None
+
+                # Lint it
+                lint_resp = await client.post(
+                    f"{self.gitlab_url}/api/v4/projects/{project_id}/ci/lint",
+                    headers={**headers, "Content-Type": "application/json"},
+                    json={"content": file_resp.text}
+                )
+                if lint_resp.status_code == 200:
+                    lint = lint_resp.json()
+                    if not lint.get("valid") and lint.get("errors"):
+                        return "YAML syntax error in .gitlab-ci.yml:\n" + "\n".join(lint["errors"])
+        except Exception as e:
+            print(f"[SelfHealing] Error checking YAML lint: {e}")
+        return None
+
+    async def fix_existing_pipeline(
+        self,
+        repo_url: str,
+        gitlab_token: str,
+        project_id: int,
+        pipeline_id: int,
+        branch: str,
+        language: str = "unknown",
+        framework: str = "generic",
+        dockerfile: str = "",
+        gitlab_ci: str = "",
+        max_attempts: int = 3
+    ) -> WorkflowState:
+        """
+        Lighter self-healing workflow for already-committed pipelines.
+
+        Skips analyze/generate/validate steps and goes straight to the
+        fix loop. Used when monitor_pipeline_for_learning() detects a failure.
+
+        Args:
+            repo_url: GitLab repository URL
+            gitlab_token: GitLab access token
+            project_id: GitLab project ID
+            pipeline_id: Failed pipeline ID
+            branch: Branch where pipeline is running
+            language: Detected language
+            framework: Detected framework
+            dockerfile: Current Dockerfile content
+            gitlab_ci: Current .gitlab-ci.yml content
+            max_attempts: Maximum fix attempts (default 3)
+
+        Returns:
+            WorkflowState with final status and results
+        """
+        state = WorkflowState(
+            repo_url=repo_url,
+            project_id=project_id,
+            pipeline_id=pipeline_id,
+            branch=branch,
+            language=language,
+            framework=framework,
+            dockerfile=dockerfile,
+            gitlab_ci=gitlab_ci,
+            max_attempts=max_attempts
+        )
+
+        state.log(f"Starting auto-fix for failed pipeline {pipeline_id} on {branch}")
+
+        try:
+            # ═══════════════════════════════════════════════════════════
+            # Auto-Fix Loop (reuses pattern from run() lines 298-363)
+            # ═══════════════════════════════════════════════════════════
+            while state.attempt < max_attempts:
+                state.attempt += 1
+                state.status = WorkflowStatus.FIXING_PIPELINE
+                state.log(f"Fix attempt {state.attempt}/{max_attempts}")
+
+                # Get failed job from the current pipeline
+                failed_job = await self._get_failed_job(
+                    project_id=project_id,
+                    pipeline_id=state.pipeline_id,
+                    gitlab_token=gitlab_token
+                )
+
+                fix_result = None
+
+                if failed_job:
+                    # Case 1: Normal job failure — get fix from job log
+                    job_id = failed_job['id']
+                    job_name = failed_job.get('name', 'unknown')
+                    state.log(f"Failed job: {job_name} (ID: {job_id})")
+
+                    fix_result = await llm_fixer.fix_from_job_log(
+                        dockerfile=state.dockerfile,
+                        gitlab_ci=state.gitlab_ci,
+                        job_id=job_id,
+                        project_id=project_id,
+                        gitlab_token=gitlab_token,
+                        language=state.language,
+                        framework=state.framework
+                    )
+                else:
+                    # Case 2: No jobs at all — likely YAML syntax error
+                    yaml_error = await self._get_yaml_error(
+                        project_id=project_id,
+                        branch=branch,
+                        gitlab_token=gitlab_token
+                    )
+                    if yaml_error:
+                        state.log(f"YAML error detected: {yaml_error[:100]}")
+                        fix_result = await llm_fixer.generate_fix(
+                            dockerfile=state.dockerfile,
+                            gitlab_ci=state.gitlab_ci,
+                            error_log=yaml_error,
+                            job_name="yaml_validation",
+                            language=state.language,
+                            framework=state.framework
+                        )
+                    else:
+                        state.log("Could not identify failed job or YAML error")
+                        break
+
+                if not fix_result.success:
+                    state.log(f"Fix generation failed: {fix_result.explanation}")
+                    continue
+
+                state.dockerfile = fix_result.dockerfile
+                state.gitlab_ci = fix_result.gitlab_ci
+                state.template_source = "llm_fixed"
+                state.log(f"Fix applied: {fix_result.explanation[:100]}")
+
+                # Commit fix directly (not via HTTP endpoint to avoid re-triggering monitor)
+                try:
+                    commit_result = await pipeline_generator.commit_to_gitlab(
+                        repo_url=repo_url,
+                        gitlab_token=gitlab_token,
+                        files={
+                            ".gitlab-ci.yml": state.gitlab_ci,
+                            "Dockerfile": state.dockerfile
+                        },
+                        branch_name=branch,
+                        commit_message=f"AI Fix attempt {state.attempt}: {fix_result.error_identified}"
+                    )
+                    state.log(f"Fix committed (commit: {commit_result['commit_id'][:8]})")
+                except Exception as commit_err:
+                    state.log(f"Commit failed (attempt {state.attempt}): {str(commit_err)[:120]}")
+                    state.errors.append(f"Commit error attempt {state.attempt}: {str(commit_err)[:200]}")
+                    continue  # Try next fix attempt
+
+                # Monitor new pipeline using internal method (no recursion)
+                try:
+                    state.status = WorkflowStatus.RUNNING_PIPELINE
+                    pipeline_result = await self._monitor_pipeline(
+                        state=state,
+                        gitlab_token=gitlab_token
+                    )
+
+                    if pipeline_result['success']:
+                        state.status = WorkflowStatus.SUCCESS
+                        state.log(f"Pipeline succeeded after {state.attempt} fix(es)!")
+
+                        # Store in ChromaDB for future use
+                        await self._store_successful_template(state)
+                        state.log("Fixed template stored in ChromaDB")
+                        return state
+                    else:
+                        # Update pipeline_id for next iteration
+                        state.pipeline_id = pipeline_result.get('pipeline_id', state.pipeline_id)
+                        state.log(f"Pipeline still failing after fix attempt {state.attempt}")
+                except Exception as monitor_err:
+                    state.log(f"Monitor failed (attempt {state.attempt}): {str(monitor_err)[:120]}")
+                    state.errors.append(f"Monitor error attempt {state.attempt}: {str(monitor_err)[:200]}")
+                    continue  # Try next fix attempt
+
+            # All attempts exhausted
+            state.status = WorkflowStatus.FAILED
+            state.errors.append(f"Failed after {state.attempt} fix attempts")
+            state.log(f"Pipeline still failing after {state.attempt} attempts")
+
+            # Create GitLab issue for manual review
+            await self._create_failure_issue(state, gitlab_token)
+
+        except Exception as e:
+            state.status = WorkflowStatus.FAILED
+            state.errors.append(str(e))
+            state.log(f"Auto-fix error: {str(e)}")
+
+        return state
+
     async def _create_failure_issue(self, state: WorkflowState, gitlab_token: str):
         """Create a GitLab issue for failed pipelines that need manual review"""
         try:

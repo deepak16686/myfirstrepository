@@ -34,11 +34,24 @@ const toolConfig = {
     'pipeline-generator': {
         name: 'GitLab Pipeline Generator',
         icon: '🚀',
+        endpoint: '/api/v1/chat/',
         welcomeMessage: `Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.
 
 Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.
 
 **Example:** "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"`
+    },
+    'github-actions': {
+        name: 'GitHub Actions Generator',
+        icon: '🐙',
+        endpoint: '/api/v1/github-pipeline/',
+        welcomeMessage: `Hello! I'm your AI DevOps assistant for GitHub Actions (via Gitea).
+
+I can help you generate CI/CD workflows for your Gitea repositories with GitHub Actions-compatible syntax.
+
+Just provide me with a Gitea repository URL and I'll analyze it and create appropriate Dockerfile and .github/workflows/ci.yml files for you.
+
+**Example:** "Generate a workflow for http://gitea-server:3000/admin/java-test-project"`
     }
 };
 
