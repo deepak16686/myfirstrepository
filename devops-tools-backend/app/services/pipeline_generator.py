@@ -17,6 +17,8 @@ import httpx
 from app.config import settings, tools_manager
 from app.integrations.ollama import OllamaIntegration
 from app.integrations.chromadb import ChromaDBIntegration
+from app.services.gitlab_dry_run_validator import gitlab_dry_run_validator, GitLabDryRunValidator
+from app.services.gitlab_llm_fixer import gitlab_llm_fixer, GitLabLLMFixer
 
 
 class PipelineGeneratorService:
@@ -277,16 +279,28 @@ learn_record:
             return 'javascript'
         elif 'requirements.txt' in files or 'setup.py' in files or 'pyproject.toml' in files:
             return 'python'
-        elif 'pom.xml' in files or 'build.gradle' in files:
+        elif 'pom.xml' in files or 'build.gradle' in files or 'build.gradle.kts' in files:
             return 'java'
+        elif 'build.sbt' in files:
+            return 'scala'
         elif 'go.mod' in files:
             return 'go'
         elif 'Cargo.toml' in files:
             return 'rust'
         elif 'Gemfile' in files:
             return 'ruby'
-        elif any(f.endswith('.csproj') for f in files):
+        elif 'composer.json' in files:
+            return 'php'
+        elif 'mix.exs' in files:
+            return 'elixir'
+        elif any(f.endswith('.csproj') for f in files) or any(f.endswith('.sln') for f in files):
             return 'csharp'
+        elif any(f.endswith('.kt') for f in files) or any(f.endswith('.kts') for f in files):
+            return 'kotlin'
+        elif any(f.endswith('.swift') for f in files) or 'Package.swift' in files:
+            return 'swift'
+        elif any(f.endswith('.ts') for f in files) and 'package.json' not in files:
+            return 'typescript'
         return 'unknown'
 
     def _detect_framework(self, files: List[str]) -> str:
@@ -295,7 +309,7 @@ learn_record:
             return 'nextjs'
         elif 'angular.json' in files:
             return 'angular'
-        elif 'vue.config.js' in files:
+        elif 'vue.config.js' in files or 'vite.config.js' in files:
             return 'vue'
         elif 'manage.py' in files:
             return 'django'
@@ -304,6 +318,12 @@ learn_record:
                 return 'flask-or-fastapi'
         elif 'pom.xml' in files:
             return 'spring'
+        elif 'build.sbt' in files:
+            return 'akka'
+        elif 'mix.exs' in files:
+            return 'phoenix'
+        elif 'artisan' in files or 'composer.json' in files:
+            return 'laravel'
         return 'generic'
 
     def _detect_package_manager(self, files: List[str]) -> str:
@@ -429,11 +449,15 @@ learn_record:
                 'template_source': 'reinforcement_learning'
             }
 
-        print(f"[RL-Direct] No proven template found, falling back to LLM generation...")
+        print("[RL-Direct] No proven template found in ChromaDB...")
 
         # ═══════════════════════════════════════════════════════════════════════════
-        # FALLBACK: Use LLM when no proven template exists
+        # PRIORITY 2: Use LLM to generate a new template
+        # When no proven template exists in RAG, the LLM creates a new one.
+        # After commit, self-healing monitors the pipeline and auto-fixes if needed.
         # ═══════════════════════════════════════════════════════════════════════════
+        language = analysis.get('language', 'unknown').lower()
+        print(f"[LLM-Generate] No RAG template for {language}. LLM is creating a new pipeline...")
 
         # Get reference pipeline from ChromaDB templates (for LLM context)
         reference_pipeline = await self.get_reference_pipeline(
@@ -686,6 +710,246 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             }
         finally:
             await ollama.close()
+
+    async def generate_with_validation(
+        self,
+        repo_url: str,
+        gitlab_token: str,
+        additional_context: str = "",
+        model: str = None,
+        max_fix_attempts: int = 3,
+        store_on_success: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Generate pipeline files with dry-run validation and automatic fixing.
+
+        This method:
+        1. First checks ChromaDB for existing templates
+        2. If no template, generates using LLM
+        3. Validates the generated pipeline using GitLab CI lint
+        4. If validation fails, uses LLM to fix and retries
+        5. If successful, stores in ChromaDB for future use
+
+        Args:
+            repo_url: GitLab repository URL
+            gitlab_token: GitLab API token
+            additional_context: Additional context for generation
+            model: Ollama model to use
+            max_fix_attempts: Maximum number of fix attempts
+            store_on_success: Whether to store successful pipelines in ChromaDB
+
+        Returns:
+            Dict with pipeline files, validation results, and metadata
+        """
+        model = model or self.DEFAULT_MODEL
+        parsed = self.parse_gitlab_url(repo_url)
+        project_path = parsed['path']
+
+        # Step 1: Generate initial pipeline
+        print(f"[Validation Flow] Generating pipeline for {repo_url}...")
+        result = await self.generate_pipeline_files(
+            repo_url=repo_url,
+            gitlab_token=gitlab_token,
+            additional_context=additional_context,
+            model=model,
+            use_template_only=False
+        )
+
+        gitlab_ci = result.get('gitlab_ci', '')
+        dockerfile = result.get('dockerfile', '')
+        analysis = result.get('analysis', {})
+
+        # If template was used directly from ChromaDB, skip validation (already proven)
+        if result.get('template_source') == 'reinforcement_learning':
+            print("[Validation Flow] Using proven template from RL - skipping validation")
+            return {
+                **result,
+                'validation_skipped': True,
+                'validation_reason': 'Template from reinforcement learning (already validated)'
+            }
+
+        # Step 2: Validate the generated pipeline
+        print("[Validation Flow] Running dry-run validation...")
+        validator = gitlab_dry_run_validator
+
+        validation_results = await validator.validate_all(
+            gitlab_ci=gitlab_ci,
+            dockerfile=dockerfile,
+            gitlab_token=gitlab_token,
+            project_path=project_path
+        )
+
+        all_valid, _ = validator.get_validation_summary(validation_results)
+
+        # Collect errors
+        all_errors = []
+        all_warnings = []
+        for check_name, check_result in validation_results.items():
+            all_errors.extend([f"[{check_name}] {e}" for e in check_result.errors])
+            all_warnings.extend([f"[{check_name}] {w}" for w in check_result.warnings])
+
+        if all_valid or not all_errors:
+            # Pipeline is valid or only has warnings
+            print(f"[Validation Flow] Pipeline valid! (warnings: {len(all_warnings)})")
+
+            # Store in ChromaDB for future use
+            if store_on_success and analysis.get('language') and analysis.get('language') != 'unknown':
+                await self._store_validated_template(
+                    gitlab_ci=gitlab_ci,
+                    dockerfile=dockerfile,
+                    language=analysis.get('language', 'unknown'),
+                    framework=analysis.get('framework', 'generic')
+                )
+
+            return {
+                **result,
+                'validation_passed': True,
+                'validation_results': {k: v.to_dict() for k, v in validation_results.items()},
+                'warnings': all_warnings
+            }
+
+        # Step 3: Validation failed - attempt fixes
+        print(f"[Validation Flow] Validation failed with {len(all_errors)} errors. Attempting fixes...")
+
+        fixer = gitlab_llm_fixer
+        fix_result = await fixer.iterative_fix(
+            gitlab_ci=gitlab_ci,
+            dockerfile=dockerfile,
+            validator=validator,
+            analysis=analysis,
+            gitlab_token=gitlab_token,
+            project_path=project_path,
+            max_attempts=max_fix_attempts,
+            model=model
+        )
+
+        if fix_result.get('success'):
+            # Fixed successfully
+            fixed_gitlab_ci = fix_result.get('gitlab_ci', gitlab_ci)
+            fixed_dockerfile = fix_result.get('dockerfile', dockerfile)
+
+            print(f"[Validation Flow] Pipeline fixed after {fix_result.get('attempts', 1)} attempt(s)")
+
+            # Store in ChromaDB for future use
+            if store_on_success and analysis.get('language') and analysis.get('language') != 'unknown':
+                await self._store_validated_template(
+                    gitlab_ci=fixed_gitlab_ci,
+                    dockerfile=fixed_dockerfile,
+                    language=analysis.get('language', 'unknown'),
+                    framework=analysis.get('framework', 'generic')
+                )
+
+            return {
+                'gitlab_ci': fixed_gitlab_ci,
+                'dockerfile': fixed_dockerfile,
+                'analysis': analysis,
+                'model_used': model,
+                'feedback_used': result.get('feedback_used', 0),
+                'validation_passed': True,
+                'fix_attempts': fix_result.get('attempts', 1),
+                'fix_history': fix_result.get('fix_history', []),
+                'has_warnings': fix_result.get('has_warnings', False)
+            }
+        else:
+            # Could not fix - return best effort
+            print(f"[Validation Flow] Could not fix pipeline after {max_fix_attempts} attempts")
+            return {
+                'gitlab_ci': fix_result.get('gitlab_ci', gitlab_ci),
+                'dockerfile': fix_result.get('dockerfile', dockerfile),
+                'analysis': analysis,
+                'model_used': model,
+                'feedback_used': result.get('feedback_used', 0),
+                'validation_passed': False,
+                'validation_errors': fix_result.get('final_errors', all_errors),
+                'fix_attempts': fix_result.get('attempts', max_fix_attempts),
+                'fix_history': fix_result.get('fix_history', [])
+            }
+
+    async def _store_validated_template(
+        self,
+        gitlab_ci: str,
+        dockerfile: str,
+        language: str,
+        framework: str
+    ) -> bool:
+        """Store a validated template in ChromaDB for future use."""
+        try:
+            chromadb = self._get_chromadb()
+
+            # Ensure collection exists
+            try:
+                collection = await chromadb.get_collection(self.TEMPLATES_COLLECTION)
+                if not collection:
+                    await chromadb.create_collection(
+                        self.TEMPLATES_COLLECTION,
+                        metadata={"description": "Validated pipeline templates"}
+                    )
+            except Exception:
+                pass  # Collection might already exist
+
+            # Generate unique ID
+            content_hash = hashlib.md5(
+                f"{gitlab_ci}{language}{framework}".encode()
+            ).hexdigest()[:12]
+            doc_id = f"validated_{language}_{framework}_{content_hash}"
+
+            # Create combined document
+            template_doc = f"""## Validated Pipeline Template
+Language: {language}
+Framework: {framework}
+Type: gitlab-ci
+Validated: true
+
+### .gitlab-ci.yml
+```yaml
+{gitlab_ci}
+```
+
+### Dockerfile
+```dockerfile
+{dockerfile}
+```
+"""
+
+            metadata = {
+                "language": language.lower(),
+                "framework": framework.lower(),
+                "type": "gitlab-ci",
+                "validated": "true",
+                "timestamp": datetime.now().isoformat()
+            }
+
+            # Check if exists
+            existing = await chromadb.get_documents(
+                collection_name=self.TEMPLATES_COLLECTION,
+                ids=[doc_id]
+            )
+
+            if existing and existing.get('ids'):
+                # Update existing
+                await chromadb.update_documents(
+                    collection_name=self.TEMPLATES_COLLECTION,
+                    ids=[doc_id],
+                    documents=[template_doc],
+                    metadatas=[metadata]
+                )
+                print(f"[ChromaDB] Updated validated template for {language}/{framework}")
+            else:
+                # Add new
+                await chromadb.add_documents(
+                    collection_name=self.TEMPLATES_COLLECTION,
+                    ids=[doc_id],
+                    documents=[template_doc],
+                    metadatas=[metadata]
+                )
+                print(f"[ChromaDB] Stored new validated template for {language}/{framework}")
+
+            await chromadb.close()
+            return True
+
+        except Exception as e:
+            print(f"[ChromaDB] Error storing validated template: {e}")
+            return False
 
     def _validate_and_fix_pipeline(self, generated: str, reference: Optional[str]) -> str:
         """
@@ -1556,6 +1820,210 @@ learn_record:
     - echo "=============================================="
   when: on_success
   allow_failure: true
+''',
+            'scala': base_template + '''
+compile:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/maven:3.9-eclipse-temurin-17
+  tags: [docker]
+  script:
+    # Install SBT on the fly (maven image has Java 17)
+    - curl -fL "https://github.com/sbt/sbt/releases/download/v1.9.8/sbt-1.9.8.tgz" | tar xz -C /tmp
+    - export PATH="/tmp/sbt/bin:$PATH"
+    - sbt clean compile package
+  artifacts:
+    paths: [target/scala-*/]
+    expire_in: 1 hour
+
+build_image:
+  stage: build
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags: [docker]
+  dependencies: [compile]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\\"auths\\":{\\"${NEXUS_INTERNAL_REGISTRY}\\":{\\"username\\":\\"${NEXUS_USERNAME}\\",\\"password\\":\\"${NEXUS_PASSWORD}\\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${IMAGE_TAG}" --build-arg BASE_REGISTRY=${NEXUS_INTERNAL_REGISTRY} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
+
+test:
+  stage: test
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/maven:3.9-eclipse-temurin-17
+  tags: [docker]
+  script:
+    - curl -fL "https://github.com/sbt/sbt/releases/download/v1.9.8/sbt-1.9.8.tgz" | tar xz -C /tmp
+    - export PATH="/tmp/sbt/bin:$PATH"
+    - sbt test || true
+  allow_failure: true
+
+sast:
+  stage: sast
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/maven:3.9-eclipse-temurin-17
+  tags: [docker]
+  script:
+    - curl -fL "https://github.com/sbt/sbt/releases/download/v1.9.8/sbt-1.9.8.tgz" | tar xz -C /tmp
+    - export PATH="/tmp/sbt/bin:$PATH"
+    - sbt scalafmtCheck || true
+  allow_failure: true
+
+quality:
+  stage: quality
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/sonarsource-sonar-scanner-cli:5
+  tags: [docker]
+  script:
+    - sonar-scanner -Dsonar.projectKey=${CI_PROJECT_NAME} -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.token=${SONAR_TOKEN} || true
+  allow_failure: true
+
+security:
+  stage: security
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  services:
+    - name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/aquasec-trivy:latest
+      alias: trivy-server
+      command: ["server", "--listen", "0.0.0.0:8080"]
+  script:
+    - sleep 10
+    - curl -s "http://trivy-server:8080/healthz" || true
+  allow_failure: true
+
+push:
+  stage: push
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags: [docker]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\\"auths\\":{\\"${NEXUS_INTERNAL_REGISTRY}\\":{\\"username\\":\\"${NEXUS_USERNAME}\\",\\"password\\":\\"${NEXUS_PASSWORD}\\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${RELEASE_TAG}" --build-arg BASE_REGISTRY=${NEXUS_INTERNAL_REGISTRY} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
+
+notify_success:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - 'curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d "{\"event\": \"Pipeline succeeded\", \"sourcetype\": \"gitlab-ci\"}" || true'
+  when: on_success
+  allow_failure: true
+
+notify_failure:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - 'curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d "{\"event\": \"Pipeline failed\", \"sourcetype\": \"gitlab-ci\"}" || true'
+  when: on_failure
+  allow_failure: true
+
+learn_record:
+  stage: learn
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - echo "REINFORCEMENT LEARNING - Recording Success"
+    - echo "Pipeline ${CI_PIPELINE_ID} completed successfully!"
+  when: on_success
+  allow_failure: true
+''',
+            'php': base_template + '''
+compile:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/php:8.2-cli
+  tags: [docker]
+  script:
+    - composer install --no-interaction
+  artifacts:
+    paths: [vendor/]
+    expire_in: 1 hour
+
+build_image:
+  stage: build
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags: [docker]
+  dependencies: [compile]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\\"auths\\":{\\"${NEXUS_INTERNAL_REGISTRY}\\":{\\"username\\":\\"${NEXUS_USERNAME}\\",\\"password\\":\\"${NEXUS_PASSWORD}\\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${IMAGE_TAG}" --build-arg BASE_REGISTRY=${NEXUS_INTERNAL_REGISTRY} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
+
+test:
+  stage: test
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/php:8.2-cli
+  tags: [docker]
+  script:
+    - vendor/bin/phpunit || true
+  allow_failure: true
+
+sast:
+  stage: sast
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/php:8.2-cli
+  tags: [docker]
+  script:
+    - vendor/bin/phpstan analyse || true
+  allow_failure: true
+
+quality:
+  stage: quality
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/sonarsource-sonar-scanner-cli:5
+  tags: [docker]
+  script:
+    - sonar-scanner -Dsonar.projectKey=${CI_PROJECT_NAME} -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.token=${SONAR_TOKEN} || true
+  allow_failure: true
+
+security:
+  stage: security
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  services:
+    - name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/aquasec-trivy:latest
+      alias: trivy-server
+      command: ["server", "--listen", "0.0.0.0:8080"]
+  script:
+    - sleep 10
+    - curl -s "http://trivy-server:8080/healthz" || true
+  allow_failure: true
+
+push:
+  stage: push
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags: [docker]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\\"auths\\":{\\"${NEXUS_INTERNAL_REGISTRY}\\":{\\"username\\":\\"${NEXUS_USERNAME}\\",\\"password\\":\\"${NEXUS_PASSWORD}\\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${RELEASE_TAG}" --build-arg BASE_REGISTRY=${NEXUS_INTERNAL_REGISTRY} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
+
+notify_success:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - 'curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d "{\"event\": \"Pipeline succeeded\"}" || true'
+  when: on_success
+  allow_failure: true
+
+notify_failure:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - 'curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d "{\"event\": \"Pipeline failed\"}" || true'
+  when: on_failure
+  allow_failure: true
+
+learn_record:
+  stage: learn
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - echo "REINFORCEMENT LEARNING - Recording Success"
+  when: on_success
+  allow_failure: true
 '''
         }
 
@@ -1624,6 +2092,61 @@ COPY --from=builder /app/main .
 
 EXPOSE 8080
 CMD ["./main"]
+''',
+            'scala': '''# Scala Dockerfile - uses Nexus private registry
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/maven:3.9-eclipse-temurin-17 as builder
+
+WORKDIR /app
+
+# Install SBT
+RUN curl -fL "https://github.com/sbt/sbt/releases/download/v1.9.8/sbt-1.9.8.tgz" | tar xz -C /opt && \
+    ln -s /opt/sbt/bin/sbt /usr/local/bin/sbt
+
+# Copy build files first for dependency caching
+COPY build.sbt .
+COPY project/ project/
+RUN sbt update
+
+# Copy source and build
+COPY src/ src/
+RUN sbt clean compile package
+
+FROM ${BASE_REGISTRY}/apm-repo/demo/amazoncorretto:17-alpine-jdk
+WORKDIR /app
+COPY --from=builder /app/target/scala-*/*.jar app.jar
+
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+''',
+            'php': '''# PHP Dockerfile - uses Nexus private registry
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/php:8.2-fpm-alpine
+
+WORKDIR /var/www/html
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+COPY . .
+
+EXPOSE 9000
+CMD ["php-fpm"]
+''',
+            'rust': '''# Rust Dockerfile - uses Nexus private registry
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.75-alpine as builder
+
+WORKDIR /app
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir src && echo "fn main() {}" > src/main.rs && cargo build --release && rm -rf src
+COPY src/ src/
+RUN cargo build --release
+
+FROM ${BASE_REGISTRY}/apm-repo/demo/alpine:3.18
+WORKDIR /app
+COPY --from=builder /app/target/release/app .
+
+EXPOSE 8080
+CMD ["./app"]
 '''
         }
 
@@ -1662,15 +2185,23 @@ CMD ["./main"]
             project = project_resp.json()
             default_branch = project.get('default_branch', 'main')
 
+            # Check if target branch already exists
+            branch_url = f"{parsed['host']}/api/v4/projects/{parsed['project_path']}/repository/branches/{branch_name.replace('/', '%2F')}"
+            branch_resp = await client.get(branch_url, headers=headers)
+            branch_exists = branch_resp.status_code == 200
+
+            # Check file existence on the correct ref
+            check_ref = branch_name if branch_exists else default_branch
+
             # Create commit with new branch
             actions = []
             for filename, content in files.items():
-                # Check if file exists
+                # Check if file exists on the correct branch
                 file_url = f"{parsed['host']}/api/v4/projects/{parsed['project_path']}/repository/files/{filename.replace('/', '%2F')}"
                 file_resp = await client.get(
                     file_url,
                     headers=headers,
-                    params={"ref": default_branch}
+                    params={"ref": check_ref}
                 )
 
                 action = "update" if file_resp.status_code == 200 else "create"
@@ -1684,10 +2215,12 @@ CMD ["./main"]
             commit_url = f"{parsed['host']}/api/v4/projects/{parsed['project_path']}/repository/commits"
             commit_data = {
                 "branch": branch_name,
-                "start_branch": default_branch,
                 "commit_message": commit_message,
                 "actions": actions
             }
+            # Only set start_branch when creating a new branch
+            if not branch_exists:
+                commit_data["start_branch"] = default_branch
 
             commit_resp = await client.post(commit_url, headers=headers, json=commit_data)
             commit_resp.raise_for_status()

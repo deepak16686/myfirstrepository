@@ -231,6 +231,11 @@ body {
     color: #999;
 }
 
+.tag.gitea {
+    background: rgba(97, 175, 67, 0.2);
+    color: #2d6b28;
+}
+
 .card-arrow {
     display: none;
 }
