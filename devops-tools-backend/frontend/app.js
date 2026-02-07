@@ -26,6 +26,10 @@ const categoryConfig = {
     sre: {
         title: 'SRE Tools',
         subtitle: 'Site Reliability Engineering utilities and calculators'
+    },
+    auxiliary: {
+        title: 'Auxiliary Tools',
+        subtitle: 'Utilities for security, compliance, cost management and more'
     }
 };
 

@@ -37,7 +37,7 @@ class LLMFixer:
     """
 
     # Model to use for fixing - can be different from generation model
-    FIX_MODEL = "pipeline-generator-v4"
+    FIX_MODEL = "pipeline-generator-v5"
 
     # Common error patterns and their likely causes
     ERROR_PATTERNS = {

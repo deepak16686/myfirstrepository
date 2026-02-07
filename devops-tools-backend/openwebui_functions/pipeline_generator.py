@@ -97,7 +97,7 @@ Would you like me to generate the CI/CD pipeline for this project?
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
                         "additional_context": additional_context,
-                        "model": "pipeline-generator-v4"
+                        "model": "pipeline-generator-v5"
                     }
                 )
                 # FIX: Handle None response
@@ -265,7 +265,7 @@ I'm now monitoring the pipeline status...
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
                         "additional_context": additional_context,
-                        "model": "pipeline-generator-v4",
+                        "model": "pipeline-generator-v5",
                         "auto_commit": True
                     }
                 )
