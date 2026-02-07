@@ -33,7 +33,7 @@ User -> Frontend -> Chat API -> LLM (Ollama) -> Tool Calls -> Pipeline API -> Gi
 - Pipeline status monitoring
 
 ### 4. Ollama (LLM)
-- llama3.1:8b model
+- qwen3:32b model
 - Native tool/function calling
 - Streaming responses
 

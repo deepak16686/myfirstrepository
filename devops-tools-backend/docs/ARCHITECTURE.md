@@ -84,7 +84,7 @@
 
 **Purpose**: AI model inference for pipeline generation
 
-**Model Used**: `pipeline-generator-v4` (custom fine-tuned)
+**Model Used**: `pipeline-generator-v5` (custom fine-tuned)
 
 **Fallback**: Default templates when LLM unavailable
 

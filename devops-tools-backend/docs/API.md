@@ -63,7 +63,7 @@ Generate `.gitlab-ci.yml` and `Dockerfile` for a repository.
   "repo_url": "http://gitlab-server/root/my-app",
   "gitlab_token": "glpat-xxxxx",
   "additional_context": "Use Python 3.12",
-  "model": "pipeline-generator-v4",
+  "model": "pipeline-generator-v5",
   "use_template_only": false
 }
 ```
@@ -73,7 +73,7 @@ Generate `.gitlab-ci.yml` and `Dockerfile` for a repository.
 | repo_url | string | Yes | GitLab repository URL |
 | gitlab_token | string | Yes | GitLab access token |
 | additional_context | string | No | Extra requirements |
-| model | string | No | Ollama model (default: pipeline-generator-v4) |
+| model | string | No | Ollama model (default: pipeline-generator-v5) |
 | use_template_only | boolean | No | Skip LLM, use templates (default: false) |
 
 **Response**:
@@ -86,7 +86,7 @@ Generate `.gitlab-ci.yml` and `Dockerfile` for a repository.
     "language": "go",
     "framework": "generic"
   },
-  "model_used": "pipeline-generator-v4",
+  "model_used": "pipeline-generator-v5",
   "feedback_used": 3
 }
 ```
@@ -166,7 +166,7 @@ This is the main endpoint for full automation.
   "repo_url": "http://gitlab-server/root/my-app",
   "gitlab_token": "glpat-xxxxx",
   "additional_context": null,
-  "model": "pipeline-generator-v4",
+  "model": "pipeline-generator-v5",
   "auto_commit": true,
   "branch_name": null,
   "use_template_only": true

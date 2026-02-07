@@ -45,7 +45,7 @@ class Tools:
                     json={
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
-                        "model": "pipeline-generator-v4"
+                        "model": "pipeline-generator-v5"
                     }
                 )
 
@@ -103,7 +103,7 @@ Reply **"yes"** to commit these files, or **"no"** to cancel.
                     json={
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
-                        "model": "pipeline-generator-v4"
+                        "model": "pipeline-generator-v5"
                     }
                 )
 

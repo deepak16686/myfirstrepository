@@ -205,7 +205,7 @@ class GeneratePipelineRequest(BaseModel):
         description="Additional requirements or context for generation"
     )
     model: str = Field(
-        default="pipeline-generator-v4",
+        default="pipeline-generator-v5",
         description="Ollama model to use for generation"
     )
     use_template_only: bool = Field(
@@ -233,7 +233,7 @@ class GenerateWithValidationRequest(BaseModel):
         description="Additional requirements or context for generation"
     )
     model: str = Field(
-        default="pipeline-generator-v4",
+        default="pipeline-generator-v5",
         description="Ollama model to use for generation"
     )
     max_fix_attempts: int = Field(
@@ -329,7 +329,7 @@ class FullWorkflowRequest(BaseModel):
     repo_url: str
     gitlab_token: str
     additional_context: Optional[str] = None
-    model: str = "pipeline-generator-v4"
+    model: str = "pipeline-generator-v5"
     auto_commit: bool = False  # Default to False - require user approval
     branch_name: Optional[str] = None
     use_template_only: bool = Field(

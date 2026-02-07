@@ -23,7 +23,7 @@ class GitLabLLMFixer:
     4. Returns corrected pipeline
     """
 
-    FIX_MODEL = "pipeline-generator-v4"  # Same model used for generation
+    FIX_MODEL = "pipeline-generator-v5"  # Same model used for generation
 
     def __init__(self):
         self.ollama_config = tools_manager.get_tool("ollama")

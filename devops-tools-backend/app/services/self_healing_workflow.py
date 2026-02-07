@@ -627,6 +627,13 @@ class SelfHealingWorkflow:
                 state.template_source = "llm_fixed"
                 state.log(f"Fix applied: {fix_result.explanation[:100]}")
 
+                # Validate and auto-correct images for the detected language
+                state.gitlab_ci, state.dockerfile, img_fixes = pipeline_generator.validate_and_fix_pipeline_images(
+                    state.gitlab_ci, state.dockerfile, state.language
+                )
+                if img_fixes:
+                    state.log(f"Image validator corrected {len(img_fixes)} issues: {', '.join(img_fixes[:3])}")
+
                 # Commit fix directly (not via HTTP endpoint to avoid re-triggering monitor)
                 try:
                     commit_result = await pipeline_generator.commit_to_gitlab(

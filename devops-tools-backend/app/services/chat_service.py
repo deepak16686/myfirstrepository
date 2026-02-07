@@ -69,21 +69,48 @@ class ChatService:
                     "required": ["repo_url"]
                 }
             }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "validate_pipeline",
+                "description": "Validate the pending generated pipeline using dry-run checks (YAML syntax, Dockerfile syntax, GitLab CI lint, Nexus image availability, pipeline structure). Use this when the user wants to verify, validate, or dry-run the pipeline before committing.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
+            }
         }
     ]
 
     SYSTEM_PROMPT = """You are an AI DevOps assistant that helps generate CI/CD pipelines for GitLab repositories.
 
 Your capabilities:
-1. Generate pipelines: When a user provides a GitLab repository URL, use the generate_pipeline tool to analyze the repository and create appropriate Dockerfile and .gitlab-ci.yml files.
-2. Commit pipelines: When the user approves (says "yes", "commit", "approve", etc.), use the commit_pipeline tool to commit the files to the repository.
-3. Check status: When asked about pipeline status, use the check_pipeline_status tool.
+1. Generate pipelines: When a user provides a GitLab repository URL, use the generate_pipeline tool. This automatically validates the pipeline and fixes any issues before returning results.
+2. Validate pipelines: Use the validate_pipeline tool to run dry-run checks on the pending pipeline. Always offer this option before committing.
+3. Commit pipelines: When the user approves (says "yes", "commit", "approve", etc.), use the commit_pipeline tool to commit the files to the repository.
+4. Check status: When asked about pipeline status, use the check_pipeline_status tool.
+
+Workflow - ALWAYS follow this order:
+1. GENERATE: Generate and auto-validate the pipeline
+2. REPORT: Tell the user the validation results (passed/failed/warnings)
+3. VALIDATE (optional): If user asks, run additional dry-run validation via validate_pipeline
+4. COMMIT: Only after the user confirms and validation is satisfactory
 
 Guidelines:
-- Always ask for confirmation before committing files
-- Explain what you're doing at each step
-- If there's an error, explain it clearly and suggest solutions
-- Be concise but informative
+- After generating a pipeline, ALWAYS report the validation status to the user:
+  - If validation_passed is true: Tell the user validation passed and ask if they want to commit.
+  - If validation_passed is false: Explain the validation errors and suggest regenerating or ask the user how to proceed.
+  - If validation_skipped is true: Tell the user this is a proven template from RAG that was already validated.
+  - Report any warnings even if validation passed.
+  - If fix_attempts > 0: Mention that the pipeline had issues that were automatically fixed.
+- NEVER commit a pipeline without first informing the user about its validation status.
+- If the user asks to "validate", "dry-run", or "check" the pipeline, use the validate_pipeline tool.
+- Always ask for confirmation before committing files.
+- Explain what you're doing at each step.
+- If there's an error, explain it clearly and suggest solutions.
+- Be concise but informative.
 
 IMPORTANT - Template Source Reporting:
 After generating a pipeline, ALWAYS tell the user about the template source using the "source_message" from the tool result:
@@ -116,7 +143,7 @@ After committing, mention the template_source in your response so the user knows
         self,
         conversation_id: str,
         user_message: str,
-        model: str = "llama3.1:8b"
+        model: str = "qwen3:32b"
     ) -> Dict[str, Any]:
         """
         Process a chat message and return the response.
@@ -274,6 +301,8 @@ After committing, mention the template_source in your response so the user knows
                 arguments.get("repo_url", ""),
                 arguments.get("branch", "main")
             )
+        elif tool_name == "validate_pipeline":
+            return await self._tool_validate_pipeline(conversation_id)
         else:
             return {"error": f"Unknown tool: {tool_name}"}
 
@@ -286,11 +315,13 @@ After committing, mention the template_source in your response so the user knows
         try:
             async with httpx.AsyncClient(timeout=300.0) as client:
                 response = await client.post(
-                    f"{self.backend_url}/api/v1/pipeline/generate",
+                    f"{self.backend_url}/api/v1/pipeline/generate-validated",
                     json={
                         "repo_url": repo_url,
                         "gitlab_token": self.gitlab_token,
-                        "model": "llama3.1:8b"
+                        "model": "qwen3:32b",
+                        "max_fix_attempts": 3,
+                        "store_on_success": True
                     }
                 )
                 result = response.json()
@@ -308,6 +339,13 @@ After committing, mention the template_source in your response so the user knows
                         template_source = "llm"
                         source_message = "No existing template found in RAG. LLM is creating a new pipeline configuration. It will be tested automatically and stored if successful."
 
+                    # Extract validation results
+                    validation_passed = result.get("validation_passed", False)
+                    validation_skipped = result.get("validation_skipped", False)
+                    validation_errors = result.get("validation_errors", [])
+                    warnings = result.get("warnings", [])
+                    fix_attempts = result.get("fix_attempts", 0)
+
                     # Store the generated pipeline for later commit
                     self.pending_pipelines[conversation_id] = {
                         "repo_url": repo_url,
@@ -315,14 +353,23 @@ After committing, mention the template_source in your response so the user knows
                         "gitlab_ci": result.get("gitlab_ci", ""),
                         "analysis": result.get("analysis", {}),
                         "template_source": template_source,
-                        "model_used": model_used
+                        "model_used": model_used,
+                        "validation_passed": validation_passed,
+                        "validation_skipped": validation_skipped,
+                        "validation_errors": validation_errors,
+                        "fix_attempts": fix_attempts
                     }
 
                     return {
                         "success": True,
-                        "message": "Pipeline generated successfully",
+                        "message": "Pipeline generated and validated successfully" if validation_passed or validation_skipped else "Pipeline generated but has validation issues",
                         "template_source": template_source,
                         "source_message": source_message,
+                        "validation_passed": validation_passed,
+                        "validation_skipped": validation_skipped,
+                        "validation_errors": validation_errors,
+                        "warnings": warnings,
+                        "fix_attempts": fix_attempts,
                         "analysis": result.get("analysis", {}),
                         "dockerfile": result.get("dockerfile", ""),
                         "gitlab_ci": result.get("gitlab_ci", "")
@@ -392,6 +439,41 @@ After committing, mention the template_source in your response so the user knows
                         "success": False,
                         "error": result.get("detail", "Failed to commit pipeline")
                     }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    async def _tool_validate_pipeline(self, conversation_id: str) -> Dict:
+        """Validate the pending pipeline via dry-run checks"""
+        pending = self.pending_pipelines.get(conversation_id)
+        if not pending:
+            return {
+                "success": False,
+                "error": "No pipeline generated yet. Please generate a pipeline first."
+            }
+
+        try:
+            async with httpx.AsyncClient(timeout=120.0) as client:
+                response = await client.post(
+                    f"{self.backend_url}/api/v1/pipeline/dry-run",
+                    json={
+                        "gitlab_ci": pending["gitlab_ci"],
+                        "dockerfile": pending["dockerfile"],
+                        "gitlab_token": self.gitlab_token
+                    }
+                )
+                result = response.json()
+
+                # Update pending pipeline with validation status
+                pending["validation_passed"] = result.get("valid", False)
+                pending["validation_errors"] = result.get("errors", [])
+
+                return {
+                    "success": True,
+                    "valid": result.get("valid", False),
+                    "errors": result.get("errors", []),
+                    "warnings": result.get("warnings", []),
+                    "summary": result.get("summary", "")
+                }
         except Exception as e:
             return {"success": False, "error": str(e)}
 
