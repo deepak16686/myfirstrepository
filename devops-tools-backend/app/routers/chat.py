@@ -18,7 +18,7 @@ class ChatRequest(BaseModel):
     """Request model for chat endpoint"""
     message: str
     conversation_id: Optional[str] = None
-    model: str = "llama3.1:8b"
+    model: str = "qwen3:32b"
 
 
 class ChatResponse(BaseModel):

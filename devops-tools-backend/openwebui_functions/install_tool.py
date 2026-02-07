@@ -50,7 +50,7 @@ class Tools:
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
                         "additional_context": "",
-                        "model": "llama3.1:8b"
+                        "model": "qwen3:32b"
                     }
                 )
                 result = response.json()
@@ -111,7 +111,7 @@ REPO_URL={repo_url}
                     json={
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
-                        "model": "llama3.1:8b"
+                        "model": "qwen3:32b"
                     }
                 )
                 gen_result = gen_response.json()

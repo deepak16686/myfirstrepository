@@ -27,7 +27,62 @@ class PipelineGeneratorService:
     FEEDBACK_COLLECTION = "pipeline_feedback"
     TEMPLATES_COLLECTION = "pipeline_templates"
     SUCCESSFUL_PIPELINES_COLLECTION = "successful_pipelines"  # For reinforcement learning
-    DEFAULT_MODEL = "pipeline-generator-v4"  # Custom model with auto-commit workflow + Nexus rules
+    DEFAULT_MODEL = "pipeline-generator-v5"  # Custom model with auto-commit workflow + Nexus rules
+
+    # Language → correct compile/build image in Nexus
+    LANGUAGE_COMPILE_IMAGES = {
+        "java": "maven:3.9-eclipse-temurin-17",
+        "kotlin": "maven:3.9-eclipse-temurin-17",
+        "scala": "maven:3.9-eclipse-temurin-17",
+        "python": "python:3.11-slim",
+        "go": "golang:1.22-alpine",
+        "golang": "golang:1.22-alpine",
+        "rust": "rust:1.77-slim",
+        "javascript": "node:20-alpine",
+        "typescript": "node:20-alpine",
+        "nodejs": "node:20-alpine",
+        "node": "node:20-alpine",
+        "ruby": "ruby:3.3-alpine",
+        "php": "php:8.3-fpm-alpine",
+        "csharp": "dotnet-aspnet:8.0-alpine",
+        "dotnet": "dotnet-aspnet:8.0-alpine",
+    }
+
+    # Language → correct Dockerfile base image in Nexus
+    LANGUAGE_DOCKERFILE_IMAGES = {
+        "java": "maven:3.9-eclipse-temurin-17",
+        "kotlin": "maven:3.9-eclipse-temurin-17",
+        "scala": "maven:3.9-eclipse-temurin-17",
+        "python": "python:3.11-slim",
+        "go": "golang:1.22-alpine",
+        "golang": "golang:1.22-alpine",
+        "rust": "rust:1.77-slim",
+        "javascript": "node:20-alpine",
+        "typescript": "node:20-alpine",
+        "nodejs": "node:20-alpine",
+        "node": "node:20-alpine",
+        "ruby": "ruby:3.3-alpine",
+        "php": "php:8.3-fpm-alpine",
+        "csharp": "dotnet-aspnet:8.0-alpine",
+        "dotnet": "dotnet-aspnet:8.0-alpine",
+    }
+
+    # Language → correct compile commands
+    LANGUAGE_COMPILE_COMMANDS = {
+        "java": ["mvn clean package -DskipTests"],
+        "kotlin": ["mvn clean package -DskipTests"],
+        "scala": ["sbt assembly || sbt package"],
+        "python": ["pip install -r requirements.txt"],
+        "go": ["go build -o app ./..."],
+        "golang": ["go build -o app ./..."],
+        "rust": ["cargo build --release"],
+        "javascript": ["npm install", "npm run build || true"],
+        "typescript": ["npm install", "npm run build"],
+        "nodejs": ["npm install", "npm run build || true"],
+        "node": ["npm install", "npm run build || true"],
+        "ruby": ["bundle install"],
+        "php": ["composer install --no-dev"],
+    }
 
     def __init__(self):
         self.ollama_config = tools_manager.get_tool("ollama")
@@ -191,6 +246,127 @@ learn_record:
             print(f"[Default] ChromaDB error, using built-in {language} template")
             default = self._get_default_gitlab_ci({"language": language, "framework": framework})
             return self._ensure_learn_stage(default) if default else None
+
+    def validate_and_fix_pipeline_images(
+        self, gitlab_ci: str, dockerfile: str, language: str
+    ) -> tuple:
+        """
+        Validate that pipeline images match the project language and fix if wrong.
+        This catches cases where the LLM generates a pipeline with wrong images
+        (e.g., using maven image for a Rust project).
+
+        Returns (fixed_gitlab_ci, fixed_dockerfile, corrections_made)
+        """
+        import re as _re
+        lang = language.lower()
+        corrections = []
+
+        correct_compile_image = self.LANGUAGE_COMPILE_IMAGES.get(lang)
+        correct_dockerfile_image = self.LANGUAGE_DOCKERFILE_IMAGES.get(lang)
+        correct_commands = self.LANGUAGE_COMPILE_COMMANDS.get(lang)
+
+        if not correct_compile_image:
+            # Unknown language - skip image-specific corrections but still return
+            # The LLM (v5) handles unknown languages; validation will catch issues
+            print(f"[ImageValidator] Language '{language}' not in known image map - relying on LLM-generated images")
+            return gitlab_ci, dockerfile, corrections
+
+        nexus_prefix = "${NEXUS_PULL_REGISTRY}/apm-repo/demo/"
+        full_correct_image = f"{nexus_prefix}{correct_compile_image}"
+
+        # ── Fix .gitlab-ci.yml compile job image ──
+        # Find compile job and check its image
+        wrong_image_patterns = []
+        for other_lang, img in self.LANGUAGE_COMPILE_IMAGES.items():
+            if other_lang != lang and img != correct_compile_image:
+                wrong_image_patterns.append(_re.escape(img))
+
+        if wrong_image_patterns:
+            wrong_pattern = '|'.join(wrong_image_patterns)
+            # Replace wrong images in compile/sast/quality stages with correct one
+            for wrong_img_match in _re.finditer(
+                rf'(\${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/)({wrong_pattern})',
+                gitlab_ci
+            ):
+                old_full = wrong_img_match.group(0)
+                gitlab_ci = gitlab_ci.replace(old_full, full_correct_image)
+                corrections.append(
+                    f"CI: Replaced {wrong_img_match.group(2)} with {correct_compile_image} for {language}"
+                )
+
+        # Also fix hardcoded wrong images (without variable)
+        for other_lang, img in self.LANGUAGE_COMPILE_IMAGES.items():
+            if other_lang != lang and img != correct_compile_image:
+                hardcoded = f"localhost:5001/apm-repo/demo/{img}"
+                if hardcoded in gitlab_ci:
+                    gitlab_ci = gitlab_ci.replace(
+                        hardcoded,
+                        f"localhost:5001/apm-repo/demo/{correct_compile_image}"
+                    )
+                    corrections.append(f"CI: Replaced hardcoded {img} with {correct_compile_image}")
+
+        # ── Fix compile commands if wrong ──
+        if correct_commands and lang == "rust":
+            # Common wrong commands for Rust
+            wrong_commands = {
+                "mvn clean package": "cargo build --release",
+                "mvn package": "cargo build --release",
+                "npm install": "cargo build --release",
+                "pip install": "cargo build --release",
+                "go build": "cargo build --release",
+            }
+            for wrong_cmd, right_cmd in wrong_commands.items():
+                if wrong_cmd in gitlab_ci and "cargo" not in gitlab_ci:
+                    gitlab_ci = gitlab_ci.replace(wrong_cmd, right_cmd, 1)
+                    corrections.append(f"CI: Replaced '{wrong_cmd}' with '{right_cmd}'")
+
+        # ── Fix Dockerfile base image ──
+        if correct_dockerfile_image and dockerfile:
+            nexus_dockerfile_prefix = "ai-nexus:5001/apm-repo/demo/"
+            # Check if Dockerfile uses wrong base image
+            for other_lang, img in self.LANGUAGE_DOCKERFILE_IMAGES.items():
+                if other_lang != lang and img != correct_dockerfile_image:
+                    wrong_df_img = f"{nexus_dockerfile_prefix}{img}"
+                    correct_df_img = f"{nexus_dockerfile_prefix}{correct_dockerfile_image}"
+                    if wrong_df_img in dockerfile:
+                        dockerfile = dockerfile.replace(wrong_df_img, correct_df_img)
+                        corrections.append(f"Dockerfile: Replaced {img} with {correct_dockerfile_image}")
+
+            # Fix Dockerfile that uses alpine/nginx for Rust (needs rust image)
+            if lang == "rust" and "cargo" not in dockerfile:
+                # Check if the Dockerfile doesn't have cargo — likely wrong base image
+                if "alpine" in dockerfile.lower() and "rustup" not in dockerfile.lower():
+                    # Complete rewrite for Rust Dockerfile
+                    dockerfile = f"""# Uses Nexus private registry - ai-nexus:5001
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${{BASE_REGISTRY}}/apm-repo/demo/{correct_dockerfile_image} AS builder
+
+WORKDIR /app
+
+COPY Cargo.toml Cargo.lock* ./
+RUN mkdir src && echo "fn main() {{}}" > src/main.rs && cargo build --release && rm -rf src
+COPY src/ ./src/
+
+RUN cargo build --release
+
+FROM ${{BASE_REGISTRY}}/apm-repo/demo/alpine:3.18
+
+WORKDIR /app
+
+COPY --from=builder /app/target/release/* .
+
+EXPOSE 8080
+
+CMD ["./app"]
+"""
+                    corrections.append("Dockerfile: Complete rewrite for Rust (was using wrong base)")
+
+        if corrections:
+            print(f"[ImageValidator] Fixed {len(corrections)} image issues for {language}:")
+            for c in corrections:
+                print(f"  - {c}")
+
+        return gitlab_ci, dockerfile, corrections
 
     def parse_gitlab_url(self, url: str) -> Dict[str, str]:
         """
@@ -700,10 +876,16 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             final_gitlab_ci = gitlab_ci or self._get_default_gitlab_ci(analysis)
             # Ensure learn stage is present for RL
             final_gitlab_ci = self._ensure_learn_stage(final_gitlab_ci)
+            final_dockerfile = dockerfile or self._get_default_dockerfile(analysis)
+
+            # Validate and auto-correct images for the detected language
+            final_gitlab_ci, final_dockerfile, img_corrections = self.validate_and_fix_pipeline_images(
+                final_gitlab_ci, final_dockerfile, analysis['language']
+            )
 
             return {
                 "gitlab_ci": final_gitlab_ci,
-                "dockerfile": dockerfile or self._get_default_dockerfile(analysis),
+                "dockerfile": final_dockerfile,
                 "analysis": analysis,
                 "model_used": model,
                 "feedback_used": len(feedback)
@@ -2027,7 +2209,8 @@ learn_record:
 '''
         }
 
-        return templates.get(language, templates['java'])
+        # Fallback to Python template (more generic than Java for unknown languages)
+        return templates.get(language, templates.get('python', templates['java']))
 
     def _get_default_dockerfile(self, analysis: Dict[str, Any]) -> str:
         """Get default Dockerfile based on analysis - uses Nexus registry"""
@@ -2133,24 +2316,25 @@ CMD ["php-fpm"]
 ''',
             'rust': '''# Rust Dockerfile - uses Nexus private registry
 ARG BASE_REGISTRY=ai-nexus:5001
-FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.75-alpine as builder
+FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.77-slim AS builder
 
 WORKDIR /app
-COPY Cargo.toml Cargo.lock ./
+COPY Cargo.toml Cargo.lock* ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs && cargo build --release && rm -rf src
 COPY src/ src/
 RUN cargo build --release
 
 FROM ${BASE_REGISTRY}/apm-repo/demo/alpine:3.18
 WORKDIR /app
-COPY --from=builder /app/target/release/app .
+COPY --from=builder /app/target/release/* .
 
 EXPOSE 8080
 CMD ["./app"]
 '''
         }
 
-        return templates.get(language, templates['java'])
+        # Fallback to Python template (more generic than Java for unknown languages)
+        return templates.get(language, templates.get('python', templates['java']))
 
     async def commit_to_gitlab(
         self,

@@ -44,7 +44,7 @@ class Tools:
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
                         "additional_context": "",
-                        "model": "pipeline-generator-v4"
+                        "model": "pipeline-generator-v5"
                     }
                 )
 

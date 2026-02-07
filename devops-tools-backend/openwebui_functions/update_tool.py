@@ -43,7 +43,7 @@ class Tools:
                     json={
                         "repo_url": repo_url,
                         "gitlab_token": self.valves.GITLAB_TOKEN,
-                        "model": "pipeline-generator-v4"
+                        "model": "pipeline-generator-v5"
                     }
                 )
                 result = response.json()
@@ -81,7 +81,7 @@ class Tools:
                 # Generate
                 gen = await client.post(
                     f"{self.valves.BACKEND_URL}/pipeline/generate",
-                    json={"repo_url": repo_url, "gitlab_token": self.valves.GITLAB_TOKEN, "model": "pipeline-generator-v4"}
+                    json={"repo_url": repo_url, "gitlab_token": self.valves.GITLAB_TOKEN, "model": "pipeline-generator-v5"}
                 )
                 gen_result = gen.json()
                 if not gen_result.get("success"):

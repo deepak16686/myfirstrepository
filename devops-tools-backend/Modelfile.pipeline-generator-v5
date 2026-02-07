@@ -1,4 +1,4 @@
-FROM llama3.1:8b
+FROM qwen3:32b
 
 PARAMETER temperature 0.2
 PARAMETER top_p 0.9
@@ -38,7 +38,7 @@ Go:
 - dotnet-aspnet:8.0 (Run ASP.NET apps)
 
 Rust:
-- rust:1.75-alpine (Rust builds)
+- rust:1.77-slim (Rust builds)
 
 Ruby:
 - ruby:3.2-alpine (Ruby 3.2)
@@ -203,6 +203,30 @@ RUN CGO_ENABLED=0 go build -o app .
 FROM ${BASE_REGISTRY}/apm-repo/demo/alpine:3.18
 WORKDIR /app
 COPY --from=build /app/app .
+EXPOSE 8080
+CMD ["./app"]
+
+### Rust:
+compile:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/rust:1.77-slim
+  script:
+    - cargo build --release
+  artifacts:
+    paths: [target/release/]
+
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.77-slim AS builder
+WORKDIR /app
+COPY Cargo.toml Cargo.lock* ./
+RUN mkdir src && echo "fn main() {}" > src/main.rs && cargo build --release && rm -rf src
+COPY src/ src/
+RUN cargo build --release
+
+FROM ${BASE_REGISTRY}/apm-repo/demo/alpine:3.18
+WORKDIR /app
+COPY --from=builder /app/target/release/* .
 EXPOSE 8080
 CMD ["./app"]
 

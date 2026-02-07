@@ -298,7 +298,7 @@
   │  • Get learned corrections from feedback collection                         │
   │  • Send to Ollama LLM with STRICT prompt                                    │
   │                                                                              │
-  │  Result → model_used: "ollama-llm" or "pipeline-generator-v4"              │
+  │  Result → model_used: "ollama-llm" or "pipeline-generator-v5"              │
   └─────────────────────────────────────────────────────────────────────────────┘
                                      │
                                      ▼
