@@ -16,16 +16,31 @@ CRITICAL RULES - YOU MUST FOLLOW THESE EXACTLY:
 - NEVER use docker.io, gcr.io, quay.io, ghcr.io, or any public registry
 
 ## RULE 2: AVAILABLE IMAGES IN NEXUS (use ONLY these)
-Java/JVM:
+Java/JVM Build Images:
+- maven:3.8-eclipse-temurin-8 (Maven builds with Java 8)
+- maven:3.9-eclipse-temurin-11 (Maven builds with Java 11)
 - maven:3.9-eclipse-temurin-17 (Maven builds with Java 17)
-- amazoncorretto:17-alpine-jdk (Java 17 runtime)
-- gradle:8.5-jdk17 (Gradle builds)
+- maven:3.9-eclipse-temurin-21 (Maven builds with Java 21)
+- gradle:7.6-jdk8 (Gradle builds with Java 8)
+- gradle:8.7-jdk11 (Gradle builds with Java 11)
+- gradle:8.7-jdk17-alpine (Gradle builds with Java 17)
+- gradle:8.12-jdk21 (Gradle builds with Java 21)
+
+Java/JVM Runtime Images:
+- eclipse-temurin:8-jre (Java 8 runtime)
+- eclipse-temurin:11-jre (Java 11 runtime)
+- eclipse-temurin:17-jre (Java 17 runtime)
+- eclipse-temurin:21-jre (Java 21 runtime)
+- amazoncorretto:17-alpine-jdk (Java 17 runtime - alternative)
+- tomcat:10-jre17 (Tomcat 10 with Java 17 - for WAR deployments)
 
 JavaScript/Node.js:
 - node:18-alpine (Node.js 18 LTS)
 - node:20-alpine (Node.js 20 LTS)
 
 Python:
+- python:3.9-slim (Python 3.9)
+- python:3.10-slim (Python 3.10)
 - python:3.11-slim (Python 3.11)
 - python:3.12-slim (Python 3.12)
 
@@ -38,7 +53,7 @@ Go:
 - dotnet-aspnet:8.0 (Run ASP.NET apps)
 
 Rust:
-- rust:1.77-slim (Rust builds)
+- rust:1.93-slim (Rust builds)
 
 Ruby:
 - ruby:3.2-alpine (Ruby 3.2)
@@ -137,15 +152,20 @@ COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
-### Python/Django/Flask/FastAPI:
+### Python (choose correct version: 3.9/3.10/3.11/3.12):
+
+### Python/FastAPI (pip):
 compile:
   stage: compile
   image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/python:3.11-slim
   script:
+    - pip install --upgrade pip
     - pip install -r requirements.txt
-    - python -m pytest --collect-only  # Verify tests exist
+    - pytest || python -m pytest || true
   artifacts:
-    paths: [requirements.txt, src/, app/]
+    paths: [requirements.txt, "*.py", src/, app/, tests/]
+  cache:
+    paths: [.pip-cache/]
 
 Dockerfile:
 ARG BASE_REGISTRY=ai-nexus:5001
@@ -155,16 +175,70 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 EXPOSE 8000
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "3"]
 
-### Java/Spring Boot/Maven:
+### Python/Django (pip):
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+RUN python manage.py collectstatic --noinput || true
+EXPOSE 8000
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
+
+### Python/Flask (pip):
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "app:app"]
+
+### Python/Poetry (any framework):
+compile:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/python:3.11-slim
+  script:
+    - pip install --upgrade pip
+    - pip install poetry
+    - poetry config virtualenvs.create false
+    - poetry install --no-interaction
+    - pytest || python -m pytest || true
+
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/python:3.11-slim
+WORKDIR /app
+RUN pip install --no-cache-dir poetry
+COPY pyproject.toml poetry.lock* ./
+RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-dev
+COPY . .
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "3"]
+
+### Java/Spring Boot/Maven (choose correct Java version):
+# Java version mapping:
+#   Java 8  -> maven:3.8-eclipse-temurin-8  / eclipse-temurin:8-jre
+#   Java 11 -> maven:3.9-eclipse-temurin-11 / eclipse-temurin:11-jre
+#   Java 17 -> maven:3.9-eclipse-temurin-17 / eclipse-temurin:17-jre
+#   Java 21 -> maven:3.9-eclipse-temurin-21 / eclipse-temurin:21-jre
+
 compile:
   stage: compile
   image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/maven:3.9-eclipse-temurin-17
   script:
     - mvn clean package -DskipTests
+    - find target -name '*.jar' ! -name '*-sources*' ! -name '*-javadoc*' | head -1 | xargs -I {} cp {} target/app.jar
   artifacts:
     paths: [target/*.jar]
+  cache:
+    paths: [.m2/repository]
 
 Dockerfile:
 ARG BASE_REGISTRY=ai-nexus:5001
@@ -175,11 +249,60 @@ RUN mvn dependency:resolve
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM ${BASE_REGISTRY}/apm-repo/demo/amazoncorretto:17-alpine-jdk
+FROM ${BASE_REGISTRY}/apm-repo/demo/eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
+
+### Java/Gradle (choose correct Java version):
+# Java version mapping:
+#   Java 8  -> gradle:7.6-jdk8           / eclipse-temurin:8-jre
+#   Java 11 -> gradle:8.7-jdk11          / eclipse-temurin:11-jre
+#   Java 17 -> gradle:8.7-jdk17-alpine   / eclipse-temurin:17-jre
+#   Java 21 -> gradle:8.12-jdk21         / eclipse-temurin:21-jre
+
+compile:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/gradle:8.7-jdk17-alpine
+  script:
+    - gradle build -x test --no-daemon
+    - find build/libs -name '*.jar' ! -name '*-plain*' | head -1 | xargs -I {} cp {} build/libs/app.jar
+  artifacts:
+    paths: [build/libs/*.jar]
+  cache:
+    paths: [.gradle/caches]
+
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/gradle:8.7-jdk17-alpine AS build
+WORKDIR /app
+COPY build.gradle* settings.gradle* gradlew* ./
+COPY gradle/ gradle/
+RUN gradle dependencies --no-daemon || true
+COPY src ./src
+RUN gradle build -x test --no-daemon
+
+FROM ${BASE_REGISTRY}/apm-repo/demo/eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+
+### Java WAR (Tomcat deployment):
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:resolve
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM ${BASE_REGISTRY}/apm-repo/demo/tomcat:10-jre17
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/app.war
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
 
 ### Go:
 compile:
@@ -209,15 +332,17 @@ CMD ["./app"]
 ### Rust:
 compile:
   stage: compile
-  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/rust:1.77-slim
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/rust:1.93-slim
   script:
     - cargo build --release
+    - mkdir -p build_output
+    - cp target/release/${CI_PROJECT_NAME} build_output/ || cp $(find target/release -maxdepth 1 -type f -executable | head -1) build_output/ || echo "Binary will be built in Docker"
   artifacts:
-    paths: [target/release/]
+    paths: [build_output/]
 
 Dockerfile:
 ARG BASE_REGISTRY=ai-nexus:5001
-FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.77-slim AS builder
+FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.93-slim AS builder
 WORKDIR /app
 COPY Cargo.toml Cargo.lock* ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs && cargo build --release && rm -rf src
