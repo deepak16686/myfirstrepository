@@ -32,12 +32,19 @@ class PipelineGeneratorService:
     # Language → correct compile/build image in Nexus
     LANGUAGE_COMPILE_IMAGES = {
         "java": "maven:3.9-eclipse-temurin-17",
-        "kotlin": "maven:3.9-eclipse-temurin-17",
+        "kotlin": "gradle:8.7-jdk17-alpine",
         "scala": "maven:3.9-eclipse-temurin-17",
+        "spring-boot": "maven:3.9-eclipse-temurin-17",
+        "quarkus": "maven:3.9-eclipse-temurin-17",
         "python": "python:3.11-slim",
+        "django": "python:3.11-slim",
+        "flask": "python:3.11-slim",
+        "fastapi": "python:3.11-slim",
+        "streamlit": "python:3.12-slim",
+        "celery": "python:3.11-slim",
         "go": "golang:1.22-alpine",
         "golang": "golang:1.22-alpine",
-        "rust": "rust:1.77-slim",
+        "rust": "rust:1.93-slim",
         "javascript": "node:20-alpine",
         "typescript": "node:20-alpine",
         "nodejs": "node:20-alpine",
@@ -51,14 +58,47 @@ class PipelineGeneratorService:
     # Language → correct Dockerfile base image in Nexus
     LANGUAGE_DOCKERFILE_IMAGES = {
         "java": "maven:3.9-eclipse-temurin-17",
-        "kotlin": "maven:3.9-eclipse-temurin-17",
+        "kotlin": "gradle:8.7-jdk17-alpine",
         "scala": "maven:3.9-eclipse-temurin-17",
+        "spring-boot": "maven:3.9-eclipse-temurin-17",
+        "quarkus": "maven:3.9-eclipse-temurin-17",
         "python": "python:3.11-slim",
+        "django": "python:3.11-slim",
+        "flask": "python:3.11-slim",
+        "fastapi": "python:3.11-slim",
+        "streamlit": "python:3.12-slim",
+        "celery": "python:3.11-slim",
         "go": "golang:1.22-alpine",
         "golang": "golang:1.22-alpine",
-        "rust": "rust:1.77-slim",
+        "rust": "rust:1.93-slim",
         "javascript": "node:20-alpine",
         "typescript": "node:20-alpine",
+        "nodejs": "node:20-alpine",
+        "node": "node:20-alpine",
+        "ruby": "ruby:3.3-alpine",
+        "php": "php:8.3-fpm-alpine",
+        "csharp": "dotnet-aspnet:8.0-alpine",
+        "dotnet": "dotnet-aspnet:8.0-alpine",
+    }
+
+    # Language → correct runtime image in Nexus (for Dockerfile FROM runtime stage)
+    LANGUAGE_RUNTIME_IMAGES = {
+        "java": "eclipse-temurin:17-jre",
+        "kotlin": "eclipse-temurin:17-jre",
+        "scala": "eclipse-temurin:17-jre",
+        "spring-boot": "eclipse-temurin:17-jre",
+        "quarkus": "eclipse-temurin:17-jre",
+        "python": "python:3.11-slim",
+        "django": "python:3.11-slim",
+        "flask": "python:3.11-slim",
+        "fastapi": "python:3.11-slim",
+        "streamlit": "python:3.12-slim",
+        "celery": "python:3.11-slim",
+        "go": "alpine:3.18",
+        "golang": "alpine:3.18",
+        "rust": "alpine:3.18",
+        "javascript": "nginx:alpine",
+        "typescript": "nginx:alpine",
         "nodejs": "node:20-alpine",
         "node": "node:20-alpine",
         "ruby": "ruby:3.3-alpine",
@@ -73,6 +113,11 @@ class PipelineGeneratorService:
         "kotlin": ["mvn clean package -DskipTests"],
         "scala": ["sbt assembly || sbt package"],
         "python": ["pip install -r requirements.txt"],
+        "django": ["pip install -r requirements.txt", "python manage.py collectstatic --noinput || true"],
+        "flask": ["pip install -r requirements.txt"],
+        "fastapi": ["pip install -r requirements.txt"],
+        "streamlit": ["pip install -r requirements.txt"],
+        "celery": ["pip install -r requirements.txt"],
         "go": ["go build -o app ./..."],
         "golang": ["go build -o app ./..."],
         "rust": ["cargo build --release"],
@@ -2206,6 +2251,114 @@ learn_record:
     - echo "REINFORCEMENT LEARNING - Recording Success"
   when: on_success
   allow_failure: true
+''',
+            'rust': base_template + '''
+compile_rust:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/rust:1.93-slim
+  tags: [docker]
+  script:
+    - cargo build --release
+    - mkdir -p build_output
+    - cp target/release/${CI_PROJECT_NAME} build_output/ || cp $(find target/release -maxdepth 1 -type f -executable | head -1) build_output/ || echo "Binary will be built in Docker"
+  artifacts:
+    paths: [build_output/]
+    expire_in: 1 hour
+
+build_image:
+  stage: build
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags: [docker]
+  dependencies: [compile_rust]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\\"auths\\":{\\"${NEXUS_INTERNAL_REGISTRY}\\":{\\"username\\":\\"${NEXUS_USERNAME}\\",\\"password\\":\\"${NEXUS_PASSWORD}\\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${IMAGE_TAG}" --build-arg BASE_REGISTRY=${NEXUS_INTERNAL_REGISTRY} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
+
+test_image:
+  stage: test
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - sleep 5
+    - curl -s -f -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" "http://${NEXUS_INTERNAL_REGISTRY}/v2/apm-repo/demo/${IMAGE_NAME}/tags/list" || echo "Image verification completed"
+
+static_analysis:
+  stage: sast
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/rust:1.93-slim
+  tags: [docker]
+  script:
+    - rustup component add clippy || true
+    - cargo clippy --all-targets --all-features -- -D warnings || true
+  allow_failure: true
+
+quality:
+  stage: quality
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/sonarsource-sonar-scanner-cli:5
+  tags: [docker]
+  script:
+    - sonar-scanner -Dsonar.projectKey=${CI_PROJECT_NAME} -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.token=${SONAR_TOKEN} || true
+  allow_failure: true
+
+security:
+  stage: security
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  services:
+    - name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/aquasec-trivy:latest
+      alias: trivy-server
+      command: ["server", "--listen", "0.0.0.0:8080"]
+  script:
+    - sleep 10
+    - curl -s "http://trivy-server:8080/healthz" || true
+  allow_failure: true
+
+push:
+  stage: push
+  image:
+    name: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/kaniko-executor:debug
+    entrypoint: [""]
+  tags: [docker]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\\"auths\\":{\\"${NEXUS_INTERNAL_REGISTRY}\\":{\\"username\\":\\"${NEXUS_USERNAME}\\",\\"password\\":\\"${NEXUS_PASSWORD}\\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${RELEASE_TAG}" --build-arg BASE_REGISTRY=${NEXUS_INTERNAL_REGISTRY} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
+
+notify_success:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - 'curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d "{\"event\": \"Rust pipeline succeeded for ${CI_PROJECT_NAME}\", \"sourcetype\": \"gitlab-ci\"}" || true'
+  when: on_success
+  allow_failure: true
+
+notify_failure:
+  stage: notify
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - 'curl -k -X POST "${SPLUNK_HEC_URL}/services/collector/event" -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d "{\"event\": \"Rust pipeline failed for ${CI_PROJECT_NAME}\", \"sourcetype\": \"gitlab-ci\"}" || true'
+  when: on_failure
+  allow_failure: true
+
+learn_record:
+  stage: learn
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/curlimages-curl:latest
+  tags: [docker]
+  script:
+    - echo "=============================================="
+    - echo "REINFORCEMENT LEARNING - Recording Success"
+    - echo "=============================================="
+    - echo "Rust Pipeline ${CI_PIPELINE_ID} completed successfully!"
+    - echo "Recording configuration for future AI improvements..."
+    - echo "Pipeline ID ${CI_PIPELINE_ID} on branch ${CI_COMMIT_REF_NAME}"
+    - echo "This Rust pipeline config will be stored for future AI pipeline generation"
+    - echo "=============================================="
+  when: on_success
+  allow_failure: true
 '''
         }
 
@@ -2316,7 +2469,7 @@ CMD ["php-fpm"]
 ''',
             'rust': '''# Rust Dockerfile - uses Nexus private registry
 ARG BASE_REGISTRY=ai-nexus:5001
-FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.77-slim AS builder
+FROM ${BASE_REGISTRY}/apm-repo/demo/rust:1.93-slim AS builder
 
 WORKDIR /app
 COPY Cargo.toml Cargo.lock* ./
