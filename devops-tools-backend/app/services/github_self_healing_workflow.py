@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 from app.config import settings
-from app.services.github_pipeline_generator import github_pipeline_generator
+from app.services.github_pipeline import github_pipeline_generator
 from app.services.github_dry_run_validator import github_dry_run_validator
 from app.services.github_llm_fixer import github_llm_fixer
 

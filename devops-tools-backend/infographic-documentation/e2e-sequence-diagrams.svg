@@ -1,0 +1,1225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" viewBox="0 0 2200 14822" font-family="Segoe UI, Arial, sans-serif" height="14822">
+  <rect x="0" y="0" width="2200" height="14822" fill="#ffffff" />
+  <defs>
+    <marker id="arrowSolid" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f2937" />
+    </marker>
+    <marker id="arrowOpen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polyline points="0 0, 10 3.5, 0 7" fill="none" stroke="#1f2937" stroke-width="1.5" />
+    </marker>
+    <marker id="arrowReturn" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#9ca3af" />
+    </marker>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="2" flood-color="#00000020" stdDeviation="3" />
+    </filter>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0c29" />
+      <stop offset="50%" stop-color="#302b63" />
+      <stop offset="100%" stop-color="#24243e" />
+    </linearGradient>
+    <linearGradient id="secgrad_1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_5" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_6" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_7" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <linearGradient id="secgrad_8" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(0,0)">
+    <rect x="0" y="0" width="2200" height="110" fill="url(#titleGrad)" stroke="none" rx="0" ry="0" opacity="1" />
+    <text x="1100" y="42" fill="#ffffff" font-size="32px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">AI DevOps Platform</text>
+    <text x="1100" y="72" fill="#94a3b8" font-size="16px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">End-to-End Sequence Diagrams  |  All Journeys  |  8 Flows</text>
+    <text x="1100" y="96" fill="#64748b" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">FastAPI + Ollama + Claude Code + GitLab + ChromaDB + Reinforcement Learning</text>
+  </g>
+  <g transform="translate(0,130)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_1)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 1</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Generation via RAG (ChromaDB Template Found)</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="290.0" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="365.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="535.0" y="90" width="150" height="48" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="610.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <rect x="780.0" y="90" width="150" height="48" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="855.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <rect x="1025.0" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1270.0" y="90" width="150" height="48" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1345.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <rect x="1515.0" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1590.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="1760.0" y="90" width="150" height="48" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1835.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="128.0" y1="178" x2="357.0" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Generate pipeline for gitlab-ser..</text>
+    <line x1="373.0" y1="216" x2="602.0" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/ {message, conv..</text>
+    <line x1="618.0" y1="254" x2="847.0" y2="254" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <path d="M 861.0,292 C 925.0,292 925.0,314 861.0,314" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="298" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Add to conversation history</text>
+    <line x1="863.0" y1="330" x2="1092.0" y2="330" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages, tools: ..</text>
+    <line x1="1092.0" y1="368" x2="863.0" y2="368" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls: [{name:"generate_pip..</text>
+    <rect x="945.0" y="392" width="309.59999999999997" height="34" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="957.0" y="408" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">LLM decided to call generate_pipeline tool</text>
+    <line x1="863.0" y1="444" x2="1337.0" y2="444" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/generate-validated {repo_url}</text>
+    <line x1="1353.0" y1="482" x2="2072.0" y2="482" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1712.5" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/projects/{id}/repository/tree</text>
+    <line x1="2072.0" y1="520" x2="1353.0" y2="520" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1712.5" y="513" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{files:[pom.xml, src/...]} -&gt; Java/Spring</text>
+    <line x1="1353.0" y1="558" x2="1582.0" y2="558" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1467.5" y="551" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">query(collection="successful_pipe..</text>
+    <line x1="1582.0" y1="596" x2="1353.0" y2="596" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1467.5" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{documents: [{gitlab_ci, dockerfi..</text>
+    <rect x="1680.0" y="620" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1692.0" y="636" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">RAG: Proven template from previous</text>
+    <text x="1692.0" y="654" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">successful pipeline execution</text>
+    <line x1="1353.0" y1="672" x2="1827.0" y2="672" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1590.0" y="665" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">validate_all(gitlab_ci, dockerfile)</text>
+    <path d="M 1841.0,710 C 1905.0,710 1905.0,732 1841.0,732" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1915.0" y="716" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">YAML syntax check</text>
+    <path d="M 1841.0,748 C 1905.0,748 1905.0,770 1841.0,770" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1915.0" y="754" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Dockerfile syntax check</text>
+    <line x1="1843.0" y1="786" x2="2072.0" y2="786" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1957.5" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v4/ci/lint {content: gi..</text>
+    <line x1="2072.0" y1="824" x2="1843.0" y2="824" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1957.5" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{valid: true}</text>
+    <line x1="1827.0" y1="862" x2="1353.0" y2="862" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1590.0" y="855" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">All validations passed</text>
+    <line x1="1337.0" y1="900" x2="863.0" y2="900" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="893" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{gitlab_ci, dockerfile, source:rag, valid:true}</text>
+    <path d="M 861.0,938 C 925.0,938 925.0,960 861.0,960" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="944" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Store in pending_pipelines[conv_id]</text>
+    <line x1="863.0" y1="976" x2="1092.0" y2="976" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages + tool_r..</text>
+    <line x1="1092.0" y1="1014" x2="863.0" y2="1014" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="1007" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Found proven template from RAG..."</text>
+    <line x1="847.0" y1="1052" x2="618.0" y2="1052" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="732.5" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{response, pending_pipeline}</text>
+    <line x1="602.0" y1="1090" x2="373.0" y2="1090" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="487.5" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{message, pending_pipeline}</text>
+    <line x1="357.0" y1="1128" x2="128.0" y2="1128" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="1121" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display: "Source: RAG (Proven Tem..</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="988" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="1186" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="365.0" y1="138" x2="365.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="359.0" y="158" width="12" height="988" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="290.0" y="1186" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="365.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="610.0" y1="138" x2="610.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="604.0" y="158" width="12" height="988" fill="#8b5cf6" stroke="#8b5cf6" rx="2" ry="2" opacity="0.18" />
+    <rect x="535.0" y="1186" width="150" height="40" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="610.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <line x1="855.0" y1="138" x2="855.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="849.0" y="158" width="12" height="988" fill="#7c3aed" stroke="#7c3aed" rx="2" ry="2" opacity="0.18" />
+    <rect x="780.0" y="1186" width="150" height="40" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="855.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <line x1="1100.0" y1="138" x2="1100.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1094.0" y="158" width="12" height="988" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="1025.0" y="1186" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1345.0" y1="138" x2="1345.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1339.0" y="158" width="12" height="988" fill="#1d4ed8" stroke="#1d4ed8" rx="2" ry="2" opacity="0.18" />
+    <rect x="1270.0" y="1186" width="150" height="40" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1345.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <line x1="1590.0" y1="138" x2="1590.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1584.0" y="158" width="12" height="988" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="1515.0" y="1186" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1590.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="1835.0" y1="138" x2="1835.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1829.0" y="158" width="12" height="988" fill="#16a34a" stroke="#16a34a" rx="2" ry="2" opacity="0.18" />
+    <rect x="1760.0" y="1186" width="150" height="40" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1835.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="1186" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="988" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="1186" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="1212" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+  </g>
+  <g transform="translate(0,1454)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_2)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 2</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Generation via LLM (No Template Found)</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="241.0" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="316.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="437.0" y="90" width="150" height="48" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="512.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <rect x="633.0" y="90" width="150" height="48" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="708.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <rect x="829.0" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="904.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1025.0" y="90" width="150" height="48" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <rect x="1221.0" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1296.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <rect x="1417.0" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1492.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="1613.0" y="90" width="150" height="48" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1688.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <rect x="1809.0" y="90" width="150" height="48" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1884.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#dc2626" stroke="#dc2626" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Fixer</text>
+    <line x1="128.0" y1="178" x2="308.0" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="218.0" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Generate pipeline for gi..</text>
+    <line x1="324.0" y1="216" x2="504.0" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="414.0" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/</text>
+    <line x1="520.0" y1="254" x2="700.0" y2="254" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="610.0" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <line x1="716.0" y1="292" x2="896.0" y2="292" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="806.0" y="285" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages,..</text>
+    <line x1="896.0" y1="330" x2="716.0" y2="330" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="806.0" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls: [{name:"gene..</text>
+    <line x1="716.0" y1="368" x2="1092.0" y2="368" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="904.0" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/generate-validated</text>
+    <line x1="1108.0" y1="406" x2="1288.0" y2="406" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1198.0" y="399" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/projects/{id}..</text>
+    <line x1="1288.0" y1="444" x2="1108.0" y2="444" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1198.0" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{files:[Cargo.toml, src/m..</text>
+    <line x1="1108.0" y1="482" x2="1484.0" y2="482" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">query(where={language:"rust"})</text>
+    <line x1="1484.0" y1="520" x2="1108.0" y2="520" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1296.0" y="513" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{documents: []} -- No template found</text>
+    <rect x="1190.0" y="544" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1202.0" y="560" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">No RAG template available.</text>
+    <text x="1202.0" y="578" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Must generate via LLM.</text>
+    <line x1="1108.0" y1="596" x2="1484.0" y2="596" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">query(collection="pipeline_templates") reference</text>
+    <line x1="1484.0" y1="634" x2="1108.0" y2="634" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1296.0" y="627" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{partial reference template}</text>
+    <line x1="1108.0" y1="672" x2="1484.0" y2="672" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="665" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">query(collection="pipeline_feedback") corrections</text>
+    <line x1="1484.0" y1="710" x2="1108.0" y2="710" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1296.0" y="703" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{feedback corrections}</text>
+    <path d="M 1106.0,748 C 1170.0,748 1170.0,770 1106.0,770" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1180.0" y="754" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Build strict prompt with ref + corrections</text>
+    <line x1="1108.0" y1="786" x2="1680.0" y2="786" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1394.0" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">get_llm_provider()</text>
+    <line x1="1680.0" y1="824" x2="1108.0" y2="824" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1394.0" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">OllamaIntegration (LLM_PROVIDER=ollama)</text>
+    <line x1="1092.0" y1="862" x2="912.0" y2="862" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1002.0" y="855" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/generate {model..</text>
+    <line x1="912.0" y1="900" x2="1092.0" y2="900" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1002.0" y="893" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">```yaml stages: compile....</text>
+    <path d="M 1106.0,938 C 1170.0,938 1170.0,960 1106.0,960" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1180.0" y="944" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">_extract_code_block() x2</text>
+    <path d="M 1106.0,976 C 1170.0,976 1170.0,998 1106.0,998" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1180.0" y="982" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">_validate_and_fix_pipeline() check 9 stages</text>
+    <path d="M 1106.0,1014 C 1170.0,1014 1170.0,1036 1106.0,1036" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1180.0" y="1020" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">_validate_and_fix_dockerfile() Nexus URLs</text>
+    <line x1="1108.0" y1="1052" x2="1876.0" y2="1052" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1492.0" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">validate_all(gitlab_ci, dockerfile)</text>
+    <line x1="1876.0" y1="1090" x2="1108.0" y2="1090" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1492.0" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{yaml:OK, dockerfile:OK, lint: FAIL}</text>
+    <rect x="1534.0" y="1114" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1546.0" y="1130" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Validation partially failed.</text>
+    <text x="1546.0" y="1148" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Trigger auto-fix loop.</text>
+    <line x1="1108.0" y1="1166" x2="2072.0" y2="1166" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1590.0" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">iterative_fix(ci, dockerfile, errors, max=3)</text>
+    <line x1="2072.0" y1="1204" x2="912.0" y2="1204" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1492.0" y="1197" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/generate {fix prompt with errors}</text>
+    <line x1="912.0" y1="1242" x2="2072.0" y2="1242" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1492.0" y="1235" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{fixed gitlab_ci, fixed dockerfile}</text>
+    <line x1="2072.0" y1="1280" x2="1892.0" y2="1280" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1982.0" y="1273" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">validate_all(fixed_ci, fi..</text>
+    <line x1="1892.0" y1="1318" x2="2072.0" y2="1318" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1982.0" y="1311" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">All passed (attempt 1)</text>
+    <line x1="2072.0" y1="1356" x2="1108.0" y2="1356" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1590.0" y="1349" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{success:true, gitlab_ci, dockerfile, fix_history}</text>
+    <line x1="1108.0" y1="1394" x2="1484.0" y2="1394" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="1387" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">add_documents("pipeline_templates", validated)</text>
+    <line x1="1092.0" y1="1432" x2="716.0" y2="1432" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="904.0" y="1425" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{source:llm, valid:true, fix_attempts:1}</text>
+    <line x1="700.0" y1="1470" x2="324.0" y2="1470" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="512.0" y="1463" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Response with pipeline</text>
+    <line x1="308.0" y1="1508" x2="128.0" y2="1508" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="218.0" y="1501" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display: "Source: LLM Gen..</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="1368" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="1566" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="316.0" y1="138" x2="316.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="310.0" y="158" width="12" height="1368" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="241.0" y="1566" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="316.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="512.0" y1="138" x2="512.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="506.0" y="158" width="12" height="1368" fill="#8b5cf6" stroke="#8b5cf6" rx="2" ry="2" opacity="0.18" />
+    <rect x="437.0" y="1566" width="150" height="40" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="512.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <line x1="708.0" y1="138" x2="708.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="702.0" y="158" width="12" height="1368" fill="#7c3aed" stroke="#7c3aed" rx="2" ry="2" opacity="0.18" />
+    <rect x="633.0" y="1566" width="150" height="40" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="708.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <line x1="904.0" y1="138" x2="904.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="898.0" y="158" width="12" height="1368" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="829.0" y="1566" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="904.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1100.0" y1="138" x2="1100.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1094.0" y="158" width="12" height="1368" fill="#1d4ed8" stroke="#1d4ed8" rx="2" ry="2" opacity="0.18" />
+    <rect x="1025.0" y="1566" width="150" height="40" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <line x1="1296.0" y1="138" x2="1296.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1290.0" y="158" width="12" height="1368" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="1221.0" y="1566" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1296.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="1492.0" y1="138" x2="1492.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1486.0" y="158" width="12" height="1368" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="1417.0" y="1566" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1492.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="1688.0" y1="138" x2="1688.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1682.0" y="158" width="12" height="1368" fill="#9333ea" stroke="#9333ea" rx="2" ry="2" opacity="0.18" />
+    <rect x="1613.0" y="1566" width="150" height="40" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1688.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <line x1="1884.0" y1="138" x2="1884.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1878.0" y="158" width="12" height="1368" fill="#16a34a" stroke="#16a34a" rx="2" ry="2" opacity="0.18" />
+    <rect x="1809.0" y="1566" width="150" height="40" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1884.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="1566" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="1368" fill="#dc2626" stroke="#dc2626" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="1566" width="150" height="40" fill="#dc2626" stroke="#dc2626" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="1592" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Fixer</text>
+  </g>
+  <g transform="translate(0,3158)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_3)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 3</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Generation via Claude Code CLI</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="241.0" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="316.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="437.0" y="90" width="150" height="48" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="512.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <rect x="633.0" y="90" width="150" height="48" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="708.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <rect x="829.0" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="904.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1025.0" y="90" width="150" height="48" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <rect x="1221.0" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1296.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <rect x="1417.0" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1492.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="1613.0" y="90" width="150" height="48" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1688.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <rect x="1809.0" y="90" width="150" height="48" fill="#c084fc" stroke="#c084fc" rx="8" ry="8" opacity="1" />
+    <text x="1884.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Claude Code</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <line x1="128.0" y1="178" x2="308.0" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="218.0" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Generate pipeline for my..</text>
+    <line x1="324.0" y1="216" x2="504.0" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="414.0" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/</text>
+    <line x1="520.0" y1="254" x2="700.0" y2="254" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="610.0" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <rect x="798.0" y="278" width="296.0" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="810.0" y="294" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Chat Service ALWAYS uses Ollama for tool</text>
+    <text x="810.0" y="312" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">calling (needs function calling support)</text>
+    <line x1="716.0" y1="330" x2="896.0" y2="330" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="806.0" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages,..</text>
+    <line x1="896.0" y1="368" x2="716.0" y2="368" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="806.0" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls: [{name:"gene..</text>
+    <line x1="716.0" y1="406" x2="1092.0" y2="406" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="904.0" y="399" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/generate-validated</text>
+    <line x1="1108.0" y1="444" x2="1288.0" y2="444" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1198.0" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Analyze repo -&gt; Python/Fa..</text>
+    <line x1="1288.0" y1="482" x2="1108.0" y2="482" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1198.0" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{files: [requirements.txt..</text>
+    <line x1="1108.0" y1="520" x2="1484.0" y2="520" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="513" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">query() -&gt; No template found</text>
+    <line x1="1484.0" y1="558" x2="1108.0" y2="558" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1296.0" y="551" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">No template</text>
+    <line x1="1108.0" y1="596" x2="1680.0" y2="596" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1394.0" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">get_llm_provider()</text>
+    <rect x="1778.0" y="620" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1790.0" y="636" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">LLM_PROVIDER=claude-code</text>
+    <text x="1790.0" y="654" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Returns ClaudeCodeIntegration</text>
+    <line x1="1680.0" y1="672" x2="1108.0" y2="672" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1394.0" y="665" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">ClaudeCodeIntegration</text>
+    <line x1="1108.0" y1="710" x2="1876.0" y2="710" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1492.0" y="703" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">subprocess.exec("claude", "-p", prompt, "--output-format","json")</text>
+    <rect x="1900" y="734" width="260" height="88" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1912" y="750" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Runs as subprocess with mounted</text>
+    <text x="1912" y="768" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">auth ~/.claude (writable)</text>
+    <text x="1912" y="786" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Model: sonnet or opus</text>
+    <text x="1912" y="804" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Timeout: 300s</text>
+    <line x1="1876.0" y1="862" x2="1108.0" y2="862" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1492.0" y="855" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{"type":"result","result":"```yaml...```dockerfile..."}</text>
+    <path d="M 1106.0,900 C 1170.0,900 1170.0,922 1106.0,922" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1180.0" y="906" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Parse JSON -&gt; extract code blocks</text>
+    <path d="M 1106.0,938 C 1170.0,938 1170.0,960 1106.0,960" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1180.0" y="944" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">_validate_and_fix_pipeline() + dockerfile()</text>
+    <line x1="1108.0" y1="976" x2="2072.0" y2="976" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1590.0" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">validate_all()</text>
+    <line x1="2072.0" y1="1014" x2="1108.0" y2="1014" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1590.0" y="1007" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">All passed</text>
+    <line x1="1108.0" y1="1052" x2="1484.0" y2="1052" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Store validated template</text>
+    <line x1="1092.0" y1="1090" x2="716.0" y2="1090" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="904.0" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{source:claude-code, valid:true}</text>
+    <line x1="716.0" y1="1128" x2="896.0" y2="1128" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="806.0" y="1121" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {tool resu..</text>
+    <line x1="896.0" y1="1166" x2="716.0" y2="1166" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="806.0" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Pipeline generated using..</text>
+    <line x1="700.0" y1="1204" x2="324.0" y2="1204" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="512.0" y="1197" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Response + pipeline preview</text>
+    <line x1="308.0" y1="1242" x2="128.0" y2="1242" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="218.0" y="1235" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display: "Source: Claude ..</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="1102" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="1300" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="316.0" y1="138" x2="316.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="310.0" y="158" width="12" height="1102" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="241.0" y="1300" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="316.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="512.0" y1="138" x2="512.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="506.0" y="158" width="12" height="1102" fill="#8b5cf6" stroke="#8b5cf6" rx="2" ry="2" opacity="0.18" />
+    <rect x="437.0" y="1300" width="150" height="40" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="512.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <line x1="708.0" y1="138" x2="708.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="702.0" y="158" width="12" height="1102" fill="#7c3aed" stroke="#7c3aed" rx="2" ry="2" opacity="0.18" />
+    <rect x="633.0" y="1300" width="150" height="40" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="708.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <line x1="904.0" y1="138" x2="904.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="898.0" y="158" width="12" height="1102" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="829.0" y="1300" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="904.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1100.0" y1="138" x2="1100.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1094.0" y="158" width="12" height="1102" fill="#1d4ed8" stroke="#1d4ed8" rx="2" ry="2" opacity="0.18" />
+    <rect x="1025.0" y="1300" width="150" height="40" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <line x1="1296.0" y1="138" x2="1296.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1290.0" y="158" width="12" height="1102" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="1221.0" y="1300" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1296.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="1492.0" y1="138" x2="1492.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1486.0" y="158" width="12" height="1102" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="1417.0" y="1300" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1492.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="1688.0" y1="138" x2="1688.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1682.0" y="158" width="12" height="1102" fill="#9333ea" stroke="#9333ea" rx="2" ry="2" opacity="0.18" />
+    <rect x="1613.0" y="1300" width="150" height="40" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1688.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <line x1="1884.0" y1="138" x2="1884.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1878.0" y="158" width="12" height="1102" fill="#c084fc" stroke="#c084fc" rx="2" ry="2" opacity="0.18" />
+    <rect x="1809.0" y="1300" width="150" height="40" fill="#c084fc" stroke="#c084fc" rx="8" ry="8" opacity="1" />
+    <text x="1884.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Claude Code</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="1300" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="1102" fill="#16a34a" stroke="#16a34a" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="1300" width="150" height="40" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="1326" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+  </g>
+  <g transform="translate(0,4596)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_4)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 4</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Commit, Execute &amp; Reinforcement Learning</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="262.77777777777777" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="337.77777777777777" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="480.55555555555554" y="90" width="150" height="48" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="555.5555555555555" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <rect x="698.3333333333333" y="90" width="150" height="48" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="773.3333333333333" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <rect x="916.1111111111111" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="991.1111111111111" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1133.888888888889" y="90" width="150" height="48" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="1208.888888888889" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Router</text>
+    <rect x="1351.6666666666665" y="90" width="150" height="48" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1426.6666666666665" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <rect x="1569.4444444444443" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1644.4444444444443" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <rect x="1787.2222222222222" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1862.2222222222222" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#d97706" stroke="#d97706" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Splunk</text>
+    <line x1="128.0" y1="178" x2="329.77777777777777" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="228.88888888888889" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Yes, commit the pipeline"</text>
+    <line x1="345.77777777777777" y1="216" x2="547.5555555555555" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="446.66666666666663" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/ {message:"..</text>
+    <line x1="563.5555555555555" y1="254" x2="765.3333333333333" y2="254" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="664.4444444444443" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <line x1="781.3333333333333" y1="292" x2="983.1111111111111" y2="292" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="882.2222222222222" y="285" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages, too..</text>
+    <line x1="983.1111111111111" y1="330" x2="781.3333333333333" y2="330" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="882.2222222222222" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls: [{name:"commit_p..</text>
+    <line x1="781.3333333333333" y1="368" x2="1200.888888888889" y2="368" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="991.1111111111111" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/commit {repo_url, ci, dockerfile}</text>
+    <line x1="1216.888888888889" y1="406" x2="1418.6666666666665" y2="406" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1317.7777777777778" y="399" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">commit_to_gitlab()</text>
+    <line x1="1434.6666666666665" y1="444" x2="1636.4444444444443" y2="444" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1535.5555555555554" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/projects/{id} -- ..</text>
+    <line x1="1434.6666666666665" y1="482" x2="1636.4444444444443" y2="482" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1535.5555555555554" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v4/projects/{id}/re..</text>
+    <rect x="1734.4444444444443" y="506" width="268.79999999999995" height="70" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1746.4444444444443" y="522" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">branch: feature/ai-pipeline-20260208</text>
+    <text x="1746.4444444444443" y="540" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">actions: [create .gitlab-ci.yml,</text>
+    <text x="1746.4444444444443" y="558" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">         create Dockerfile]</text>
+    <line x1="1636.4444444444443" y1="596" x2="1434.6666666666665" y2="596" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1535.5555555555554" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{commit_id:"abc123", branch}</text>
+    <line x1="1418.6666666666665" y1="634" x2="1216.888888888889" y2="634" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1317.7777777777778" y="627" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{commit_id, branch, project_id}</text>
+    <path d="M 1214.888888888889,672 C 1278.888888888889,672 1278.888888888889,694 1214.888888888889,694" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1288.888888888889" y="678" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">progress_store.create(project_id, branch)</text>
+    <path d="M 1214.888888888889,710 C 1278.888888888889,710 1278.888888888889,732 1214.888888888889,732" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1288.888888888889" y="716" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">BackgroundTasks.add_task(monitor_pipeline)</text>
+    <line x1="1200.888888888889" y1="748" x2="781.3333333333333" y2="748" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="991.1111111111111" y="741" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{commit_id, branch}</text>
+    <line x1="765.3333333333333" y1="786" x2="345.77777777777777" y2="786" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="555.5555555555555" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Committed! Pipeline triggered. Monitoring..."</text>
+    <line x1="329.77777777777777" y1="824" x2="128.0" y2="824" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="228.88888888888889" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display commit confirmation</text>
+    <line x1="60" y1="862" x2="2140" y2="862" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="857" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">BACKGROUND MONITORING (async)</text>
+    <rect x="1298.888888888889" y="886" width="262.0" height="34" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1310.888888888889" y="902" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Polling loop: every 30s, max 15 min</text>
+    <line x1="1216.888888888889" y1="938" x2="1636.4444444444443" y2="938" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="1426.6666666666665" y="931" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/projects/{id}/pipelines?ref={branch}</text>
+    <line x1="1636.4444444444443" y1="976" x2="1216.888888888889" y2="976" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1426.6666666666665" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{pipeline_id:42, status:"running"}</text>
+    <path d="M 1214.888888888889,1014 C 1278.888888888889,1014 1278.888888888889,1036 1214.888888888889,1036" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1288.888888888889" y="1020" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">progress_store.update("pipeline_running")</text>
+    <line x1="1216.888888888889" y1="1052" x2="1636.4444444444443" y2="1052" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="1426.6666666666665" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/projects/{id}/pipelines?ref={branch}</text>
+    <line x1="1636.4444444444443" y1="1090" x2="1216.888888888889" y2="1090" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1426.6666666666665" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{status:"success"}</text>
+    <line x1="60" y1="1128" x2="2140" y2="1128" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1123" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">REINFORCEMENT LEARNING RECORDING</text>
+    <line x1="1216.888888888889" y1="1166" x2="1636.4444444444443" y2="1166" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1426.6666666666665" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/pipelines/42 -- duration</text>
+    <line x1="1216.888888888889" y1="1204" x2="1636.4444444444443" y2="1204" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1426.6666666666665" y="1197" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/pipelines/42/jobs -- stages</text>
+    <line x1="1636.4444444444443" y1="1242" x2="1216.888888888889" y2="1242" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1426.6666666666665" y="1235" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{duration, jobs details}</text>
+    <line x1="1216.888888888889" y1="1280" x2="1418.6666666666665" y2="1280" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1317.7777777777778" y="1273" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">record_pipeline_result()</text>
+    <line x1="1434.6666666666665" y1="1318" x2="1854.2222222222222" y2="1318" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1644.4444444444443" y="1311" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">add(collection="successful_pipelines", {lang, ci, dockerfile})</text>
+    <rect x="1870.8" y="1342" width="289.2" height="70" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1882.8" y="1358" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">RL: Stored for future RAG retrieval.</text>
+    <text x="1882.8" y="1376" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Next same lang/framework request -&gt;</text>
+    <text x="1882.8" y="1394" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">this proven template returned directly.</text>
+    <line x1="1854.2222222222222" y1="1432" x2="1434.6666666666665" y2="1432" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1644.4444444444443" y="1425" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Stored successfully</text>
+    <line x1="1418.6666666666665" y1="1470" x2="1216.888888888889" y2="1470" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1317.7777777777778" y="1463" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">RL recording complete</text>
+    <path d="M 1214.888888888889,1508 C 1278.888888888889,1508 1278.888888888889,1530 1214.888888888889,1530" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1288.888888888889" y="1514" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">progress_store.complete("success")</text>
+    <line x1="60" y1="1546" x2="2140" y2="1546" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1541" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LEARN STAGE (from pipeline itself)</text>
+    <path d="M 1650.4444444444443,1584 C 1714.4444444444443,1584 1714.4444444444443,1606 1650.4444444444443,1606" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1724.4444444444443" y="1590" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Execute learn_record stage</text>
+    <line x1="1636.4444444444443" y1="1622" x2="1216.888888888889" y2="1622" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1426.6666666666665" y="1615" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/learn/record {repo_url, pipeline_id}</text>
+    <line x1="1216.888888888889" y1="1660" x2="2072.0" y2="1660" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1644.4444444444443" y="1653" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /services/collector/event {pipeline success}</text>
+    <line x1="2072.0" y1="1698" x2="1216.888888888889" y2="1698" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1644.4444444444443" y="1691" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Event indexed</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="1558" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="1756" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="337.77777777777777" y1="138" x2="337.77777777777777" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="331.77777777777777" y="158" width="12" height="1558" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="262.77777777777777" y="1756" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="337.77777777777777" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="555.5555555555555" y1="138" x2="555.5555555555555" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="549.5555555555555" y="158" width="12" height="1558" fill="#8b5cf6" stroke="#8b5cf6" rx="2" ry="2" opacity="0.18" />
+    <rect x="480.55555555555554" y="1756" width="150" height="40" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="555.5555555555555" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <line x1="773.3333333333333" y1="138" x2="773.3333333333333" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="767.3333333333333" y="158" width="12" height="1558" fill="#7c3aed" stroke="#7c3aed" rx="2" ry="2" opacity="0.18" />
+    <rect x="698.3333333333333" y="1756" width="150" height="40" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="773.3333333333333" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <line x1="991.1111111111111" y1="138" x2="991.1111111111111" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="985.1111111111111" y="158" width="12" height="1558" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="916.1111111111111" y="1756" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="991.1111111111111" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1208.888888888889" y1="138" x2="1208.888888888889" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1202.888888888889" y="158" width="12" height="1558" fill="#2563eb" stroke="#2563eb" rx="2" ry="2" opacity="0.18" />
+    <rect x="1133.888888888889" y="1756" width="150" height="40" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="1208.888888888889" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Router</text>
+    <line x1="1426.6666666666665" y1="138" x2="1426.6666666666665" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1420.6666666666665" y="158" width="12" height="1558" fill="#1d4ed8" stroke="#1d4ed8" rx="2" ry="2" opacity="0.18" />
+    <rect x="1351.6666666666665" y="1756" width="150" height="40" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1426.6666666666665" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <line x1="1644.4444444444443" y1="138" x2="1644.4444444444443" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1638.4444444444443" y="158" width="12" height="1558" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="1569.4444444444443" y="1756" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1644.4444444444443" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="1862.2222222222222" y1="138" x2="1862.2222222222222" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1856.2222222222222" y="158" width="12" height="1558" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="1787.2222222222222" y="1756" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1862.2222222222222" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="1756" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="1558" fill="#d97706" stroke="#d97706" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="1756" width="150" height="40" fill="#d97706" stroke="#d97706" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="1782" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Splunk</text>
+  </g>
+  <g transform="translate(0,6490)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_5)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 5</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Self-Healing on Pipeline Failure</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Router</text>
+    <rect x="262.77777777777777" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="337.77777777777777" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <rect x="480.55555555555554" y="90" width="150" height="48" fill="#b91c1c" stroke="#b91c1c" rx="8" ry="8" opacity="1" />
+    <text x="555.5555555555555" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Self-Healing</text>
+    <rect x="698.3333333333333" y="90" width="150" height="48" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="773.3333333333333" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <rect x="916.1111111111111" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="991.1111111111111" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="1133.888888888889" y="90" width="150" height="48" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1208.888888888889" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <rect x="1351.6666666666665" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1426.6666666666665" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1569.4444444444443" y="90" width="150" height="48" fill="#dc2626" stroke="#dc2626" rx="8" ry="8" opacity="1" />
+    <text x="1644.4444444444443" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Fixer</text>
+    <rect x="1787.2222222222222" y="90" width="150" height="48" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1862.2222222222222" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#059669" stroke="#059669" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Nexus</text>
+    <rect x="40" y="164" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="52" y="180" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Pipeline failed during</text>
+    <text x="52" y="198" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">background monitoring</text>
+    <line x1="128.0" y1="216" x2="329.77777777777777" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="228.88888888888889" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/pipelines?ref={br..</text>
+    <line x1="329.77777777777777" y1="254" x2="128.0" y2="254" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="228.88888888888889" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{pipeline_id:42, status:"fail..</text>
+    <path d="M 126.0,292 C 190.0,292 190.0,314 126.0,314" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="200.0" y="298" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">progress_store.update("pipeline_failed")</text>
+    <line x1="128.0" y1="330" x2="547.5555555555555" y2="330" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="337.77777777777777" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">fix_existing_pipeline(repo_url, token, branch)</text>
+    <line x1="563.5555555555555" y1="368" x2="765.3333333333333" y2="368" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="664.4444444444443" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">analyze_repository() -&gt; Go/Ge..</text>
+    <line x1="765.3333333333333" y1="406" x2="563.5555555555555" y2="406" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="664.4444444444443" y="399" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{language: go, framework: gen..</text>
+    <path d="M 561.5555555555555,444 C 625.5555555555555,444 625.5555555555555,466 561.5555555555555,466" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="635.5555555555555" y="450" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">state.status = CHECKING_TEMPLATE</text>
+    <line x1="563.5555555555555" y1="482" x2="983.1111111111111" y2="482" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="773.3333333333333" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">get_best_template_files(language="go")</text>
+    <rect x="1081.111111111111" y="544" width="268.79999999999995" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1093.111111111111" y="560" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">ALT: Template Found -&gt; use it</text>
+    <text x="1093.111111111111" y="578" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">ALT: No Template -&gt; generate via LLM</text>
+    <line x1="983.1111111111111" y1="596" x2="563.5555555555555" y2="596" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="773.3333333333333" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{gitlab_ci, dockerfile} OR None</text>
+    <line x1="563.5555555555555" y1="634" x2="765.3333333333333" y2="634" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="664.4444444444443" y="627" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">generate_pipeline_files() [if..</text>
+    <line x1="781.3333333333333" y1="672" x2="1200.888888888889" y2="672" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="991.1111111111111" y="665" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">get_llm_provider()</text>
+    <line x1="1216.888888888889" y1="710" x2="1418.6666666666665" y2="710" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1317.7777777777778" y="703" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">OllamaIntegration</text>
+    <line x1="1418.6666666666665" y1="748" x2="781.3333333333333" y2="748" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="741" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{generated pipeline}</text>
+    <line x1="765.3333333333333" y1="786" x2="563.5555555555555" y2="786" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="664.4444444444443" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{gitlab_ci, dockerfile}</text>
+    <line x1="563.5555555555555" y1="824" x2="1854.2222222222222" y2="824" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1208.888888888889" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">validate_all(gitlab_ci, dockerfile)</text>
+    <line x1="1854.2222222222222" y1="862" x2="563.5555555555555" y2="862" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1208.888888888889" y="855" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">validation results</text>
+    <rect x="645.5555555555555" y="886" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="657.5555555555555" y="902" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">OPT: If validation failed,</text>
+    <text x="657.5555555555555" y="920" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">trigger LLM Fixer</text>
+    <line x1="563.5555555555555" y1="938" x2="1636.4444444444443" y2="938" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="931" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">fix_validation_errors(errors)</text>
+    <line x1="1636.4444444444443" y1="976" x2="1434.6666666666665" y2="976" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1535.5555555555554" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/generate {fix prompt}</text>
+    <line x1="1434.6666666666665" y1="1014" x2="1636.4444444444443" y2="1014" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1535.5555555555554" y="1007" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{fixed files}</text>
+    <line x1="1636.4444444444443" y1="1052" x2="563.5555555555555" y2="1052" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{fixed gitlab_ci, fixed dockerfile}</text>
+    <line x1="563.5555555555555" y1="1090" x2="765.3333333333333" y2="1090" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="664.4444444444443" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">commit_to_gitlab(branch, fixe..</text>
+    <line x1="765.3333333333333" y1="1128" x2="345.77777777777777" y2="1128" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="555.5555555555555" y="1121" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /repository/commits</text>
+    <line x1="345.77777777777777" y1="1166" x2="547.5555555555555" y2="1166" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="446.66666666666663" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{commit_id}</text>
+    <line x1="60" y1="1204" x2="2140" y2="1204" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1199" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">FIX ATTEMPTS LOOP (1-3)</text>
+    <path d="M 561.5555555555555,1242 C 625.5555555555555,1242 625.5555555555555,1264 561.5555555555555,1264" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="635.5555555555555" y="1248" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">state.attempt += 1, status = RUNNING</text>
+    <line x1="547.5555555555555" y1="1280" x2="345.77777777777777" y2="1280" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="446.66666666666663" y="1273" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Monitor new pipeline (poll 30s)</text>
+    <rect x="427.77777777777777" y="1342" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="439.77777777777777" y="1358" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">ALT: Pipeline Succeeds -&gt;</text>
+    <text x="439.77777777777777" y="1376" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">store template &amp; break</text>
+    <line x1="345.77777777777777" y1="1394" x2="547.5555555555555" y2="1394" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="446.66666666666663" y="1387" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{status:"success"}</text>
+    <line x1="563.5555555555555" y1="1432" x2="983.1111111111111" y2="1432" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="773.3333333333333" y="1425" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Store successful template (RL)</text>
+    <path d="M 561.5555555555555,1470 C 625.5555555555555,1470 625.5555555555555,1492 561.5555555555555,1492" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="635.5555555555555" y="1476" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">state.status = SUCCESS</text>
+    <line x1="60" y1="1508" x2="2140" y2="1508" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1503" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ALT: Pipeline Fails Again</text>
+    <line x1="345.77777777777777" y1="1546" x2="547.5555555555555" y2="1546" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="446.66666666666663" y="1539" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{status:"failed"}</text>
+    <line x1="547.5555555555555" y1="1584" x2="345.77777777777777" y2="1584" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="446.66666666666663" y="1577" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /jobs/{failed_job_id}/tra..</text>
+    <line x1="345.77777777777777" y1="1622" x2="547.5555555555555" y2="1622" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="446.66666666666663" y="1615" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{job_log:"error: image not fo..</text>
+    <line x1="563.5555555555555" y1="1660" x2="1636.4444444444443" y2="1660" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="1653" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">fix_from_job_log(job_log, files)</text>
+    <path d="M 1650.4444444444443,1698 C 1714.4444444444443,1698 1714.4444444444443,1720 1650.4444444444443,1720" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1724.4444444444443" y="1704" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">analyze_error -&gt; "image_not_found"</text>
+    <line x1="1652.4444444444443" y1="1736" x2="2072.0" y2="1736" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1862.2222222222222" y="1729" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /v2/_catalog -- available images</text>
+    <line x1="2072.0" y1="1774" x2="1652.4444444444443" y2="1774" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1862.2222222222222" y="1767" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{repos:["maven","python","node",...]}</text>
+    <line x1="1636.4444444444443" y1="1812" x2="1434.6666666666665" y2="1812" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1535.5555555555554" y="1805" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/generate {fix + err..</text>
+    <line x1="1434.6666666666665" y1="1850" x2="1636.4444444444443" y2="1850" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1535.5555555555554" y="1843" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{fixed files with Nexus images}</text>
+    <line x1="1636.4444444444443" y1="1888" x2="563.5555555555555" y2="1888" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="1881" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">FixResult</text>
+    <line x1="547.5555555555555" y1="1926" x2="345.77777777777777" y2="1926" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="446.66666666666663" y="1919" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Commit fix attempt N</text>
+    <rect x="645.5555555555555" y="1950" width="282.4" height="34" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="657.5555555555555" y="1966" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Continue loop or exit after 3 attempts</text>
+    <rect x="645.5555555555555" y="2026" width="260" height="70" fill="#fee2e2" stroke="#dc2626" rx="5" ry="5" opacity="1" />
+    <text x="657.5555555555555" y="2042" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">OPT: All 3 Attempts Failed</text>
+    <text x="657.5555555555555" y="2060" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">state.status = FAILED</text>
+    <text x="657.5555555555555" y="2078" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Report to Pipeline Router</text>
+    <line x1="547.5555555555555" y1="2116" x2="128.0" y2="2116" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="337.77777777777777" y="2109" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">WorkflowState{status:FAILED, errors, logs}</text>
+    <path d="M 126.0,2154 C 190.0,2154 190.0,2176 126.0,2176" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="200.0" y="2160" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">progress_store.complete("failed")</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="2014" fill="#2563eb" stroke="#2563eb" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="2212" width="150" height="40" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Router</text>
+    <line x1="337.77777777777777" y1="138" x2="337.77777777777777" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="331.77777777777777" y="158" width="12" height="2014" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="262.77777777777777" y="2212" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="337.77777777777777" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="555.5555555555555" y1="138" x2="555.5555555555555" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="549.5555555555555" y="158" width="12" height="2014" fill="#b91c1c" stroke="#b91c1c" rx="2" ry="2" opacity="0.18" />
+    <rect x="480.55555555555554" y="2212" width="150" height="40" fill="#b91c1c" stroke="#b91c1c" rx="8" ry="8" opacity="1" />
+    <text x="555.5555555555555" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Self-Healing</text>
+    <line x1="773.3333333333333" y1="138" x2="773.3333333333333" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="767.3333333333333" y="158" width="12" height="2014" fill="#1d4ed8" stroke="#1d4ed8" rx="2" ry="2" opacity="0.18" />
+    <rect x="698.3333333333333" y="2212" width="150" height="40" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="773.3333333333333" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <line x1="991.1111111111111" y1="138" x2="991.1111111111111" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="985.1111111111111" y="158" width="12" height="2014" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="916.1111111111111" y="2212" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="991.1111111111111" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="1208.888888888889" y1="138" x2="1208.888888888889" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1202.888888888889" y="158" width="12" height="2014" fill="#9333ea" stroke="#9333ea" rx="2" ry="2" opacity="0.18" />
+    <rect x="1133.888888888889" y="2212" width="150" height="40" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1208.888888888889" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <line x1="1426.6666666666665" y1="138" x2="1426.6666666666665" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1420.6666666666665" y="158" width="12" height="2014" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="1351.6666666666665" y="2212" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1426.6666666666665" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1644.4444444444443" y1="138" x2="1644.4444444444443" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1638.4444444444443" y="158" width="12" height="2014" fill="#dc2626" stroke="#dc2626" rx="2" ry="2" opacity="0.18" />
+    <rect x="1569.4444444444443" y="2212" width="150" height="40" fill="#dc2626" stroke="#dc2626" rx="8" ry="8" opacity="1" />
+    <text x="1644.4444444444443" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Fixer</text>
+    <line x1="1862.2222222222222" y1="138" x2="1862.2222222222222" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1856.2222222222222" y="158" width="12" height="2014" fill="#16a34a" stroke="#16a34a" rx="2" ry="2" opacity="0.18" />
+    <rect x="1787.2222222222222" y="2212" width="150" height="40" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1862.2222222222222" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="2212" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="2014" fill="#059669" stroke="#059669" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="2212" width="150" height="40" fill="#059669" stroke="#059669" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="2238" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Nexus</text>
+  </g>
+  <g transform="translate(0,8840)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_6)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 6</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Connectivity Check &amp; Access Request</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="241.0" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="316.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="437.0" y="90" width="150" height="48" fill="#0d9488" stroke="#0d9488" rx="8" ry="8" opacity="1" />
+    <text x="512.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Connectivity</text>
+    <rect x="633.0" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="708.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <rect x="829.0" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="904.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1025.0" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="1221.0" y="90" width="150" height="48" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1296.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">SonarQube</text>
+    <rect x="1417.0" y="90" width="150" height="48" fill="#dc2626" stroke="#dc2626" rx="8" ry="8" opacity="1" />
+    <text x="1492.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Trivy</text>
+    <rect x="1613.0" y="90" width="150" height="48" fill="#059669" stroke="#059669" rx="8" ry="8" opacity="1" />
+    <text x="1688.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Nexus</text>
+    <rect x="1809.0" y="90" width="150" height="48" fill="#d97706" stroke="#d97706" rx="8" ry="8" opacity="1" />
+    <text x="1884.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Splunk</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Jira</text>
+    <line x1="128.0" y1="178" x2="308.0" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="218.0" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Click "Connectivity Valid..</text>
+    <line x1="324.0" y1="216" x2="504.0" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="414.0" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v1/connectivity/</text>
+    <rect x="602.0" y="240" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="614.0" y="256" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Parallel health checks</text>
+    <text x="614.0" y="274" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">(asyncio.gather)</text>
+    <line x1="520.0" y1="292" x2="700.0" y2="292" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="610.0" y="285" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v4/version</text>
+    <line x1="520.0" y1="330" x2="896.0" y2="330" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="708.0" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/version</text>
+    <line x1="520.0" y1="368" x2="1092.0" y2="368" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="806.0" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v2/heartbeat</text>
+    <line x1="520.0" y1="406" x2="1288.0" y2="406" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="904.0" y="399" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/system/status</text>
+    <line x1="520.0" y1="444" x2="1484.0" y2="444" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="1002.0" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /healthz</text>
+    <line x1="520.0" y1="482" x2="1680.0" y2="482" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="1100.0" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /service/rest/v1/status</text>
+    <line x1="520.0" y1="520" x2="1876.0" y2="520" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="1198.0" y="513" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /services/collector/health/1.0</text>
+    <line x1="520.0" y1="558" x2="2072.0" y2="558" stroke="#1f2937" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="1296.0" y="551" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /rest/api/2/serverInfo</text>
+    <line x1="700.0" y1="634" x2="520.0" y2="634" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="610.0" y="627" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{version:"16.x"} (23ms)</text>
+    <line x1="896.0" y1="672" x2="520.0" y2="672" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="708.0" y="665" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{version:"0.6.x"} (12ms)</text>
+    <line x1="1092.0" y1="710" x2="520.0" y2="710" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="806.0" y="703" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{heartbeat:1} (8ms)</text>
+    <line x1="1288.0" y1="748" x2="520.0" y2="748" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="904.0" y="741" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Connection refused</text>
+    <line x1="1484.0" y1="786" x2="520.0" y2="786" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1002.0" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{status:"ok"} (15ms)</text>
+    <line x1="1680.0" y1="824" x2="520.0" y2="824" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{status:"ok"} (31ms)</text>
+    <line x1="1876.0" y1="862" x2="520.0" y2="862" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1198.0" y="855" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">(45ms)</text>
+    <line x1="2072.0" y1="900" x2="520.0" y2="900" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1296.0" y="893" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">(67ms)</text>
+    <line x1="504.0" y1="938" x2="324.0" y2="938" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="414.0" y="931" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">ConnectivityReport {total..</text>
+    <line x1="308.0" y1="976" x2="128.0" y2="976" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="218.0" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display status grid (Sona..</text>
+    <line x1="60" y1="1014" x2="2140" y2="1014" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1009" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ACCESS REQUEST FLOW</text>
+    <line x1="128.0" y1="1052" x2="308.0" y2="1052" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="218.0" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Click "Request Access" on..</text>
+    <line x1="128.0" y1="1090" x2="308.0" y2="1090" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="218.0" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Fill form {name, email, t..</text>
+    <line x1="324.0" y1="1128" x2="504.0" y2="1128" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="414.0" y="1121" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/connectivity..</text>
+    <line x1="520.0" y1="1166" x2="2072.0" y2="1166" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1296.0" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /rest/api/2/issue {project:"DEVOPS", summary:...}</text>
+    <line x1="2072.0" y1="1204" x2="520.0" y2="1204" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1296.0" y="1197" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{key:"DEVOPS-42"}</text>
+    <line x1="504.0" y1="1242" x2="324.0" y2="1242" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="414.0" y="1235" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{ticket_id:"DEVOPS-42", s..</text>
+    <line x1="308.0" y1="1280" x2="128.0" y2="1280" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="218.0" y="1273" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Access request submitted..</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="1140" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="1338" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="316.0" y1="138" x2="316.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="310.0" y="158" width="12" height="1140" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="241.0" y="1338" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="316.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="512.0" y1="138" x2="512.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="506.0" y="158" width="12" height="1140" fill="#0d9488" stroke="#0d9488" rx="2" ry="2" opacity="0.18" />
+    <rect x="437.0" y="1338" width="150" height="40" fill="#0d9488" stroke="#0d9488" rx="8" ry="8" opacity="1" />
+    <text x="512.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Connectivity</text>
+    <line x1="708.0" y1="138" x2="708.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="702.0" y="158" width="12" height="1140" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="633.0" y="1338" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="708.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="904.0" y1="138" x2="904.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="898.0" y="158" width="12" height="1140" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="829.0" y="1338" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="904.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1100.0" y1="138" x2="1100.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1094.0" y="158" width="12" height="1140" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="1025.0" y="1338" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="1296.0" y1="138" x2="1296.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1290.0" y="158" width="12" height="1140" fill="#16a34a" stroke="#16a34a" rx="2" ry="2" opacity="0.18" />
+    <rect x="1221.0" y="1338" width="150" height="40" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="1296.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">SonarQube</text>
+    <line x1="1492.0" y1="138" x2="1492.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1486.0" y="158" width="12" height="1140" fill="#dc2626" stroke="#dc2626" rx="2" ry="2" opacity="0.18" />
+    <rect x="1417.0" y="1338" width="150" height="40" fill="#dc2626" stroke="#dc2626" rx="8" ry="8" opacity="1" />
+    <text x="1492.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Trivy</text>
+    <line x1="1688.0" y1="138" x2="1688.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1682.0" y="158" width="12" height="1140" fill="#059669" stroke="#059669" rx="2" ry="2" opacity="0.18" />
+    <rect x="1613.0" y="1338" width="150" height="40" fill="#059669" stroke="#059669" rx="8" ry="8" opacity="1" />
+    <text x="1688.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Nexus</text>
+    <line x1="1884.0" y1="138" x2="1884.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1878.0" y="158" width="12" height="1140" fill="#d97706" stroke="#d97706" rx="2" ry="2" opacity="0.18" />
+    <rect x="1809.0" y="1338" width="150" height="40" fill="#d97706" stroke="#d97706" rx="8" ry="8" opacity="1" />
+    <text x="1884.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Splunk</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="1140" fill="#2563eb" stroke="#2563eb" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="1338" width="150" height="40" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Jira</text>
+  </g>
+  <g transform="translate(0,10316)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_7)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 7</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitHub Actions Workflow Generation (Gitea)</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="290.0" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="365.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="535.0" y="90" width="150" height="48" fill="#1f2937" stroke="#1f2937" rx="8" ry="8" opacity="1" />
+    <text x="610.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitHub Router</text>
+    <rect x="780.0" y="90" width="150" height="48" fill="#4338ca" stroke="#4338ca" rx="8" ry="8" opacity="1" />
+    <text x="855.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GH Pipeline Gen.</text>
+    <rect x="1025.0" y="90" width="150" height="48" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <rect x="1270.0" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1345.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1515.0" y="90" width="150" height="48" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1590.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <rect x="1760.0" y="90" width="150" height="48" fill="#1f2937" stroke="#1f2937" rx="8" ry="8" opacity="1" />
+    <text x="1835.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Gitea</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+    <line x1="128.0" y1="178" x2="357.0" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Generate GitHub Actions for gite..</text>
+    <line x1="373.0" y1="216" x2="602.0" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/github-pipeline/gene..</text>
+    <line x1="618.0" y1="254" x2="847.0" y2="254" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">generate_workflow_files(repo_url)</text>
+    <line x1="863.0" y1="292" x2="1827.0" y2="292" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1345.0" y="285" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v1/repos/{owner}/{repo}</text>
+    <line x1="1827.0" y1="330" x2="863.0" y2="330" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1345.0" y="323" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{repo info, default_branch:"main"}</text>
+    <line x1="863.0" y1="368" x2="1827.0" y2="368" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1345.0" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v1/repos/{owner}/{repo}/contents/</text>
+    <line x1="1827.0" y1="406" x2="863.0" y2="406" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1345.0" y="399" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{files:[package.json,src/...]} -&gt; Node.js</text>
+    <line x1="863.0" y1="444" x2="1582.0" y2="444" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1222.5" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">query(where={language:"nodejs", platform:"github"})</text>
+    <line x1="1582.0" y1="482" x2="863.0" y2="482" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1222.5" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">No template</text>
+    <line x1="863.0" y1="520" x2="1092.0" y2="520" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="513" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">get_llm_provider()</text>
+    <line x1="1092.0" y1="558" x2="863.0" y2="558" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="551" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">OllamaIntegration</text>
+    <line x1="863.0" y1="596" x2="1337.0" y2="596" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/generate {github actions prompt}</text>
+    <line x1="1337.0" y1="634" x2="863.0" y2="634" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="627" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{workflow YAML + Dockerfile}</text>
+    <path d="M 861.0,672 C 925.0,672 925.0,694 861.0,694" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="678" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Parse &amp; validate workflow syntax</text>
+    <line x1="863.0" y1="710" x2="2072.0" y2="710" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1467.5" y="703" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Validate Dockerfile</text>
+    <line x1="2072.0" y1="748" x2="863.0" y2="748" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1467.5" y="741" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Passed</text>
+    <line x1="847.0" y1="786" x2="618.0" y2="786" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="732.5" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{workflow_yaml, dockerfile}</text>
+    <line x1="602.0" y1="824" x2="373.0" y2="824" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="487.5" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Response with workflow</text>
+    <line x1="357.0" y1="862" x2="128.0" y2="862" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="855" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display GitHub Actions workflow</text>
+    <line x1="60" y1="900" x2="2140" y2="900" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="895" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">COMMIT TO GITEA</text>
+    <line x1="128.0" y1="938" x2="357.0" y2="938" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="931" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Commit this workflow"</text>
+    <line x1="373.0" y1="976" x2="602.0" y2="976" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/github-pipeline/commit</text>
+    <line x1="618.0" y1="1014" x2="847.0" y2="1014" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="1007" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">commit_to_github()</text>
+    <line x1="863.0" y1="1052" x2="1827.0" y2="1052" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1345.0" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/repos/.../git/refs -- Create branch</text>
+    <line x1="863.0" y1="1090" x2="1827.0" y2="1090" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1345.0" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /repos/.../contents/.github/workflows/ci.yml</text>
+    <line x1="863.0" y1="1128" x2="1827.0" y2="1128" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1345.0" y="1121" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /repos/.../contents/Dockerfile</text>
+    <line x1="1827.0" y1="1166" x2="863.0" y2="1166" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1345.0" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{commit_sha:"def456"}</text>
+    <line x1="847.0" y1="1204" x2="618.0" y2="1204" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="732.5" y="1197" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Commit result</text>
+    <line x1="602.0" y1="1242" x2="373.0" y2="1242" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="487.5" y="1235" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Success</text>
+    <line x1="357.0" y1="1280" x2="128.0" y2="1280" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="1273" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Committed to feature/ai-workflow..</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="1140" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="1338" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="365.0" y1="138" x2="365.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="359.0" y="158" width="12" height="1140" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="290.0" y="1338" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="365.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="610.0" y1="138" x2="610.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="604.0" y="158" width="12" height="1140" fill="#1f2937" stroke="#1f2937" rx="2" ry="2" opacity="0.18" />
+    <rect x="535.0" y="1338" width="150" height="40" fill="#1f2937" stroke="#1f2937" rx="8" ry="8" opacity="1" />
+    <text x="610.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitHub Router</text>
+    <line x1="855.0" y1="138" x2="855.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="849.0" y="158" width="12" height="1140" fill="#4338ca" stroke="#4338ca" rx="2" ry="2" opacity="0.18" />
+    <rect x="780.0" y="1338" width="150" height="40" fill="#4338ca" stroke="#4338ca" rx="8" ry="8" opacity="1" />
+    <text x="855.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GH Pipeline Gen.</text>
+    <line x1="1100.0" y1="138" x2="1100.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1094.0" y="158" width="12" height="1140" fill="#9333ea" stroke="#9333ea" rx="2" ry="2" opacity="0.18" />
+    <rect x="1025.0" y="1338" width="150" height="40" fill="#9333ea" stroke="#9333ea" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">LLM Factory</text>
+    <line x1="1345.0" y1="138" x2="1345.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1339.0" y="158" width="12" height="1140" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="1270.0" y="1338" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1345.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1590.0" y1="138" x2="1590.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1584.0" y="158" width="12" height="1140" fill="#0891b2" stroke="#0891b2" rx="2" ry="2" opacity="0.18" />
+    <rect x="1515.0" y="1338" width="150" height="40" fill="#0891b2" stroke="#0891b2" rx="8" ry="8" opacity="1" />
+    <text x="1590.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">ChromaDB</text>
+    <line x1="1835.0" y1="138" x2="1835.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1829.0" y="158" width="12" height="1140" fill="#1f2937" stroke="#1f2937" rx="2" ry="2" opacity="0.18" />
+    <rect x="1760.0" y="1338" width="150" height="40" fill="#1f2937" stroke="#1f2937" rx="8" ry="8" opacity="1" />
+    <text x="1835.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Gitea</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="1338" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="1140" fill="#16a34a" stroke="#16a34a" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="1338" width="150" height="40" fill="#16a34a" stroke="#16a34a" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="1364" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Validator</text>
+  </g>
+  <g transform="translate(0,11792)">
+    <rect x="30" y="0" width="2140" height="70" fill="url(#secgrad_8)" stroke="none" rx="10" ry="10" opacity="1" />
+    <text x="1100" y="30" fill="#94a3b8" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Journey 8</text>
+    <text x="1100" y="55" fill="#ffffff" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Tool Calling Orchestration (Full Detail)</text>
+    <rect x="45.0" y="90" width="150" height="48" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <rect x="290.0" y="90" width="150" height="48" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="365.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <rect x="535.0" y="90" width="150" height="48" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="610.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <rect x="780.0" y="90" width="150" height="48" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="855.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <rect x="1025.0" y="90" width="150" height="48" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <rect x="1270.0" y="90" width="150" height="48" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="1345.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Router</text>
+    <rect x="1515.0" y="90" width="150" height="48" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1590.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <rect x="1760.0" y="90" width="150" height="48" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1835.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <rect x="2005.0" y="90" width="150" height="48" fill="#0d9488" stroke="#0d9488" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="120" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Connectivity</text>
+    <line x1="128.0" y1="178" x2="357.0" y2="178" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="171" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/new -&gt; {convers..</text>
+    <line x1="128.0" y1="216" x2="357.0" y2="216" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="209" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Check tools health, then generat..</text>
+    <line x1="373.0" y1="254" x2="602.0" y2="254" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="247" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/ {message, conv..</text>
+    <line x1="618.0" y1="292" x2="847.0" y2="292" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="285" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <path d="M 861.0,330 C 925.0,330 925.0,352 861.0,352" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="336" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">messages.append({role:user, content:msg})</text>
+    <line x1="863.0" y1="368" x2="1092.0" y2="368" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="361" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {system_prompt + m..</text>
+    <rect x="1190.0" y="392" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1202.0" y="408" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">LLM decides to call</text>
+    <text x="1202.0" y="426" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">check_tool_connectivity first</text>
+    <line x1="1092.0" y1="444" x2="863.0" y2="444" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="437" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls:[{name:"check_tool_co..</text>
+    <line x1="863.0" y1="482" x2="2072.0" y2="482" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1467.5" y="475" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /api/v1/connectivity/</text>
+    <line x1="2072.0" y1="520" x2="863.0" y2="520" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1467.5" y="513" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{healthy:10, unhealthy:0}</text>
+    <path d="M 861.0,558 C 925.0,558 925.0,580 861.0,580" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="564" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Append tool result to messages</text>
+    <line x1="863.0" y1="596" x2="1092.0" y2="596" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="589" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages + tool r..</text>
+    <rect x="1190.0" y="620" width="260" height="52" fill="#fef3c7" stroke="#f59e0b" rx="5" ry="5" opacity="1" />
+    <text x="1202.0" y="636" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">LLM now calls</text>
+    <text x="1202.0" y="654" fill="#78350f" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">generate_pipeline</text>
+    <line x1="1092.0" y1="672" x2="863.0" y2="672" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="665" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls:[{name:"generate_pipe..</text>
+    <line x1="863.0" y1="710" x2="1337.0" y2="710" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="703" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/generate-validated</text>
+    <line x1="1353.0" y1="748" x2="1582.0" y2="748" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1467.5" y="741" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Full generation flow (see Journey..</text>
+    <line x1="1582.0" y1="786" x2="1353.0" y2="786" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1467.5" y="779" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{gitlab_ci, dockerfile, template_..</text>
+    <line x1="1337.0" y1="824" x2="863.0" y2="824" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="817" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Generation result</text>
+    <path d="M 861.0,862 C 925.0,862 925.0,884 861.0,884" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="868" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Store in pending_pipelines["conv_123"]</text>
+    <path d="M 861.0,900 C 925.0,900 925.0,922 861.0,922" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="935.0" y="906" fill="#374151" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Append tool result to messages</text>
+    <line x1="863.0" y1="938" x2="1092.0" y2="938" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="931" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages + tool r..</text>
+    <line x1="1092.0" y1="976" x2="863.0" y2="976" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="969" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"All tools healthy! Here is your ..</text>
+    <line x1="847.0" y1="1014" x2="618.0" y2="1014" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="732.5" y="1007" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{message, pending_pipeline}</text>
+    <line x1="602.0" y1="1052" x2="373.0" y2="1052" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="487.5" y="1045" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Response + pipeline preview</text>
+    <line x1="357.0" y1="1090" x2="128.0" y2="1090" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="1083" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Display response + pipeline preview</text>
+    <line x1="60" y1="1128" x2="2140" y2="1128" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1123" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">VALIDATE BEFORE COMMIT</text>
+    <line x1="128.0" y1="1166" x2="357.0" y2="1166" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="1159" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Validate this pipeline first"</text>
+    <line x1="373.0" y1="1204" x2="602.0" y2="1204" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="1197" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/</text>
+    <line x1="618.0" y1="1242" x2="847.0" y2="1242" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="1235" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <line x1="863.0" y1="1280" x2="1092.0" y2="1280" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="1273" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages, tools}</text>
+    <line x1="1092.0" y1="1318" x2="863.0" y2="1318" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="1311" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls:[{name:"validate_pipe..</text>
+    <line x1="863.0" y1="1356" x2="1337.0" y2="1356" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="1349" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/dry-run</text>
+    <line x1="1337.0" y1="1394" x2="863.0" y2="1394" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="1387" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{all_valid:true, checks:[...]}</text>
+    <line x1="863.0" y1="1432" x2="1092.0" y2="1432" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="1425" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {tool result}</text>
+    <line x1="1092.0" y1="1470" x2="863.0" y2="1470" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="1463" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Validation passed! Ready to comm..</text>
+    <line x1="847.0" y1="1508" x2="373.0" y2="1508" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="610.0" y="1501" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Response</text>
+    <line x1="357.0" y1="1546" x2="128.0" y2="1546" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="1539" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Validation passed! Ready to comm..</text>
+    <line x1="60" y1="1584" x2="2140" y2="1584" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="1579" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">COMMIT</text>
+    <line x1="128.0" y1="1622" x2="357.0" y2="1622" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="1615" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Go ahead, commit it"</text>
+    <line x1="373.0" y1="1660" x2="602.0" y2="1660" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="1653" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/</text>
+    <line x1="618.0" y1="1698" x2="847.0" y2="1698" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="1691" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <line x1="863.0" y1="1736" x2="1092.0" y2="1736" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="1729" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages, tools}</text>
+    <line x1="1092.0" y1="1774" x2="863.0" y2="1774" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="1767" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls:[{name:"commit_pipeli..</text>
+    <line x1="863.0" y1="1812" x2="1337.0" y2="1812" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="1805" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/commit</text>
+    <line x1="1353.0" y1="1850" x2="1827.0" y2="1850" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1590.0" y="1843" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /repository/commits (see Journey 4)</text>
+    <line x1="1827.0" y1="1888" x2="1353.0" y2="1888" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1590.0" y="1881" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{commit_id, branch}</text>
+    <line x1="1337.0" y1="1926" x2="863.0" y2="1926" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="1919" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Commit result</text>
+    <line x1="847.0" y1="1964" x2="373.0" y2="1964" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="610.0" y="1957" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Commit confirmation</text>
+    <line x1="357.0" y1="2002" x2="128.0" y2="2002" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="1995" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Committed! Pipeline running..."</text>
+    <line x1="60" y1="2040" x2="2140" y2="2040" stroke="#d1d5db" stroke-width="1" stroke-dasharray="8,4" />
+    <text x="1100" y="2035" fill="#6b7280" font-size="12px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">CHECK STATUS</text>
+    <line x1="128.0" y1="2078" x2="357.0" y2="2078" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="242.5" y="2071" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"What is the pipeline status?"</text>
+    <line x1="373.0" y1="2116" x2="602.0" y2="2116" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="487.5" y="2109" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/chat/</text>
+    <line x1="618.0" y1="2154" x2="847.0" y2="2154" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="732.5" y="2147" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">chat(request)</text>
+    <line x1="863.0" y1="2192" x2="1092.0" y2="2192" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="2185" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {messages, tools}</text>
+    <line x1="1092.0" y1="2230" x2="863.0" y2="2230" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="2223" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{tool_calls:[{name:"check_pipelin..</text>
+    <line x1="863.0" y1="2268" x2="1337.0" y2="2268" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1100.0" y="2261" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/v1/pipeline/status</text>
+    <line x1="1353.0" y1="2306" x2="1827.0" y2="2306" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1590.0" y="2299" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">GET /pipelines?ref={branch}</text>
+    <line x1="1827.0" y1="2344" x2="1353.0" y2="2344" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1590.0" y="2337" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">{status:"running", stages:[...]}</text>
+    <line x1="1337.0" y1="2382" x2="863.0" y2="2382" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="1100.0" y="2375" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Status result</text>
+    <line x1="863.0" y1="2420" x2="1092.0" y2="2420" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="977.5" y="2413" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">POST /api/chat {tool result}</text>
+    <line x1="1092.0" y1="2458" x2="863.0" y2="2458" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="977.5" y="2451" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Pipeline running... Stage: build..</text>
+    <line x1="847.0" y1="2496" x2="373.0" y2="2496" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="610.0" y="2489" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">Response</text>
+    <line x1="357.0" y1="2534" x2="128.0" y2="2534" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="242.5" y="2527" fill="#374151" font-size="11px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="normal">"Pipeline running... Stage: build..</text>
+    <line x1="120.0" y1="138" x2="120.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="114.0" y="158" width="12" height="2394" fill="#4f46e5" stroke="#4f46e5" rx="2" ry="2" opacity="0.18" />
+    <rect x="45.0" y="2592" width="150" height="40" fill="#4f46e5" stroke="#4f46e5" rx="8" ry="8" opacity="1" />
+    <text x="120.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">User</text>
+    <line x1="365.0" y1="138" x2="365.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="359.0" y="158" width="12" height="2394" fill="#6366f1" stroke="#6366f1" rx="2" ry="2" opacity="0.18" />
+    <rect x="290.0" y="2592" width="150" height="40" fill="#6366f1" stroke="#6366f1" rx="8" ry="8" opacity="1" />
+    <text x="365.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Frontend</text>
+    <line x1="610.0" y1="138" x2="610.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="604.0" y="158" width="12" height="2394" fill="#8b5cf6" stroke="#8b5cf6" rx="2" ry="2" opacity="0.18" />
+    <rect x="535.0" y="2592" width="150" height="40" fill="#8b5cf6" stroke="#8b5cf6" rx="8" ry="8" opacity="1" />
+    <text x="610.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Router</text>
+    <line x1="855.0" y1="138" x2="855.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="849.0" y="158" width="12" height="2394" fill="#7c3aed" stroke="#7c3aed" rx="2" ry="2" opacity="0.18" />
+    <rect x="780.0" y="2592" width="150" height="40" fill="#7c3aed" stroke="#7c3aed" rx="8" ry="8" opacity="1" />
+    <text x="855.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Chat Service</text>
+    <line x1="1100.0" y1="138" x2="1100.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1094.0" y="158" width="12" height="2394" fill="#a855f7" stroke="#a855f7" rx="2" ry="2" opacity="0.18" />
+    <rect x="1025.0" y="2592" width="150" height="40" fill="#a855f7" stroke="#a855f7" rx="8" ry="8" opacity="1" />
+    <text x="1100.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Ollama</text>
+    <line x1="1345.0" y1="138" x2="1345.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1339.0" y="158" width="12" height="2394" fill="#2563eb" stroke="#2563eb" rx="2" ry="2" opacity="0.18" />
+    <rect x="1270.0" y="2592" width="150" height="40" fill="#2563eb" stroke="#2563eb" rx="8" ry="8" opacity="1" />
+    <text x="1345.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Router</text>
+    <line x1="1590.0" y1="138" x2="1590.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1584.0" y="158" width="12" height="2394" fill="#1d4ed8" stroke="#1d4ed8" rx="2" ry="2" opacity="0.18" />
+    <rect x="1515.0" y="2592" width="150" height="40" fill="#1d4ed8" stroke="#1d4ed8" rx="8" ry="8" opacity="1" />
+    <text x="1590.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Pipeline Gen.</text>
+    <line x1="1835.0" y1="138" x2="1835.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="1829.0" y="158" width="12" height="2394" fill="#ea580c" stroke="#ea580c" rx="2" ry="2" opacity="0.18" />
+    <rect x="1760.0" y="2592" width="150" height="40" fill="#ea580c" stroke="#ea580c" rx="8" ry="8" opacity="1" />
+    <text x="1835.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">GitLab</text>
+    <line x1="2080.0" y1="138" x2="2080.0" y2="2592" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="6,3" />
+    <rect x="2074.0" y="158" width="12" height="2394" fill="#0d9488" stroke="#0d9488" rx="2" ry="2" opacity="0.18" />
+    <rect x="2005.0" y="2592" width="150" height="40" fill="#0d9488" stroke="#0d9488" rx="8" ry="8" opacity="1" />
+    <text x="2080.0" y="2618" fill="#ffffff" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Connectivity</text>
+  </g>
+  <g transform="translate(0,14522)">
+    <rect x="30" y="0" width="2140" height="280" fill="#f8fafc" stroke="#e2e8f0" rx="12" ry="12" opacity="1" />
+    <text x="1100" y="35" fill="#1e293b" font-size="20px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">Legend</text>
+    <line x1="80" y1="70" x2="280" y2="70" stroke="#1f2937" stroke-width="2" marker-end="url(#arrowSolid)" />
+    <text x="295" y="75" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Synchronous Call (REST/gRPC)</text>
+    <line x1="80" y1="100" x2="280" y2="100" stroke="#1f2937" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowOpen)" />
+    <text x="295" y="105" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Asynchronous / Background Call</text>
+    <line x1="80" y1="130" x2="280" y2="130" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowReturn)" />
+    <text x="295" y="135" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Response / Return</text>
+    <rect x="80" y="160" width="180" height="30" fill="#fef3c7" stroke="#f59e0b" rx="4" ry="4" opacity="1" />
+    <text x="275" y="180" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Note: Important Context</text>
+    <rect x="80" y="200" width="180" height="30" fill="#f3f4f6" stroke="#9ca3af" rx="4" ry="4" opacity="1" />
+    <text x="275" y="220" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Alt/Opt Frame: Alternative / Optional</text>
+    <rect x="80" y="240" width="180" height="30" fill="#eff6ff" stroke="#93c5fd" rx="4" ry="4" opacity="1" />
+    <text x="275" y="260" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Loop Frame: Repeated Operations</text>
+    <rect x="1200" y="70" width="20" height="20" fill="#16a34a" stroke="#16a34a" rx="4" ry="4" opacity="1" />
+    <text x="1230" y="85" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Success Path</text>
+    <rect x="1200" y="100" width="20" height="20" fill="#dc2626" stroke="#dc2626" rx="4" ry="4" opacity="1" />
+    <text x="1230" y="115" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Failure Path</text>
+    <path d="M 1200,140 C 1240,140 1240,160 1200,160" fill="none" stroke="#1f2937" stroke-width="1.8" marker-end="url(#arrowSolid)" />
+    <text x="1250" y="155" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Self-Call (internal processing)</text>
+    <rect x="1200" y="180" width="12" height="30" fill="#7c3aed" stroke="#7c3aed" rx="2" ry="2" opacity="0.3" />
+    <text x="1227" y="200" fill="#374151" font-size="13px" font-family="Segoe UI, Arial, sans-serif" text-anchor="start" font-weight="normal">Activation Bar (service processing)</text>
+    <text x="1100" y="265" fill="#64748b" font-size="14px" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-weight="bold">AI DevOps Platform  --  End-to-End Sequence Diagrams  |  All Journeys  |  2026</text>
+  </g>
+</svg>

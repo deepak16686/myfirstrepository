@@ -23,7 +23,7 @@ from contextlib import asynccontextmanager
 import os
 
 from app.config import settings, tools_manager
-from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline
+from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity
 
 
 @asynccontextmanager
@@ -118,6 +118,7 @@ app.include_router(nexus.router, prefix=settings.api_prefix)
 app.include_router(unified.router, prefix=settings.api_prefix)
 app.include_router(pipeline.router, prefix=settings.api_prefix)
 app.include_router(github_pipeline.router, prefix=settings.api_prefix)
+app.include_router(connectivity.router, prefix=settings.api_prefix)
 app.include_router(chat.router)  # Chat API has its own prefix
 
 # ============================================================================
