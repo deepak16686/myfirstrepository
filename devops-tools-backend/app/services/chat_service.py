@@ -81,6 +81,23 @@ class ChatService:
                     "required": []
                 }
             }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "check_tool_connectivity",
+                "description": "Check connectivity and health status of DevOps tools (GitLab, SonarQube, Trivy, Nexus, Ollama, ChromaDB, Jira, Splunk, Jenkins, Redis, PostgreSQL). Use this when the user asks about tool status, health, connectivity, or access.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "tool_name": {
+                            "type": "string",
+                            "description": "Optional specific tool name to check. If empty, checks all tools."
+                        }
+                    },
+                    "required": []
+                }
+            }
         }
     ]
 
@@ -111,6 +128,7 @@ Guidelines:
 - Explain what you're doing at each step.
 - If there's an error, explain it clearly and suggest solutions.
 - Be concise but informative.
+- When the user asks about tool status, health, connectivity, or access, use the check_tool_connectivity tool.
 
 IMPORTANT - Template Source Reporting:
 After generating a pipeline, ALWAYS tell the user about the template source using the "source_message" from the tool result:
@@ -168,12 +186,14 @@ After committing, mention the template_source in your response so the user knows
         # Call LLM with tools
         response = await self._call_llm(messages, model)
 
+        # Track tool results for monitoring info extraction
+        tool_results = []
+
         # Check if LLM wants to use a tool
         if response.get("message", {}).get("tool_calls"):
             tool_calls = response["message"]["tool_calls"]
 
             # Process each tool call
-            tool_results = []
             for tool_call in tool_calls:
                 result = await self._execute_tool(
                     conversation_id,
@@ -245,10 +265,21 @@ After committing, mention the template_source in your response so the user knows
             "content": assistant_message
         })
 
+        # Check if a commit was just performed — extract monitoring info for frontend polling
+        monitoring_info = None
+        for tr in tool_results:
+            if tr["tool"] == "commit_pipeline" and tr["result"].get("success"):
+                monitoring_info = {
+                    "project_id": tr["result"].get("project_id"),
+                    "branch": tr["result"].get("branch")
+                }
+                break
+
         return {
             "conversation_id": conversation_id,
             "message": assistant_message,
-            "pending_pipeline": self.pending_pipelines.get(conversation_id)
+            "pending_pipeline": self.pending_pipelines.get(conversation_id),
+            "monitoring": monitoring_info
         }
 
     async def _call_llm(
@@ -303,6 +334,10 @@ After committing, mention the template_source in your response so the user knows
             )
         elif tool_name == "validate_pipeline":
             return await self._tool_validate_pipeline(conversation_id)
+        elif tool_name == "check_tool_connectivity":
+            return await self._tool_check_connectivity(
+                arguments.get("tool_name", "")
+            )
         else:
             return {"error": f"Unknown tool: {tool_name}"}
 
@@ -329,7 +364,7 @@ After committing, mention the template_source in your response so the user knows
                 if result.get("success"):
                     # Determine template source for user messaging
                     model_used = result.get("model_used", "unknown")
-                    if model_used in ("chromadb-direct", "template-only"):
+                    if model_used in ("chromadb-direct", "template-only") or model_used.startswith("claude-rag"):
                         template_source = "rag"
                         source_message = "Template found in RAG (ChromaDB) - using a proven pipeline configuration that has succeeded before."
                     elif model_used == "built-in-template":
@@ -432,7 +467,9 @@ After committing, mention the template_source in your response so the user knows
                         "message": f"Pipeline committed successfully. Source: {commit_message}",
                         "template_source": template_source,
                         "branch": result.get("branch", ""),
-                        "commit_id": result.get("commit_id", "")
+                        "commit_id": result.get("commit_id", ""),
+                        "project_id": result.get("project_id"),
+                        "web_url": result.get("web_url", "")
                     }
                 else:
                     return {
@@ -474,6 +511,40 @@ After committing, mention the template_source in your response so the user knows
                     "warnings": result.get("warnings", []),
                     "summary": result.get("summary", "")
                 }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    async def _tool_check_connectivity(self, tool_name: str = "") -> Dict:
+        """Check tool connectivity via the connectivity API"""
+        try:
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                if tool_name:
+                    response = await client.get(
+                        f"{self.backend_url}/api/v1/connectivity/{tool_name}"
+                    )
+                    result = response.json()
+                    return {
+                        "success": True,
+                        "tool": tool_name,
+                        "status": result.get("status"),
+                        "version": result.get("version"),
+                        "latency_ms": result.get("latency_ms"),
+                        "error": result.get("error"),
+                        "base_url": result.get("base_url")
+                    }
+                else:
+                    response = await client.get(
+                        f"{self.backend_url}/api/v1/connectivity/"
+                    )
+                    result = response.json()
+                    return {
+                        "success": True,
+                        "total": result.get("total"),
+                        "healthy": result.get("healthy"),
+                        "unhealthy": result.get("unhealthy"),
+                        "unknown": result.get("unknown"),
+                        "tools": result.get("tools", [])
+                    }
         except Exception as e:
             return {"success": False, "error": str(e)}
 

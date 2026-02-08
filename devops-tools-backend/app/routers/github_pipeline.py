@@ -8,7 +8,7 @@ from fastapi import APIRouter, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
-from app.services.github_pipeline_generator import github_pipeline_generator
+from app.services.github_pipeline import github_pipeline_generator
 
 router = APIRouter(prefix="/github-pipeline", tags=["GitHub Actions Pipeline"])
 
@@ -91,7 +91,7 @@ class SelfHealRequest(BaseModel):
     github_token: str
     additional_context: Optional[str] = None
     auto_commit: bool = True
-    max_attempts: int = 3
+    max_attempts: int = 10
     runner_type: str = "self-hosted"
 
 

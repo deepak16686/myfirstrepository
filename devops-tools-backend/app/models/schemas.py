@@ -241,3 +241,53 @@ class ToolCallResponse(BaseModel):
     result: Any
     error: Optional[str] = None
     execution_time: float
+
+
+# ============================================================================
+# Connectivity Schemas
+# ============================================================================
+
+class AccessGroup(BaseModel):
+    name: str
+    description: str
+
+
+class ConnectivityResult(BaseModel):
+    name: str
+    display_name: str
+    icon: str
+    status: ToolStatus
+    version: Optional[str] = None
+    latency_ms: Optional[float] = None
+    auth_type: Optional[str] = None
+    base_url: str
+    error: Optional[str] = None
+    access_groups: List[AccessGroup] = []
+
+
+class ConnectivityReport(BaseModel):
+    timestamp: str
+    total: int
+    healthy: int
+    unhealthy: int
+    unknown: int
+    tools: List[ConnectivityResult]
+
+
+class ToolAccessDetail(BaseModel):
+    tool: str
+    groups: List[str] = []
+
+
+class AccessRequest(BaseModel):
+    tools: List[ToolAccessDetail]
+    reason: str
+    requester_name: str
+    requester_email: str
+
+
+class AccessRequestResponse(BaseModel):
+    success: bool
+    jira_issue_key: Optional[str] = None
+    jira_issue_url: Optional[str] = None
+    message: str

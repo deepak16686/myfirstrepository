@@ -10,6 +10,7 @@ import httpx
 
 from app.config import tools_manager
 from app.integrations.ollama import OllamaIntegration
+from app.integrations.llm_provider import get_llm_provider
 
 
 class GitLabLLMFixer:
@@ -28,8 +29,9 @@ class GitLabLLMFixer:
     def __init__(self):
         self.ollama_config = tools_manager.get_tool("ollama")
 
-    def _get_ollama(self) -> OllamaIntegration:
-        return OllamaIntegration(self.ollama_config)
+    def _get_llm(self):
+        """Get the configured LLM provider (Ollama or Claude Code)."""
+        return get_llm_provider()
 
     async def fix_pipeline(
         self,
@@ -134,13 +136,12 @@ Return ONLY the fixed files in this exact format:
 Do NOT include any explanations - just the fixed files.
 """
 
-        ollama = self._get_ollama()
+        llm = self._get_llm()
 
         try:
-            response = await ollama.generate(
+            response = await llm.generate(
                 prompt=prompt,
-                model=model,
-                stream=False
+                model=model
             )
 
             response_text = response.get('response', '')
@@ -165,7 +166,7 @@ Do NOT include any explanations - just the fixed files.
                 'error': str(e)
             }
         finally:
-            await ollama.close()
+            await llm.close()
 
     def _parse_fix_response(
         self,
@@ -224,7 +225,7 @@ Do NOT include any explanations - just the fixed files.
         analysis: Dict[str, Any],
         gitlab_token: str,
         project_path: str = None,
-        max_attempts: int = 3,
+        max_attempts: int = 10,
         model: str = None
     ) -> Dict[str, Any]:
         """

@@ -9,20 +9,33 @@ Provides endpoints for:
 5. Automatic reinforcement learning from pipeline results
 """
 import asyncio
+import httpx
 from fastapi import APIRouter, HTTPException, BackgroundTasks
-from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any
 from datetime import datetime
 
-from app.services.pipeline_generator import pipeline_generator
+from app.services.pipeline import pipeline_generator
 from app.services.gitlab_dry_run_validator import gitlab_dry_run_validator
-from app.services.self_healing_workflow import self_healing_workflow
+from app.services.self_healing_workflow import self_healing_workflow, WorkflowStatus
+from app.services.pipeline_progress import progress_store
+from app.services.dry_run_validator import dry_run_validator
+from app.services.llm_fixer import llm_fixer
+
+from app.models.pipeline_schemas import (
+    GeneratePipelineRequest, GeneratePipelineResponse,
+    GenerateWithValidationRequest, GenerateWithValidationResponse,
+    CommitRequest, CommitResponse,
+    PipelineStatusRequest, DryRunRequest, DryRunResponse,
+    FeedbackRequest, FullWorkflowRequest,
+    RecordPipelineResultRequest, StoreTemplateRequest,
+    SelfHealRequest, FixRequest, FixFromJobRequest,
+)
 
 router = APIRouter(prefix="/pipeline", tags=["Pipeline Generator"])
 
 
 # ============================================================================
-# Helper: Fetch Pipeline Files from GitLab
+# Background Tasks
 # ============================================================================
 
 async def _fetch_pipeline_files(
@@ -30,10 +43,7 @@ async def _fetch_pipeline_files(
     branch: str,
     gitlab_token: str
 ) -> Dict[str, str]:
-    """
-    Fetch Dockerfile and .gitlab-ci.yml from a GitLab repo.
-    Used as fallback when file content is not passed directly.
-    """
+    """Fetch Dockerfile and .gitlab-ci.yml from a GitLab repo."""
     import httpx
 
     files = {"dockerfile": "", "gitlab_ci": ""}
@@ -59,9 +69,32 @@ async def _fetch_pipeline_files(
     return files
 
 
-# ============================================================================
-# Background Task for Reinforcement Learning + Self-Healing
-# ============================================================================
+async def _check_all_jobs_passed(project_id: int, pipeline_id: int, gitlab_token: str) -> bool:
+    """Check if ALL pipeline jobs passed (no failures/skips except notify_failure)."""
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.get(
+                f"http://gitlab-server/api/v4/projects/{project_id}/pipelines/{pipeline_id}/jobs",
+                headers={"PRIVATE-TOKEN": gitlab_token}
+            )
+            if resp.status_code != 200:
+                return False
+            jobs = resp.json()
+            for job in jobs:
+                name = job.get('name', '')
+                status = job.get('status', '')
+                if name == 'notify_failure' and status == 'skipped':
+                    continue
+                if name == 'learn_record' and status in ('running', 'success'):
+                    continue
+                if status != 'success':
+                    print(f"[RL Background] Job '{name}' has status '{status}' — not all passed")
+                    return False
+            return True
+    except Exception as e:
+        print(f"[RL Background] All-jobs check failed: {e}")
+        return False
+
 
 async def monitor_pipeline_for_learning(
     repo_url: str,
@@ -78,24 +111,6 @@ async def monitor_pipeline_for_learning(
     """
     Background task to monitor pipeline status, record results for RL,
     and trigger self-healing on failure.
-
-    This task:
-    1. Waits for the pipeline to start
-    2. Monitors until completion or timeout
-    3. Records the result (success/failure) in ChromaDB for learning
-    4. If failed, triggers LLM-based auto-fix (max 3 retries)
-
-    Args:
-        repo_url: GitLab repository URL
-        gitlab_token: GitLab access token
-        branch: Branch name where pipeline is running
-        project_id: GitLab project ID
-        dockerfile: Current Dockerfile content (optional, fetched if empty)
-        gitlab_ci: Current .gitlab-ci.yml content (optional, fetched if empty)
-        language: Detected language (for self-healing context)
-        framework: Detected framework (for self-healing context)
-        max_wait_minutes: Maximum time to wait for pipeline completion
-        check_interval_seconds: Time between status checks
     """
     import httpx
 
@@ -106,14 +121,12 @@ async def monitor_pipeline_for_learning(
 
     for check_num in range(max_checks):
         try:
-            # Wait before checking (except first check)
             if check_num > 0:
                 await asyncio.sleep(check_interval_seconds)
 
             async with httpx.AsyncClient() as client:
                 headers = {"PRIVATE-TOKEN": gitlab_token}
 
-                # Get latest pipeline for branch
                 pipelines_url = f"http://gitlab-server/api/v4/projects/{project_id}/pipelines"
                 resp = await client.get(
                     pipelines_url,
@@ -135,10 +148,11 @@ async def monitor_pipeline_for_learning(
                 status = pipeline['status']
 
                 print(f"[RL Background] Pipeline {pipeline_id} status: {status}")
+                progress_store.set_pipeline_id(project_id, branch, pipeline_id)
+                progress_store.update(project_id, branch, "pipeline_running",
+                    f"Pipeline #{pipeline_id} is {status}...")
 
-                # Check if pipeline is complete
                 if status in ['success', 'failed', 'canceled', 'skipped']:
-                    # Record the result for RL
                     result = await pipeline_generator.record_pipeline_result(
                         repo_url=repo_url,
                         gitlab_token=gitlab_token,
@@ -147,19 +161,33 @@ async def monitor_pipeline_for_learning(
                     )
                     print(f"[RL Background] Pipeline {pipeline_id} completed with status '{status}'. RL result: {result.get('message', 'recorded')}")
 
-                    # ══════════════════════════════════════════════════
-                    # SELF-HEALING: Auto-fix failed pipelines via LLM
-                    # ══════════════════════════════════════════════════
-                    if status == 'failed':
-                        print(f"[RL Background] Pipeline {pipeline_id} FAILED — triggering self-healing...")
+                    if status == 'success':
+                        # Check if ALL jobs truly passed (allow_failure jobs may have failed)
+                        all_jobs_passed = await _check_all_jobs_passed(project_id, pipeline_id, gitlab_token)
+                        if all_jobs_passed:
+                            progress_store.complete(project_id, branch, "success",
+                                f"Pipeline #{pipeline_id} succeeded — all stages passed!")
+                            return
+                        else:
+                            print(f"[RL Background] Pipeline {pipeline_id} succeeded but has failing jobs — triggering self-healing...")
+                            # Fall through to self-healing (same as 'failed')
 
-                        # Fetch files from GitLab if not provided
+                    if status in ['canceled', 'skipped']:
+                        progress_store.complete(project_id, branch, "failed",
+                            f"Pipeline #{pipeline_id} was {status}.")
+                        return
+
+                    if status in ['failed', 'success']:  # success with failing jobs also triggers healing
+                        if status == 'failed':
+                            print(f"[RL Background] Pipeline {pipeline_id} FAILED — triggering self-healing...")
+                        progress_store.update(project_id, branch, "pipeline_failed",
+                            f"Pipeline #{pipeline_id} has failing jobs. Starting self-healing (max 10 attempts)...")
+
                         if not dockerfile or not gitlab_ci:
                             fetched = await _fetch_pipeline_files(project_id, branch, gitlab_token)
                             dockerfile = dockerfile or fetched["dockerfile"]
                             gitlab_ci = gitlab_ci or fetched["gitlab_ci"]
 
-                        # Detect language if unknown
                         if language == "unknown":
                             try:
                                 analysis = await pipeline_generator.analyze_repository(repo_url, gitlab_token)
@@ -168,7 +196,6 @@ async def monitor_pipeline_for_learning(
                             except Exception:
                                 pass
 
-                        # Trigger self-healing (uses internal _monitor_pipeline, no recursion)
                         heal_result = await self_healing_workflow.fix_existing_pipeline(
                             repo_url=repo_url,
                             gitlab_token=gitlab_token,
@@ -179,10 +206,17 @@ async def monitor_pipeline_for_learning(
                             framework=framework,
                             dockerfile=dockerfile,
                             gitlab_ci=gitlab_ci,
-                            max_attempts=3
+                            max_attempts=10
                         )
 
                         print(f"[RL Background] Self-healing result: {heal_result.status.value}")
+
+                        if heal_result.status == WorkflowStatus.SUCCESS:
+                            progress_store.complete(project_id, branch, "success",
+                                f"Pipeline fixed after {heal_result.attempt} attempt(s)!")
+                        else:
+                            progress_store.complete(project_id, branch, "failed",
+                                f"Self-healing failed after {heal_result.attempt} attempts. GitLab issue created for review.")
 
                     return
 
@@ -190,152 +224,27 @@ async def monitor_pipeline_for_learning(
             print(f"[RL Background] Error checking pipeline: {e}")
 
     print(f"[RL Background] Timeout waiting for pipeline on {branch} after {max_wait_minutes} minutes")
+    progress_store.complete(project_id, branch, "failed",
+        f"Timeout waiting for pipeline after {max_wait_minutes} minutes.")
 
 
-# ============================================================================
-# Request/Response Models
-# ============================================================================
-
-class GeneratePipelineRequest(BaseModel):
-    """Request to generate pipeline files"""
-    repo_url: str = Field(..., description="GitLab repository URL")
-    gitlab_token: str = Field(..., description="GitLab access token")
-    additional_context: Optional[str] = Field(
-        None,
-        description="Additional requirements or context for generation"
+async def run_self_heal_background(
+    repo_url: str,
+    gitlab_token: str,
+    additional_context: str,
+    auto_commit: bool,
+    max_attempts: int
+):
+    """Background task for self-healing workflow"""
+    print(f"[Background] Starting self-heal for {repo_url}")
+    result = await self_healing_workflow.run(
+        repo_url=repo_url,
+        gitlab_token=gitlab_token,
+        additional_context=additional_context,
+        auto_commit=auto_commit,
+        max_attempts=max_attempts
     )
-    model: str = Field(
-        default="pipeline-generator-v5",
-        description="Ollama model to use for generation"
-    )
-    use_template_only: bool = Field(
-        default=False,
-        description="If True, skip LLM and use default templates directly"
-    )
-
-
-class GeneratePipelineResponse(BaseModel):
-    """Response with generated pipeline files"""
-    success: bool
-    gitlab_ci: str
-    dockerfile: str
-    analysis: Dict[str, Any]
-    model_used: str
-    feedback_used: int
-
-
-class GenerateWithValidationRequest(BaseModel):
-    """Request to generate pipeline with dry-run validation and auto-fixing"""
-    repo_url: str = Field(..., description="GitLab repository URL")
-    gitlab_token: str = Field(..., description="GitLab access token")
-    additional_context: Optional[str] = Field(
-        None,
-        description="Additional requirements or context for generation"
-    )
-    model: str = Field(
-        default="pipeline-generator-v5",
-        description="Ollama model to use for generation"
-    )
-    max_fix_attempts: int = Field(
-        default=3,
-        description="Maximum number of LLM fix attempts if validation fails"
-    )
-    store_on_success: bool = Field(
-        default=True,
-        description="Store successful templates in ChromaDB for future use"
-    )
-
-
-class GenerateWithValidationResponse(BaseModel):
-    """Response with validated pipeline files"""
-    success: bool
-    gitlab_ci: str
-    dockerfile: str
-    analysis: Dict[str, Any]
-    model_used: str
-    feedback_used: int
-    validation_passed: bool
-    validation_skipped: Optional[bool] = None
-    validation_reason: Optional[str] = None
-    validation_results: Optional[Dict[str, Any]] = None
-    validation_errors: Optional[List[str]] = None
-    warnings: Optional[List[str]] = None
-    fix_attempts: Optional[int] = None
-    fix_history: Optional[List[Dict[str, Any]]] = None
-
-
-class CommitRequest(BaseModel):
-    """Request to commit files to GitLab"""
-    repo_url: str
-    gitlab_token: str
-    gitlab_ci: str
-    dockerfile: str
-    branch_name: Optional[str] = Field(
-        None,
-        description="Branch name (auto-generated if not provided)"
-    )
-    commit_message: str = Field(
-        default="Add CI/CD pipeline configuration [AI Generated]"
-    )
-
-
-class CommitResponse(BaseModel):
-    """Response from commit operation"""
-    success: bool
-    commit_id: str
-    branch: str
-    web_url: Optional[str]
-    project_id: int
-
-
-class PipelineStatusRequest(BaseModel):
-    """Request to get pipeline status"""
-    repo_url: str
-    gitlab_token: str
-    branch: str
-
-
-class DryRunRequest(BaseModel):
-    """Request to validate pipeline without committing"""
-    gitlab_ci: str = Field(..., description="Pipeline YAML to validate")
-    dockerfile: str = Field(..., description="Dockerfile to validate")
-    gitlab_token: Optional[str] = Field(None, description="GitLab token for CI lint API (optional)")
-    project_path: Optional[str] = Field(None, description="Project path for project-specific lint (optional)")
-
-
-class DryRunResponse(BaseModel):
-    """Response with validation results"""
-    success: bool
-    valid: bool
-    errors: List[str]
-    warnings: List[str]
-    validation_results: Dict[str, Any]
-    summary: str
-
-
-class FeedbackRequest(BaseModel):
-    """Request to store feedback for reinforcement learning"""
-    repo_url: str
-    gitlab_token: str
-    branch: str
-    original_gitlab_ci: str
-    original_dockerfile: str
-    error_type: str = Field(..., description="Type of error that was fixed")
-    fix_description: str = Field(..., description="Description of what was fixed")
-
-
-class FullWorkflowRequest(BaseModel):
-    """Request for complete workflow: generate -> commit -> monitor"""
-    repo_url: str
-    gitlab_token: str
-    additional_context: Optional[str] = None
-    model: str = "pipeline-generator-v5"
-    auto_commit: bool = False  # Default to False - require user approval
-    branch_name: Optional[str] = None
-    use_template_only: bool = Field(
-        default=False,
-        description="If True, skip LLM and use default templates directly"
-    )
+    print(f"[Background] Self-heal completed: {result.status.value}")
 
 
 # ============================================================================
@@ -343,14 +252,8 @@ class FullWorkflowRequest(BaseModel):
 # ============================================================================
 
 @router.post("/analyze")
-async def analyze_repository(
-    repo_url: str,
-    gitlab_token: str
-):
-    """
-    Analyze a GitLab repository to understand its structure.
-    Returns detected language, framework, and existing files.
-    """
+async def analyze_repository(repo_url: str, gitlab_token: str):
+    """Analyze a GitLab repository to understand its structure."""
     try:
         analysis = await pipeline_generator.analyze_repository(repo_url, gitlab_token)
         return {"success": True, "analysis": analysis}
@@ -360,14 +263,7 @@ async def analyze_repository(
 
 @router.post("/generate", response_model=GeneratePipelineResponse)
 async def generate_pipeline(request: GeneratePipelineRequest):
-    """
-    Generate .gitlab-ci.yml and Dockerfile for a repository.
-
-    Uses Ollama to generate files based on:
-    - Repository analysis (language, framework, files)
-    - Previous feedback from reinforcement learning
-    - Additional context provided by user
-    """
+    """Generate .gitlab-ci.yml and Dockerfile for a repository."""
     try:
         result = await pipeline_generator.generate_pipeline_files(
             repo_url=request.repo_url,
@@ -376,7 +272,6 @@ async def generate_pipeline(request: GeneratePipelineRequest):
             model=request.model,
             use_template_only=request.use_template_only
         )
-
         return GeneratePipelineResponse(
             success=True,
             gitlab_ci=result['gitlab_ci'],
@@ -391,19 +286,7 @@ async def generate_pipeline(request: GeneratePipelineRequest):
 
 @router.post("/generate-validated", response_model=GenerateWithValidationResponse)
 async def generate_pipeline_with_validation(request: GenerateWithValidationRequest):
-    """
-    Generate pipeline with dry-run validation and automatic LLM-based fixing.
-
-    This endpoint:
-    1. Checks ChromaDB for existing validated templates
-    2. If no template exists, generates using LLM
-    3. Validates using GitLab CI lint API and local checks
-    4. If validation fails, uses LLM to fix errors (up to max_fix_attempts)
-    5. Stores successful templates in ChromaDB for future use
-
-    This is the recommended endpoint for generating pipelines for new/unknown
-    languages and frameworks as it ensures the pipeline is valid before returning.
-    """
+    """Generate pipeline with dry-run validation and automatic LLM-based fixing."""
     try:
         result = await pipeline_generator.generate_with_validation(
             repo_url=request.repo_url,
@@ -413,7 +296,6 @@ async def generate_pipeline_with_validation(request: GenerateWithValidationReque
             max_fix_attempts=request.max_fix_attempts,
             store_on_success=request.store_on_success
         )
-
         return GenerateWithValidationResponse(
             success=True,
             gitlab_ci=result.get('gitlab_ci', ''),
@@ -436,19 +318,7 @@ async def generate_pipeline_with_validation(request: GenerateWithValidationReque
 
 @router.post("/dry-run", response_model=DryRunResponse)
 async def dry_run_validation(request: DryRunRequest):
-    """
-    Validate pipeline and Dockerfile without committing to GitLab.
-
-    Performs:
-    1. YAML syntax validation
-    2. Dockerfile syntax validation
-    3. Pipeline structure validation
-    4. Stage dependency validation
-    5. Nexus registry usage validation
-    6. GitLab CI Lint API validation (if gitlab_token provided)
-
-    This is useful for testing pipeline configurations before committing.
-    """
+    """Validate pipeline and Dockerfile without committing to GitLab."""
     try:
         results = await gitlab_dry_run_validator.validate_all(
             gitlab_ci=request.gitlab_ci,
@@ -459,7 +329,6 @@ async def dry_run_validation(request: DryRunRequest):
 
         all_valid, summary = gitlab_dry_run_validator.get_validation_summary(results)
 
-        # Collect all errors and warnings
         all_errors = []
         all_warnings = []
         for check_name, result in results.items():
@@ -480,18 +349,8 @@ async def dry_run_validation(request: DryRunRequest):
 
 @router.post("/commit", response_model=CommitResponse)
 async def commit_pipeline(request: CommitRequest, background_tasks: BackgroundTasks):
-    """
-    Commit generated pipeline files to GitLab.
-
-    Creates a new branch and commits:
-    - .gitlab-ci.yml
-    - Dockerfile
-
-    After commit, automatically monitors the pipeline and triggers
-    LLM-based self-healing if the pipeline fails (max 3 retries).
-    """
+    """Commit generated pipeline files to GitLab and start monitoring."""
     try:
-        # Generate branch name if not provided
         branch_name = request.branch_name
         if not branch_name:
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -510,7 +369,8 @@ async def commit_pipeline(request: CommitRequest, background_tasks: BackgroundTa
             commit_message=request.commit_message
         )
 
-        # Schedule background monitoring with self-healing
+        progress_store.create(project_id=result['project_id'], branch=branch_name, max_attempts=10)
+
         background_tasks.add_task(
             monitor_pipeline_for_learning,
             repo_url=request.repo_url,
@@ -532,16 +392,18 @@ async def commit_pipeline(request: CommitRequest, background_tasks: BackgroundTa
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/progress/{project_id}/{branch:path}")
+async def get_pipeline_progress(project_id: int, branch: str):
+    """Get real-time progress of pipeline monitoring and self-healing."""
+    progress = progress_store.get(project_id, branch)
+    if not progress:
+        return {"found": False, "message": "No monitoring in progress for this pipeline"}
+    return {"found": True, **progress.to_dict()}
+
+
 @router.post("/status")
 async def get_pipeline_status(request: PipelineStatusRequest):
-    """
-    Get the status of the latest pipeline for a branch.
-
-    Returns:
-    - Pipeline status (pending, running, success, failed, etc.)
-    - Duration
-    - Failed jobs (if any)
-    """
+    """Get the status of the latest pipeline for a branch."""
     try:
         status = await pipeline_generator.get_pipeline_status(
             repo_url=request.repo_url,
@@ -555,17 +417,8 @@ async def get_pipeline_status(request: PipelineStatusRequest):
 
 @router.post("/feedback")
 async def store_feedback(request: FeedbackRequest):
-    """
-    Store feedback from manual corrections for reinforcement learning.
-
-    Call this endpoint after a DevOps engineer has manually fixed
-    the generated pipeline. The system will:
-    1. Fetch the corrected files from the repository
-    2. Compare with the original generated files
-    3. Store the differences in ChromaDB for future learning
-    """
+    """Store feedback from manual corrections for reinforcement learning."""
     try:
-        # Get corrected files from repo
         differences = await pipeline_generator.compare_and_learn(
             repo_url=request.repo_url,
             gitlab_token=request.gitlab_token,
@@ -576,12 +429,10 @@ async def store_feedback(request: FeedbackRequest):
             }
         )
 
-        # Store feedback if there were changes
         gitlab_ci_diff = differences.get(".gitlab-ci.yml", {})
         dockerfile_diff = differences.get("Dockerfile", {})
 
         if gitlab_ci_diff.get("changed") or dockerfile_diff.get("changed"):
-            # Get repository analysis for language/framework
             analysis = await pipeline_generator.analyze_repository(
                 request.repo_url,
                 request.gitlab_token
@@ -622,9 +473,7 @@ async def get_feedback_history(
     framework: Optional[str] = None,
     limit: int = 10
 ):
-    """
-    Get stored feedback history for review.
-    """
+    """Get stored feedback history for review."""
     try:
         feedback = await pipeline_generator.get_relevant_feedback(
             language=language or "",
@@ -640,26 +489,9 @@ async def get_feedback_history(
 # Reinforcement Learning Endpoints
 # ============================================================================
 
-class RecordPipelineResultRequest(BaseModel):
-    """Request to record pipeline result for RL"""
-    repo_url: str
-    gitlab_token: str
-    branch: str
-    pipeline_id: int
-
-
 @router.post("/learn/record")
 async def record_pipeline_result(request: RecordPipelineResultRequest):
-    """
-    Record the result of a pipeline for reinforcement learning.
-
-    Call this endpoint after a pipeline completes (success or failure).
-    - If successful: The configuration is stored in ChromaDB for future use
-    - If failed: The failure pattern is recorded for analysis
-
-    This enables the system to learn from real pipeline executions and
-    improve future generations.
-    """
+    """Record the result of a pipeline for reinforcement learning."""
     try:
         result = await pipeline_generator.record_pipeline_result(
             repo_url=request.repo_url,
@@ -678,12 +510,7 @@ async def get_successful_pipelines(
     framework: Optional[str] = None,
     limit: int = 5
 ):
-    """
-    Get successful pipeline configurations for a language/framework.
-
-    Returns stored configurations that have been proven to work,
-    sorted by performance (stages passed, duration).
-    """
+    """Get successful pipeline configurations for a language/framework."""
     try:
         pipelines = await pipeline_generator.get_successful_pipelines(
             language=language,
@@ -702,17 +529,8 @@ async def get_successful_pipelines(
 
 
 @router.get("/learn/best")
-async def get_best_config(
-    language: str,
-    framework: Optional[str] = None
-):
-    """
-    Get the best performing pipeline configuration for a language/framework.
-
-    This returns the optimal configuration based on:
-    - Number of stages that passed
-    - Pipeline duration (faster is better)
-    """
+async def get_best_config(language: str, framework: Optional[str] = None):
+    """Get the best performing pipeline configuration for a language/framework."""
     try:
         config = await pipeline_generator.get_best_pipeline_config(
             language=language,
@@ -738,23 +556,9 @@ async def get_best_config(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-class StoreTemplateRequest(BaseModel):
-    """Request to store a pipeline template manually"""
-    language: str
-    framework: str = "generic"
-    gitlab_ci: str
-    dockerfile: Optional[str] = None
-    description: Optional[str] = None
-
-
 @router.post("/learn/store-template")
 async def store_template(request: StoreTemplateRequest):
-    """
-    Manually store a proven pipeline configuration.
-
-    Use this to add a working pipeline configuration to the RL database
-    so it can be used as a reference for future pipeline generation.
-    """
+    """Manually store a proven pipeline configuration."""
     try:
         success = await pipeline_generator.store_manual_template(
             language=request.language,
@@ -778,19 +582,8 @@ async def store_template(request: StoreTemplateRequest):
 
 @router.post("/workflow")
 async def full_workflow(request: FullWorkflowRequest, background_tasks: BackgroundTasks):
-    """
-    Complete workflow: Analyze -> Generate -> Commit -> Monitor
-
-    This endpoint:
-    1. Analyzes the repository
-    2. Generates .gitlab-ci.yml and Dockerfile
-    3. Optionally commits to a new branch
-    4. Returns all results with pipeline monitoring info
-
-    Use this for the complete AI-powered pipeline generation flow.
-    """
+    """Complete workflow: Analyze -> Generate -> Commit -> Monitor"""
     try:
-        # Step 1: Generate pipeline files
         result = await pipeline_generator.generate_pipeline_files(
             repo_url=request.repo_url,
             gitlab_token=request.gitlab_token,
@@ -812,7 +605,6 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
             "pipeline": None
         }
 
-        # Step 2: Commit if requested
         if request.auto_commit:
             branch_name = request.branch_name
             if not branch_name:
@@ -824,12 +616,20 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
                 "Dockerfile": result['dockerfile']
             }
 
+            model_used = result.get('model_used', 'unknown')
+            if model_used == 'chromadb-direct':
+                commit_tag = "RAG Template"
+            elif 'chromadb' in model_used:
+                commit_tag = "RAG + LLM"
+            else:
+                commit_tag = "AI Generated"
+
             commit_result = await pipeline_generator.commit_to_gitlab(
                 repo_url=request.repo_url,
                 gitlab_token=request.gitlab_token,
                 files=files,
                 branch_name=branch_name,
-                commit_message="Add CI/CD pipeline configuration [AI Generated]"
+                commit_message=f"Add CI/CD pipeline configuration [{commit_tag}]"
             )
 
             response["commit"] = {
@@ -839,7 +639,6 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
                 "project_id": commit_result['project_id']
             }
 
-            # Schedule background task to monitor pipeline, record RL, and self-heal on failure
             background_tasks.add_task(
                 monitor_pipeline_for_learning,
                 repo_url=request.repo_url,
@@ -867,77 +666,12 @@ async def full_workflow(request: FullWorkflowRequest, background_tasks: Backgrou
 
 
 # ============================================================================
-# SELF-HEALING PIPELINE ENDPOINTS
+# Self-Healing Pipeline Endpoints
 # ============================================================================
-
-from app.services.dry_run_validator import dry_run_validator
-from app.services.llm_fixer import llm_fixer
-from app.services.self_healing_workflow import WorkflowStatus
-
-
-class SelfHealRequest(BaseModel):
-    """Request for self-healing pipeline workflow"""
-    repo_url: str = Field(..., description="GitLab repository URL")
-    gitlab_token: str = Field(..., description="GitLab access token")
-    additional_context: Optional[str] = Field(
-        None,
-        description="Additional context for LLM generation"
-    )
-    auto_commit: bool = Field(
-        default=True,
-        description="Automatically commit and run pipeline"
-    )
-    max_attempts: int = Field(
-        default=3,
-        description="Maximum fix attempts before giving up"
-    )
-
-
-class DryRunRequest(BaseModel):
-    """Request for dry-run validation"""
-    gitlab_ci: str = Field(..., description=".gitlab-ci.yml content")
-    dockerfile: str = Field(..., description="Dockerfile content")
-    gitlab_token: Optional[str] = Field(None, description="GitLab token for lint API")
-
-
-class FixRequest(BaseModel):
-    """Request for LLM fix"""
-    dockerfile: str
-    gitlab_ci: str
-    error_log: str = Field(..., description="Error log from failed job")
-    job_name: str = Field(default="unknown", description="Name of failed job")
-    language: str = Field(default="unknown")
-    framework: str = Field(default="generic")
-
-
-class FixFromJobRequest(BaseModel):
-    """Request to fix from GitLab job ID"""
-    dockerfile: str
-    gitlab_ci: str
-    job_id: int
-    project_id: int
-    gitlab_token: str
-    language: str = "unknown"
-    framework: str = "generic"
-
 
 @router.post("/self-heal")
 async def self_heal_pipeline(request: SelfHealRequest, background_tasks: BackgroundTasks):
-    """
-    🔄 SELF-HEALING PIPELINE WORKFLOW
-
-    Complete automated workflow that:
-    1. Checks ChromaDB for existing templates
-    2. Generates new template via LLM if not found
-    3. Validates with dry-run before committing
-    4. Auto-fixes validation errors via LLM
-    5. Commits to GitLab and monitors pipeline
-    6. Auto-fixes failed pipelines via LLM (max 3 retries)
-    7. Stores successful templates in ChromaDB
-
-    This endpoint runs the full workflow synchronously.
-    For async execution, use /self-heal/async.
-    """
+    """Self-healing pipeline workflow with auto-fix and retry."""
     try:
         result = await self_healing_workflow.run(
             repo_url=request.repo_url,
@@ -967,35 +701,10 @@ async def self_heal_pipeline(request: SelfHealRequest, background_tasks: Backgro
         raise HTTPException(status_code=500, detail=str(e))
 
 
-async def run_self_heal_background(
-    repo_url: str,
-    gitlab_token: str,
-    additional_context: str,
-    auto_commit: bool,
-    max_attempts: int
-):
-    """Background task for self-healing workflow"""
-    print(f"[Background] Starting self-heal for {repo_url}")
-    result = await self_healing_workflow.run(
-        repo_url=repo_url,
-        gitlab_token=gitlab_token,
-        additional_context=additional_context,
-        auto_commit=auto_commit,
-        max_attempts=max_attempts
-    )
-    print(f"[Background] Self-heal completed: {result.status.value}")
-
-
 @router.post("/self-heal/async")
 async def self_heal_pipeline_async(request: SelfHealRequest, background_tasks: BackgroundTasks):
-    """
-    🔄 SELF-HEALING PIPELINE (ASYNC)
-
-    Same as /self-heal but runs in the background.
-    Returns immediately with a tracking ID.
-    """
+    """Self-healing pipeline (async) - runs in background."""
     try:
-        # Add to background tasks
         background_tasks.add_task(
             run_self_heal_background,
             repo_url=request.repo_url,
@@ -1014,50 +723,9 @@ async def self_heal_pipeline_async(request: SelfHealRequest, background_tasks: B
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/dry-run")
-async def dry_run_validation(request: DryRunRequest):
-    """
-    🧪 DRY-RUN VALIDATION
-
-    Validates Dockerfile and .gitlab-ci.yml BEFORE committing:
-    - YAML syntax validation
-    - Dockerfile syntax validation
-    - GitLab CI structure validation
-    - GitLab CI Lint API validation
-    - Nexus image availability check
-
-    Use this to catch errors before running the actual pipeline.
-    """
-    try:
-        results = await dry_run_validator.validate_all(
-            gitlab_ci=request.gitlab_ci,
-            dockerfile=request.dockerfile,
-            gitlab_token=request.gitlab_token
-        )
-
-        all_valid, summary = dry_run_validator.get_validation_summary(results)
-
-        return {
-            "valid": all_valid,
-            "summary": summary,
-            "checks": {name: result.to_dict() for name, result in results.items()}
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 @router.post("/fix")
 async def fix_pipeline_error(request: FixRequest):
-    """
-    🔧 LLM FIX - Analyze Error and Generate Fix
-
-    Sends the error log to LLM which:
-    1. Analyzes the error pattern
-    2. Identifies the root cause
-    3. Generates fixed Dockerfile and .gitlab-ci.yml
-
-    Use this after a pipeline fails to get AI-generated fixes.
-    """
+    """LLM Fix - Analyze error and generate fix."""
     try:
         result = await llm_fixer.generate_fix(
             dockerfile=request.dockerfile,
@@ -1084,12 +752,7 @@ async def fix_pipeline_error(request: FixRequest):
 
 @router.post("/fix/from-job")
 async def fix_from_gitlab_job(request: FixFromJobRequest):
-    """
-    🔧 LLM FIX FROM JOB - Fetch Error Log and Generate Fix
-
-    Fetches the error log from a failed GitLab job and generates a fix.
-    Useful when you have a job ID but not the error log.
-    """
+    """LLM Fix from Job - Fetch error log and generate fix."""
     try:
         result = await llm_fixer.fix_from_job_log(
             dockerfile=request.dockerfile,

@@ -12,6 +12,7 @@ from dataclasses import dataclass
 
 from app.config import settings, tools_manager
 from app.integrations.ollama import OllamaIntegration
+from app.integrations.llm_provider import get_llm_provider
 
 
 @dataclass
@@ -40,13 +41,15 @@ class LLMFixer:
     FIX_MODEL = "pipeline-generator-v5"
 
     # Common error patterns and their likely causes
+    # Order matters — more specific patterns must come before broader ones
     ERROR_PATTERNS = {
-        r'manifest unknown|not found|MANIFEST_UNKNOWN': 'image_not_found',
+        r'manifest unknown|MANIFEST_UNKNOWN': 'image_not_found',
+        r'tls.*error|ssl.*error|certificate.*verify|unable to select packages.*no such package': 'tls_network_error',
         r'connection refused|cannot connect': 'service_connection',
         r'command not found|no such file': 'missing_command',
         r'compilation failed|build failed|compile error': 'build_failure',
         r'permission denied|access denied': 'permission_error',
-        r'timeout|timed out': 'timeout_error',
+        r'timed out|execution expired|deadline exceeded': 'timeout_error',
         r'artifact.*not found|no artifacts': 'artifact_missing',
         r'yaml.*error|syntax error': 'yaml_syntax',
         r'invalid.*stage|unknown stage': 'invalid_stage',
@@ -57,8 +60,9 @@ class LLMFixer:
         self.gitlab_url = settings.gitlab_url
         self.nexus_url = "http://ai-nexus:5001"
 
-    def _get_ollama(self) -> OllamaIntegration:
-        return OllamaIntegration(self.ollama_config)
+    def _get_llm(self):
+        """Get the configured LLM provider (Ollama or Claude Code)."""
+        return get_llm_provider()
 
     async def analyze_error(self, error_log: str) -> Tuple[str, str]:
         """
@@ -143,13 +147,13 @@ class LLMFixer:
 
         # Call LLM
         try:
-            ollama = self._get_ollama()
-            response = await ollama.generate(
+            llm = self._get_llm()
+            response = await llm.generate(
                 model=self.FIX_MODEL,
                 prompt=prompt,
                 options={"temperature": 0.3}  # Lower temperature for more precise fixes
             )
-            await ollama.close()
+            await llm.close()
 
             llm_response = response.get('response', '')
 
@@ -268,6 +272,15 @@ Analyze the error and provide FIXED versions of the files.
 5. **yaml_syntax**:
    - Fix indentation (use 2 spaces)
    - Ensure proper quoting of special characters
+
+6. **tls_network_error**:
+   - Alpine `apk add` fails with TLS error inside Kaniko/DinD → switch repos to HTTP
+   - In Dockerfile: add BEFORE any `apk add` command:
+     `RUN sed -i 's/https/http/g' /etc/apk/repositories && apk add --no-cache build-base`
+   - In .gitlab-ci.yml before_script: add BEFORE any `apk add` command:
+     `sed -i 's/https/http/g' /etc/apk/repositories && apk add --no-cache build-base`
+   - This fixes TLS certificate verification failures in restricted network environments
+   - KEEP the multi-stage build and `apk add` — just switch from HTTPS to HTTP mirrors
 
 ### CRITICAL RULES:
 - NEXUS_PULL_REGISTRY (localhost:5001) for job images

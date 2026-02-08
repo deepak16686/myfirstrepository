@@ -8,7 +8,7 @@ Orchestrates the complete self-healing pipeline flow:
 4. Fix validation errors if any (via LLM)
 5. Commit to GitLab
 6. Monitor pipeline execution
-7. If failed, analyze and fix via LLM (max 3 retries)
+7. If failed, analyze and fix via LLM (max 10 retries)
 8. If successful, store in ChromaDB for future use
 """
 import asyncio
@@ -20,9 +20,10 @@ from enum import Enum
 import httpx
 
 from app.config import settings, tools_manager
-from app.services.pipeline_generator import pipeline_generator
+from app.services.pipeline import pipeline_generator
 from app.services.dry_run_validator import dry_run_validator, ValidationResult
 from app.services.llm_fixer import llm_fixer, FixResult
+from app.services.pipeline_progress import progress_store
 from app.integrations.chromadb import ChromaDBIntegration
 
 
@@ -51,7 +52,7 @@ class WorkflowState:
     project_id: int = 0
     pipeline_id: int = 0
     attempt: int = 0
-    max_attempts: int = 3
+    max_attempts: int = 10
     dockerfile: str = ""
     gitlab_ci: str = ""
     template_source: str = ""  # "chromadb", "llm_generated", "llm_fixed"
@@ -93,7 +94,7 @@ class SelfHealingWorkflow:
        - FAIL → LLM fixes validation errors
     4. Commit to GitLab
     5. Monitor pipeline
-       - FAIL → LLM analyzes error and fixes (max 3 retries)
+       - FAIL → LLM analyzes error and fixes (max 10 retries)
        - SUCCESS → Store in ChromaDB
     """
 
@@ -113,7 +114,7 @@ class SelfHealingWorkflow:
         gitlab_token: str,
         additional_context: str = "",
         auto_commit: bool = True,
-        max_attempts: int = 3
+        max_attempts: int = 10
     ) -> WorkflowState:
         """
         Run the complete self-healing workflow.
@@ -123,7 +124,7 @@ class SelfHealingWorkflow:
             gitlab_token: GitLab access token
             additional_context: Additional context for LLM
             auto_commit: Whether to automatically commit (default True)
-            max_attempts: Maximum fix attempts (default 3)
+            max_attempts: Maximum fix attempts (default 10)
 
         Returns:
             WorkflowState with final status and results
@@ -285,15 +286,20 @@ class SelfHealingWorkflow:
                 state.status = WorkflowStatus.SUCCESS
                 state.log("✓ Pipeline succeeded!")
 
-                # Store in ChromaDB for future use
-                await self._store_successful_template(state)
-                state.log("✓ Template stored in ChromaDB for future use")
+                # Store in ChromaDB for future use (only if all stages passed)
+                stored = await self._store_successful_template(state, gitlab_token)
+                if stored:
+                    state.log("✓ Template stored in ChromaDB for future use")
 
             else:
                 # ═══════════════════════════════════════════════════════════
                 # STEP 8: Pipeline Failed - Auto-Fix Loop
                 # ═══════════════════════════════════════════════════════════
-                state.log(f"Pipeline failed. Starting auto-fix loop (max {max_attempts} attempts)...")
+                ps = pipeline_result.get('status', 'failed')
+                if ps == 'partial_success':
+                    state.log(f"Pipeline succeeded but some jobs failed. Starting auto-fix loop (max {max_attempts} attempts)...")
+                else:
+                    state.log(f"Pipeline failed. Starting auto-fix loop (max {max_attempts} attempts)...")
 
                 while state.attempt < max_attempts:
                     state.attempt += 1
@@ -345,8 +351,9 @@ class SelfHealingWorkflow:
                             if pipeline_result['success']:
                                 state.status = WorkflowStatus.SUCCESS
                                 state.log(f"✓ Pipeline succeeded after {state.attempt} fix(es)!")
-                                await self._store_successful_template(state)
-                                state.log("✓ Fixed template stored in ChromaDB")
+                                stored = await self._store_successful_template(state, gitlab_token)
+                                if stored:
+                                    state.log("✓ Fixed template stored in ChromaDB")
                                 break
                         else:
                             state.log(f"Fix generation failed: {fix_result.explanation}")
@@ -402,7 +409,33 @@ class SelfHealingWorkflow:
                             state.pipeline_id = pipeline_id
 
                             if status == 'success':
-                                return {"success": True, "pipeline_id": pipeline_id}
+                                # Check if ALL jobs truly passed (allow_failure jobs may have failed)
+                                all_passed = await self._all_stages_passed(
+                                    state.project_id, pipeline_id, gitlab_token)
+                                if all_passed:
+                                    return {"success": True, "pipeline_id": pipeline_id}
+                                else:
+                                    # Pipeline "succeeded" but some allow_failure jobs failed
+                                    # Find the failed job so self-healing can fix it
+                                    jobs_resp = await client.get(
+                                        f"{self.gitlab_url}/api/v4/projects/{state.project_id}/pipelines/{pipeline_id}/jobs",
+                                        headers=headers
+                                    )
+                                    failed_job = None
+                                    if jobs_resp.status_code == 200:
+                                        jobs = jobs_resp.json()
+                                        # Find failed jobs, skip notify_failure (expected)
+                                        for j in jobs:
+                                            if j['status'] == 'failed' and j.get('name') != 'notify_failure':
+                                                failed_job = j
+                                                break
+                                    state.log(f"Pipeline {pipeline_id} succeeded but job '{failed_job.get('name', '?') if failed_job else '?'}' failed — continuing self-heal")
+                                    return {
+                                        "success": False,
+                                        "pipeline_id": pipeline_id,
+                                        "status": "partial_success",
+                                        "failed_job": failed_job
+                                    }
 
                             elif status in ['failed', 'canceled']:
                                 # Get failed job
@@ -434,9 +467,20 @@ class SelfHealingWorkflow:
 
         return {"success": False, "pipeline_id": pipeline_id, "status": "timeout"}
 
-    async def _store_successful_template(self, state: WorkflowState):
-        """Store successful template in ChromaDB for future use"""
+    async def _store_successful_template(self, state: WorkflowState, gitlab_token: str = "") -> bool:
+        """Store successful template in ChromaDB — only if ALL stages passed.
+
+        Returns True if template was stored, False otherwise.
+        """
         try:
+            # QUALITY GATE: Check all jobs passed before saving
+            if state.pipeline_id and state.project_id and gitlab_token:
+                all_passed = await self._all_stages_passed(
+                    state.project_id, state.pipeline_id, gitlab_token)
+                if not all_passed:
+                    state.log("Template NOT saved to RAG — not all stages passed (some failed/skipped)")
+                    return False
+
             await pipeline_generator.store_manual_template(
                 language=state.language,
                 framework=state.framework,
@@ -444,8 +488,38 @@ class SelfHealingWorkflow:
                 dockerfile=state.dockerfile,
                 description=f"Auto-generated and tested (source: {state.template_source})"
             )
+            return True
         except Exception as e:
             state.log(f"Warning: Could not store template in ChromaDB: {e}")
+            return False
+
+    async def _all_stages_passed(self, project_id: int, pipeline_id: int, gitlab_token: str) -> bool:
+        """Check if ALL pipeline jobs passed (no failures/skips except notify_failure)."""
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                resp = await client.get(
+                    f"{self.gitlab_url}/api/v4/projects/{project_id}/pipelines/{pipeline_id}/jobs",
+                    headers={"PRIVATE-TOKEN": gitlab_token}
+                )
+                if resp.status_code != 200:
+                    return False
+                jobs = resp.json()
+                for job in jobs:
+                    name = job.get('name', '')
+                    status = job.get('status', '')
+                    # notify_failure is expected to be skipped (when: on_failure)
+                    if name == 'notify_failure' and status == 'skipped':
+                        continue
+                    # learn_record may still be running (it's the caller)
+                    if name == 'learn_record' and status in ('running', 'success'):
+                        continue
+                    if status not in ('success',):
+                        print(f"[RL] Quality gate: job '{name}' has status '{status}' — NOT saving to RAG")
+                        return False
+                return True
+        except Exception as e:
+            print(f"[RL] Quality gate check failed: {e}")
+            return False
 
     async def _get_failed_job(
         self,
@@ -527,7 +601,7 @@ class SelfHealingWorkflow:
         framework: str = "generic",
         dockerfile: str = "",
         gitlab_ci: str = "",
-        max_attempts: int = 3
+        max_attempts: int = 10
     ) -> WorkflowState:
         """
         Lighter self-healing workflow for already-committed pipelines.
@@ -545,7 +619,7 @@ class SelfHealingWorkflow:
             framework: Detected framework
             dockerfile: Current Dockerfile content
             gitlab_ci: Current .gitlab-ci.yml content
-            max_attempts: Maximum fix attempts (default 3)
+            max_attempts: Maximum fix attempts (default 10)
 
         Returns:
             WorkflowState with final status and results
@@ -563,6 +637,8 @@ class SelfHealingWorkflow:
         )
 
         state.log(f"Starting auto-fix for failed pipeline {pipeline_id} on {branch}")
+        progress_store.update(project_id, branch, "fixing",
+            f"Starting auto-fix for failed pipeline #{pipeline_id}...")
 
         try:
             # ═══════════════════════════════════════════════════════════
@@ -572,6 +648,9 @@ class SelfHealingWorkflow:
                 state.attempt += 1
                 state.status = WorkflowStatus.FIXING_PIPELINE
                 state.log(f"Fix attempt {state.attempt}/{max_attempts}")
+                progress_store.update(project_id, branch, "fixing",
+                    f"Fix attempt {state.attempt}/{max_attempts}: Analyzing failed job...",
+                    attempt=state.attempt)
 
                 # Get failed job from the current pipeline
                 failed_job = await self._get_failed_job(
@@ -587,6 +666,9 @@ class SelfHealingWorkflow:
                     job_id = failed_job['id']
                     job_name = failed_job.get('name', 'unknown')
                     state.log(f"Failed job: {job_name} (ID: {job_id})")
+                    progress_store.update(project_id, branch, "fixing",
+                        f"Fix attempt {state.attempt}/{max_attempts}: Failed job '{job_name}' — LLM generating fix...",
+                        attempt=state.attempt)
 
                     fix_result = await llm_fixer.fix_from_job_log(
                         dockerfile=state.dockerfile,
@@ -647,6 +729,9 @@ class SelfHealingWorkflow:
                         commit_message=f"AI Fix attempt {state.attempt}: {fix_result.error_identified}"
                     )
                     state.log(f"Fix committed (commit: {commit_result['commit_id'][:8]})")
+                    progress_store.update(project_id, branch, "fix_committed",
+                        f"Fix attempt {state.attempt}/{max_attempts}: Fix committed, monitoring new pipeline...",
+                        attempt=state.attempt)
                 except Exception as commit_err:
                     state.log(f"Commit failed (attempt {state.attempt}): {str(commit_err)[:120]}")
                     state.errors.append(f"Commit error attempt {state.attempt}: {str(commit_err)[:200]}")
@@ -663,10 +748,13 @@ class SelfHealingWorkflow:
                     if pipeline_result['success']:
                         state.status = WorkflowStatus.SUCCESS
                         state.log(f"Pipeline succeeded after {state.attempt} fix(es)!")
+                        progress_store.complete(project_id, branch, "success",
+                            f"Pipeline fixed successfully after {state.attempt} attempt(s)!")
 
-                        # Store in ChromaDB for future use
-                        await self._store_successful_template(state)
-                        state.log("Fixed template stored in ChromaDB")
+                        # Store in ChromaDB for future use (only if all stages passed)
+                        stored = await self._store_successful_template(state, gitlab_token)
+                        if stored:
+                            state.log("Fixed template stored in ChromaDB")
                         return state
                     else:
                         # Update pipeline_id for next iteration
@@ -681,6 +769,8 @@ class SelfHealingWorkflow:
             state.status = WorkflowStatus.FAILED
             state.errors.append(f"Failed after {state.attempt} fix attempts")
             state.log(f"Pipeline still failing after {state.attempt} attempts")
+            progress_store.complete(project_id, branch, "failed",
+                f"Self-healing failed after {state.attempt} attempts. GitLab issue created for manual review.")
 
             # Create GitLab issue for manual review
             await self._create_failure_issue(state, gitlab_token)
@@ -689,6 +779,8 @@ class SelfHealingWorkflow:
             state.status = WorkflowStatus.FAILED
             state.errors.append(str(e))
             state.log(f"Auto-fix error: {str(e)}")
+            progress_store.complete(project_id, branch, "failed",
+                f"Auto-fix error: {str(e)[:100]}")
 
         return state
 
