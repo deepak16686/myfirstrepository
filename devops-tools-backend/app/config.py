@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     sonarqube_username: str = "admin"
     sonarqube_password: Optional[str] = None
 
-    trivy_url: str = "http://trivy:8083"
+    trivy_url: str = "http://trivy-server:8080"
 
     nexus_url: str = "http://ai-nexus:8081"
     nexus_username: str = "admin"
@@ -54,9 +54,29 @@ class Settings(BaseSettings):
 
     ollama_url: str = "http://ollama:11434"
 
+    # LLM Provider: "ollama" or "claude-code"
+    llm_provider: str = "claude-code"
+    claude_model: str = "opus"   # "opus", "sonnet", or "haiku"
+    claude_timeout: int = 300      # seconds
+
     redis_url: str = "redis://redis:6379/0"
 
     postgres_url: str = "postgresql://modernization:modernization123@postgres:5432/legacy_modernization"
+
+    # Jira Configuration
+    jira_url: str = "http://jira:8080"
+    jira_username: Optional[str] = None
+    jira_api_token: Optional[str] = None
+    jira_project_key: str = "DEVOPS"
+
+    # Splunk Configuration (HEC uses HTTPS)
+    splunk_url: str = "https://ai-splunk:8088"
+    splunk_token: Optional[str] = None
+
+    # Jenkins Configuration
+    jenkins_url: str = "http://jenkins-master:8080"
+    jenkins_username: Optional[str] = None
+    jenkins_password: Optional[str] = None
 
     # Config file path for additional tools
     tools_config_path: str = "/app/config/tools.json"
@@ -112,6 +132,32 @@ class ToolsManager:
                 base_url=self.settings.github_url,
                 token=self.settings.github_token,
                 enabled=bool(self.settings.github_token)
+            ),
+            "jira": ToolConfig(
+                base_url=self.settings.jira_url,
+                username=self.settings.jira_username,
+                api_key=self.settings.jira_api_token,
+                password=self.settings.jira_api_token,
+                enabled=bool(self.settings.jira_username and self.settings.jira_api_token)
+            ),
+            "splunk": ToolConfig(
+                base_url=self.settings.splunk_url,
+                token=self.settings.splunk_token,
+                enabled=True
+            ),
+            "jenkins": ToolConfig(
+                base_url=self.settings.jenkins_url,
+                username=self.settings.jenkins_username,
+                password=self.settings.jenkins_password,
+                enabled=True
+            ),
+            "redis": ToolConfig(
+                base_url=self.settings.redis_url,
+                enabled=True
+            ),
+            "postgres": ToolConfig(
+                base_url=self.settings.postgres_url,
+                enabled=True
             )
         }
 

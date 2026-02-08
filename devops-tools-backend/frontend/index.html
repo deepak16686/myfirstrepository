@@ -200,6 +200,13 @@
                     </div>
 
                     <!-- Auxiliary Cards -->
+                    <div class="tool-card" data-tool="connectivity-validator" data-category="auxiliary">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-content">
+                            <h3>Tool Connectivity Validator</h3>
+                        </div>
+                    </div>
+
                     <div class="tool-card disabled" data-tool="secret-manager" data-category="auxiliary">
                         <div class="card-icon">🔐</div>
                         <div class="card-content">
@@ -279,6 +286,71 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Connectivity View -->
+            <div id="connectivityView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">🔗</span>
+                        <h2>Tool Connectivity Validator</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="testAllConnectivity()">
+                        Retest All
+                    </button>
+                </div>
+
+                <!-- Summary Bar -->
+                <div class="connectivity-summary" id="connectivitySummary">
+                    <div class="summary-item summary-total">
+                        <span class="summary-count" id="totalCount">0</span>
+                        <span class="summary-label">Total</span>
+                    </div>
+                    <div class="summary-item summary-healthy">
+                        <span class="summary-count" id="healthyCount">0</span>
+                        <span class="summary-label">Healthy</span>
+                    </div>
+                    <div class="summary-item summary-unhealthy">
+                        <span class="summary-count" id="unhealthyCount">0</span>
+                        <span class="summary-label">Unhealthy</span>
+                    </div>
+                    <div class="summary-item summary-unknown">
+                        <span class="summary-count" id="unknownCount">0</span>
+                        <span class="summary-label">Unknown</span>
+                    </div>
+                </div>
+
+                <!-- Tool Grid -->
+                <div class="connectivity-grid" id="connectivityGrid">
+                    <div class="connectivity-loading">
+                        <span class="spinner"></span> Testing connectivity to all tools...
+                    </div>
+                </div>
+
+                <!-- Access Request Panel -->
+                <div class="access-request-panel hidden" id="accessRequestPanel">
+                    <h3>Request Access</h3>
+                    <p class="access-info">Select failed tools above and submit an access request via Jira.</p>
+                    <div class="form-group">
+                        <label for="requesterName">Your Name</label>
+                        <input type="text" id="requesterName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="requesterEmail">Your Email</label>
+                        <input type="email" id="requesterEmail" placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="accessReason">Reason for Access</label>
+                        <textarea id="accessReason" rows="3" placeholder="I need access to these tools for..."></textarea>
+                    </div>
+                    <div class="selected-tools" id="selectedToolsList"></div>
+                    <button class="submit-request-button" onclick="submitAccessRequest()">
+                        Submit Access Request
+                    </button>
                 </div>
             </div>
 

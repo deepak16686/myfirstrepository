@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  jira:
+    image: atlassian/jira-software:9.12
+    container_name: jira
+    ports:
+      - "8180:8080"
+    environment:
+      - ATL_JDBC_URL=jdbc:postgresql://jira-postgres:5432/jiradb
+      - ATL_JDBC_USER=jira
+      - ATL_JDBC_PASSWORD=jira123
+      - ATL_DB_DRIVER=org.postgresql.Driver
+      - ATL_DB_TYPE=postgres72
+      - JVM_MINIMUM_MEMORY=512m
+      - JVM_MAXIMUM_MEMORY=2048m
+    volumes:
+      - jira_data:/var/atlassian/application-data/jira
+    depends_on:
+      - jira-postgres
+    networks:
+      - ai-platform-net
+
+  jira-postgres:
+    image: postgres:15
+    container_name: jira-postgres
+    environment:
+      - POSTGRES_DB=jiradb
+      - POSTGRES_USER=jira
+      - POSTGRES_PASSWORD=jira123
+    volumes:
+      - jira_postgres_data:/var/lib/postgresql/data
+    networks:
+      - ai-platform-net
+
+volumes:
+  jira_data:
+  jira_postgres_data:
+
+networks:
+  ai-platform-net:
+    external: true

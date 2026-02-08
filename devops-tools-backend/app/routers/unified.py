@@ -14,6 +14,10 @@ from app.integrations.trivy import TrivyIntegration
 from app.integrations.nexus import NexusIntegration
 from app.integrations.ollama import OllamaIntegration
 from app.integrations.chromadb import ChromaDBIntegration
+from app.integrations.github import GitHubIntegration
+from app.integrations.jira import JiraIntegration
+from app.integrations.splunk import SplunkIntegration
+from app.integrations.jenkins import JenkinsIntegration
 
 router = APIRouter(prefix="/call", tags=["Unified Tool Caller"])
 
@@ -24,7 +28,11 @@ INTEGRATION_MAP = {
     "trivy": TrivyIntegration,
     "nexus": NexusIntegration,
     "ollama": OllamaIntegration,
-    "chromadb": ChromaDBIntegration
+    "chromadb": ChromaDBIntegration,
+    "github": GitHubIntegration,
+    "jira": JiraIntegration,
+    "splunk": SplunkIntegration,
+    "jenkins": JenkinsIntegration,
 }
 
 

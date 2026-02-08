@@ -26,6 +26,7 @@ class ChatResponse(BaseModel):
     conversation_id: str
     message: str
     pending_pipeline: Optional[dict] = None
+    monitoring: Optional[dict] = None
 
 
 class ConversationResponse(BaseModel):
@@ -56,7 +57,8 @@ async def chat(request: ChatRequest):
         return ChatResponse(
             conversation_id=result["conversation_id"],
             message=result["message"],
-            pending_pipeline=result.get("pending_pipeline")
+            pending_pipeline=result.get("pending_pipeline"),
+            monitoring=result.get("monitoring")
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

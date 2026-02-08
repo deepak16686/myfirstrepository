@@ -9,6 +9,7 @@ from typing import Dict, Any, Optional
 from dataclasses import dataclass
 
 from app.config import settings
+from app.integrations.llm_provider import get_llm_provider
 
 
 @dataclass
@@ -96,26 +97,21 @@ class GitHubLLMFixer:
         )
 
         try:
-            async with httpx.AsyncClient(timeout=120.0) as client:
-                response = await client.post(
-                    f"{self.ollama_url}/api/generate",
-                    json={
-                        "model": self.FIX_MODEL,
-                        "prompt": prompt,
-                        "stream": False,
-                        "options": {
-                            "temperature": 0.1,
-                            "num_predict": 6000
-                        }
-                    }
-                )
+            llm = get_llm_provider()
+            response = await llm.generate(
+                model=self.FIX_MODEL,
+                prompt=prompt,
+                options={
+                    "temperature": 0.1,
+                    "num_predict": 6000
+                }
+            )
+            await llm.close()
 
-                if response.status_code == 200:
-                    data = response.json()
-                    generated_text = data.get("response", "")
-                    return self._parse_fix_output(
-                        generated_text, error_type, dockerfile, workflow
-                    )
+            generated_text = response.get("response", "")
+            return self._parse_fix_output(
+                generated_text, error_type, dockerfile, workflow
+            )
 
         except Exception as e:
             return FixResult(
