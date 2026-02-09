@@ -1,0 +1,1137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 4380" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arrowSolid" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34495E"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrowDashed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#95A5A6"/>
+    </marker>
+
+    <!-- Drop shadows -->
+    <filter id="shadowSm" x="-2%" y="-2%" width="104%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.10"/>
+    </filter>
+    <filter id="shadowMd" x="-3%" y="-3%" width="106%" height="112%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-opacity="0.12"/>
+    </filter>
+    <filter id="shadowLg" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="3" dy="5" stdDeviation="6" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Header gradient -->
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+
+    <!-- Section background gradients -->
+    <linearGradient id="bgBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eff6ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#dbeafe" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bgGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0fdf4" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#dcfce7" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bgPurple" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#faf5ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#f3e8ff" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bgOrange" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffbeb" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#fef3c7" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bgRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef2f2" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#fee2e2" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bgTeal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0fdfa" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ccfbf1" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Dot pattern -->
+    <pattern id="dotPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.7" fill="#cbd5e1" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1800" height="4380" fill="#f8fafc"/>
+  <rect width="1800" height="4380" fill="url(#dotPattern)"/>
+
+  <!-- ================================================================== -->
+  <!-- HEADER -->
+  <!-- ================================================================== -->
+  <rect x="0" y="0" width="1800" height="140" fill="url(#headerGrad)" rx="0"/>
+  <text x="900" y="55" text-anchor="middle" fill="#ffffff" font-size="32" font-weight="bold">AI DevOps Pipeline Generator - Complete Architecture</text>
+  <text x="900" y="85" text-anchor="middle" fill="#94a3b8" font-size="16">Self-Healing CI/CD Pipeline Generation with RAG + LLM Reinforcement Learning</text>
+
+  <!-- Tech badges -->
+  <g transform="translate(240, 100)">
+    <rect x="0" y="0" width="90" height="26" rx="13" fill="#3b82f6" opacity="0.9"/><text x="45" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">FastAPI</text>
+    <rect x="100" y="0" width="90" height="26" rx="13" fill="#7c3aed" opacity="0.9"/><text x="145" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Ollama</text>
+    <rect x="200" y="0" width="110" height="26" rx="13" fill="#6d28d9" opacity="0.9"/><text x="255" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Claude Code</text>
+    <rect x="320" y="0" width="100" height="26" rx="13" fill="#0891b2" opacity="0.9"/><text x="370" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">ChromaDB</text>
+    <rect x="430" y="0" width="80" height="26" rx="13" fill="#ea580c" opacity="0.9"/><text x="470" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">GitLab</text>
+    <rect x="520" y="0" width="80" height="26" rx="13" fill="#16a34a" opacity="0.9"/><text x="560" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Nexus</text>
+    <rect x="610" y="0" width="80" height="26" rx="13" fill="#0284c7" opacity="0.9"/><text x="650" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Docker</text>
+    <rect x="700" y="0" width="80" height="26" rx="13" fill="#dc2626" opacity="0.9"/><text x="740" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Skopeo</text>
+    <rect x="790" y="0" width="100" height="26" rx="13" fill="#475569" opacity="0.9"/><text x="840" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">qwen3:32b</text>
+    <rect x="900" y="0" width="100" height="26" rx="13" fill="#059669" opacity="0.9"/><text x="950" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Python 3.11</text>
+    <rect x="1010" y="0" width="130" height="26" rx="13" fill="#7e22ce" opacity="0.9"/><text x="1075" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Reinforcement RL</text>
+    <rect x="1150" y="0" width="80" height="26" rx="13" fill="#b45309" opacity="0.9"/><text x="1190" y="17" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">httpx</text>
+  </g>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: USER INTERFACE LAYER -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 160)">
+    <!-- Section background -->
+    <rect x="30" y="0" width="1740" height="220" rx="12" fill="url(#bgBlue)" stroke="#93c5fd" stroke-width="1"/>
+    <!-- Section label -->
+    <rect x="50" y="-14" width="200" height="28" rx="14" fill="#2563eb"/><text x="150" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">1. USER INTERFACE</text>
+
+    <!-- User icon -->
+    <g transform="translate(160, 50)" filter="url(#shadowSm)">
+      <circle cx="60" cy="28" r="22" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+      <circle cx="60" cy="20" r="10" fill="#4f46e5"/>
+      <path d="M40,42 Q40,32 60,32 Q80,32 80,42" fill="#4f46e5"/>
+      <text x="60" y="72" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="600">Developer</text>
+      <text x="60" y="90" text-anchor="middle" fill="#64748b" font-size="11">Pastes repo URL</text>
+    </g>
+
+    <!-- Arrow: User -> Web Portal -->
+    <line x1="280" y1="100" x2="420" y2="100" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+    <text x="350" y="90" text-anchor="middle" fill="#2563eb" font-size="11" font-weight="600">HTTPS</text>
+
+    <!-- Web Portal box -->
+    <g transform="translate(430, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="340" height="140" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+      <rect x="0" y="0" width="340" height="36" rx="10" fill="#3b82f6"/>
+      <rect x="0" y="18" width="340" height="18" fill="#3b82f6"/>
+      <text x="170" y="24" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Web Portal / Frontend</text>
+      <text x="170" y="62" text-anchor="middle" fill="#1e293b" font-size="13">React / Vue on Port 8003</text>
+      <text x="20" y="88" fill="#475569" font-size="12">- Repo URL input + branch config</text>
+      <text x="20" y="106" fill="#475569" font-size="12">- Pipeline generation trigger</text>
+      <text x="20" y="124" fill="#475569" font-size="12">- Live progress monitoring</text>
+    </g>
+
+    <!-- Arrow: Web Portal -> API -->
+    <line x1="770" y1="110" x2="920" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+    <text x="845" y="100" text-anchor="middle" fill="#2563eb" font-size="11" font-weight="600">POST /api/v1</text>
+
+    <!-- API Gateway box -->
+    <g transform="translate(930, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="380" height="140" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+      <rect x="0" y="0" width="380" height="36" rx="10" fill="#2563eb"/>
+      <rect x="0" y="18" width="380" height="18" fill="#2563eb"/>
+      <text x="190" y="24" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">FastAPI Backend (Port 8003)</text>
+      <text x="190" y="60" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="600">app/routers/pipeline.py</text>
+      <text x="20" y="84" fill="#475569" font-size="12">POST /pipeline/workflow</text>
+      <text x="20" y="102" fill="#475569" font-size="12">POST /pipeline/self-heal</text>
+      <text x="20" y="120" fill="#475569" font-size="12">POST /pipeline/generate</text>
+      <text x="210" y="84" fill="#475569" font-size="12">GET /pipeline/status</text>
+      <text x="210" y="102" fill="#475569" font-size="12">POST /pipeline/learn/*</text>
+      <text x="210" y="120" fill="#475569" font-size="12">POST /pipeline/fix-from-job</text>
+    </g>
+  </g>
+
+  <!-- Arrow: API Layer down to Pipeline Generation -->
+  <line x1="1120" y1="380" x2="900" y2="440" stroke="#34495E" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+  <text x="1030" y="405" text-anchor="middle" fill="#34495E" font-size="12" font-weight="600">self_healing_workflow.run()</text>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: PIPELINE GENERATION FLOW -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 420)">
+    <!-- Section background -->
+    <rect x="30" y="0" width="1740" height="800" rx="12" fill="url(#bgPurple)" stroke="#c4b5fd" stroke-width="1"/>
+    <rect x="50" y="-14" width="260" height="28" rx="14" fill="#7c3aed"/><text x="180" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">2. PIPELINE GENERATION FLOW</text>
+
+    <!-- Step 1: Repo Analysis -->
+    <g transform="translate(100, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="300" height="120" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+      <rect x="0" y="0" width="300" height="32" rx="10" fill="#7c3aed"/>
+      <rect x="0" y="16" width="300" height="16" fill="#7c3aed"/>
+      <text x="150" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 1: Repo Analysis</text>
+      <text x="150" y="56" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">pipeline/analyzer.py</text>
+      <text x="15" y="78" fill="#475569" font-size="11">- Clone repo via GitLab API</text>
+      <text x="15" y="96" fill="#475569" font-size="11">- Detect language / framework</text>
+      <text x="15" y="112" fill="#475569" font-size="11">- Scan dependencies (pom.xml, go.mod...)</text>
+    </g>
+
+    <!-- Arrow: Repo Analysis -> RAG Lookup -->
+    <line x1="400" y1="100" x2="490" y2="100" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrowPurple)"/>
+    <text x="445" y="90" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="600">lang, fw</text>
+
+    <!-- Step 2: RAG Template Lookup -->
+    <g transform="translate(500, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="300" height="120" rx="10" fill="#ffffff" stroke="#0891b2" stroke-width="2"/>
+      <rect x="0" y="0" width="300" height="32" rx="10" fill="#0891b2"/>
+      <rect x="0" y="16" width="300" height="16" fill="#0891b2"/>
+      <text x="150" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 2: RAG Template Lookup</text>
+      <text x="150" y="56" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">pipeline/templates.py</text>
+      <text x="15" y="78" fill="#475569" font-size="11">- get_best_template_files()</text>
+      <text x="15" y="96" fill="#475569" font-size="11">- Query: successful_pipelines coll.</text>
+      <text x="15" y="112" fill="#475569" font-size="11">- Prioritize manual_ templates</text>
+    </g>
+
+    <!-- Arrow: RAG Lookup -> ChromaDB (right side) -->
+    <line x1="800" y1="70" x2="880" y2="70" stroke="#0891b2" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDashed)"/>
+
+    <!-- ChromaDB cylinder (right side) -->
+    <g transform="translate(890, 30)" filter="url(#shadowSm)">
+      <ellipse cx="80" cy="12" rx="80" ry="16" fill="#0891b2" opacity="0.15" stroke="#0891b2" stroke-width="1.5"/>
+      <rect x="0" y="12" width="160" height="70" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/>
+      <ellipse cx="80" cy="82" rx="80" ry="16" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/>
+      <ellipse cx="80" cy="12" rx="80" ry="16" fill="#ccfbf1" stroke="#0891b2" stroke-width="1.5"/>
+      <text x="80" y="18" text-anchor="middle" fill="#0891b2" font-size="12" font-weight="700">ChromaDB</text>
+      <text x="80" y="44" text-anchor="middle" fill="#475569" font-size="10">successful_pipelines</text>
+      <text x="80" y="60" text-anchor="middle" fill="#475569" font-size="10">pipeline_templates</text>
+      <text x="80" y="76" text-anchor="middle" fill="#475569" font-size="10">pipeline_feedback</text>
+    </g>
+
+    <!-- Arrow: RAG Lookup down to Decision -->
+    <line x1="650" y1="160" x2="650" y2="200" stroke="#34495E" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+
+    <!-- Step 3: Decision Diamond - RAG or LLM? -->
+    <g transform="translate(550, 200)">
+      <polygon points="100,0 200,60 100,120 0,60" fill="#fef3c7" stroke="#d97706" stroke-width="2.5" filter="url(#shadowSm)"/>
+      <text x="100" y="52" text-anchor="middle" fill="#92400e" font-size="13" font-weight="700">RAG has</text>
+      <text x="100" y="70" text-anchor="middle" fill="#92400e" font-size="13" font-weight="700">template?</text>
+    </g>
+
+    <!-- Path A: chromadb-direct (left arrow from diamond) -->
+    <line x1="550" y1="260" x2="360" y2="260" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+    <text x="455" y="250" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="700">YES (both files)</text>
+
+    <!-- Path A box -->
+    <g transform="translate(100, 220)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="260" height="80" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+      <text x="130" y="22" text-anchor="middle" fill="#16a34a" font-size="13" font-weight="700">Path A: chromadb-direct</text>
+      <text x="130" y="42" text-anchor="middle" fill="#475569" font-size="11">Return template directly</text>
+      <text x="130" y="58" text-anchor="middle" fill="#475569" font-size="11">NO LLM involved</text>
+      <text x="130" y="74" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Commit: [RAG Template]</text>
+    </g>
+
+    <!-- Path B: chromadb-reference (right arrow from diamond) -->
+    <line x1="750" y1="260" x2="900" y2="350" stroke="#d97706" stroke-width="2.5" marker-end="url(#arrowOrange)"/>
+    <text x="850" y="285" text-anchor="middle" fill="#d97706" font-size="12" font-weight="700">PARTIAL</text>
+
+    <!-- Path C: LLM from scratch (down from diamond) -->
+    <line x1="650" y1="320" x2="650" y2="380" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+    <text x="720" y="355" text-anchor="middle" fill="#dc2626" font-size="12" font-weight="700">NO template</text>
+
+    <!-- Step 4: LLM Generation -->
+    <g transform="translate(440, 385)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="420" height="130" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+      <rect x="0" y="0" width="420" height="32" rx="10" fill="#7c3aed"/>
+      <rect x="0" y="16" width="420" height="16" fill="#7c3aed"/>
+      <text x="210" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 4: LLM Pipeline Generation</text>
+      <text x="210" y="56" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">pipeline/generator.py + llm_provider.py</text>
+      <text x="15" y="78" fill="#475569" font-size="11">- System prompt: app/prompts/pipeline_system_prompt.txt</text>
+      <text x="15" y="96" fill="#475569" font-size="11">- Generates .gitlab-ci.yml (9 stages) + Dockerfile</text>
+      <text x="15" y="114" fill="#475569" font-size="11">- Adapts from RAG reference if available (Path B)</text>
+      <text x="300" y="114" fill="#64748b" font-size="10" font-style="italic">[RAG+LLM] or [AI Generated]</text>
+    </g>
+
+    <!-- Arrow from LLM Generation to LLM Provider decision -->
+    <line x1="860" y1="450" x2="960" y2="450" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+    <!-- LLM Provider Decision Diamond -->
+    <g transform="translate(970, 410)">
+      <polygon points="70,0 140,40 70,80 0,40" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="70" y="35" text-anchor="middle" fill="#6d28d9" font-size="11" font-weight="700">LLM_</text>
+      <text x="70" y="50" text-anchor="middle" fill="#6d28d9" font-size="11" font-weight="700">PROVIDER?</text>
+    </g>
+
+    <!-- Arrow to Ollama (up-right) -->
+    <line x1="1110" y1="430" x2="1200" y2="395" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrowPurple)"/>
+    <text x="1155" y="405" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="600">ollama</text>
+
+    <!-- Ollama box -->
+    <g transform="translate(1200, 350)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="230" height="80" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="115" y="22" text-anchor="middle" fill="#7c3aed" font-size="13" font-weight="700">Ollama (Default)</text>
+      <text x="115" y="42" text-anchor="middle" fill="#475569" font-size="11">pipeline-generator-v5</text>
+      <text x="115" y="58" text-anchor="middle" fill="#475569" font-size="11">qwen3:32b | temp 0.2</text>
+      <text x="115" y="74" text-anchor="middle" fill="#94a3b8" font-size="10">http://localhost:11434</text>
+    </g>
+
+    <!-- Arrow to Claude (down-right) -->
+    <line x1="1110" y1="470" x2="1200" y2="490" stroke="#6d28d9" stroke-width="2" marker-end="url(#arrowPurple)"/>
+    <text x="1145" y="490" text-anchor="middle" fill="#6d28d9" font-size="10" font-weight="600">claude-code</text>
+
+    <!-- Claude Code CLI box -->
+    <g transform="translate(1200, 460)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="230" height="80" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="115" y="22" text-anchor="middle" fill="#6d28d9" font-size="13" font-weight="700">Claude Code CLI</text>
+      <text x="115" y="42" text-anchor="middle" fill="#475569" font-size="11">Sonnet 4.5 / Opus 4.6</text>
+      <text x="115" y="58" text-anchor="middle" fill="#475569" font-size="11">Node.js 20 in Docker</text>
+      <text x="115" y="74" text-anchor="middle" fill="#94a3b8" font-size="10">.claude mount (writable)</text>
+    </g>
+
+    <!-- Arrow: Path A down to Step 5 merge point -->
+    <line x1="230" y1="300" x2="230" y2="640" stroke="#16a34a" stroke-width="2" stroke-dasharray="8,4"/>
+    <line x1="230" y1="640" x2="440" y2="640" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <text x="230" y="490" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600" transform="rotate(-90, 230, 490)">Skip LLM</text>
+
+    <!-- Arrow: LLM Generation down to merge/Step 5 -->
+    <line x1="650" y1="515" x2="650" y2="600" stroke="#34495E" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+
+    <!-- Step 5: Image Seeding -->
+    <g transform="translate(450, 600)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="400" height="100" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+      <rect x="0" y="0" width="400" height="32" rx="10" fill="#16a34a"/>
+      <rect x="0" y="16" width="400" height="16" fill="#16a34a"/>
+      <text x="200" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 5: Image Seeding</text>
+      <text x="200" y="54" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">pipeline/image_seeder.py</text>
+      <text x="15" y="74" fill="#475569" font-size="11">- Extract images from .gitlab-ci.yml</text>
+      <text x="15" y="92" fill="#475569" font-size="11">- Seed missing images: skopeo copy DockerHub -> Nexus</text>
+    </g>
+
+    <!-- Arrow: Image Seeder to Nexus -->
+    <line x1="850" y1="650" x2="960" y2="650" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <text x="905" y="640" text-anchor="middle" fill="#16a34a" font-size="10" font-weight="600">skopeo copy</text>
+
+    <!-- Nexus Registry box -->
+    <g transform="translate(970, 600)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="240" height="100" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="120" y="22" text-anchor="middle" fill="#16a34a" font-size="13" font-weight="700">Nexus Registry</text>
+      <text x="120" y="42" text-anchor="middle" fill="#475569" font-size="11">ai-nexus:5001 (Docker)</text>
+      <text x="120" y="58" text-anchor="middle" fill="#475569" font-size="11">localhost:5001 (host)</text>
+      <text x="120" y="78" text-anchor="middle" fill="#64748b" font-size="10">Pre-built images for DinD</text>
+      <text x="120" y="94" text-anchor="middle" fill="#64748b" font-size="10">(no internet in runners)</text>
+    </g>
+
+    <!-- Arrow: Step 5 down to Step 6 -->
+    <line x1="650" y1="700" x2="650" y2="730" stroke="#34495E" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+
+    <!-- Step 6: GitLab Commit -->
+    <g transform="translate(450, 730)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="400" height="65" rx="10" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+      <rect x="0" y="0" width="400" height="32" rx="10" fill="#ea580c"/>
+      <rect x="0" y="16" width="400" height="16" fill="#ea580c"/>
+      <text x="200" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 6: Commit to GitLab</text>
+      <text x="200" y="54" text-anchor="middle" fill="#1e293b" font-size="12">pipeline/committer.py -> .gitlab-ci.yml + Dockerfile -> feature/ai-pipeline-{ts}</text>
+    </g>
+  </g>
+
+  <!-- Arrow: Section 2 down to Section 3 -->
+  <line x1="650" y1="1220" x2="650" y2="1260" stroke="#34495E" stroke-width="3" marker-end="url(#arrowSolid)"/>
+  <text x="720" y="1245" fill="#34495E" font-size="12" font-weight="600">commit_id, project_id</text>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: GITLAB CI/CD EXECUTION -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 1260)">
+    <rect x="30" y="0" width="1740" height="360" rx="12" fill="url(#bgOrange)" stroke="#fbbf24" stroke-width="1"/>
+    <rect x="50" y="-14" width="260" height="28" rx="14" fill="#d97706"/><text x="180" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">3. GITLAB CI/CD EXECUTION</text>
+
+    <!-- GitLab server box -->
+    <g transform="translate(100, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="300" height="100" rx="10" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+      <rect x="0" y="0" width="300" height="32" rx="10" fill="#ea580c"/>
+      <rect x="0" y="16" width="300" height="16" fill="#ea580c"/>
+      <text x="150" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">GitLab Server</text>
+      <text x="150" y="56" text-anchor="middle" fill="#475569" font-size="12">http://gitlab-server:8929</text>
+      <text x="150" y="76" text-anchor="middle" fill="#475569" font-size="12">Docker DNS: gitlab-server</text>
+      <text x="150" y="94" text-anchor="middle" fill="#94a3b8" font-size="10">gitlab-net + ai-platform-net</text>
+    </g>
+
+    <!-- Arrow: GitLab -> Pipeline -->
+    <line x1="400" y1="90" x2="480" y2="90" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowSolid)"/>
+    <text x="440" y="80" text-anchor="middle" fill="#ea580c" font-size="10" font-weight="600">triggers</text>
+
+    <!-- 9-Stage Pipeline -->
+    <g transform="translate(490, 30)">
+      <rect x="0" y="0" width="1200" height="120" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5" filter="url(#shadowSm)"/>
+      <text x="600" y="22" text-anchor="middle" fill="#92400e" font-size="14" font-weight="700">9-Stage CI/CD Pipeline (.gitlab-ci.yml)</text>
+
+      <!-- Stage boxes -->
+      <g transform="translate(15, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#1e40af" font-size="11" font-weight="600">1. compile</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Build source</text>
+      </g>
+      <g transform="translate(140, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#1e40af" font-size="11" font-weight="600">2. build</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Docker image</text>
+      </g>
+      <g transform="translate(265, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#1e40af" font-size="11" font-weight="600">3. test</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Unit tests</text>
+      </g>
+      <g transform="translate(390, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="600">4. sast</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Static analysis</text>
+      </g>
+      <g transform="translate(515, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">5. quality</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">SonarQube</text>
+      </g>
+      <g transform="translate(640, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="600">6. security</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Trivy scan</text>
+      </g>
+      <g transform="translate(765, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#6b21a8" font-size="11" font-weight="600">7. push</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Nexus registry</text>
+      </g>
+      <g transform="translate(890, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#92400e" font-size="11" font-weight="600">8. notify</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">Status alert</text>
+      </g>
+      <g transform="translate(1015, 35)">
+        <rect x="0" y="0" width="115" height="50" rx="6" fill="#ccfbf1" stroke="#0891b2" stroke-width="1.5"/>
+        <text x="57" y="20" text-anchor="middle" fill="#155e75" font-size="11" font-weight="600">9. learn</text>
+        <text x="57" y="38" text-anchor="middle" fill="#64748b" font-size="9">RL callback</text>
+      </g>
+
+      <!-- Arrows between stages -->
+      <line x1="130" y1="60" x2="140" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="255" y1="60" x2="265" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="380" y1="60" x2="390" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="505" y1="60" x2="515" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="630" y1="60" x2="640" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="755" y1="60" x2="765" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="880" y1="60" x2="890" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <line x1="1005" y1="60" x2="1015" y2="60" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+    </g>
+
+    <!-- DinD Warning callout -->
+    <g transform="translate(100, 170)">
+      <rect x="0" y="0" width="400" height="60" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+      <text x="20" y="22" fill="#991b1b" font-size="12" font-weight="700">DinD Network Isolation</text>
+      <text x="20" y="40" fill="#dc2626" font-size="11">Runner containers have NO internet access.</text>
+      <text x="20" y="55" fill="#dc2626" font-size="11">All images pre-seeded in Nexus. No apk add.</text>
+    </g>
+
+    <!-- Step 7: Pipeline Monitoring -->
+    <g transform="translate(550, 170)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="400" height="100" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+      <rect x="0" y="0" width="400" height="32" rx="10" fill="#d97706"/>
+      <rect x="0" y="16" width="400" height="16" fill="#d97706"/>
+      <text x="200" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 7: Pipeline Monitoring</text>
+      <text x="200" y="54" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">monitor_pipeline_for_learning()</text>
+      <text x="15" y="74" fill="#475569" font-size="11">- Poll GitLab API every 30 seconds</text>
+      <text x="15" y="92" fill="#475569" font-size="11">- Max wait: 15 minutes | Check all 10 jobs</text>
+    </g>
+
+    <!-- Arrow: Pipeline -> Monitor -->
+    <line x1="750" y1="150" x2="750" y2="170" stroke="#d97706" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+    <!-- Pipeline outcome decision -->
+    <g transform="translate(1050, 170)">
+      <polygon points="80,0 160,50 80,100 0,50" fill="#fef3c7" stroke="#d97706" stroke-width="2.5" filter="url(#shadowSm)"/>
+      <text x="80" y="44" text-anchor="middle" fill="#92400e" font-size="13" font-weight="700">Pipeline</text>
+      <text x="80" y="62" text-anchor="middle" fill="#92400e" font-size="13" font-weight="700">result?</text>
+    </g>
+
+    <!-- Arrow: Monitor -> Decision -->
+    <line x1="950" y1="220" x2="1050" y2="220" stroke="#d97706" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+    <!-- Labels on decision -->
+    <!-- SUCCESS arrow (right) -->
+    <line x1="1210" y1="220" x2="1350" y2="220" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+    <text x="1280" y="210" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="700">SUCCESS</text>
+
+    <!-- Success indicator -->
+    <g transform="translate(1360, 190)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="200" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+      <text x="100" y="22" text-anchor="middle" fill="#16a34a" font-size="13" font-weight="700">All Stages Pass</text>
+      <text x="100" y="42" text-anchor="middle" fill="#475569" font-size="11">Quality gate: OK</text>
+      <text x="100" y="56" text-anchor="middle" fill="#64748b" font-size="10">-> Store in RAG</text>
+    </g>
+
+    <!-- FAILURE arrow (down) -->
+    <line x1="1130" y1="270" x2="1130" y2="320" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+    <text x="1175" y="300" fill="#dc2626" font-size="12" font-weight="700">FAIL</text>
+  </g>
+
+  <!-- Arrow connecting to self-healing section -->
+  <line x1="1130" y1="1580" x2="1130" y2="1650" stroke="#dc2626" stroke-width="3" marker-end="url(#arrowRed)"/>
+  <text x="1190" y="1620" fill="#dc2626" font-size="12" font-weight="600">attempt &lt; 10</text>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: SELF-HEALING LOOP -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 1650)">
+    <rect x="30" y="0" width="1740" height="560" rx="12" fill="url(#bgRed)" stroke="#fca5a5" stroke-width="1"/>
+    <rect x="50" y="-14" width="260" height="28" rx="14" fill="#dc2626"/><text x="180" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">4. SELF-HEALING LOOP</text>
+
+    <!-- Self-Healing Workflow overview -->
+    <g transform="translate(100, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="360" height="120" rx="10" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+      <rect x="0" y="0" width="360" height="32" rx="10" fill="#dc2626"/>
+      <rect x="0" y="16" width="360" height="16" fill="#dc2626"/>
+      <text x="180" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Self-Healing Workflow</text>
+      <text x="180" y="54" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">self_healing_workflow.py</text>
+      <text x="15" y="74" fill="#475569" font-size="11">- WorkflowStatus enum tracking</text>
+      <text x="15" y="92" fill="#475569" font-size="11">- Max 10 retry attempts</text>
+      <text x="15" y="110" fill="#475569" font-size="11">- PIPELINE_CHECK_INTERVAL = 30s</text>
+    </g>
+
+    <!-- Arrow to Error Analysis -->
+    <line x1="460" y1="100" x2="540" y2="100" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+    <!-- Step 8: Error Analysis -->
+    <g transform="translate(550, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="380" height="120" rx="10" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+      <rect x="0" y="0" width="380" height="32" rx="10" fill="#b91c1c"/>
+      <rect x="0" y="16" width="380" height="16" fill="#b91c1c"/>
+      <text x="190" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 8: Error Analysis + Fix</text>
+      <text x="190" y="54" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">services/llm_fixer.py</text>
+      <text x="15" y="74" fill="#475569" font-size="11">- Pattern-based error classification</text>
+      <text x="15" y="92" fill="#475569" font-size="11">- Query Nexus for available images</text>
+      <text x="15" y="110" fill="#475569" font-size="11">- LLM generates corrected files</text>
+    </g>
+
+    <!-- Error pattern table -->
+    <g transform="translate(100, 190)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="830" height="190" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="830" height="28" rx="8" fill="#fef2f2"/>
+      <rect x="0" y="14" width="830" height="14" fill="#fef2f2"/>
+      <text x="415" y="20" text-anchor="middle" fill="#991b1b" font-size="12" font-weight="700">Error Classification Patterns (LLMFixer.ERROR_PATTERNS)</text>
+
+      <!-- Row headers -->
+      <text x="20" y="50" fill="#dc2626" font-size="11" font-weight="600">tls_network_error</text>
+      <text x="220" y="50" fill="#475569" font-size="11">TLS/SSL failures, package resolution errors</text>
+      <text x="600" y="50" fill="#64748b" font-size="10" font-style="italic">-> Use pre-built image</text>
+
+      <text x="20" y="72" fill="#dc2626" font-size="11" font-weight="600">image_not_found</text>
+      <text x="220" y="72" fill="#475569" font-size="11">MANIFEST_UNKNOWN, missing Docker image</text>
+      <text x="600" y="72" fill="#64748b" font-size="10" font-style="italic">-> Seed from DockerHub</text>
+
+      <text x="20" y="94" fill="#dc2626" font-size="11" font-weight="600">build_failure</text>
+      <text x="220" y="94" fill="#475569" font-size="11">Compilation/build errors</text>
+      <text x="600" y="94" fill="#64748b" font-size="10" font-style="italic">-> LLM fix code/config</text>
+
+      <text x="20" y="116" fill="#dc2626" font-size="11" font-weight="600">missing_command</text>
+      <text x="220" y="116" fill="#475569" font-size="11">command not found, no such file</text>
+      <text x="600" y="116" fill="#64748b" font-size="10" font-style="italic">-> Add dependency</text>
+
+      <text x="20" y="138" fill="#dc2626" font-size="11" font-weight="600">timeout_error</text>
+      <text x="220" y="138" fill="#475569" font-size="11">Execution expired, deadline exceeded</text>
+      <text x="600" y="138" fill="#64748b" font-size="10" font-style="italic">-> Increase timeout</text>
+
+      <text x="20" y="160" fill="#dc2626" font-size="11" font-weight="600">yaml_syntax</text>
+      <text x="220" y="160" fill="#475569" font-size="11">YAML parsing errors, syntax errors</text>
+      <text x="600" y="160" fill="#64748b" font-size="10" font-style="italic">-> Regenerate YAML</text>
+
+      <text x="20" y="182" fill="#dc2626" font-size="11" font-weight="600">+ 4 more patterns</text>
+      <text x="220" y="182" fill="#475569" font-size="11">service_connection, permission_error, artifact_missing, invalid_stage</text>
+    </g>
+
+    <!-- LLM Fixer -> Fix Commit arrow -->
+    <line x1="930" y1="100" x2="1030" y2="100" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowRed)"/>
+    <text x="980" y="90" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="600">fix</text>
+
+    <!-- Fix Commit box -->
+    <g transform="translate(1040, 50)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="260" height="100" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+      <rect x="0" y="0" width="260" height="28" rx="8" fill="#ea580c"/>
+      <rect x="0" y="14" width="260" height="14" fill="#ea580c"/>
+      <text x="130" y="20" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Commit Fix to GitLab</text>
+      <text x="130" y="50" text-anchor="middle" fill="#475569" font-size="11">Updated .gitlab-ci.yml</text>
+      <text x="130" y="68" text-anchor="middle" fill="#475569" font-size="11">Updated Dockerfile</text>
+      <text x="130" y="86" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Same branch (auto-triggers)</text>
+    </g>
+
+    <!-- Retry loop arrow (from fix commit back up) -->
+    <path d="M1300,100 L1400,100 L1400,-30 L750,-30 L750,0" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="8,4" marker-end="url(#arrowRed)"/>
+    <text x="1400" y="35" fill="#dc2626" font-size="12" font-weight="700" text-anchor="middle" transform="rotate(-90, 1400, 35)">Retry (up to 10x)</text>
+
+    <!-- Attempt counter -->
+    <g transform="translate(1370, -35)">
+      <rect x="0" y="0" width="130" height="30" rx="15" fill="#dc2626" opacity="0.9"/>
+      <text x="65" y="20" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">attempt++</text>
+    </g>
+
+    <!-- Arrow: Back to GitLab pipeline -->
+    <text x="750" y="-15" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">New pipeline triggered</text>
+
+    <!-- Max attempts exhausted indicator -->
+    <g transform="translate(1400, 170)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="270" height="80" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+      <text x="135" y="22" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="700">Max Attempts (10)</text>
+      <text x="135" y="42" text-anchor="middle" fill="#991b1b" font-size="11">WorkflowStatus.FAILED</text>
+      <text x="135" y="62" text-anchor="middle" fill="#475569" font-size="11">Error logs preserved for</text>
+      <text x="135" y="76" text-anchor="middle" fill="#475569" font-size="11">manual debugging</text>
+    </g>
+
+    <!-- Workflow state diagram -->
+    <g transform="translate(100, 410)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="1560" height="120" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+      <text x="780" y="22" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="700">WorkflowStatus State Machine (self_healing_workflow.py)</text>
+
+      <!-- States -->
+      <rect x="20" y="40" width="110" height="32" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1"/><text x="75" y="61" text-anchor="middle" fill="#4f46e5" font-size="10" font-weight="600">PENDING</text>
+      <line x1="130" y1="56" x2="150" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="155" y="40" width="150" height="32" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1"/><text x="230" y="61" text-anchor="middle" fill="#4f46e5" font-size="10" font-weight="600">CHECKING_TMPL</text>
+      <line x1="305" y1="56" x2="325" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="330" y="40" width="130" height="32" rx="6" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1"/><text x="395" y="61" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="600">GENERATING</text>
+      <line x1="460" y1="56" x2="480" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="485" y="40" width="130" height="32" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/><text x="550" y="61" text-anchor="middle" fill="#d97706" font-size="10" font-weight="600">VALIDATING</text>
+      <line x1="615" y1="56" x2="635" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="640" y="40" width="130" height="32" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/><text x="705" y="61" text-anchor="middle" fill="#d97706" font-size="10" font-weight="600">COMMITTING</text>
+      <line x1="770" y1="56" x2="790" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="795" y="40" width="150" height="32" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/><text x="870" y="61" text-anchor="middle" fill="#2563eb" font-size="10" font-weight="600">RUNNING_PIPE</text>
+      <line x1="945" y1="56" x2="965" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="970" y="40" width="150" height="32" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/><text x="1045" y="61" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="600">FIXING_PIPE</text>
+
+      <!-- Terminal states -->
+      <line x1="1120" y1="56" x2="1165" y2="56" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowDashed)"/>
+      <rect x="1170" y="40" width="110" height="32" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="1225" y="61" text-anchor="middle" fill="#16a34a" font-size="10" font-weight="700">SUCCESS</text>
+
+      <rect x="1310" y="40" width="110" height="32" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="1365" y="61" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="700">FAILED</text>
+
+      <!-- Back-loop arrow from FIXING to RUNNING -->
+      <path d="M1045,72 L1045,95 L870,95 L870,72" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+      <text x="958" y="108" text-anchor="middle" fill="#dc2626" font-size="9" font-weight="600">retry loop</text>
+    </g>
+  </g>
+
+  <!-- Arrow: Section 4 down to Section 5 (SUCCESS path) -->
+  <line x1="900" y1="2230" x2="900" y2="2290" stroke="#16a34a" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <text x="970" y="2265" fill="#16a34a" font-size="12" font-weight="700">All stages pass</text>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: RAG STORAGE & REINFORCEMENT LEARNING -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 2290)">
+    <rect x="30" y="0" width="1740" height="400" rx="12" fill="url(#bgTeal)" stroke="#5eead4" stroke-width="1"/>
+    <rect x="50" y="-14" width="350" height="28" rx="14" fill="#0891b2"/><text x="225" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">5. RAG STORAGE + REINFORCEMENT LEARNING</text>
+
+    <!-- Step 9: Quality Gate -->
+    <g transform="translate(100, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="360" height="110" rx="10" fill="#ffffff" stroke="#0891b2" stroke-width="2"/>
+      <rect x="0" y="0" width="360" height="32" rx="10" fill="#0891b2"/>
+      <rect x="0" y="16" width="360" height="16" fill="#0891b2"/>
+      <text x="180" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 9: Quality Gate</text>
+      <text x="180" y="54" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">_check_all_jobs_passed()</text>
+      <text x="15" y="74" fill="#475569" font-size="11">- Verify ALL pipeline jobs succeeded</text>
+      <text x="15" y="92" fill="#475569" font-size="11">- Skip notify_failure (expected conditional)</text>
+      <text x="15" y="108" fill="#475569" font-size="11">- Prevents storing broken templates in RAG</text>
+    </g>
+
+    <!-- Arrow: Quality Gate -> RAG Storage -->
+    <line x1="460" y1="95" x2="560" y2="95" stroke="#0891b2" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+    <text x="510" y="85" text-anchor="middle" fill="#0891b2" font-size="10" font-weight="600">pass</text>
+
+    <!-- Step 10: RAG Storage -->
+    <g transform="translate(570, 40)" filter="url(#shadowMd)">
+      <rect x="0" y="0" width="380" height="110" rx="10" fill="#ffffff" stroke="#0891b2" stroke-width="2"/>
+      <rect x="0" y="0" width="380" height="32" rx="10" fill="#0891b2"/>
+      <rect x="0" y="16" width="380" height="16" fill="#0891b2"/>
+      <text x="190" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Step 10: Store in RAG</text>
+      <text x="190" y="54" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">pipeline/learning.py + templates.py</text>
+      <text x="15" y="74" fill="#475569" font-size="11">- store_successful_pipeline() -> ChromaDB</text>
+      <text x="15" y="92" fill="#475569" font-size="11">- ID: manual_{lang}_{fw}_{hash[:12]}</text>
+      <text x="15" y="108" fill="#475569" font-size="11">- Collections: successful_pipelines</text>
+    </g>
+
+    <!-- Arrow: RAG Storage -> ChromaDB -->
+    <line x1="950" y1="95" x2="1060" y2="95" stroke="#0891b2" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+
+    <!-- ChromaDB storage (large) -->
+    <g transform="translate(1070, 20)" filter="url(#shadowMd)">
+      <ellipse cx="120" cy="18" rx="120" ry="22" fill="#0891b2" opacity="0.15" stroke="#0891b2" stroke-width="2"/>
+      <rect x="0" y="18" width="240" height="110" fill="#f0fdfa" stroke="#0891b2" stroke-width="2"/>
+      <ellipse cx="120" cy="128" rx="120" ry="22" fill="#f0fdfa" stroke="#0891b2" stroke-width="2"/>
+      <ellipse cx="120" cy="18" rx="120" ry="22" fill="#ccfbf1" stroke="#0891b2" stroke-width="2"/>
+      <text x="120" y="24" text-anchor="middle" fill="#0891b2" font-size="15" font-weight="700">ChromaDB</text>
+      <text x="120" y="50" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="600">Vector Database (RAG)</text>
+      <text x="120" y="74" text-anchor="middle" fill="#475569" font-size="11">successful_pipelines</text>
+      <text x="120" y="92" text-anchor="middle" fill="#475569" font-size="11">pipeline_templates</text>
+      <text x="120" y="110" text-anchor="middle" fill="#475569" font-size="11">pipeline_feedback</text>
+      <text x="120" y="128" text-anchor="middle" fill="#94a3b8" font-size="10">Docker exec access</text>
+    </g>
+
+    <!-- RL Feedback Loop -->
+    <g transform="translate(100, 190)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="1560" height="180" rx="10" fill="#ffffff" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <text x="780" y="24" text-anchor="middle" fill="#0891b2" font-size="14" font-weight="700">Reinforcement Learning Feedback Loop</text>
+
+      <!-- Loop diagram -->
+      <!-- Generate -->
+      <g transform="translate(60, 50)">
+        <rect x="0" y="0" width="180" height="55" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">1. Generate</text>
+        <text x="90" y="42" text-anchor="middle" fill="#475569" font-size="10">LLM creates pipeline</text>
+      </g>
+      <line x1="240" y1="78" x2="310" y2="78" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+      <!-- Execute -->
+      <g transform="translate(310, 50)">
+        <rect x="0" y="0" width="180" height="55" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="700">2. Execute</text>
+        <text x="90" y="42" text-anchor="middle" fill="#475569" font-size="10">Run in GitLab CI</text>
+      </g>
+      <line x1="490" y1="78" x2="560" y2="78" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+      <!-- Monitor -->
+      <g transform="translate(560, 50)">
+        <rect x="0" y="0" width="180" height="55" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#d97706" font-size="12" font-weight="700">3. Monitor</text>
+        <text x="90" y="42" text-anchor="middle" fill="#475569" font-size="10">Poll pipeline status</text>
+      </g>
+      <line x1="740" y1="78" x2="810" y2="78" stroke="#d97706" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+      <!-- Decision -->
+      <g transform="translate(820, 45)">
+        <polygon points="50,0 100,33 50,66 0,33" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <text x="50" y="38" text-anchor="middle" fill="#92400e" font-size="11" font-weight="700">Pass?</text>
+      </g>
+
+      <!-- Success path -->
+      <line x1="920" y1="78" x2="990" y2="78" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+      <text x="955" y="70" text-anchor="middle" fill="#16a34a" font-size="10" font-weight="700">YES</text>
+
+      <g transform="translate(990, 50)">
+        <rect x="0" y="0" width="180" height="55" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="700">4. Store in RAG</text>
+        <text x="90" y="42" text-anchor="middle" fill="#475569" font-size="10">Proven template saved</text>
+      </g>
+
+      <!-- Fail path -->
+      <line x1="870" y1="111" x2="870" y2="130" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowRed)"/>
+      <text x="905" y="125" fill="#dc2626" font-size="10" font-weight="700">NO</text>
+
+      <g transform="translate(780, 132)">
+        <rect x="0" y="0" width="180" height="36" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="700">Self-Heal + Retry (10x)</text>
+      </g>
+
+      <!-- Back arrow from fail to generate -->
+      <path d="M780,150 L60,150 L60,105" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowRed)"/>
+
+      <!-- Forward arrow from Store back to Step 2 (loop closes) -->
+      <g transform="translate(1210, 50)">
+        <rect x="0" y="0" width="260" height="55" rx="8" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/>
+        <text x="130" y="18" text-anchor="middle" fill="#0891b2" font-size="12" font-weight="700">Future Requests</text>
+        <text x="130" y="36" text-anchor="middle" fill="#475569" font-size="10">Next repo with same lang/fw</text>
+        <text x="130" y="50" text-anchor="middle" fill="#475569" font-size="10">uses stored template (Path A)</text>
+      </g>
+      <line x1="1170" y1="78" x2="1210" y2="78" stroke="#0891b2" stroke-width="2" marker-end="url(#arrowSolid)"/>
+    </g>
+  </g>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: DOCKER NETWORK TOPOLOGY -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 2740)">
+    <rect x="30" y="0" width="1740" height="440" rx="12" fill="url(#bgBlue)" stroke="#93c5fd" stroke-width="1"/>
+    <rect x="50" y="-14" width="310" height="28" rx="14" fill="#0284c7"/><text x="205" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">6. DOCKER NETWORK TOPOLOGY</text>
+
+    <!-- ai-platform-net -->
+    <g transform="translate(60, 40)">
+      <rect x="0" y="0" width="1050" height="370" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" stroke-dasharray="10,5" opacity="0.8"/>
+      <text x="525" y="25" text-anchor="middle" fill="#1d4ed8" font-size="14" font-weight="700">Docker Network: ai-platform-net</text>
+
+      <!-- FastAPI Backend container -->
+      <g transform="translate(30, 50)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="180" height="70" rx="8" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="700">FastAPI Backend</text>
+        <text x="90" y="40" text-anchor="middle" fill="#475569" font-size="10">Port 8003</text>
+        <text x="90" y="56" text-anchor="middle" fill="#94a3b8" font-size="9">Python 3.11</text>
+      </g>
+
+      <!-- Ollama container -->
+      <g transform="translate(240, 50)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="180" height="70" rx="8" fill="#fff" stroke="#7c3aed" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">Ollama</text>
+        <text x="90" y="40" text-anchor="middle" fill="#475569" font-size="10">Port 11434</text>
+        <text x="90" y="56" text-anchor="middle" fill="#94a3b8" font-size="9">qwen3:32b GPU</text>
+      </g>
+
+      <!-- ChromaDB container -->
+      <g transform="translate(450, 50)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="180" height="70" rx="8" fill="#fff" stroke="#0891b2" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#0891b2" font-size="12" font-weight="700">ChromaDB</text>
+        <text x="90" y="40" text-anchor="middle" fill="#475569" font-size="10">Port 8000</text>
+        <text x="90" y="56" text-anchor="middle" fill="#94a3b8" font-size="9">Vector DB</text>
+      </g>
+
+      <!-- Nexus container -->
+      <g transform="translate(660, 50)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="180" height="70" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="90" y="22" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="700">Nexus Registry</text>
+        <text x="90" y="40" text-anchor="middle" fill="#475569" font-size="10">Port 5001 / 8081</text>
+        <text x="90" y="56" text-anchor="middle" fill="#94a3b8" font-size="9">Docker Registry</text>
+      </g>
+
+      <!-- Second row containers -->
+      <!-- Jenkins -->
+      <g transform="translate(30, 150)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#d97706" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#d97706" font-size="11" font-weight="600">Jenkins</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Port 8080</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">CI/CD Alt</text>
+      </g>
+
+      <!-- SonarQube -->
+      <g transform="translate(190, 150)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">SonarQube</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Port 9000</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">Quality Gate</text>
+      </g>
+
+      <!-- Trivy -->
+      <g transform="translate(350, 150)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#dc2626" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">Trivy</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Security Scanner</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">CVE Detection</text>
+      </g>
+
+      <!-- PostgreSQL -->
+      <g transform="translate(510, 150)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#2563eb" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#2563eb" font-size="11" font-weight="600">PostgreSQL</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Port 5432</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">SonarQube DB</text>
+      </g>
+
+      <!-- Redis -->
+      <g transform="translate(670, 150)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#dc2626" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">Redis</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Port 6379</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">Cache</text>
+      </g>
+
+      <!-- Third row -->
+      <!-- Splunk -->
+      <g transform="translate(30, 240)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#d97706" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#d97706" font-size="11" font-weight="600">Splunk</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Port 8088</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">Log Aggregation</text>
+      </g>
+
+      <!-- Jira -->
+      <g transform="translate(190, 240)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#2563eb" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#2563eb" font-size="11" font-weight="600">Jira</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Issue Tracking</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">Ticket Mgmt</text>
+      </g>
+
+      <!-- Gitea -->
+      <g transform="translate(350, 240)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="140" height="60" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1"/>
+        <text x="70" y="20" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">Gitea</text>
+        <text x="70" y="38" text-anchor="middle" fill="#475569" font-size="9">Port 3000</text>
+        <text x="70" y="52" text-anchor="middle" fill="#94a3b8" font-size="8">Git Alternative</text>
+      </g>
+    </g>
+
+    <!-- gitlab-net (overlapping) -->
+    <g transform="translate(1130, 40)">
+      <rect x="0" y="0" width="560" height="370" rx="10" fill="#fef2f2" stroke="#ea580c" stroke-width="2" stroke-dasharray="10,5" opacity="0.8"/>
+      <text x="280" y="25" text-anchor="middle" fill="#ea580c" font-size="14" font-weight="700">Docker Network: gitlab-net</text>
+
+      <!-- GitLab Server -->
+      <g transform="translate(30, 50)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="220" height="90" rx="8" fill="#fff" stroke="#ea580c" stroke-width="2"/>
+        <text x="110" y="22" text-anchor="middle" fill="#ea580c" font-size="13" font-weight="700">GitLab Server</text>
+        <text x="110" y="42" text-anchor="middle" fill="#475569" font-size="10">Port 8929 (HTTP)</text>
+        <text x="110" y="58" text-anchor="middle" fill="#475569" font-size="10">Port 8922 (SSH)</text>
+        <text x="110" y="76" text-anchor="middle" fill="#94a3b8" font-size="9">gitlab-server (DNS)</text>
+      </g>
+
+      <!-- GitLab Runner -->
+      <g transform="translate(280, 50)" filter="url(#shadowSm)">
+        <rect x="0" y="0" width="220" height="90" rx="8" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+        <text x="110" y="22" text-anchor="middle" fill="#ea580c" font-size="13" font-weight="700">GitLab Runner</text>
+        <text x="110" y="42" text-anchor="middle" fill="#475569" font-size="10">Docker-in-Docker</text>
+        <text x="110" y="58" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="600">NO Internet Access</text>
+        <text x="110" y="76" text-anchor="middle" fill="#94a3b8" font-size="9">Uses Nexus images only</text>
+      </g>
+
+      <!-- Network overlap indicator -->
+      <g transform="translate(30, 170)">
+        <rect x="0" y="0" width="490" height="50" rx="6" fill="#fff7ed" stroke="#d97706" stroke-width="1"/>
+        <text x="245" y="20" text-anchor="middle" fill="#92400e" font-size="11" font-weight="600">Both networks bridge via FastAPI backend container</text>
+        <text x="245" y="38" text-anchor="middle" fill="#475569" font-size="10">ai-platform-net (all services) + gitlab-net (GitLab external)</text>
+      </g>
+
+      <!-- Registry access path -->
+      <g transform="translate(30, 240)">
+        <rect x="0" y="0" width="490" height="100" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+        <text x="245" y="20" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="700">Registry Access Paths</text>
+        <text x="20" y="42" fill="#475569" font-size="10">From Host:        localhost:5001   (Nexus HTTP)</text>
+        <text x="20" y="60" fill="#475569" font-size="10">From Containers:  ai-nexus:5001    (Docker DNS)</text>
+        <text x="20" y="78" fill="#475569" font-size="10">From Runners:     ai-nexus:5001    (DinD, no TLS)</text>
+        <text x="20" y="94" fill="#475569" font-size="10">Nexus API:        ai-nexus:8081    (REST management)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: FILE STRUCTURE REFERENCE -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 3230)">
+    <rect x="30" y="0" width="1740" height="500" rx="12" fill="url(#bgGreen)" stroke="#86efac" stroke-width="1"/>
+    <rect x="50" y="-14" width="290" height="28" rx="14" fill="#059669"/><text x="195" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">7. PROJECT FILE STRUCTURE</text>
+
+    <!-- Code structure -->
+    <g transform="translate(80, 40)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="760" height="430" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+      <text x="380" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">app/ Directory Structure</text>
+
+      <text x="20" y="52" fill="#7c3aed" font-size="12" font-weight="700">app/routers/</text>
+      <text x="160" y="52" fill="#475569" font-size="11">pipeline.py, chat.py, gitlab.py, nexus.py, trivy.py, sonarqube.py...</text>
+
+      <text x="20" y="80" fill="#7c3aed" font-size="12" font-weight="700">app/services/pipeline/</text>
+      <text x="210" y="80" fill="#64748b" font-size="11">(refactored from 3291-line monolith)</text>
+      <text x="40" y="102" fill="#475569" font-size="11">generator.py     - PipelineGeneratorService facade</text>
+      <text x="40" y="120" fill="#475569" font-size="11">analyzer.py      - Repo analysis, language detection</text>
+      <text x="40" y="138" fill="#475569" font-size="11">templates.py     - ChromaDB template CRUD</text>
+      <text x="40" y="156" fill="#475569" font-size="11">image_seeder.py  - Nexus image seeding via skopeo</text>
+      <text x="40" y="174" fill="#475569" font-size="11">committer.py     - GitLab commit operations</text>
+      <text x="40" y="192" fill="#475569" font-size="11">monitor.py       - Pipeline status polling</text>
+      <text x="40" y="210" fill="#475569" font-size="11">learning.py      - RL feedback storage</text>
+      <text x="40" y="228" fill="#475569" font-size="11">validator.py     - Pipeline YAML validation</text>
+      <text x="40" y="246" fill="#475569" font-size="11">constants.py     - Collection names, image maps</text>
+      <text x="40" y="264" fill="#475569" font-size="11">default_templates.py - Built-in fallback templates</text>
+
+      <text x="20" y="296" fill="#7c3aed" font-size="12" font-weight="700">app/services/</text>
+      <text x="40" y="316" fill="#475569" font-size="11">self_healing_workflow.py  - Full orchestration (10 retries)</text>
+      <text x="40" y="334" fill="#475569" font-size="11">llm_fixer.py             - Error analysis + LLM fix generation</text>
+      <text x="40" y="352" fill="#475569" font-size="11">dry_run_validator.py     - YAML lint dry-run</text>
+      <text x="40" y="370" fill="#475569" font-size="11">pipeline_progress.py     - WebSocket progress tracking</text>
+
+      <text x="20" y="400" fill="#7c3aed" font-size="12" font-weight="700">app/integrations/</text>
+      <text x="40" y="420" fill="#475569" font-size="11">llm_provider.py, ollama.py, claude_code.py, chromadb.py, gitlab.py, nexus.py, trivy.py...</text>
+    </g>
+
+    <!-- Config and models -->
+    <g transform="translate(880, 40)" filter="url(#shadowSm)">
+      <rect x="0" y="0" width="440" height="430" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+      <text x="220" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">Key Configuration</text>
+
+      <text x="20" y="52" fill="#0891b2" font-size="12" font-weight="700">Environment Variables</text>
+      <text x="20" y="74" fill="#475569" font-size="11">LLM_PROVIDER = ollama | claude-code</text>
+      <text x="20" y="92" fill="#475569" font-size="11">GITLAB_URL = http://gitlab-server</text>
+      <text x="20" y="110" fill="#475569" font-size="11">NEXUS_URL = http://ai-nexus:8081</text>
+      <text x="20" y="128" fill="#475569" font-size="11">CHROMADB_URL = http://chromadb:8000</text>
+
+      <text x="20" y="162" fill="#0891b2" font-size="12" font-weight="700">Models</text>
+      <text x="20" y="184" fill="#475569" font-size="11">pipeline-generator-v5 (qwen3:32b)</text>
+      <text x="20" y="202" fill="#475569" font-size="11">  temperature: 0.2 (deterministic)</text>
+      <text x="20" y="220" fill="#475569" font-size="11">  system prompt: app/prompts/*.txt</text>
+
+      <text x="20" y="254" fill="#0891b2" font-size="12" font-weight="700">Pipeline Stages</text>
+      <text x="20" y="276" fill="#475569" font-size="11">1. compile   5. quality   9. learn</text>
+      <text x="20" y="294" fill="#475569" font-size="11">2. build     6. security</text>
+      <text x="20" y="312" fill="#475569" font-size="11">3. test      7. push</text>
+      <text x="20" y="330" fill="#475569" font-size="11">4. sast      8. notify</text>
+
+      <text x="20" y="364" fill="#0891b2" font-size="12" font-weight="700">Self-Healing Config</text>
+      <text x="20" y="386" fill="#475569" font-size="11">Max Attempts: 10</text>
+      <text x="20" y="404" fill="#475569" font-size="11">Poll Interval: 30 seconds</text>
+      <text x="20" y="422" fill="#475569" font-size="11">Max Wait: 15 minutes per pipeline</text>
+    </g>
+  </g>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 8: END-TO-END FLOW SUMMARY -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 3780)">
+    <rect x="30" y="0" width="1740" height="280" rx="12" fill="url(#bgPurple)" stroke="#c4b5fd" stroke-width="1"/>
+    <rect x="50" y="-14" width="290" height="28" rx="14" fill="#7c3aed"/><text x="195" y="4" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">8. END-TO-END FLOW SUMMARY</text>
+
+    <!-- Flow steps as connected boxes -->
+    <g transform="translate(60, 40)">
+      <!-- Row 1 -->
+      <rect x="0" y="0" width="160" height="60" rx="8" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="80" y="25" text-anchor="middle" fill="#4f46e5" font-size="12" font-weight="700">User Input</text>
+      <text x="80" y="45" text-anchor="middle" fill="#475569" font-size="10">repo_url + token</text>
+
+      <line x1="160" y1="30" x2="190" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="190" y="0" width="160" height="60" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="270" y="25" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">Analyze Repo</text>
+      <text x="270" y="45" text-anchor="middle" fill="#475569" font-size="10">lang, framework</text>
+
+      <line x1="350" y1="30" x2="380" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="380" y="0" width="160" height="60" rx="8" fill="#ccfbf1" stroke="#0891b2" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="460" y="25" text-anchor="middle" fill="#0891b2" font-size="12" font-weight="700">Check RAG</text>
+      <text x="460" y="45" text-anchor="middle" fill="#475569" font-size="10">ChromaDB lookup</text>
+
+      <line x1="540" y1="30" x2="570" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <polygon points="640,0 700,30 640,60 580,30" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+      <text x="640" y="35" text-anchor="middle" fill="#92400e" font-size="10" font-weight="700">RAG?</text>
+
+      <!-- Path from decision -->
+      <line x1="700" y1="30" x2="730" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="730" y="0" width="160" height="60" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="810" y="25" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">LLM Generate</text>
+      <text x="810" y="45" text-anchor="middle" fill="#475569" font-size="10">.yml + Dockerfile</text>
+
+      <line x1="890" y1="30" x2="920" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="920" y="0" width="160" height="60" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="1000" y="25" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="700">Seed Images</text>
+      <text x="1000" y="45" text-anchor="middle" fill="#475569" font-size="10">skopeo -> Nexus</text>
+
+      <line x1="1080" y1="30" x2="1110" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="1110" y="0" width="160" height="60" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="1190" y="25" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="700">Commit</text>
+      <text x="1190" y="45" text-anchor="middle" fill="#475569" font-size="10">GitLab branch</text>
+
+      <line x1="1270" y1="30" x2="1300" y2="30" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="1300" y="0" width="160" height="60" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="1380" y="25" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="700">Run Pipeline</text>
+      <text x="1380" y="45" text-anchor="middle" fill="#475569" font-size="10">9 stages in GitLab</text>
+
+      <!-- Row 2 -->
+      <line x1="1380" y1="60" x2="1380" y2="100" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <rect x="1300" y="100" width="160" height="60" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="1380" y="125" text-anchor="middle" fill="#d97706" font-size="12" font-weight="700">Monitor</text>
+      <text x="1380" y="145" text-anchor="middle" fill="#475569" font-size="10">Poll every 30s</text>
+
+      <line x1="1300" y1="130" x2="1270" y2="130" stroke="#34495E" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+      <polygon points="1200,100 1260,130 1200,160 1140,130" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+      <text x="1200" y="133" text-anchor="middle" fill="#92400e" font-size="10" font-weight="700">Pass?</text>
+
+      <!-- Fail path -->
+      <line x1="1200" y1="160" x2="1200" y2="195" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowRed)"/>
+      <text x="1222" y="182" fill="#dc2626" font-size="10" font-weight="700">FAIL</text>
+
+      <rect x="1110" y="195" width="180" height="55" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="1200" y="218" text-anchor="middle" fill="#dc2626" font-size="12" font-weight="700">Self-Heal</text>
+      <text x="1200" y="238" text-anchor="middle" fill="#475569" font-size="10">LLM fix + retry (10x)</text>
+
+      <!-- Loop back arrow -->
+      <path d="M1290,222 L1520,222 L1520,30 L1460,30" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowRed)"/>
+
+      <!-- Success path -->
+      <line x1="1140" y1="130" x2="1030" y2="130" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+      <text x="1085" y="120" text-anchor="middle" fill="#16a34a" font-size="10" font-weight="700">PASS</text>
+
+      <rect x="860" y="100" width="170" height="60" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="945" y="125" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="700">Store in RAG</text>
+      <text x="945" y="145" text-anchor="middle" fill="#475569" font-size="10">ChromaDB save</text>
+
+      <line x1="860" y1="130" x2="790" y2="130" stroke="#0891b2" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDashed)"/>
+
+      <rect x="600" y="100" width="190" height="60" rx="8" fill="#f0fdfa" stroke="#0891b2" stroke-width="2" filter="url(#shadowSm)"/>
+      <text x="695" y="120" text-anchor="middle" fill="#0891b2" font-size="12" font-weight="700">Future Reuse</text>
+      <text x="695" y="140" text-anchor="middle" fill="#475569" font-size="10">Path A: chromadb-direct</text>
+
+      <!-- Loop back to RAG check -->
+      <path d="M695,160 L695,200 L460,200 L460,60" fill="none" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowSolid)"/>
+      <text x="580" y="215" text-anchor="middle" fill="#0891b2" font-size="10" font-weight="600">Next request with same lang/fw</text>
+    </g>
+  </g>
+
+  <!-- ================================================================== -->
+  <!-- LEGEND -->
+  <!-- ================================================================== -->
+  <g transform="translate(0, 4110)">
+    <rect x="30" y="0" width="1740" height="160" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1" filter="url(#shadowSm)"/>
+    <text x="900" y="28" text-anchor="middle" fill="#1e293b" font-size="15" font-weight="700">Legend</text>
+
+    <!-- Row 1 -->
+    <g transform="translate(60, 45)">
+      <line x1="0" y1="10" x2="40" y2="10" stroke="#34495E" stroke-width="2.5" marker-end="url(#arrowSolid)"/>
+      <text x="50" y="15" fill="#475569" font-size="11">Synchronous Call (HTTP/gRPC)</text>
+    </g>
+    <g transform="translate(300, 45)">
+      <line x1="0" y1="10" x2="40" y2="10" stroke="#95A5A6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDashed)"/>
+      <text x="50" y="15" fill="#475569" font-size="11">Async / Optional Flow</text>
+    </g>
+    <g transform="translate(530, 45)">
+      <line x1="0" y1="10" x2="40" y2="10" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="8,4" marker-end="url(#arrowRed)"/>
+      <text x="50" y="15" fill="#475569" font-size="11">Self-Healing Retry Loop</text>
+    </g>
+    <g transform="translate(780, 45)">
+      <line x1="0" y1="10" x2="40" y2="10" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+      <text x="50" y="15" fill="#475569" font-size="11">Success / RAG Direct Path</text>
+    </g>
+    <g transform="translate(1050, 45)">
+      <polygon points="25,0 50,15 25,30 0,15" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+      <text x="60" y="20" fill="#475569" font-size="11">Decision Point</text>
+    </g>
+    <g transform="translate(1280, 45)">
+      <rect x="0" y="0" width="40" height="25" rx="6" fill="#fff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="50" y="17" fill="#475569" font-size="11">External Service</text>
+    </g>
+
+    <!-- Row 2: Color meanings -->
+    <g transform="translate(60, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#7c3aed"/>
+      <text x="30" y="12" fill="#475569" font-size="11">AI / LLM Services</text>
+    </g>
+    <g transform="translate(220, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#2563eb"/>
+      <text x="30" y="12" fill="#475569" font-size="11">API / CI/CD</text>
+    </g>
+    <g transform="translate(370, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#dc2626"/>
+      <text x="30" y="12" fill="#475569" font-size="11">Security / Errors</text>
+    </g>
+    <g transform="translate(530, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#16a34a"/>
+      <text x="30" y="12" fill="#475569" font-size="11">Registry / Quality</text>
+    </g>
+    <g transform="translate(700, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#0891b2"/>
+      <text x="30" y="12" fill="#475569" font-size="11">Storage / RAG</text>
+    </g>
+    <g transform="translate(870, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#d97706"/>
+      <text x="30" y="12" fill="#475569" font-size="11">Monitoring / Decisions</text>
+    </g>
+    <g transform="translate(1070, 90)">
+      <rect x="0" y="0" width="20" height="15" rx="3" fill="#ea580c"/>
+      <text x="30" y="12" fill="#475569" font-size="11">GitLab Operations</text>
+    </g>
+
+    <!-- Row 3: Key decision points -->
+    <g transform="translate(60, 120)">
+      <text x="0" y="15" fill="#1e293b" font-size="12" font-weight="700">Key Decision Points:</text>
+      <text x="160" y="15" fill="#475569" font-size="11">RAG vs LLM (template availability) | LLM Provider (env: LLM_PROVIDER) | Image Seeding (Nexus check) | Self-Healing (retry up to 10x) | Quality Gate (all stages must pass)</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <rect x="0" y="4310" width="1800" height="50" fill="url(#headerGrad)" rx="0"/>
+  <text x="900" y="4335" text-anchor="middle" fill="#94a3b8" font-size="13">AI DevOps Pipeline Generator | FastAPI + Ollama/Claude + ChromaDB + GitLab CI/CD | Self-Healing RL Architecture</text>
+  <text x="900" y="4352" text-anchor="middle" fill="#64748b" font-size="11">d:\Repos\ai-folder\devops-tools-backend | Generated 2026-02-09</text>
+</svg>
