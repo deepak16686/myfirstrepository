@@ -74,9 +74,13 @@ class Settings(BaseSettings):
     splunk_token: Optional[str] = None
 
     # Jenkins Configuration
-    jenkins_url: str = "http://jenkins-master:8080"
+    jenkins_url: str = "http://jenkins-master:8080/jenkins"
     jenkins_username: Optional[str] = None
     jenkins_password: Optional[str] = None
+
+    # Jenkins Git Server (Gitea - separate from GitLab to avoid dual CI trigger)
+    jenkins_git_url: str = "http://gitea-server:3000"
+    jenkins_git_token: Optional[str] = None
 
     # Config file path for additional tools
     tools_config_path: str = "/app/config/tools.json"
