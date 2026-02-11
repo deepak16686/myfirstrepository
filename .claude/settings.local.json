@@ -201,7 +201,8 @@
       "Bash(\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\" exec open-webui ls -la /app/backend/data/)",
       "Bash(\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\" exec open-webui ls -la //app//backend//data//)",
       "Bash(\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\" exec open-webui sqlite3 //app//backend//data//webui.db \".tables\")",
-      "Bash(\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\" cp:*)"
+      "Bash(\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\" cp:*)",
+      "I want to allow everything"
     ]
   }
 }
