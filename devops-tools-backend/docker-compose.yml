@@ -56,9 +56,13 @@ services:
       - SPLUNK_TOKEN=${SPLUNK_TOKEN:-}
 
       # Jenkins
-      - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_USERNAME=${JENKINS_USERNAME:-}
-      - JENKINS_PASSWORD=${JENKINS_PASSWORD:-}
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_USERNAME=${JENKINS_USERNAME:-admin}
+      - JENKINS_PASSWORD=${JENKINS_PASSWORD:-admin123}
+
+      # Jenkins Git Server (Gitea - separate from GitLab to avoid dual CI trigger)
+      - JENKINS_GIT_URL=http://gitea-server:3000
+      - JENKINS_GIT_TOKEN=${JENKINS_GIT_TOKEN:-5a2628e0c10773e0d1f4b10429d698037e4d5ae3}
 
       # Debug mode
       - DEBUG=false

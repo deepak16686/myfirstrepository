@@ -52,6 +52,24 @@ Just provide me with a GitLab repository URL and I'll analyze it and create appr
 
 **Example:** "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"`
     },
+    'jenkins-generator': {
+        name: 'Jenkins Pipeline Generator',
+        icon: '🔧',
+        endpoint: '/api/v1/jenkins-pipeline/chat',
+        welcomeMessage: `Hello! I'm your AI DevOps assistant for Jenkins Declarative Pipelines.
+
+I can generate **Jenkinsfile** and **Dockerfile** for any project with a full 9-stage pipeline:
+Compile → Build Image → Test Image → Static Analysis → SonarQube → Trivy Scan → Push Release → Notify → Learn
+
+Just provide a repository URL and I'll analyze it and create the pipeline files.
+
+**Example:** "Generate a pipeline for http://localhost:3002/jenkins-projects/java-springboot-api"
+
+**Commands:**
+- Provide a **URL** to generate a pipeline
+- Say **"commit"** to commit the generated files to the repository
+- Say **"status"** to check Jenkins build status`
+    },
     'github-actions': {
         name: 'GitHub Actions Generator',
         icon: '🐙',
@@ -62,7 +80,7 @@ I can help you generate CI/CD workflows for your Gitea repositories with GitHub 
 
 Just provide me with a Gitea repository URL and I'll analyze it and create appropriate Dockerfile and .github/workflows/ci.yml files for you.
 
-**Example:** "Generate a workflow for http://gitea-server:3000/admin/java-test-project"`
+**Example:** "Generate a workflow for http://localhost:3002/admin/java-test-project"`
     },
     'connectivity-validator': {
         name: 'Tool Connectivity Validator',
@@ -296,7 +314,11 @@ async function sendMessage() {
     const loadingId = addLoadingMessage();
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/chat/`, {
+        // Route to the correct endpoint based on current tool
+        const config = currentTool ? toolConfig[currentTool] : null;
+        const chatEndpoint = (config && config.endpoint) ? config.endpoint : '/api/v1/chat/';
+
+        const response = await fetch(`${API_BASE_URL}${chatEndpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -324,7 +346,7 @@ async function sendMessage() {
         addMessage('assistant', data.message);
 
         // If a pipeline was just committed, start polling for progress
-        if (data.monitoring && data.monitoring.project_id && data.monitoring.branch) {
+        if (data.monitoring && data.monitoring.project_id != null && data.monitoring.branch) {
             startProgressPolling(data.monitoring.project_id, data.monitoring.branch);
         }
 
@@ -482,8 +504,15 @@ function stopProgressPolling() {
 
 async function fetchProgress(projectId, branch) {
     try {
+        // Route to correct progress endpoint based on active tool
+        let progressBase = '/api/v1/pipeline/progress';
+        if (currentTool === 'jenkins-generator') {
+            progressBase = '/api/v1/jenkins-pipeline/progress';
+        } else if (currentTool === 'github-actions') {
+            progressBase = '/api/v1/github-pipeline/progress';
+        }
         const response = await fetch(
-            `${API_BASE_URL}/api/v1/pipeline/progress/${projectId}/${encodeURIComponent(branch)}`
+            `${API_BASE_URL}${progressBase}/${projectId}/${encodeURIComponent(branch)}`
         );
         if (!response.ok) return;
         const data = await response.json();
@@ -753,11 +782,20 @@ async function submitAccessRequest() {
     }
 }
 
+function linkify(text) {
+    // Convert markdown links [text](url) to HTML <a> tags
+    return text
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#3b82f6;">$1</a>')
+        .replace(/\n/g, '<br>');
+}
+
 function buildProgressHTML(data) {
     const icons = {
         'monitoring': '&#9203;',
         'pipeline_running': '&#9654;&#65039;',
+        'build_running': '&#9654;&#65039;',
         'pipeline_failed': '&#10060;',
+        'build_failed': '&#10060;',
         'fixing': '&#128295;',
         'fix_committed': '&#128296;',
         'success': '&#9989;',
@@ -766,7 +804,9 @@ function buildProgressHTML(data) {
     const colors = {
         'monitoring': '#f59e0b',
         'pipeline_running': '#3b82f6',
+        'build_running': '#3b82f6',
         'pipeline_failed': '#ef4444',
+        'build_failed': '#ef4444',
         'fixing': '#f97316',
         'fix_committed': '#8b5cf6',
         'success': '#22c55e',
@@ -780,7 +820,7 @@ function buildProgressHTML(data) {
     html += `<p style="margin:0 0 6px 0;"><strong style="color:${color};">${icon} Pipeline Monitor</strong>`;
     if (data.pipeline_id) html += ` <span style="color:#888;font-size:0.85em;">#${data.pipeline_id}</span>`;
     html += `</p>`;
-    html += `<p style="margin:0 0 4px 0;">${data.current_message}</p>`;
+    html += `<p style="margin:0 0 4px 0;">${linkify(data.current_message)}</p>`;
 
     if (data.attempt > 0 && !data.completed) {
         const pct = Math.round((data.attempt / data.max_attempts) * 100);
@@ -794,7 +834,7 @@ function buildProgressHTML(data) {
         html += '<div style="font-size:0.8em;color:#666;margin-top:4px;max-height:200px;overflow-y:auto;">';
         for (const e of data.events) {
             const eIcon = icons[e.stage] || '';
-            html += `<div style="padding:2px 0;"><code style="color:#999;">${e.timestamp}</code> ${eIcon} ${e.message}</div>`;
+            html += `<div style="padding:2px 0;"><code style="color:#999;">${e.timestamp}</code> ${eIcon} ${linkify(e.message)}</div>`;
         }
         html += '</div></details>';
     }
