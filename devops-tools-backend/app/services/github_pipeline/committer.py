@@ -3,6 +3,7 @@ Git commit operations for GitHub/Gitea repositories.
 
 Handles committing workflow and Dockerfile to repositories via API.
 """
+import base64
 import httpx
 from typing import Dict, Any, Optional
 from datetime import datetime
@@ -30,22 +31,22 @@ async def commit_to_github(
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         branch_name = f"ci-pipeline-{timestamp}"
 
+    api_base = f"{host}/api/v1/repos/{owner}/{repo}"
+
     async with httpx.AsyncClient(timeout=30.0) as client:
         headers = {
-            "Authorization": f"Bearer {github_token}",
-            "Accept": "application/vnd.github+json"
+            "Authorization": f"token {github_token}",
+            "Accept": "application/json",
         }
 
-        # Determine API base path
-        api_base = f"{host}/api/v1/repos/{owner}/{repo}" if "gitea" in host.lower() or host == settings.github_url else f"{host}/repos/{owner}/{repo}"
-
         # Get default branch SHA
+        default_branch = "main"
         branch_response = await client.get(
             f"{api_base}/branches/main",
             headers=headers
         )
         if branch_response.status_code != 200:
-            # Try 'master' as fallback
+            default_branch = "master"
             branch_response = await client.get(
                 f"{api_base}/branches/master",
                 headers=headers
@@ -53,21 +54,22 @@ async def commit_to_github(
 
         if branch_response.status_code == 200:
             branch_data = branch_response.json()
-            base_sha = branch_data["commit"]["sha"]
+            # Gitea uses commit.id, GitHub uses commit.sha
+            base_sha = branch_data["commit"].get("id") or branch_data["commit"].get("sha")
         else:
             return {"success": False, "error": "Could not find default branch"}
 
-        # Create new branch
-        create_ref_response = await client.post(
-            f"{api_base}/git/refs",
+        # Create new branch (Gitea API)
+        create_branch_response = await client.post(
+            f"{api_base}/branches",
             headers=headers,
             json={
-                "ref": f"refs/heads/{branch_name}",
-                "sha": base_sha
+                "new_branch_name": branch_name,
+                "old_branch_name": default_branch
             }
         )
 
-        if create_ref_response.status_code not in [200, 201]:
+        if create_branch_response.status_code not in [200, 201]:
             # Branch might already exist, continue anyway
             pass
 
@@ -79,9 +81,9 @@ async def commit_to_github(
 
         last_commit = None
         for path, content in files_to_commit.items():
-            encoded_content = __import__('base64').b64encode(content.encode('utf-8')).decode('utf-8')
+            encoded_content = base64.b64encode(content.encode("utf-8")).decode("utf-8")
 
-            # Check if file exists
+            # Check if file exists on the branch
             file_response = await client.get(
                 f"{api_base}/contents/{path}",
                 headers=headers,
@@ -91,28 +93,36 @@ async def commit_to_github(
             payload = {
                 "message": commit_message,
                 "content": encoded_content,
-                "branch": branch_name
+                "branch": branch_name,
             }
 
             if file_response.status_code == 200:
-                existing = file_response.json()
-                payload["sha"] = existing["sha"]
+                # File exists — use PUT with SHA to update
+                payload["sha"] = file_response.json()["sha"]
+                resp = await client.put(
+                    f"{api_base}/contents/{path}",
+                    headers=headers,
+                    json=payload,
+                )
+            else:
+                # File doesn't exist — use POST to create
+                resp = await client.post(
+                    f"{api_base}/contents/{path}",
+                    headers=headers,
+                    json=payload,
+                )
 
-            commit_response = await client.put(
-                f"{api_base}/contents/{path}",
-                headers=headers,
-                json=payload
-            )
-
-            if commit_response.status_code in [200, 201]:
-                last_commit = commit_response.json()
+            if resp.status_code in [200, 201]:
+                last_commit = resp.json()
 
         if last_commit:
+            # Use browser-accessible URL for the web link
+            browser_host = host.replace("gitea-server:3000", "localhost:3002")
             return {
                 "success": True,
                 "branch": branch_name,
-                "commit_sha": last_commit.get("commit", {}).get("sha"),
-                "web_url": f"{host}/{owner}/{repo}/tree/{branch_name}"
+                "commit_sha": last_commit.get("commit", {}).get("sha", ""),
+                "web_url": f"{browser_host}/{owner}/{repo}/src/branch/{branch_name}",
             }
 
     return {"success": False, "error": "Failed to commit files"}

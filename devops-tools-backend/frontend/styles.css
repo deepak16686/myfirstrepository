@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+/* Global hidden class - ensures any element with .hidden is invisible */
+.hidden {
+    display: none !important;
+}
+
 :root {
     --primary-color: #ff6b35;
     --primary-dark: #e55a2b;
@@ -926,12 +931,143 @@ body {
     background: var(--primary-dark);
 }
 
+/* ========== Terraform Tag ========== */
+.tag.terraform {
+    background: rgba(98, 71, 170, 0.15);
+    color: #6247aa;
+}
+
+/* ========== Terraform Navigation View ========== */
+.terraform-nav-view {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+    animation: fadeIn 0.3s ease;
+}
+
+.terraform-nav-view.hidden {
+    display: none;
+}
+
+.terraform-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.terraform-breadcrumb .bc-separator {
+    color: #ccc;
+}
+
+.terraform-breadcrumb .bc-item {
+    cursor: pointer;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.terraform-breadcrumb .bc-item:hover {
+    text-decoration: underline;
+}
+
+.terraform-breadcrumb .bc-current {
+    color: var(--text-dark);
+    font-weight: 600;
+    cursor: default;
+}
+
+/* Terraform Provider/Resource Cards */
+.terraform-cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.tf-nav-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    background: var(--card-bg);
+    border: 2px solid #e0e0e0;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tf-nav-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.tf-nav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Provider brand colors */
+.tf-nav-card.provider-vsphere { border-color: #6d8c3c; }
+.tf-nav-card.provider-vsphere::before { background: #6d8c3c; }
+.tf-nav-card.provider-vsphere:hover { box-shadow: 0 8px 24px rgba(109, 140, 60, 0.25); }
+
+.tf-nav-card.provider-azure { border-color: #0078d4; }
+.tf-nav-card.provider-azure::before { background: #0078d4; }
+.tf-nav-card.provider-azure:hover { box-shadow: 0 8px 24px rgba(0, 120, 212, 0.25); }
+
+.tf-nav-card.provider-aws { border-color: #ff9900; }
+.tf-nav-card.provider-aws::before { background: #ff9900; }
+.tf-nav-card.provider-aws:hover { box-shadow: 0 8px 24px rgba(255, 153, 0, 0.25); }
+
+.tf-nav-card.provider-gcp { border-color: #4285f4; }
+.tf-nav-card.provider-gcp::before { background: #4285f4; }
+.tf-nav-card.provider-gcp:hover { box-shadow: 0 8px 24px rgba(66, 133, 244, 0.25); }
+
+/* Resource type cards */
+.tf-nav-card.resource-card { border-color: #6247aa; }
+.tf-nav-card.resource-card::before { background: #6247aa; }
+.tf-nav-card.resource-card:hover { box-shadow: 0 8px 24px rgba(98, 71, 170, 0.2); }
+
+/* Sub-type cards */
+.tf-nav-card.subtype-card { border-color: var(--primary-color); }
+.tf-nav-card.subtype-card::before { background: var(--primary-color); }
+
+.tf-nav-card-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.tf-nav-card-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.tf-nav-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
 /* ========== Responsive Design ========== */
 @media (max-width: 1200px) {
     .cards-container {
         grid-template-columns: repeat(3, 1fr);
     }
     .connectivity-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .terraform-cards-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -942,6 +1078,9 @@ body {
     }
     .connectivity-grid {
         grid-template-columns: 1fr;
+    }
+    .terraform-cards-container {
+        grid-template-columns: repeat(2, 1fr);
     }
     .connectivity-summary {
         flex-wrap: wrap;
@@ -991,6 +1130,10 @@ body {
     }
 
     .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .terraform-cards-container {
         grid-template-columns: 1fr;
     }
 
