@@ -1,0 +1,601 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 6581" width="2400" height="6581" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<defs>
+<marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+  <polygon points="0 0, 10 3.5, 0 7" fill="#00d4aa"/>
+</marker>
+<marker id="arrow-green-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+  <polygon points="10 0, 0 3.5, 10 7" fill="#00d4aa"/>
+</marker>
+<marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+  <polygon points="0 0, 10 3.5, 0 7" fill="#ff6b35"/>
+</marker>
+<marker id="arrow-orange-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+  <polygon points="10 0, 0 3.5, 10 7" fill="#ff6b35"/>
+</marker>
+<marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+  <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444"/>
+</marker>
+<marker id="arrow-red-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+  <polygon points="10 0, 0 3.5, 10 7" fill="#ef4444"/>
+</marker>
+<marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+  <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+</marker>
+<marker id="arrow-gray-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+  <polygon points="10 0, 0 3.5, 10 7" fill="#64748b"/>
+</marker>
+<marker id="arrow-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+  <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+</marker>
+<marker id="arrow-amber-rev" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+  <polygon points="10 0, 0 3.5, 10 7" fill="#d97706"/>
+</marker>
+<filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00d4aa" flood-opacity="0.5"/>
+</filter>
+<filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ff6b35" flood-opacity="0.5"/>
+</filter>
+<filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+  <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.4"/>
+</filter>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a3e" stroke-width="0.5" opacity="0.3"/>
+</pattern>
+</defs>
+<rect width="2400" height="6581" fill="#0f0f23"/>
+<rect width="2400" height="6581" fill="url(#grid)"/>
+<rect x="0" y="0" width="2400" height="120" fill="rgba(15,15,35,0.95)" stroke="#00d4aa" stroke-width="0" />
+<line x1="0" y1="120" x2="2400" y2="120" stroke="#00d4aa" stroke-width="1" opacity="0.4"/>
+<text x="1200" y="42" fill="#ffffff" font-size="26" font-weight="700" text-anchor="middle">GitHub Actions Pipeline Chat Interface - Complete Request Flow</text>
+<text x="1200" y="68" fill="#94a3b8" font-size="14" font-weight="400" text-anchor="middle">AI DevOps Platform  |  Sequence Diagram  |  14 Participants  |  103 Steps  |  10 Phases</text>
+<text x="1200" y="90" fill="#64748b" font-size="12" font-weight="400" text-anchor="middle">FastAPI + Ollama/Claude + Gitea + ChromaDB + Nexus + Reinforcement Learning + Self-Healing</text>
+<text x="1200" y="110" fill="#64748b" font-size="11" font-weight="400" text-anchor="middle" font-family="monospace">POST /api/v1/github-pipeline/chat</text>
+<rect x="34.0" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="113.57142857142857" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">User/Browser</text>
+<text x="113.57142857142857" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">Frontend app.js</text>
+<circle cx="46.0" cy="152" r="9" fill="#6366f1" opacity="0.8"/>
+<text x="46.0" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">1</text>
+<rect x="201.14285714285717" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="280.7142857142857" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Backend Router</text>
+<text x="280.7142857142857" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">github_pipeline.py /chat</text>
+<circle cx="213.14285714285717" cy="152" r="9" fill="#8b5cf6" opacity="0.8"/>
+<text x="213.14285714285717" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">2</text>
+<rect x="368.2857142857143" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#a855f7" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="447.85714285714283" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Generator</text>
+<text x="447.85714285714283" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">generator.py facade</text>
+<circle cx="380.2857142857143" cy="152" r="9" fill="#a855f7" opacity="0.8"/>
+<text x="380.2857142857143" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">3</text>
+<rect x="535.4285714285714" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#7c3aed" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="615.0" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Analyzer</text>
+<text x="615.0" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">analyzer.py</text>
+<circle cx="547.4285714285714" cy="152" r="9" fill="#7c3aed" opacity="0.8"/>
+<text x="547.4285714285714" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">4</text>
+<rect x="702.5714285714286" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="782.1428571428571" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Gitea API</text>
+<text x="782.1428571428571" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">External Service</text>
+<circle cx="714.5714285714286" cy="152" r="9" fill="#0ea5e9" opacity="0.8"/>
+<text x="714.5714285714286" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">5</text>
+<rect x="869.7142857142857" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#06b6d4" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="949.2857142857142" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">ChromaDB</text>
+<text x="949.2857142857142" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">Template Storage</text>
+<circle cx="881.7142857142857" cy="152" r="9" fill="#06b6d4" opacity="0.8"/>
+<text x="881.7142857142857" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">6</text>
+<rect x="1036.857142857143" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1116.4285714285716" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">LLM</text>
+<text x="1116.4285714285716" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">Ollama / Claude</text>
+<circle cx="1048.857142857143" cy="152" r="9" fill="#f59e0b" opacity="0.8"/>
+<text x="1048.857142857143" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">7</text>
+<rect x="1204.0" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1283.5714285714287" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Validator</text>
+<text x="1283.5714285714287" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">validator.py</text>
+<circle cx="1216.0" cy="152" r="9" fill="#10b981" opacity="0.8"/>
+<text x="1216.0" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">8</text>
+<rect x="1371.142857142857" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#14b8a6" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1450.7142857142858" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Image Seeder</text>
+<text x="1450.7142857142858" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">image_seeder.py</text>
+<circle cx="1383.142857142857" cy="152" r="9" fill="#14b8a6" opacity="0.8"/>
+<text x="1383.142857142857" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">9</text>
+<rect x="1538.2857142857142" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#0d9488" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1617.857142857143" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Nexus Registry</text>
+<text x="1617.857142857143" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">External Service</text>
+<circle cx="1550.2857142857142" cy="152" r="9" fill="#0d9488" opacity="0.8"/>
+<text x="1550.2857142857142" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">10</text>
+<rect x="1705.4285714285713" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1785.0" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Committer</text>
+<text x="1785.0" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">committer.py</text>
+<circle cx="1717.4285714285713" cy="152" r="9" fill="#3b82f6" opacity="0.8"/>
+<text x="1717.4285714285713" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">11</text>
+<rect x="1872.5714285714284" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#f97316" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1952.142857142857" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Monitor</text>
+<text x="1952.142857142857" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">Background Task</text>
+<circle cx="1884.5714285714284" cy="152" r="9" fill="#f97316" opacity="0.8"/>
+<text x="1884.5714285714284" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">12</text>
+<rect x="2039.7142857142856" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="2119.285714285714" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">LLM Fixer</text>
+<text x="2119.285714285714" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">github_llm_fixer.py</text>
+<circle cx="2051.7142857142853" cy="152" r="9" fill="#ef4444" opacity="0.8"/>
+<text x="2051.7142857142853" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">13</text>
+<rect x="2206.8571428571427" y="140" width="159.14285714285714" height="70" rx="6" fill="rgba(26,26,46,0.95)" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="2286.428571428571" y="168" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">Learning</text>
+<text x="2286.428571428571" y="185" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle">learning.py</text>
+<circle cx="2218.8571428571427" cy="152" r="9" fill="#22c55e" opacity="0.8"/>
+<text x="2218.8571428571427" y="156" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">14</text>
+<line x1="113.57142857142857" y1="220" x2="113.57142857142857" y2="6441" stroke="#6366f1" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="280.7142857142857" y1="220" x2="280.7142857142857" y2="6441" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="447.85714285714283" y1="220" x2="447.85714285714283" y2="6441" stroke="#a855f7" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="615.0" y1="220" x2="615.0" y2="6441" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="782.1428571428571" y1="220" x2="782.1428571428571" y2="6441" stroke="#0ea5e9" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="949.2857142857142" y1="220" x2="949.2857142857142" y2="6441" stroke="#06b6d4" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="1116.4285714285716" y1="220" x2="1116.4285714285716" y2="6441" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="1283.5714285714287" y1="220" x2="1283.5714285714287" y2="6441" stroke="#10b981" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="1450.7142857142858" y1="220" x2="1450.7142857142858" y2="6441" stroke="#14b8a6" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="1617.857142857143" y1="220" x2="1617.857142857143" y2="6441" stroke="#0d9488" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="1785.0" y1="220" x2="1785.0" y2="6441" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="1952.142857142857" y1="220" x2="1952.142857142857" y2="6441" stroke="#f97316" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="2119.285714285714" y1="220" x2="2119.285714285714" y2="6441" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<line x1="2286.428571428571" y1="220" x2="2286.428571428571" y2="6441" stroke="#22c55e" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+<rect x="30" y="250" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="270" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 1: REPOSITORY ANALYSIS</text>
+<circle cx="28" cy="295" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="299" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">1</text>
+<line x1="117.57142857142857" y1="295" x2="276.7142857142857" y2="295" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="197.14285714285714" y="288" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /chat {message: rep...</text>
+<circle cx="28" cy="347" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="351" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">2</text>
+<path d="M 286.7142857142857 343 L 305.7142857142857 343 L 305.7142857142857 351 L 286.7142857142857 351" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="315.7142857142857" y="340" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">_extract_url() -&gt; _to_internal_url()</text>
+<circle cx="28" cy="399" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="403" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">3</text>
+<line x1="284.7142857142857" y1="399" x2="443.85714285714283" y2="399" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="364.2857142857143" y="392" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">generate_with_validation...</text>
+<circle cx="28" cy="451" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="455" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">4</text>
+<path d="M 453.85714285714283 447 L 472.85714285714283 447 L 472.85714285714283 455 L 453.85714285714283 455" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="482.85714285714283" y="444" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">generate_workflow_files()</text>
+<circle cx="28" cy="503" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="507" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">5</text>
+<line x1="451.85714285714283" y1="503" x2="611.0" y2="503" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="531.4285714285714" y="496" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">analyze_repository(repo_...</text>
+<circle cx="28" cy="555" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="559" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">6</text>
+<path d="M 621.0 551 L 640.0 551 L 640.0 559 L 621.0 559" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="650.0" y="548" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">parse_github_url() -&gt; owner/repo/host</text>
+<circle cx="28" cy="607" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="611" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">7</text>
+<line x1="619.0" y1="607" x2="778.1428571428571" y2="607" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="600" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/{owner}/{repo}</text>
+<circle cx="28" cy="659" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="663" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">8</text>
+<line x1="778.1428571428571" y1="659" x2="619.0" y2="659" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="652" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">{default_branch: &apos;main&apos;,...</text>
+<circle cx="28" cy="711" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="715" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">9</text>
+<line x1="619.0" y1="711" x2="778.1428571428571" y2="711" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="704" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/{owner}/{repo...</text>
+<circle cx="28" cy="763" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="767" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">10</text>
+<line x1="778.1428571428571" y1="763" x2="619.0" y2="763" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="756" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">[&apos;pom.xml&apos;, &apos;src/&apos;, &apos;REA...</text>
+<circle cx="28" cy="815" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="819" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">11</text>
+<path d="M 621.0 811 L 640.0 811 L 640.0 819 L 621.0 819" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="650.0" y="808" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">detect: lang=java, framework=spring, pm=maven</text>
+<circle cx="28" cy="867" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="871" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">12</text>
+<line x1="611.0" y1="867" x2="451.85714285714283" y2="867" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="531.4285714285714" y="860" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">return analysis</text>
+<rect x="30" y="949" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="969" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 2: TEMPLATE LOOKUP (ChromaDB RAG)</text>
+<circle cx="28" cy="994" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="998" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">13</text>
+<path d="M 453.85714285714283 990 L 472.85714285714283 990 L 472.85714285714283 998 L 453.85714285714283 998" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="482.85714285714283" y="987" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">get_best_template_files(&apos;java&apos;, &apos;spring&apos;)</text>
+<circle cx="28" cy="1046" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1050" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">14</text>
+<line x1="451.85714285714283" y1="1046" x2="945.2857142857142" y2="1046" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="1039" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST collections/github_actions_successful_pipelines/get</text>
+<circle cx="28" cy="1098" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1102" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">15</text>
+<line x1="945.2857142857142" y1="1098" x2="451.85714285714283" y2="1098" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="1091" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">matching templates (or empty)</text>
+<circle cx="28" cy="1150" r="11" fill="#d97706" opacity="0.85"/>
+<text x="28" y="1154" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">16</text>
+<path d="M 453.85714285714283 1146 L 472.85714285714283 1146 L 472.85714285714283 1154 L 453.85714285714283 1154" fill="none" stroke="#d97706" stroke-width="1.5" opacity="1" marker-end="url(#arrow-amber)"/>
+<text x="482.85714285714283" y="1143" fill="#d97706" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">DECISION: Template found? -&gt; skip to validation</text>
+<rect x="30" y="1232" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="1252" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 3: LLM GENERATION (if no ChromaDB template)</text>
+<circle cx="28" cy="1277" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1281" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">17</text>
+<path d="M 453.85714285714283 1273 L 472.85714285714283 1273 L 472.85714285714283 1281 L 453.85714285714283 1281" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="482.85714285714283" y="1270" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">get_reference_workflow(&apos;java&apos;, &apos;spring&apos;)</text>
+<circle cx="28" cy="1329" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1333" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">18</text>
+<line x1="451.85714285714283" y1="1329" x2="945.2857142857142" y2="1329" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="1322" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST collections/github_actions_templates/get</text>
+<circle cx="28" cy="1381" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1385" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">19</text>
+<line x1="945.2857142857142" y1="1381" x2="451.85714285714283" y2="1381" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="698.5714285714286" y="1374" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">reference workflow or null</text>
+<circle cx="28" cy="1433" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1437" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">20</text>
+<path d="M 453.85714285714283 1429 L 472.85714285714283 1429 L 472.85714285714283 1437 L 453.85714285714283 1437" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="482.85714285714283" y="1426" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">_generate_with_llm(analysis, reference, context)</text>
+<circle cx="28" cy="1485" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1489" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">21</text>
+<line x1="451.85714285714283" y1="1485" x2="1112.4285714285716" y2="1485" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="782.1428571428572" y="1478" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /api/generate {prompt: lang+framework+rules+nexus}</text>
+<circle cx="28" cy="1537" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1541" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">22</text>
+<line x1="1112.4285714285716" y1="1537" x2="451.85714285714283" y2="1537" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="782.1428571428572" y="1530" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">---DOCKERFILE--- ... ---GITHUB_ACTIONS--- ... ---END---</text>
+<circle cx="28" cy="1589" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1593" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">23</text>
+<path d="M 453.85714285714283 1585 L 472.85714285714283 1585 L 472.85714285714283 1593 L 453.85714285714283 1593" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="482.85714285714283" y="1582" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">_parse_llm_output() -&gt; extract workflow + dockerfile</text>
+<circle cx="28" cy="1641" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1645" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">24</text>
+<line x1="451.85714285714283" y1="1641" x2="1279.5714285714287" y2="1641" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="865.7142857142858" y="1634" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">_validate_and_fix_workflow() + _validate_and_fix_dockerfile()</text>
+<circle cx="28" cy="1693" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1697" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">25</text>
+<line x1="1279.5714285714287" y1="1693" x2="451.85714285714283" y2="1693" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="865.7142857142858" y="1686" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">parse YAML, ensure env vars, self-hosted runners, on:true fix</text>
+<circle cx="28" cy="1745" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1749" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">26</text>
+<path d="M 453.85714285714283 1741 L 472.85714285714283 1741 L 472.85714285714283 1749 L 453.85714285714283 1749" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="482.85714285714283" y="1738" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">_ensure_learn_job() -&gt; add learn-record job if missing</text>
+<rect x="30" y="1827" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="1847" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 4: ITERATIVE LLM VALIDATION</text>
+<circle cx="28" cy="1872" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1876" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">27</text>
+<line x1="451.85714285714283" y1="1872" x2="2115.285714285714" y2="1872" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="1865" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">iterative_fix(workflow, dockerfile, analysis, max=10)</text>
+<circle cx="28" cy="1924" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1928" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">28</text>
+<path d="M 2125.285714285714 1920 L 2144.285714285714 1920 L 2144.285714285714 1928 L 2125.285714285714 1928" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="2154.285714285714" y="1917" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">_validate_workflow() -&gt; text checks: on...</text>
+<circle cx="28" cy="1976" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="1980" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">29</text>
+<path d="M 2125.285714285714 1972 L 2144.285714285714 1972 L 2144.285714285714 1980 L 2125.285714285714 1980" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="2154.285714285714" y="1969" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">If errors -&gt; fix_pipeline(workflow, doc...</text>
+<circle cx="28" cy="2028" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2032" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">30</text>
+<line x1="2115.285714285714" y1="2028" x2="1120.4285714285716" y2="2028" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1617.857142857143" y="2021" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /api/generate {fix prompt + errors + rules + images}</text>
+<circle cx="28" cy="2080" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2084" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">31</text>
+<line x1="1120.4285714285716" y1="2080" x2="2115.285714285714" y2="2080" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1617.857142857143" y="2073" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">fixed workflow + dockerfile</text>
+<circle cx="28" cy="2132" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2136" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">32</text>
+<path d="M 2125.285714285714 2128 L 2144.285714285714 2128 L 2144.285714285714 2136 L 2125.285714285714 2136" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="2154.285714285714" y="2125" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">parse + strip code fences -&gt; updated files</text>
+<circle cx="28" cy="2184" r="11" fill="#d97706" opacity="0.85"/>
+<text x="28" y="2188" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">33</text>
+<path d="M 2125.285714285714 2180 L 2144.285714285714 2180 L 2144.285714285714 2188 L 2125.285714285714 2188" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-amber)"/>
+<text x="2154.285714285714" y="2177" fill="#d97706" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">LOOP back to step 28 until valid or max...</text>
+<circle cx="28" cy="2236" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2240" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">34</text>
+<line x1="2115.285714285714" y1="2236" x2="451.85714285714283" y2="2236" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="2229" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">{success, workflow, dockerfile, attempts, fix_history}</text>
+<rect x="30" y="2318" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="2338" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 5: NEXUS IMAGE SEEDING</text>
+<circle cx="28" cy="2363" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2367" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">35</text>
+<line x1="451.85714285714283" y1="2363" x2="1446.7142857142858" y2="2363" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="949.2857142857143" y="2356" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">ensure_images_in_nexus(workflow)</text>
+<circle cx="28" cy="2415" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2419" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">36</text>
+<path d="M 1456.7142857142858 2411 L 1475.7142857142858 2411 L 1475.7142857142858 2419 L 1456.7142857142858 2419" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1485.7142857142858" y="2408" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">extract_workflow_images() -&gt; regex parse image refs</text>
+<circle cx="28" cy="2467" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2471" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">37</text>
+<line x1="1454.7142857142858" y1="2467" x2="1613.857142857143" y2="2467" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1534.2857142857142" y="2460" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /v2/apm-repo/demo/{i...</text>
+<circle cx="28" cy="2519" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2523" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">38</text>
+<line x1="1613.857142857143" y1="2519" x2="1454.7142857142858" y2="2519" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1534.2857142857142" y="2512" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">200 (exists) or 404 (mis...</text>
+<circle cx="28" cy="2571" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2575" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">39</text>
+<path d="M 1456.7142857142858 2567 L 1475.7142857142858 2567 L 1475.7142857142858 2575 L 1456.7142857142858 2575" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1485.7142857142858" y="2564" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">If missing: skopeo copy docker.io -&gt; ai-nexus:5001</text>
+<circle cx="28" cy="2623" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2627" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">40</text>
+<line x1="1446.7142857142858" y1="2623" x2="451.85714285714283" y2="2623" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="949.2857142857143" y="2616" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">{seeded: [...], already_exists: [...], failed: [...]}</text>
+<rect x="30" y="2705" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="2725" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 6: RESPONSE TO USER</text>
+<circle cx="28" cy="2750" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2754" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">41</text>
+<line x1="443.85714285714283" y1="2750" x2="284.7142857142857" y2="2750" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="364.2857142857143" y="2743" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">return {success, workflo...</text>
+<circle cx="28" cy="2802" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2806" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">42</text>
+<path d="M 286.7142857142857 2798 L 305.7142857142857 2798 L 305.7142857142857 2806 L 286.7142857142857 2806" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="315.7142857142857" y="2795" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">store _chat_pending[conv_id] = {repo_url, workflow, ...}</text>
+<circle cx="28" cy="2854" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2858" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">43</text>
+<path d="M 286.7142857142857 2850 L 305.7142857142857 2850 L 305.7142857142857 2858 L 286.7142857142857 2858" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="315.7142857142857" y="2847" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">build response: source banner + lang/fw + validation + preview</text>
+<circle cx="28" cy="2906" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2910" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">44</text>
+<line x1="276.7142857142857" y1="2906" x2="117.57142857142857" y2="2906" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="197.14285714285714" y="2899" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">JSON {conversation_id, m...</text>
+<circle cx="28" cy="2958" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="2962" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">45</text>
+<path d="M 119.57142857142857 2954 L 138.57142857142856 2954 L 138.57142857142856 2962 L 119.57142857142857 2962" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="148.57142857142856" y="2951" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">Frontend displays workflow preview to user</text>
+<rect x="30" y="3040" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="3060" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 7: COMMIT TO REPOSITORY</text>
+<circle cx="28" cy="3085" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3089" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">46</text>
+<line x1="117.57142857142857" y1="3085" x2="276.7142857142857" y2="3085" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="197.14285714285714" y="3078" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /chat {message: &apos;co...</text>
+<circle cx="28" cy="3137" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3141" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">47</text>
+<path d="M 286.7142857142857 3133 L 305.7142857142857 3133 L 305.7142857142857 3141 L 286.7142857142857 3141" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="315.7142857142857" y="3130" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">_is_approval(&apos;commit&apos;) -&gt; retrieve _chat_pending[conv_id]</text>
+<circle cx="28" cy="3189" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3193" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">48</text>
+<line x1="284.7142857142857" y1="3189" x2="1781.0" y2="3189" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1032.857142857143" y="3182" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">commit_to_github(repo_url, token, workflow, dockerfile)</text>
+<circle cx="28" cy="3241" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3245" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">49</text>
+<path d="M 1791.0 3237 L 1810.0 3237 L 1810.0 3245 L 1791.0 3245" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1820.0" y="3234" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">parse_github_url() -&gt; owner/repo/host</text>
+<circle cx="28" cy="3293" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3297" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">50</text>
+<path d="M 1791.0 3289 L 1810.0 3289 L 1810.0 3297 L 1791.0 3297" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1820.0" y="3286" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">branch = &apos;ci-pipeline-20260212-HHMMSS&apos;</text>
+<circle cx="28" cy="3345" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3349" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">51</text>
+<line x1="1781.0" y1="3345" x2="786.1428571428571" y2="3345" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3338" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/{owner}/{repo}/branches/main</text>
+<circle cx="28" cy="3397" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3401" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">52</text>
+<line x1="786.1428571428571" y1="3397" x2="1781.0" y2="3397" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3390" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">{commit: {id: &apos;abc123...&apos;}}</text>
+<circle cx="28" cy="3449" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3453" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">53</text>
+<line x1="1781.0" y1="3449" x2="786.1428571428571" y2="3449" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3442" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /repos/{owner}/{repo}/branches {new_branch, old_branch}</text>
+<circle cx="28" cy="3501" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3505" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">54</text>
+<line x1="786.1428571428571" y1="3501" x2="1781.0" y2="3501" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3494" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">201 branch created</text>
+<circle cx="28" cy="3553" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3557" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">55</text>
+<line x1="1781.0" y1="3553" x2="786.1428571428571" y2="3553" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3546" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /contents/.github/workflows/ci.yml?ref=ci-pipeline-...</text>
+<circle cx="28" cy="3605" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3609" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">56</text>
+<line x1="786.1428571428571" y1="3605" x2="1781.0" y2="3605" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3598" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">404 (new file)</text>
+<circle cx="28" cy="3657" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3661" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">57</text>
+<line x1="1781.0" y1="3657" x2="786.1428571428571" y2="3657" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3650" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /contents/.github/workflows/ci.yml {base64, branch}</text>
+<circle cx="28" cy="3709" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3713" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">58</text>
+<line x1="786.1428571428571" y1="3709" x2="1781.0" y2="3709" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3702" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">201 file created</text>
+<circle cx="28" cy="3761" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3765" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">59</text>
+<line x1="1781.0" y1="3761" x2="786.1428571428571" y2="3761" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3754" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /contents/Dockerfile {base64, branch, message}</text>
+<circle cx="28" cy="3813" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3817" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">60</text>
+<line x1="786.1428571428571" y1="3813" x2="1781.0" y2="3813" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1283.5714285714284" y="3806" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">201 file created</text>
+<circle cx="28" cy="3865" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3869" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">61</text>
+<line x1="1781.0" y1="3865" x2="284.7142857142857" y2="3865" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1032.857142857143" y="3858" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">{success, branch, commit_sha, web_url}</text>
+<rect x="30" y="3947" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="3967" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 8: START BACKGROUND MONITORING</text>
+<circle cx="28" cy="3992" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="3996" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">62</text>
+<path d="M 286.7142857142857 3988 L 305.7142857142857 3988 L 305.7142857142857 3996 L 286.7142857142857 3996" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="315.7142857142857" y="3985" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">progress_store.create(project_id, branch, max_attempts=10)</text>
+<circle cx="28" cy="4044" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4048" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">63</text>
+<line x1="284.7142857142857" y1="4044" x2="1948.142857142857" y2="4044" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1116.4285714285713" y="4037" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">background_tasks.add_task(monitor_workflow_for_learning)</text>
+<circle cx="28" cy="4096" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4100" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">64</text>
+<path d="M 286.7142857142857 4092 L 305.7142857142857 4092 L 305.7142857142857 4100 L 286.7142857142857 4100" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="315.7142857142857" y="4089" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">del _chat_pending[conversation_id]</text>
+<circle cx="28" cy="4148" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4152" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">65</text>
+<line x1="276.7142857142857" y1="4148" x2="117.57142857142857" y2="4148" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="197.14285714285714" y="4141" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">JSON {conv_id, message: ...</text>
+<circle cx="28" cy="4200" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4204" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">66</text>
+<line x1="117.57142857142857" y1="4200" x2="276.7142857142857" y2="4200" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="197.14285714285714" y="4193" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">setInterval -&gt; GET /prog...</text>
+<rect x="30" y="4282" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="4302" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 9: BACKGROUND MONITORING (async)</text>
+<circle cx="28" cy="4327" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4331" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">67</text>
+<line x1="1948.142857142857" y1="4327" x2="786.1428571428571" y2="4327" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1367.142857142857" y="4320" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../actions/runs?branch={branch}&amp;limit=10</text>
+<circle cx="28" cy="4379" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4383" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">68</text>
+<line x1="786.1428571428571" y1="4379" x2="1948.142857142857" y2="4379" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1367.142857142857" y="4372" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">{workflow_runs: [...]} with run status</text>
+<circle cx="28" cy="4431" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4435" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">69</text>
+<line x1="1948.142857142857" y1="4431" x2="786.1428571428571" y2="4431" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1367.142857142857" y="4424" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../actions/runs/{run_id}/jobs</text>
+<circle cx="28" cy="4483" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4487" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">70</text>
+<line x1="786.1428571428571" y1="4483" x2="1948.142857142857" y2="4483" stroke="#00d4aa" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-green)"/>
+<text x="1367.142857142857" y="4476" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">job list with status/conclusion per job</text>
+<circle cx="28" cy="4535" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4539" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">71</text>
+<path d="M 1958.142857142857 4531 L 1977.142857142857 4531 L 1977.142857142857 4539 L 1958.142857142857 4539" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1987.142857142857" y="4528" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">update progress_store: job status icons</text>
+<circle cx="28" cy="4587" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4591" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">72</text>
+<line x1="117.57142857142857" y1="4587" x2="276.7142857142857" y2="4587" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="197.14285714285714" y="4580" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">poll GET /progress -&gt; re...</text>
+<rect x="30" y="4669" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="4689" fill="#00d4aa" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 10A: SUCCESS PATH</text>
+<circle cx="28" cy="4714" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4718" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">73</text>
+<path d="M 1958.142857142857 4710 L 1977.142857142857 4710 L 1977.142857142857 4718 L 1958.142857142857 4718" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1987.142857142857" y="4707" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">Gitea run conclusion: &apos;success&apos;</text>
+<circle cx="28" cy="4766" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4770" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">74</text>
+<line x1="1956.142857142857" y1="4766" x2="2282.428571428571" y2="4766" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="2119.285714285714" y="4759" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">rl_record_build_result(repo_url, token, branch, run_id)</text>
+<circle cx="28" cy="4818" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4822" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">75</text>
+<line x1="2282.428571428571" y1="4818" x2="786.1428571428571" y2="4818" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1534.2857142857142" y="4811" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../actions/runs?branch={branch}</text>
+<circle cx="28" cy="4870" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4874" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">76</text>
+<line x1="2282.428571428571" y1="4870" x2="786.1428571428571" y2="4870" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1534.2857142857142" y="4863" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../raw/.github/workflows/ci.yml?ref={branch}</text>
+<circle cx="28" cy="4922" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4926" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">77</text>
+<line x1="2282.428571428571" y1="4922" x2="786.1428571428571" y2="4922" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1534.2857142857142" y="4915" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../raw/Dockerfile?ref={branch}</text>
+<circle cx="28" cy="4974" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="4978" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">78</text>
+<path d="M 2292.428571428571 4970 L 2311.428571428571 4970 L 2311.428571428571 4978 L 2292.428571428571 4978" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="2321.428571428571" y="4967" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">store_suc...</text>
+<circle cx="28" cy="5026" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="5030" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">79</text>
+<line x1="2282.428571428571" y1="5026" x2="953.2857142857142" y2="5026" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1617.8571428571427" y="5019" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /add to github_actions_successful_pipelines</text>
+<circle cx="28" cy="5078" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="5082" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">80</text>
+<path d="M 1958.142857142857 5074 L 1977.142857142857 5074 L 1977.142857142857 5082 L 1958.142857142857 5082" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1987.142857142857" y="5071" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">progress_store.complete -&gt; &apos;Workflow succeeded!&apos;</text>
+<circle cx="28" cy="5130" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="5134" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">81</text>
+<path d="M 119.57142857142857 5126 L 138.57142857142856 5126 L 138.57142857142856 5134 L 119.57142857142857 5134" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="148.57142857142856" y="5123" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">poll -&gt; completed=true -&gt; stop polling -&gt; show success</text>
+<rect x="30" y="5212" width="2340" height="30" rx="4" fill="rgba(26,26,46,0.8)" stroke="#ff6b35" stroke-width="1" opacity="0.9"/>
+<text x="1200" y="5232" fill="#ff6b35" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">PHASE 10B: FAILURE + SELF-HEAL PATH</text>
+<circle cx="28" cy="5257" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5261" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">82</text>
+<path d="M 1958.142857142857 5253 L 1977.142857142857 5253 L 1977.142857142857 5261 L 1958.142857142857 5261" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1987.142857142857" y="5250" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">Gitea run conclusion: &apos;failure&apos;</text>
+<circle cx="28" cy="5309" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5313" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">83</text>
+<path d="M 1958.142857142857 5305 L 1977.142857142857 5305 L 1977.142857142857 5313 L 1958.142857142857 5313" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1987.142857142857" y="5302" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">update progress: &apos;Fetching error logs for self-heal...&apos;</text>
+<circle cx="28" cy="5361" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5365" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">84</text>
+<line x1="1948.142857142857" y1="5361" x2="786.1428571428571" y2="5361" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1367.142857142857" y="5354" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../actions/runs/{run_id}/jobs</text>
+<circle cx="28" cy="5413" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5417" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">85</text>
+<line x1="786.1428571428571" y1="5413" x2="1948.142857142857" y2="5413" stroke="#ff6b35" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-orange)"/>
+<text x="1367.142857142857" y="5406" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">job with conclusion=&apos;failure&apos;, job_id, job_name</text>
+<circle cx="28" cy="5465" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5469" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">86</text>
+<line x1="1948.142857142857" y1="5465" x2="786.1428571428571" y2="5465" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1367.142857142857" y="5458" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /repos/.../actions/jobs/{job_id}/logs</text>
+<circle cx="28" cy="5517" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5521" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">87</text>
+<line x1="786.1428571428571" y1="5517" x2="1948.142857142857" y2="5517" stroke="#ff6b35" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-orange)"/>
+<text x="1367.142857142857" y="5510" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">raw log text (truncated to 8000 chars)</text>
+<circle cx="28" cy="5569" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5573" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">88</text>
+<line x1="1956.142857142857" y1="5569" x2="2115.285714285714" y2="5569" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="2035.7142857142858" y="5562" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">generate_fix(dockerfile,...</text>
+<circle cx="28" cy="5621" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5625" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">89</text>
+<path d="M 2125.285714285714 5617 L 2144.285714285714 5617 L 2144.285714285714 5625 L 2125.285714285714 5625" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="2154.285714285714" y="5614" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">identify_error_type: image_not_found / ...</text>
+<circle cx="28" cy="5673" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5677" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">90</text>
+<path d="M 2125.285714285714 5669 L 2144.285714285714 5669 L 2144.285714285714 5677 L 2125.285714285714 5677" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="2154.285714285714" y="5666" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">extract_key_errors: filter error/failed...</text>
+<circle cx="28" cy="5725" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5729" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">91</text>
+<line x1="2115.285714285714" y1="5725" x2="1120.4285714285716" y2="5725" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1617.857142857143" y="5718" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">POST /api/generate {fix prompt + error log + error type}</text>
+<circle cx="28" cy="5777" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5781" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">92</text>
+<line x1="1120.4285714285716" y1="5777" x2="2115.285714285714" y2="5777" stroke="#ff6b35" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-orange)"/>
+<text x="1617.857142857143" y="5770" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">fixed workflow + dockerfile</text>
+<circle cx="28" cy="5829" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5833" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">93</text>
+<line x1="2115.285714285714" y1="5829" x2="1956.142857142857" y2="5829" stroke="#ff6b35" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-orange)"/>
+<text x="2035.7142857142858" y="5822" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">FixResult {success, work...</text>
+<circle cx="28" cy="5881" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5885" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">94</text>
+<line x1="1948.142857142857" y1="5881" x2="1789.0" y2="5881" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1868.5714285714284" y="5874" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">commit_to_github(fixed_w...</text>
+<circle cx="28" cy="5933" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5937" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">95</text>
+<line x1="1781.0" y1="5933" x2="786.1428571428571" y2="5933" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1283.5714285714284" y="5926" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /contents/ci.yml -&gt; 200 -&gt; PUT with SHA to update</text>
+<circle cx="28" cy="5985" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="5989" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">96</text>
+<line x1="1781.0" y1="5985" x2="786.1428571428571" y2="5985" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1283.5714285714284" y="5978" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="middle" opacity="0.9">GET /contents/Dockerfile -&gt; 200 -&gt; PUT with SHA to update</text>
+<circle cx="28" cy="6037" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="6041" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">97</text>
+<line x1="786.1428571428571" y1="6037" x2="1781.0" y2="6037" stroke="#ff6b35" stroke-width="1.2" stroke-dasharray="6,3" opacity="0.7" marker-end="url(#arrow-orange)"/>
+<text x="1283.5714285714284" y="6030" fill="#94a3b8" font-size="9" font-weight="400" text-anchor="middle" opacity="0.9">files updated -&gt; triggers new workflow run</text>
+<circle cx="28" cy="6089" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="6093" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">98</text>
+<path d="M 1958.142857142857 6085 L 1977.142857142857 6085 L 1977.142857142857 6093 L 1958.142857142857 6093" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1987.142857142857" y="6082" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">update progress: &apos;[Fix 1/10] Re-committed. Monitoring...&apos;</text>
+<circle cx="28" cy="6141" r="11" fill="#d97706" opacity="0.85"/>
+<text x="28" y="6145" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">99</text>
+<path d="M 1958.142857142857 6137 L 1977.142857142857 6137 L 1977.142857142857 6145 L 1958.142857142857 6145" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-amber)"/>
+<text x="1987.142857142857" y="6134" fill="#d97706" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">LOOP back to step 67 (monitor new workflow run)</text>
+<circle cx="28" cy="6193" r="11" fill="#00d4aa" opacity="0.85"/>
+<text x="28" y="6197" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">100</text>
+<path d="M 1958.142857142857 6189 L 1977.142857142857 6189 L 1977.142857142857 6197 L 1958.142857142857 6197" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-green)"/>
+<text x="1987.142857142857" y="6186" fill="#00d4aa" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">If succeeds -&gt; go to step 73 (success path)</text>
+<circle cx="28" cy="6245" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="6249" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">101</text>
+<path d="M 1958.142857142857 6241 L 1977.142857142857 6241 L 1977.142857142857 6249 L 1958.142857142857 6249" fill="none" stroke="#ff6b35" stroke-width="1.5" stroke-dasharray="6,3" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="1987.142857142857" y="6238" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">If fails again &amp; attempts &lt; max -&gt; step 82 (self-heal)</text>
+<circle cx="28" cy="6297" r="11" fill="#ef4444" opacity="0.85"/>
+<text x="28" y="6301" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">102</text>
+<path d="M 1958.142857142857 6293 L 1977.142857142857 6293 L 1977.142857142857 6301 L 1958.142857142857 6301" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="1" marker-end="url(#arrow-red)"/>
+<text x="1987.142857142857" y="6290" fill="#ef4444" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">If max attempts reached -&gt; &apos;Failed after 10 attempts&apos;</text>
+<circle cx="28" cy="6349" r="11" fill="#ff6b35" opacity="0.85"/>
+<text x="28" y="6353" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">103</text>
+<path d="M 119.57142857142857 6345 L 138.57142857142856 6345 L 138.57142857142856 6353 L 119.57142857142857 6353" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="1" marker-end="url(#arrow-orange)"/>
+<text x="148.57142857142856" y="6342" fill="#ff6b35" font-size="9" font-weight="500" text-anchor="start" opacity="0.9">poll -&gt; completed=true -&gt; stop -&gt; show final result</text>
+<rect x="30" y="6441" width="2340" height="100" rx="8" fill="rgba(26,26,46,0.9)" stroke="#64748b" stroke-width="1"/>
+<text x="50" y="6463" fill="#ffffff" font-size="13" font-weight="700">LEGEND</text>
+<line x1="130" y1="6460" x2="165" y2="6460" stroke="#00d4aa" stroke-width="2"/>
+<text x="172" y="6463" fill="#94a3b8" font-size="10" font-weight="400">Happy Path (sync)</text>
+<line x1="340" y1="6460" x2="375" y2="6460" stroke="#00d4aa" stroke-width="2" stroke-dasharray="6,3"/>
+<text x="382" y="6463" fill="#94a3b8" font-size="10" font-weight="400">Return / Async</text>
+<line x1="550" y1="6460" x2="585" y2="6460" stroke="#ff6b35" stroke-width="2"/>
+<text x="592" y="6463" fill="#94a3b8" font-size="10" font-weight="400">Self-Heal Path</text>
+<line x1="760" y1="6460" x2="795" y2="6460" stroke="#ef4444" stroke-width="2"/>
+<text x="802" y="6463" fill="#94a3b8" font-size="10" font-weight="400">Failure / Max Attempts</text>
+<line x1="970" y1="6460" x2="1005" y2="6460" stroke="#d97706" stroke-width="2"/>
+<text x="1012" y="6463" fill="#94a3b8" font-size="10" font-weight="400">Decision / Loop</text>
+<circle cx="60" cy="6491" r="10" fill="#00d4aa" opacity="0.85"/>
+<text x="60" y="6495" fill="#fff" font-size="8" font-weight="700" text-anchor="middle">N</text>
+<text x="76" y="6495" fill="#94a3b8" font-size="10">= Step Number</text>
+<rect x="200" y="6479" width="24" height="24" rx="4" fill="rgba(26,26,46,0.95)" stroke="#6366f1" stroke-width="1.5"/>
+<text x="230" y="6495" fill="#94a3b8" font-size="10">= Participant</text>
+<line x1="350" y1="6491" x2="380" y2="6491" stroke="#6366f1" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+<text x="386" y="6495" fill="#94a3b8" font-size="10">= Lifeline</text>
+<text x="490" y="6495" fill="#94a3b8" font-size="10">Phases: 1-6 Generate &amp; Commit (green) | 7-9 Monitor (green/async) | 10A Success (green) | 10B Self-Heal (orange)</text>
+<text x="50" y="6516" fill="#64748b" font-size="10" font-family="monospace">14 Participants | 103 Steps | 11 Phases | 10 Max Self-Heal Attempts | Poll Interval: 30s (monitor) / 10s (frontend) | Log Truncation: 8000 chars</text>
+<line x1="0" y1="0" x2="40" y2="0" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="0" y1="0" x2="0" y2="40" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="2400" y1="0" x2="2360" y2="0" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="2400" y1="0" x2="2400" y2="40" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="0" y1="6581" x2="40" y2="6581" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="0" y1="6581" x2="0" y2="6541" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="2400" y1="6581" x2="2360" y2="6581" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+<line x1="2400" y1="6581" x2="2400" y2="6541" stroke="#00d4aa" stroke-width="2" opacity="0.3"/>
+</svg>

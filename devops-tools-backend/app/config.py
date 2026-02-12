@@ -82,6 +82,34 @@ class Settings(BaseSettings):
     jenkins_git_url: str = "http://gitea-server:3000"
     jenkins_git_token: Optional[str] = None
 
+    # Terraform Configuration
+    terraform_workspace_dir: str = "/tmp/terraform-workspaces"
+
+    # Terraform Git Server (Gitea - can reuse Jenkins Gitea token)
+    terraform_git_url: str = "http://gitea-server:3000"
+    terraform_git_token: Optional[str] = None
+
+    # Terraform Cloud Credentials (optional - for live terraform plan/apply)
+    # vSphere (On-Prem)
+    terraform_vsphere_server: Optional[str] = None
+    terraform_vsphere_user: Optional[str] = None
+    terraform_vsphere_password: Optional[str] = None
+
+    # Azure
+    terraform_azure_subscription_id: Optional[str] = None
+    terraform_azure_client_id: Optional[str] = None
+    terraform_azure_client_secret: Optional[str] = None
+    terraform_azure_tenant_id: Optional[str] = None
+
+    # AWS
+    terraform_aws_access_key: Optional[str] = None
+    terraform_aws_secret_key: Optional[str] = None
+    terraform_aws_region: str = "us-east-1"
+
+    # GCP
+    terraform_gcp_project: Optional[str] = None
+    terraform_gcp_credentials_file: Optional[str] = None
+
     # Config file path for additional tools
     tools_config_path: str = "/app/config/tools.json"
 

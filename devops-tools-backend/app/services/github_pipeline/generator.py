@@ -58,7 +58,7 @@ class GitHubPipelineGeneratorService:
     FEEDBACK_COLLECTION = FEEDBACK_COLLECTION
     TEMPLATES_COLLECTION = TEMPLATES_COLLECTION
     SUCCESSFUL_PIPELINES_COLLECTION = SUCCESSFUL_PIPELINES_COLLECTION
-    DEFAULT_MODEL = "github-actions-generator-v1"
+    DEFAULT_MODEL = "pipeline-generator-v5"
 
     # Required jobs matching GitLab stages
     REQUIRED_JOBS = [
@@ -199,7 +199,91 @@ class GitHubPipelineGeneratorService:
         """Record successful workflow for RL"""
         return await record_workflow_result(repo_url, github_token, branch, run_id)
 
+    # --- Delegation to parse helper ---
+
+    def parse_repo_url(self, url: str) -> Dict[str, str]:
+        """Alias for parse_github_url for consistency with Jenkins API"""
+        return parse_github_url(url)
+
     # --- Core generation methods (remain in facade) ---
+
+    async def generate_with_validation(
+        self,
+        repo_url: str,
+        github_token: str,
+        model: str = None,
+        max_fix_attempts: int = 10,
+        additional_context: str = "",
+        runner_type: str = "self-hosted"
+    ) -> Dict[str, Any]:
+        """
+        Generate workflow + validate with iterative LLM fixing.
+        Matches Jenkins generate_with_validation pattern.
+        """
+        from app.services.github_llm_fixer import github_llm_fixer
+        from app.services.github_pipeline.image_seeder import ensure_images_in_nexus
+
+        # Step 1: Generate workflow files (uses 3-tier priority)
+        result = await self.generate_workflow_files(
+            repo_url=repo_url,
+            github_token=github_token,
+            additional_context=additional_context,
+            model=model,
+            runner_type=runner_type
+        )
+
+        workflow = result["workflow"]
+        dockerfile = result["dockerfile"]
+        analysis = result["analysis"]
+        model_used = result["model_used"]
+
+        # Step 2: If from proven ChromaDB template, skip validation
+        if model_used == "chromadb-successful":
+            try:
+                await ensure_images_in_nexus(workflow)
+            except Exception as e:
+                print(f"[GitHub Pipeline] Image seeding warning: {e}")
+
+            return {
+                **result,
+                "template_source": "reinforcement_learning",
+                "validation_skipped": True,
+                "validation_passed": True,
+                "fix_attempts": 0,
+                "fix_history": [],
+                "has_warnings": False,
+            }
+
+        # Step 3: Run iterative LLM fixer
+        fix_result = await github_llm_fixer.iterative_fix(
+            workflow=workflow,
+            dockerfile=dockerfile,
+            analysis=analysis,
+            max_attempts=max_fix_attempts,
+            model=model
+        )
+
+        # Step 4: Auto-seed images
+        try:
+            await ensure_images_in_nexus(fix_result["workflow"])
+        except Exception as e:
+            print(f"[GitHub Pipeline] Image seeding warning: {e}")
+
+        return {
+            "success": True,
+            "workflow": fix_result["workflow"],
+            "dockerfile": fix_result["dockerfile"],
+            "analysis": analysis,
+            "model_used": model_used,
+            "feedback_used": result.get("feedback_used", 0),
+            "template_source": None,
+            "validation_skipped": False,
+            "validation_passed": fix_result.get("success", False),
+            "validation_errors": fix_result.get("final_errors", []),
+            "fix_attempts": fix_result.get("attempts", 0),
+            "fix_history": fix_result.get("fix_history", []),
+            "has_warnings": fix_result.get("has_warnings", False),
+        }
 
     async def generate_workflow_files(
         self,
@@ -239,8 +323,11 @@ class GitHubPipelineGeneratorService:
                 "feedback_used": 0
             }
 
-        # Priority 2: Use template only if requested
-        if use_template_only:
+        # Priority 2: Use default template for known languages
+        # Default templates are battle-tested for Gitea Actions.
+        # LLM often generates patterns that break on Gitea (artifact actions, docker/* actions).
+        known_languages = {"java", "python", "javascript", "go"}
+        if use_template_only or language in known_languages:
             workflow = self._get_default_workflow(analysis, runner_type)
             dockerfile = self._get_default_dockerfile(analysis)
             return {
@@ -252,7 +339,7 @@ class GitHubPipelineGeneratorService:
                 "feedback_used": 0
             }
 
-        # Priority 3: Try LLM generation
+        # Priority 3: Try LLM generation (only for unknown languages)
         try:
             reference = await self.get_reference_workflow(language, framework)
             generated = await self._generate_with_llm(
@@ -334,9 +421,15 @@ Project Analysis:
 Requirements:
 - Use Nexus private registry for ALL images: ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/<image>
 - Use self-hosted runners with access to internal network
-- Include all 9 jobs: compile, build-image, test-image, static-analysis, sonarqube, trivy-scan, push-release, notify-success, notify-failure, learn-record
-- Use docker/build-push-action for building images
-- Use actions/upload-artifact and actions/download-artifact for passing artifacts between jobs
+- Include all 10 jobs: compile, build-image, test-image, static-analysis, sonarqube, trivy-scan, push-release, notify-success, notify-failure, learn-record
+- Trigger on push to branches: [main, develop, 'feature/*', 'ci-pipeline-*']
+- IMPORTANT Gitea Actions limitations:
+  - Do NOT use actions/upload-artifact or actions/download-artifact (artifact service is broken on Gitea)
+  - Do NOT use docker/build-push-action, docker/login-action, or docker/setup-buildx-action (not available on Gitea)
+  - Each job must be self-contained (checkout its own code)
+  - Use shell commands for docker: docker login, docker build, docker push
+  - Container jobs use 'container: image:' block and need Node.js-enabled images for actions/checkout@v4
+  - Non-container jobs (build-image, test-image, push-release) use shell docker commands directly
 """
 
         if reference:
@@ -365,7 +458,7 @@ Output format:
             text, re.DOTALL
         )
         if dockerfile_match:
-            result["dockerfile"] = dockerfile_match.group(1).strip()
+            result["dockerfile"] = self._strip_code_fences(dockerfile_match.group(1).strip())
 
         # Extract GitHub Actions workflow
         workflow_match = re.search(
@@ -373,7 +466,7 @@ Output format:
             text, re.DOTALL
         )
         if workflow_match:
-            result["workflow"] = workflow_match.group(1).strip()
+            result["workflow"] = self._strip_code_fences(workflow_match.group(1).strip())
 
         # Also try code block extraction
         if not result.get("workflow"):
@@ -387,3 +480,12 @@ Output format:
                 result["dockerfile"] = docker_match.group(1).strip()
 
         return result if result else None
+
+    @staticmethod
+    def _strip_code_fences(text: str) -> str:
+        """Strip markdown code fences from extracted content."""
+        # Remove opening fence like ```yaml, ```dockerfile, ```
+        text = re.sub(r'^```\w*\s*\n?', '', text)
+        # Remove closing fence
+        text = re.sub(r'\n?```\s*$', '', text)
+        return text.strip()
