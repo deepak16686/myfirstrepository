@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 820" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f3460"/>
+      <stop offset="100%" style="stop-color:#1a1a40"/>
+    </linearGradient>
+    <linearGradient id="ragGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#533483"/>
+      <stop offset="100%" style="stop-color:#3b1f6e"/>
+    </linearGradient>
+    <linearGradient id="infraGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1b4332"/>
+      <stop offset="100%" style="stop-color:#081c15"/>
+    </linearGradient>
+    <linearGradient id="monitorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7f4f24"/>
+      <stop offset="100%" style="stop-color:#582f0e"/>
+    </linearGradient>
+    <linearGradient id="extGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b2737"/>
+      <stop offset="100%" style="stop-color:#4a1728"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4895ef"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#52b788"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e9c46a"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c77dff"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="820" rx="12" fill="#0d1117"/>
+
+  <!-- Title Banner -->
+  <rect x="20" y="15" width="1060" height="50" rx="8" fill="url(#headerGrad)" filter="url(#shadow)"/>
+  <text x="550" y="48" text-anchor="middle" fill="#e0e0e0" font-size="22" font-weight="bold">Legacy Application Modernization Platform — Architecture</text>
+
+  <!-- ===== USER LAYER ===== -->
+  <rect x="400" y="80" width="300" height="52" rx="10" fill="#e76f51" filter="url(#shadow)"/>
+  <text x="550" y="112" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">OpenWebUI — AI Agent Interface</text>
+
+  <!-- Arrow down from OpenWebUI -->
+  <line x1="550" y1="132" x2="550" y2="158" stroke="#4895ef" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- ===== TOOLS LAYER ===== -->
+  <rect x="180" y="160" width="740" height="58" rx="10" fill="#264653" opacity="0.7" filter="url(#shadow)"/>
+  <text x="550" y="182" text-anchor="middle" fill="#a8dadc" font-size="12" font-weight="bold">OPENWEBUI TOOLS</text>
+  <rect x="200" y="192" width="170" height="22" rx="5" fill="#2a9d8f"/>
+  <text x="285" y="207" text-anchor="middle" fill="#fff" font-size="11">Pipeline Generator</text>
+  <rect x="390" y="192" width="170" height="22" rx="5" fill="#2a9d8f"/>
+  <text x="475" y="207" text-anchor="middle" fill="#fff" font-size="11">Project Validator</text>
+  <rect x="580" y="192" width="170" height="22" rx="5" fill="#2a9d8f"/>
+  <text x="665" y="207" text-anchor="middle" fill="#fff" font-size="11">Image Versions</text>
+  <rect x="770" y="192" width="130" height="22" rx="5" fill="#2a9d8f"/>
+  <text x="835" y="207" text-anchor="middle" fill="#fff" font-size="11">GitLab Commit</text>
+
+  <!-- Arrow down from Tools -->
+  <line x1="550" y1="218" x2="550" y2="248" stroke="#4895ef" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- ===== CORE API LAYER ===== -->
+  <rect x="280" y="250" width="540" height="120" rx="10" fill="url(#apiGrad)" filter="url(#shadow)"/>
+  <text x="550" y="275" text-anchor="middle" fill="#90e0ef" font-size="14" font-weight="bold">Legacy Modernization API  (FastAPI)</text>
+
+  <!-- Sub-boxes inside API -->
+  <rect x="300" y="288" width="150" height="34" rx="6" fill="#023e8a" opacity="0.8"/>
+  <text x="375" y="310" text-anchor="middle" fill="#caf0f8" font-size="11">Health Probes</text>
+  <text x="375" y="316" text-anchor="middle" fill="#90e0ef" font-size="8">/health /ready /live</text>
+
+  <rect x="470" y="288" width="150" height="34" rx="6" fill="#023e8a" opacity="0.8"/>
+  <text x="545" y="310" text-anchor="middle" fill="#caf0f8" font-size="11">Analysis Engine</text>
+  <text x="545" y="316" text-anchor="middle" fill="#90e0ef" font-size="8">start / status / list</text>
+
+  <rect x="640" y="288" width="150" height="34" rx="6" fill="#023e8a" opacity="0.8"/>
+  <text x="715" y="310" text-anchor="middle" fill="#caf0f8" font-size="11">Config (Pydantic)</text>
+  <text x="715" y="316" text-anchor="middle" fill="#90e0ef" font-size="8">BaseSettings</text>
+
+  <text x="550" y="358" text-anchor="middle" fill="#64748b" font-size="10">Docker Network: modernization-network</text>
+
+  <!-- ===== RAG-AI SERVICE ===== -->
+  <rect x="30" y="250" width="220" height="120" rx="10" fill="url(#ragGrad)" filter="url(#shadow)"/>
+  <text x="140" y="275" text-anchor="middle" fill="#e0aaff" font-size="14" font-weight="bold">RAG-AI Service</text>
+  <text x="140" y="293" text-anchor="middle" fill="#c77dff" font-size="10">(FastAPI)</text>
+
+  <rect x="45" y="302" width="190" height="20" rx="4" fill="#7b2cbf" opacity="0.6"/>
+  <text x="140" y="316" text-anchor="middle" fill="#f0e6ff" font-size="10">Dockerfile Generation</text>
+  <rect x="45" y="326" width="190" height="20" rx="4" fill="#7b2cbf" opacity="0.6"/>
+  <text x="140" y="340" text-anchor="middle" fill="#f0e6ff" font-size="10">GitLab CI Generation</text>
+  <rect x="45" y="350" width="190" height="20" rx="4" fill="#7b2cbf" opacity="0.6"/>
+  <text x="140" y="364" text-anchor="middle" fill="#f0e6ff" font-size="10">Golden Rule Validation</text>
+
+  <!-- Horizontal arrow RAG <-> API -->
+  <line x1="250" y1="310" x2="278" y2="310" stroke="#c77dff" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+  <!-- ===== DATA / INFRA LAYER ===== -->
+  <rect x="30" y="405" width="1040" height="130" rx="10" fill="url(#infraGrad)" filter="url(#shadow)"/>
+  <text x="550" y="428" text-anchor="middle" fill="#95d5b2" font-size="13" font-weight="bold">Data &amp; Infrastructure Layer</text>
+
+  <!-- Data service boxes -->
+  <rect x="50" y="440" width="140" height="44" rx="7" fill="#2d6a4f"/>
+  <text x="120" y="460" text-anchor="middle" fill="#d8f3dc" font-size="12" font-weight="bold">PostgreSQL</text>
+  <text x="120" y="476" text-anchor="middle" fill="#b7e4c7" font-size="9">Relational DB</text>
+
+  <rect x="210" y="440" width="140" height="44" rx="7" fill="#2d6a4f"/>
+  <text x="280" y="460" text-anchor="middle" fill="#d8f3dc" font-size="12" font-weight="bold">Redis</text>
+  <text x="280" y="476" text-anchor="middle" fill="#b7e4c7" font-size="9">Cache Layer</text>
+
+  <rect x="370" y="440" width="140" height="44" rx="7" fill="#2d6a4f"/>
+  <text x="440" y="460" text-anchor="middle" fill="#d8f3dc" font-size="12" font-weight="bold">ChromaDB</text>
+  <text x="440" y="476" text-anchor="middle" fill="#b7e4c7" font-size="9">Vector Embeddings</text>
+
+  <rect x="530" y="440" width="140" height="44" rx="7" fill="#2d6a4f"/>
+  <text x="600" y="460" text-anchor="middle" fill="#d8f3dc" font-size="12" font-weight="bold">Ollama</text>
+  <text x="600" y="476" text-anchor="middle" fill="#b7e4c7" font-size="9">Local LLM Inference</text>
+
+  <rect x="690" y="440" width="140" height="44" rx="7" fill="#2d6a4f"/>
+  <text x="760" y="460" text-anchor="middle" fill="#d8f3dc" font-size="12" font-weight="bold">MinIO</text>
+  <text x="760" y="476" text-anchor="middle" fill="#b7e4c7" font-size="9">S3 Object Storage</text>
+
+  <rect x="850" y="440" width="200" height="44" rx="7" fill="#2d6a4f"/>
+  <text x="950" y="460" text-anchor="middle" fill="#d8f3dc" font-size="12" font-weight="bold">RAG Corpus</text>
+  <text x="950" y="476" text-anchor="middle" fill="#b7e4c7" font-size="9">Templates &amp; Golden Rules</text>
+
+  <!-- Connection lines from API down to infra -->
+  <line x1="375" y1="370" x2="120" y2="438" stroke="#52b788" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="450" y1="370" x2="280" y2="438" stroke="#52b788" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="520" y1="370" x2="440" y2="438" stroke="#52b788" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="580" y1="370" x2="600" y2="438" stroke="#52b788" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="650" y1="370" x2="760" y2="438" stroke="#52b788" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+
+  <!-- RAG to ChromaDB -->
+  <line x1="140" y1="370" x2="440" y2="438" stroke="#c77dff" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+  <!-- RAG to Corpus -->
+  <line x1="200" y1="370" x2="950" y2="438" stroke="#c77dff" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+
+  <!-- Text: supported stacks -->
+  <text x="550" y="510" text-anchor="middle" fill="#52b788" font-size="10">Supported Stacks: Java  |  Python  |  Node.js</text>
+
+  <!-- ===== EXTERNAL INTEGRATIONS ===== -->
+  <rect x="30" y="555" width="530" height="110" rx="10" fill="url(#extGrad)" filter="url(#shadow)"/>
+  <text x="295" y="578" text-anchor="middle" fill="#ffb3c1" font-size="13" font-weight="bold">External Integrations</text>
+
+  <rect x="50" y="592" width="120" height="42" rx="7" fill="#a4133c"/>
+  <text x="110" y="612" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">SonarQube</text>
+  <text x="110" y="626" text-anchor="middle" fill="#ffccd5" font-size="9">Code Quality</text>
+
+  <rect x="185" y="592" width="120" height="42" rx="7" fill="#a4133c"/>
+  <text x="245" y="612" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">GitLab</text>
+  <text x="245" y="626" text-anchor="middle" fill="#ffccd5" font-size="9">SCM &amp; CI/CD</text>
+
+  <rect x="320" y="592" width="120" height="42" rx="7" fill="#a4133c"/>
+  <text x="380" y="612" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Nexus</text>
+  <text x="380" y="626" text-anchor="middle" fill="#ffccd5" font-size="9">Docker Registry</text>
+
+  <rect x="455" y="592" width="90" height="42" rx="7" fill="#a4133c"/>
+  <text x="500" y="612" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Redmine</text>
+  <text x="500" y="626" text-anchor="middle" fill="#ffccd5" font-size="9">PM Tool</text>
+
+  <!-- Arrow from API to External -->
+  <line x1="430" y1="535" x2="295" y2="553" stroke="#e9c46a" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- ===== MONITORING LAYER ===== -->
+  <rect x="590" y="555" width="480" height="110" rx="10" fill="url(#monitorGrad)" filter="url(#shadow)"/>
+  <text x="830" y="578" text-anchor="middle" fill="#ffe8a3" font-size="13" font-weight="bold">Monitoring &amp; Observability</text>
+
+  <rect x="610" y="592" width="100" height="42" rx="7" fill="#9c6644"/>
+  <text x="660" y="612" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Prometheus</text>
+  <text x="660" y="626" text-anchor="middle" fill="#ffe8a3" font-size="9">Metrics</text>
+
+  <rect x="725" y="592" width="100" height="42" rx="7" fill="#9c6644"/>
+  <text x="775" y="612" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Grafana</text>
+  <text x="775" y="626" text-anchor="middle" fill="#ffe8a3" font-size="9">Dashboards</text>
+
+  <rect x="840" y="592" width="100" height="42" rx="7" fill="#9c6644"/>
+  <text x="890" y="612" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Loki</text>
+  <text x="890" y="626" text-anchor="middle" fill="#ffe8a3" font-size="9">Log Aggregation</text>
+
+  <rect x="955" y="592" width="100" height="42" rx="7" fill="#9c6644"/>
+  <text x="1005" y="612" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Jaeger</text>
+  <text x="1005" y="626" text-anchor="middle" fill="#ffe8a3" font-size="9">Tracing</text>
+
+  <!-- Arrow from API to Monitoring -->
+  <line x1="670" y1="535" x2="830" y2="553" stroke="#e9c46a" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- ===== DATA FLOW LEGEND ===== -->
+  <rect x="30" y="690" width="1040" height="110" rx="10" fill="#161b22" filter="url(#shadow)"/>
+  <text x="550" y="714" text-anchor="middle" fill="#8b949e" font-size="13" font-weight="bold">Data Flow</text>
+
+  <text x="80" y="740" fill="#8b949e" font-size="11" font-weight="bold">1.</text>
+  <text x="98" y="740" fill="#c9d1d9" font-size="11">User initiates analysis via OpenWebUI agent</text>
+
+  <text x="80" y="758" fill="#8b949e" font-size="11" font-weight="bold">2.</text>
+  <text x="98" y="758" fill="#c9d1d9" font-size="11">Agent calls FastAPI (analysis start, health checks)</text>
+
+  <text x="80" y="776" fill="#8b949e" font-size="11" font-weight="bold">3.</text>
+  <text x="98" y="776" fill="#c9d1d9" font-size="11">FastAPI orchestrates with PostgreSQL, Redis, Ollama, ChromaDB</text>
+
+  <text x="550" y="740" fill="#8b949e" font-size="11" font-weight="bold">4.</text>
+  <text x="568" y="740" fill="#c9d1d9" font-size="11">RAG-AI generates Dockerfiles &amp; CI pipelines from templates</text>
+
+  <text x="550" y="758" fill="#8b949e" font-size="11" font-weight="bold">5.</text>
+  <text x="568" y="758" fill="#c9d1d9" font-size="11">Artifacts pushed to GitLab; images stored in Nexus</text>
+
+  <text x="550" y="776" fill="#8b949e" font-size="11" font-weight="bold">6.</text>
+  <text x="568" y="776" fill="#c9d1d9" font-size="11">Prometheus + Grafana + Loki + Jaeger monitor the stack</text>
+
+  <!-- Legend color keys -->
+  <line x1="60" y1="795" x2="90" y2="795" stroke="#4895ef" stroke-width="2.5"/>
+  <text x="95" y="799" fill="#8b949e" font-size="10">API Calls</text>
+  <line x1="190" y1="795" x2="220" y2="795" stroke="#52b788" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="225" y="799" fill="#8b949e" font-size="10">Data Access</text>
+  <line x1="340" y1="795" x2="370" y2="795" stroke="#c77dff" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="375" y="799" fill="#8b949e" font-size="10">RAG Pipeline</text>
+  <line x1="490" y1="795" x2="520" y2="795" stroke="#e9c46a" stroke-width="2"/>
+  <text x="525" y="799" fill="#8b949e" font-size="10">Integration</text>
+</svg>
