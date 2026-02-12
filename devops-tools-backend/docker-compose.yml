@@ -26,7 +26,7 @@ services:
 
       # GitHub/Gitea (free self-hosted GitHub Actions alternative)
       - GITHUB_URL=http://gitea-server:3000
-      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-5a2628e0c10773e0d1f4b10429d698037e4d5ae3}
 
       # ChromaDB
       - CHROMADB_URL=http://chromadb:8000

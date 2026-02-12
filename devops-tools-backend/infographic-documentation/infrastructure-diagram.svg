@@ -1,0 +1,1045 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 2600" width="2200" height="2600">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arrow-orange" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff6b35"/>
+    </marker>
+    <marker id="arrow-white" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e0e0e0"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00d4aa"/>
+    </marker>
+    <marker id="arrow-yellow" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ffd93d"/>
+    </marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4fc3f7"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff4757"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto-start-reverse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#a78bfa"/>
+    </marker>
+
+    <!-- Drop shadow filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="shadow-sm" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ff6b35" flood-opacity="0.6"/>
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#00d4aa" flood-opacity="0.5"/>
+    </filter>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#4fc3f7" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#a78bfa" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow-yellow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ffd93d" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ff4757" flood-opacity="0.4"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="hub-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="title-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6b35"/>
+      <stop offset="50%" stop-color="#ffd93d"/>
+      <stop offset="100%" stop-color="#ff6b35"/>
+    </linearGradient>
+    <linearGradient id="accent-gradient-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6b35" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b35" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="network-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ff6b35" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="network-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4fc3f7" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#4fc3f7" stop-opacity="0.02"/>
+    </linearGradient>
+
+    <!-- Grid pattern for background texture -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-size: 32px; font-weight: 800; fill: url(#title-gradient); letter-spacing: 3px; }
+    .subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 400; fill: #8892a4; letter-spacing: 1.5px; }
+    .section-label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    .node-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #ffffff; }
+    .node-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; font-weight: 400; fill: #b0b8c8; }
+    .node-port { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; font-size: 10px; font-weight: 600; }
+    .node-detail { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10px; font-weight: 400; fill: #8892a4; }
+    .badge-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #ffffff; }
+    .edge-label { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 9px; fill: #8892a4; }
+    .stat-value { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 28px; font-weight: 800; }
+    .stat-label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; font-weight: 500; fill: #8892a4; letter-spacing: 1px; }
+    .legend-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #b0b8c8; }
+    .step-num { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; font-weight: 800; fill: #0f0f23; }
+    .step-label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #e0e0e0; }
+    .stage-text { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 10px; font-weight: 600; }
+    .hub-stat { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 11px; fill: #b0b8c8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="2200" height="2600" fill="#0f0f23" rx="0"/>
+  <rect width="2200" height="2600" fill="url(#grid)"/>
+
+  <!-- Corner accent lines -->
+  <line x1="30" y1="30" x2="130" y2="30" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="30" y1="30" x2="30" y2="130" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="2170" y1="30" x2="2070" y2="30" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="2170" y1="30" x2="2170" y2="130" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="30" y1="2570" x2="130" y2="2570" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="30" y1="2570" x2="30" y2="2470" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="2170" y1="2570" x2="2070" y2="2570" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="2170" y1="2570" x2="2170" y2="2470" stroke="#ff6b35" stroke-width="2" stroke-opacity="0.6"/>
+
+  <!-- ===== TITLE AREA ===== -->
+  <text class="title" x="1100" y="65" text-anchor="middle">AI DEVOPS PLATFORM</text>
+  <rect x="700" y="75" width="800" height="2" fill="url(#accent-gradient-h)" rx="1"/>
+  <text class="subtitle" x="1100" y="96" text-anchor="middle">INFRASTRUCTURE ARCHITECTURE</text>
+  <text style="font-family:'Segoe UI',system-ui,sans-serif;font-size:11px;fill:#5a6377;letter-spacing:1px;" x="1100" y="116" text-anchor="middle">15+ CONTAINERS  /  3 PIPELINE GENERATORS  /  DOCKER COMPOSE ORCHESTRATION</text>
+
+  <!-- ===== DOCKER NETWORK: ai-platform-net (main boundary) ===== -->
+  <rect x="55" y="140" width="2090" height="2310" rx="16" fill="url(#network-gradient-1)" stroke="#ff6b35" stroke-width="1.5" stroke-dasharray="12,6" stroke-opacity="0.35"/>
+  <rect x="70" y="145" width="220" height="24" rx="4" fill="rgba(255,107,53,0.12)"/>
+  <text class="section-label" x="80" y="162" fill="#ff6b35" style="font-size:11px;letter-spacing:2px;">DOCKER: ai-platform-net</text>
+
+  <!-- ===== DOCKER NETWORK: gitlab-net (nested boundary) ===== -->
+  <rect x="80" y="480" width="660" height="440" rx="12" fill="url(#network-gradient-2)" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="8,5" stroke-opacity="0.3"/>
+  <rect x="95" y="486" width="180" height="22" rx="4" fill="rgba(79,195,247,0.12)"/>
+  <text class="section-label" x="105" y="501" fill="#4fc3f7" style="font-size:10px;letter-spacing:2px;">DOCKER: gitlab-net</text>
+
+  <!-- =========================================================== -->
+  <!-- ===== AI / LLM LAYER (top area) ===== -->
+  <!-- =========================================================== -->
+  <g id="ai-layer">
+    <rect x="350" y="165" width="1500" height="50" rx="6" fill="none"/>
+    <text class="section-label" x="1100" y="190" text-anchor="middle" fill="#a78bfa" style="letter-spacing:4px;">AI  /  LLM  LAYER</text>
+
+    <!-- Ollama -->
+    <g id="node-ollama" filter="url(#shadow)">
+      <rect x="370" y="210" width="340" height="130" rx="10" fill="rgba(26,26,46,0.92)" stroke="#a78bfa" stroke-width="2"/>
+      <rect x="370" y="210" width="340" height="32" rx="10" fill="rgba(167,139,250,0.15)"/>
+      <rect x="370" y="230" width="340" height="12" rx="0" fill="rgba(167,139,250,0.15)"/>
+      <circle cx="390" cy="226" r="8" fill="#a78bfa" fill-opacity="0.2" stroke="#a78bfa" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:8px;fill:#a78bfa;font-weight:700;" x="390" y="229" text-anchor="middle">AI</text>
+      <text class="node-title" x="408" y="231">Ollama LLM Server</text>
+      <text class="node-port" x="695" y="231" text-anchor="end" fill="#a78bfa">:11434</text>
+      <text class="node-subtitle" x="385" y="260">Base Model: qwen3:32b (20GB)</text>
+      <text class="node-subtitle" x="385" y="276">Fine-tuned: pipeline-generator-v5</text>
+      <text class="node-subtitle" x="385" y="292">Temperature: 0.2 / JSON mode</text>
+      <text class="node-detail" x="385" y="310">Tool calling, streaming, chat + generate</text>
+      <!-- GPU badge -->
+      <rect x="590" y="305" width="108" height="20" rx="10" fill="rgba(167,139,250,0.2)" stroke="#a78bfa" stroke-width="0.8"/>
+      <text class="badge-text" x="644" y="318" text-anchor="middle" fill="#a78bfa" style="font-size:9px;">GPU Accelerated</text>
+    </g>
+
+    <!-- Claude Code CLI -->
+    <g id="node-claude" filter="url(#shadow)">
+      <rect x="740" y="210" width="340" height="130" rx="10" fill="rgba(26,26,46,0.92)" stroke="#a78bfa" stroke-width="2"/>
+      <rect x="740" y="210" width="340" height="32" rx="10" fill="rgba(167,139,250,0.15)"/>
+      <rect x="740" y="230" width="340" height="12" rx="0" fill="rgba(167,139,250,0.15)"/>
+      <circle cx="760" cy="226" r="8" fill="#a78bfa" fill-opacity="0.2" stroke="#a78bfa" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:8px;fill:#a78bfa;font-weight:700;" x="760" y="229" text-anchor="middle">CL</text>
+      <text class="node-title" x="778" y="231">Claude Code CLI</text>
+      <text class="node-port" x="1065" y="231" text-anchor="end" fill="#a78bfa">Node.js 20</text>
+      <text class="node-subtitle" x="755" y="260">Models: Sonnet / Opus / Haiku</text>
+      <text class="node-subtitle" x="755" y="276">Auth: ~/.claude mount (writable)</text>
+      <text class="node-subtitle" x="755" y="292">Output: JSON {"type":"result",...}</text>
+      <text class="node-detail" x="755" y="310">Anthropic API via CLI wrapper</text>
+      <rect x="960" y="305" width="108" height="20" rx="10" fill="rgba(167,139,250,0.2)" stroke="#a78bfa" stroke-width="0.8"/>
+      <text class="badge-text" x="1014" y="318" text-anchor="middle" fill="#a78bfa" style="font-size:9px;">Cloud API</text>
+    </g>
+
+    <!-- LLM Provider Factory -->
+    <g id="node-llm-factory" filter="url(#shadow-sm)">
+      <rect x="820" y="355" width="180" height="55" rx="8" fill="rgba(26,26,46,0.92)" stroke="#ffd93d" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text class="node-title" x="910" y="378" text-anchor="middle" style="font-size:12px;fill:#ffd93d;">LLM Provider Factory</text>
+      <text class="node-detail" x="910" y="396" text-anchor="middle" fill="#ffd93d" style="font-size:9px;">LLM_PROVIDER env switch</text>
+    </g>
+
+    <!-- ChromaDB -->
+    <g id="node-chromadb" filter="url(#shadow)">
+      <rect x="1110" y="210" width="360" height="130" rx="10" fill="rgba(26,26,46,0.92)" stroke="#a78bfa" stroke-width="2"/>
+      <rect x="1110" y="210" width="360" height="32" rx="10" fill="rgba(167,139,250,0.15)"/>
+      <rect x="1110" y="230" width="360" height="12" rx="0" fill="rgba(167,139,250,0.15)"/>
+      <circle cx="1130" cy="226" r="8" fill="#a78bfa" fill-opacity="0.2" stroke="#a78bfa" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:8px;fill:#a78bfa;font-weight:700;" x="1130" y="229" text-anchor="middle">VD</text>
+      <text class="node-title" x="1148" y="231">ChromaDB (Vector Store)</text>
+      <text class="node-port" x="1455" y="231" text-anchor="end" fill="#a78bfa">:8000</text>
+      <text class="node-subtitle" x="1125" y="258">RAG Template Retrieval Engine</text>
+      <!-- Collection badges -->
+      <rect x="1125" y="268" width="140" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.8"/>
+      <text class="badge-text" x="1195" y="281" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">successful_pipelines</text>
+      <rect x="1275" y="268" width="120" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.8"/>
+      <text class="badge-text" x="1335" y="281" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">pipeline_templates</text>
+      <rect x="1125" y="292" width="120" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.8"/>
+      <text class="badge-text" x="1185" y="305" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">pipeline_feedback</text>
+      <text class="node-detail" x="1125" y="328">Content-hash IDs / Cosine similarity search</text>
+    </g>
+
+    <!-- LLM Factory arrows -->
+    <line x1="580" y1="340" x2="820" y2="375" stroke="#ffd93d" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow-yellow)"/>
+    <line x1="870" y1="340" x2="860" y2="355" stroke="#ffd93d" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow-yellow)"/>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CENTER HUB: DevOps Tools Backend ===== -->
+  <!-- =========================================================== -->
+  <g id="center-hub">
+    <rect x="680" y="450" width="860" height="290" rx="14" fill="url(#hub-gradient)" stroke="#ff6b35" stroke-width="2.5" filter="url(#glow-orange)"/>
+    <!-- Header bar -->
+    <rect x="680" y="450" width="860" height="44" rx="14" fill="rgba(255,107,53,0.15)"/>
+    <rect x="680" y="480" width="860" height="14" rx="0" fill="rgba(255,107,53,0.15)"/>
+    <!-- Icon -->
+    <circle cx="710" cy="472" r="12" fill="#ff6b35" fill-opacity="0.2" stroke="#ff6b35" stroke-width="2"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#ff6b35;font-weight:800;" x="710" y="476" text-anchor="middle">HUB</text>
+    <text class="node-title" x="736" y="477" style="font-size:18px;fill:#ff6b35;">DevOps Tools Backend</text>
+    <text class="node-port" x="1525" y="477" text-anchor="end" fill="#ff6b35" style="font-size:13px;">:8003</text>
+
+    <!-- Tech stack badges -->
+    <rect x="700" y="505" width="75" height="22" rx="11" fill="rgba(255,107,53,0.2)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="737" y="519" text-anchor="middle" fill="#ff6b35" style="font-size:10px;">FastAPI</text>
+    <rect x="785" y="505" width="85" height="22" rx="11" fill="rgba(255,107,53,0.2)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="827" y="519" text-anchor="middle" fill="#ff6b35" style="font-size:10px;">Python 3.11</text>
+    <rect x="880" y="505" width="80" height="22" rx="11" fill="rgba(255,107,53,0.2)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="920" y="519" text-anchor="middle" fill="#ff6b35" style="font-size:10px;">Node.js 20</text>
+    <rect x="970" y="505" width="85" height="22" rx="11" fill="rgba(255,107,53,0.2)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="1012" y="519" text-anchor="middle" fill="#ff6b35" style="font-size:10px;">Claude CLI</text>
+    <rect x="1065" y="505" width="72" height="22" rx="11" fill="rgba(255,107,53,0.2)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="1101" y="519" text-anchor="middle" fill="#ff6b35" style="font-size:10px;">Uvicorn</text>
+
+    <!-- Three columns inside hub -->
+    <!-- Column 1: API Routers -->
+    <rect x="700" y="540" width="260" height="180" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text class="node-title" x="830" y="560" text-anchor="middle" style="font-size:11px;fill:#ff6b35;letter-spacing:1.5px;">11 API ROUTERS</text>
+    <text class="hub-stat" x="715" y="580">pipeline (GitLab CI)</text>
+    <text class="hub-stat" x="715" y="596">jenkins_pipeline</text>
+    <text class="hub-stat" x="715" y="612">github_pipeline</text>
+    <text class="hub-stat" x="715" y="628">chat / learning</text>
+    <text class="hub-stat" x="715" y="644">sonarqube / trivy</text>
+    <text class="hub-stat" x="715" y="660">nexus / splunk</text>
+    <text class="hub-stat" x="715" y="676">jira / health</text>
+    <text class="hub-stat" x="715" y="692">templates / feedback</text>
+
+    <!-- Column 2: Pipeline Generators -->
+    <rect x="978" y="540" width="260" height="180" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text class="node-title" x="1108" y="560" text-anchor="middle" style="font-size:11px;fill:#ff6b35;letter-spacing:1.5px;">3 PIPELINE GENERATORS</text>
+    <rect x="993" y="570" width="230" height="44" rx="6" fill="rgba(255,107,53,0.08)" stroke="#ff6b35" stroke-width="0.6"/>
+    <text class="hub-stat" x="1108" y="588" text-anchor="middle" fill="#ff6b35">GitLab CI Generator</text>
+    <text class="node-detail" x="1108" y="602" text-anchor="middle">app/services/pipeline/</text>
+    <rect x="993" y="620" width="230" height="44" rx="6" fill="rgba(255,107,53,0.08)" stroke="#ff6b35" stroke-width="0.6"/>
+    <text class="hub-stat" x="1108" y="638" text-anchor="middle" fill="#ff6b35">Jenkins Generator</text>
+    <text class="node-detail" x="1108" y="652" text-anchor="middle">app/services/jenkins_pipeline/</text>
+    <rect x="993" y="670" width="230" height="44" rx="6" fill="rgba(255,107,53,0.08)" stroke="#ff6b35" stroke-width="0.6"/>
+    <text class="hub-stat" x="1108" y="688" text-anchor="middle" fill="#ff6b35">GitHub Actions Generator</text>
+    <text class="node-detail" x="1108" y="702" text-anchor="middle">app/services/github_pipeline/</text>
+
+    <!-- Frontend SPA -->
+    <rect x="1260" y="540" width="260" height="180" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text class="node-title" x="1390" y="560" text-anchor="middle" style="font-size:11px;fill:#ff6b35;letter-spacing:1.5px;">FRONTEND SPA</text>
+    <text class="hub-stat" x="1275" y="580">HTML / CSS / JavaScript</text>
+    <text class="hub-stat" x="1275" y="596">Orange-themed UI</text>
+    <text class="hub-stat" x="1275" y="612">Tool-aware routing</text>
+    <text class="hub-stat" x="1275" y="628">Pipeline chat interface</text>
+    <text class="hub-stat" x="1275" y="644">Real-time progress polling</text>
+    <text class="hub-stat" x="1275" y="660">Build status monitoring</text>
+    <text class="hub-stat" x="1275" y="676">11 Integration Clients</text>
+    <text class="hub-stat" x="1275" y="692">static/ served by FastAPI</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== GIT SERVERS (left area) ===== -->
+  <!-- =========================================================== -->
+  <g id="git-servers">
+    <text class="section-label" x="310" y="468" text-anchor="middle" fill="#4fc3f7" style="letter-spacing:4px;">GIT SERVERS</text>
+
+    <!-- GitLab Server -->
+    <g id="node-gitlab" filter="url(#shadow)">
+      <rect x="100" y="520" width="290" height="160" rx="10" fill="rgba(26,26,46,0.92)" stroke="#4fc3f7" stroke-width="2"/>
+      <rect x="100" y="520" width="290" height="32" rx="10" fill="rgba(79,195,247,0.12)"/>
+      <rect x="100" y="540" width="290" height="12" rx="0" fill="rgba(79,195,247,0.12)"/>
+      <circle cx="120" cy="536" r="8" fill="#4fc3f7" fill-opacity="0.2" stroke="#4fc3f7" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#4fc3f7;font-weight:700;" x="120" y="539" text-anchor="middle">GL</text>
+      <text class="node-title" x="138" y="541">GitLab CE Server</text>
+      <text class="node-port" x="375" y="541" text-anchor="end" fill="#4fc3f7">:8929</text>
+      <text class="node-subtitle" x="115" y="570">Self-hosted GitLab instance</text>
+      <text class="node-subtitle" x="115" y="586">GitLab CI pipeline source</text>
+      <text class="node-subtitle" x="115" y="602">Container registry built-in</text>
+      <text class="node-subtitle" x="115" y="618">API: /api/v4 for repo ops</text>
+      <rect x="115" y="636" width="82" height="18" rx="9" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.7"/>
+      <text class="badge-text" x="156" y="649" text-anchor="middle" fill="#4fc3f7" style="font-size:9px;">DinD runners</text>
+      <rect x="205" y="636" width="95" height="18" rx="9" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.7"/>
+      <text class="badge-text" x="252" y="649" text-anchor="middle" fill="#4fc3f7" style="font-size:9px;">gitlab-server DNS</text>
+      <rect x="308" y="636" width="65" height="18" rx="9" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.7"/>
+      <text class="badge-text" x="340" y="649" text-anchor="middle" fill="#4fc3f7" style="font-size:9px;">No internet</text>
+    </g>
+
+    <!-- Gitea Server -->
+    <g id="node-gitea" filter="url(#shadow)">
+      <rect x="100" y="700" width="290" height="190" rx="10" fill="rgba(26,26,46,0.92)" stroke="#4fc3f7" stroke-width="2"/>
+      <rect x="100" y="700" width="290" height="32" rx="10" fill="rgba(79,195,247,0.12)"/>
+      <rect x="100" y="720" width="290" height="12" rx="0" fill="rgba(79,195,247,0.12)"/>
+      <circle cx="120" cy="716" r="8" fill="#4fc3f7" fill-opacity="0.2" stroke="#4fc3f7" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#4fc3f7;font-weight:700;" x="120" y="719" text-anchor="middle">GT</text>
+      <text class="node-title" x="138" y="721">Gitea Server</text>
+      <text class="node-port" x="375" y="721" text-anchor="end" fill="#4fc3f7">:3002-&gt;3000</text>
+      <text class="node-subtitle" x="115" y="750">Lightweight Git hosting</text>
+      <text class="node-subtitle" x="115" y="766">Jenkins + GitHub Actions source</text>
+      <!-- Org badges -->
+      <rect x="115" y="780" width="120" height="20" rx="6" fill="rgba(255,107,53,0.12)" stroke="#ff6b35" stroke-width="0.8"/>
+      <text class="badge-text" x="175" y="794" text-anchor="middle" fill="#ff6b35" style="font-size:9px;">jenkins-projects</text>
+      <rect x="245" y="780" width="130" height="20" rx="6" fill="rgba(0,212,170,0.12)" stroke="#00d4aa" stroke-width="0.8"/>
+      <text class="badge-text" x="310" y="794" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">github-actions</text>
+      <!-- Repos -->
+      <text class="node-detail" x="115" y="818">Repos: java-springboot-api</text>
+      <text class="node-detail" x="115" y="832">python-fastapi-service, nodejs-express-api</text>
+      <text class="node-detail" x="115" y="846">ruby-task-manager, go-web-server, ...</text>
+      <rect x="115" y="855" width="80" height="18" rx="9" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.7"/>
+      <text class="badge-text" x="155" y="868" text-anchor="middle" fill="#4fc3f7" style="font-size:9px;">gitea-server</text>
+      <rect x="203" y="855" width="72" height="18" rx="9" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.7"/>
+      <text class="badge-text" x="239" y="868" text-anchor="middle" fill="#4fc3f7" style="font-size:9px;">REST API</text>
+    </g>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CI/CD ENGINES (right area) ===== -->
+  <!-- =========================================================== -->
+  <g id="cicd-engines">
+    <text class="section-label" x="1790" y="468" text-anchor="middle" fill="#00d4aa" style="letter-spacing:4px;">CI / CD  ENGINES</text>
+
+    <!-- GitLab CI -->
+    <g id="node-gitlab-ci" filter="url(#shadow)">
+      <rect x="1580" y="490" width="340" height="140" rx="10" fill="rgba(26,26,46,0.92)" stroke="#00d4aa" stroke-width="2"/>
+      <rect x="1580" y="490" width="340" height="32" rx="10" fill="rgba(0,212,170,0.12)"/>
+      <rect x="1580" y="510" width="340" height="12" rx="0" fill="rgba(0,212,170,0.12)"/>
+      <circle cx="1600" cy="506" r="8" fill="#00d4aa" fill-opacity="0.2" stroke="#00d4aa" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#00d4aa;font-weight:700;" x="1600" y="509" text-anchor="middle">CI</text>
+      <text class="node-title" x="1618" y="511">GitLab CI</text>
+      <text class="node-port" x="1905" y="511" text-anchor="end" fill="#00d4aa">DinD Runners</text>
+      <text class="node-subtitle" x="1595" y="540">9-stage pipeline execution</text>
+      <text class="node-subtitle" x="1595" y="556">Docker-in-Docker (DinD) isolation</text>
+      <text class="node-subtitle" x="1595" y="572">No internet in runners</text>
+      <text class="node-subtitle" x="1595" y="588">Pre-built images from Nexus</text>
+      <rect x="1595" y="598" width="65" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.7"/>
+      <text class="badge-text" x="1627" y="611" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">9 stages</text>
+      <rect x="1668" y="598" width="100" height="18" rx="9" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.7"/>
+      <text class="badge-text" x="1718" y="611" text-anchor="middle" fill="#ff4757" style="font-size:9px;">network-isolated</text>
+    </g>
+
+    <!-- Jenkins -->
+    <g id="node-jenkins" filter="url(#shadow)">
+      <rect x="1580" y="650" width="340" height="175" rx="10" fill="rgba(26,26,46,0.92)" stroke="#00d4aa" stroke-width="2"/>
+      <rect x="1580" y="650" width="340" height="32" rx="10" fill="rgba(0,212,170,0.12)"/>
+      <rect x="1580" y="670" width="340" height="12" rx="0" fill="rgba(0,212,170,0.12)"/>
+      <circle cx="1600" cy="666" r="8" fill="#00d4aa" fill-opacity="0.2" stroke="#00d4aa" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#00d4aa;font-weight:700;" x="1600" y="669" text-anchor="middle">JK</text>
+      <text class="node-title" x="1618" y="671">Jenkins Master</text>
+      <text class="node-port" x="1905" y="671" text-anchor="end" fill="#00d4aa">:8080/jenkins</text>
+      <text class="node-subtitle" x="1595" y="700">Multibranch pipeline jobs</text>
+      <text class="node-subtitle" x="1595" y="716">Declarative Jenkinsfile</text>
+      <text class="node-subtitle" x="1595" y="732">Gitea SCM integration</text>
+      <text class="node-subtitle" x="1595" y="748">Auth: admin / admin123</text>
+      <!-- Agent badges -->
+      <rect x="1595" y="760" width="90" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.7"/>
+      <text class="badge-text" x="1640" y="773" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">agent-1 (docker)</text>
+      <rect x="1693" y="760" width="90" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.7"/>
+      <text class="badge-text" x="1738" y="773" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">agent-2 (docker)</text>
+      <rect x="1791" y="760" width="90" height="18" rx="9" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.7"/>
+      <text class="badge-text" x="1836" y="773" text-anchor="middle" fill="#00d4aa" style="font-size:9px;">agent-3 (docker)</text>
+      <text class="node-detail" x="1595" y="806">Docker socket mounted / label: docker</text>
+    </g>
+
+    <!-- GitHub Actions -->
+    <g id="node-github-actions" filter="url(#shadow)">
+      <rect x="1580" y="845" width="340" height="110" rx="10" fill="rgba(26,26,46,0.92)" stroke="#00d4aa" stroke-width="2"/>
+      <rect x="1580" y="845" width="340" height="32" rx="10" fill="rgba(0,212,170,0.12)"/>
+      <rect x="1580" y="865" width="340" height="12" rx="0" fill="rgba(0,212,170,0.12)"/>
+      <circle cx="1600" cy="861" r="8" fill="#00d4aa" fill-opacity="0.2" stroke="#00d4aa" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#00d4aa;font-weight:700;" x="1600" y="864" text-anchor="middle">GH</text>
+      <text class="node-title" x="1618" y="866">GitHub Actions</text>
+      <text class="node-port" x="1905" y="866" text-anchor="end" fill="#00d4aa">via Gitea</text>
+      <text class="node-subtitle" x="1595" y="895">Workflow YAML generation</text>
+      <text class="node-subtitle" x="1595" y="911">Gitea github-actions org</text>
+      <text class="node-subtitle" x="1595" y="927">Matrix builds, composite actions</text>
+      <rect x="1595" y="934" width="90" height="16" rx="8" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.7"/>
+      <text class="badge-text" x="1640" y="945" text-anchor="middle" fill="#00d4aa" style="font-size:8px;">.github/workflows</text>
+    </g>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CONNECTION ARROWS: Hub to AI Layer ===== -->
+  <!-- =========================================================== -->
+  <g id="edges-hub-ai">
+    <!-- Hub to Ollama -->
+    <path d="M 830 450 Q 830 420, 620 400 Q 540 390, 540 340" stroke="#a78bfa" stroke-width="1.8" fill="none" marker-end="url(#arrow-purple)" stroke-opacity="0.7"/>
+    <rect x="700" y="418" width="75" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="737" y="429" text-anchor="middle" fill="#a78bfa">:11434</text>
+
+    <!-- Hub to Claude CLI -->
+    <path d="M 1050 450 Q 1050 430, 960 400 Q 920 390, 910 340" stroke="#a78bfa" stroke-width="1.8" fill="none" marker-end="url(#arrow-purple)" stroke-opacity="0.7"/>
+
+    <!-- Hub to ChromaDB -->
+    <path d="M 1250 450 Q 1250 420, 1290 380 Q 1290 360, 1290 340" stroke="#a78bfa" stroke-width="1.8" fill="none" marker-end="url(#arrow-purple)" stroke-opacity="0.7"/>
+    <rect x="1218" y="395" width="50" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="1243" y="406" text-anchor="middle" fill="#a78bfa">:8000</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CONNECTION ARROWS: Hub to Git Servers ===== -->
+  <!-- =========================================================== -->
+  <g id="edges-hub-git">
+    <!-- Hub to GitLab -->
+    <path d="M 680 550 Q 600 550, 500 565 Q 430 575, 390 590" stroke="#4fc3f7" stroke-width="1.8" fill="none" marker-end="url(#arrow-cyan)" stroke-opacity="0.7"/>
+    <rect x="510" y="542" width="55" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="537" y="553" text-anchor="middle" fill="#4fc3f7">:8929</text>
+
+    <!-- Hub to Gitea -->
+    <path d="M 680 680 Q 550 720, 450 755 Q 420 765, 390 775" stroke="#4fc3f7" stroke-width="1.8" fill="none" marker-end="url(#arrow-cyan)" stroke-opacity="0.7"/>
+    <rect x="470" y="718" width="55" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="497" y="729" text-anchor="middle" fill="#4fc3f7">:3002</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CONNECTION ARROWS: Hub to CI/CD ===== -->
+  <!-- =========================================================== -->
+  <g id="edges-hub-cicd">
+    <!-- Hub to GitLab CI -->
+    <path d="M 1540 540 Q 1560 540, 1580 540" stroke="#00d4aa" stroke-width="1.8" fill="none" marker-end="url(#arrow-green)" stroke-opacity="0.7"/>
+
+    <!-- Hub to Jenkins -->
+    <path d="M 1540 660 Q 1555 660, 1568 660 Q 1575 660, 1580 665" stroke="#00d4aa" stroke-width="1.8" fill="none" marker-end="url(#arrow-green)" stroke-opacity="0.7"/>
+    <rect x="1543" y="648" width="35" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="1560" y="659" text-anchor="middle" fill="#00d4aa">:8080</text>
+
+    <!-- Hub to GitHub Actions -->
+    <path d="M 1540 700 Q 1565 750, 1570 830 Q 1575 855, 1580 870" stroke="#00d4aa" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)" stroke-opacity="0.5" stroke-dasharray="5,3"/>
+
+    <!-- GitLab to GitLab CI -->
+    <path d="M 390 560 Q 420 490, 600 480 Q 900 460, 1200 460 Q 1400 460, 1580 500" stroke="#4fc3f7" stroke-width="1.2" fill="none" marker-end="url(#arrow-cyan)" stroke-opacity="0.3" stroke-dasharray="6,4"/>
+
+    <!-- Gitea to Jenkins -->
+    <path d="M 390 800 Q 500 830, 800 870 Q 1100 900, 1400 890 Q 1500 885, 1580 860" stroke="#4fc3f7" stroke-width="1.2" fill="none" marker-end="url(#arrow-cyan)" stroke-opacity="0.3" stroke-dasharray="6,4"/>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== DEVOPS TOOLS (bottom-left area) ===== -->
+  <!-- =========================================================== -->
+  <g id="devops-tools">
+    <text class="section-label" x="470" y="1000" text-anchor="middle" fill="#ffd93d" style="letter-spacing:4px;">DEVOPS  TOOLS</text>
+
+    <!-- SonarQube -->
+    <g id="node-sonarqube" filter="url(#shadow)">
+      <rect x="80" y="1025" width="260" height="105" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ffd93d" stroke-width="2"/>
+      <rect x="80" y="1025" width="260" height="30" rx="10" fill="rgba(255,217,61,0.1)"/>
+      <rect x="80" y="1043" width="260" height="12" rx="0" fill="rgba(255,217,61,0.1)"/>
+      <circle cx="100" cy="1040" r="8" fill="#ffd93d" fill-opacity="0.2" stroke="#ffd93d" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ffd93d;font-weight:700;" x="100" y="1043" text-anchor="middle">SQ</text>
+      <text class="node-title" x="118" y="1045">SonarQube</text>
+      <text class="node-port" x="325" y="1045" text-anchor="end" fill="#ffd93d">:9000</text>
+      <text class="node-subtitle" x="95" y="1070">Code quality analysis</text>
+      <text class="node-subtitle" x="95" y="1086">Coverage, bugs, code smells</text>
+      <text class="node-subtitle" x="95" y="1102">Quality gate enforcement</text>
+      <rect x="95" y="1108" width="70" height="16" rx="8" fill="rgba(255,217,61,0.15)" stroke="#ffd93d" stroke-width="0.6"/>
+      <text class="badge-text" x="130" y="1119" text-anchor="middle" fill="#ffd93d" style="font-size:8px;">Quality Gate</text>
+    </g>
+
+    <!-- Trivy -->
+    <g id="node-trivy" filter="url(#shadow)">
+      <rect x="360" y="1025" width="260" height="105" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ffd93d" stroke-width="2"/>
+      <rect x="360" y="1025" width="260" height="30" rx="10" fill="rgba(255,217,61,0.1)"/>
+      <rect x="360" y="1043" width="260" height="12" rx="0" fill="rgba(255,217,61,0.1)"/>
+      <circle cx="380" cy="1040" r="8" fill="#ffd93d" fill-opacity="0.2" stroke="#ffd93d" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ffd93d;font-weight:700;" x="380" y="1043" text-anchor="middle">TV</text>
+      <text class="node-title" x="398" y="1045">Trivy</text>
+      <text class="node-port" x="605" y="1045" text-anchor="end" fill="#ffd93d">:8083</text>
+      <text class="node-subtitle" x="375" y="1070">Container security scanning</text>
+      <text class="node-subtitle" x="375" y="1086">CVE detection, SBOM</text>
+      <text class="node-subtitle" x="375" y="1102">Image vulnerability analysis</text>
+      <rect x="375" y="1108" width="78" height="16" rx="8" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.6"/>
+      <text class="badge-text" x="414" y="1119" text-anchor="middle" fill="#ff4757" style="font-size:8px;">Security Gate</text>
+    </g>
+
+    <!-- Nexus -->
+    <g id="node-nexus" filter="url(#shadow)">
+      <rect x="80" y="1150" width="260" height="125" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ffd93d" stroke-width="2"/>
+      <rect x="80" y="1150" width="260" height="30" rx="10" fill="rgba(255,217,61,0.1)"/>
+      <rect x="80" y="1168" width="260" height="12" rx="0" fill="rgba(255,217,61,0.1)"/>
+      <circle cx="100" cy="1165" r="8" fill="#ffd93d" fill-opacity="0.2" stroke="#ffd93d" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ffd93d;font-weight:700;" x="100" y="1168" text-anchor="middle">NX</text>
+      <text class="node-title" x="118" y="1170">Nexus Repository</text>
+      <text class="node-port" x="325" y="1170" text-anchor="end" fill="#ffd93d">:5001 / :8081</text>
+      <text class="node-subtitle" x="95" y="1195">Docker registry (port 5001)</text>
+      <text class="node-subtitle" x="95" y="1211">Web UI (port 8081)</text>
+      <text class="node-subtitle" x="95" y="1227">40+ pre-built images cached</text>
+      <rect x="95" y="1238" width="70" height="16" rx="8" fill="rgba(255,217,61,0.15)" stroke="#ffd93d" stroke-width="0.6"/>
+      <text class="badge-text" x="130" y="1249" text-anchor="middle" fill="#ffd93d" style="font-size:8px;">ai-nexus:5001</text>
+      <rect x="173" y="1238" width="85" height="16" rx="8" fill="rgba(255,217,61,0.15)" stroke="#ffd93d" stroke-width="0.6"/>
+      <text class="badge-text" x="215" y="1249" text-anchor="middle" fill="#ffd93d" style="font-size:8px;">localhost:5001</text>
+    </g>
+
+    <!-- Splunk -->
+    <g id="node-splunk" filter="url(#shadow)">
+      <rect x="360" y="1150" width="260" height="105" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ffd93d" stroke-width="2"/>
+      <rect x="360" y="1150" width="260" height="30" rx="10" fill="rgba(255,217,61,0.1)"/>
+      <rect x="360" y="1168" width="260" height="12" rx="0" fill="rgba(255,217,61,0.1)"/>
+      <circle cx="380" cy="1165" r="8" fill="#ffd93d" fill-opacity="0.2" stroke="#ffd93d" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ffd93d;font-weight:700;" x="380" y="1168" text-anchor="middle">SP</text>
+      <text class="node-title" x="398" y="1170">Splunk</text>
+      <text class="node-port" x="605" y="1170" text-anchor="end" fill="#ffd93d">:8088 HEC</text>
+      <text class="node-subtitle" x="375" y="1195">Log aggregation (HEC)</text>
+      <text class="node-subtitle" x="375" y="1211">Pipeline execution logs</text>
+      <text class="node-subtitle" x="375" y="1227">Build status events</text>
+      <rect x="375" y="1235" width="100" height="16" rx="8" fill="rgba(255,217,61,0.15)" stroke="#ffd93d" stroke-width="0.6"/>
+      <text class="badge-text" x="425" y="1246" text-anchor="middle" fill="#ffd93d" style="font-size:8px;">HTTP Event Collector</text>
+    </g>
+
+    <!-- Jira -->
+    <g id="node-jira" filter="url(#shadow)">
+      <rect x="220" y="1295" width="260" height="95" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ffd93d" stroke-width="2"/>
+      <rect x="220" y="1295" width="260" height="30" rx="10" fill="rgba(255,217,61,0.1)"/>
+      <rect x="220" y="1313" width="260" height="12" rx="0" fill="rgba(255,217,61,0.1)"/>
+      <circle cx="240" cy="1310" r="8" fill="#ffd93d" fill-opacity="0.2" stroke="#ffd93d" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ffd93d;font-weight:700;" x="240" y="1313" text-anchor="middle">JR</text>
+      <text class="node-title" x="258" y="1315">Jira</text>
+      <text class="node-port" x="465" y="1315" text-anchor="end" fill="#ffd93d">:8080</text>
+      <text class="node-subtitle" x="235" y="1340">Issue tracking integration</text>
+      <text class="node-subtitle" x="235" y="1356">Pipeline failure tickets</text>
+      <text class="node-subtitle" x="235" y="1372">Build notification webhooks</text>
+    </g>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CONNECTION ARROWS: Hub to DevOps Tools ===== -->
+  <!-- =========================================================== -->
+  <g id="edges-hub-devops">
+    <path d="M 830 740 Q 720 850, 500 950 Q 350 1000, 270 1025" stroke="#ffd93d" stroke-width="1.5" fill="none" marker-end="url(#arrow-yellow)" stroke-opacity="0.5"/>
+    <path d="M 900 740 Q 800 870, 600 960 Q 530 990, 490 1025" stroke="#ffd93d" stroke-width="1.5" fill="none" marker-end="url(#arrow-yellow)" stroke-opacity="0.5"/>
+    <path d="M 770 740 Q 630 900, 400 1050 Q 300 1100, 250 1150" stroke="#ffd93d" stroke-width="1.5" fill="none" marker-end="url(#arrow-yellow)" stroke-opacity="0.5"/>
+    <path d="M 870 740 Q 750 920, 580 1060 Q 520 1110, 490 1150" stroke="#ffd93d" stroke-width="1.5" fill="none" marker-end="url(#arrow-yellow)" stroke-opacity="0.5"/>
+    <path d="M 830 740 Q 700 950, 530 1150 Q 430 1240, 380 1295" stroke="#ffd93d" stroke-width="1.3" fill="none" marker-end="url(#arrow-yellow)" stroke-opacity="0.4"/>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== DATA STORES (bottom-right area) ===== -->
+  <!-- =========================================================== -->
+  <g id="data-stores">
+    <text class="section-label" x="1750" y="1000" text-anchor="middle" fill="#ff4757" style="letter-spacing:4px;">DATA  STORES</text>
+
+    <!-- Redis -->
+    <g id="node-redis" filter="url(#shadow)">
+      <rect x="1600" y="1025" width="300" height="105" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ff4757" stroke-width="2"/>
+      <rect x="1600" y="1025" width="300" height="30" rx="10" fill="rgba(255,71,87,0.1)"/>
+      <rect x="1600" y="1043" width="300" height="12" rx="0" fill="rgba(255,71,87,0.1)"/>
+      <circle cx="1620" cy="1040" r="8" fill="#ff4757" fill-opacity="0.2" stroke="#ff4757" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ff4757;font-weight:700;" x="1620" y="1043" text-anchor="middle">RD</text>
+      <text class="node-title" x="1638" y="1045">Redis</text>
+      <text class="node-port" x="1885" y="1045" text-anchor="end" fill="#ff4757">:6379</text>
+      <text class="node-subtitle" x="1615" y="1070">In-memory cache</text>
+      <text class="node-subtitle" x="1615" y="1086">Pipeline progress tracking</text>
+      <text class="node-subtitle" x="1615" y="1102">Session state, rate limiting</text>
+      <rect x="1615" y="1108" width="55" height="16" rx="8" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.6"/>
+      <text class="badge-text" x="1642" y="1119" text-anchor="middle" fill="#ff4757" style="font-size:8px;">Key-Value</text>
+      <rect x="1678" y="1108" width="55" height="16" rx="8" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.6"/>
+      <text class="badge-text" x="1705" y="1119" text-anchor="middle" fill="#ff4757" style="font-size:8px;">Pub/Sub</text>
+    </g>
+
+    <!-- PostgreSQL -->
+    <g id="node-postgres" filter="url(#shadow)">
+      <rect x="1600" y="1150" width="300" height="105" rx="10" fill="rgba(26,26,46,0.92)" stroke="#ff4757" stroke-width="2"/>
+      <rect x="1600" y="1150" width="300" height="30" rx="10" fill="rgba(255,71,87,0.1)"/>
+      <rect x="1600" y="1168" width="300" height="12" rx="0" fill="rgba(255,71,87,0.1)"/>
+      <circle cx="1620" cy="1165" r="8" fill="#ff4757" fill-opacity="0.2" stroke="#ff4757" stroke-width="1.5"/>
+      <text style="font-family:'Cascadia Code',monospace;font-size:7px;fill:#ff4757;font-weight:700;" x="1620" y="1168" text-anchor="middle">PG</text>
+      <text class="node-title" x="1638" y="1170">PostgreSQL</text>
+      <text class="node-port" x="1885" y="1170" text-anchor="end" fill="#ff4757">:5432</text>
+      <text class="node-subtitle" x="1615" y="1195">Relational database</text>
+      <text class="node-subtitle" x="1615" y="1211">SonarQube backend store</text>
+      <text class="node-subtitle" x="1615" y="1227">Jira data persistence</text>
+      <rect x="1615" y="1235" width="60" height="16" rx="8" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.6"/>
+      <text class="badge-text" x="1645" y="1246" text-anchor="middle" fill="#ff4757" style="font-size:8px;">ACID</text>
+      <rect x="1683" y="1235" width="80" height="16" rx="8" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.6"/>
+      <text class="badge-text" x="1723" y="1246" text-anchor="middle" fill="#ff4757" style="font-size:8px;">Persistent Vol</text>
+    </g>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== CONNECTION ARROWS: Hub to Data Stores ===== -->
+  <!-- =========================================================== -->
+  <g id="edges-hub-data">
+    <path d="M 1400 740 Q 1500 880, 1600 980 Q 1650 1010, 1680 1025" stroke="#ff4757" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" stroke-opacity="0.5"/>
+    <rect x="1498" y="908" width="50" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="1523" y="919" text-anchor="middle" fill="#ff4757">:6379</text>
+
+    <path d="M 1350 740 Q 1440 920, 1550 1080 Q 1590 1130, 1620 1150" stroke="#ff4757" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)" stroke-opacity="0.5"/>
+    <rect x="1438" y="1008" width="50" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="1463" y="1019" text-anchor="middle" fill="#ff4757">:5432</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== PIPELINE FLOW (10-step numbered cycle) ===== -->
+  <!-- =========================================================== -->
+  <g id="pipeline-flow">
+    <rect x="80" y="1420" width="2040" height="370" rx="14" fill="rgba(26,26,46,0.5)" stroke="#ff6b35" stroke-width="1.5" stroke-opacity="0.3"/>
+    <text class="section-label" x="1100" y="1452" text-anchor="middle" fill="#ff6b35" style="letter-spacing:5px;font-size:15px;">INTELLIGENT  PIPELINE  LIFECYCLE  ( 10-STEP  CYCLE )</text>
+
+    <!-- Step 1: User Request -->
+    <g id="step-1">
+      <circle cx="150" cy="1540" r="22" fill="#ff6b35" filter="url(#glow-orange)"/>
+      <text class="step-num" x="150" y="1545" text-anchor="middle">1</text>
+      <text class="step-label" x="150" y="1575" text-anchor="middle">User</text>
+      <text class="step-label" x="150" y="1587" text-anchor="middle">Request</text>
+    </g>
+
+    <!-- Step 2: Repo Analysis -->
+    <g id="step-2">
+      <circle cx="350" cy="1540" r="22" fill="#ff6b35" filter="url(#glow-orange)"/>
+      <text class="step-num" x="350" y="1545" text-anchor="middle">2</text>
+      <text class="step-label" x="350" y="1575" text-anchor="middle">Repo</text>
+      <text class="step-label" x="350" y="1587" text-anchor="middle">Analysis</text>
+    </g>
+
+    <!-- Step 3: RAG Retrieval -->
+    <g id="step-3">
+      <circle cx="550" cy="1540" r="22" fill="#a78bfa" filter="url(#glow-purple)"/>
+      <text class="step-num" x="550" y="1545" text-anchor="middle">3</text>
+      <text class="step-label" x="550" y="1575" text-anchor="middle">RAG Template</text>
+      <text class="step-label" x="550" y="1587" text-anchor="middle">Retrieval</text>
+    </g>
+
+    <!-- Step 4: LLM Generation -->
+    <g id="step-4">
+      <circle cx="750" cy="1540" r="22" fill="#a78bfa" filter="url(#glow-purple)"/>
+      <text class="step-num" x="750" y="1545" text-anchor="middle">4</text>
+      <text class="step-label" x="750" y="1575" text-anchor="middle">LLM</text>
+      <text class="step-label" x="750" y="1587" text-anchor="middle">Generation</text>
+    </g>
+
+    <!-- Step 5: Validation -->
+    <g id="step-5">
+      <circle cx="950" cy="1540" r="22" fill="#ffd93d"/>
+      <text class="step-num" x="950" y="1545" text-anchor="middle">5</text>
+      <text class="step-label" x="950" y="1575" text-anchor="middle">YAML</text>
+      <text class="step-label" x="950" y="1587" text-anchor="middle">Validation</text>
+    </g>
+
+    <!-- Step 6: Git Commit -->
+    <g id="step-6">
+      <circle cx="1150" cy="1540" r="22" fill="#4fc3f7" filter="url(#glow-cyan)"/>
+      <text class="step-num" x="1150" y="1545" text-anchor="middle">6</text>
+      <text class="step-label" x="1150" y="1575" text-anchor="middle">Git</text>
+      <text class="step-label" x="1150" y="1587" text-anchor="middle">Commit</text>
+    </g>
+
+    <!-- Step 7: CI/CD Execution -->
+    <g id="step-7">
+      <circle cx="1350" cy="1540" r="22" fill="#00d4aa" filter="url(#glow-green)"/>
+      <text class="step-num" x="1350" y="1545" text-anchor="middle">7</text>
+      <text class="step-label" x="1350" y="1575" text-anchor="middle">CI/CD</text>
+      <text class="step-label" x="1350" y="1587" text-anchor="middle">Execution</text>
+    </g>
+
+    <!-- Step 8: Monitoring -->
+    <g id="step-8">
+      <circle cx="1550" cy="1540" r="22" fill="#00d4aa" filter="url(#glow-green)"/>
+      <text class="step-num" x="1550" y="1545" text-anchor="middle">8</text>
+      <text class="step-label" x="1550" y="1575" text-anchor="middle">Monitor</text>
+      <text class="step-label" x="1550" y="1587" text-anchor="middle">(30s poll)</text>
+    </g>
+
+    <!-- Step 9: Self-Healing -->
+    <g id="step-9">
+      <circle cx="1750" cy="1540" r="22" fill="#ff4757" filter="url(#glow-red)"/>
+      <text class="step-num" x="1750" y="1545" text-anchor="middle">9</text>
+      <text class="step-label" x="1750" y="1575" text-anchor="middle">Self-Healing</text>
+      <text class="step-label" x="1750" y="1587" text-anchor="middle">(3 retries)</text>
+    </g>
+
+    <!-- Step 10: RL Learning -->
+    <g id="step-10">
+      <circle cx="1950" cy="1540" r="22" fill="#a78bfa" filter="url(#glow-purple)"/>
+      <text class="step-num" x="1950" y="1545" text-anchor="middle">10</text>
+      <text class="step-label" x="1950" y="1575" text-anchor="middle">RL</text>
+      <text class="step-label" x="1950" y="1587" text-anchor="middle">Learning</text>
+    </g>
+
+    <!-- Flow arrows between steps -->
+    <line x1="172" y1="1540" x2="326" y2="1540" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow-orange)" stroke-opacity="0.7"/>
+    <line x1="372" y1="1540" x2="526" y2="1540" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow-orange)" stroke-opacity="0.7"/>
+    <line x1="572" y1="1540" x2="726" y2="1540" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow-purple)" stroke-opacity="0.7"/>
+    <line x1="772" y1="1540" x2="926" y2="1540" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow-purple)" stroke-opacity="0.7"/>
+    <line x1="972" y1="1540" x2="1126" y2="1540" stroke="#ffd93d" stroke-width="2" marker-end="url(#arrow-yellow)" stroke-opacity="0.7"/>
+    <line x1="1172" y1="1540" x2="1326" y2="1540" stroke="#4fc3f7" stroke-width="2" marker-end="url(#arrow-cyan)" stroke-opacity="0.7"/>
+    <line x1="1372" y1="1540" x2="1526" y2="1540" stroke="#00d4aa" stroke-width="2" marker-end="url(#arrow-green)" stroke-opacity="0.7"/>
+    <line x1="1572" y1="1540" x2="1726" y2="1540" stroke="#00d4aa" stroke-width="2" marker-end="url(#arrow-green)" stroke-opacity="0.7"/>
+    <line x1="1772" y1="1540" x2="1926" y2="1540" stroke="#ff4757" stroke-width="2" marker-end="url(#arrow-red)" stroke-opacity="0.7"/>
+
+    <!-- Feedback loop: Step 10 back to ChromaDB / Step 3 -->
+    <path d="M 1950 1562 Q 1950 1640, 1700 1670 Q 1100 1720, 550 1670 Q 350 1650, 350 1620 Q 350 1600, 350 1564" stroke="#a78bfa" stroke-width="1.8" stroke-dasharray="6,4" fill="none" marker-end="url(#arrow-purple)" stroke-opacity="0.6"/>
+    <rect x="1060" y="1702" width="115" height="18" rx="4" fill="rgba(15,15,35,0.9)" stroke="#a78bfa" stroke-width="0.6"/>
+    <text class="edge-label" x="1117" y="1714" text-anchor="middle" fill="#a78bfa" style="font-size:9px;">feedback to ChromaDB</text>
+
+    <!-- Self-healing retry loop -->
+    <path d="M 1750 1562 Q 1750 1610, 1550 1620 Q 1350 1625, 1350 1564" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-red)" stroke-opacity="0.5"/>
+    <rect x="1490" y="1608" width="80" height="16" rx="3" fill="rgba(15,15,35,0.9)"/>
+    <text class="edge-label" x="1530" y="1619" text-anchor="middle" fill="#ff4757" style="font-size:9px;">retry on failure</text>
+
+    <!-- Step descriptions below -->
+    <text class="node-detail" x="150" y="1610" text-anchor="middle">Chat / API</text>
+    <text class="node-detail" x="350" y="1610" text-anchor="middle">Git clone + detect</text>
+    <text class="node-detail" x="550" y="1610" text-anchor="middle">ChromaDB cosine</text>
+    <text class="node-detail" x="750" y="1610" text-anchor="middle">Ollama / Claude</text>
+    <text class="node-detail" x="950" y="1610" text-anchor="middle">YAML lint + schema</text>
+    <text class="node-detail" x="1150" y="1610" text-anchor="middle">Push to Git server</text>
+    <text class="node-detail" x="1350" y="1610" text-anchor="middle">Trigger pipeline</text>
+    <text class="node-detail" x="1550" y="1610" text-anchor="middle">Poll build status</text>
+    <text class="node-detail" x="1750" y="1610" text-anchor="middle">LLM error fixer</text>
+    <text class="node-detail" x="1950" y="1610" text-anchor="middle">Store success/fail</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== 9-STAGE PIPELINE (horizontal strip) ===== -->
+  <!-- =========================================================== -->
+  <g id="pipeline-stages">
+    <rect x="80" y="1810" width="2040" height="140" rx="14" fill="rgba(26,26,46,0.4)" stroke="#00d4aa" stroke-width="1.2" stroke-opacity="0.3"/>
+    <text class="section-label" x="1100" y="1840" text-anchor="middle" fill="#00d4aa" style="letter-spacing:5px;font-size:13px;">9-STAGE  CI/CD  PIPELINE  ( GITLAB CI  /  JENKINS  /  GITHUB ACTIONS )</text>
+
+    <!-- Stage boxes -->
+    <!-- compile -->
+    <rect x="108" y="1860" width="190" height="50" rx="8" fill="rgba(0,212,170,0.1)" stroke="#00d4aa" stroke-width="1.2"/>
+    <text class="stage-text" x="203" y="1882" text-anchor="middle" fill="#00d4aa" style="font-size:12px;">1. COMPILE</text>
+    <text class="node-detail" x="203" y="1898" text-anchor="middle">Language build</text>
+    <!-- Arrow -->
+    <line x1="298" y1="1885" x2="320" y2="1885" stroke="#00d4aa" stroke-width="1.5" marker-end="url(#arrow-green)" stroke-opacity="0.6"/>
+
+    <!-- build -->
+    <rect x="322" y="1860" width="190" height="50" rx="8" fill="rgba(0,212,170,0.1)" stroke="#00d4aa" stroke-width="1.2"/>
+    <text class="stage-text" x="417" y="1882" text-anchor="middle" fill="#00d4aa" style="font-size:12px;">2. BUILD</text>
+    <text class="node-detail" x="417" y="1898" text-anchor="middle">Docker image</text>
+    <line x1="512" y1="1885" x2="534" y2="1885" stroke="#00d4aa" stroke-width="1.5" marker-end="url(#arrow-green)" stroke-opacity="0.6"/>
+
+    <!-- test -->
+    <rect x="536" y="1860" width="190" height="50" rx="8" fill="rgba(0,212,170,0.1)" stroke="#00d4aa" stroke-width="1.2"/>
+    <text class="stage-text" x="631" y="1882" text-anchor="middle" fill="#00d4aa" style="font-size:12px;">3. TEST</text>
+    <text class="node-detail" x="631" y="1898" text-anchor="middle">Unit + integration</text>
+    <line x1="726" y1="1885" x2="748" y2="1885" stroke="#00d4aa" stroke-width="1.5" marker-end="url(#arrow-green)" stroke-opacity="0.6"/>
+
+    <!-- sast -->
+    <rect x="750" y="1860" width="190" height="50" rx="8" fill="rgba(255,217,61,0.1)" stroke="#ffd93d" stroke-width="1.2"/>
+    <text class="stage-text" x="845" y="1882" text-anchor="middle" fill="#ffd93d" style="font-size:12px;">4. SAST</text>
+    <text class="node-detail" x="845" y="1898" text-anchor="middle">Static analysis</text>
+    <line x1="940" y1="1885" x2="962" y2="1885" stroke="#ffd93d" stroke-width="1.5" marker-end="url(#arrow-yellow)" stroke-opacity="0.6"/>
+
+    <!-- quality -->
+    <rect x="964" y="1860" width="190" height="50" rx="8" fill="rgba(255,217,61,0.1)" stroke="#ffd93d" stroke-width="1.2"/>
+    <text class="stage-text" x="1059" y="1882" text-anchor="middle" fill="#ffd93d" style="font-size:12px;">5. QUALITY</text>
+    <text class="node-detail" x="1059" y="1898" text-anchor="middle">SonarQube gate</text>
+    <line x1="1154" y1="1885" x2="1176" y2="1885" stroke="#ffd93d" stroke-width="1.5" marker-end="url(#arrow-yellow)" stroke-opacity="0.6"/>
+
+    <!-- security -->
+    <rect x="1178" y="1860" width="190" height="50" rx="8" fill="rgba(255,71,87,0.1)" stroke="#ff4757" stroke-width="1.2"/>
+    <text class="stage-text" x="1273" y="1882" text-anchor="middle" fill="#ff4757" style="font-size:12px;">6. SECURITY</text>
+    <text class="node-detail" x="1273" y="1898" text-anchor="middle">Trivy CVE scan</text>
+    <line x1="1368" y1="1885" x2="1390" y2="1885" stroke="#ff4757" stroke-width="1.5" marker-end="url(#arrow-red)" stroke-opacity="0.6"/>
+
+    <!-- push -->
+    <rect x="1392" y="1860" width="190" height="50" rx="8" fill="rgba(0,212,170,0.1)" stroke="#00d4aa" stroke-width="1.2"/>
+    <text class="stage-text" x="1487" y="1882" text-anchor="middle" fill="#00d4aa" style="font-size:12px;">7. PUSH</text>
+    <text class="node-detail" x="1487" y="1898" text-anchor="middle">Nexus registry</text>
+    <line x1="1582" y1="1885" x2="1604" y2="1885" stroke="#00d4aa" stroke-width="1.5" marker-end="url(#arrow-green)" stroke-opacity="0.6"/>
+
+    <!-- notify -->
+    <rect x="1606" y="1860" width="190" height="50" rx="8" fill="rgba(167,139,250,0.1)" stroke="#a78bfa" stroke-width="1.2"/>
+    <text class="stage-text" x="1701" y="1882" text-anchor="middle" fill="#a78bfa" style="font-size:12px;">8. NOTIFY</text>
+    <text class="node-detail" x="1701" y="1898" text-anchor="middle">Splunk + Jira</text>
+    <line x1="1796" y1="1885" x2="1818" y2="1885" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow-purple)" stroke-opacity="0.6"/>
+
+    <!-- learn -->
+    <rect x="1820" y="1860" width="190" height="50" rx="8" fill="rgba(167,139,250,0.1)" stroke="#a78bfa" stroke-width="1.2"/>
+    <text class="stage-text" x="1915" y="1882" text-anchor="middle" fill="#a78bfa" style="font-size:12px;">9. LEARN</text>
+    <text class="node-detail" x="1915" y="1898" text-anchor="middle">RL feedback loop</text>
+
+    <!-- Pipeline failure path notation -->
+    <path d="M 1273 1910 Q 1273 1935, 1100 1935 Q 900 1935, 750 1935" stroke="#ff4757" stroke-width="1.2" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-red)" stroke-opacity="0.4"/>
+    <text class="edge-label" x="1010" y="1930" text-anchor="middle" fill="#ff4757" style="font-size:9px;">gate failure: block + alert</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== SUPPORTED LANGUAGES ===== -->
+  <!-- =========================================================== -->
+  <g id="languages">
+    <rect x="80" y="1975" width="2040" height="80" rx="14" fill="rgba(26,26,46,0.4)" stroke="rgba(255,107,53,0.2)" stroke-width="1"/>
+    <text class="section-label" x="130" y="2005" fill="#ff6b35" style="letter-spacing:3px;font-size:11px;">SUPPORTED LANGUAGES</text>
+
+    <!-- Language pills -->
+    <rect x="310" y="1990" width="70" height="26" rx="13" fill="rgba(255,107,53,0.15)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="345" y="2007" text-anchor="middle" fill="#ff6b35">Java</text>
+
+    <rect x="395" y="1990" width="75" height="26" rx="13" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.8"/>
+    <text class="badge-text" x="432" y="2007" text-anchor="middle" fill="#00d4aa">Python</text>
+
+    <rect x="485" y="1990" width="55" height="26" rx="13" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.8"/>
+    <text class="badge-text" x="512" y="2007" text-anchor="middle" fill="#4fc3f7">Go</text>
+
+    <rect x="555" y="1990" width="60" height="26" rx="13" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.8"/>
+    <text class="badge-text" x="585" y="2007" text-anchor="middle" fill="#ff4757">Rust</text>
+
+    <rect x="630" y="1990" width="80" height="26" rx="13" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.8"/>
+    <text class="badge-text" x="670" y="2007" text-anchor="middle" fill="#00d4aa">Node.js</text>
+
+    <rect x="725" y="1990" width="65" height="26" rx="13" fill="rgba(255,71,87,0.15)" stroke="#ff4757" stroke-width="0.8"/>
+    <text class="badge-text" x="757" y="2007" text-anchor="middle" fill="#ff4757">Ruby</text>
+
+    <rect x="805" y="1990" width="58" height="26" rx="13" fill="rgba(167,139,250,0.15)" stroke="#a78bfa" stroke-width="0.8"/>
+    <text class="badge-text" x="834" y="2007" text-anchor="middle" fill="#a78bfa">PHP</text>
+
+    <rect x="878" y="1990" width="78" height="26" rx="13" fill="rgba(79,195,247,0.15)" stroke="#4fc3f7" stroke-width="0.8"/>
+    <text class="badge-text" x="917" y="2007" text-anchor="middle" fill="#4fc3f7">C# / .NET</text>
+
+    <rect x="971" y="1990" width="70" height="26" rx="13" fill="rgba(255,217,61,0.15)" stroke="#ffd93d" stroke-width="0.8"/>
+    <text class="badge-text" x="1006" y="2007" text-anchor="middle" fill="#ffd93d">Kotlin</text>
+
+    <rect x="1056" y="1990" width="65" height="26" rx="13" fill="rgba(255,107,53,0.15)" stroke="#ff6b35" stroke-width="0.8"/>
+    <text class="badge-text" x="1088" y="2007" text-anchor="middle" fill="#ff6b35">Scala</text>
+
+    <!-- Frameworks subtext -->
+    <text class="node-detail" x="1180" y="2007">+ Spring Boot, FastAPI, Express, Gin, Actix, Rails, Laravel, ASP.NET, Ktor ...</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== PORT REFERENCE TABLE ===== -->
+  <!-- =========================================================== -->
+  <g id="port-reference">
+    <rect x="80" y="2075" width="700" height="355" rx="14" fill="rgba(26,26,46,0.7)" stroke="rgba(255,107,53,0.25)" stroke-width="1"/>
+    <text class="section-label" x="430" y="2105" text-anchor="middle" fill="#ff6b35" style="letter-spacing:3px;font-size:12px;">PORT  REFERENCE  TABLE</text>
+
+    <!-- Table header -->
+    <rect x="100" y="2118" width="660" height="26" rx="4" fill="rgba(255,107,53,0.1)"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;font-weight:700;fill:#ff6b35;" x="120" y="2135">SERVICE</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;font-weight:700;fill:#ff6b35;" x="320" y="2135">HOST PORT</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;font-weight:700;fill:#ff6b35;" x="460" y="2135">CONTAINER</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;font-weight:700;fill:#ff6b35;" x="620" y="2135">PROTOCOL</text>
+
+    <!-- Table rows -->
+    <line x1="100" y1="2150" x2="760" y2="2150" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2168">DevOps Backend</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2168">8003</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2168">8003</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2168">HTTP/REST</text>
+
+    <line x1="100" y1="2178" x2="760" y2="2178" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2196">Ollama</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2196">11434</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2196">11434</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2196">HTTP/JSON</text>
+
+    <line x1="100" y1="2206" x2="760" y2="2206" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2224">ChromaDB</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2224">8000</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2224">8000</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2224">HTTP/REST</text>
+
+    <line x1="100" y1="2234" x2="760" y2="2234" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2252">GitLab</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2252">8929</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2252">80</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2252">HTTP/API v4</text>
+
+    <line x1="100" y1="2262" x2="760" y2="2262" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2280">Gitea</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2280">3002</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2280">3000</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2280">HTTP/REST</text>
+
+    <line x1="100" y1="2290" x2="760" y2="2290" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2308">Jenkins</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2308">8080</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2308">8080</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2308">/jenkins ctx</text>
+
+    <line x1="100" y1="2318" x2="760" y2="2318" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2336">SonarQube</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2336">9000</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2336">9000</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2336">HTTP/API</text>
+
+    <line x1="100" y1="2346" x2="760" y2="2346" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2364">Nexus (registry)</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2364">5001 / 8081</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2364">5001 / 8081</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2364">Docker v2</text>
+
+    <line x1="100" y1="2374" x2="760" y2="2374" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2392">Trivy / Splunk / Redis</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2392">8083 / 8088 / 6379</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2392">--</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2392">Various</text>
+
+    <line x1="100" y1="2402" x2="760" y2="2402" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#e0e0e0;" x="120" y="2420">PostgreSQL / Jira</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="320" y="2420">5432 / 8080</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="460" y="2420">5432 / 8080</text>
+    <text style="font-family:'Cascadia Code',monospace;font-size:10px;fill:#b0b8c8;" x="620" y="2420">TCP / HTTP</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== ARCHITECTURE STATS PANEL ===== -->
+  <!-- =========================================================== -->
+  <g id="stats-panel">
+    <rect x="820" y="2075" width="1300" height="150" rx="14" fill="rgba(26,26,46,0.7)" stroke="rgba(255,107,53,0.25)" stroke-width="1"/>
+    <text class="section-label" x="1470" y="2105" text-anchor="middle" fill="#ff6b35" style="letter-spacing:3px;font-size:12px;">ARCHITECTURE  STATISTICS</text>
+
+    <!-- Stat cards -->
+    <g>
+      <rect x="855" y="2118" width="145" height="90" rx="8" fill="rgba(255,107,53,0.08)" stroke="#ff6b35" stroke-width="0.8"/>
+      <text class="stat-value" x="927" y="2163" text-anchor="middle" fill="#ff6b35">15+</text>
+      <text class="stat-label" x="927" y="2185" text-anchor="middle">CONTAINERS</text>
+    </g>
+    <g>
+      <rect x="1015" y="2118" width="145" height="90" rx="8" fill="rgba(0,212,170,0.08)" stroke="#00d4aa" stroke-width="0.8"/>
+      <text class="stat-value" x="1087" y="2163" text-anchor="middle" fill="#00d4aa">3</text>
+      <text class="stat-label" x="1087" y="2185" text-anchor="middle">CI/CD ENGINES</text>
+    </g>
+    <g>
+      <rect x="1175" y="2118" width="145" height="90" rx="8" fill="rgba(167,139,250,0.08)" stroke="#a78bfa" stroke-width="0.8"/>
+      <text class="stat-value" x="1247" y="2163" text-anchor="middle" fill="#a78bfa">10</text>
+      <text class="stat-label" x="1247" y="2185" text-anchor="middle">LANGUAGES</text>
+    </g>
+    <g>
+      <rect x="1335" y="2118" width="145" height="90" rx="8" fill="rgba(79,195,247,0.08)" stroke="#4fc3f7" stroke-width="0.8"/>
+      <text class="stat-value" x="1407" y="2163" text-anchor="middle" fill="#4fc3f7">11</text>
+      <text class="stat-label" x="1407" y="2185" text-anchor="middle">API ROUTERS</text>
+    </g>
+    <g>
+      <rect x="1495" y="2118" width="145" height="90" rx="8" fill="rgba(255,217,61,0.08)" stroke="#ffd93d" stroke-width="0.8"/>
+      <text class="stat-value" x="1567" y="2163" text-anchor="middle" fill="#ffd93d">9</text>
+      <text class="stat-label" x="1567" y="2185" text-anchor="middle">PIPELINE STAGES</text>
+    </g>
+    <g>
+      <rect x="1655" y="2118" width="145" height="90" rx="8" fill="rgba(255,71,87,0.08)" stroke="#ff4757" stroke-width="0.8"/>
+      <text class="stat-value" x="1727" y="2163" text-anchor="middle" fill="#ff4757">40+</text>
+      <text class="stat-label" x="1727" y="2185" text-anchor="middle">NEXUS IMAGES</text>
+    </g>
+    <g>
+      <rect x="1815" y="2118" width="145" height="90" rx="8" fill="rgba(0,212,170,0.08)" stroke="#00d4aa" stroke-width="0.8"/>
+      <text class="stat-value" x="1887" y="2163" text-anchor="middle" fill="#00d4aa">2</text>
+      <text class="stat-label" x="1887" y="2185" text-anchor="middle">LLM PROVIDERS</text>
+    </g>
+    <g>
+      <rect x="1975" y="2118" width="130" height="90" rx="8" fill="rgba(255,107,53,0.08)" stroke="#ff6b35" stroke-width="0.8"/>
+      <text class="stat-value" x="2040" y="2163" text-anchor="middle" fill="#ff6b35">2</text>
+      <text class="stat-label" x="2040" y="2185" text-anchor="middle">DOCKER NETS</text>
+    </g>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== LEGEND ===== -->
+  <!-- =========================================================== -->
+  <g id="legend">
+    <rect x="820" y="2245" width="1300" height="185" rx="14" fill="rgba(26,26,46,0.7)" stroke="rgba(255,107,53,0.25)" stroke-width="1"/>
+    <text class="section-label" x="1470" y="2275" text-anchor="middle" fill="#ff6b35" style="letter-spacing:3px;font-size:12px;">LEGEND</text>
+
+    <!-- Row 1: Service types -->
+    <!-- Center Hub -->
+    <rect x="855" y="2292" width="18" height="18" rx="4" fill="rgba(26,26,46,0.9)" stroke="#ff6b35" stroke-width="2"/>
+    <text class="legend-text" x="883" y="2306">Center Hub (Backend)</text>
+
+    <!-- AI/LLM -->
+    <rect x="1055" y="2292" width="18" height="18" rx="4" fill="rgba(26,26,46,0.9)" stroke="#a78bfa" stroke-width="2"/>
+    <text class="legend-text" x="1083" y="2306">AI / LLM Services</text>
+
+    <!-- Git -->
+    <rect x="1255" y="2292" width="18" height="18" rx="4" fill="rgba(26,26,46,0.9)" stroke="#4fc3f7" stroke-width="2"/>
+    <text class="legend-text" x="1283" y="2306">Git Servers</text>
+
+    <!-- CI/CD -->
+    <rect x="1405" y="2292" width="18" height="18" rx="4" fill="rgba(26,26,46,0.9)" stroke="#00d4aa" stroke-width="2"/>
+    <text class="legend-text" x="1433" y="2306">CI/CD Engines</text>
+
+    <!-- DevOps -->
+    <rect x="1575" y="2292" width="18" height="18" rx="4" fill="rgba(26,26,46,0.9)" stroke="#ffd93d" stroke-width="2"/>
+    <text class="legend-text" x="1603" y="2306">DevOps Tools</text>
+
+    <!-- Data -->
+    <rect x="1735" y="2292" width="18" height="18" rx="4" fill="rgba(26,26,46,0.9)" stroke="#ff4757" stroke-width="2"/>
+    <text class="legend-text" x="1763" y="2306">Data Stores</text>
+
+    <!-- Row 2: Line styles -->
+    <!-- Happy path -->
+    <line x1="855" y1="2338" x2="910" y2="2338" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow-orange)"/>
+    <text class="legend-text" x="925" y="2342">Primary data flow</text>
+
+    <!-- Failure path -->
+    <line x1="1055" y1="2338" x2="1110" y2="2338" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-red)"/>
+    <text class="legend-text" x="1125" y="2342">Failure / retry path</text>
+
+    <!-- Feedback -->
+    <line x1="1305" y1="2338" x2="1360" y2="2338" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrow-purple)"/>
+    <text class="legend-text" x="1375" y="2342">Feedback / learning loop</text>
+
+    <!-- Network boundary -->
+    <line x1="1575" y1="2338" x2="1640" y2="2338" stroke="#ff6b35" stroke-width="1.2" stroke-dasharray="12,6" stroke-opacity="0.5"/>
+    <text class="legend-text" x="1655" y="2342">Docker network boundary</text>
+
+    <!-- Git trigger -->
+    <line x1="1855" y1="2338" x2="1910" y2="2338" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="6,4" stroke-opacity="0.4"/>
+    <text class="legend-text" x="1925" y="2342">Git SCM trigger</text>
+
+    <!-- Row 3: Step indicators -->
+    <circle cx="864" cy="2375" r="12" fill="#ff6b35"/>
+    <text class="step-num" x="864" y="2380" text-anchor="middle" style="font-size:10px;">N</text>
+    <text class="legend-text" x="885" y="2380">Pipeline lifecycle step</text>
+
+    <rect x="1055" y="2365" width="55" height="20" rx="10" fill="rgba(0,212,170,0.15)" stroke="#00d4aa" stroke-width="0.8"/>
+    <text class="badge-text" x="1082" y="2379" text-anchor="middle" fill="#00d4aa" style="font-size:8px;">badge</text>
+    <text class="legend-text" x="1120" y="2380">Capability / feature tag</text>
+
+    <!-- Decision node -->
+    <rect x="1305" y="2363" width="20" height="20" rx="3" fill="rgba(255,217,61,0.15)" stroke="#ffd93d" stroke-width="1.2" transform="rotate(45,1315,2373)"/>
+    <text class="legend-text" x="1340" y="2380">Decision / quality gate</text>
+
+    <!-- Glow effect -->
+    <circle cx="1580" cy="2375" r="8" fill="#ff6b35" filter="url(#glow-orange)"/>
+    <text class="legend-text" x="1600" y="2380">Active / primary service</text>
+
+    <!-- Port label -->
+    <rect x="1755" y="2366" width="40" height="16" rx="3" fill="rgba(15,15,35,0.9)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+    <text class="edge-label" x="1775" y="2377" text-anchor="middle" fill="#a78bfa" style="font-size:8px;">:port</text>
+    <text class="legend-text" x="1805" y="2380">Port number label</text>
+
+    <!-- Row 4: Docker networks -->
+    <rect x="855" y="2400" width="130" height="20" rx="4" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" stroke-width="0.8" stroke-dasharray="6,3" stroke-opacity="0.4"/>
+    <text class="legend-text" x="995" y="2414">ai-platform-net (all services)</text>
+
+    <rect x="1255" y="2400" width="130" height="20" rx="4" fill="rgba(79,195,247,0.06)" stroke="#4fc3f7" stroke-width="0.8" stroke-dasharray="6,3" stroke-opacity="0.4"/>
+    <text class="legend-text" x="1395" y="2414">gitlab-net (GitLab + DinD runners)</text>
+  </g>
+
+  <!-- =========================================================== -->
+  <!-- ===== FOOTER ===== -->
+  <!-- =========================================================== -->
+  <g id="footer">
+    <rect x="400" y="2555" width="1400" height="2" fill="url(#accent-gradient-h)" rx="1" opacity="0.5"/>
+    <text style="font-family:'Segoe UI',system-ui,sans-serif;font-size:10px;fill:#5a6377;letter-spacing:1px;" x="1100" y="2575" text-anchor="middle">AI DEVOPS PLATFORM  --  INFRASTRUCTURE ARCHITECTURE  --  DOCKER COMPOSE ORCHESTRATION  --  15+ CONTAINERS  --  2200 x 2600</text>
+  </g>
+
+</svg>

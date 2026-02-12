@@ -13,6 +13,69 @@ let currentTool = null;
 let pollingInterval = null;
 let progressMessageId = null;
 
+// Terraform navigation state
+let terraformNavLevel = 0;    // 0=providers, 1=resources, 2=subtypes
+let terraformProvider = null;
+let terraformResource = null;
+let terraformSubType = null;
+let terraformContext = null;   // Sent with every chat message
+
+// Terraform provider/resource tree
+const terraformTree = {
+    providers: {
+        vsphere: {
+            name: 'On-Prem (vSphere)',
+            icon: '🏢',
+            desc: 'VMware vSphere infrastructure',
+            color: '#6d8c3c'
+        },
+        azure: {
+            name: 'Azure',
+            icon: '☁️',
+            desc: 'Microsoft Azure cloud',
+            color: '#0078d4'
+        },
+        aws: {
+            name: 'AWS',
+            icon: '🔶',
+            desc: 'Amazon Web Services',
+            color: '#ff9900'
+        },
+        gcp: {
+            name: 'GCP',
+            icon: '🔵',
+            desc: 'Google Cloud Platform',
+            color: '#4285f4'
+        }
+    },
+    resources: {
+        vm: {
+            name: 'Virtual Machines',
+            icon: '🖥️',
+            desc: 'Provision and manage virtual machines',
+            sub_types: {
+                linux: { name: 'Linux', icon: '🐧', desc: 'Linux-based VMs' },
+                windows: { name: 'Windows', icon: '🪟', desc: 'Windows-based VMs' }
+            }
+        },
+        kubernetes: {
+            name: 'Kubernetes Clusters',
+            icon: '☸️',
+            desc: 'Deploy managed Kubernetes clusters'
+        },
+        containers: {
+            name: 'Container Services',
+            icon: '🐳',
+            desc: 'Run containers on managed services'
+        },
+        networking: {
+            name: 'Networking',
+            icon: '🌐',
+            desc: 'VPCs, subnets, firewalls, load balancers'
+        }
+    }
+};
+
 // Category configurations
 const categoryConfig = {
     devops: {
@@ -73,14 +136,25 @@ Just provide a repository URL and I'll analyze it and create the pipeline files.
     'github-actions': {
         name: 'GitHub Actions Generator',
         icon: '🐙',
-        endpoint: '/api/v1/github-pipeline/',
+        endpoint: '/api/v1/github-pipeline/chat',
         welcomeMessage: `Hello! I'm your AI DevOps assistant for GitHub Actions (via Gitea).
 
-I can help you generate CI/CD workflows for your Gitea repositories with GitHub Actions-compatible syntax.
+I can generate **GitHub Actions Workflow** and **Dockerfile** for any project with a full 9-job pipeline:
+compile → build-image → test-image → static-analysis → sonarqube → trivy-scan → push-release → notify → learn-record
 
-Just provide me with a Gitea repository URL and I'll analyze it and create appropriate Dockerfile and .github/workflows/ci.yml files for you.
+Just provide a repository URL and I'll analyze it and create the workflow files.
 
-**Example:** "Generate a workflow for http://localhost:3002/admin/java-test-project"`
+**Example:** "Generate a workflow for http://localhost:3002/github-projects/java-springboot-api"
+
+**Commands:**
+- Provide a **URL** to generate a workflow
+- Say **"commit"** to commit the generated files to the repository
+- Say **"status"** to check GitHub Actions workflow status`
+    },
+    'terraform-generator': {
+        name: 'Terraform Generator',
+        icon: '🌍',
+        viewType: 'terraform-nav'
     },
     'connectivity-validator': {
         name: 'Tool Connectivity Validator',
@@ -163,6 +237,23 @@ function setupEventListeners() {
 /**
  * Show a specific category
  */
+/**
+ * Hide all views, then show only the specified one.
+ */
+function switchView(viewId) {
+    const views = ['dashboardView', 'toolView', 'connectivityView', 'terraformNavView'];
+    views.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            if (id === viewId) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+    });
+}
+
 function showCategory(category) {
     currentCategory = category;
 
@@ -188,12 +279,11 @@ function showCategory(category) {
         }
     });
 
-    // Show dashboard, hide tool view and connectivity view
-    document.getElementById('dashboardView').classList.remove('hidden');
-    document.getElementById('toolView').classList.add('hidden');
-    document.getElementById('connectivityView').classList.add('hidden');
+    // Show ONLY the dashboard view
+    switchView('dashboardView');
 
     currentTool = null;
+    terraformContext = null;
 }
 
 /**
@@ -214,6 +304,12 @@ function openTool(toolId) {
         return;
     }
 
+    // Handle terraform navigation view type
+    if (config.viewType === 'terraform-nav') {
+        openTerraformNav();
+        return;
+    }
+
     // Update tool header
     document.getElementById('toolIcon').textContent = config.icon;
     document.getElementById('toolName').textContent = config.name;
@@ -221,10 +317,8 @@ function openTool(toolId) {
     // Reset chat with welcome message
     resetChat(config.welcomeMessage);
 
-    // Hide dashboard, show tool view
-    document.getElementById('dashboardView').classList.add('hidden');
-    document.getElementById('toolView').classList.remove('hidden');
-    document.getElementById('connectivityView').classList.add('hidden');
+    // Show ONLY the tool view
+    switchView('toolView');
 
     // Focus on input
     if (messageInput) {
@@ -237,6 +331,16 @@ function openTool(toolId) {
  */
 function goBack() {
     stopProgressPolling();
+    // If in terraform chat, go back to terraform nav instead of dashboard
+    if (currentTool && currentTool.startsWith('terraform-chat-')) {
+        openTerraformNav();
+        // Restore nav level to where they left off
+        if (terraformResource) {
+            terraformNavLevel = 1;
+            renderTerraformCards();
+        }
+        return;
+    }
     showCategory(currentCategory);
 }
 
@@ -325,7 +429,8 @@ async function sendMessage() {
             },
             body: JSON.stringify({
                 message: message,
-                conversation_id: conversationId
+                conversation_id: conversationId,
+                ...(terraformContext ? { context: terraformContext } : {})
             })
         });
 
@@ -510,6 +615,8 @@ async function fetchProgress(projectId, branch) {
             progressBase = '/api/v1/jenkins-pipeline/progress';
         } else if (currentTool === 'github-actions') {
             progressBase = '/api/v1/github-pipeline/progress';
+        } else if (currentTool && currentTool.startsWith('terraform-')) {
+            progressBase = '/api/v1/terraform/progress';
         }
         const response = await fetch(
             `${API_BASE_URL}${progressBase}/${projectId}/${encodeURIComponent(branch)}`
@@ -561,13 +668,207 @@ function updateProgressMessage(id, data) {
 }
 
 // ============================================================================
+// Terraform Multi-Level Navigation
+// ============================================================================
+
+function openTerraformNav() {
+    terraformNavLevel = 0;
+    terraformProvider = null;
+    terraformResource = null;
+    terraformSubType = null;
+    terraformContext = null;
+
+    // Show ONLY the terraform nav view
+    switchView('terraformNavView');
+
+    currentTool = 'terraform-generator';
+    renderTerraformCards();
+}
+
+function renderTerraformCards() {
+    const container = document.getElementById('terraformCardsContainer');
+    const title = document.getElementById('terraformNavTitle');
+    container.innerHTML = '';
+
+    updateTerraformBreadcrumb();
+
+    if (terraformNavLevel === 0) {
+        // Show provider cards
+        title.textContent = 'Select Cloud Provider';
+        for (const [key, prov] of Object.entries(terraformTree.providers)) {
+            const card = document.createElement('div');
+            card.className = `tf-nav-card provider-${key}`;
+            card.innerHTML = `
+                <div class="tf-nav-card-icon">${prov.icon}</div>
+                <div class="tf-nav-card-name">${prov.name}</div>
+                <div class="tf-nav-card-desc">${prov.desc}</div>
+            `;
+            card.addEventListener('click', () => selectTerraformProvider(key));
+            container.appendChild(card);
+        }
+    } else if (terraformNavLevel === 1) {
+        // Show resource type cards
+        const prov = terraformTree.providers[terraformProvider];
+        title.textContent = `${prov.name} - Select Resource Type`;
+        for (const [key, res] of Object.entries(terraformTree.resources)) {
+            const card = document.createElement('div');
+            card.className = 'tf-nav-card resource-card';
+            card.innerHTML = `
+                <div class="tf-nav-card-icon">${res.icon}</div>
+                <div class="tf-nav-card-name">${res.name}</div>
+                <div class="tf-nav-card-desc">${res.desc}</div>
+            `;
+            card.addEventListener('click', () => selectTerraformResource(key));
+            container.appendChild(card);
+        }
+    } else if (terraformNavLevel === 2) {
+        // Show sub-type cards (only for VMs)
+        const prov = terraformTree.providers[terraformProvider];
+        const res = terraformTree.resources[terraformResource];
+        title.textContent = `${prov.name} - ${res.name} - Select Type`;
+        for (const [key, sub] of Object.entries(res.sub_types)) {
+            const card = document.createElement('div');
+            card.className = 'tf-nav-card subtype-card';
+            card.innerHTML = `
+                <div class="tf-nav-card-icon">${sub.icon}</div>
+                <div class="tf-nav-card-name">${sub.name}</div>
+                <div class="tf-nav-card-desc">${sub.desc}</div>
+            `;
+            card.addEventListener('click', () => selectTerraformSubType(key));
+            container.appendChild(card);
+        }
+    }
+}
+
+function selectTerraformProvider(provider) {
+    terraformProvider = provider;
+    terraformNavLevel = 1;
+    renderTerraformCards();
+}
+
+function selectTerraformResource(resource) {
+    terraformResource = resource;
+    const res = terraformTree.resources[resource];
+
+    // If resource has sub-types, show them; otherwise open chat
+    if (res.sub_types) {
+        terraformNavLevel = 2;
+        renderTerraformCards();
+    } else {
+        openTerraformChat(null);
+    }
+}
+
+function selectTerraformSubType(subType) {
+    terraformSubType = subType;
+    openTerraformChat(subType);
+}
+
+function openTerraformChat(subType) {
+    const prov = terraformTree.providers[terraformProvider];
+    const res = terraformTree.resources[terraformResource];
+    const subInfo = subType ? res.sub_types[subType] : null;
+
+    // Build context for backend
+    terraformContext = {
+        provider: terraformProvider,
+        resource_type: terraformResource,
+        sub_type: subType
+    };
+
+    // Build a dynamic tool ID for this combo
+    const toolId = `terraform-chat-${terraformProvider}-${terraformResource}`;
+    currentTool = toolId;
+
+    // Build welcome message
+    let contextLabel = `${prov.name} > ${res.name}`;
+    if (subInfo) contextLabel += ` > ${subInfo.name}`;
+
+    const welcomeMsg = `Hello! I'm your AI Terraform assistant for **${contextLabel}**.
+
+I can generate production-ready Terraform configurations including \`provider.tf\`, \`main.tf\`, \`variables.tf\`, \`outputs.tf\`, and \`terraform.tfvars.example\`.
+
+**Just describe what you need** and I'll generate the Terraform files, validate them, and optionally run \`terraform plan\`.
+
+**Commands:**
+- Describe your infrastructure requirements to **generate** Terraform configs
+- Say **"plan"** to run \`terraform plan\` on the generated files
+- Say **"apply"** to apply the configuration (requires cloud credentials)
+- Say **"commit"** to commit the files to a Git repository
+- Say **"destroy"** to tear down provisioned resources`;
+
+    // Register dynamic tool config for this chat session
+    toolConfig[toolId] = {
+        name: `Terraform - ${contextLabel}`,
+        icon: '🌍',
+        endpoint: '/api/v1/terraform/chat',
+        welcomeMessage: welcomeMsg
+    };
+
+    // Update tool header
+    document.getElementById('toolIcon').textContent = '🌍';
+    document.getElementById('toolName').textContent = `Terraform - ${contextLabel}`;
+
+    // Reset chat with welcome message
+    resetChat(welcomeMsg);
+
+    // Show ONLY the tool view
+    switchView('toolView');
+
+    if (messageInput) messageInput.focus();
+}
+
+function terraformGoBack() {
+    if (terraformNavLevel > 0) {
+        terraformNavLevel--;
+        if (terraformNavLevel === 0) {
+            terraformProvider = null;
+            terraformResource = null;
+            terraformSubType = null;
+        } else if (terraformNavLevel === 1) {
+            terraformResource = null;
+            terraformSubType = null;
+        }
+        renderTerraformCards();
+    } else {
+        // Back to dashboard
+        showCategory(currentCategory);
+    }
+}
+
+function updateTerraformBreadcrumb() {
+    const bc = document.getElementById('terraformBreadcrumb');
+    let parts = [];
+
+    parts.push('<span class="bc-item" onclick="openTerraformNav()">Terraform</span>');
+
+    if (terraformProvider) {
+        const prov = terraformTree.providers[terraformProvider];
+        if (terraformNavLevel > 1) {
+            parts.push(`<span class="bc-separator">›</span>`);
+            parts.push(`<span class="bc-item" onclick="terraformNavLevel=1;terraformResource=null;renderTerraformCards()">${prov.name}</span>`);
+        } else {
+            parts.push(`<span class="bc-separator">›</span>`);
+            parts.push(`<span class="bc-current">${prov.name}</span>`);
+        }
+    }
+
+    if (terraformResource && terraformNavLevel >= 2) {
+        const res = terraformTree.resources[terraformResource];
+        parts.push(`<span class="bc-separator">›</span>`);
+        parts.push(`<span class="bc-current">${res.name}</span>`);
+    }
+
+    bc.innerHTML = parts.join('');
+}
+
+// ============================================================================
 // Connectivity Validator
 // ============================================================================
 
 function openConnectivityView() {
-    document.getElementById('dashboardView').classList.add('hidden');
-    document.getElementById('toolView').classList.add('hidden');
-    document.getElementById('connectivityView').classList.remove('hidden');
+    // Show ONLY the connectivity view
+    switchView('connectivityView');
     selectedTools = {};
     testAllConnectivity();
 }

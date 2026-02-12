@@ -48,7 +48,12 @@ def _validate_and_fix_workflow(
                 if 'runs-on' not in job:
                     job['runs-on'] = 'self-hosted'
 
-        return yaml.dump(parsed, default_flow_style=False, sort_keys=False)
+        # Dump YAML and fix the `on:` → `true:` issue (YAML parses 'on' as boolean)
+        output = yaml.dump(parsed, default_flow_style=False, sort_keys=False)
+        output = output.replace('\ntrue:', '\non:', 1)
+        if output.startswith('true:'):
+            output = 'on:' + output[5:]
+        return output
 
     except Exception as e:
         print(f"[Validate] Error: {e}")

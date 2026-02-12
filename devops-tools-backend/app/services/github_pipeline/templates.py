@@ -10,6 +10,28 @@ from typing import Dict, Any, Optional
 from app.config import settings
 
 
+# Cache collection name -> UUID mappings
+_collection_uuid_cache: Dict[str, str] = {}
+
+
+async def _resolve_collection_uuid(client: httpx.AsyncClient, name: str) -> Optional[str]:
+    """Resolve ChromaDB collection name to UUID (v2 API requires UUIDs)."""
+    if name in _collection_uuid_cache:
+        return _collection_uuid_cache[name]
+
+    chromadb_url = settings.chromadb_url
+    resp = await client.get(
+        f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections"
+    )
+    if resp.status_code == 200:
+        for coll in resp.json():
+            if coll.get("name") == name:
+                coll_uuid = coll["id"]
+                _collection_uuid_cache[name] = coll_uuid
+                return coll_uuid
+    return None
+
+
 FEEDBACK_COLLECTION = "github_actions_feedback"
 TEMPLATES_COLLECTION = "github_actions_templates"
 SUCCESSFUL_PIPELINES_COLLECTION = "github_actions_successful_pipelines"
