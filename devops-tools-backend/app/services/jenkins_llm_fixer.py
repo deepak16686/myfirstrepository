@@ -9,7 +9,7 @@ import re
 from typing import Dict, Any, Optional, Tuple
 
 from app.config import tools_manager
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 
 
 class JenkinsLLMFixer:
@@ -240,7 +240,8 @@ Return ONLY the fixed files:
                     'dockerfile': current_dockerfile,
                     'attempts': attempt,
                     'fix_history': fix_history,
-                    'has_warnings': len(warnings) > 0
+                    'has_warnings': len(warnings) > 0,
+                    'fixer_model_used': get_active_provider_name()
                 }
 
             if attempt < max_attempts:
@@ -265,7 +266,8 @@ Return ONLY the fixed files:
             'dockerfile': current_dockerfile,
             'attempts': max_attempts,
             'fix_history': fix_history,
-            'final_errors': errors
+            'final_errors': errors,
+            'fixer_model_used': get_active_provider_name()
         }
 
     def _validate_jenkinsfile(self, jenkinsfile: str, dockerfile: str) -> Tuple[list, list]:

@@ -10,7 +10,7 @@ import httpx
 
 from app.config import tools_manager
 from app.integrations.ollama import OllamaIntegration
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 
 
 class GitLabLLMFixer:
@@ -282,7 +282,8 @@ Do NOT include any explanations - just the fixed files.
                     'gitlab_ci': current_gitlab_ci,
                     'dockerfile': current_dockerfile,
                     'attempts': attempt,
-                    'fix_history': fix_history
+                    'fix_history': fix_history,
+                    'fixer_model_used': get_active_provider_name()
                 }
 
             # Only consider errors as blocking, not warnings
@@ -294,7 +295,8 @@ Do NOT include any explanations - just the fixed files.
                     'dockerfile': current_dockerfile,
                     'attempts': attempt,
                     'fix_history': fix_history,
-                    'has_warnings': True
+                    'has_warnings': True,
+                    'fixer_model_used': get_active_provider_name()
                 }
 
             # Try to fix errors
@@ -321,7 +323,8 @@ Do NOT include any explanations - just the fixed files.
             'dockerfile': current_dockerfile,
             'attempts': max_attempts,
             'fix_history': fix_history,
-            'final_errors': all_errors
+            'final_errors': all_errors,
+            'fixer_model_used': get_active_provider_name()
         }
 
 

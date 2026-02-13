@@ -25,6 +25,7 @@ from app.services.dry_run_validator import dry_run_validator, ValidationResult
 from app.services.llm_fixer import llm_fixer, FixResult
 from app.services.pipeline_progress import progress_store
 from app.integrations.chromadb import ChromaDBIntegration
+from app.integrations.llm_provider import get_active_provider_name
 
 
 class WorkflowStatus(Enum):
@@ -708,6 +709,11 @@ class SelfHealingWorkflow:
                 state.gitlab_ci = fix_result.gitlab_ci
                 state.template_source = "llm_fixed"
                 state.log(f"Fix applied: {fix_result.explanation[:100]}")
+
+                # Track fixer model on progress
+                progress = progress_store.get(project_id, branch)
+                if progress:
+                    progress.fixer_model_used = get_active_provider_name()
 
                 # Validate and auto-correct images for the detected language
                 state.gitlab_ci, state.dockerfile, img_fixes = pipeline_generator.validate_and_fix_pipeline_images(

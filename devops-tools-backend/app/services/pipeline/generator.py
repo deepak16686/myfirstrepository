@@ -20,7 +20,7 @@ import httpx
 from app.config import settings, tools_manager
 from app.integrations.ollama import OllamaIntegration
 from app.integrations.chromadb import ChromaDBIntegration
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 from app.services.gitlab_dry_run_validator import gitlab_dry_run_validator, GitLabDryRunValidator
 from app.services.gitlab_llm_fixer import gitlab_llm_fixer, GitLabLLMFixer
 
@@ -548,7 +548,7 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
                     "gitlab_ci": self._get_default_gitlab_ci(analysis),
                     "dockerfile": self._get_default_dockerfile(analysis),
                     "analysis": analysis,
-                    "model_used": model,
+                    "model_used": get_active_provider_name(),
                     "feedback_used": len(feedback),
                     "error": "LLM returned empty response"
                 }
@@ -602,20 +602,11 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             except Exception as e:
                 print(f"[ImageSeeder] Warning: {e}")
 
-            # Track which LLM provider was used
-            if settings.llm_provider == "claude-code":
-                if template_files:
-                    used_model = f"claude-rag-{settings.claude_model}"
-                else:
-                    used_model = f"claude-{settings.claude_model}"
-            else:
-                used_model = model
-
             return {
                 "gitlab_ci": final_gitlab_ci,
                 "dockerfile": final_dockerfile,
                 "analysis": analysis,
-                "model_used": used_model,
+                "model_used": get_active_provider_name(),
                 "feedback_used": len(feedback)
             }
         finally:
@@ -742,7 +733,7 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
                 'gitlab_ci': fixed_gitlab_ci,
                 'dockerfile': fixed_dockerfile,
                 'analysis': analysis,
-                'model_used': model,
+                'model_used': get_active_provider_name(),
                 'feedback_used': result.get('feedback_used', 0),
                 'validation_passed': True,
                 'fix_attempts': fix_result.get('attempts', 1),
@@ -756,7 +747,7 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
                 'gitlab_ci': fix_result.get('gitlab_ci', gitlab_ci),
                 'dockerfile': fix_result.get('dockerfile', dockerfile),
                 'analysis': analysis,
-                'model_used': model,
+                'model_used': get_active_provider_name(),
                 'feedback_used': result.get('feedback_used', 0),
                 'validation_passed': False,
                 'validation_errors': fix_result.get('final_errors', all_errors),

@@ -24,6 +24,7 @@ from app.services.github_pipeline.learning import (
 from app.services.github_pipeline.image_seeder import ensure_images_in_nexus
 from app.services.github_llm_fixer import github_llm_fixer
 from app.services.pipeline_progress import progress_store
+from app.integrations.llm_provider import get_active_provider_name
 
 router = APIRouter(prefix="/github-pipeline", tags=["GitHub Actions Pipeline"])
 
@@ -334,7 +335,8 @@ async def github_chat(request: ChatRequest, background_tasks: BackgroundTasks):
                 project_id = abs(hash(pending["repo_url"])) % (10**8)
 
                 # Start background monitoring
-                progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                progress = progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                progress.model_used = model_used
                 background_tasks.add_task(
                     monitor_workflow_for_learning,
                     repo_url=pending["repo_url"],
@@ -781,7 +783,8 @@ async def full_workflow(
             if commit_result.get("success"):
                 project_id = abs(hash(request.repo_url)) % (10**8)
                 branch = commit_result.get("branch", "")
-                progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                prog = progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                prog.model_used = result.get("model_used", "unknown")
 
                 background_tasks.add_task(
                     monitor_workflow_for_learning,
@@ -1259,6 +1262,11 @@ async def monitor_workflow_for_learning(
                 current_dockerfile = fix_result.dockerfile or current_dockerfile
                 fix_applied = True
                 print(f"[GitHub Monitor] LLM fix applied: {fix_result.explanation}")
+                # Track fixer model on progress
+                if project_id:
+                    prog = progress_store.get(project_id, branch)
+                    if prog:
+                        prog.fixer_model_used = get_active_provider_name()
             else:
                 print(f"[GitHub Monitor] Log-based LLM fix failed: {fix_result.explanation}")
 
