@@ -29,6 +29,8 @@ class PipelineProgress:
     pipeline_id: Optional[int] = None
     events: List[ProgressEvent] = field(default_factory=list)
     completed: bool = False
+    model_used: Optional[str] = None
+    fixer_model_used: Optional[str] = None
 
     def add_event(self, stage: str, message: str, attempt: int = 0):
         self.status = stage
@@ -52,6 +54,8 @@ class PipelineProgress:
             "max_attempts": self.max_attempts,
             "pipeline_id": self.pipeline_id,
             "completed": self.completed,
+            "model_used": self.model_used,
+            "fixer_model_used": self.fixer_model_used,
             "events": [
                 {
                     "timestamp": e.timestamp,

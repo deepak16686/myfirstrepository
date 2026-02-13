@@ -1120,6 +1120,8 @@ function buildProgressHTML(data) {
     let html = `<div style="border-left: 3px solid ${color}; padding: 8px 12px;">`;
     html += `<p style="margin:0 0 6px 0;"><strong style="color:${color};">${icon} Pipeline Monitor</strong>`;
     if (data.pipeline_id) html += ` <span style="color:#888;font-size:0.85em;">#${data.pipeline_id}</span>`;
+    if (data.model_used) html += ` <span class="model-badge">${data.model_used}</span>`;
+    if (data.fixer_model_used) html += ` <span class="model-badge fixer">${data.fixer_model_used}</span>`;
     html += `</p>`;
     html += `<p style="margin:0 0 4px 0;">${linkify(data.current_message)}</p>`;
 
@@ -1147,3 +1149,92 @@ function buildProgressHTML(data) {
     html += '</div>';
     return html;
 }
+
+// ========== LLM Settings ==========
+
+async function loadLLMProviders() {
+    try {
+        const resp = await fetch(`${API_BASE_URL}/api/v1/llm/providers`);
+        if (!resp.ok) throw new Error('Failed to load providers');
+        const data = await resp.json();
+        renderLLMProviders(data);
+        // Update nav badge
+        const badge = document.getElementById('activeLLMBadge');
+        if (badge) badge.textContent = data.active_display_name || 'Unknown';
+    } catch (e) {
+        console.error('Failed to load LLM providers:', e);
+        document.getElementById('llmProvidersList').innerHTML =
+            '<p style="color:#c62828;">Failed to load providers. Is the backend running?</p>';
+    }
+}
+
+function renderLLMProviders(data) {
+    const container = document.getElementById('llmProvidersList');
+    const activeId = data.active_provider;
+    let html = '';
+
+    for (const p of data.providers) {
+        const isActive = p.id === activeId;
+        const isDisabled = !p.enabled;
+        const cardClass = isActive ? 'active' : (isDisabled ? 'disabled' : '');
+        const statusClass = isActive ? 'active-status' : (p.enabled ? 'available-status' : 'unavailable-status');
+        const statusText = isActive ? 'Active' : (p.enabled ? 'Available' : 'Not configured');
+        const onclick = isDisabled ? '' : `onclick="selectLLMProvider('${p.id}')"`;
+
+        html += `<div class="llm-provider-card ${cardClass}" ${onclick}>`;
+        html += `<div class="provider-header">`;
+        html += `<span class="provider-name">${p.name}</span>`;
+        html += `<span class="provider-status ${statusClass}">${statusText}</span>`;
+        html += `</div>`;
+        html += `<div class="provider-description">${p.description}</div>`;
+        html += `<div class="provider-models">`;
+        for (const m of p.models) {
+            const isCurrent = isActive && m === (p.active_model || p.default_model);
+            html += `<span class="model-chip ${isCurrent ? 'current' : ''}">${m}</span>`;
+        }
+        html += `</div></div>`;
+    }
+
+    container.innerHTML = html;
+}
+
+async function selectLLMProvider(providerId) {
+    try {
+        const resp = await fetch(`${API_BASE_URL}/api/v1/llm/set-active`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ provider_id: providerId })
+        });
+        if (!resp.ok) {
+            const err = await resp.json();
+            alert('Failed to switch provider: ' + (err.detail || 'Unknown error'));
+            return;
+        }
+        // Reload provider list to reflect change
+        await loadLLMProviders();
+    } catch (e) {
+        console.error('Failed to switch provider:', e);
+        alert('Failed to switch provider: ' + e.message);
+    }
+}
+
+function openLLMSettings() {
+    document.getElementById('llmSettingsModal').classList.remove('hidden');
+    loadLLMProviders();
+}
+
+function closeLLMSettings() {
+    document.getElementById('llmSettingsModal').classList.add('hidden');
+}
+
+// Close modal on overlay click
+document.addEventListener('click', (e) => {
+    if (e.target.id === 'llmSettingsModal') {
+        closeLLMSettings();
+    }
+});
+
+// Load active provider badge on startup
+document.addEventListener('DOMContentLoaded', () => {
+    loadLLMProviders();
+});

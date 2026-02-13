@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Platform - DevOps & Infrastructure</title>
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
     <!-- Highlight.js for code syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -30,6 +30,10 @@
                 <button class="nav-tab" data-category="auxiliary">Auxiliary</button>
             </div>
             <div class="nav-status">
+                <button class="llm-settings-btn" onclick="openLLMSettings()" title="LLM Settings">
+                    <span class="settings-icon">&#9881;</span>
+                    <span id="activeLLMBadge" class="active-llm-badge">Ollama</span>
+                </button>
                 <span id="connectionStatus" class="status connected">Connected</span>
             </div>
         </nav>
@@ -437,6 +441,21 @@
         </footer>
     </div>
 
-    <script src="app.js?v=7"></script>
+    <!-- LLM Settings Modal -->
+    <div id="llmSettingsModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>LLM Provider Settings</h3>
+                <button class="modal-close" onclick="closeLLMSettings()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="llmProvidersList" class="llm-providers-list">
+                    <div class="llm-loading"><span class="spinner"></span> Loading providers...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?v=8"></script>
 </body>
 </html>

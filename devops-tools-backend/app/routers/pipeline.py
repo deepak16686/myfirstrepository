@@ -20,6 +20,7 @@ from app.services.self_healing_workflow import self_healing_workflow, WorkflowSt
 from app.services.pipeline_progress import progress_store
 from app.services.dry_run_validator import dry_run_validator
 from app.services.llm_fixer import llm_fixer
+from app.integrations.llm_provider import get_active_provider_name
 
 from app.models.pipeline_schemas import (
     GeneratePipelineRequest, GeneratePipelineResponse,
@@ -369,7 +370,8 @@ async def commit_pipeline(request: CommitRequest, background_tasks: BackgroundTa
             commit_message=request.commit_message
         )
 
-        progress_store.create(project_id=result['project_id'], branch=branch_name, max_attempts=10)
+        progress = progress_store.create(project_id=result['project_id'], branch=branch_name, max_attempts=10)
+        progress.model_used = get_active_provider_name()
 
         background_tasks.add_task(
             monitor_pipeline_for_learning,

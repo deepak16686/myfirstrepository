@@ -10,7 +10,7 @@ import re
 from typing import Dict, Any, Optional, List
 
 from app.config import settings
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 
 from app.services.jenkins_pipeline.analyzer import (
     parse_repo_url,
@@ -380,7 +380,7 @@ class JenkinsPipelineGeneratorService:
                     "jenkinsfile": jenkinsfile,
                     "dockerfile": dockerfile,
                     "analysis": analysis,
-                    "model_used": model or self.DEFAULT_MODEL,
+                    "model_used": get_active_provider_name(),
                     "feedback_used": len(feedback)
                 }
         except Exception as e:
@@ -649,7 +649,7 @@ Output format:
                 'jenkinsfile': final_jenkinsfile,
                 'dockerfile': final_dockerfile,
                 'analysis': analysis,
-                'model_used': model,
+                'model_used': get_active_provider_name(),
                 'feedback_used': result.get('feedback_used', 0),
                 'validation_passed': True,
                 'fix_attempts': fix_result.get('attempts', 1),
@@ -669,7 +669,7 @@ Output format:
                 'jenkinsfile': final_jenkinsfile,
                 'dockerfile': fix_result.get('dockerfile', dockerfile),
                 'analysis': analysis,
-                'model_used': model,
+                'model_used': get_active_provider_name(),
                 'feedback_used': result.get('feedback_used', 0),
                 'validation_passed': False,
                 'validation_errors': fix_result.get('final_errors', []),

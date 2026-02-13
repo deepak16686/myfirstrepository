@@ -90,7 +90,7 @@ LANGUAGE_RUNTIME_IMAGES = {
 # Language -> correct compile commands
 LANGUAGE_COMPILE_COMMANDS = {
     "java": ["mvn clean package -DskipTests"],
-    "kotlin": ["mvn clean package -DskipTests"],
+    "kotlin": ["gradle build -x test || ./gradlew build -x test"],
     "scala": ["sbt assembly || sbt package"],
     "python": ["pip install -r requirements.txt"],
     "django": ["pip install -r requirements.txt", "python manage.py collectstatic --noinput || true"],
