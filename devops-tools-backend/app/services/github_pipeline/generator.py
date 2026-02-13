@@ -7,7 +7,7 @@ import re
 from typing import Dict, Any, Optional
 
 from app.config import settings
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 
 from app.services.github_pipeline.analyzer import (
     parse_github_url,
@@ -323,11 +323,8 @@ class GitHubPipelineGeneratorService:
                 "feedback_used": 0
             }
 
-        # Priority 2: Use default template for known languages
-        # Default templates are battle-tested for Gitea Actions.
-        # LLM often generates patterns that break on Gitea (artifact actions, docker/* actions).
-        known_languages = {"java", "python", "javascript", "go"}
-        if use_template_only or language in known_languages:
+        # Priority 2: If use_template_only requested, use built-in defaults directly
+        if use_template_only:
             workflow = self._get_default_workflow(analysis, runner_type)
             dockerfile = self._get_default_dockerfile(analysis)
             return {
@@ -339,7 +336,7 @@ class GitHubPipelineGeneratorService:
                 "feedback_used": 0
             }
 
-        # Priority 3: Try LLM generation (only for unknown languages)
+        # Priority 3: Try LLM generation (enables RL learning cycle)
         try:
             reference = await self.get_reference_workflow(language, framework)
             generated = await self._generate_with_llm(
@@ -355,13 +352,14 @@ class GitHubPipelineGeneratorService:
                     "workflow": self._ensure_learn_job(workflow),
                     "dockerfile": dockerfile,
                     "analysis": analysis,
-                    "model_used": model or self.DEFAULT_MODEL,
+                    "model_used": get_active_provider_name(),
                     "feedback_used": 0
                 }
         except Exception as e:
             print(f"[GitHub Pipeline] LLM generation failed: {e}")
 
-        # Fallback: Use default templates
+        # Fallback: Use default templates (LLM failed or returned empty)
+        print(f"[GitHub Pipeline] Falling back to built-in default template for {language}")
         workflow = self._get_default_workflow(analysis, runner_type)
         dockerfile = self._get_default_dockerfile(analysis)
 

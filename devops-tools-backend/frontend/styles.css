@@ -1175,3 +1175,211 @@ body {
         width: 100%;
     }
 }
+
+/* ========== LLM Settings Button & Modal ========== */
+.llm-settings-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 13px;
+    transition: background 0.2s;
+    margin-right: 10px;
+}
+
+.llm-settings-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.settings-icon {
+    font-size: 16px;
+}
+
+.active-llm-badge {
+    font-size: 11px;
+    font-weight: 600;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 500px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    padding: 0 4px;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Provider Cards */
+.llm-providers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.llm-provider-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.llm-provider-card:hover {
+    border-color: var(--primary-light);
+    background: #fff8f5;
+}
+
+.llm-provider-card.active {
+    border-color: var(--primary-color);
+    background: #fff3ed;
+}
+
+.llm-provider-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.llm-provider-card.disabled:hover {
+    border-color: #e0e0e0;
+    background: white;
+}
+
+.provider-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.provider-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.provider-status {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.provider-status.active-status {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.provider-status.available-status {
+    background: #f5f5f5;
+    color: #757575;
+}
+
+.provider-status.unavailable-status {
+    background: #fbe9e7;
+    color: #c62828;
+}
+
+.provider-description {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.provider-models {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.model-chip {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f0f0f0;
+    color: #555;
+}
+
+.model-chip.current {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* LLM Loading */
+.llm-loading {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-light);
+}
+
+/* Model badge in progress */
+.model-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #e3f2fd;
+    color: #1565c0;
+    font-weight: 500;
+    margin-left: 6px;
+}
+
+.model-badge.fixer {
+    background: #fff3e0;
+    color: #e65100;
+}

@@ -1,24 +1,23 @@
 """
 LLM Provider Factory
 
-Returns the appropriate LLM integration based on configuration.
+Returns the appropriate LLM integration based on the active provider
+in the LLM registry. Backward compatible with all existing callers.
 """
-from app.config import settings, tools_manager
-from app.integrations.ollama import OllamaIntegration
-from app.integrations.claude_code import ClaudeCodeIntegration
+from app.integrations.llm_registry import llm_registry
 
 
-def get_llm_provider():
+def get_llm_provider(provider_id: str = None):
     """
-    Factory that returns either OllamaIntegration or ClaudeCodeIntegration
-    based on the LLM_PROVIDER setting.
+    Factory that returns the active LLM provider instance.
 
-    Both implement:
+    All providers implement:
         async generate(model, prompt, system, context, options) -> {"response": "..."}
         async close()
     """
-    if settings.llm_provider == "claude-code":
-        return ClaudeCodeIntegration()
-    else:
-        ollama_config = tools_manager.get_tool("ollama")
-        return OllamaIntegration(ollama_config)
+    return llm_registry.create_provider_instance(provider_id)
+
+
+def get_active_provider_name() -> str:
+    """Get the display name of the active LLM provider (e.g. 'Claude Code (opus)')."""
+    return llm_registry.get_active_display_name()

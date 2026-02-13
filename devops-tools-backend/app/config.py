@@ -54,10 +54,15 @@ class Settings(BaseSettings):
 
     ollama_url: str = "http://ollama:11434"
 
-    # LLM Provider: "ollama" or "claude-code"
+    # LLM Provider: "ollama", "claude-code", or "openai"
     llm_provider: str = "claude-code"
     claude_model: str = "opus"   # "opus", "sonnet", or "haiku"
     claude_timeout: int = 300      # seconds
+
+    # OpenAI Configuration
+    openai_api_key: Optional[str] = None
+    openai_base_url: str = "https://api.openai.com/v1"
+    openai_timeout: int = 300
 
     redis_url: str = "redis://redis:6379/0"
 

@@ -10,7 +10,7 @@ import re
 from typing import Dict, Any, Optional, List, Tuple
 
 from app.config import settings
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 from app.services.terraform.validator import validate_terraform_files
 from app.services.terraform.workspace import workspace_manager
 from app.services.terraform.executor import terraform_executor
@@ -163,6 +163,7 @@ class TerraformLLMFixer:
                     "files": current_files,
                     "attempts": attempt,
                     "fix_history": fix_history,
+                    "fixer_model_used": get_active_provider_name(),
                 }
 
             except Exception as e:
@@ -175,6 +176,7 @@ class TerraformLLMFixer:
                         "attempts": attempt,
                         "fix_history": fix_history,
                         "note": "Terraform CLI not available, text validation passed",
+                        "fixer_model_used": get_active_provider_name(),
                     }
             finally:
                 if workspace_id:
@@ -187,6 +189,7 @@ class TerraformLLMFixer:
             "attempts": max_attempts,
             "fix_history": fix_history,
             "error": f"Could not fix after {max_attempts} attempts",
+            "fixer_model_used": get_active_provider_name(),
         }
 
     def _build_fix_prompt(

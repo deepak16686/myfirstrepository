@@ -342,7 +342,8 @@ async def jenkins_chat(request: ChatRequest, background_tasks: BackgroundTasks):
                 project_id = abs(hash(pending["repo_url"])) % (10**8)
 
                 # Start background monitoring (like GitLab does in pipeline.py:372-382)
-                progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                progress = progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                progress.model_used = model_used
                 background_tasks.add_task(
                     monitor_build_for_learning,
                     job_name=job_name,
@@ -837,7 +838,8 @@ async def full_workflow(
                 # Step 5: Create progress tracking
                 project_id = commit_result.get("project_id", 0)
                 branch = commit_result.get("branch", "")
-                progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                prog = progress_store.create(project_id=project_id, branch=branch, max_attempts=10)
+                prog.model_used = result.get("model_used", "unknown")
 
                 # Step 6: Schedule background monitoring
                 if trigger_result.get("success"):
@@ -1168,6 +1170,12 @@ async def monitor_build_for_learning(
                                 analysis=analysis,
                                 max_attempts=3,
                             )
+
+                            # Track fixer model on progress
+                            if project_id and branch and fix_result.get("fixer_model_used"):
+                                prog = progress_store.get(project_id, branch)
+                                if prog:
+                                    prog.fixer_model_used = fix_result["fixer_model_used"]
 
                             if fix_result.get("success"):
                                 await jenkins_pipeline_generator.commit_to_repo(

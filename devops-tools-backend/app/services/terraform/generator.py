@@ -10,7 +10,7 @@ import re
 from typing import Dict, Any, Optional, List
 
 from app.config import settings
-from app.integrations.llm_provider import get_llm_provider
+from app.integrations.llm_provider import get_llm_provider, get_active_provider_name
 
 from app.services.terraform.analyzer import (
     build_context_description,
@@ -239,7 +239,7 @@ class TerraformGeneratorService:
         return {
             "success": True,
             "files": files,
-            "model_used": model,
+            "model_used": get_active_provider_name(),
             "feedback_used": len(feedback),
             "context": context_desc,
         }
