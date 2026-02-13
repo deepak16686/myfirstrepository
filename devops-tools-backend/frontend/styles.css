@@ -241,6 +241,11 @@ body {
     color: #2d6b28;
 }
 
+.tag.gitlab {
+    background: rgba(226, 67, 41, 0.15);
+    color: #c23321;
+}
+
 .card-arrow {
     display: none;
 }
