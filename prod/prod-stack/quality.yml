@@ -1,0 +1,101 @@
+# =============================================================================
+# PRODUCTION STACK — Code Quality & Security
+# Services: SonarQube (+ DB), Trivy, Nexus
+# Usage: docker compose -f quality.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # SonarQube Database — Dedicated PostgreSQL for SonarQube
+  # ---------------------------------------------------------------------------
+  prod-sonarqube-db:
+    image: postgres:15-alpine
+    container_name: prod-sonarqube-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PROD_SONARQUBE_DB_USER:-sonarqube}
+      POSTGRES_PASSWORD: ${PROD_SONARQUBE_DB_PASSWORD:-sonarqube}
+      POSTGRES_DB: ${PROD_SONARQUBE_DB_NAME:-sonarqube}
+    volumes:
+      - prod-sonarqube-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PROD_SONARQUBE_DB_USER:-sonarqube}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # SonarQube — Static code analysis and quality gates
+  # ---------------------------------------------------------------------------
+  prod-sonarqube:
+    image: sonarqube:lts-community
+    container_name: prod-sonarqube
+    restart: unless-stopped
+    ports:
+      - "${PROD_SONARQUBE_PORT:-19002}:9000"
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://prod-sonarqube-db:5432/${PROD_SONARQUBE_DB_NAME:-sonarqube}
+      SONAR_JDBC_USERNAME: ${PROD_SONARQUBE_DB_USER:-sonarqube}
+      SONAR_JDBC_PASSWORD: ${PROD_SONARQUBE_DB_PASSWORD:-sonarqube}
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    volumes:
+      - prod-sonarqube-data:/opt/sonarqube/data
+      - prod-sonarqube-extensions:/opt/sonarqube/extensions
+      - prod-sonarqube-logs:/opt/sonarqube/logs
+    depends_on:
+      prod-sonarqube-db:
+        condition: service_healthy
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Trivy — Container and dependency vulnerability scanner
+  # ---------------------------------------------------------------------------
+  prod-trivy:
+    image: aquasec/trivy:latest
+    container_name: prod-trivy
+    restart: unless-stopped
+    ports:
+      - "${PROD_TRIVY_PORT:-18083}:8080"
+    command: server --listen 0.0.0.0:8080 --cache-dir /var/lib/trivy --timeout 10m
+    volumes:
+      - prod-trivy-cache:/var/lib/trivy
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Nexus — Docker registry and artifact repository
+  # ---------------------------------------------------------------------------
+  prod-nexus:
+    image: sonatype/nexus3:latest
+    container_name: prod-nexus
+    restart: unless-stopped
+    ports:
+      - "${PROD_NEXUS_UI_PORT:-18081}:8081"
+      - "${PROD_NEXUS_REGISTRY_PORT:-15001}:5001"
+    volumes:
+      - prod-nexus-data:/nexus-data
+    networks:
+      - prod-platform-net
+
+volumes:
+  prod-sonarqube-db-data:
+    name: prod-sonarqube-db-data
+  prod-sonarqube-data:
+    name: prod-sonarqube-data
+  prod-sonarqube-extensions:
+    name: prod-sonarqube-extensions
+  prod-sonarqube-logs:
+    name: prod-sonarqube-logs
+  prod-trivy-cache:
+    name: prod-trivy-cache
+  prod-nexus-data:
+    name: prod-nexus-data
+
+networks:
+  prod-platform-net:
+    name: prod-platform-net
+    driver: bridge

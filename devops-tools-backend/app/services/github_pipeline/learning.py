@@ -238,28 +238,51 @@ async def record_build_result(
         headers = {"Authorization": f"token {github_token}"}
 
         # Get workflow run status from Gitea Actions API
+        # NOTE: When called from learn-record job (if: success()), the overall run
+        # is still "in_progress" because learn-record itself hasn't finished.
+        # So we check individual job conclusions instead of the overall run status.
         async with httpx.AsyncClient(timeout=30.0) as client:
-            runs_resp = await client.get(
-                f"{api_base}/actions/runs",
-                headers=headers,
-                params={"branch": branch, "limit": 5}
-            )
-
             run_status = "unknown"
             run_duration = None
-            if runs_resp.status_code == 200:
-                runs_data = runs_resp.json()
-                workflow_runs = runs_data.get("workflow_runs", [])
-                for run in workflow_runs:
-                    if run.get("id") == run_id:
-                        run_status = run.get("conclusion", run.get("status", "unknown"))
-                        break
-                if not workflow_runs and run_status == "unknown":
-                    # Fallback: use first run on branch
-                    if runs_data.get("workflow_runs"):
-                        latest = runs_data["workflow_runs"][0]
-                        run_status = latest.get("conclusion", latest.get("status", "unknown"))
-                        run_id = latest.get("id", run_id)
+
+            # Check individual job conclusions for this run
+            jobs_resp = await client.get(
+                f"{api_base}/actions/runs/{run_id}/jobs",
+                headers=headers
+            )
+            if jobs_resp.status_code == 200:
+                jobs_data = jobs_resp.json()
+                jobs_list = jobs_data.get("jobs", []) if isinstance(jobs_data, dict) else jobs_data
+                # Exclude learn-record and notify-failure from success check.
+                # notify-failure has if:failure() so it's always skipped on success.
+                skip_names = {"learn-record", "notify-failure"}
+                non_learn_jobs = [j for j in jobs_list if j.get("name") not in skip_names]
+                if non_learn_jobs:
+                    all_success = all(
+                        j.get("conclusion") in ("success", "skipped") for j in non_learn_jobs
+                    )
+                    if all_success:
+                        run_status = "success"
+                        print(f"[GitHub RL] All {len(non_learn_jobs)} non-learn jobs succeeded for run #{run_id}")
+                    else:
+                        failed = [j["name"] for j in non_learn_jobs if j.get("conclusion") != "success"]
+                        run_status = "failure"
+                        print(f"[GitHub RL] Some jobs failed: {failed}")
+
+            # Fallback: check overall run conclusion (for external callers)
+            if run_status == "unknown":
+                runs_resp = await client.get(
+                    f"{api_base}/actions/runs",
+                    headers=headers,
+                    params={"branch": branch, "limit": 5}
+                )
+                if runs_resp.status_code == 200:
+                    runs_data = runs_resp.json()
+                    workflow_runs = runs_data.get("workflow_runs", [])
+                    for run in workflow_runs:
+                        if run.get("id") == run_id:
+                            run_status = run.get("conclusion", run.get("status", "unknown"))
+                            break
 
         # Analyze repository for language/framework
         analysis = await analyze_repository(repo_url, github_token)

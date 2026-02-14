@@ -1,0 +1,69 @@
+# =============================================================================
+# PRODUCTION STACK — Project Management
+# Services: Redmine (+ DB)
+# Usage: docker compose -f projects.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Redmine Database — Dedicated PostgreSQL for Redmine
+  # ---------------------------------------------------------------------------
+  prod-redmine-db:
+    image: postgres:15-alpine
+    container_name: prod-redmine-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PROD_REDMINE_DB_USER:-redmine}
+      POSTGRES_PASSWORD: ${PROD_REDMINE_DB_PASSWORD:-redmine123}
+      POSTGRES_DB: ${PROD_REDMINE_DB_NAME:-redmine}
+    volumes:
+      - prod-redmine-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PROD_REDMINE_DB_USER:-redmine}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Redmine — Project management and issue tracking
+  # ---------------------------------------------------------------------------
+  prod-redmine:
+    image: redmine:5-alpine
+    container_name: prod-redmine
+    restart: unless-stopped
+    ports:
+      - "${PROD_REDMINE_PORT:-18090}:3000"
+    environment:
+      REDMINE_DB_POSTGRES: prod-redmine-db
+      REDMINE_DB_PORT: "5432"
+      REDMINE_DB_USERNAME: ${PROD_REDMINE_DB_USER:-redmine}
+      REDMINE_DB_PASSWORD: ${PROD_REDMINE_DB_PASSWORD:-redmine123}
+      REDMINE_DB_DATABASE: ${PROD_REDMINE_DB_NAME:-redmine}
+      REDMINE_SECRET_KEY_BASE: prod-redmine-secret-key-base-change-in-production
+    volumes:
+      - prod-redmine-data:/usr/src/redmine/files
+      - prod-redmine-plugins:/usr/src/redmine/plugins
+      - prod-redmine-themes:/usr/src/redmine/public/themes
+    depends_on:
+      prod-redmine-db:
+        condition: service_healthy
+    networks:
+      - prod-platform-net
+
+volumes:
+  prod-redmine-db-data:
+    name: prod-redmine-db-data
+  prod-redmine-data:
+    name: prod-redmine-data
+  prod-redmine-plugins:
+    name: prod-redmine-plugins
+  prod-redmine-themes:
+    name: prod-redmine-themes
+
+networks:
+  prod-platform-net:
+    name: prod-platform-net
+    driver: bridge

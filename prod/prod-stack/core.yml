@@ -1,0 +1,87 @@
+# =============================================================================
+# PRODUCTION STACK — Core Infrastructure
+# Services: PostgreSQL, Redis, MinIO
+# Usage: docker compose -f core.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — Primary relational database
+  # ---------------------------------------------------------------------------
+  prod-postgres:
+    image: postgres:16-alpine
+    container_name: prod-postgres
+    restart: unless-stopped
+    ports:
+      - "${PROD_POSTGRES_PORT:-15432}:5432"
+    environment:
+      POSTGRES_USER: ${PROD_POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${PROD_POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${PROD_POSTGRES_DB:-modernization}
+    volumes:
+      - prod-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PROD_POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Redis — Caching and session store
+  # ---------------------------------------------------------------------------
+  prod-redis:
+    image: redis:7-alpine
+    container_name: prod-redis
+    restart: unless-stopped
+    ports:
+      - "${PROD_REDIS_PORT:-16379}:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - prod-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # MinIO — S3-compatible object storage
+  # ---------------------------------------------------------------------------
+  prod-minio:
+    image: minio/minio:latest
+    container_name: prod-minio
+    restart: unless-stopped
+    ports:
+      - "${PROD_MINIO_PORT:-19000}:9000"
+      - "${PROD_MINIO_CONSOLE_PORT:-19001}:9001"
+    environment:
+      MINIO_ROOT_USER: ${PROD_MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${PROD_MINIO_ROOT_PASSWORD:-minioadmin123}
+    command: server /data --console-address ":9001"
+    volumes:
+      - prod-minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - prod-platform-net
+
+volumes:
+  prod-postgres-data:
+    name: prod-postgres-data
+  prod-redis-data:
+    name: prod-redis-data
+  prod-minio-data:
+    name: prod-minio-data
+
+networks:
+  prod-platform-net:
+    name: prod-platform-net
+    driver: bridge

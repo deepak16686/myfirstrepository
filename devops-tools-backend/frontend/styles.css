@@ -387,12 +387,20 @@ body {
 }
 
 .message-content pre {
-    background: #1e1e1e;
+    background: #f6f8fa !important;
+    border: 1px solid #e1e4e8;
     border-radius: 8px;
     padding: 12px;
     overflow-x: auto;
     margin: 12px 0;
     font-size: 0.9rem;
+}
+
+.message-content pre code,
+.message-content pre code.hljs,
+.message-content pre .hljs,
+.message-content .hljs {
+    background: #f6f8fa !important;
 }
 
 .message-content code {
