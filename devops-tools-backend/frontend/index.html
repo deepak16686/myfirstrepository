@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Platform - DevOps & Infrastructure</title>
-    <link rel="stylesheet" href="styles.css?v=8">
-    <!-- Highlight.js for code syntax highlighting -->
+    <!-- Highlight.js for code syntax highlighting (load BEFORE app styles so app can override) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="styles.css?v=11">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
@@ -225,6 +225,17 @@
                         </div>
                     </div>
 
+                    <div class="tool-card" data-tool="commit-history" data-category="auxiliary">
+                        <div class="card-icon">&#128203;</div>
+                        <div class="card-content">
+                            <h3>Commit History</h3>
+                            <div class="card-tags">
+                                <span class="tag gitlab">GitLab</span>
+                                <span class="tag gitea">Gitea</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="tool-card disabled" data-tool="secret-manager" data-category="auxiliary">
                         <div class="card-icon">🔐</div>
                         <div class="card-content">
@@ -372,6 +383,84 @@
                 </div>
             </div>
 
+            <!-- Commit History View -->
+            <div id="commitHistoryView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>&larr;</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128203;</span>
+                        <h2>Commit History</h2>
+                    </div>
+                </div>
+
+                <!-- Search Form -->
+                <div class="commit-search-form" style="padding:16px 20px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;">
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+                        <div style="flex:2;min-width:280px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Repository URL</label>
+                            <input type="text" id="commitRepoUrl"
+                                placeholder="http://localhost:8929/root/project or http://localhost:3002/org/repo"
+                                onchange="fetchBranches()" onblur="fetchBranches()"
+                                style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;">
+                        </div>
+                        <div style="flex:0;min-width:150px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Branch</label>
+                            <select id="commitBranch"
+                                style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;background:#fff;">
+                                <option value="">All branches</option>
+                            </select>
+                        </div>
+                        <div style="flex:0;min-width:160px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">From</label>
+                            <input type="datetime-local" id="commitSince"
+                                style="padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;">
+                        </div>
+                        <div style="flex:0;min-width:160px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">To</label>
+                            <input type="datetime-local" id="commitUntil"
+                                style="padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;">
+                        </div>
+                        <div style="flex:0;min-width:100px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Token (optional)</label>
+                            <input type="password" id="commitToken" placeholder="Auto"
+                                style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;">
+                        </div>
+                        <div>
+                            <button onclick="fetchCommitHistory()" id="commitFetchBtn"
+                                style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:0.9em;cursor:pointer;font-weight:600;">
+                                Fetch Commits
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div id="commitSummary" class="connectivity-summary" style="display:none;">
+                    <div class="summary-item summary-total">
+                        <span class="summary-count" id="commitTotalCount">0</span>
+                        <span class="summary-label">Commits</span>
+                    </div>
+                    <div class="summary-item summary-healthy">
+                        <span class="summary-count" id="commitAdditions">0</span>
+                        <span class="summary-label">Additions</span>
+                    </div>
+                    <div class="summary-item summary-unhealthy">
+                        <span class="summary-count" id="commitDeletions">0</span>
+                        <span class="summary-label">Deletions</span>
+                    </div>
+                    <div class="summary-item summary-unknown">
+                        <span class="summary-count" id="commitServerType">-</span>
+                        <span class="summary-label">Server</span>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="commitResults" style="padding:0 20px 20px;overflow-y:auto;flex:1;">
+                </div>
+            </div>
+
             <!-- Terraform Navigation View -->
             <div id="terraformNavView" class="terraform-nav-view hidden">
                 <div class="tool-header">
@@ -456,6 +545,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=8"></script>
+    <script src="app.js?v=9"></script>
 </body>
 </html>

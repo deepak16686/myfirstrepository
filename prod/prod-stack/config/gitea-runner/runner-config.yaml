@@ -1,0 +1,46 @@
+# =============================================================================
+# Gitea Actions Runner Configuration — Production Stack
+# =============================================================================
+
+log:
+  level: info
+
+runner:
+  file: /data/.runner
+  capacity: 2
+  timeout: 3h
+  insecure: false
+  fetch_timeout: 5s
+  fetch_interval: 2s
+  labels:
+    - "self-hosted"
+    - "docker"
+    - "linux"
+    - "x64"
+
+  envs:
+    NEXUS_REGISTRY: "localhost:15001"
+    NEXUS_INTERNAL_REGISTRY: "prod-nexus:5001"
+    SONARQUBE_URL: "http://prod-sonarqube:9000"
+    SPLUNK_HEC_URL: "http://prod-splunk:8088"
+    DEVOPS_BACKEND_URL: "http://prod-devops-tools-backend:8003"
+
+cache:
+  enabled: true
+  dir: /data/cache
+  host: ""
+  port: 0
+  external_server: ""
+
+container:
+  network: "prod-platform-net"
+  privileged: true
+  options: ""
+  workdir_parent: /workspace
+  valid_volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  docker_host: ""
+  force_pull: false
+
+host:
+  workdir_parent: /data/workspace

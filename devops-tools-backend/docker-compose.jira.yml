@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   jira:
     image: atlassian/jira-software:9.12
@@ -17,9 +15,11 @@ services:
     volumes:
       - jira_data:/var/atlassian/application-data/jira
     depends_on:
-      - jira-postgres
+      jira-postgres:
+        condition: service_healthy
     networks:
       - ai-platform-net
+    restart: unless-stopped
 
   jira-postgres:
     image: postgres:15
@@ -32,6 +32,13 @@ services:
       - jira_postgres_data:/var/lib/postgresql/data
     networks:
       - ai-platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jira -d jiradb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
   jira_data:

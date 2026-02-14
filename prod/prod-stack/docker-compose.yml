@@ -1,0 +1,34 @@
+# =============================================================================
+# PRODUCTION STACK — Master Compose File
+# =============================================================================
+# Brings up ALL production services in a single command.
+#
+# USAGE:
+#   All services:     docker compose up -d
+#   Specific group:   docker compose -f core.yml up -d
+#   Multiple groups:  docker compose -f core.yml -f ai.yml up -d
+#   Stop all:         docker compose down
+#   Stop group:       docker compose -f core.yml down
+#
+# SERVICE GROUPS:
+#   core.yml        — PostgreSQL, Redis, MinIO
+#   ai.yml          — Ollama, ChromaDB, Open WebUI
+#   scm.yml         — GitLab (+runner), Gitea (+runner), Jenkins (master + 3 agents)
+#   quality.yml     — SonarQube (+DB), Trivy, Nexus
+#   monitoring.yml  — Prometheus, Grafana, Loki, Promtail, Jaeger, Splunk
+#   projects.yml    — Redmine (+DB)
+#   apps.yml        — DevOps Tools Backend, Legacy Modernization API
+#
+# NETWORK:
+#   All services share 'prod-platform-net' — fully isolated from dev stack.
+#
+# =============================================================================
+
+include:
+  - core.yml
+  - ai.yml
+  - scm.yml
+  - quality.yml
+  - monitoring.yml
+  - projects.yml
+  - apps.yml

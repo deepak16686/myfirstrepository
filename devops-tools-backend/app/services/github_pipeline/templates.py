@@ -3,6 +3,7 @@ ChromaDB template operations for GitHub Actions workflows.
 
 Handles retrieving reference workflows and best-performing templates.
 """
+import re
 import yaml
 import httpx
 from typing import Dict, Any, Optional
@@ -38,7 +39,7 @@ SUCCESSFUL_PIPELINES_COLLECTION = "github_actions_successful_pipelines"
 
 
 def _ensure_learn_job(workflow: str) -> str:
-    """Ensure the learn-record job exists in the workflow"""
+    """Ensure the learn-record job exists with the correct endpoint and uses wget (not curl)."""
     try:
         parsed = yaml.safe_load(workflow)
         if not parsed or 'jobs' not in parsed:
@@ -46,32 +47,40 @@ def _ensure_learn_job(workflow: str) -> str:
 
         jobs = parsed.get('jobs', {})
 
-        # Check if learn-record job exists
-        if 'learn-record' not in jobs:
-            # Add learn-record job
-            jobs['learn-record'] = {
-                'runs-on': 'self-hosted',
-                'needs': 'push-release',
-                'if': 'success()',
-                'steps': [
-                    {'uses': 'actions/checkout@v4'},
-                    {
-                        'name': 'Record Pipeline Success for RL',
-                        'run': '''curl -s -X POST "${{ env.DEVOPS_BACKEND_URL }}/api/v1/github-pipeline/learn/record" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "repo_url": "${{ github.server_url }}/${{ github.repository }}",
-    "github_token": "${{ secrets.GITHUB_TOKEN }}",
-    "branch": "${{ github.ref_name }}",
-    "run_id": ${{ github.run_id }}
-  }' && echo "SUCCESS: Configuration recorded for RL"'''
-                    }
-                ]
-            }
-            parsed['jobs'] = jobs
-            return yaml.dump(parsed, default_flow_style=False, sort_keys=False)
+        # Always replace learn-record job — LLM may generate wrong endpoint or use curl
+        # Determine needs list from all other jobs, excluding notify-failure
+        # (notify-failure has if:failure() so it's skipped on success, which would skip learn-record)
+        excluded = {'learn-record', 'notify-failure'}
+        other_jobs = [j for j in jobs.keys() if j not in excluded]
+        needs_list = other_jobs if other_jobs else ['compile']
 
-        return workflow
+        # Uses wget (not curl) — Gitea Actions runner is Alpine-based
+        jobs['learn-record'] = {
+            'runs-on': 'self-hosted',
+            'needs': needs_list,
+            'if': 'success()',
+            'steps': [
+                {
+                    'name': 'Record Pipeline Success for RL',
+                    'run': 'wget -q --no-check-certificate '
+                           '--header="Content-Type: application/json" '
+                           '--post-data=\'{"repo_url": "${{ github.server_url }}/${{ github.repository }}", '
+                           '"github_token": "${{ secrets.GITHUB_TOKEN }}", '
+                           '"branch": "${{ github.ref_name }}", '
+                           '"run_id": ${{ github.run_id }}}\' '
+                           '"${{ env.DEVOPS_BACKEND_URL }}/api/v1/github-pipeline/learn/record" '
+                           '-O /dev/null && echo "SUCCESS: Configuration recorded for RL"'
+                }
+            ]
+        }
+        parsed['jobs'] = jobs
+        output = yaml.dump(parsed, default_flow_style=False, sort_keys=False)
+        # Fix YAML boolean issue: yaml.dump converts `on:` key to `true:`
+        output = output.replace('\ntrue:', '\non:', 1)
+        if output.startswith('true:'):
+            output = 'on:' + output[5:]
+        return output
+
     except Exception as e:
         print(f"[Learn Job] Error adding learn job: {e}")
         return workflow
@@ -85,10 +94,14 @@ async def get_reference_workflow(
     chromadb_url = settings.chromadb_url
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
+            coll_uuid = await _resolve_collection_uuid(client, TEMPLATES_COLLECTION)
+            if not coll_uuid:
+                return None
+
             # First try exact match with language + framework
             if framework:
                 response = await client.post(
-                    f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{TEMPLATES_COLLECTION}/get",
+                    f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{coll_uuid}/get",
                     json={
                         "where": {
                             "$and": [
@@ -107,7 +120,7 @@ async def get_reference_workflow(
 
             # Try language-only match
             response = await client.post(
-                f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{TEMPLATES_COLLECTION}/get",
+                f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{coll_uuid}/get",
                 json={
                     "where": {"language": language},
                     "limit": 1,
@@ -133,6 +146,11 @@ async def get_best_template_files(
     chromadb_url = settings.chromadb_url
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
+            coll_uuid = await _resolve_collection_uuid(client, SUCCESSFUL_PIPELINES_COLLECTION)
+            if not coll_uuid:
+                print(f"[ChromaDB] Collection '{SUCCESSFUL_PIPELINES_COLLECTION}' not found")
+                return None
+
             where_filter = {"language": language}
             if framework:
                 where_filter = {
@@ -143,7 +161,7 @@ async def get_best_template_files(
                 }
 
             response = await client.post(
-                f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{SUCCESSFUL_PIPELINES_COLLECTION}/get",
+                f"{chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{coll_uuid}/get",
                 json={
                     "where": where_filter,
                     "limit": 10,
@@ -168,14 +186,22 @@ async def get_best_template_files(
 
                     doc = documents[best_idx]
                     try:
-                        parsed = yaml.safe_load(doc)
-                        return {
-                            "workflow": parsed.get("workflow", ""),
-                            "dockerfile": parsed.get("dockerfile", ""),
-                            "source": "chromadb-successful"
-                        }
-                    except:
-                        pass
+                        # Document is stored as markdown with embedded code blocks
+                        # Extract workflow from ```yaml ... ``` block
+                        yaml_match = re.search(r'```yaml\s*\n(.*?)```', doc, re.DOTALL)
+                        dockerfile_match = re.search(r'```dockerfile\s*\n(.*?)```', doc, re.DOTALL)
+
+                        workflow = yaml_match.group(1).strip() if yaml_match else ""
+                        dockerfile = dockerfile_match.group(1).strip() if dockerfile_match else ""
+
+                        if workflow:
+                            return {
+                                "workflow": workflow,
+                                "dockerfile": dockerfile,
+                                "source": "chromadb-successful"
+                            }
+                    except Exception as parse_err:
+                        print(f"[ChromaDB] Error parsing stored template: {parse_err}")
 
     except Exception as e:
         print(f"[ChromaDB] Error getting best template: {e}")

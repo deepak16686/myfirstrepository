@@ -1,0 +1,129 @@
+# =============================================================================
+# PRODUCTION STACK — Applications
+# Services: DevOps Tools Backend, Legacy Modernization API
+# Usage: docker compose -f apps.yml up -d
+# Depends on: core.yml, ai.yml, scm.yml, quality.yml, monitoring.yml
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # DevOps Tools Backend — AI-powered pipeline generator & DevOps platform
+  # ---------------------------------------------------------------------------
+  prod-devops-tools-backend:
+    build:
+      context: ../../devops-tools-backend
+      dockerfile: Dockerfile
+    container_name: prod-devops-tools-backend
+    restart: unless-stopped
+    ports:
+      - "${PROD_BACKEND_PORT:-18003}:8003"
+    environment:
+      # GitLab
+      - GITLAB_URL=http://prod-gitlab-server
+      - GITLAB_TOKEN=${PROD_GITLAB_TOKEN:-}
+
+      # SonarQube
+      - SONARQUBE_URL=http://prod-sonarqube:9000
+      - SONARQUBE_USERNAME=admin
+      - SONARQUBE_PASSWORD=${PROD_SONARQUBE_PASSWORD:-N7@qL9!fR2#XwA8$}
+
+      # Trivy
+      - TRIVY_URL=http://prod-trivy:8080
+
+      # Nexus
+      - NEXUS_URL=http://prod-nexus:8081
+      - NEXUS_USERNAME=admin
+      - NEXUS_PASSWORD=${PROD_NEXUS_PASSWORD:-r}
+
+      # Gitea (GitHub Actions pipelines)
+      - GITHUB_URL=http://prod-gitea-server:3000
+      - GITHUB_TOKEN=${PROD_GITEA_TOKEN:-}
+
+      # ChromaDB
+      - CHROMADB_URL=http://prod-chromadb:8000
+
+      # Ollama
+      - OLLAMA_URL=http://prod-ollama:11434
+
+      # LLM Provider
+      - LLM_PROVIDER=${PROD_LLM_PROVIDER:-claude-code}
+      - CLAUDE_MODEL=${PROD_CLAUDE_MODEL:-opus}
+      - CLAUDE_TIMEOUT=${PROD_CLAUDE_TIMEOUT:-300}
+
+      # Redis
+      - REDIS_URL=redis://prod-redis:6379/0
+
+      # PostgreSQL
+      - POSTGRES_URL=postgresql://${PROD_POSTGRES_USER:-postgres}:${PROD_POSTGRES_PASSWORD:-postgres}@prod-postgres:5432/${PROD_POSTGRES_DB:-modernization}
+
+      # Jira (optional)
+      - JIRA_URL=${PROD_JIRA_URL:-http://prod-jira:8080}
+      - JIRA_USERNAME=${PROD_JIRA_USERNAME:-}
+      - JIRA_API_TOKEN=${PROD_JIRA_API_TOKEN:-}
+      - JIRA_PROJECT_KEY=${PROD_JIRA_PROJECT_KEY:-DEVOPS}
+
+      # Splunk
+      - SPLUNK_URL=https://prod-splunk:8088
+      - SPLUNK_TOKEN=${PROD_SPLUNK_TOKEN:-}
+
+      # Jenkins
+      - JENKINS_URL=http://prod-jenkins-master:8080/jenkins
+      - JENKINS_USERNAME=${PROD_JENKINS_USERNAME:-admin}
+      - JENKINS_PASSWORD=${PROD_JENKINS_PASSWORD:-admin123}
+      - JENKINS_GIT_URL=http://prod-gitea-server:3000
+      - JENKINS_GIT_TOKEN=${PROD_JENKINS_GIT_TOKEN:-}
+
+      # Debug
+      - DEBUG=false
+    volumes:
+      - prod-devops-tools-config:/app/config
+      - C:/Users/deepak/.claude:/root/.claude
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8003/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Legacy Modernization API — Code analysis and modernization service
+  # ---------------------------------------------------------------------------
+  prod-modernization-api:
+    build:
+      context: ../../legacy-modernization-api
+      dockerfile: Dockerfile
+    container_name: prod-modernization-api
+    restart: unless-stopped
+    ports:
+      - "${PROD_MODERNIZATION_API_PORT:-18002}:8000"
+    environment:
+      DATABASE_URL: postgresql://${PROD_POSTGRES_USER:-postgres}:${PROD_POSTGRES_PASSWORD:-postgres}@prod-postgres:5432/${PROD_POSTGRES_DB:-modernization}
+      REDIS_URL: redis://prod-redis:6379/0
+      OLLAMA_URL: http://prod-ollama:11434
+      MINIO_ENDPOINT: prod-minio:9000
+      MINIO_ACCESS_KEY: ${PROD_MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${PROD_MINIO_ROOT_PASSWORD:-minioadmin123}
+      CHROMADB_URL: http://prod-chromadb:8000
+    volumes:
+      - ../../legacy-modernization-api/app:/app/app
+      - ../../legacy-modernization-api/logs:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - prod-platform-net
+
+volumes:
+  prod-devops-tools-config:
+    name: prod-devops-tools-config
+
+networks:
+  prod-platform-net:
+    name: prod-platform-net
+    driver: bridge

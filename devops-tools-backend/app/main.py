@@ -23,7 +23,7 @@ from contextlib import asynccontextmanager
 import os
 
 from app.config import settings, tools_manager
-from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity, jenkins_pipeline, terraform, llm_settings
+from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity, jenkins_pipeline, terraform, llm_settings, commit_history
 
 
 @asynccontextmanager
@@ -122,6 +122,7 @@ app.include_router(connectivity.router, prefix=settings.api_prefix)
 app.include_router(jenkins_pipeline.router, prefix=settings.api_prefix)
 app.include_router(terraform.router, prefix=settings.api_prefix)
 app.include_router(llm_settings.router, prefix=settings.api_prefix)
+app.include_router(commit_history.router, prefix=settings.api_prefix)
 app.include_router(chat.router)  # Chat API has its own prefix
 
 # ============================================================================
@@ -134,7 +135,7 @@ if os.path.exists(frontend_dir):
     # Also serve CSS and JS directly
     @app.get("/styles.css")
     async def get_styles():
-        return FileResponse(os.path.join(frontend_dir, "styles.css"), media_type="text/css")
+        return FileResponse(os.path.join(frontend_dir, "styles.css"), media_type="text/css", headers={"Cache-Control": "no-cache, no-store, must-revalidate"})
 
     @app.get("/app.js")
     async def get_app_js():
