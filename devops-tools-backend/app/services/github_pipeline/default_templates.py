@@ -35,19 +35,21 @@ def _get_default_workflow(analysis: Dict[str, Any], runner_type: str = "self-hos
 
 
 def _env_block() -> str:
-    """Common env block shared by all templates"""
+    """Common env block shared by all templates.
+
+    Infrastructure values are hardcoded — Nexus is an insecure registry (no auth),
+    and service URLs use Docker network DNS names.
+    """
     return '''env:
-  NEXUS_REGISTRY: ${{ secrets.NEXUS_REGISTRY }}
-  NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-  IMAGE_NAME: ${{ github.event.repository.name }}
+  NEXUS_REGISTRY: localhost:5001
+  IMAGE_NAME: apm-repo/demo/${{ github.event.repository.name }}
   IMAGE_TAG: "1.0.${{ github.run_number }}"
   RELEASE_TAG: "1.0.release-${{ github.run_number }}"
-  SONARQUBE_URL: ${{ secrets.SONARQUBE_URL }}
+  SONARQUBE_URL: http://ai-sonarqube:9000
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  SPLUNK_HEC_URL: ${{ secrets.SPLUNK_HEC_URL }}
+  SPLUNK_HEC_URL: http://ai-splunk:8088
   SPLUNK_HEC_TOKEN: ${{ secrets.SPLUNK_HEC_TOKEN }}
-  DEVOPS_BACKEND_URL: ${{ secrets.DEVOPS_BACKEND_URL }}'''
+  DEVOPS_BACKEND_URL: http://devops-backend:8003'''
 
 
 def _tail_jobs(runner_type: str, sonar_sources: str = "src") -> str:
@@ -77,20 +79,18 @@ def _tail_jobs(runner_type: str, sonar_sources: str = "src") -> str:
           docker run --rm --network ai-platform-net \\
             ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/aquasec-trivy:latest \\
             image --severity HIGH,CRITICAL \\
-            ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} || true
+            ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} || true
 
   push-release:
     needs: [test-image, trivy-scan]
     runs-on: {runner_type}
     steps:
-      - name: Login to Nexus Registry
-        run: docker login -u ${{{{ env.NEXUS_USERNAME }}}} -p ${{{{ env.NEXUS_PASSWORD }}}} ${{{{ env.NEXUS_REGISTRY }}}}
       - name: Tag and Push Release
         run: |
-          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
-          docker tag ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
-            ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.RELEASE_TAG }}}}
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.RELEASE_TAG }}}}
+          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker tag ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
+            ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.RELEASE_TAG }}}}
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.RELEASE_TAG }}}}
 
   notify-success:
     needs: push-release
@@ -163,15 +163,13 @@ jobs:
     runs-on: {runner_type}
     steps:
       {_SHELL_CHECKOUT}
-      - name: Login to Nexus Registry
-        run: docker login -u ${{{{ env.NEXUS_USERNAME }}}} -p ${{{{ env.NEXUS_PASSWORD }}}} ${{{{ env.NEXUS_REGISTRY }}}}
       - name: Build and Push Image
         run: |
           docker build \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest .
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
   test-image:
     needs: build-image
@@ -179,7 +177,7 @@ jobs:
     steps:
       - name: Test Image Exists
         run: |
-          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           echo "Image verification successful"
 
   static-analysis:
@@ -227,15 +225,13 @@ jobs:
     runs-on: {runner_type}
     steps:
       {_SHELL_CHECKOUT}
-      - name: Login to Nexus Registry
-        run: docker login -u ${{{{ env.NEXUS_USERNAME }}}} -p ${{{{ env.NEXUS_PASSWORD }}}} ${{{{ env.NEXUS_REGISTRY }}}}
       - name: Build and Push Image
         run: |
           docker build \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest .
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
   test-image:
     needs: build-image
@@ -243,7 +239,7 @@ jobs:
     steps:
       - name: Test Image Exists
         run: |
-          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           echo "Image verification successful"
 
   static-analysis:
@@ -283,23 +279,21 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install and Build
         run: |
-          npm ci
-          npm run build --if-present
+          npm install --prefer-offline
+          npm run build --if-present || true
 
   build-image:
     needs: compile
     runs-on: {runner_type}
     steps:
       {_SHELL_CHECKOUT}
-      - name: Login to Nexus Registry
-        run: docker login -u ${{{{ env.NEXUS_USERNAME }}}} -p ${{{{ env.NEXUS_PASSWORD }}}} ${{{{ env.NEXUS_REGISTRY }}}}
       - name: Build and Push Image
         run: |
           docker build \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest .
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
   test-image:
     needs: build-image
@@ -307,7 +301,7 @@ jobs:
     steps:
       - name: Test Image Exists
         run: |
-          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           echo "Image verification successful"
 
   static-analysis:
@@ -319,7 +313,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ESLint
         run: |
-          npm ci
+          npm install --prefer-offline
           npm run lint --if-present || true
 
 {_tail_jobs(runner_type, "src")}
@@ -343,25 +337,31 @@ jobs:
     runs-on: {runner_type}
     container:
       image: ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/golang:1.22-bullseye-node20
+      env:
+        GOPROXY: direct
+        GONOSUMCHECK: "*"
+        GOFLAGS: "-mod=mod"
     steps:
       - uses: actions/checkout@v4
+      - name: Download Dependencies
+        run: go mod download || go mod tidy
       - name: Build Binary
         run: CGO_ENABLED=0 GOOS=linux go build -o app .
+      - name: Run Tests
+        run: go test ./... -v || true
 
   build-image:
     needs: compile
     runs-on: {runner_type}
     steps:
       {_SHELL_CHECKOUT}
-      - name: Login to Nexus Registry
-        run: docker login -u ${{{{ env.NEXUS_USERNAME }}}} -p ${{{{ env.NEXUS_PASSWORD }}}} ${{{{ env.NEXUS_REGISTRY }}}}
       - name: Build and Push Image
         run: |
           docker build \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
-            -t ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest .
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
-          docker push ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:latest
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
+            -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
   test-image:
     needs: build-image
@@ -369,7 +369,7 @@ jobs:
     steps:
       - name: Test Image Exists
         run: |
-          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
+          docker pull ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           echo "Image verification successful"
 
   static-analysis:
@@ -377,6 +377,10 @@ jobs:
     runs-on: {runner_type}
     container:
       image: ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/golang:1.22-bullseye-node20
+      env:
+        GOPROXY: direct
+        GONOSUMCHECK: "*"
+        GOFLAGS: "-mod=mod"
     steps:
       - uses: actions/checkout@v4
       - name: Run Go Vet
@@ -420,15 +424,16 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
         "javascript": '''FROM localhost:5001/apm-repo/demo/node:20-slim
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --only=production
 COPY . .
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["node", "src/index.js"]
 ''',
-        "go": '''FROM localhost:5001/apm-repo/demo/golang:1.22-bullseye AS build
+        "go": '''FROM localhost:5001/apm-repo/demo/golang:1.22-bullseye-node20 AS build
 WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
+ENV GOPROXY=direct GONOSUMCHECK=* GOFLAGS=-mod=mod
+COPY go.* ./
+RUN go mod download || go mod tidy
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o app .
 

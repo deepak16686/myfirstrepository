@@ -1,0 +1,89 @@
+# =============================================================================
+# PRODUCTION STACK — AI / ML Services
+# Services: Ollama, ChromaDB, Open WebUI
+# Usage: docker compose -f ai.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Ollama — LLM inference server (GPU-accelerated)
+  # ---------------------------------------------------------------------------
+  prod-ollama:
+    image: ollama/ollama:latest
+    container_name: prod-ollama
+    restart: unless-stopped
+    ports:
+      - "${PROD_OLLAMA_PORT:-21434}:11434"
+    volumes:
+      - prod-ollama-data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # ChromaDB — Vector database for RAG / reinforcement learning
+  # ---------------------------------------------------------------------------
+  prod-chromadb:
+    image: chromadb/chroma:latest
+    container_name: prod-chromadb
+    restart: unless-stopped
+    ports:
+      - "${PROD_CHROMA_PORT:-18000}:8000"
+    environment:
+      ANONYMIZED_TELEMETRY: "False"
+    volumes:
+      - prod-chromadb-data:/chroma/chroma
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v2/heartbeat')\""]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 15s
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Open WebUI — Chat interface for Ollama models
+  # ---------------------------------------------------------------------------
+  prod-open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: prod-open-webui
+    restart: unless-stopped
+    ports:
+      - "${PROD_OPENWEBUI_PORT:-13001}:8080"
+    environment:
+      WEBUI_SECRET_KEY: ${PROD_OPENWEBUI_SECRET:-prod-modernization-secret-key-2024}
+      OLLAMA_BASE_URL: http://prod-ollama:11434
+    volumes:
+      - prod-open-webui-data:/app/backend/data
+    depends_on:
+      prod-ollama:
+        condition: service_started
+    networks:
+      - prod-platform-net
+
+volumes:
+  prod-ollama-data:
+    name: prod-ollama-data
+  prod-chromadb-data:
+    name: prod-chromadb-data
+  prod-open-webui-data:
+    name: prod-open-webui-data
+
+networks:
+  prod-platform-net:
+    name: prod-platform-net
+    driver: bridge

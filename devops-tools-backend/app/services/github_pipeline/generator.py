@@ -285,6 +285,9 @@ class GitHubPipelineGeneratorService:
             "has_warnings": fix_result.get("has_warnings", False),
         }
 
+    # Known languages with reliable built-in templates (Gitea Actions compatible)
+    KNOWN_LANGUAGES = {"java", "python", "javascript", "go"}
+
     async def generate_workflow_files(
         self,
         repo_url: str,
@@ -299,8 +302,9 @@ class GitHubPipelineGeneratorService:
 
         Priority:
         1. Use proven successful template from ChromaDB (if exists)
-        2. Use LLM to generate with reference template
-        3. Fall back to default templates
+        2. For known languages: use built-in defaults (Gitea-compatible)
+        3. For unknown languages: use LLM generation
+        4. Fallback: built-in default templates
         """
         # Analyze repository
         analysis = await self.analyze_repository(repo_url, github_token)
@@ -309,7 +313,7 @@ class GitHubPipelineGeneratorService:
 
         print(f"[GitHub Pipeline] Analyzing {repo_url}: {language}/{framework}")
 
-        # Priority 1: Check for proven successful template
+        # Priority 1: Check for proven successful template from ChromaDB (RL)
         best_template = await self.get_best_template_files(language, framework)
         if best_template and best_template.get("workflow"):
             print(f"[GitHub Pipeline] Using proven template from ChromaDB")
@@ -323,8 +327,10 @@ class GitHubPipelineGeneratorService:
                 "feedback_used": 0
             }
 
-        # Priority 2: If use_template_only requested, use built-in defaults directly
-        if use_template_only:
+        # Priority 2: For known languages, use built-in defaults (Gitea-compatible)
+        # LLM generates Gitea-incompatible patterns (wrong registries, docker login, etc.)
+        if language in self.KNOWN_LANGUAGES or use_template_only:
+            print(f"[GitHub Pipeline] Using built-in default template for {language}")
             workflow = self._get_default_workflow(analysis, runner_type)
             dockerfile = self._get_default_dockerfile(analysis)
             return {
@@ -336,7 +342,7 @@ class GitHubPipelineGeneratorService:
                 "feedback_used": 0
             }
 
-        # Priority 3: Try LLM generation (enables RL learning cycle)
+        # Priority 3: Unknown language — try LLM generation
         try:
             reference = await self.get_reference_workflow(language, framework)
             generated = await self._generate_with_llm(
@@ -358,7 +364,7 @@ class GitHubPipelineGeneratorService:
         except Exception as e:
             print(f"[GitHub Pipeline] LLM generation failed: {e}")
 
-        # Fallback: Use default templates (LLM failed or returned empty)
+        # Fallback: Use default templates
         print(f"[GitHub Pipeline] Falling back to built-in default template for {language}")
         workflow = self._get_default_workflow(analysis, runner_type)
         dockerfile = self._get_default_dockerfile(analysis)

@@ -160,6 +160,11 @@ Just provide a repository URL and I'll analyze it and create the workflow files.
         name: 'Tool Connectivity Validator',
         icon: '🔗',
         viewType: 'connectivity'
+    },
+    'commit-history': {
+        name: 'Commit History',
+        icon: '\u{1F4CB}',
+        viewType: 'commit-history'
     }
 };
 
@@ -241,7 +246,7 @@ function setupEventListeners() {
  * Hide all views, then show only the specified one.
  */
 function switchView(viewId) {
-    const views = ['dashboardView', 'toolView', 'connectivityView', 'terraformNavView'];
+    const views = ['dashboardView', 'toolView', 'connectivityView', 'terraformNavView', 'commitHistoryView'];
     views.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -301,6 +306,12 @@ function openTool(toolId) {
     // Handle connectivity view type
     if (config.viewType === 'connectivity') {
         openConnectivityView();
+        return;
+    }
+
+    // Handle commit history view type
+    if (config.viewType === 'commit-history') {
+        openCommitHistoryView();
         return;
     }
 
@@ -1120,8 +1131,6 @@ function buildProgressHTML(data) {
     let html = `<div style="border-left: 3px solid ${color}; padding: 8px 12px;">`;
     html += `<p style="margin:0 0 6px 0;"><strong style="color:${color};">${icon} Pipeline Monitor</strong>`;
     if (data.pipeline_id) html += ` <span style="color:#888;font-size:0.85em;">#${data.pipeline_id}</span>`;
-    if (data.model_used) html += ` <span class="model-badge">${data.model_used}</span>`;
-    if (data.fixer_model_used) html += ` <span class="model-badge fixer">${data.fixer_model_used}</span>`;
     html += `</p>`;
     html += `<p style="margin:0 0 4px 0;">${linkify(data.current_message)}</p>`;
 
@@ -1148,6 +1157,287 @@ function buildProgressHTML(data) {
 
     html += '</div>';
     return html;
+}
+
+// ============================================================================
+// Commit History Viewer
+// ============================================================================
+
+function openCommitHistoryView() {
+    switchView('commitHistoryView');
+
+    // Default date range: last 7 days
+    const now = new Date();
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    const formatLocal = (d) => {
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
+
+    document.getElementById('commitSince').value = formatLocal(weekAgo);
+    document.getElementById('commitUntil').value = formatLocal(now);
+    document.getElementById('commitBranch').innerHTML = '<option value="">All branches</option>';
+    _lastBranchFetchUrl = '';
+    document.getElementById('commitResults').innerHTML = '<p style="color:#888;text-align:center;padding:40px 0;">Enter a repository URL and date range, then click <strong>Fetch Commits</strong>.</p>';
+    document.getElementById('commitSummary').style.display = 'none';
+}
+
+// Store repo URL for detail fetches
+let _commitRepoUrl = '';
+let _commitToken = '';
+let _lastBranchFetchUrl = '';
+
+async function fetchBranches() {
+    const repoUrl = document.getElementById('commitRepoUrl').value.trim();
+    if (!repoUrl || repoUrl === _lastBranchFetchUrl) return;
+    _lastBranchFetchUrl = repoUrl;
+
+    const select = document.getElementById('commitBranch');
+    select.innerHTML = '<option value="">Loading...</option>';
+    select.disabled = true;
+
+    try {
+        const body = { repo_url: repoUrl };
+        const token = document.getElementById('commitToken').value.trim();
+        if (token) body.token = token;
+
+        const resp = await fetch(`${API_BASE_URL}/api/v1/commit-history/branches`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        if (!resp.ok) {
+            select.innerHTML = '<option value="">All branches</option>';
+            select.disabled = false;
+            return;
+        }
+
+        const data = await resp.json();
+        select.innerHTML = '<option value="">All branches</option>';
+
+        if (data.branches && data.branches.length > 0) {
+            // Sort: default branch first, then alphabetical
+            data.branches.sort((a, b) => {
+                if (a.default && !b.default) return -1;
+                if (!a.default && b.default) return 1;
+                return a.name.localeCompare(b.name);
+            });
+            for (const br of data.branches) {
+                const opt = document.createElement('option');
+                opt.value = br.name;
+                opt.textContent = br.name + (br.default ? ' (default)' : '');
+                select.appendChild(opt);
+            }
+        }
+    } catch (err) {
+        select.innerHTML = '<option value="">All branches</option>';
+    } finally {
+        select.disabled = false;
+    }
+}
+
+async function fetchCommitHistory() {
+    const repoUrl = document.getElementById('commitRepoUrl').value.trim();
+    const since = document.getElementById('commitSince').value;
+    const until = document.getElementById('commitUntil').value;
+    const token = document.getElementById('commitToken').value.trim();
+
+    if (!repoUrl) { alert('Please enter a repository URL.'); return; }
+    if (!since || !until) { alert('Please select both start and end dates.'); return; }
+
+    _commitRepoUrl = repoUrl;
+    _commitToken = token;
+
+    const btn = document.getElementById('commitFetchBtn');
+    const results = document.getElementById('commitResults');
+    btn.disabled = true;
+    btn.textContent = 'Fetching...';
+    results.innerHTML = '<div style="text-align:center;padding:40px;"><span class="spinner"></span> Fetching commits...</div>';
+
+    try {
+        const branch = document.getElementById('commitBranch').value;
+        const body = {
+            repo_url: repoUrl,
+            since: since + ':00',
+            until: until + ':00',
+            page: 1,
+            per_page: 100
+        };
+        if (token) body.token = token;
+        if (branch) body.branch = branch;
+
+        const resp = await fetch(`${API_BASE_URL}/api/v1/commit-history/commits`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.detail || `HTTP ${resp.status}`);
+        }
+
+        const data = await resp.json();
+
+        // Update summary
+        const summary = document.getElementById('commitSummary');
+        summary.style.display = 'flex';
+        document.getElementById('commitTotalCount').textContent = data.total || data.commits.length;
+        document.getElementById('commitServerType').textContent = (data.server_type || '-').toUpperCase();
+
+        let totalAdds = 0, totalDels = 0;
+        for (const c of data.commits) {
+            totalAdds += c.additions || 0;
+            totalDels += c.deletions || 0;
+        }
+        document.getElementById('commitAdditions').textContent = '+' + totalAdds;
+        document.getElementById('commitDeletions').textContent = '-' + totalDels;
+
+        renderCommitTable(data.commits, data.repo);
+
+    } catch (err) {
+        results.innerHTML = `<div style="color:#ef4444;padding:20px;text-align:center;"><strong>Error:</strong> ${err.message}</div>`;
+        document.getElementById('commitSummary').style.display = 'none';
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Fetch Commits';
+    }
+}
+
+function renderCommitTable(commits, repoLabel) {
+    const results = document.getElementById('commitResults');
+
+    if (!commits || commits.length === 0) {
+        results.innerHTML = '<p style="color:#888;text-align:center;padding:40px;">No commits found in the selected date range.</p>';
+        return;
+    }
+
+    let html = `<table style="width:100%;border-collapse:collapse;font-size:0.88em;margin-top:12px;">
+        <thead>
+            <tr style="background:#f1f5f9;text-align:left;">
+                <th style="padding:10px 12px;border-bottom:2px solid #e2e8f0;width:100px;">Commit</th>
+                <th style="padding:10px 12px;border-bottom:2px solid #e2e8f0;">Message</th>
+                <th style="padding:10px 12px;border-bottom:2px solid #e2e8f0;width:130px;">Author</th>
+                <th style="padding:10px 12px;border-bottom:2px solid #e2e8f0;width:160px;">Date</th>
+                <th style="padding:10px 12px;border-bottom:2px solid #e2e8f0;width:80px;text-align:center;">Changes</th>
+                <th style="padding:10px 12px;border-bottom:2px solid #e2e8f0;width:60px;text-align:center;">Files</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    for (const c of commits) {
+        const dateStr = formatCommitDate(c.date);
+        const shortSha = c.short_sha || c.sha.substring(0, 7);
+
+        html += `<tr style="border-bottom:1px solid #f1f5f9;cursor:pointer;" onclick="toggleCommitDetail(this, '${c.sha}')" title="Click to view changed files">
+            <td style="padding:8px 12px;font-family:monospace;">
+                <a href="${c.url}" target="_blank" onclick="event.stopPropagation();" style="color:#3b82f6;text-decoration:none;font-weight:600;">${shortSha}</a>
+            </td>
+            <td style="padding:8px 12px;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(c.message)}">${escapeHtml(c.message)}</td>
+            <td style="padding:8px 12px;color:#666;">${escapeHtml(c.author)}</td>
+            <td style="padding:8px 12px;color:#888;font-size:0.9em;">${dateStr}</td>
+            <td style="padding:8px 12px;text-align:center;">
+                <span style="color:#22c55e;font-size:0.85em;">+${c.additions || 0}</span>
+                <span style="color:#ef4444;font-size:0.85em;margin-left:4px;">-${c.deletions || 0}</span>
+            </td>
+            <td style="padding:8px 12px;text-align:center;color:#666;">${c.files_changed || '-'}</td>
+        </tr>
+        <tr class="commit-detail-row" style="display:none;">
+            <td colspan="6" style="padding:0;background:#f8fafc;">
+                <div class="commit-detail-content" style="padding:12px 20px;">
+                    <span class="spinner" style="display:inline-block;"></span> Loading files...
+                </div>
+            </td>
+        </tr>`;
+    }
+
+    html += '</tbody></table>';
+    results.innerHTML = html;
+}
+
+async function toggleCommitDetail(row, sha) {
+    const detailRow = row.nextElementSibling;
+    if (!detailRow || !detailRow.classList.contains('commit-detail-row')) return;
+
+    // Toggle visibility
+    if (detailRow.style.display !== 'none') {
+        detailRow.style.display = 'none';
+        return;
+    }
+
+    detailRow.style.display = 'table-row';
+    const content = detailRow.querySelector('.commit-detail-content');
+
+    // Check if already loaded
+    if (content.dataset.loaded === 'true') return;
+
+    try {
+        const body = { repo_url: _commitRepoUrl };
+        if (_commitToken) body.token = _commitToken;
+
+        const resp = await fetch(`${API_BASE_URL}/api/v1/commit-history/commits/${sha}/detail`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.detail || `HTTP ${resp.status}`);
+        }
+
+        const data = await resp.json();
+        content.dataset.loaded = 'true';
+
+        if (!data.files || data.files.length === 0) {
+            content.innerHTML = '<p style="color:#888;margin:0;">No file changes found.</p>';
+            return;
+        }
+
+        let filesHtml = `<div style="font-size:0.85em;">
+            <div style="margin-bottom:8px;color:#666;">
+                <strong>${data.files.length} file(s) changed</strong>
+                &mdash; <span style="color:#22c55e;">+${data.stats?.additions || 0}</span>
+                <span style="color:#ef4444;margin-left:4px;">-${data.stats?.deletions || 0}</span>
+            </div>`;
+
+        for (const f of data.files) {
+            const statusColors = {
+                added: '#22c55e', modified: '#f59e0b', removed: '#ef4444', renamed: '#8b5cf6'
+            };
+            const statusColor = statusColors[f.status] || '#666';
+            const statusIcon = { added: '+', modified: '~', removed: '-', renamed: '>' }[f.status] || '?';
+
+            filesHtml += `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f1f5f9;">
+                <span style="color:${statusColor};font-weight:700;font-family:monospace;width:16px;text-align:center;">${statusIcon}</span>
+                <span style="font-family:monospace;flex:1;">${escapeHtml(f.filename)}</span>
+                <span style="color:#22c55e;font-size:0.9em;">+${f.additions}</span>
+                <span style="color:#ef4444;font-size:0.9em;">-${f.deletions}</span>
+            </div>`;
+        }
+
+        filesHtml += '</div>';
+        content.innerHTML = filesHtml;
+
+    } catch (err) {
+        content.innerHTML = `<p style="color:#ef4444;margin:0;">Failed to load details: ${err.message}</p>`;
+    }
+}
+
+function formatCommitDate(dateStr) {
+    if (!dateStr) return '-';
+    try {
+        const d = new Date(dateStr);
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    } catch { return dateStr; }
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 // ========== LLM Settings ==========

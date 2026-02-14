@@ -1,0 +1,87 @@
+# =============================================================================
+# Promtail Configuration — Production Stack
+# Collects logs from prod-* containers only
+# =============================================================================
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://prod-loki:3100/loki/api/v1/push
+
+scrape_configs:
+
+  # ---------------------------------------------------------------------------
+  # Docker container logs — prod containers only
+  # ---------------------------------------------------------------------------
+  - job_name: docker
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+        filters:
+          - name: name
+            values:
+              # Core Infrastructure
+              - prod-postgres
+              - prod-redis
+              - prod-minio
+              # AI / ML
+              - prod-ollama
+              - prod-chromadb
+              - prod-open-webui
+              # Source Control & CI/CD
+              - prod-gitlab-server
+              - prod-gitlab-runner
+              - prod-gitea-server
+              - prod-gitea-runner
+              - prod-jenkins-master
+              - prod-jenkins-agent-1
+              - prod-jenkins-agent-2
+              - prod-jenkins-agent-3
+              # Code Quality & Security
+              - prod-sonarqube
+              - prod-sonarqube-db
+              - prod-trivy
+              - prod-nexus
+              # Monitoring
+              - prod-prometheus
+              - prod-grafana
+              - prod-loki
+              - prod-jaeger
+              - prod-splunk
+              # Project Management
+              - prod-redmine
+              - prod-redmine-db
+              # Applications
+              - prod-devops-tools-backend
+              - prod-modernization-api
+    relabel_configs:
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/(.*)"
+        target_label: "container"
+      - source_labels: ["__meta_docker_container_log_stream"]
+        target_label: "stream"
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/prod-(.*)"
+        target_label: "service"
+    pipeline_stages:
+      - regex:
+          expression: "(?P<level>DEBUG|INFO|WARN|WARNING|ERROR|FATAL|CRITICAL)"
+      - labels:
+          level:
+
+  # ---------------------------------------------------------------------------
+  # System logs
+  # ---------------------------------------------------------------------------
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: system
+          environment: production
+          __path__: /var/log/**/*.log

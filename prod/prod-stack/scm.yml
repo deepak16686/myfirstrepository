@@ -1,0 +1,231 @@
+# =============================================================================
+# PRODUCTION STACK — Source Control & CI/CD
+# Services: GitLab (+runner), Gitea (+runner), Jenkins (master + 3 agents)
+# Usage: docker compose -f scm.yml up -d
+# =============================================================================
+
+services:
+
+  # ===========================================================================
+  # GITLAB
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # GitLab CE — Source code management and CI/CD
+  # ---------------------------------------------------------------------------
+  prod-gitlab-server:
+    image: gitlab/gitlab-ce:latest
+    container_name: prod-gitlab-server
+    hostname: prod-gitlab-server
+    restart: unless-stopped
+    shm_size: "256m"
+    ports:
+      - "${PROD_GITLAB_HTTP_PORT:-18929}:80"
+      - "${PROD_GITLAB_SSH_PORT:-12222}:22"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost:${PROD_GITLAB_HTTP_PORT:-18929}'
+        gitlab_rails['initial_root_password'] = '${PROD_GITLAB_ROOT_PASSWORD:-ChangeMe123!}'
+        gitlab_rails['gitlab_shell_ssh_port'] = ${PROD_GITLAB_SSH_PORT:-12222}
+    volumes:
+      - prod-gitlab-config:/etc/gitlab
+      - prod-gitlab-logs:/var/log/gitlab
+      - prod-gitlab-data:/var/opt/gitlab
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # GitLab Runner — CI/CD job executor
+  # ---------------------------------------------------------------------------
+  prod-gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    container_name: prod-gitlab-runner
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prod-gitlab-runner-config:/etc/gitlab-runner
+    depends_on:
+      - prod-gitlab-server
+    networks:
+      - prod-platform-net
+
+  # ===========================================================================
+  # GITEA
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # Gitea — Lightweight Git server (GitHub Actions / Jenkins repos)
+  # ---------------------------------------------------------------------------
+  prod-gitea-server:
+    image: gitea/gitea:latest
+    container_name: prod-gitea-server
+    restart: unless-stopped
+    ports:
+      - "${PROD_GITEA_HTTP_PORT:-13002}:3000"
+      - "${PROD_GITEA_SSH_PORT:-12223}:22"
+    environment:
+      USER_UID: "1000"
+      USER_GID: "1000"
+      GITEA__database__DB_TYPE: sqlite3
+      GITEA__server__ROOT_URL: http://localhost:${PROD_GITEA_HTTP_PORT:-13002}/
+      GITEA__server__HTTP_PORT: "3000"
+      GITEA__server__SSH_PORT: "${PROD_GITEA_SSH_PORT:-12223}"
+      GITEA__service__DISABLE_REGISTRATION: "false"
+      GITEA__service__REQUIRE_SIGNIN_VIEW: "false"
+      GITEA__actions__ENABLED: "true"
+      GITEA__actions__DEFAULT_ACTIONS_URL: https://github.com
+      GITEA__security__INSTALL_LOCK: "true"
+    volumes:
+      - prod-gitea-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Gitea Act Runner — GitHub Actions-compatible CI runner
+  # ---------------------------------------------------------------------------
+  prod-gitea-runner:
+    image: gitea/act_runner:latest
+    container_name: prod-gitea-runner
+    restart: unless-stopped
+    environment:
+      GITEA_INSTANCE_URL: http://prod-gitea-server:3000
+      GITEA_RUNNER_REGISTRATION_TOKEN: ${PROD_GITEA_RUNNER_TOKEN:-}
+      GITEA_RUNNER_NAME: prod-self-hosted-runner
+      GITEA_RUNNER_LABELS: self-hosted,docker
+      CONFIG_FILE: /config/config.yaml
+    volumes:
+      - prod-gitea-runner-data:/data
+      - ./config/gitea-runner/runner-config.yaml:/config/config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      prod-gitea-server:
+        condition: service_healthy
+    networks:
+      - prod-platform-net
+
+  # ===========================================================================
+  # JENKINS
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Master — CI/CD orchestration server
+  # ---------------------------------------------------------------------------
+  prod-jenkins-master:
+    image: jenkins/jenkins:lts
+    container_name: prod-jenkins-master
+    restart: unless-stopped
+    ports:
+      - "${PROD_JENKINS_PORT:-18080}:8080"
+      - "50001:50000"
+    environment:
+      JENKINS_OPTS: --prefix=/jenkins
+      JAVA_OPTS: >-
+        -Djenkins.install.runSetupWizard=false
+        -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true
+    volumes:
+      - prod-jenkins-data:/var/jenkins_home
+      - ./config/jenkins/init.groovy.d:/var/jenkins_home/init.groovy.d:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/jenkins/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Agent 1 — Build executor with Docker support
+  # ---------------------------------------------------------------------------
+  prod-jenkins-agent-1:
+    image: jenkins/inbound-agent:latest
+    container_name: prod-jenkins-agent-1
+    restart: unless-stopped
+    environment:
+      JENKINS_URL: http://prod-jenkins-master:8080/jenkins
+      JENKINS_AGENT_NAME: prod-agent-1
+      JENKINS_SECRET: ${PROD_JENKINS_AGENT_SECRET_1:-}
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prod-jenkins-agent-1-data:/home/jenkins/agent
+    depends_on:
+      prod-jenkins-master:
+        condition: service_healthy
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Agent 2 — Build executor with Docker support
+  # ---------------------------------------------------------------------------
+  prod-jenkins-agent-2:
+    image: jenkins/inbound-agent:latest
+    container_name: prod-jenkins-agent-2
+    restart: unless-stopped
+    environment:
+      JENKINS_URL: http://prod-jenkins-master:8080/jenkins
+      JENKINS_AGENT_NAME: prod-agent-2
+      JENKINS_SECRET: ${PROD_JENKINS_AGENT_SECRET_2:-}
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prod-jenkins-agent-2-data:/home/jenkins/agent
+    depends_on:
+      prod-jenkins-master:
+        condition: service_healthy
+    networks:
+      - prod-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Agent 3 — Build executor with Docker support
+  # ---------------------------------------------------------------------------
+  prod-jenkins-agent-3:
+    image: jenkins/inbound-agent:latest
+    container_name: prod-jenkins-agent-3
+    restart: unless-stopped
+    environment:
+      JENKINS_URL: http://prod-jenkins-master:8080/jenkins
+      JENKINS_AGENT_NAME: prod-agent-3
+      JENKINS_SECRET: ${PROD_JENKINS_AGENT_SECRET_3:-}
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prod-jenkins-agent-3-data:/home/jenkins/agent
+    depends_on:
+      prod-jenkins-master:
+        condition: service_healthy
+    networks:
+      - prod-platform-net
+
+volumes:
+  prod-gitlab-config:
+    name: prod-gitlab-config
+  prod-gitlab-logs:
+    name: prod-gitlab-logs
+  prod-gitlab-data:
+    name: prod-gitlab-data
+  prod-gitlab-runner-config:
+    name: prod-gitlab-runner-config
+  prod-gitea-data:
+    name: prod-gitea-data
+  prod-gitea-runner-data:
+    name: prod-gitea-runner-data
+  prod-jenkins-data:
+    name: prod-jenkins-data
+  prod-jenkins-agent-1-data:
+    name: prod-jenkins-agent-1-data
+  prod-jenkins-agent-2-data:
+    name: prod-jenkins-agent-2-data
+  prod-jenkins-agent-3-data:
+    name: prod-jenkins-agent-3-data
+
+networks:
+  prod-platform-net:
+    name: prod-platform-net
+    driver: bridge
