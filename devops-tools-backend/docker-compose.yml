@@ -80,6 +80,15 @@ services:
       retries: 3
       start_period: 30s
 
+  chromadb-admin:
+    image: fengzhichao/chromadb-admin
+    container_name: chromadb-admin
+    ports:
+      - "3001:3001"
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+
 networks:
   ai-platform-net:
     external: true

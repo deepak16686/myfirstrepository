@@ -236,6 +236,16 @@
                         </div>
                     </div>
 
+                    <div class="tool-card" data-tool="chromadb-browser" data-category="auxiliary">
+                        <div class="card-icon">&#128451;</div>
+                        <div class="card-content">
+                            <h3>ChromaDB Browser</h3>
+                            <div class="card-tags">
+                                <span class="tag chromadb">ChromaDB</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="tool-card disabled" data-tool="secret-manager" data-category="auxiliary">
                         <div class="card-icon">🔐</div>
                         <div class="card-content">
@@ -458,6 +468,47 @@
 
                 <!-- Results -->
                 <div id="commitResults" style="padding:0 20px 20px;overflow-y:auto;flex:1;">
+                </div>
+            </div>
+
+            <!-- ChromaDB Browser View -->
+            <div id="chromadbBrowserView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>&larr;</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128451;</span>
+                        <h2>ChromaDB Browser</h2>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="new-chat-button" onclick="refreshChromaDBSummary()">
+                            Refresh
+                        </button>
+                        <a href="http://localhost:3001" target="_blank" class="new-chat-button"
+                           style="text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+                            Open Admin UI &#8599;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Summary Bar -->
+                <div class="connectivity-summary" id="chromadbSummary">
+                    <div class="summary-item summary-total">
+                        <span class="summary-count" id="chromadbCollectionCount">0</span>
+                        <span class="summary-label">Collections</span>
+                    </div>
+                    <div class="summary-item summary-healthy">
+                        <span class="summary-count" id="chromadbDocumentCount">0</span>
+                        <span class="summary-label">Total Documents</span>
+                    </div>
+                </div>
+
+                <!-- Collections Grid -->
+                <div class="connectivity-grid" id="chromadbCollectionsGrid" style="grid-template-columns:1fr;">
+                    <div class="connectivity-loading">
+                        <span class="spinner"></span> Loading ChromaDB collections...
+                    </div>
                 </div>
             </div>
 
