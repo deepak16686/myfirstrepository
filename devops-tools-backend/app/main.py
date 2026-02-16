@@ -23,7 +23,7 @@ from contextlib import asynccontextmanager
 import os
 
 from app.config import settings, tools_manager
-from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity, jenkins_pipeline, terraform, llm_settings, commit_history
+from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity, jenkins_pipeline, terraform, llm_settings, commit_history, chromadb_browser
 
 
 @asynccontextmanager
@@ -123,6 +123,7 @@ app.include_router(jenkins_pipeline.router, prefix=settings.api_prefix)
 app.include_router(terraform.router, prefix=settings.api_prefix)
 app.include_router(llm_settings.router, prefix=settings.api_prefix)
 app.include_router(commit_history.router, prefix=settings.api_prefix)
+app.include_router(chromadb_browser.router, prefix=settings.api_prefix)
 app.include_router(chat.router)  # Chat API has its own prefix
 
 # ============================================================================

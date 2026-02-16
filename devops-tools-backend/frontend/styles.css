@@ -246,6 +246,11 @@ body {
     color: #c23321;
 }
 
+.tag.chromadb {
+    background: rgba(255, 152, 0, 0.2);
+    color: #e65100;
+}
+
 .card-arrow {
     display: none;
 }

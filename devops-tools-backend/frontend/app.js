@@ -165,6 +165,11 @@ Just provide a repository URL and I'll analyze it and create the workflow files.
         name: 'Commit History',
         icon: '\u{1F4CB}',
         viewType: 'commit-history'
+    },
+    'chromadb-browser': {
+        name: 'ChromaDB Browser',
+        icon: '\u{1F5C3}',
+        viewType: 'chromadb-browser'
     }
 };
 
@@ -246,7 +251,7 @@ function setupEventListeners() {
  * Hide all views, then show only the specified one.
  */
 function switchView(viewId) {
-    const views = ['dashboardView', 'toolView', 'connectivityView', 'terraformNavView', 'commitHistoryView'];
+    const views = ['dashboardView', 'toolView', 'connectivityView', 'terraformNavView', 'commitHistoryView', 'chromadbBrowserView'];
     views.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -312,6 +317,12 @@ function openTool(toolId) {
     // Handle commit history view type
     if (config.viewType === 'commit-history') {
         openCommitHistoryView();
+        return;
+    }
+
+    // Handle chromadb browser view type
+    if (config.viewType === 'chromadb-browser') {
+        openChromaDBBrowser();
         return;
     }
 
@@ -1438,6 +1449,150 @@ function formatCommitDate(dateStr) {
 function escapeHtml(str) {
     if (!str) return '';
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================================
+// ChromaDB Browser
+// ============================================================================
+
+function openChromaDBBrowser() {
+    switchView('chromadbBrowserView');
+    refreshChromaDBSummary();
+}
+
+async function refreshChromaDBSummary() {
+    const grid = document.getElementById('chromadbCollectionsGrid');
+    grid.innerHTML = '<div class="connectivity-loading"><span class="spinner"></span> Loading ChromaDB collections...</div>';
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/v1/chromadb-browser/summary`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        document.getElementById('chromadbCollectionCount').textContent = data.total_collections;
+        document.getElementById('chromadbDocumentCount').textContent = data.total_documents;
+
+        renderChromaDBCollections(data.collections);
+    } catch (error) {
+        grid.innerHTML = `<div class="connectivity-error">Failed to load ChromaDB collections: ${error.message}</div>`;
+    }
+}
+
+function renderChromaDBCollections(collections) {
+    const grid = document.getElementById('chromadbCollectionsGrid');
+    grid.innerHTML = '';
+
+    if (!collections || collections.length === 0) {
+        grid.innerHTML = '<div class="connectivity-loading">No collections found.</div>';
+        return;
+    }
+
+    for (const coll of collections) {
+        const card = document.createElement('div');
+        card.className = 'connectivity-card status-healthy';
+
+        let sampleHtml = '';
+        if (coll.sample_ids && coll.sample_ids.length > 0) {
+            sampleHtml = '<div style="margin-top:12px;"><strong style="font-size:0.85em;color:#666;">Sample Documents (first 10):</strong>';
+            sampleHtml += '<div style="max-height:220px;overflow-y:auto;margin-top:6px;">';
+            for (let i = 0; i < coll.sample_ids.length; i++) {
+                const id = coll.sample_ids[i];
+                const meta = coll.sample_metadata && coll.sample_metadata[i] ? coll.sample_metadata[i] : {};
+                const lang = meta.language || meta.type || '';
+                const fw = meta.framework || '';
+                const metaBadges = (lang ? `<span style="background:#e0e7ff;color:#3730a3;padding:1px 6px;border-radius:3px;font-size:0.78em;margin-left:6px;">${escapeHtml(lang)}</span>` : '')
+                    + (fw ? `<span style="background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:3px;font-size:0.78em;margin-left:4px;">${escapeHtml(fw)}</span>` : '');
+                sampleHtml += `<div style="padding:4px 8px;border-bottom:1px solid #f1f5f9;font-family:monospace;font-size:0.82em;display:flex;align-items:center;gap:4px;">
+                    <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(id)}">${escapeHtml(id)}</span>${metaBadges}
+                </div>`;
+            }
+            sampleHtml += '</div></div>';
+        }
+
+        const loadBtn = coll.count > 0
+            ? `<button class="conn-retest-btn" onclick="event.stopPropagation();loadChromaDBCollection('${escapeHtml(coll.name)}')">View All Documents</button>`
+            : '';
+
+        card.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h4 style="margin:0;font-size:1.05em;">${escapeHtml(coll.name)}</h4>
+                <span style="background:${coll.count > 0 ? '#22c55e' : '#94a3b8'};color:#fff;padding:4px 12px;border-radius:20px;font-size:0.85em;font-weight:600;">${coll.count} docs</span>
+            </div>
+            <div style="margin-top:6px;font-size:0.78em;color:#999;font-family:monospace;">${escapeHtml(coll.id)}</div>
+            ${sampleHtml}
+            <div style="margin-top:10px;">${loadBtn}</div>
+        `;
+        grid.appendChild(card);
+    }
+}
+
+async function loadChromaDBCollection(collectionName) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/v1/chromadb-browser/collection`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ collection_name: collectionName, limit: 200, offset: 0 })
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        let html = `<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)this.remove()">`;
+        html += `<div style="background:#fff;border-radius:12px;padding:24px;max-width:900px;width:90%;max-height:80vh;overflow-y:auto;">`;
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">`;
+        html += `<h3 style="margin:0;">${escapeHtml(collectionName)} <span style="color:#888;font-weight:400;">(${data.total} documents)</span></h3>`;
+        html += `<button onclick="this.closest('div[style*=fixed]').remove()" style="background:none;border:none;font-size:1.5em;cursor:pointer;">&times;</button>`;
+        html += `</div>`;
+
+        if (data.ids && data.ids.length > 0) {
+            html += '<table style="width:100%;border-collapse:collapse;font-size:0.85em;">';
+            html += '<thead><tr style="background:#f1f5f9;"><th style="padding:8px;text-align:left;">Document ID</th><th style="padding:8px;text-align:left;">Metadata</th><th style="padding:8px;width:60px;">Actions</th></tr></thead><tbody>';
+            for (let i = 0; i < data.ids.length; i++) {
+                const id = data.ids[i];
+                const meta = data.metadatas && data.metadatas[i] ? JSON.stringify(data.metadatas[i]) : '{}';
+                html += `<tr style="border-bottom:1px solid #f1f5f9;">`;
+                html += `<td style="padding:6px 8px;font-family:monospace;font-size:0.9em;max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(id)}">${escapeHtml(id)}</td>`;
+                html += `<td style="padding:6px 8px;font-size:0.85em;color:#666;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(meta)}">${escapeHtml(meta.substring(0, 150))}</td>`;
+                html += `<td style="padding:6px 8px;text-align:center;"><button onclick="deleteChromaDBDoc('${escapeHtml(collectionName)}','${escapeHtml(id)}',this)" style="background:#ef4444;color:#fff;border:none;padding:2px 8px;border-radius:4px;cursor:pointer;font-size:0.8em;">Del</button></td>`;
+                html += `</tr>`;
+            }
+            html += '</tbody></table>';
+        } else {
+            html += '<p style="color:#888;">No documents found.</p>';
+        }
+
+        html += '</div></div>';
+        document.body.insertAdjacentHTML('beforeend', html);
+
+    } catch (error) {
+        alert('Failed to load documents: ' + error.message);
+    }
+}
+
+async function deleteChromaDBDoc(collectionName, docId, btn) {
+    if (!confirm(`Delete document "${docId}" from "${collectionName}"?`)) return;
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/v1/chromadb-browser/delete`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ collection_name: collectionName, document_id: docId })
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json();
+        if (result.success) {
+            const row = btn.closest('tr');
+            if (row) row.remove();
+        } else {
+            alert('Delete failed: ' + (result.message || 'Unknown error'));
+            btn.disabled = false;
+            btn.textContent = 'Del';
+        }
+    } catch (error) {
+        alert('Delete error: ' + error.message);
+        btn.disabled = false;
+        btn.textContent = 'Del';
+    }
 }
 
 // ========== LLM Settings ==========
