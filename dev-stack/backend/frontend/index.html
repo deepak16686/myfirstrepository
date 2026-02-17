@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Platform - DevOps & Infrastructure</title>
+    <!-- Highlight.js for code syntax highlighting (load BEFORE app styles so app can override) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="styles.css?v=11">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/hcl.min.js"></script>
+    <!-- Marked for Markdown parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <span class="brand-icon">AI</span>
+                <span class="brand-text">Platform</span>
+            </div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-category="devops">DevOps</button>
+                <button class="nav-tab" data-category="iac">IaC</button>
+                <button class="nav-tab" data-category="support">Support</button>
+                <button class="nav-tab" data-category="sre">SRE</button>
+                <button class="nav-tab" data-category="auxiliary">Auxiliary</button>
+            </div>
+            <div class="nav-status">
+                <button class="llm-settings-btn" onclick="openLLMSettings()" title="LLM Settings">
+                    <span class="settings-icon">&#9881;</span>
+                    <span id="activeLLMBadge" class="active-llm-badge">Ollama</span>
+                </button>
+                <span id="connectionStatus" class="status connected">Connected</span>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard View (Cards) -->
+            <div id="dashboardView" class="dashboard-view">
+                <div class="cards-container" id="cardsContainer">
+                    <!-- DevOps Cards -->
+                    <div class="tool-card" data-tool="pipeline-generator" data-category="devops">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-content">
+                            <h3>GitLab Pipeline Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag gitlab">GitLab</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="jenkins-generator" data-category="devops">
+                        <div class="card-icon">🔧</div>
+                        <div class="card-content">
+                            <h3>Jenkins Pipeline Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag gitea">Jenkins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="github-actions" data-category="devops">
+                        <div class="card-icon">🐙</div>
+                        <div class="card-content">
+                            <h3>GitHub Actions Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag gitea">Gitea</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="aws-codepipeline" data-category="devops">
+                        <div class="card-icon">🔶</div>
+                        <div class="card-content">
+                            <h3>AWS CodePipeline Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="azure-devops" data-category="devops">
+                        <div class="card-icon">☁️</div>
+                        <div class="card-content">
+                            <h3>Azure DevOps Pipeline</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IaC Cards -->
+                    <div class="tool-card" data-tool="terraform-generator" data-category="iac">
+                        <div class="card-icon">🌍</div>
+                        <div class="card-content">
+                            <h3>Terraform Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag terraform">Multi-Cloud</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="ansible-generator" data-category="iac">
+                        <div class="card-icon">📜</div>
+                        <div class="card-content">
+                            <h3>Ansible Playbook Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="k8s-generator" data-category="iac">
+                        <div class="card-icon">☸️</div>
+                        <div class="card-content">
+                            <h3>Kubernetes Manifest Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="cloudformation" data-category="iac">
+                        <div class="card-icon">📦</div>
+                        <div class="card-content">
+                            <h3>CloudFormation Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support Cards -->
+                    <div class="tool-card disabled" data-tool="incident-assistant" data-category="support">
+                        <div class="card-icon">🚨</div>
+                        <div class="card-content">
+                            <h3>Incident Assistant</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="log-analyzer" data-category="support">
+                        <div class="card-icon">📋</div>
+                        <div class="card-content">
+                            <h3>Log Analyzer</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="troubleshooter" data-category="support">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-content">
+                            <h3>Troubleshooting Assistant</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="knowledge-base" data-category="support">
+                        <div class="card-icon">📚</div>
+                        <div class="card-content">
+                            <h3>Knowledge Base Search</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SRE Cards -->
+                    <div class="tool-card disabled" data-tool="slo-calculator" data-category="sre">
+                        <div class="card-icon">📈</div>
+                        <div class="card-content">
+                            <h3>SLO Calculator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="capacity-planner" data-category="sre">
+                        <div class="card-icon">📊</div>
+                        <div class="card-content">
+                            <h3>Capacity Planner</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="runbook-generator" data-category="sre">
+                        <div class="card-icon">📖</div>
+                        <div class="card-content">
+                            <h3>Runbook Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="postmortem" data-category="sre">
+                        <div class="card-icon">📝</div>
+                        <div class="card-content">
+                            <h3>Postmortem Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auxiliary Cards -->
+                    <div class="tool-card" data-tool="connectivity-validator" data-category="auxiliary">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-content">
+                            <h3>Tool Connectivity Validator</h3>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="commit-history" data-category="auxiliary">
+                        <div class="card-icon">&#128203;</div>
+                        <div class="card-content">
+                            <h3>Commit History</h3>
+                            <div class="card-tags">
+                                <span class="tag gitlab">GitLab</span>
+                                <span class="tag gitea">Gitea</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="chromadb-browser" data-category="auxiliary">
+                        <div class="card-icon">&#128451;</div>
+                        <div class="card-content">
+                            <h3>ChromaDB Browser</h3>
+                            <div class="card-tags">
+                                <span class="tag chromadb">ChromaDB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="secret-manager" data-category="auxiliary">
+                        <div class="card-icon">&#128272;</div>
+                        <div class="card-content">
+                            <h3>Secret Manager</h3>
+                            <div class="card-tags">
+                                <span class="tag gitlab">GitLab</span>
+                                <span class="tag gitea">Gitea</span>
+                                <span class="tag jenkins">Jenkins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="dependency-scanner" data-category="auxiliary">
+                        <div class="card-icon">&#128737;</div>
+                        <div class="card-content">
+                            <h3>Dependency Scanner</h3>
+                            <div class="card-tags">
+                                <span class="tag trivy">Trivy</span>
+                                <span class="tag nexus">Nexus</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="cost-optimizer" data-category="auxiliary">
+                        <div class="card-icon">💰</div>
+                        <div class="card-content">
+                            <h3>Cost Optimizer</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="release-notes" data-category="auxiliary">
+                        <div class="card-icon">&#128196;</div>
+                        <div class="card-content">
+                            <h3>Release Notes Generator</h3>
+                            <div class="card-tags">
+                                <span class="tag gitlab">GitLab</span>
+                                <span class="tag gitea">Gitea</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="env-manager" data-category="auxiliary">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-content">
+                            <h3>Environment Manager</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="migration-assistant" data-category="auxiliary">
+                        <div class="card-icon">&#128260;</div>
+                        <div class="card-content">
+                            <h3>Migration Assistant</h3>
+                            <div class="card-tags">
+                                <span class="tag gitlab">GitLab</span>
+                                <span class="tag jenkins">Jenkins</span>
+                                <span class="tag github">GitHub</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card disabled" data-tool="backup-manager" data-category="auxiliary">
+                        <div class="card-icon">💾</div>
+                        <div class="card-content">
+                            <h3>Backup Manager</h3>
+                            <div class="card-tags">
+                                <span class="tag coming-soon">Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="compliance-checker" data-category="auxiliary">
+                        <div class="card-icon">&#9989;</div>
+                        <div class="card-content">
+                            <h3>Compliance Checker</h3>
+                            <div class="card-tags">
+                                <span class="tag sonarqube">SonarQube</span>
+                                <span class="tag trivy">Trivy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="access-manager" data-category="auxiliary">
+                        <div class="card-icon">&#128101;</div>
+                        <div class="card-content">
+                            <h3>Access Manager</h3>
+                            <div class="card-tags">
+                                <span class="tag">RBAC</span>
+                                <span class="tag">Vault</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" data-tool="tool-directory" data-category="auxiliary">
+                        <div class="card-icon">&#128218;</div>
+                        <div class="card-content">
+                            <h3>Tool Directory</h3>
+                            <div class="card-tags">
+                                <span class="tag">URLs</span>
+                                <span class="tag">Credentials</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connectivity View -->
+            <div id="connectivityView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">🔗</span>
+                        <h2>Tool Connectivity Validator</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="testAllConnectivity()">
+                        Retest All
+                    </button>
+                </div>
+
+                <!-- Summary Bar -->
+                <div class="connectivity-summary" id="connectivitySummary">
+                    <div class="summary-item summary-total">
+                        <span class="summary-count" id="totalCount">0</span>
+                        <span class="summary-label">Total</span>
+                    </div>
+                    <div class="summary-item summary-healthy">
+                        <span class="summary-count" id="healthyCount">0</span>
+                        <span class="summary-label">Healthy</span>
+                    </div>
+                    <div class="summary-item summary-unhealthy">
+                        <span class="summary-count" id="unhealthyCount">0</span>
+                        <span class="summary-label">Unhealthy</span>
+                    </div>
+                    <div class="summary-item summary-unknown">
+                        <span class="summary-count" id="unknownCount">0</span>
+                        <span class="summary-label">Unknown</span>
+                    </div>
+                </div>
+
+                <!-- Tool Grid -->
+                <div class="connectivity-grid" id="connectivityGrid">
+                    <div class="connectivity-loading">
+                        <span class="spinner"></span> Testing connectivity to all tools...
+                    </div>
+                </div>
+
+                <!-- Access Request Panel -->
+                <div class="access-request-panel hidden" id="accessRequestPanel">
+                    <h3>Request Access</h3>
+                    <p class="access-info">Select failed tools above and submit an access request via Jira.</p>
+                    <div class="form-group">
+                        <label for="requesterName">Your Name</label>
+                        <input type="text" id="requesterName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="requesterEmail">Your Email</label>
+                        <input type="email" id="requesterEmail" placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="accessReason">Reason for Access</label>
+                        <textarea id="accessReason" rows="3" placeholder="I need access to these tools for..."></textarea>
+                    </div>
+                    <div class="selected-tools" id="selectedToolsList"></div>
+                    <button class="submit-request-button" onclick="submitAccessRequest()">
+                        Submit Access Request
+                    </button>
+                </div>
+            </div>
+
+            <!-- Commit History View -->
+            <div id="commitHistoryView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>&larr;</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128203;</span>
+                        <h2>Commit History</h2>
+                    </div>
+                </div>
+
+                <!-- Search Form -->
+                <div class="commit-search-form" style="padding:16px 20px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;">
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+                        <div style="flex:2;min-width:280px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Repository URL</label>
+                            <input type="text" id="commitRepoUrl"
+                                placeholder="http://localhost:8929/root/project or http://localhost:3002/org/repo"
+                                onchange="fetchBranches()" onblur="fetchBranches()"
+                                style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;">
+                        </div>
+                        <div style="flex:0;min-width:150px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Branch</label>
+                            <select id="commitBranch"
+                                style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;background:#fff;">
+                                <option value="">All branches</option>
+                            </select>
+                        </div>
+                        <div style="flex:0;min-width:160px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">From</label>
+                            <input type="datetime-local" id="commitSince"
+                                style="padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;">
+                        </div>
+                        <div style="flex:0;min-width:160px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">To</label>
+                            <input type="datetime-local" id="commitUntil"
+                                style="padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;">
+                        </div>
+                        <div style="flex:0;min-width:100px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Token (optional)</label>
+                            <input type="password" id="commitToken" placeholder="Auto"
+                                style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;">
+                        </div>
+                        <div>
+                            <button onclick="fetchCommitHistory()" id="commitFetchBtn"
+                                style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:0.9em;cursor:pointer;font-weight:600;">
+                                Fetch Commits
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div id="commitSummary" class="connectivity-summary" style="display:none;">
+                    <div class="summary-item summary-total">
+                        <span class="summary-count" id="commitTotalCount">0</span>
+                        <span class="summary-label">Commits</span>
+                    </div>
+                    <div class="summary-item summary-healthy">
+                        <span class="summary-count" id="commitAdditions">0</span>
+                        <span class="summary-label">Additions</span>
+                    </div>
+                    <div class="summary-item summary-unhealthy">
+                        <span class="summary-count" id="commitDeletions">0</span>
+                        <span class="summary-label">Deletions</span>
+                    </div>
+                    <div class="summary-item summary-unknown">
+                        <span class="summary-count" id="commitServerType">-</span>
+                        <span class="summary-label">Server</span>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="commitResults" style="padding:0 20px 20px;overflow-y:auto;flex:1;">
+                </div>
+            </div>
+
+            <!-- ChromaDB Browser View -->
+            <div id="chromadbBrowserView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>&larr;</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128451;</span>
+                        <h2>ChromaDB Browser</h2>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="new-chat-button" onclick="refreshChromaDBSummary()">
+                            Refresh
+                        </button>
+                        <a href="http://localhost:3001" target="_blank" class="new-chat-button"
+                           style="text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+                            Open Admin UI &#8599;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Summary Bar -->
+                <div class="connectivity-summary" id="chromadbSummary">
+                    <div class="summary-item summary-total">
+                        <span class="summary-count" id="chromadbCollectionCount">0</span>
+                        <span class="summary-label">Collections</span>
+                    </div>
+                    <div class="summary-item summary-healthy">
+                        <span class="summary-count" id="chromadbDocumentCount">0</span>
+                        <span class="summary-label">Total Documents</span>
+                    </div>
+                </div>
+
+                <!-- Collections Grid -->
+                <div class="connectivity-grid" id="chromadbCollectionsGrid" style="grid-template-columns:1fr;">
+                    <div class="connectivity-loading">
+                        <span class="spinner"></span> Loading ChromaDB collections...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secret Manager View -->
+            <div id="secretManagerView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128272;</span>
+                        <h2>Secret Manager</h2>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="new-chat-button" onclick="openAddSecretModal()">+ Add Secret</button>
+                        <button class="new-chat-button" onclick="refreshSecretManager()">Refresh</button>
+                    </div>
+                </div>
+                <div class="connectivity-summary" id="secretSummary">
+                    <div class="summary-item summary-total"><span class="summary-count" id="secretTotalCount">0</span><span class="summary-label">Total Secrets</span></div>
+                    <div class="summary-item summary-healthy"><span class="summary-count" id="secretGitlabCount">0</span><span class="summary-label">GitLab</span></div>
+                    <div class="summary-item summary-unknown"><span class="summary-count" id="secretGiteaCount">0</span><span class="summary-label">Gitea</span></div>
+                    <div class="summary-item" style="background:#fff3e0;"><span class="summary-count" id="secretJenkinsCount">0</span><span class="summary-label">Jenkins</span></div>
+                </div>
+                <div style="display:flex;gap:0;border-bottom:2px solid #e5e7eb;padding:0 20px;">
+                    <button class="secret-platform-tab active" onclick="switchSecretPlatform('all')" data-platform="all">All</button>
+                    <button class="secret-platform-tab" onclick="switchSecretPlatform('gitlab')" data-platform="gitlab">GitLab</button>
+                    <button class="secret-platform-tab" onclick="switchSecretPlatform('gitea_jenkins')" data-platform="gitea_jenkins">Gitea (Jenkins)</button>
+                    <button class="secret-platform-tab" onclick="switchSecretPlatform('gitea_github')" data-platform="gitea_github">Gitea (GitHub)</button>
+                    <button class="secret-platform-tab" onclick="switchSecretPlatform('jenkins')" data-platform="jenkins">Jenkins</button>
+                </div>
+                <div id="secretsGrid" style="padding:16px 20px;overflow-y:auto;flex:1;">
+                    <div class="connectivity-loading"><span class="spinner"></span> Loading secrets...</div>
+                </div>
+            </div>
+
+            <!-- Secret Manager Modal -->
+            <div id="secretModal" class="modal-overlay hidden" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;">
+                <div style="background:#fff;border-radius:12px;padding:24px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                        <h3 id="secretModalTitle" style="margin:0;">Add Secret</h3>
+                        <button onclick="closeSecretModal()" style="background:none;border:none;font-size:1.5em;cursor:pointer;">&times;</button>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div><label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Platform</label>
+                            <select id="secretPlatform" onchange="onSecretPlatformChange()" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                                <option value="gitlab">GitLab (Project Variable)</option>
+                                <option value="gitea_jenkins">Gitea (Jenkins org)</option>
+                                <option value="gitea_github">Gitea (GitHub org)</option>
+                                <option value="jenkins">Jenkins (System Credential)</option>
+                            </select>
+                        </div>
+                        <div id="secretProjectGroup"><label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Project</label>
+                            <select id="secretProject" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;"><option value="">Loading...</option></select>
+                        </div>
+                        <div><label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Key / Name</label>
+                            <input type="text" id="secretKey" placeholder="e.g. DEPLOY_TOKEN" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                        </div>
+                        <div><label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Value</label>
+                            <div style="position:relative;"><input type="password" id="secretValue" placeholder="Secret value" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                                <button onclick="toggleSecretValueVisibility()" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;" title="Toggle">&#128065;</button>
+                            </div>
+                        </div>
+                        <div id="secretGitlabOptions">
+                            <div style="display:flex;gap:16px;margin-bottom:8px;">
+                                <label style="display:flex;align-items:center;gap:6px;font-size:0.85em;"><input type="checkbox" id="secretProtected"> Protected</label>
+                                <label style="display:flex;align-items:center;gap:6px;font-size:0.85em;"><input type="checkbox" id="secretMasked"> Masked</label>
+                            </div>
+                            <div><label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Environment Scope</label>
+                                <input type="text" id="secretEnvScope" value="*" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                            </div>
+                        </div>
+                        <div id="secretJenkinsOptions" style="display:none;">
+                            <div><label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Description</label>
+                                <input type="text" id="secretDescription" placeholder="Optional description" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+                            <button onclick="closeSecretModal()" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:6px;background:#fff;cursor:pointer;">Cancel</button>
+                            <button onclick="submitSecret()" id="secretSubmitBtn" style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dependency Scanner View -->
+            <div id="dependencyScannerView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128737;</span>
+                        <h2>Dependency Scanner</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="loadNexusImages()">Refresh Images</button>
+                </div>
+                <div style="padding:16px 20px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;">
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+                        <div style="flex:1;min-width:200px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Image from Registry</label>
+                            <select id="depScanImageSelect" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;background:#fff;" onchange="depScanSelectImage(this.value)">
+                                <option value="">Loading images...</option>
+                            </select>
+                        </div>
+                        <div style="flex:1;min-width:250px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Or enter image manually</label>
+                            <input type="text" id="depScanImageInput" placeholder="e.g. nginx:latest" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;">
+                        </div>
+                        <div style="min-width:140px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Severity Filter</label>
+                            <select id="depScanSeverity" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;background:#fff;">
+                                <option value="UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL">All</option>
+                                <option value="MEDIUM,HIGH,CRITICAL">Medium+</option>
+                                <option value="HIGH,CRITICAL">High+</option>
+                                <option value="CRITICAL">Critical only</option>
+                            </select>
+                        </div>
+                        <div><label style="display:flex;align-items:center;gap:4px;font-size:0.85em;padding:8px 0;cursor:pointer;"><input type="checkbox" id="depScanIgnoreUnfixed"> Hide unfixed</label></div>
+                        <div><button onclick="runDependencyScan()" id="depScanBtn" style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:0.9em;cursor:pointer;font-weight:600;">Scan Image</button></div>
+                    </div>
+                </div>
+                <div id="depScanSummary" class="connectivity-summary" style="display:none;">
+                    <div class="summary-item summary-total"><span class="summary-count" id="depScanTotal">0</span><span class="summary-label">Total</span></div>
+                    <div class="summary-item" style="border-color:#ef4444;"><span class="summary-count" id="depScanCritical" style="color:#ef4444;">0</span><span class="summary-label">Critical</span></div>
+                    <div class="summary-item" style="border-color:#f97316;"><span class="summary-count" id="depScanHigh" style="color:#f97316;">0</span><span class="summary-label">High</span></div>
+                    <div class="summary-item" style="border-color:#f59e0b;"><span class="summary-count" id="depScanMedium" style="color:#f59e0b;">0</span><span class="summary-label">Medium</span></div>
+                    <div class="summary-item" style="border-color:#3b82f6;"><span class="summary-count" id="depScanLow" style="color:#3b82f6;">0</span><span class="summary-label">Low</span></div>
+                </div>
+                <div id="depScanResults" style="padding:0 20px 20px;overflow-y:auto;flex:1;">
+                    <p style="color:#888;text-align:center;padding:40px 0;">Select an image and click <strong>Scan Image</strong> to view vulnerability results.</p>
+                </div>
+            </div>
+
+            <!-- Release Notes Generator View -->
+            <div id="releaseNotesView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128196;</span>
+                        <h2>Release Notes Generator</h2>
+                    </div>
+                </div>
+                <div style="padding:16px 20px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;">
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+                        <div style="flex:2;min-width:250px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Repository URL</label>
+                            <input type="text" id="rnRepoUrl" placeholder="http://gitlab-server/root/project" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;" onblur="fetchRNBranches()">
+                        </div>
+                        <div style="min-width:150px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Branch</label>
+                            <select id="rnBranch" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;background:#fff;">
+                                <option value="">All branches</option>
+                            </select>
+                        </div>
+                        <div style="min-width:140px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">From Date</label>
+                            <input type="date" id="rnSince" style="padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                        </div>
+                        <div style="min-width:140px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">To Date</label>
+                            <input type="date" id="rnUntil" style="padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                        </div>
+                        <div style="min-width:130px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Format</label>
+                            <select id="rnFormat" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85em;background:#fff;">
+                                <option value="standard">Standard</option>
+                                <option value="keepachangelog">Keep a Changelog</option>
+                                <option value="detailed">Detailed</option>
+                            </select>
+                        </div>
+                        <div><button onclick="generateReleaseNotes()" id="rnGenerateBtn" style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:0.9em;cursor:pointer;font-weight:600;">Generate</button></div>
+                    </div>
+                </div>
+                <div id="releaseNotesOutput" style="padding:20px;overflow-y:auto;flex:1;">
+                    <p style="color:#888;text-align:center;padding:40px 0;">Enter repository details and click <strong>Generate</strong> to create release notes.</p>
+                </div>
+            </div>
+
+            <!-- Migration Assistant View -->
+            <div id="migrationAssistantView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128260;</span>
+                        <h2>Migration Assistant</h2>
+                    </div>
+                </div>
+                <div style="padding:12px 20px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;">
+                    <div style="display:flex;gap:12px;align-items:end;flex-wrap:wrap;">
+                        <div style="min-width:150px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Source Format</label>
+                            <select id="migSourceFormat" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                                <option value="gitlab">GitLab CI</option>
+                                <option value="jenkins">Jenkins</option>
+                                <option value="github-actions">GitHub Actions</option>
+                            </select>
+                        </div>
+                        <div style="font-size:1.5em;padding-bottom:4px;">&#10132;</div>
+                        <div style="min-width:150px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Target Format</label>
+                            <select id="migTargetFormat" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                                <option value="jenkins">Jenkins</option>
+                                <option value="gitlab">GitLab CI</option>
+                                <option value="github-actions">GitHub Actions</option>
+                            </select>
+                        </div>
+                        <div style="min-width:130px;">
+                            <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Language</label>
+                            <select id="migLanguage" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;">
+                                <option value="">Auto-detect</option>
+                                <option value="java">Java</option>
+                                <option value="python">Python</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="go">Go</option>
+                                <option value="rust">Rust</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="php">PHP</option>
+                                <option value="scala">Scala</option>
+                                <option value="csharp">C#</option>
+                                <option value="typescript">TypeScript</option>
+                            </select>
+                        </div>
+                        <div><label style="display:flex;align-items:center;gap:4px;font-size:0.85em;padding:8px 0;cursor:pointer;"><input type="checkbox" id="migUseLLM"> Force LLM</label></div>
+                        <div><button onclick="convertPipeline()" id="migConvertBtn" style="padding:8px 20px;background:#3b82f6;color:#fff;border:none;border-radius:6px;font-size:0.9em;cursor:pointer;font-weight:600;">Convert</button></div>
+                    </div>
+                </div>
+                <div style="display:flex;flex:1;overflow:hidden;">
+                    <div style="flex:1;padding:16px;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;">
+                        <h4 style="margin:0 0 8px;">Source Pipeline</h4>
+                        <textarea id="migSourceInput" style="flex:1;font-family:monospace;font-size:0.85em;resize:none;padding:12px;border:1px solid #d1d5db;border-radius:6px;min-height:300px;" placeholder="Paste your pipeline configuration here..." oninput="detectPipelineFormat()"></textarea>
+                    </div>
+                    <div style="flex:1;padding:16px;display:flex;flex-direction:column;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                            <h4 style="margin:0;">Converted Pipeline</h4>
+                            <button onclick="copyConvertedPipeline()" id="migCopyBtn" style="display:none;padding:4px 12px;background:#22c55e;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.8em;">Copy</button>
+                        </div>
+                        <pre id="migConvertedOutput" style="flex:1;overflow:auto;font-size:0.85em;background:#f8f9fa;padding:12px;border-radius:6px;border:1px solid #e5e7eb;min-height:300px;margin:0;white-space:pre-wrap;"></pre>
+                        <div id="migDockerfileSection" style="display:none;margin-top:12px;">
+                            <h4 style="margin:0 0 8px;">Dockerfile</h4>
+                            <pre id="migDockerfileOutput" style="max-height:200px;overflow:auto;font-size:0.85em;background:#f0f7ff;padding:12px;border-radius:6px;border:1px solid #bfdbfe;margin:0;white-space:pre-wrap;"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Checker View -->
+            <div id="complianceCheckerView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#9989;</span>
+                        <h2>Compliance Checker</h2>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <input type="text" id="complianceSearch" placeholder="Search projects..." style="padding:6px 12px;border:1px solid #d1d5db;border-radius:6px;" onkeyup="if(event.key==='Enter')loadComplianceDashboard()">
+                        <button class="new-chat-button" onclick="loadComplianceDashboard()">Refresh</button>
+                    </div>
+                </div>
+                <div id="complianceSummary" class="connectivity-summary" style="display:none;">
+                    <div class="summary-item summary-total"><span class="summary-count" id="complianceTotalCount">0</span><span class="summary-label">Total Projects</span></div>
+                    <div class="summary-item summary-healthy"><span class="summary-count" id="compliancePassCount">0</span><span class="summary-label">PASS</span></div>
+                    <div class="summary-item" style="background:#fff8e1;"><span class="summary-count" id="complianceWarnCount">0</span><span class="summary-label">WARN</span></div>
+                    <div class="summary-item summary-unhealthy"><span class="summary-count" id="complianceFailCount">0</span><span class="summary-label">FAIL</span></div>
+                </div>
+                <div id="complianceResults" style="padding:0 20px 20px;overflow-y:auto;flex:1;"></div>
+            </div>
+
+            <!-- Tool Directory View -->
+            <div id="toolDirectoryView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128218;</span>
+                        <h2>Tool Directory</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="loadToolDirectory()">Refresh</button>
+                </div>
+                <div id="toolDirectoryContent" style="padding:16px 20px;overflow-y:auto;flex:1;">
+                    <div class="connectivity-loading"><span class="spinner"></span> Loading tools...</div>
+                </div>
+            </div>
+
+            <!-- Access Manager (RBAC) View -->
+            <div id="rbacManagerView" class="connectivity-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()"><span>&larr;</span> Back</button>
+                    <div class="tool-title">
+                        <span class="tool-icon">&#128101;</span>
+                        <h2>Access Manager</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="loadRbacOverview()">Refresh</button>
+                </div>
+                <div class="connectivity-summary" id="rbacSummary" style="display:none;">
+                    <div class="summary-item summary-total"><span class="summary-count" id="rbacTotalUsers">0</span><span class="summary-label">Total Users</span></div>
+                    <div class="summary-item summary-healthy"><span class="summary-count" id="rbacReadonlyCount">0</span><span class="summary-label">Read Only</span></div>
+                    <div class="summary-item summary-unknown"><span class="summary-count" id="rbacReadwriteCount">0</span><span class="summary-label">Read/Write</span></div>
+                    <div class="summary-item" style="background:#fce4ec;"><span class="summary-count" id="rbacAdminCount">0</span><span class="summary-label">Admin</span></div>
+                </div>
+                <div style="padding:12px 20px;background:#f8f9fa;border-bottom:1px solid #e5e7eb;">
+                    <div style="display:flex;gap:12px;align-items:center;">
+                        <label style="font-size:0.85em;font-weight:600;color:#555;">Service Account / User:</label>
+                        <select id="rbacUserSelect" onchange="onRbacUserSelect(this.value)" style="flex:1;max-width:320px;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;background:#fff;">
+                            <option value="">-- All Users --</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="rbacContent" style="padding:16px 20px;overflow-y:auto;flex:1;">
+                    <div class="connectivity-loading"><span class="spinner"></span> Loading access data...</div>
+                </div>
+            </div>
+
+            <!-- Terraform Navigation View -->
+            <div id="terraformNavView" class="terraform-nav-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="terraformGoBack()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span class="tool-icon">🌍</span>
+                        <h2 id="terraformNavTitle">Terraform Generator</h2>
+                    </div>
+                    <div class="terraform-breadcrumb" id="terraformBreadcrumb"></div>
+                </div>
+                <div class="terraform-cards-container" id="terraformCardsContainer"></div>
+            </div>
+
+            <!-- Tool View (Chat Interface) -->
+            <div id="toolView" class="tool-view hidden">
+                <div class="tool-header">
+                    <button class="back-button" onclick="goBack()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="tool-title">
+                        <span id="toolIcon" class="tool-icon">🚀</span>
+                        <h2 id="toolName">GitLab Pipeline Generator</h2>
+                    </div>
+                    <button class="new-chat-button" onclick="newConversation()">
+                        New Chat
+                    </button>
+                </div>
+
+                <div class="chat-container" id="chatContainer">
+                    <div class="messages" id="messages">
+                        <div class="message assistant">
+                            <div class="message-content">
+                                <p>Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.</p>
+                                <p>Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.</p>
+                                <p><strong>Example:</strong> "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <textarea
+                            id="messageInput"
+                            placeholder="Enter your message... (e.g., Generate a pipeline for http://gitlab-server/group/project)"
+                            rows="2"
+                        ></textarea>
+                        <button id="sendButton" onclick="sendMessage()">
+                            <span class="button-text">Send</span>
+                            <span class="button-loading" style="display: none;">
+                                <span class="spinner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="status-bar">
+                    <span id="sessionStatus" class="status connected">Ready</span>
+                    <span id="conversationId" class="conversation-id"></span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Powered by AI with Reinforcement Learning | GitLab Integration</p>
+        </footer>
+    </div>
+
+    <!-- LLM Settings Modal -->
+    <div id="llmSettingsModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>LLM Provider Settings</h3>
+                <button class="modal-close" onclick="closeLLMSettings()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="llmProvidersList" class="llm-providers-list">
+                    <div class="llm-loading"><span class="spinner"></span> Loading providers...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?v=9"></script>
+</body>
+</html>
