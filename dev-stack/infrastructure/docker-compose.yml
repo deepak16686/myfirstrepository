@@ -1,0 +1,799 @@
+services:
+
+  # ============================================================
+  # CORE AI PLATFORM
+  # ============================================================
+
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: vault
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=dev-root-token
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_ADDR=http://0.0.0.0:8200
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  vault-init:
+    image: hashicorp/vault:1.15
+    container_name: vault-init
+    depends_on:
+      vault:
+        condition: service_healthy
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=dev-root-token
+      - GITLAB_PAT=${GITLAB_PAT:-}
+    volumes:
+      - ../backend/scripts/vault-init.sh:/vault-init.sh:ro
+    entrypoint: ["/bin/sh", "/vault-init.sh"]
+    networks:
+      - ai-platform-net
+    restart: "no"
+
+  rbac-init:
+    image: hashicorp/vault:1.15
+    container_name: rbac-init
+    depends_on:
+      vault-init:
+        condition: service_completed_successfully
+      gitlab-server:
+        condition: service_healthy
+      gitea-server:
+        condition: service_healthy
+      jenkins-master:
+        condition: service_healthy
+      ai-sonarqube:
+        condition: service_healthy
+      ai-nexus:
+        condition: service_started
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=dev-root-token
+    volumes:
+      - ../backend/scripts/rbac-init.sh:/rbac-init.sh:ro
+    entrypoint: ["/bin/sh", "/rbac-init.sh"]
+    networks:
+      - ai-platform-net
+      - gitlab-net
+    restart: "no"
+
+  devops-tools-backend:
+    build: ../backend
+    container_name: devops-tools-backend
+    ports:
+      - "8003:8003"
+    environment:
+      # Service URLs (non-secret)
+      - GITLAB_URL=http://gitlab-server
+      - SONARQUBE_URL=http://ai-sonarqube:9000
+      # SONARQUBE_USERNAME loaded from Vault service account
+      - TRIVY_URL=http://trivy-server:8080
+      - NEXUS_URL=http://ai-nexus:8081
+      # NEXUS_USERNAME loaded from Vault service account
+      - GITHUB_URL=http://gitea-server:3000
+      - CHROMADB_URL=http://chromadb:8000
+      - OLLAMA_URL=http://ollama:11434
+      - LLM_PROVIDER=${LLM_PROVIDER:-claude-code}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-opus}
+      - CLAUDE_TIMEOUT=${CLAUDE_TIMEOUT:-300}
+      - REDIS_URL=redis://redis:6379/0
+      - JIRA_URL=${JIRA_URL:-http://jira:8080}
+      - JIRA_PROJECT_KEY=${JIRA_PROJECT_KEY:-DEVOPS}
+      - SPLUNK_URL=https://ai-splunk:8088
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_GIT_URL=http://gitea-server:3000
+      - DEBUG=false
+      # Vault integration (secrets fetched from Vault at startup)
+      - VAULT_URL=http://vault:8200
+      - VAULT_TOKEN=dev-root-token
+    volumes:
+      - devops-tools-config:/app/config
+      - C:/Users/deepak/.claude:/root/.claude
+    depends_on:
+      rbac-init:
+        condition: service_completed_successfully
+    networks:
+      - ai-platform-net
+      - gitlab-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8003/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - ai-platform-net
+    restart: always
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    ports:
+      - "8005:8000"
+    volumes:
+      - chromadb-data:/chroma/chroma
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+
+  chromadb-admin:
+    image: sanderdw/chromadb-admin:latest
+    container_name: chromadb-admin
+    ports:
+      - "3001:3000"
+    environment:
+      - CHROMADB_HOST=http://chromadb:8000
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ai-postgres:
+    image: postgres:15-alpine
+    container_name: ai-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=platform123
+      - POSTGRES_DB=modernization_platform
+      - POSTGRES_USER=platform
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform -d modernization_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================================
+  # SOURCE CONTROL
+  # ============================================================
+
+  gitlab-server:
+    image: gitlab/gitlab-ce:latest
+    container_name: gitlab-server
+    hostname: gitlab-server
+    ports:
+      - "8929:80"
+      - "2224:22"
+    volumes:
+      - C:/Users/deepak/gitlab_docker/config:/etc/gitlab
+      - C:/Users/deepak/gitlab_docker/logs:/var/log/gitlab
+      - C:/Users/deepak/gitlab_docker/data:/var/opt/gitlab
+    shm_size: 256m
+    networks:
+      ai-platform-net:
+        aliases:
+          - gitlab
+          - git
+      gitlab-net:
+      monitoring-network:
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/gitlab/bin/gitlab-healthcheck --fail --max-time 10"]
+      interval: 60s
+      timeout: 30s
+      retries: 5
+
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    environment:
+      - GITLAB_RUNNER_LISTEN_ADDRESS=0.0.0.0:8093
+    volumes:
+      - C:/Users/deepak/.gitlab-runner/config.toml:/etc/gitlab-runner/config.toml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+    depends_on:
+      - gitlab-server
+
+  gitea-server:
+    image: gitea/gitea:latest
+    container_name: gitea-server
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__server__ROOT_URL=http://localhost:3002/
+      - GITEA__server__HTTP_PORT=3000
+      - GITEA__server__SSH_PORT=2222
+      - GITEA__service__DISABLE_REGISTRATION=false
+      - GITEA__service__REQUIRE_SIGNIN_VIEW=false
+      - GITEA__actions__ENABLED=true
+      - GITEA__actions__DEFAULT_ACTIONS_URL=https://github.com
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3002:3000"
+      - "2222:22"
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  gitea-runner:
+    image: gitea/act_runner:latest
+    container_name: gitea-runner
+    environment:
+      - GITEA_INSTANCE_URL=http://gitea-server:3000
+      - GITEA_RUNNER_REGISTRATION_TOKEN=${GITEA_RUNNER_TOKEN:-mHgHYvs7ei1F47cVrEwijEdReGXEYXUrGUQDzRLx}
+      - GITEA_RUNNER_NAME=self-hosted-runner
+      - GITEA_RUNNER_LABELS=self-hosted,docker
+      - CONFIG_FILE=/config/config.yaml
+    volumes:
+      - gitea-runner-data:/data
+      - ../source-control/runner-config.yaml:/config/config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+    depends_on:
+      gitea-server:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ============================================================
+  # CI/CD
+  # ============================================================
+
+  jenkins-master:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-master
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - ../backend/scripts/jenkins-rbac-init.groovy:/var/jenkins_home/init.groovy.d/03-rbac-init.groovy:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/jenkins/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  jenkins-agent-1:
+    image: jenkins/inbound-agent:latest
+    container_name: jenkins-agent-1
+    user: root
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_AGENT_NAME=agent-1
+      - JENKINS_SECRET=66fbf53f95bb677bd41780239be7474afd24d1e34a11814e0f32e97489d89880
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - jenkins-agent-1-data:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    depends_on:
+      - jenkins-master
+    restart: unless-stopped
+
+  jenkins-agent-2:
+    image: jenkins/inbound-agent:latest
+    container_name: jenkins-agent-2
+    user: root
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_AGENT_NAME=agent-2
+      - JENKINS_SECRET=fe466dc2c3c658e66071cbb8df177ef227120fb4b448ccb7c1a9ed753b3924ab
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - jenkins-agent-2-data:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    depends_on:
+      - jenkins-master
+    restart: unless-stopped
+
+  jenkins-agent-3:
+    image: jenkins/inbound-agent:latest
+    container_name: jenkins-agent-3
+    user: root
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_AGENT_NAME=agent-3
+      - JENKINS_SECRET=c819856611f0faf66a354351faad64b1406bb3e470b1906b6e0ea6fa5c61dd5e
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - jenkins-agent-3-data:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    depends_on:
+      - jenkins-master
+    restart: unless-stopped
+
+  # ============================================================
+  # QUALITY & SECURITY
+  # ============================================================
+
+  ai-sonarqube:
+    image: sonarqube:latest
+    container_name: ai-sonarqube
+    ports:
+      - "9002:9000"
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://ai-sonar-db:5432/sonarqube
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonarpass
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-extensions:/opt/sonarqube/extensions
+      - sonarqube-logs:/opt/sonarqube/logs
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+    depends_on:
+      ai-sonar-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/api/system/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ai-sonar-db:
+    image: postgres:15-alpine
+    container_name: ai-sonar-db
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonarpass
+      - POSTGRES_DB=sonarqube
+    volumes:
+      - sonarqube-postgres-data:/var/lib/postgresql/data
+    networks:
+      - ai-platform-net
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sonar -d sonarqube"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ai-nexus:
+    image: sonatype/nexus3:latest
+    container_name: ai-nexus
+    ports:
+      - "8081:8081"
+      - "5001:5001"
+    volumes:
+      - nexus-data:/nexus-data
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+
+  trivy-server:
+    image: aquasec/trivy:latest
+    container_name: trivy-server
+    ports:
+      - "8083:8080"
+    command: server --listen 0.0.0.0:8080
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+
+  # ============================================================
+  # MONITORING & OBSERVABILITY
+  # ============================================================
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - monitoring-network
+      - ai-platform-net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=redis-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki
+    networks:
+      - monitoring-network
+      - ai-platform-net
+    restart: unless-stopped
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    networks:
+      - monitoring-network
+      - ai-platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:16686/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:9100/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8082:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    privileged: true
+    networks:
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ai-splunk:
+    image: splunk/splunk:latest
+    container_name: ai-splunk
+    ports:
+      - "8088:8088"
+      - "10000:8000"
+    environment:
+      - SPLUNK_PASSWORD=Admin@1234
+      - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
+      - SPLUNK_START_ARGS=--accept-license
+    volumes:
+      - splunk-etc:/opt/splunk/etc
+      - splunk-var:/opt/splunk/var
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  # ============================================================
+  # PROJECT MANAGEMENT
+  # ============================================================
+
+  jira:
+    image: atlassian/jira-software:9.12
+    container_name: jira
+    ports:
+      - "8180:8080"
+    environment:
+      - ATL_JDBC_URL=jdbc:postgresql://jira-postgres:5432/jiradb
+      - ATL_JDBC_USER=jira
+      - ATL_JDBC_PASSWORD=jira123
+      - ATL_DB_DRIVER=org.postgresql.Driver
+      - ATL_DB_TYPE=postgres72
+      - JVM_MINIMUM_MEMORY=512m
+      - JVM_MAXIMUM_MEMORY=2048m
+    volumes:
+      - jira-data:/var/atlassian/application-data/jira
+    depends_on:
+      jira-postgres:
+        condition: service_healthy
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+
+  jira-postgres:
+    image: postgres:15
+    container_name: jira-postgres
+    environment:
+      - POSTGRES_DB=jiradb
+      - POSTGRES_USER=jira
+      - POSTGRES_PASSWORD=jira123
+    volumes:
+      - jira-postgres-data:/var/lib/postgresql/data
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jira -d jiradb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redmine:
+    image: redmine:5-alpine
+    container_name: redmine
+    ports:
+      - "8090:3000"
+    environment:
+      - REDMINE_DB_POSTGRES=redmine-db
+      - REDMINE_DB_PORT=5432
+      - REDMINE_DB_USERNAME=redmine
+      - REDMINE_DB_PASSWORD=redmine123
+      - REDMINE_DB_DATABASE=redmine
+      - REDMINE_SECRET_KEY_BASE=redmine-secret-key-base-change-in-production
+    volumes:
+      - redmine-data:/usr/src/redmine/files
+      - redmine-plugins:/usr/src/redmine/plugins
+      - redmine-themes:/usr/src/redmine/public/themes
+    depends_on:
+      redmine-db:
+        condition: service_healthy
+    networks:
+      - ai-platform-net
+      - ticketing-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redmine-db:
+    image: postgres:15-alpine
+    container_name: redmine-db
+    environment:
+      - POSTGRES_USER=redmine
+      - POSTGRES_PASSWORD=redmine123
+      - POSTGRES_DB=redmine
+    volumes:
+      - redmine-db-data:/var/lib/postgresql/data
+    networks:
+      - ticketing-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U redmine -d redmine"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# ============================================================
+# NETWORKS - explicit names to avoid project prefix
+# ============================================================
+
+networks:
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+  gitlab-net:
+    name: gitlab-net
+    driver: bridge
+  monitoring-network:
+    name: monitoring-network
+    driver: bridge
+  jenkins-net:
+    name: jenkins-net
+    driver: bridge
+  ticketing-net:
+    name: ticketing-net
+    driver: bridge
+
+# ============================================================
+# VOLUMES - explicit names to reuse existing data
+# ============================================================
+
+volumes:
+  # Core AI Platform
+  devops-tools-config:
+    name: devops-tools-backend_devops-tools-config
+  ollama-data:
+    name: ollama
+  chromadb-data:
+    name: chromadb-data
+  redis-data:
+    name: redis-data
+  postgres-data:
+    name: postgres-data
+  minio-data:
+    name: minio-data
+
+  # Source Control
+  gitea-data:
+    name: gitea-setup_gitea-data
+  gitea-runner-data:
+    name: gitea-setup_gitea-runner-data
+
+  # CI/CD
+  jenkins-data:
+    name: clawd_jenkins-data
+  jenkins-agent-1-data:
+    name: clawd_jenkins-agent-1-data
+  jenkins-agent-2-data:
+    name: clawd_jenkins-agent-2-data
+  jenkins-agent-3-data:
+    name: clawd_jenkins-agent-3-data
+
+  # Quality & Security
+  sonarqube-data:
+    name: sonarqube-data
+  sonarqube-extensions:
+    name: sonarqube-extensions
+  sonarqube-logs:
+    name: sonarqube-logs
+  sonarqube-postgres-data:
+    name: sonarqube-postgres-data
+  nexus-data:
+    name: nexus-data
+
+  # Monitoring
+  prometheus-data:
+    name: ai-folder_prometheus-data
+  grafana-data:
+    name: ai-folder_grafana-data
+  loki-data:
+    name: ai-folder_loki-data
+  splunk-etc:
+    name: 4ab1508871e7553d3fc1fc3b4c36b8f5829f7ddd10a19524406793aeb42ea9c1
+  splunk-var:
+    name: 9dc29ee918744304858a17e8cd0228efe7076d256f699d4d216b1d1df0618624
+
+  # Project Management
+  jira-data:
+    name: devops-tools-backend_jira_data
+  jira-postgres-data:
+    name: devops-tools-backend_jira_postgres_data
+  redmine-data:
+    name: plane_redmine-data
+  redmine-plugins:
+    name: plane_redmine-plugins
+  redmine-themes:
+    name: plane_redmine-themes
+  redmine-db-data:
+    name: plane_redmine-db-data
