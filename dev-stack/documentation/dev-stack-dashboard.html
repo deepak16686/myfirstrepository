@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Stack — Service Dashboard</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue-bg:    #dbeafe;  --blue-acc:   #3b82f6;  --blue-dark:  #1e40af;
+            --green-bg:   #d1fae5;  --green-acc:  #10b981;  --green-dark: #065f46;
+            --pink-bg:    #fce7f3;  --pink-acc:   #ec4899;  --pink-dark:  #9d174d;
+            --rose-bg:    #ffe4e6;  --rose-acc:   #f43f5e;  --rose-dark:  #9f1239;
+            --yellow-bg:  #fef9c3;  --yellow-acc: #f59e0b;  --yellow-dark:#92400e;
+            --violet-bg:  #ede9fe;  --violet-acc: #8b5cf6;  --violet-dark:#5b21b6;
+            --cyan-bg:    #cffafe;  --cyan-acc:   #06b6d4;  --cyan-dark:  #155e75;
+            --slate-900:  #0f172a;  --slate-700:  #334155;  --slate-500:  #64748b;
+            --slate-300:  #cbd5e1;  --slate-100:  #f1f5f9;  --white:      #ffffff;
+            --shadow-sm:  0 1px 2px rgba(0,0,0,.06);
+            --shadow-md:  0 4px 12px rgba(0,0,0,.08);
+            --shadow-lg:  0 8px 30px rgba(0,0,0,.12);
+            --r-layer: 18px;  --r-card: 14px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            color: var(--slate-700);
+            min-height: 100vh;
+            padding: 40px 24px;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1420px; margin: 0 auto; }
+
+        /* ===== HEADER ===== */
+        .header { text-align: center; margin-bottom: 36px; }
+        .header h1 {
+            font-size: 2.25rem; font-weight: 800; color: var(--slate-900);
+            letter-spacing: -0.02em; margin-bottom: 8px;
+        }
+        .header h1 span { color: var(--blue-acc); }
+        .header p {
+            font-size: 1.05rem; color: var(--slate-500);
+            max-width: 660px; margin: 0 auto;
+        }
+        .env-badge {
+            display: inline-block; font-size: 0.75rem; font-weight: 700;
+            padding: 4px 14px; border-radius: 20px; margin-top: 10px;
+            text-transform: uppercase; letter-spacing: 0.1em;
+        }
+        .env-badge--dev { background: #dbeafe; color: var(--blue-dark); border: 1.5px solid var(--blue-acc); }
+
+        /* ===== SECTIONS ===== */
+        .sections { display: flex; flex-direction: column; gap: 24px; }
+
+        .section {
+            border-radius: var(--r-layer);
+            padding: 28px 32px 24px;
+        }
+        .section-header {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+        }
+        .section-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: var(--white); flex-shrink: 0;
+        }
+        .section-title {
+            font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+        }
+        .section-subtitle { font-size: 0.78rem; font-weight: 400; opacity: 0.7; margin-left: 4px; }
+
+        /* ===== CARDS GRID ===== */
+        .cards {
+            display: grid; gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+
+        /* ===== SERVICE CARD ===== */
+        .svc-card {
+            background: var(--white);
+            border-radius: var(--r-card);
+            padding: 20px 22px;
+            box-shadow: var(--shadow-md);
+            border: 1.5px solid transparent;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .svc-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .svc-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 5px; height: 100%;
+            border-radius: var(--r-card) 0 0 var(--r-card);
+        }
+
+        .svc-card-head {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+        }
+        .svc-card-icon { font-size: 26px; flex-shrink: 0; }
+        .svc-card-head h3 {
+            font-size: 0.95rem; font-weight: 700; color: var(--slate-900);
+        }
+        .svc-card-head .port-badge {
+            margin-left: auto; font-size: 0.68rem; font-weight: 600;
+            padding: 2px 8px; border-radius: 6px; letter-spacing: 0.02em;
+            flex-shrink: 0;
+        }
+
+        .svc-url {
+            display: block; font-size: 0.82rem; font-weight: 600;
+            color: var(--blue-acc); text-decoration: none;
+            margin-bottom: 8px; word-break: break-all;
+        }
+        .svc-url:hover { text-decoration: underline; }
+
+        .svc-creds {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;
+        }
+        .cred-chip {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 0.72rem; padding: 3px 10px; border-radius: 6px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            cursor: pointer; position: relative;
+            transition: background .15s ease;
+        }
+        .cred-chip:hover { filter: brightness(0.95); }
+        .cred-chip .cred-label {
+            font-weight: 700; font-family: 'Segoe UI', system-ui, sans-serif;
+            margin-right: 2px;
+        }
+        .cred-chip .copied-tip {
+            position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+            background: var(--slate-900); color: white; font-size: 0.65rem;
+            padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+            opacity: 0; pointer-events: none; transition: opacity .2s ease;
+        }
+        .cred-chip .copied-tip.show { opacity: 1; }
+
+        .svc-desc {
+            font-size: 0.76rem; color: var(--slate-500); line-height: 1.45;
+        }
+        .svc-container-name {
+            display: inline-block; font-size: 0.65rem; font-weight: 600;
+            padding: 1px 7px; border-radius: 4px; margin-top: 6px;
+            background: var(--slate-100); color: var(--slate-500);
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+        }
+
+        /* ---- Section themes ---- */
+        .section--blue { background: linear-gradient(135deg, var(--blue-bg) 0%, #eff6ff 100%); border: 1.5px solid #bfdbfe; }
+        .section--blue .section-icon { background: var(--blue-acc); }
+        .section--blue .section-title { color: var(--blue-dark); }
+        .section--blue .svc-card:hover { border-color: var(--blue-acc); }
+        .section--blue .svc-card::before { background: var(--blue-acc); }
+        .section--blue .port-badge { background: #dbeafe; color: var(--blue-dark); }
+        .section--blue .cred-chip { background: #dbeafe; color: var(--blue-dark); }
+
+        .section--green { background: linear-gradient(135deg, var(--green-bg) 0%, #ecfdf5 100%); border: 1.5px solid #a7f3d0; }
+        .section--green .section-icon { background: var(--green-acc); }
+        .section--green .section-title { color: var(--green-dark); }
+        .section--green .svc-card:hover { border-color: var(--green-acc); }
+        .section--green .svc-card::before { background: var(--green-acc); }
+        .section--green .port-badge { background: #d1fae5; color: var(--green-dark); }
+        .section--green .cred-chip { background: #d1fae5; color: var(--green-dark); }
+
+        .section--cyan { background: linear-gradient(135deg, var(--cyan-bg) 0%, #ecfeff 100%); border: 1.5px solid #a5f3fc; }
+        .section--cyan .section-icon { background: var(--cyan-acc); }
+        .section--cyan .section-title { color: var(--cyan-dark); }
+        .section--cyan .svc-card:hover { border-color: var(--cyan-acc); }
+        .section--cyan .svc-card::before { background: var(--cyan-acc); }
+        .section--cyan .port-badge { background: #cffafe; color: var(--cyan-dark); }
+        .section--cyan .cred-chip { background: #cffafe; color: var(--cyan-dark); }
+
+        .section--rose { background: linear-gradient(135deg, var(--rose-bg) 0%, #fff1f2 100%); border: 1.5px solid #fecdd3; }
+        .section--rose .section-icon { background: var(--rose-acc); }
+        .section--rose .section-title { color: var(--rose-dark); }
+        .section--rose .svc-card:hover { border-color: var(--rose-acc); }
+        .section--rose .svc-card::before { background: var(--rose-acc); }
+        .section--rose .port-badge { background: #ffe4e6; color: var(--rose-dark); }
+        .section--rose .cred-chip { background: #ffe4e6; color: var(--rose-dark); }
+
+        .section--violet { background: linear-gradient(135deg, var(--violet-bg) 0%, #f5f3ff 100%); border: 1.5px solid #c4b5fd; }
+        .section--violet .section-icon { background: var(--violet-acc); }
+        .section--violet .section-title { color: var(--violet-dark); }
+        .section--violet .svc-card:hover { border-color: var(--violet-acc); }
+        .section--violet .svc-card::before { background: var(--violet-acc); }
+        .section--violet .port-badge { background: #ede9fe; color: var(--violet-dark); }
+        .section--violet .cred-chip { background: #ede9fe; color: var(--violet-dark); }
+
+        .section--yellow { background: linear-gradient(135deg, var(--yellow-bg) 0%, #fffbeb 100%); border: 1.5px solid #fde68a; }
+        .section--yellow .section-icon { background: var(--yellow-acc); }
+        .section--yellow .section-title { color: var(--yellow-dark); }
+        .section--yellow .svc-card:hover { border-color: var(--yellow-acc); }
+        .section--yellow .svc-card::before { background: var(--yellow-acc); }
+        .section--yellow .port-badge { background: #fef9c3; color: var(--yellow-dark); }
+        .section--yellow .cred-chip { background: #fef9c3; color: var(--yellow-dark); }
+
+        .section--pink { background: linear-gradient(135deg, var(--pink-bg) 0%, #fdf2f8 100%); border: 1.5px solid #fbcfe8; }
+        .section--pink .section-icon { background: var(--pink-acc); }
+        .section--pink .section-title { color: var(--pink-dark); }
+        .section--pink .svc-card:hover { border-color: var(--pink-acc); }
+        .section--pink .svc-card::before { background: var(--pink-acc); }
+        .section--pink .port-badge { background: #fce7f3; color: var(--pink-dark); }
+        .section--pink .cred-chip { background: #fce7f3; color: var(--pink-dark); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center; margin-top: 28px;
+            font-size: 0.78rem; color: var(--slate-500);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 800px) {
+            .cards { grid-template-columns: 1fr; }
+            body { padding: 16px 10px; }
+            .section { padding: 18px 14px 16px; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .svc-card:hover { transform: none; box-shadow: var(--shadow-md); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header class="header">
+        <h1><span>Dev Stack</span> Service Dashboard</h1>
+        <p>All services, endpoints, and credentials for the local development environment at a glance.</p>
+        <span class="env-badge env-badge--dev">Development</span>
+    </header>
+
+    <div class="sections">
+
+        <!-- ============================================================ -->
+        <!-- CORE AI PLATFORM -->
+        <!-- ============================================================ -->
+        <div class="section section--blue">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><path d="M10 7v3l2 2"/></svg>
+                </div>
+                <span class="section-title">Core AI Platform <span class="section-subtitle">— Application backends & data stores</span></span>
+            </div>
+            <div class="cards">
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#129302;</span>
+                        <h3>DevOps Tools Backend</h3>
+                        <span class="port-badge">:8003</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8003" target="_blank">http://localhost:8003</a>
+                    <p class="svc-desc">AI-powered pipeline generator with chat interface, supporting GitLab CI, Jenkins, and GitHub Actions workflows.</p>
+                    <span class="svc-container-name">devops-tools-backend</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128274;</span>
+                        <h3>HashiCorp Vault</h3>
+                        <span class="port-badge">:8200</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8200/ui" target="_blank">http://localhost:8200/ui</a>
+                    <p class="svc-desc">Centralized secrets manager (dev mode). Stores all service tokens and credentials.</p>
+                    <div class="cred-row">
+                        <span class="cred-chip" onclick="copyText('dev-root-token',this)" title="Click to copy">Token: dev-root-token</span>
+                    </div>
+                    <span class="svc-container-name">vault</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128260;</span>
+                        <h3>Modernization API</h3>
+                        <span class="port-badge">:8002</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8002/docs" target="_blank">http://localhost:8002/docs</a>
+                    <p class="svc-desc">Legacy code modernization service with FastAPI. Swagger docs at /docs.</p>
+                    <span class="svc-container-name">modernization-api</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#129504;</span>
+                        <h3>Ollama</h3>
+                        <span class="port-badge">:11434</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:11434" target="_blank">http://localhost:11434</a>
+                    <p class="svc-desc">Local LLM inference server with GPU acceleration. Hosts pipeline-generator-v5 (qwen3:32b).</p>
+                    <span class="svc-container-name">ollama</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128200;</span>
+                        <h3>ChromaDB</h3>
+                        <span class="port-badge">:8005</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8005/api/v1" target="_blank">http://localhost:8005/api/v1</a>
+                    <p class="svc-desc">Vector database for pipeline template embeddings and RAG knowledge retrieval.</p>
+                    <span class="svc-container-name">chromadb</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128203;</span>
+                        <h3>ChromaDB Admin</h3>
+                        <span class="port-badge">:3001</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:3001" target="_blank">http://localhost:3001</a>
+                    <p class="svc-desc">Web UI for browsing ChromaDB collections, documents, and embeddings.</p>
+                    <span class="svc-container-name">chromadb-admin</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128997;</span>
+                        <h3>Redis</h3>
+                        <span class="port-badge">:6379</span>
+                    </div>
+                    <span class="svc-url" style="cursor:default; color: var(--slate-500);">redis://localhost:6379</span>
+                    <p class="svc-desc">In-memory cache, session store, and pub/sub message broker. No authentication.</p>
+                    <span class="svc-container-name">redis</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128024;</span>
+                        <h3>PostgreSQL</h3>
+                        <span class="port-badge">:5432</span>
+                    </div>
+                    <span class="svc-url" style="cursor:default; color: var(--slate-500);">localhost:5432</span>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'platform')"><span class="cred-label">user:</span>platform<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'platform123')"><span class="cred-label">pass:</span>platform123<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'modernization_platform')"><span class="cred-label">db:</span>modernization_platform<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Primary relational database for the modernization platform.</p>
+                    <span class="svc-container-name">ai-postgres</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128230;</span>
+                        <h3>MinIO</h3>
+                        <span class="port-badge">:9001</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:9001" target="_blank">http://localhost:9001</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'admin123')"><span class="cred-label">pass:</span>admin123<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">S3-compatible object storage. Console on :9001, API on :9000.</p>
+                    <span class="svc-container-name">minio</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SOURCE CONTROL -->
+        <!-- ============================================================ -->
+        <div class="section section--green">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="13" r="3"/><circle cx="17" cy="7" r="3"/><path d="M10 13h4a2 2 0 0 0 2-2V9"/></svg>
+                </div>
+                <span class="section-title">Source Control <span class="section-subtitle">— Git servers & runners</span></span>
+            </div>
+            <div class="cards">
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#129418;</span>
+                        <h3>GitLab CE</h3>
+                        <span class="port-badge">:8929</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8929" target="_blank">http://localhost:8929</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'root')"><span class="cred-label">user:</span>root<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'check initial_root_password')"><span class="cred-label">pass:</span>initial_root_password<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Self-hosted GitLab for CI/CD pipelines. SSH on :2224. Password set during first boot — check <code>/etc/gitlab/initial_root_password</code>.</p>
+                    <span class="svc-container-name">gitlab-server</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#127939;</span>
+                        <h3>GitLab Runner</h3>
+                        <span class="port-badge">internal</span>
+                    </div>
+                    <span class="svc-url" style="cursor:default; color: var(--slate-500);">Registered to gitlab-server</span>
+                    <p class="svc-desc">CI/CD runner for GitLab pipelines. Config at <code>~/.gitlab-runner/config.toml</code>.</p>
+                    <span class="svc-container-name">gitlab-runner</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#9749;</span>
+                        <h3>Gitea</h3>
+                        <span class="port-badge">:3002</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:3002" target="_blank">http://localhost:3002</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'admin123')"><span class="cred-label">pass:</span>admin123<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'dbfd7723057682c2ce99a0fc5177f9f7660d68f6')"><span class="cred-label">token:</span>dbfd772...0d68f6<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Lightweight GitHub alternative hosting Jenkins & GitHub Actions repos. SSH on :2222. Orgs: jenkins-projects, github-projects.</p>
+                    <span class="svc-container-name">gitea-server</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#9654;</span>
+                        <h3>Gitea Actions Runner</h3>
+                        <span class="port-badge">internal</span>
+                    </div>
+                    <span class="svc-url" style="cursor:default; color: var(--slate-500);">Registered to gitea-server</span>
+                    <p class="svc-desc">GitHub Actions-compatible runner for Gitea. Labels: self-hosted, docker.</p>
+                    <span class="svc-container-name">gitea-runner</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- CI/CD -->
+        <!-- ============================================================ -->
+        <div class="section section--cyan">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                </div>
+                <span class="section-title">CI / CD <span class="section-subtitle">— Build & deployment automation</span></span>
+            </div>
+            <div class="cards">
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128295;</span>
+                        <h3>Jenkins</h3>
+                        <span class="port-badge">:8080</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8080/jenkins/" target="_blank">http://localhost:8080/jenkins/</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'admin123')"><span class="cred-label">pass:</span>admin123<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Jenkins master with /jenkins context path. 3 inbound agents with Docker socket access.</p>
+                    <span class="svc-container-name">jenkins-master</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#9881;</span>
+                        <h3>Jenkins Agents (x3)</h3>
+                        <span class="port-badge">internal</span>
+                    </div>
+                    <span class="svc-url" style="cursor:default; color: var(--slate-500);">Connected to jenkins-master</span>
+                    <p class="svc-desc">Inbound agents (agent-1, agent-2, agent-3) with <code>docker</code> label. Docker socket mounted for DinD builds.</p>
+                    <span class="svc-container-name">jenkins-agent-1/2/3</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- QUALITY & SECURITY -->
+        <!-- ============================================================ -->
+        <div class="section section--rose">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <span class="section-title">Quality & Security <span class="section-subtitle">— Code analysis, artifacts & scanning</span></span>
+            </div>
+            <div class="cards">
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128270;</span>
+                        <h3>SonarQube</h3>
+                        <span class="port-badge">:9002</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:9002" target="_blank">http://localhost:9002</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'N7@qL9!fR2#XwA8$')"><span class="cred-label">pass:</span>N7@qL9!fR2#XwA8$<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Static code analysis and code quality gate enforcement. Backed by dedicated PostgreSQL (ai-sonar-db).</p>
+                    <span class="svc-container-name">ai-sonarqube</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128230;</span>
+                        <h3>Nexus Repository</h3>
+                        <span class="port-badge">:8081</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8081" target="_blank">http://localhost:8081</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'r')"><span class="cred-label">pass:</span>r<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Artifact repository and Docker registry. Docker registry on :5001 (insecure).</p>
+                    <span class="svc-container-name">ai-nexus</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128737;</span>
+                        <h3>Trivy</h3>
+                        <span class="port-badge">:8083</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8083" target="_blank">http://localhost:8083</a>
+                    <p class="svc-desc">Container image and dependency vulnerability scanner running in server mode.</p>
+                    <span class="svc-container-name">trivy-server</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MONITORING & OBSERVABILITY -->
+        <!-- ============================================================ -->
+        <div class="section section--violet">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <span class="section-title">Monitoring & Observability <span class="section-subtitle">— Metrics, logs & traces</span></span>
+            </div>
+            <div class="cards">
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128293;</span>
+                        <h3>Prometheus</h3>
+                        <span class="port-badge">:9090</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:9090" target="_blank">http://localhost:9090</a>
+                    <p class="svc-desc">Metrics collection and alerting. Scrapes targets defined in prometheus.yml.</p>
+                    <span class="svc-container-name">prometheus</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128202;</span>
+                        <h3>Grafana</h3>
+                        <span class="port-badge">:3000</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">pass:</span>admin<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Dashboarding and visualization. Pre-installed Redis datasource plugin.</p>
+                    <span class="svc-container-name">grafana</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128220;</span>
+                        <h3>Loki</h3>
+                        <span class="port-badge">:3100</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:3100/ready" target="_blank">http://localhost:3100</a>
+                    <p class="svc-desc">Log aggregation system. Query via Grafana or LogQL API.</p>
+                    <span class="svc-container-name">loki</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128269;</span>
+                        <h3>Jaeger</h3>
+                        <span class="port-badge">:16686</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:16686" target="_blank">http://localhost:16686</a>
+                    <p class="svc-desc">Distributed tracing UI. Collector endpoint on :14268.</p>
+                    <span class="svc-container-name">jaeger</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128300;</span>
+                        <h3>Splunk</h3>
+                        <span class="port-badge">:10000</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:10000" target="_blank">http://localhost:10000</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'Admin@1234')"><span class="cred-label">pass:</span>Admin@1234<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Log analytics and SIEM. HEC endpoint on :8088 (HTTPS).</p>
+                    <span class="svc-container-name">ai-splunk</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128187;</span>
+                        <h3>Node Exporter</h3>
+                        <span class="port-badge">:9100</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:9100/metrics" target="_blank">http://localhost:9100/metrics</a>
+                    <p class="svc-desc">Hardware and OS metrics exporter for Prometheus.</p>
+                    <span class="svc-container-name">node-exporter</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128051;</span>
+                        <h3>cAdvisor</h3>
+                        <span class="port-badge">:8082</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8082" target="_blank">http://localhost:8082</a>
+                    <p class="svc-desc">Container resource usage and performance metrics exporter.</p>
+                    <span class="svc-container-name">cadvisor</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PROJECT MANAGEMENT -->
+        <!-- ============================================================ -->
+        <div class="section section--yellow">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><line x1="3" y1="9" x2="17" y2="9"/><line x1="9" y1="3" x2="9" y2="17"/></svg>
+                </div>
+                <span class="section-title">Project Management <span class="section-subtitle">— Issue tracking & planning</span></span>
+            </div>
+            <div class="cards">
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128203;</span>
+                        <h3>Jira Software</h3>
+                        <span class="port-badge">:8180</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8180" target="_blank">http://localhost:8180</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'jira')"><span class="cred-label">db user:</span>jira<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'jira123')"><span class="cred-label">db pass:</span>jira123<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Atlassian Jira 9.12 for issue tracking. App credentials configured during initial setup wizard.</p>
+                    <span class="svc-container-name">jira</span>
+                </div>
+
+                <div class="svc-card">
+                    <div class="svc-card-head">
+                        <span class="svc-card-icon">&#128221;</span>
+                        <h3>Redmine</h3>
+                        <span class="port-badge">:8090</span>
+                    </div>
+                    <a class="svc-url" href="http://localhost:8090" target="_blank">http://localhost:8090</a>
+                    <div class="svc-creds">
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">user:</span>admin<span class="copied-tip">Copied!</span></span>
+                        <span class="cred-chip" onclick="copyVal(this,'admin')"><span class="cred-label">pass:</span>admin<span class="copied-tip">Copied!</span></span>
+                    </div>
+                    <p class="svc-desc">Classic issue tracker with REST API, Gantt charts, and wiki.</p>
+                    <span class="svc-container-name">redmine</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div><!-- /sections -->
+
+    <p class="footer">Dev Stack Dashboard &middot; docker compose -p dev-stack &middot; 31 services &middot; Click credentials to copy</p>
+
+</div><!-- /container -->
+
+<script>
+function copyVal(el, val) {
+    navigator.clipboard.writeText(val).then(() => {
+        const tip = el.querySelector('.copied-tip');
+        tip.classList.add('show');
+        setTimeout(() => tip.classList.remove('show'), 1200);
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture — Infographic</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Layer palette */
+            --blue-bg:    #dbeafe;
+            --blue-acc:   #3b82f6;
+            --blue-dark:  #1e40af;
+            --green-bg:   #d1fae5;
+            --green-acc:  #10b981;
+            --green-dark: #065f46;
+            --pink-bg:    #fce7f3;
+            --pink-acc:   #ec4899;
+            --pink-dark:  #9d174d;
+            --rose-bg:    #ffe4e6;
+            --rose-acc:   #f43f5e;
+            --rose-dark:  #9f1239;
+            --yellow-bg:  #fef9c3;
+            --yellow-acc: #f59e0b;
+            --yellow-dark:#92400e;
+            /* Neutrals */
+            --slate-900:  #0f172a;
+            --slate-700:  #334155;
+            --slate-500:  #64748b;
+            --slate-300:  #cbd5e1;
+            --slate-100:  #f1f5f9;
+            --white:      #ffffff;
+            /* Shadows */
+            --shadow-sm:  0 1px 2px rgba(0,0,0,.06);
+            --shadow-md:  0 4px 12px rgba(0,0,0,.08);
+            --shadow-lg:  0 8px 30px rgba(0,0,0,.12);
+            /* Radius */
+            --r-layer: 18px;
+            --r-card:  14px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            color: var(--slate-700);
+            min-height: 100vh;
+            padding: 40px 24px;
+            line-height: 1.5;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1420px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--slate-900);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        .header h1 span { color: var(--blue-acc); }
+        .header p {
+            font-size: 1.05rem;
+            color: var(--slate-500);
+            max-width: 660px;
+            margin: 0 auto;
+        }
+
+        /* ===== DIAGRAM WRAPPER ===== */
+        .diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+
+        /* ===== LAYER ===== */
+        .layer {
+            border-radius: var(--r-layer);
+            padding: 28px 32px 24px;
+            position: relative;
+        }
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .layer-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        .layer-title {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .layer-subtitle {
+            font-size: 0.78rem;
+            font-weight: 400;
+            opacity: 0.7;
+            margin-left: 4px;
+        }
+
+        /* ===== COMPONENTS GRID ===== */
+        .components {
+            display: grid;
+            gap: 16px;
+        }
+        .components.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .components.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .components.cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .components.cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+        /* ===== COMPONENT CARD ===== */
+        .card {
+            background: var(--white);
+            border-radius: var(--r-card);
+            padding: 18px 20px;
+            box-shadow: var(--shadow-md);
+            border: 1.5px solid transparent;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 5px;
+            height: 100%;
+            border-radius: var(--r-card) 0 0 var(--r-card);
+        }
+        .card .card-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            margin-bottom: 4px;
+        }
+        .card p {
+            font-size: 0.78rem;
+            color: var(--slate-500);
+            line-height: 1.45;
+        }
+        .card .tech-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-top: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        /* ---- Blue layer cards ---- */
+        .layer--blue { background: linear-gradient(135deg, var(--blue-bg) 0%, #eff6ff 100%); border: 1.5px solid #bfdbfe; }
+        .layer--blue .layer-icon { background: var(--blue-acc); }
+        .layer--blue .layer-title { color: var(--blue-dark); }
+        .layer--blue .card:hover { border-color: var(--blue-acc); }
+        .layer--blue .card::before { background: var(--blue-acc); }
+        .layer--blue .tech-badge { background: #dbeafe; color: var(--blue-dark); }
+
+        /* ---- Green layer cards ---- */
+        .layer--green { background: linear-gradient(135deg, var(--green-bg) 0%, #ecfdf5 100%); border: 1.5px solid #a7f3d0; }
+        .layer--green .layer-icon { background: var(--green-acc); }
+        .layer--green .layer-title { color: var(--green-dark); }
+        .layer--green .card:hover { border-color: var(--green-acc); }
+        .layer--green .card::before { background: var(--green-acc); }
+        .layer--green .tech-badge { background: #d1fae5; color: var(--green-dark); }
+
+        /* ---- Pink layer cards ---- */
+        .layer--pink { background: linear-gradient(135deg, var(--pink-bg) 0%, #fdf2f8 100%); border: 1.5px solid #fbcfe8; }
+        .layer--pink .layer-icon { background: var(--pink-acc); }
+        .layer--pink .layer-title { color: var(--pink-dark); }
+        .layer--pink .card:hover { border-color: var(--pink-acc); }
+        .layer--pink .card::before { background: var(--pink-acc); }
+        .layer--pink .tech-badge { background: #fce7f3; color: var(--pink-dark); }
+
+        /* ---- Rose layer cards ---- */
+        .layer--rose { background: linear-gradient(135deg, var(--rose-bg) 0%, #fff1f2 100%); border: 1.5px solid #fecdd3; }
+        .layer--rose .layer-icon { background: var(--rose-acc); }
+        .layer--rose .layer-title { color: var(--rose-dark); }
+        .layer--rose .card:hover { border-color: var(--rose-acc); }
+        .layer--rose .card::before { background: var(--rose-acc); }
+        .layer--rose .tech-badge { background: #ffe4e6; color: var(--rose-dark); }
+
+        /* ---- Yellow layer cards ---- */
+        .layer--yellow { background: linear-gradient(135deg, var(--yellow-bg) 0%, #fffbeb 100%); border: 1.5px solid #fde68a; }
+        .layer--yellow .layer-icon { background: var(--yellow-acc); }
+        .layer--yellow .layer-title { color: var(--yellow-dark); }
+        .layer--yellow .card:hover { border-color: var(--yellow-acc); }
+        .layer--yellow .card::before { background: var(--yellow-acc); }
+        .layer--yellow .tech-badge { background: #fef9c3; color: var(--yellow-dark); }
+
+        /* ===== ARROW CONNECTORS ===== */
+        .arrow-connector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 44px;
+            position: relative;
+        }
+        .arrow-connector svg {
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,.1));
+        }
+
+        /* ===== FLOW ARROWS WITHIN SERVICE LAYER ===== */
+        .service-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .flow-arrow {
+            color: var(--slate-300);
+            font-size: 18px;
+        }
+        .flow-label {
+            font-size: 0.7rem;
+            color: var(--slate-500);
+            background: var(--white);
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--slate-300);
+        }
+
+        /* ===== CROSS-CUTTING SIDEBAR ===== */
+        .diagram-body {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 20px;
+        }
+        .main-flow { display: flex; flex-direction: column; gap: 0; }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding-top: 0;
+        }
+        .sidebar-card {
+            background: var(--white);
+            border-radius: var(--r-card);
+            padding: 18px 18px;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--slate-300);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .sidebar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .sidebar-card .card-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+        .sidebar-card h3 { font-size: 0.85rem; font-weight: 700; color: var(--slate-900); margin-bottom: 4px; }
+        .sidebar-card p { font-size: 0.73rem; color: var(--slate-500); line-height: 1.4; }
+        .sidebar-card.sb-monitor { border-left-color: #8b5cf6; }
+        .sidebar-card.sb-security { border-left-color: #ef4444; }
+        .sidebar-card.sb-cicd { border-left-color: #06b6d4; }
+        .sidebar-card.sb-logging { border-left-color: #f97316; }
+        .sidebar-card.sb-config { border-left-color: #84cc16; }
+        .sidebar-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        /* ===== LEGEND ===== */
+        .legend {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 16px 24px;
+            background: var(--white);
+            border-radius: var(--r-card);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--slate-300);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--slate-700);
+        }
+        .legend-swatch {
+            width: 18px;
+            height: 18px;
+            border-radius: 6px;
+            border: 1.5px solid rgba(0,0,0,.1);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 0.78rem;
+            color: var(--slate-500);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .diagram-body { grid-template-columns: 1fr; }
+            .sidebar { flex-direction: row; flex-wrap: wrap; }
+            .sidebar-card { flex: 1 1 180px; }
+        }
+        @media (max-width: 800px) {
+            .components.cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .components.cols-5 { grid-template-columns: repeat(2, 1fr); }
+            .components.cols-3 { grid-template-columns: 1fr; }
+            body { padding: 16px 10px; }
+            .layer { padding: 18px 14px 16px; }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            body { background: white; padding: 0; }
+            .card:hover { transform: none; box-shadow: var(--shadow-md); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ================= HEADER ================= -->
+    <header class="header">
+        <h1><span>Microservices</span> System Architecture</h1>
+        <p>High-level overview of the platform components, data flow, and infrastructure — from client interfaces through API routing, core services, and persistence.</p>
+    </header>
+
+    <!-- ================= DIAGRAM ================= -->
+    <div class="diagram">
+        <div class="diagram-body">
+            <div class="main-flow">
+
+                <!-- ── LAYER 1 · CLIENT / PRESENTATION ── -->
+                <div class="layer layer--blue">
+                    <div class="layer-header">
+                        <div class="layer-icon">
+                            <!-- monitor icon -->
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="16" height="11" rx="2"/><line x1="6" y1="18" x2="14" y2="18"/><line x1="10" y1="14" x2="10" y2="18"/></svg>
+                        </div>
+                        <span class="layer-title">Client / Presentation Layer <span class="layer-subtitle">— User-facing interfaces</span></span>
+                    </div>
+                    <div class="components cols-3">
+                        <div class="card">
+                            <span class="card-icon">🌐</span>
+                            <h3>Web Application</h3>
+                            <p>Responsive SPA served via CDN with SSR support for SEO-critical pages.</p>
+                            <span class="tech-badge">React / Next.js</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">📱</span>
+                            <h3>Mobile Application</h3>
+                            <p>Cross-platform native app with offline-first architecture and push notifications.</p>
+                            <span class="tech-badge">React Native</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">🔗</span>
+                            <h3>Third-Party Integrations</h3>
+                            <p>Partner &amp; external system access via OAuth 2.0 secured REST / GraphQL endpoints.</p>
+                            <span class="tech-badge">OpenAPI 3.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── ARROW ── -->
+                <div class="arrow-connector">
+                    <svg width="40" height="44" viewBox="0 0 40 44">
+                        <defs><marker id="ah1" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/></marker></defs>
+                        <line x1="20" y1="2" x2="20" y2="34" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#ah1)"/>
+                    </svg>
+                </div>
+
+                <!-- ── LAYER 2 · API GATEWAY ── -->
+                <div class="layer layer--green">
+                    <div class="layer-header">
+                        <div class="layer-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 16 17"/><polyline points="4 11 10 5 16 11"/></svg>
+                        </div>
+                        <span class="layer-title">API Gateway &amp; Routing Layer <span class="layer-subtitle">— Traffic management &amp; security</span></span>
+                    </div>
+                    <div class="components cols-4">
+                        <div class="card">
+                            <span class="card-icon">🚪</span>
+                            <h3>API Gateway</h3>
+                            <p>Central entry point handling request routing, rate limiting &amp; protocol translation.</p>
+                            <span class="tech-badge">Kong / NGINX</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">⚖️</span>
+                            <h3>Load Balancer</h3>
+                            <p>L7 load balancing with health checks, circuit breaking &amp; sticky sessions.</p>
+                            <span class="tech-badge">Envoy / HAProxy</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">🔐</span>
+                            <h3>Auth &amp; Identity</h3>
+                            <p>JWT validation, OAuth 2.0 flows, RBAC enforcement &amp; token refresh.</p>
+                            <span class="tech-badge">Keycloak / Auth0</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">📍</span>
+                            <h3>Service Discovery</h3>
+                            <p>Dynamic service registry with DNS-based resolution &amp; health monitoring.</p>
+                            <span class="tech-badge">Consul / Eureka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── ARROW ── -->
+                <div class="arrow-connector">
+                    <svg width="40" height="44" viewBox="0 0 40 44">
+                        <defs><marker id="ah2" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#10b981"/></marker></defs>
+                        <line x1="20" y1="2" x2="20" y2="34" stroke="#10b981" stroke-width="2.5" marker-end="url(#ah2)"/>
+                    </svg>
+                </div>
+
+                <!-- ── LAYER 3 · CORE BUSINESS SERVICES ── -->
+                <div class="layer layer--pink">
+                    <div class="layer-header">
+                        <div class="layer-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="16" height="16" rx="3"/><line x1="2" y1="10" x2="18" y2="10"/><line x1="10" y1="2" x2="10" y2="10"/></svg>
+                        </div>
+                        <span class="layer-title">Core Business Services <span class="layer-subtitle">— Domain-driven microservices</span></span>
+                    </div>
+                    <div class="components cols-4">
+                        <div class="card">
+                            <span class="card-icon">👤</span>
+                            <h3>User Service</h3>
+                            <p>Profile management, preferences, account lifecycle &amp; social connections.</p>
+                            <span class="tech-badge">Node.js</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">📦</span>
+                            <h3>Product Catalog</h3>
+                            <p>Inventory, pricing rules, categories &amp; full-text product search.</p>
+                            <span class="tech-badge">Java / Spring</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">🛒</span>
+                            <h3>Order Processing</h3>
+                            <p>Cart management, order workflows, fulfillment orchestration &amp; returns.</p>
+                            <span class="tech-badge">Go</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">💳</span>
+                            <h3>Payment Service</h3>
+                            <p>Multi-gateway processing, PCI-DSS compliance, refunds &amp; reconciliation.</p>
+                            <span class="tech-badge">Python / FastAPI</span>
+                        </div>
+                    </div>
+
+                    <!-- intra-layer flow -->
+                    <div class="service-flow">
+                        <span class="flow-label">User</span>
+                        <span class="flow-arrow">➜</span>
+                        <span class="flow-label">Catalog</span>
+                        <span class="flow-arrow">➜</span>
+                        <span class="flow-label">Order</span>
+                        <span class="flow-arrow">➜</span>
+                        <span class="flow-label">Payment</span>
+                    </div>
+                </div>
+
+                <!-- ── ARROW ── -->
+                <div class="arrow-connector">
+                    <svg width="40" height="44" viewBox="0 0 40 44">
+                        <defs><marker id="ah3" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#ec4899"/></marker></defs>
+                        <line x1="20" y1="2" x2="20" y2="34" stroke="#ec4899" stroke-width="2.5" marker-end="url(#ah3)"/>
+                    </svg>
+                </div>
+
+                <!-- ── LAYER 4 · SUPPORTING SERVICES ── -->
+                <div class="layer layer--rose">
+                    <div class="layer-header">
+                        <div class="layer-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><line x1="10" y1="6" x2="10" y2="10"/><line x1="10" y1="10" x2="13" y2="13"/></svg>
+                        </div>
+                        <span class="layer-title">Supporting &amp; Platform Services <span class="layer-subtitle">— Shared capabilities</span></span>
+                    </div>
+                    <div class="components cols-4">
+                        <div class="card">
+                            <span class="card-icon">🔔</span>
+                            <h3>Notification Engine</h3>
+                            <p>Multi-channel delivery (email, SMS, push) with template management &amp; scheduling.</p>
+                            <span class="tech-badge">Node.js / SES</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">🔍</span>
+                            <h3>Search Service</h3>
+                            <p>Full-text search, faceted filtering, autocomplete &amp; relevance tuning.</p>
+                            <span class="tech-badge">Elasticsearch</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">📊</span>
+                            <h3>Analytics Engine</h3>
+                            <p>Real-time event processing, funnel analysis, dashboards &amp; reporting.</p>
+                            <span class="tech-badge">ClickHouse</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">📁</span>
+                            <h3>File &amp; Media Service</h3>
+                            <p>Upload processing, image optimization, CDN distribution &amp; access control.</p>
+                            <span class="tech-badge">S3 / CloudFront</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── ARROW ── -->
+                <div class="arrow-connector">
+                    <svg width="40" height="44" viewBox="0 0 40 44">
+                        <defs><marker id="ah4" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#f43f5e"/></marker></defs>
+                        <line x1="20" y1="2" x2="20" y2="34" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#ah4)"/>
+                    </svg>
+                </div>
+
+                <!-- ── LAYER 5 · DATA & INFRASTRUCTURE ── -->
+                <div class="layer layer--yellow">
+                    <div class="layer-header">
+                        <div class="layer-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="10" cy="5" rx="8" ry="3"/><path d="M2 5v10c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M2 10c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+                        </div>
+                        <span class="layer-title">Data &amp; Infrastructure Layer <span class="layer-subtitle">— Persistence, caching &amp; messaging</span></span>
+                    </div>
+                    <div class="components cols-5">
+                        <div class="card">
+                            <span class="card-icon">🐘</span>
+                            <h3>PostgreSQL</h3>
+                            <p>Primary OLTP store with read replicas &amp; connection pooling.</p>
+                            <span class="tech-badge">RDS / Aurora</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">🍃</span>
+                            <h3>MongoDB</h3>
+                            <p>Document store for flexible schemas, catalogs &amp; content data.</p>
+                            <span class="tech-badge">Atlas</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">⚡</span>
+                            <h3>Redis Cache</h3>
+                            <p>In-memory cache, session store, rate-limit counters &amp; pub/sub.</p>
+                            <span class="tech-badge">ElastiCache</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">📬</span>
+                            <h3>Message Queue</h3>
+                            <p>Async event streaming, dead-letter queues &amp; guaranteed delivery.</p>
+                            <span class="tech-badge">Kafka / RabbitMQ</span>
+                        </div>
+                        <div class="card">
+                            <span class="card-icon">🗄️</span>
+                            <h3>Object Storage</h3>
+                            <p>Binary assets, backups, data lake &amp; lifecycle policies.</p>
+                            <span class="tech-badge">S3</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /main-flow -->
+
+            <!-- ── CROSS-CUTTING SIDEBAR ── -->
+            <div class="sidebar">
+                <div class="sidebar-label">Cross-Cutting Concerns</div>
+
+                <div class="sidebar-card sb-monitor">
+                    <span class="card-icon">📡</span>
+                    <h3>Monitoring &amp; Alerting</h3>
+                    <p>Metrics collection, SLA dashboards, anomaly detection &amp; PagerDuty integration.</p>
+                </div>
+                <div class="sidebar-card sb-logging">
+                    <span class="card-icon">📝</span>
+                    <h3>Centralized Logging</h3>
+                    <p>Structured log aggregation, distributed tracing &amp; correlation IDs.</p>
+                </div>
+                <div class="sidebar-card sb-security">
+                    <span class="card-icon">🛡️</span>
+                    <h3>Security &amp; Compliance</h3>
+                    <p>WAF, secrets management, vulnerability scanning &amp; audit trails.</p>
+                </div>
+                <div class="sidebar-card sb-cicd">
+                    <span class="card-icon">🔄</span>
+                    <h3>CI / CD Pipeline</h3>
+                    <p>Automated build, test, canary deploys &amp; rollback orchestration.</p>
+                </div>
+                <div class="sidebar-card sb-config">
+                    <span class="card-icon">⚙️</span>
+                    <h3>Config &amp; Feature Flags</h3>
+                    <p>Dynamic configuration, A/B testing, gradual rollouts &amp; kill switches.</p>
+                </div>
+            </div>
+
+        </div><!-- /diagram-body -->
+    </div><!-- /diagram -->
+
+    <!-- ================= LEGEND ================= -->
+    <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:#dbeafe;"></div> Client Layer</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#d1fae5;"></div> API &amp; Routing</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#fce7f3;"></div> Core Services</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#ffe4e6;"></div> Platform Services</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#fef9c3;"></div> Data &amp; Infra</div>
+        <div class="legend-item">
+            <svg width="18" height="18" viewBox="0 0 18 18"><rect x="1" y="1" width="16" height="16" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/></svg>
+            Cross-Cutting
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <p class="footer">Architecture Infographic &middot; Generated 2026 &middot; All layers communicate via encrypted TLS channels</p>
+
+</div><!-- /container -->
+</body>
+</html>
