@@ -1,7 +1,8 @@
 """
-Terraform CLI Executor
-
-Runs terraform commands (init, validate, plan, apply, destroy) as async subprocesses.
+File: executor.py
+Purpose: Executes Terraform CLI commands (init, validate, plan, apply, destroy) as async subprocesses, parsing their output for errors, warnings, and resource change summaries.
+When Used: Called by the TerraformLLMFixer during iterative validation, and by the Terraform router when users run plan/apply/destroy operations on a workspace.
+Why Created: Wraps the terraform binary with async subprocess execution, timeout handling, and structured output parsing so that other modules can interact with Terraform CLI without dealing with raw process management.
 """
 import asyncio
 import json

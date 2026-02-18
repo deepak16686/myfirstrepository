@@ -1,7 +1,8 @@
 """
-Default Terraform Templates Dispatcher
-
-Routes to the correct provider-specific template based on context.
+File: __init__.py
+Purpose: Dispatches default Terraform template requests to the correct provider-specific module (AWS, Azure, GCP, vSphere) based on the user's provider and resource type selection.
+When Used: Called by the generator as a last-resort fallback when neither ChromaDB proven templates nor LLM generation produce valid results.
+Why Created: Acts as a routing layer so the generator only needs to call one function (get_default_terraform_files) without knowing which provider module to import, keeping provider-specific template logic isolated.
 """
 from typing import Dict, Optional
 

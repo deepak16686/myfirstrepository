@@ -1,8 +1,15 @@
 """
-GitHub Actions LLM Fixer
-
-Uses LLM to analyze workflow failures and generate fixes.
-Supports iterative fix-and-validate cycle (matching Jenkins LLM fixer pattern).
+File: github_llm_fixer.py
+Purpose: Uses the configured LLM (Ollama or Claude Code CLI) to analyze GitHub Actions workflow
+    validation errors or runtime failure logs and generate corrected workflow YAML and Dockerfile.
+    Implements an iterative fix-and-validate loop (up to N attempts) that repeatedly validates,
+    identifies errors, prompts the LLM for fixes, and re-validates until the workflow passes.
+When Used: Called by generate_with_validation() after initial generation when the workflow needs
+    iterative fixing (Priority 3 path for unknown languages), and by the self-healing workflow and
+    /fix endpoint when a committed workflow fails at runtime and needs log-based repair.
+Why Created: Mirrors the Jenkins LLM fixer pattern as a standalone service. Kept outside the
+    github_pipeline package because it is also used directly by the router and the self-healing
+    workflow without going through the generator facade.
 """
 import re
 import httpx

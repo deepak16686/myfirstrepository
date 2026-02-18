@@ -1,7 +1,8 @@
 """
-Terraform Generator Constants
-
-Module-level constants for Terraform HCL generation.
+File: constants.py
+Purpose: Defines all module-level constants for the Terraform generator, including supported cloud providers (vSphere, Azure, AWS, GCP), resource types (VM, Kubernetes, Containers, Networking), provider source/version constraints, credential variable names, and ChromaDB collection names.
+When Used: Imported throughout the terraform package by the analyzer, generator, validator, learning, and templates modules to ensure consistent provider and resource definitions.
+Why Created: Centralizes magic strings and configuration data that would otherwise be duplicated across multiple modules, making it easy to add new providers or resource types in one place.
 """
 
 FEEDBACK_COLLECTION = "terraform_feedback"

@@ -1,7 +1,12 @@
 """
-Git commit operations for GitHub/Gitea repositories.
-
-Handles committing workflow and Dockerfile to repositories via API.
+File: committer.py
+Purpose: Commits generated GitHub Actions workflow YAML and Dockerfile to a Gitea/GitHub repository
+    by creating a new branch and writing files via the Gitea Contents API.
+When Used: Called after the user approves a generated pipeline (via the /commit endpoint or the
+    self-healing workflow's auto-commit step) to push .github/workflows/ci.yml and Dockerfile
+    to the target repository on a new feature branch.
+Why Created: Separated from the generator to isolate Git write operations (branch creation, file
+    creation/update with SHA tracking) from the generation and validation logic.
 """
 import base64
 import httpx

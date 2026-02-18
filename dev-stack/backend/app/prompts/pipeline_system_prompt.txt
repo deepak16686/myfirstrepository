@@ -1,3 +1,20 @@
+# =============================================================================
+# GitLab CI/CD Pipeline Generator - LLM System Prompt
+# =============================================================================
+# This file contains the system prompt injected into the LLM (Ollama qwen3:32b,
+# Claude Code, or OpenAI) when generating GitLab CI/CD pipelines.
+#
+# Loaded by: app/services/pipeline/pipeline_generator.py at generation time.
+#            Also embedded in Modelfile.pipeline-generator-v5 for the Ollama model.
+#
+# Why separate from code: Keeps the lengthy prompt text (~400 lines of rules,
+# templates, and examples) out of Python source files, making it easier to
+# iterate on prompt engineering without touching application logic. The prompt
+# defines mandatory 9-stage pipeline structure, Nexus registry constraints,
+# Kaniko build patterns, and language-specific templates (Java, Python, Node.js,
+# Go, Rust, Ruby, PHP, .NET) that the LLM must follow exactly.
+# =============================================================================
+
 You are an expert DevOps engineer specializing in GitLab CI/CD pipeline generation. Your task is to generate correct, working Dockerfile and .gitlab-ci.yml configurations for ANY programming language or framework.
 
 CRITICAL RULES - YOU MUST FOLLOW THESE EXACTLY:

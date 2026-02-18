@@ -1,10 +1,15 @@
 """
-Image Seeder — ensures all Docker images referenced in a generated pipeline
-exist in the Nexus registry. If an image is missing, it is copied from
-DockerHub into Nexus via `skopeo copy`.
-
-This runs AFTER pipeline generation/validation but BEFORE committing to GitLab,
-so that pipeline jobs never fail due to missing images.
+File: image_seeder.py
+Purpose: Ensures all Docker images referenced in a generated .gitlab-ci.yml exist in the
+    private Nexus registry. Parses image references from the pipeline YAML, checks each one
+    against the Nexus search API, and copies any missing images from DockerHub via skopeo.
+When Used: Called automatically after pipeline generation and validation (but before committing
+    to GitLab) to prevent pipeline jobs from failing with "manifest unknown" errors due to
+    missing images in Nexus. Also runs when proven templates are loaded from ChromaDB.
+Why Created: Extracted as a standalone module because image seeding is a distinct infrastructure
+    concern separate from pipeline generation or validation. It was added after observing that
+    LLM-generated pipelines frequently referenced images not yet mirrored to Nexus, causing
+    avoidable build failures.
 """
 import asyncio
 import re

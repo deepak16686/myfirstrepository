@@ -1,12 +1,15 @@
 """
-Pipeline Generator API Router
-
-Provides endpoints for:
-1. Generating GitLab CI/CD pipelines and Dockerfiles
-2. Committing to GitLab repositories
-3. Monitoring pipeline status
-4. Storing and retrieving feedback for reinforcement learning
-5. Automatic reinforcement learning from pipeline results
+File: pipeline.py
+Purpose: Provides the full lifecycle for GitLab CI/CD pipeline generation -- .gitlab-ci.yml and
+    Dockerfile generation with LLM validation, commit to GitLab, background pipeline monitoring,
+    reinforcement-learning feedback storage, and self-healing fix loops that automatically
+    re-generate and re-commit on pipeline failure.
+When Used: Invoked by the frontend GitLab Pipeline Generator tool card and its chat interface when
+    a user provides a GitLab repo URL to generate a pipeline, approves a commit, or monitors a
+    running GitLab CI pipeline via the /pipeline/* routes.
+Why Created: The original and most mature pipeline generator router; handles the GitLab-specific
+    pipeline workflow, separated from the Jenkins and GitHub Actions routers which target
+    different CI systems on Gitea-hosted repositories.
 """
 import asyncio
 import httpx
@@ -309,8 +312,6 @@ async def generate_pipeline_with_validation(request: GenerateWithValidationReque
             model_used=result.get('model_used', ''),
             feedback_used=result.get('feedback_used', 0),
             validation_passed=result.get('validation_passed', False),
-            validation_skipped=result.get('validation_skipped'),
-            validation_reason=result.get('validation_reason'),
             validation_results=result.get('validation_results'),
             validation_errors=result.get('validation_errors'),
             warnings=result.get('warnings'),

@@ -1,3 +1,16 @@
+# File: docker-compose.yml (infrastructure/)
+# Purpose: MAIN docker-compose file for the entire dev-stack platform. Defines all 31 services across
+#          5 networks: Vault, Ollama, FastAPI backend, GitLab (+runner), Gitea (+runner), Jenkins
+#          (master + 3 agents), Nexus, SonarQube (+PostgreSQL), Splunk, ChromaDB, Prometheus,
+#          Grafana, Node Exporter, Plane (project management), and initialization sidecars
+#          (vault-init, vault-unseal, rbac-init).
+# When Used: The single source of truth for running the entire platform. Managed via:
+#            docker compose -p dev-stack -f "D:/Repos/ai-folder/dev-stack/infrastructure/docker-compose.yml" up -d
+#            Consolidates 6 previous separate compose projects + 11 standalone containers into one.
+# Why Created: Unified orchestration eliminates version drift between separately-managed compose files,
+#              ensures consistent networking (named networks avoid prefix issues), and provides a single
+#              command to bring the entire development platform up or down.
+
 services:
 
   # ============================================================
@@ -12,14 +25,16 @@ services:
     ports:
       - "8200:8200"
     environment:
-      - VAULT_DEV_ROOT_TOKEN_ID=dev-root-token
-      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
       - VAULT_ADDR=http://0.0.0.0:8200
+    volumes:
+      - vault-data:/vault/file
+      - ./vault-config.hcl:/vault/config/vault.hcl:ro
+    command: vault server -config=/vault/config/vault.hcl
     networks:
       - ai-platform-net
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "vault", "status"]
+      test: ["CMD", "sh", "-c", "vault status -address=http://127.0.0.1:8200 2>&1 | grep -E 'Sealed.*false|Sealed.*true'"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -33,14 +48,30 @@ services:
         condition: service_healthy
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=dev-root-token
       - GITLAB_PAT=${GITLAB_PAT:-}
     volumes:
       - ../backend/scripts/vault-init.sh:/vault-init.sh:ro
+      - vault-data:/vault/file
     entrypoint: ["/bin/sh", "/vault-init.sh"]
     networks:
       - ai-platform-net
     restart: "no"
+
+  vault-unseal:
+    image: hashicorp/vault:1.15
+    container_name: vault-unseal
+    depends_on:
+      vault:
+        condition: service_healthy
+    environment:
+      - VAULT_ADDR=http://vault:8200
+    volumes:
+      - ../backend/scripts/vault-unseal.sh:/vault-unseal.sh:ro
+      - vault-data:/vault/file:ro
+    entrypoint: ["/bin/sh", "/vault-unseal.sh"]
+    networks:
+      - ai-platform-net
+    restart: unless-stopped
 
   rbac-init:
     image: hashicorp/vault:1.15
@@ -60,9 +91,9 @@ services:
         condition: service_started
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=dev-root-token
     volumes:
       - ../backend/scripts/rbac-init.sh:/rbac-init.sh:ro
+      - vault-data:/vault/file:ro
     entrypoint: ["/bin/sh", "/rbac-init.sh"]
     networks:
       - ai-platform-net
@@ -95,11 +126,11 @@ services:
       - JENKINS_URL=http://jenkins-master:8080/jenkins
       - JENKINS_GIT_URL=http://gitea-server:3000
       - DEBUG=false
-      # Vault integration (secrets fetched from Vault at startup)
+      # Vault integration (token read from /vault/file/.root-token)
       - VAULT_URL=http://vault:8200
-      - VAULT_TOKEN=dev-root-token
     volumes:
       - devops-tools-config:/app/config
+      - vault-data:/vault/file:ro
       - C:/Users/deepak/.claude:/root/.claude
     depends_on:
       rbac-init:
@@ -298,7 +329,7 @@ services:
       start_period: 30s
 
   gitea-runner:
-    image: gitea/act_runner:latest
+    image: localhost:5001/apm-repo/demo/gitea-act-runner:latest
     container_name: gitea-runner
     environment:
       - GITEA_INSTANCE_URL=http://gitea-server:3000
@@ -731,6 +762,8 @@ networks:
 
 volumes:
   # Core AI Platform
+  vault-data:
+    name: vault-data
   devops-tools-config:
     name: devops-tools-backend_devops-tools-config
   ollama-data:

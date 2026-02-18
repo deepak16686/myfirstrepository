@@ -1,5 +1,14 @@
 """
-Chat Router - API endpoints for chat functionality
+File: chat.py
+Purpose: Provides the general-purpose AI chat endpoint that uses Ollama tool-calling to converse
+    with users, manage conversation history, and optionally trigger pipeline generation through
+    natural language.
+When Used: Invoked by the frontend chat widget when a user sends a free-form message via the main
+    chat interface; serves POST /api/v1/chat/, POST /api/v1/chat/new, and GET
+    /api/v1/chat/history/{id}.
+Why Created: Separates the conversational AI chat service (which relies on Ollama tool-calling)
+    from the pipeline-specific chat endpoints in pipeline.py, jenkins_pipeline.py, and
+    github_pipeline.py that use pattern-based URL/approval detection instead.
 """
 from typing import Optional
 from fastapi import APIRouter, HTTPException

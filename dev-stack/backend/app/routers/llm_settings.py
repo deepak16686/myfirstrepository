@@ -1,7 +1,14 @@
 """
-LLM Settings Router
-
-REST API for listing, switching, and querying LLM providers.
+File: llm_settings.py
+Purpose: Exposes REST endpoints for listing all configured LLM providers (Ollama, Claude Code CLI),
+    switching the active provider at runtime, and querying which provider is currently in use for
+    pipeline generation and chat.
+When Used: Invoked by the frontend LLM Settings panel to display available providers, let the
+    user toggle between Ollama and Claude Code, and show the active provider status via the
+    /llm/* routes.
+Why Created: Decouples LLM provider management from the pipeline generators so that switching
+    between Ollama and Claude Code CLI can happen at runtime without restarting the backend or
+    modifying environment variables.
 """
 from typing import Optional
 from fastapi import APIRouter, HTTPException

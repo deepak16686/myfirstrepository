@@ -1,7 +1,16 @@
 """
-GitHub Actions Pipeline Generator Service - Facade Class.
-
-Main orchestration class that delegates to specialized modules.
+File: generator.py
+Purpose: Facade class (GitHubPipelineGeneratorService) that orchestrates the entire GitHub Actions
+    pipeline generation lifecycle. Delegates to analyzer, templates, validator, default_templates,
+    committer, and status modules while providing the core generate_workflow_files() and
+    generate_with_validation() methods that implement the 4-tier priority system (ChromaDB proven
+    template > built-in default > LLM generation > fallback default).
+When Used: Instantiated as a singleton in __init__.py and used by the GitHub pipeline router for
+    every operation: /generate, /generate-validated, /commit, /status, /learn, and the /chat
+    endpoint's pipeline generation flow.
+Why Created: Acts as the single entry point for the package after the original monolithic
+    github_pipeline_generator.py (1564 lines) was split into 7+ specialized modules. Keeps the
+    public API stable while allowing internal modules to evolve independently.
 """
 import re
 from typing import Dict, Any, Optional
@@ -237,24 +246,7 @@ class GitHubPipelineGeneratorService:
         analysis = result["analysis"]
         model_used = result["model_used"]
 
-        # Step 2: If from proven ChromaDB template, skip validation
-        if model_used == "chromadb-successful":
-            try:
-                await ensure_images_in_nexus(workflow)
-            except Exception as e:
-                print(f"[GitHub Pipeline] Image seeding warning: {e}")
-
-            return {
-                **result,
-                "template_source": "reinforcement_learning",
-                "validation_skipped": True,
-                "validation_passed": True,
-                "fix_attempts": 0,
-                "fix_history": [],
-                "has_warnings": False,
-            }
-
-        # Step 3: Run iterative LLM fixer
+        # Step 2: Run iterative LLM fixer (all sources go through validation now)
         fix_result = await github_llm_fixer.iterative_fix(
             workflow=workflow,
             dockerfile=dockerfile,
@@ -318,10 +310,20 @@ class GitHubPipelineGeneratorService:
         if best_template and best_template.get("workflow"):
             print(f"[GitHub Pipeline] Using proven template from ChromaDB")
             workflow = self._ensure_learn_job(best_template["workflow"])
+            dockerfile = best_template.get("dockerfile", self._get_default_dockerfile(analysis))
+
+            # Rewrite template images to match this project's resolved versions
+            from app.services.shared.deep_analyzer import rewrite_template_images
+            workflow, dockerfile, rewrite_corrections = rewrite_template_images(
+                workflow, dockerfile, analysis
+            )
+            if rewrite_corrections:
+                print(f"[GitHub Pipeline] Rewrote {len(rewrite_corrections)} image(s): {rewrite_corrections}")
+
             return {
                 "success": True,
                 "workflow": workflow,
-                "dockerfile": best_template.get("dockerfile", self._get_default_dockerfile(analysis)),
+                "dockerfile": dockerfile,
                 "analysis": analysis,
                 "model_used": "chromadb-successful",
                 "feedback_used": 0
@@ -333,6 +335,15 @@ class GitHubPipelineGeneratorService:
             print(f"[GitHub Pipeline] Using built-in default template for {language}")
             workflow = self._get_default_workflow(analysis, runner_type)
             dockerfile = self._get_default_dockerfile(analysis)
+
+            # Rewrite default template images to match this project's resolved versions
+            from app.services.shared.deep_analyzer import rewrite_template_images
+            workflow, dockerfile, rewrite_corrections = rewrite_template_images(
+                workflow, dockerfile, analysis
+            )
+            if rewrite_corrections:
+                print(f"[GitHub Pipeline] Rewrote {len(rewrite_corrections)} default template image(s): {rewrite_corrections}")
+
             return {
                 "success": True,
                 "workflow": self._ensure_learn_job(workflow),
@@ -353,6 +364,14 @@ class GitHubPipelineGeneratorService:
                 workflow = self._validate_and_fix_workflow(generated.get("workflow", ""), reference)
                 dockerfile = self._validate_and_fix_dockerfile(generated.get("dockerfile", ""), language)
 
+                # Rewrite LLM-generated images to match this project's resolved versions
+                from app.services.shared.deep_analyzer import rewrite_template_images
+                workflow, dockerfile, rewrite_corrections = rewrite_template_images(
+                    workflow, dockerfile, analysis
+                )
+                if rewrite_corrections:
+                    print(f"[GitHub Pipeline] Rewrote {len(rewrite_corrections)} LLM image(s): {rewrite_corrections}")
+
                 return {
                     "success": True,
                     "workflow": self._ensure_learn_job(workflow),
@@ -368,6 +387,14 @@ class GitHubPipelineGeneratorService:
         print(f"[GitHub Pipeline] Falling back to built-in default template for {language}")
         workflow = self._get_default_workflow(analysis, runner_type)
         dockerfile = self._get_default_dockerfile(analysis)
+
+        # Rewrite fallback template images to match this project's resolved versions
+        from app.services.shared.deep_analyzer import rewrite_template_images
+        workflow, dockerfile, rewrite_corrections = rewrite_template_images(
+            workflow, dockerfile, analysis
+        )
+        if rewrite_corrections:
+            print(f"[GitHub Pipeline] Rewrote {len(rewrite_corrections)} fallback image(s): {rewrite_corrections}")
 
         return {
             "success": True,
@@ -415,13 +442,18 @@ class GitHubPipelineGeneratorService:
         additional_context: str
     ) -> str:
         """Build prompt for LLM generation"""
+        # Build deep analysis context
+        from app.services.shared.deep_analyzer import build_deep_context
+        deep_context = build_deep_context(analysis)
+        deep_section = f"\nDeep Analysis (from file content scanning):\n{deep_context}\n" if deep_context else ""
+
         prompt = f"""Generate a GitHub Actions workflow and Dockerfile for a {analysis['language']} project.
 
 Project Analysis:
 - Language: {analysis['language']}
 - Framework: {analysis['framework']}
 - Package Manager: {analysis['package_manager']}
-
+{deep_section}
 Requirements:
 - Use Nexus private registry for ALL images: ${{{{ env.NEXUS_REGISTRY }}}}/apm-repo/demo/<image>
 - Use self-hosted runners with access to internal network

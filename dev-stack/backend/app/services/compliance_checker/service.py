@@ -1,8 +1,8 @@
 """
-Compliance Checker Service
-
-Aggregates SonarQube quality gates and Trivy vulnerability scans
-into a unified compliance dashboard per project.
+File: service.py
+Purpose: Aggregates SonarQube quality gate results and Trivy vulnerability scan data into a unified compliance dashboard, computing per-project compliance scores and listing Docker images available for scanning from Nexus.
+When Used: Called by the compliance checker router when users view the compliance dashboard, request per-project compliance reports, or list available Docker images for vulnerability assessment.
+Why Created: Provides a single-pane-of-glass compliance view by combining data from two separate security/quality tools (SonarQube and Trivy), saving users from checking each tool individually.
 """
 import asyncio
 from typing import Dict, Any, List, Optional

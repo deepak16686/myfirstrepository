@@ -1,6 +1,16 @@
 """
-Build the GitHub Actions Pipeline Chat Interface - Request Flow Sequence Diagram.
-Generates a large SVG with 14 participants, 103 steps, happy + failure paths.
+File: build-sequence-svg.py
+Purpose: Generates a detailed SVG sequence diagram showing the complete request flow for the GitHub
+         Actions pipeline chat interface. Visualizes all 14 participants (User, Frontend, Router,
+         Generator, Analyzer, LLM, Validator, Fixer, Committer, Gitea, Runner, Monitor, ChromaDB,
+         Splunk) across 103 steps covering both happy path and failure/fix paths.
+When Used: Run manually with `python build-sequence-svg.py` whenever the chat flow changes and the
+           documentation diagram needs updating. Outputs a standalone SVG file that can be viewed
+           in any browser or embedded in documentation.
+Why Created: The GitHub Actions pipeline chat flow involves complex multi-step orchestration across
+             many components. A visual sequence diagram makes it much easier to understand the full
+             request lifecycle (URL detection -> analysis -> generation -> validation -> commit ->
+             build monitoring -> RL learning) than reading through the code alone.
 """
 
 SVG_W = 2400

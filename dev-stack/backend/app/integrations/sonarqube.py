@@ -1,5 +1,12 @@
 """
-SonarQube API Integration
+File: sonarqube.py
+Purpose: SonarQube REST API client for querying code quality metrics, quality gate statuses, issues,
+         analysis history, projects, and token management. Uses token-based auth (token as Basic auth
+         username with empty password).
+When Used: Called by the sonarqube router (REST proxy), the compliance_checker service (to aggregate
+           quality gates), and available through the unified tool dispatch endpoint.
+Why Created: Integrates SonarQube code quality analysis into the DevOps platform so pipeline results
+             can be correlated with quality metrics and the compliance dashboard can show pass/fail status.
 """
 from typing import List, Optional, Dict, Any
 from app.integrations.base import BaseIntegration

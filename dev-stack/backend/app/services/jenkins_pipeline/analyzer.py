@@ -1,8 +1,14 @@
 """
-Repository Analysis Functions for Jenkins Pipeline
-
-Reuses the Gitea analyzer (from github_pipeline) for language/framework detection.
-Jenkins repos are hosted on Gitea (separate from GitLab) to avoid dual CI triggers.
+File: analyzer.py
+Purpose: Analyzes Gitea-hosted repositories to detect language, framework, and package manager,
+    then enriches the result with Jenkins-specific fields (has_jenkinsfile, has_dockerfile).
+    Delegates core analysis to the GitHub pipeline analyzer since both use Gitea APIs.
+When Used: Called at the start of every pipeline generation request to determine what kind of
+    project the repository contains, which drives template selection, image choices, and
+    compile commands for the generated Jenkinsfile.
+Why Created: Separated from the generator to isolate repository inspection logic and allow
+    reuse of the Gitea-compatible analyzer from the github_pipeline package, avoiding code
+    duplication while adding Jenkins-specific detection (Jenkinsfile/Dockerfile presence).
 """
 from typing import Dict, Any, List
 

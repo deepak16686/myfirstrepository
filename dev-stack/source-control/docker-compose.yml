@@ -1,3 +1,13 @@
+# File: docker-compose.yml (source-control/)
+# Purpose: STANDALONE docker-compose for Gitea source control server and its Actions runner.
+#          This is a REFERENCE/DEVELOPMENT file — the production setup uses the main
+#          infrastructure/docker-compose.yml which includes Gitea as part of the unified stack.
+# When Used: Can be used independently to run just Gitea + runner without the full dev-stack.
+#            Useful for testing Gitea configuration changes in isolation before applying them
+#            to the main compose file.
+# Why Created: Originally the primary Gitea compose file before the dev-stack consolidation.
+#              Kept as a standalone reference for Gitea-specific development and debugging.
+
 version: '3.8'
 
 services:

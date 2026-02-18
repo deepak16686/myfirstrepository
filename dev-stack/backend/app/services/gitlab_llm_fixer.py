@@ -1,8 +1,15 @@
 """
-GitLab Pipeline LLM Fixer
-
-Uses Ollama LLM to fix pipeline errors based on validation results.
-Implements iterative fix-and-validate cycle.
+File: gitlab_llm_fixer.py
+Purpose: GitLab-specific LLM fixer that implements an iterative fix-and-validate cycle for
+    pipeline YAML. Receives validation errors, constructs a fix prompt with available Nexus
+    images and language-specific guidance, gets the LLM to produce corrected files, and
+    re-validates in a loop until the pipeline passes or max attempts are exhausted.
+When Used: Called by the generator generate_with_validation method when the initial
+    dry-run validation of a generated pipeline fails. The iterative_fix method runs up to
+    N attempts of fix-then-validate before returning the best result.
+Why Created: Separated from the general llm_fixer.py to provide a GitLab-specific fixer
+    that integrates directly with the GitLabDryRunValidator for the iterative fix loop,
+    while llm_fixer.py handles post-commit job-log-based fixes in the self-healing workflow.
 """
 import re
 from typing import Dict, Any, Optional, Tuple

@@ -1,6 +1,15 @@
 """
-Unified tool caller for AI integration
-Provides a single endpoint for AI models to call any tool
+File: unified.py
+Purpose: Provides a single unified endpoint that allows AI models (via Ollama tool-calling) to
+    invoke any action on any configured DevOps tool using a generic tool/action/params schema,
+    along with introspection endpoints to discover available tools, actions, and their parameter
+    signatures.
+When Used: Invoked by the Ollama chat service when the LLM decides to call a DevOps tool during
+    conversation, and by AI agents that need to discover available tool capabilities via the
+    /call/* routes.
+Why Created: Eliminates the need for AI models to know individual tool router paths by providing
+    a single dispatch endpoint that dynamically routes to any integration method, enabling the
+    LLM to use any tool through a consistent interface.
 """
 from fastapi import APIRouter, HTTPException
 from typing import Dict, Any

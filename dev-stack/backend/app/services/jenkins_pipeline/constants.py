@@ -1,7 +1,14 @@
 """
-Jenkins Pipeline Generator Constants
-
-Module-level constants for Jenkins pipeline generation.
+File: constants.py
+Purpose: Centralizes all module-level constants for the Jenkins pipeline generator, including
+    ChromaDB collection names, the default LLM model, and language-to-image/command mappings
+    for compile images, Dockerfile base images, runtime images, compile commands, and SAST tools.
+When Used: Imported by nearly every other module in the package (generator, templates, validator,
+    learning, image_seeder) whenever they need to look up the correct Docker image, compile
+    command, or ChromaDB collection name for a given language.
+Why Created: Consolidated scattered magic strings and lookup dictionaries into a single source
+    of truth, making it easy to add new language support or update image versions in one place
+    without modifying multiple files.
 """
 
 FEEDBACK_COLLECTION = "jenkins_pipeline_feedback"

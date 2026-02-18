@@ -1,11 +1,8 @@
 """
-AWS Default Terraform Templates
-
-Templates for Amazon Web Services infrastructure:
-- Virtual Machines (EC2 instances - Linux/Windows)
-- Kubernetes Clusters (EKS with managed node groups)
-- Container Services (ECS Fargate with ALB)
-- Networking (VPC with public/private subnets, NAT Gateway)
+File: aws.py
+Purpose: Provides hardcoded default Terraform HCL templates for AWS infrastructure, covering EC2 instances (Linux/Windows), EKS clusters with managed node groups, ECS Fargate services with ALB, and VPC networking with public/private subnets and NAT Gateway.
+When Used: Called by the default_templates dispatcher when the user selects AWS as the provider and no ChromaDB or LLM-generated template is available.
+Why Created: Ensures the Terraform generator always has a working baseline template for every AWS resource type, even when ChromaDB is empty and the LLM is unavailable or produces invalid output.
 """
 from typing import Dict, Optional
 

@@ -1,5 +1,14 @@
 """
-ChromaDB Vector Database API Integration (v2 API)
+File: chromadb.py
+Purpose: ChromaDB vector database client using the v2 REST API. Provides collection management,
+         document CRUD, and vector similarity search for storing/retrieving pipeline templates and
+         reinforcement learning feedback data used by the pipeline generators.
+When Used: Called by the pipeline/jenkins/github learning modules to store successful pipeline configs,
+           by template modules to find the best-matching template for a given language/framework,
+           and by the chromadb_browser router for admin inspection of stored documents.
+Why Created: Wraps the ChromaDB REST API into the BaseIntegration pattern so pipeline RL data
+             (successful configs, corrections, build results) can be stored and retrieved as
+             vector-searchable documents for template matching and continuous improvement.
 """
 from typing import List, Optional, Dict, Any
 from app.integrations.base import BaseIntegration

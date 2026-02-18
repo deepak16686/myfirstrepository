@@ -1,11 +1,8 @@
 """
-Azure (AzureRM) Default Terraform Templates
-
-Templates for Microsoft Azure infrastructure:
-- Virtual Machines (Linux/Windows)
-- Kubernetes Clusters (AKS)
-- Container Instances (ACI)
-- Networking (VNet, Subnets, NSG, Load Balancer)
+File: azure.py
+Purpose: Provides hardcoded default Terraform HCL templates for Azure infrastructure, covering Linux and Windows VMs, AKS Kubernetes clusters, ACI container groups, and VNet networking with subnets, NSG rules, and load balancers.
+When Used: Called by the default_templates dispatcher when the user selects Azure as the provider and no ChromaDB or LLM-generated template is available.
+Why Created: Ensures the Terraform generator always has a working baseline template for every Azure resource type, even when ChromaDB is empty and the LLM is unavailable or produces invalid output.
 """
 from typing import Dict, Optional
 

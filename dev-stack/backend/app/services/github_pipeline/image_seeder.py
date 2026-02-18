@@ -1,11 +1,15 @@
 """
-Image Seeder for GitHub Actions Workflows
-
-Ensures all Docker images referenced in a generated GitHub Actions workflow
-exist in the Nexus registry. If an image is missing, it is copied
-from DockerHub into Nexus via `skopeo copy`.
-
-Mirrors the Jenkins image_seeder.py adapted for GitHub Actions YAML syntax.
+File: image_seeder.py
+Purpose: Extracts all Docker image references from a generated GitHub Actions workflow YAML and
+    ensures each image exists in the Nexus private registry, copying missing images from DockerHub
+    via skopeo. Handles GitHub Actions-specific patterns like container: image:, docker:// uses,
+    and ${{ env.NEXUS_REGISTRY }} variable prefixes.
+When Used: Called automatically at the end of generate_with_validation() after the workflow passes
+    validation, and also during ChromaDB template reuse, to guarantee all referenced images are
+    available in Nexus before the workflow runs on the Gitea Actions runner.
+Why Created: Extracted as a separate module because image seeding is a distinct infrastructure
+    concern. Reuses the core seeding functions from the GitLab image_seeder while adding
+    GitHub-Actions-specific image reference extraction logic.
 """
 import re
 from typing import List, Dict

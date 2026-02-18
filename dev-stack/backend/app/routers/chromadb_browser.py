@@ -1,7 +1,14 @@
 """
-ChromaDB Browser Router
-
-Endpoints for browsing ChromaDB collections, templates, and documents.
+File: chromadb_browser.py
+Purpose: Exposes REST endpoints for browsing, inspecting, and deleting documents within ChromaDB
+    vector database collections, including pipeline templates and reinforcement-learning data
+    stored by the pipeline generators.
+When Used: Invoked by the frontend ChromaDB Browser tool card to list collection summaries,
+    paginate through documents in a specific collection, or delete stale/duplicate template
+    entries via the /chromadb-browser/* routes.
+Why Created: Provides visibility into the ChromaDB vector store that backs the RAG pipeline
+    template system, enabling manual inspection and cleanup of stored templates without
+    needing direct database access or docker exec commands.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

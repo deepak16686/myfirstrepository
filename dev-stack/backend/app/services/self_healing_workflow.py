@@ -1,15 +1,16 @@
 """
-Self-Healing Workflow Service
-
-Orchestrates the complete self-healing pipeline flow:
-1. Check ChromaDB for existing template
-2. If not found, generate new template via LLM
-3. Validate with dry-run
-4. Fix validation errors if any (via LLM)
-5. Commit to GitLab
-6. Monitor pipeline execution
-7. If failed, analyze and fix via LLM (max 10 retries)
-8. If successful, store in ChromaDB for future use
+File: self_healing_workflow.py
+Purpose: Orchestrates the complete end-to-end self-healing pipeline lifecycle: analyze
+    repository, check ChromaDB for templates, generate via LLM if needed, dry-run validate,
+    fix validation errors, commit to GitLab, monitor pipeline execution, and if the pipeline
+    fails, iteratively fix and re-commit (up to 10 retries). On success, stores the proven
+    template in ChromaDB; on final failure, creates a GitLab issue for manual review.
+When Used: Triggered by the pipeline router /self-heal endpoint or by the chat interface
+    when the user requests a fully automated pipeline generation and deployment. Also
+    invoked via fix_existing_pipeline when the monitoring system detects a failed pipeline.
+Why Created: Built as a higher-level orchestrator that ties together the generator, validator,
+    LLM fixer, committer, and monitor into a single autonomous workflow, enabling the system
+    to generate, test, and fix pipelines without human intervention.
 """
 import asyncio
 from datetime import datetime
@@ -474,13 +475,17 @@ class SelfHealingWorkflow:
         Returns True if template was stored, False otherwise.
         """
         try:
-            # QUALITY GATE: Check all jobs passed before saving
-            if state.pipeline_id and state.project_id and gitlab_token:
-                all_passed = await self._all_stages_passed(
-                    state.project_id, state.pipeline_id, gitlab_token)
-                if not all_passed:
-                    state.log("Template NOT saved to RAG — not all stages passed (some failed/skipped)")
-                    return False
+            # QUALITY GATE: Require pipeline_id, project_id, and token to verify.
+            # If any is missing, we cannot confirm all stages passed — refuse to store.
+            if not state.pipeline_id or not state.project_id or not gitlab_token:
+                state.log("Template NOT saved to RAG — cannot verify pipeline (missing pipeline_id/project_id/token)")
+                return False
+
+            all_passed = await self._all_stages_passed(
+                state.project_id, state.pipeline_id, gitlab_token)
+            if not all_passed:
+                state.log("Template NOT saved to RAG — not all stages passed (some failed/skipped)")
+                return False
 
             await pipeline_generator.store_manual_template(
                 language=state.language,
@@ -717,7 +722,7 @@ class SelfHealingWorkflow:
 
                 # Validate and auto-correct images for the detected language
                 state.gitlab_ci, state.dockerfile, img_fixes = pipeline_generator.validate_and_fix_pipeline_images(
-                    state.gitlab_ci, state.dockerfile, state.language
+                    state.gitlab_ci, state.dockerfile, state.language, getattr(state, 'analysis', None)
                 )
                 if img_fixes:
                     state.log(f"Image validator corrected {len(img_fixes)} issues: {', '.join(img_fixes[:3])}")

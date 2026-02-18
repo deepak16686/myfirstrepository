@@ -1,5 +1,14 @@
 /**
- * AI Platform - DevOps & Infrastructure Frontend Application
+ * File: app.js
+ * Purpose: Main frontend JavaScript for the AI DevOps Platform single-page application. Handles
+ *          all UI interactions, chat conversations, tool switching, pipeline progress polling,
+ *          and real-time build status updates across all supported CI/CD platforms (GitLab, Jenkins, GitHub Actions).
+ * When Used: Loaded by index.html on every page visit. Drives the entire frontend experience including
+ *            tool card selection, chat message rendering (with Markdown/code highlighting), approval workflows
+ *            for pipeline commits, and progress bar animations during pipeline generation and builds.
+ * Why Created: Provides a unified chat-based interface for all backend tools (pipeline generators, Terraform,
+ *              secret manager, compliance checker, etc.) so users can interact with the platform through a
+ *              single conversational UI rather than needing separate dashboards for each tool.
  */
 
 // Configuration

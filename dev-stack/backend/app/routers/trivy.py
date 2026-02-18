@@ -1,5 +1,14 @@
 """
-Trivy Security Scanner API router
+File: trivy.py
+Purpose: Exposes a comprehensive REST proxy to the Trivy security scanner, supporting container
+    image scanning, git repository scanning, filesystem scanning, configuration misconfiguration
+    detection, SBOM generation, and license scanning.
+When Used: Invoked by the frontend Trivy tool card for on-demand security scans, and consumed
+    internally by the dependency scanner and compliance checker services for automated
+    vulnerability assessments via the /trivy/* routes.
+Why Created: Wraps the TrivyIntegration client into a FastAPI router covering all Trivy scan
+    modes (image, repo, filesystem, config, SBOM, licenses), keeping raw Trivy API details
+    separate from the higher-level dependency scanner and compliance checker workflows.
 """
 from fastapi import APIRouter, HTTPException
 from typing import Optional, Dict, Any

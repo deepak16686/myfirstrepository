@@ -1,10 +1,12 @@
 """
-OpenAI API Integration
-
-Calls the OpenAI-compatible API to generate LLM responses.
-Designed as a drop-in replacement matching Ollama/Claude interface:
-    async generate(model, prompt, system, context, options) -> {"response": "..."}
-    async close()
+File: openai_integration.py
+Purpose: OpenAI Chat Completions API client that serves as a drop-in LLM provider alongside Ollama
+         and Claude Code. Implements the same generate(model, prompt, system) -> {"response": "..."}
+         interface for transparent swapping via the LLM registry.
+When Used: When LLM_PROVIDER is set to 'openai'. Called by pipeline generators, LLM fixers, and
+           terraform generator. Requires OPENAI_API_KEY in environment or Vault.
+Why Created: Provides a third LLM backend option for users who have OpenAI API access but not a local
+             GPU (for Ollama) or Anthropic CLI auth (for Claude).
 """
 import os
 import logging

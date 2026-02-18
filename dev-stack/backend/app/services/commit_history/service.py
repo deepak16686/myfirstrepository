@@ -1,7 +1,8 @@
 """
-Commit History Service
-
-Fetches commit history from GitLab and Gitea repositories with date filtering.
+File: service.py
+Purpose: Fetches commit history from GitLab and Gitea repositories with date range filtering and URL auto-detection, translating between browser-facing URLs (localhost ports) and internal Docker DNS hostnames.
+When Used: Called by the commit history router when users request commit logs, and by the release notes service to gather commits for changelog generation.
+Why Created: Centralizes git commit retrieval logic that works across both GitLab and Gitea APIs, handling the URL translation layer (localhost:8929 to gitlab-server, localhost:3002 to gitea-server) needed in the Docker-based dev-stack environment.
 """
 from typing import Dict, Any, List, Optional
 from datetime import datetime

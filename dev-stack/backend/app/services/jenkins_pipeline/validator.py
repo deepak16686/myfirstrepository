@@ -1,7 +1,17 @@
 """
-Validation and fixing functions for Jenkinsfiles and Dockerfiles.
-
-Uses text-based validation since Jenkinsfiles are Groovy (not YAML).
+File: validator.py
+Purpose: Performs text-based validation and automatic fixing of generated Jenkinsfiles and
+    Dockerfiles. Checks for required structural elements (pipeline/agent/stages blocks,
+    environment credentials, post block), replaces public registry references with Nexus
+    URLs, fixes HTTPS to HTTP for the HTTP-only Nexus registry, corrects agent labels,
+    and adds missing ARG BASE_REGISTRY to Dockerfiles.
+When Used: Called by the generator after LLM generation (priority 3 path) to sanitize and
+    repair the LLM output before returning it to the user. Also used as a fallback to return
+    default templates when the generated content is empty or structurally invalid.
+Why Created: Extracted from the generator to isolate validation and post-processing rules
+    from generation logic. Unlike the GitLab pipeline validator (which uses the GitLab CI
+    lint API), this module uses text-based checks because Jenkinsfiles are Groovy and have
+    no remote lint endpoint.
 """
 import re
 from typing import Optional

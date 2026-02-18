@@ -1,11 +1,8 @@
 """
-GCP (Google Cloud Platform) Default Terraform Templates
-
-Templates for Google Cloud infrastructure:
-- Virtual Machines (Compute Engine - Linux/Windows)
-- Kubernetes Clusters (GKE)
-- Container Services (Cloud Run)
-- Networking (VPC, Subnets, Firewall, Cloud NAT)
+File: gcp.py
+Purpose: Provides hardcoded default Terraform HCL templates for GCP infrastructure, covering Compute Engine instances (Linux/Windows), GKE Kubernetes clusters, Cloud Run container services, and VPC networking with subnets, firewall rules, and Cloud NAT.
+When Used: Called by the default_templates dispatcher when the user selects GCP as the provider and no ChromaDB or LLM-generated template is available.
+Why Created: Ensures the Terraform generator always has a working baseline template for every GCP resource type, even when ChromaDB is empty and the LLM is unavailable or produces invalid output.
 """
 from typing import Dict, Optional
 

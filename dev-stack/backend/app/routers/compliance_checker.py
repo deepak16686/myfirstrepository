@@ -1,8 +1,14 @@
 """
-Compliance Checker Router
-
-Endpoints for aggregating SonarQube quality gates and Trivy scan results
-into a unified compliance dashboard.
+File: compliance_checker.py
+Purpose: Aggregates SonarQube quality-gate statuses and Trivy container-image vulnerability scans
+    into a unified per-project compliance report and a multi-project dashboard, with the ability
+    to auto-discover matching Docker images in Nexus.
+When Used: Invoked by the frontend Compliance Checker tool card when a user requests a compliance
+    report for a single project or views the full compliance dashboard across all SonarQube
+    projects via the /compliance/* routes.
+Why Created: Combines data from three separate tools (SonarQube, Trivy, Nexus) into a single
+    compliance view, avoiding the need for the frontend to orchestrate multiple API calls and
+    merge the results itself.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

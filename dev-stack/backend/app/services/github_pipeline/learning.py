@@ -1,8 +1,16 @@
 """
-Reinforcement Learning / Feedback Functions for GitHub Actions Pipelines
-
-Standalone async functions for RL feedback loop and build result recording.
-Uses Gitea API for fetching repo files (GitHub Actions repos hosted on Gitea).
+File: learning.py
+Purpose: Implements the reinforcement learning feedback loop for GitHub Actions pipelines. Stores
+    and retrieves RL feedback (manual corrections) and successful pipeline configurations in
+    ChromaDB, and records build results by checking Gitea Actions run/job status and persisting
+    the actual workflow YAML and Dockerfile from the repository.
+When Used: The record_build_result() function is called by the /learn/record endpoint, which is
+    triggered by the learn-record job at the end of every successful pipeline run. store_feedback()
+    is called when users manually correct a generated workflow. get_relevant_feedback() is used
+    during generation to inform the LLM with past corrections.
+Why Created: Separated from the generator to isolate all ChromaDB read/write operations and the
+    complex build-result recording logic (Gitea Actions API status checking, file fetching,
+    job-level success evaluation) into a dedicated module.
 """
 import hashlib
 from typing import Dict, Any, List, Optional

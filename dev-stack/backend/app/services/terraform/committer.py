@@ -1,8 +1,8 @@
 """
-Git commit operations for Terraform configuration files.
-
-Commits .tf files to Gitea repositories via Gitea API v1.
-Uses the same Gitea instance as Jenkins pipelines.
+File: committer.py
+Purpose: Commits generated Terraform .tf files to Gitea repositories via the Gitea API v1, creating a new branch and committing each file individually with proper create/update handling.
+When Used: Called when a user approves and commits a generated Terraform configuration through the Terraform router's commit endpoint.
+Why Created: Provides git commit functionality for Terraform configs, reusing the same Gitea infrastructure as the Jenkins and GitHub Actions pipeline generators, with branch creation and browser URL translation.
 """
 import base64
 import httpx
