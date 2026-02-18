@@ -1,5 +1,11 @@
 """
-Jenkins API Integration
+File: jenkins.py
+Purpose: Jenkins REST API client for managing jobs, builds, and nodes. Handles the /jenkins context
+         path prefix and Basic auth required by Jenkins' security model.
+When Used: Called by the Jenkins pipeline status module (to check build results and trigger scans),
+           by the connectivity router (for health checks), and available through the unified dispatch.
+Why Created: Wraps Jenkins' REST API into the BaseIntegration pattern so the Jenkins pipeline generator
+             can trigger builds, check status, and fetch console output programmatically.
 """
 from typing import Optional, Dict, Any, List
 from app.integrations.base import BaseIntegration

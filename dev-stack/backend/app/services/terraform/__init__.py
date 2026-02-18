@@ -1,8 +1,8 @@
-"""Terraform Generator Service Package.
-
-Generates Terraform HCL configurations for multiple cloud providers.
-Supports vSphere (On-Prem), Azure, AWS, and GCP with resource types:
-Virtual Machines, Kubernetes Clusters, Container Services, and Networking.
+"""
+File: __init__.py
+Purpose: Package initializer for the Terraform Generator service. Exposes the TerraformGeneratorService class and a singleton instance for generating Terraform HCL configurations across vSphere, Azure, AWS, and GCP providers.
+When Used: Imported by the Terraform router and other modules that need to generate infrastructure-as-code configurations.
+Why Created: Provides a clean entry point to the terraform package, following the same singleton pattern used by other service packages (pipeline, jenkins_pipeline, github_pipeline).
 """
 from app.services.terraform.generator import TerraformGeneratorService
 

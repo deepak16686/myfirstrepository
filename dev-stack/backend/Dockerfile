@@ -1,3 +1,22 @@
+# =============================================================================
+# Dockerfile: DevOps Tools Backend
+# =============================================================================
+# Builds the container image for the FastAPI backend (port 8003).
+# Built during 'docker compose up -d --build' from the dev-stack infrastructure
+# compose file, or standalone via 'docker build -t devops-tools-backend .'.
+#
+# What it includes:
+#   - Python 3.11 (slim base)
+#   - Node.js 20 + @anthropic-ai/claude-code CLI (for Claude Code LLM provider)
+#   - Terraform 1.7.5 CLI (for terraform plan/apply operations)
+#   - skopeo (for container image inspection in registry operations)
+#   - All Python dependencies from requirements.txt
+#   - Application code (app/ package) and frontend static files (frontend/)
+#
+# The image exposes port 8003 and runs Uvicorn as the ASGI server.
+# A health check polls /health every 30 seconds to support Docker restart policies.
+# =============================================================================
+
 FROM python:3.11-slim
 
 WORKDIR /app

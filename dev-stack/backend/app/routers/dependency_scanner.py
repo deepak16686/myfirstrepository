@@ -1,8 +1,14 @@
 """
-Dependency Scanner Router
-
-Endpoints for scanning Docker images for vulnerabilities via Trivy,
-listing available images from Nexus, and viewing scan history.
+File: dependency_scanner.py
+Purpose: Provides a streamlined interface for scanning Docker images from Nexus for vulnerabilities
+    via Trivy, listing available images in a Nexus repository, and maintaining an in-memory scan
+    history of recent results.
+When Used: Invoked by the frontend Dependency Scanner tool card when a user selects an image from
+    the Nexus image list and triggers a vulnerability scan, or reviews/clears scan history via
+    the /dependency-scanner/* routes.
+Why Created: Wraps the lower-level Trivy and Nexus integrations into a higher-level scanning
+    workflow with scan history tracking, providing a simpler API surface than the raw Trivy
+    router for the common use case of scanning Nexus-hosted Docker images.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

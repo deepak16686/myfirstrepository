@@ -1,7 +1,16 @@
 """
-Reinforcement Learning / Feedback Functions
-
-Standalone async functions for RL feedback loop and pipeline result recording.
+File: learning.py
+Purpose: Implements the reinforcement learning feedback loop for GitLab pipelines. Stores
+    and retrieves correction feedback in ChromaDB, records pipeline execution results (success
+    or failure), and compares generated files against manually corrected versions to learn
+    from human fixes.
+When Used: The record_pipeline_result function is called by the learn_record stage inside
+    every GitLab pipeline (via a curl POST to the backend) when a pipeline completes. The
+    feedback functions are called during pipeline generation to retrieve past corrections,
+    and after manual edits to store new correction patterns.
+Why Created: Extracted from the monolithic pipeline_generator.py to isolate all ChromaDB
+    feedback and reinforcement learning logic into a dedicated module, keeping the generator
+    focused on prompt construction and the templates module focused on template CRUD.
 """
 import hashlib
 from typing import Dict, Any, List
@@ -269,7 +278,8 @@ async def record_pipeline_result(
                         language=language,
                         framework=framework,
                         duration=pipeline.get('duration'),
-                        stages_passed=stages_passed
+                        stages_passed=stages_passed,
+                        build_tool=analysis.get('build_tool', '')
                     )
                     result["recorded"] = stored
                     result["message"] = "Pipeline succeeded with ALL stages passing! Configuration stored for reinforcement learning."

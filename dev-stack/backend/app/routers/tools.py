@@ -1,5 +1,14 @@
 """
-Tools management router - list, configure, and manage tool connections
+File: tools.py
+Purpose: Provides REST endpoints for listing all configured DevOps tools with their health status,
+    adding/updating/removing tool configurations at runtime, and testing connectivity to
+    individual tools on demand.
+When Used: Invoked by the frontend Tools Management panel to display the tool inventory, let
+    admins add new tool connections or modify existing ones, and run connectivity tests via the
+    /tools/* routes.
+Why Created: Separates tool configuration CRUD and health-check logic from the connectivity
+    router (which is read-only and focused on the dashboard view), providing admin-level tool
+    management capabilities that modify the tools_manager configuration.
 """
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any

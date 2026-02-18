@@ -1,5 +1,12 @@
 """
-Ollama LLM API Integration
+File: ollama.py
+Purpose: Ollama REST API client for local LLM inference. Provides model management (list, pull, create,
+         delete), chat completions with tool calling, raw text generation, and embeddings. Uses a
+         5-minute timeout for long inference requests on large models.
+When Used: Default LLM provider when LLM_PROVIDER=ollama. Called by pipeline generators, chat_service,
+           and the llm_settings router. Uses pipeline-generator-v5 (qwen3:32b) by default.
+Why Created: Enables fully local, GPU-accelerated LLM inference without external API dependencies.
+             The original LLM provider and remains the primary option for GPU environments.
 """
 from typing import List, Optional, Dict, Any, AsyncGenerator
 import json

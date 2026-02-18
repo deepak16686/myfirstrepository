@@ -1,3 +1,18 @@
+# =============================================================================
+# Python Dependencies for DevOps Tools Backend
+# =============================================================================
+# Lists all pip packages required by the FastAPI backend application.
+# Installed during Docker image build ('pip install -r requirements.txt')
+# and also used for local development environments.
+#
+# Key dependencies:
+#   fastapi + uvicorn  -- ASGI web framework and server
+#   pydantic           -- Data validation and settings management
+#   httpx              -- Async HTTP client for calling external tool APIs
+#   pyyaml             -- YAML parsing for pipeline generation/validation
+#   hvac               -- HashiCorp Vault client for secret retrieval
+#   python-dotenv      -- .env file loading for local development
+# =============================================================================
 fastapi==0.109.2
 uvicorn[standard]==0.27.1
 pydantic==2.6.1

@@ -1,7 +1,8 @@
 """
-ChromaDB template operations for Terraform configurations.
-
-Handles retrieving reference Terraform files and best-performing templates.
+File: templates.py
+Purpose: Retrieves Terraform reference templates and best-performing proven configurations from ChromaDB collections, using the v2 API with UUID-based collection resolution and caching.
+When Used: Called by the generator during the template lookup phase to find existing proven configs (highest priority) or reference templates for LLM prompt enrichment.
+Why Created: Separates ChromaDB query logic from the generator facade, handling collection UUID resolution, metadata-based filtering by provider/resource type, and structured document parsing back into individual .tf files.
 """
 import httpx
 from typing import Dict, Any, Optional

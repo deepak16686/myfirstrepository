@@ -1,5 +1,12 @@
 """
-Trivy Security Scanner API Integration
+File: trivy.py
+Purpose: Trivy security scanner REST API client for vulnerability scanning of Docker images,
+         repositories, filesystems, and IaC configs. Also supports SBOM generation and license
+         scanning via the Trivy server running in the dev-stack.
+When Used: Called by the trivy router (REST proxy), the dependency_scanner service (on-demand image
+           scanning), and the compliance_checker service (vulnerability aggregation for dashboards).
+Why Created: Integrates container and code security scanning into the DevOps platform so pipeline-built
+             images can be scanned for CVEs and the compliance dashboard can show vulnerability counts.
 """
 from typing import List, Optional, Dict, Any
 from app.integrations.base import BaseIntegration

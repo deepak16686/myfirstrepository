@@ -1,8 +1,17 @@
 """
-Reinforcement Learning / Feedback Functions for Jenkins Pipelines
-
-Standalone async functions for RL feedback loop and build result recording.
-Uses Gitea API for fetching repo files (Jenkins repos hosted on Gitea).
+File: learning.py
+Purpose: Implements the reinforcement learning feedback loop for Jenkins pipelines. Stores
+    and retrieves correction feedback and successful pipeline configurations in ChromaDB,
+    records build results by fetching actual Jenkinsfile/Dockerfile from Gitea repos, and
+    compares generated files against committed versions to learn from manual corrections.
+When Used: Called during multiple phases of the pipeline lifecycle: (1) after generation to
+    retrieve relevant past feedback that improves LLM prompts, (2) after a successful build
+    to store the working configuration for future reuse, (3) from the /learn/record endpoint
+    when Jenkins' Learn stage curls back to the backend, and (4) during compare-and-learn
+    when checking if a user modified the generated files before they passed.
+Why Created: Extracted from the generator to isolate all ChromaDB and reinforcement learning
+    operations into a dedicated module, keeping the RL feedback loop (store, retrieve, compare)
+    separate from pipeline generation and validation concerns.
 """
 import hashlib
 from typing import Dict, Any, List, Optional

@@ -1,19 +1,34 @@
 """
-DevOps Tools Backend - Unified API for DevOps tool integrations
+File: app/main.py
+Purpose: FastAPI application entry point -- creates the app instance, registers all routers,
+    configures CORS middleware, serves the frontend SPA, and provides health/status endpoints.
+When Used: Loaded by Uvicorn on container startup ('uvicorn app.main:app') and also when
+    running directly with 'python -m app.main'. The lifespan handler logs tool and Vault
+    connectivity status at startup and shutdown.
+Why Created: Acts as the single composition root that wires together 20+ router modules
+    (pipeline generators, tool integrations, RBAC, secret management, etc.) under a unified
+    FastAPI application with consistent prefix (/api/v1), error handling, and static file serving.
 
 This backend provides a unified API layer for integrating with various DevOps tools:
 - GitLab: CI/CD, repositories, pipelines
 - SonarQube: Code quality, security analysis
 - Trivy: Container security scanning
 - Nexus: Artifact repository management
-- Ollama: LLM integration
-- ChromaDB: Vector database for RAG
+- Ollama/Claude Code/OpenAI: LLM integration for pipeline generation
+- ChromaDB: Vector database for reinforcement learning and template storage
+- Jenkins: Declarative pipeline generation and build monitoring
+- Gitea: GitHub Actions workflow generation (self-hosted alternative)
+- Jira: Access request ticket creation
+- Splunk: Pipeline event notifications
+- Vault: Centralized secret management
+- Terraform: Infrastructure-as-code generation
 
 Features:
-- Dynamic tool configuration
+- Dynamic tool configuration with Vault secret overlay
 - Unified tool calling API for AI integration
 - RESTful endpoints for each tool
 - Health monitoring and status checks
+- RBAC with group-based access control
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

@@ -1,9 +1,15 @@
 """
-Terraform Router
-
-API endpoints for generating, validating, and managing Terraform HCL configurations.
-Supports 4 cloud providers: vSphere (On-Prem), Azure, AWS, GCP.
-Resource types: VMs (Linux/Windows), Kubernetes, Containers, Networking.
+File: terraform.py
+Purpose: Provides the full lifecycle for Terraform HCL configuration generation -- chat interface,
+    multi-file .tf generation with LLM validation, terraform init/plan/apply execution, commit
+    to Gitea, reinforcement-learning feedback, and self-healing fix loops, supporting vSphere,
+    Azure, AWS, and GCP providers with VM, Kubernetes, container, and networking resource types.
+When Used: Invoked by the frontend Terraform Generator tool card chat and API calls when a user
+    selects a cloud provider and resource type, describes infrastructure requirements, runs
+    terraform plan, or commits .tf files to Git via the /terraform/* routes.
+Why Created: Extends the platform's code-generation pattern (used for CI pipelines) to
+    infrastructure-as-code, with its own chat state, workspace management, provider-specific
+    environment variable injection, and terraform CLI execution.
 """
 import re
 import uuid

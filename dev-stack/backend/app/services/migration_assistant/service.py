@@ -1,8 +1,8 @@
 """
-Migration Assistant Service
-
-Convert pipeline configurations between GitLab CI, Jenkins, and GitHub Actions formats.
-Uses default templates for known languages, falls back to LLM for custom pipelines.
+File: service.py
+Purpose: Converts pipeline configurations between GitLab CI, Jenkins (Jenkinsfile), and GitHub Actions formats, using built-in templates for known languages (Java, Python, Node.js, Go, Ruby, .NET, Rust) and falling back to LLM-based conversion for custom or unrecognized pipelines.
+When Used: Called by the migration assistant router when users paste a pipeline file and request conversion to a different CI/CD format.
+Why Created: Enables teams migrating between CI/CD platforms to automatically translate their pipeline definitions, reducing the manual effort of rewriting build configurations when switching from GitLab to Jenkins or GitHub Actions (and vice versa).
 """
 import re
 from typing import Dict, Any, Optional

@@ -1,8 +1,13 @@
 """
-Pipeline Generator Request/Response Models
-
-Pydantic models for pipeline generation, validation, commit,
-reinforcement learning, and self-healing endpoints.
+File: app/models/pipeline_schemas.py
+Purpose: Pydantic request/response models for the GitLab CI/CD pipeline generator endpoints,
+    covering generation, dry-run validation, commit, feedback/RL recording, full workflow
+    orchestration, self-healing, and LLM-based fix operations.
+When Used: Imported by the pipeline router (app/routers/pipeline.py) and pipeline services
+    to type-check and serialize HTTP request bodies and JSON responses.
+Why Created: Extracted from the pipeline router during the code reorganization (2026-02-08)
+    to keep router files lean (~500 lines) and allow model reuse across services without
+    circular imports.
 """
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
@@ -71,8 +76,6 @@ class GenerateWithValidationResponse(BaseModel):
     model_used: str
     feedback_used: int
     validation_passed: bool
-    validation_skipped: Optional[bool] = None
-    validation_reason: Optional[str] = None
     validation_results: Optional[Dict[str, Any]] = None
     validation_errors: Optional[List[str]] = None
     warnings: Optional[List[str]] = None

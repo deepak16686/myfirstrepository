@@ -1,5 +1,13 @@
 """
-Nexus Repository Manager API Integration
+File: nexus.py
+Purpose: Nexus Repository Manager REST API client for managing repositories, Docker images, components,
+         assets, blob stores, security, and scheduled tasks. Provides the Docker V2 search surface
+         needed for image existence checks during pipeline validation.
+When Used: Called by pipeline image_seeder modules (to check if Docker images exist in Nexus), by LLM
+           fixers (to list available images for error correction), by the nexus router (REST proxy),
+           and by the dependency_scanner for on-demand scanning.
+Why Created: Centralizes all Nexus API interactions so pipeline generators can verify images exist in
+             the private registry (localhost:5001) before committing pipelines.
 """
 from typing import List, Optional, Dict, Any
 from app.integrations.base import BaseIntegration

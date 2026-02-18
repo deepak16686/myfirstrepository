@@ -1,3 +1,13 @@
+/*
+ * File: styles.css
+ * Purpose: Complete CSS stylesheet for the AI DevOps Platform frontend. Implements the orange-themed
+ *          design system with responsive layout, tool category cards, chat interface styling, code block
+ *          formatting, pipeline progress bars, and build status indicators.
+ * When Used: Loaded by index.html on every page visit. Styles all UI components including the sidebar
+ *            tool selector, main chat area, message bubbles, approval dialogs, and real-time progress displays.
+ * Why Created: Provides a consistent, polished visual design for the platform's single-page chat interface,
+ *              with tool-aware theming and responsive layout that works across desktop and tablet viewports.
+ */
 /* AI Platform - DevOps & Infrastructure Styles - Orange Theme */
 
 * {

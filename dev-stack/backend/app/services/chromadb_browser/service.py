@@ -1,7 +1,8 @@
 """
-ChromaDB Browser Service
-
-Provides summary and detail views of ChromaDB collections and templates.
+File: service.py
+Purpose: Provides browsing capabilities for ChromaDB collections, including summary views of all collections with document counts, detailed views of individual collection documents with metadata, and single-document deletion.
+When Used: Called by the ChromaDB browser router when users inspect stored pipeline templates, RL feedback entries, or successful configurations in the frontend's ChromaDB browser tool.
+Why Created: Enables visibility into the ChromaDB knowledge base that powers the RL feedback loop across all pipeline generators (GitLab, Jenkins, GitHub Actions, Terraform), allowing users to audit and manage stored templates and feedback.
 """
 from typing import Dict, Any, Optional
 

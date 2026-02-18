@@ -1,5 +1,8 @@
 """
-Chat Service - Orchestrates LLM conversations with tool calling
+File: chat_service.py
+Purpose: Orchestrates LLM-powered chat conversations using Ollama with tool calling, enabling users to generate, commit, validate, and monitor GitLab CI pipelines through natural language commands.
+When Used: Called by the chat router when users send messages in the GitLab pipeline chat interface, which can trigger tool calls for pipeline generation, commit, status checking, validation, and tool connectivity testing.
+Why Created: Provides the conversational AI interface for GitLab pipeline management, using Ollama's native tool-calling capability (not available via Claude CLI) to map user intents to backend API operations.
 """
 import json
 import uuid
@@ -119,7 +122,6 @@ Guidelines:
 - After generating a pipeline, ALWAYS report the validation status to the user:
   - If validation_passed is true: Tell the user validation passed and ask if they want to commit.
   - If validation_passed is false: Explain the validation errors and suggest regenerating or ask the user how to proceed.
-  - If validation_skipped is true: Tell the user this is a proven template from RAG that was already validated.
   - Report any warnings even if validation passed.
   - If fix_attempts > 0: Mention that the pipeline had issues that were automatically fixed.
 - NEVER commit a pipeline without first informing the user about its validation status.
@@ -132,9 +134,10 @@ Guidelines:
 
 IMPORTANT - Template Source Reporting:
 After generating a pipeline, ALWAYS tell the user about the template source using the "source_message" from the tool result:
-- If template_source is "rag": Tell the user "Template exists in RAG - using a proven pipeline that has succeeded before."
-- If template_source is "llm": Tell the user "No template in RAG for this language. LLM is creating and testing a new template."
+- If template_source is "rag": Tell the user "Template found in RAG for this language/build-tool. It was validated before committing."
+- If template_source is "llm": Tell the user "No matching template in RAG. LLM created a new pipeline, validated before committing."
 - If template_source is "builtin": Tell the user "Using a built-in default template for this language."
+NEVER say "validation skipped" — all pipelines are always validated before committing.
 After committing, mention the template_source in your response so the user knows the commit message reflects the source."""
 
     def __init__(self, config: Settings):
@@ -235,18 +238,18 @@ After committing, mention the template_source in your response so the user knows
         if pending and "template_source" in pending:
             src = pending["template_source"]
             if src == "rag":
-                banner = "**Template exists in RAG** - using a proven pipeline that has succeeded before.\n\n"
+                banner = "**Template found in RAG** - using a matching template from a previous successful pipeline.\n\n"
             elif src == "llm":
-                banner = "**No template in RAG for this language.** LLM is creating and testing a new pipeline configuration.\n\n"
+                banner = "**No matching template in RAG.** LLM created a new pipeline configuration.\n\n"
             elif src == "builtin":
                 banner = "**Using a built-in default template** for this language.\n\n"
             else:
                 banner = ""
             # Only prepend if LLM didn't already include correct info
-            if banner and src == "llm" and "RAG" in assistant_message and "No template" not in assistant_message:
+            if banner and src == "llm" and "RAG" in assistant_message and "No matching" not in assistant_message:
                 # LLM hallucinated "RAG" when source is actually LLM — replace
                 assistant_message = banner + assistant_message.replace(
-                    "Template exists in RAG - using a proven pipeline that has succeeded before.",
+                    "Template found in RAG",
                     ""
                 ).replace(
                     "Template exists in RAG",
@@ -366,17 +369,16 @@ After committing, mention the template_source in your response so the user knows
                     model_used = result.get("model_used", "unknown")
                     if model_used in ("chromadb-direct", "template-only") or model_used.startswith("claude-rag"):
                         template_source = "rag"
-                        source_message = "Template found in RAG (ChromaDB) - using a proven pipeline configuration that has succeeded before."
+                        source_message = "Template found in RAG (ChromaDB) - using a matching template from a previous successful pipeline."
                     elif model_used == "built-in-template":
                         template_source = "builtin"
                         source_message = "Using built-in default template for this language."
                     else:
                         template_source = "llm"
-                        source_message = "No existing template found in RAG. LLM is creating a new pipeline configuration. It will be tested automatically and stored if successful."
+                        source_message = "No matching template found in RAG. LLM created a new pipeline configuration."
 
                     # Extract validation results
                     validation_passed = result.get("validation_passed", False)
-                    validation_skipped = result.get("validation_skipped", False)
                     validation_errors = result.get("validation_errors", [])
                     warnings = result.get("warnings", [])
                     fix_attempts = result.get("fix_attempts", 0)
@@ -390,18 +392,16 @@ After committing, mention the template_source in your response so the user knows
                         "template_source": template_source,
                         "model_used": model_used,
                         "validation_passed": validation_passed,
-                        "validation_skipped": validation_skipped,
                         "validation_errors": validation_errors,
                         "fix_attempts": fix_attempts
                     }
 
                     return {
                         "success": True,
-                        "message": "Pipeline generated and validated successfully" if validation_passed or validation_skipped else "Pipeline generated but has validation issues",
+                        "message": "Pipeline generated and validated successfully" if validation_passed else "Pipeline generated but has validation issues",
                         "template_source": template_source,
                         "source_message": source_message,
                         "validation_passed": validation_passed,
-                        "validation_skipped": validation_skipped,
                         "validation_errors": validation_errors,
                         "warnings": warnings,
                         "fix_attempts": fix_attempts,

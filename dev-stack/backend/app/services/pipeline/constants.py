@@ -1,7 +1,14 @@
 """
-Pipeline Generator Constants
-
-Module-level constants extracted from PipelineGeneratorService class.
+File: constants.py
+Purpose: Centralizes all module-level constants for the GitLab pipeline generator, including
+    ChromaDB collection names, the default LLM model, and language-to-image/command mappings
+    used to select correct Docker images and compile commands for each programming language.
+When Used: Imported by nearly every other module in the pipeline package (generator, validator,
+    templates, learning) whenever they need to reference collection names, image lookups, or
+    compile command mappings.
+Why Created: Extracted from the monolithic pipeline_generator.py class attributes to a
+    dedicated constants module, eliminating circular imports and allowing any module to
+    access shared constants without importing the full generator facade.
 """
 
 FEEDBACK_COLLECTION = "gitlab_pipeline_feedback"
@@ -22,8 +29,8 @@ LANGUAGE_COMPILE_IMAGES = {
     "fastapi": "python:3.11-slim",
     "streamlit": "python:3.12-slim",
     "celery": "python:3.11-slim",
-    "go": "golang:1.22-alpine",
-    "golang": "golang:1.22-alpine",
+    "go": "golang:1.22-alpine-git",
+    "golang": "golang:1.22-alpine-git",
     "rust": "rust:1.93-slim",
     "javascript": "node:20-alpine",
     "typescript": "node:20-alpine",
@@ -48,8 +55,8 @@ LANGUAGE_DOCKERFILE_IMAGES = {
     "fastapi": "python:3.11-slim",
     "streamlit": "python:3.12-slim",
     "celery": "python:3.11-slim",
-    "go": "golang:1.22-alpine",
-    "golang": "golang:1.22-alpine",
+    "go": "golang:1.22-alpine-git",
+    "golang": "golang:1.22-alpine-git",
     "rust": "rust:1.93-slim",
     "javascript": "node:20-alpine",
     "typescript": "node:20-alpine",

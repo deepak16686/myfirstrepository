@@ -1,5 +1,12 @@
 """
-Jira Software API Integration
+File: jira.py
+Purpose: Jira Software v2 REST API client for managing projects, issues, and server info. Supports
+         both Basic auth (username + API token) and Bearer token authentication to work with Jira
+         Cloud and self-hosted Jira Server.
+When Used: Called by the connectivity router (for health checks and access-request ticket creation)
+           and by the RBAC router (for Jira-based access request workflows).
+Why Created: Enables the platform to create access-request tickets and manage project issues in Jira,
+             integrating the ticketing system into the DevOps workflow.
 """
 from typing import List, Optional, Dict, Any
 from app.integrations.base import BaseIntegration

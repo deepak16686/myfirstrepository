@@ -1,7 +1,17 @@
 """
-Jenkins build status and reinforcement learning recording operations.
-
-Uses the Jenkins REST API for build status, triggering, and result recording.
+File: status.py
+Purpose: Interfaces with the Jenkins REST API for build operations: querying build status
+    and stage details via the workflow API, triggering builds and multibranch branch scans
+    (with CSRF crumb handling), and recording basic build results to ChromaDB for RL.
+When Used: Called by the generator facade and the chat endpoint to monitor build progress
+    after committing pipeline files. trigger_scan() is invoked after each commit to make
+    Jenkins discover the new branch. get_build_status() and get_build_stages() are polled
+    during build monitoring. record_build_result() is the lightweight RL recording path
+    (job name + build number only, without fetching repo files).
+Why Created: Separated from the generator to isolate Jenkins API interactions (authentication,
+    crumb tokens, REST endpoints) from pipeline generation logic, and to distinguish the
+    simple status-module recording from the full learning-module recording that fetches
+    actual file contents from Gitea.
 """
 import httpx
 from typing import Dict, Any, Optional, List

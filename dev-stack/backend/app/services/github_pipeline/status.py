@@ -1,7 +1,13 @@
 """
-Workflow status and reinforcement learning recording operations.
-
-Handles checking workflow run status and recording results for RL.
+File: status.py
+Purpose: Provides lightweight functions to check the latest Gitea Actions workflow run status for
+    a given branch and to record successful workflow results for reinforcement learning via the
+    facade's status delegation.
+When Used: Called by the generator facade's get_workflow_status() and record_workflow_result()
+    methods, which are used by the /status and /progress endpoints and the self-healing workflow's
+    monitoring loop to poll for workflow completion.
+Why Created: Extracted from the generator to separate workflow execution monitoring (Gitea Actions
+    API polling) from pipeline generation and template management logic.
 """
 import httpx
 from typing import Dict, Any

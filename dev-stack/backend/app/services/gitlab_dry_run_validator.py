@@ -1,10 +1,15 @@
 """
-GitLab CI/CD Pipeline Dry Run Validator
-
-Validates GitLab CI/CD pipeline YAML before committing using:
-1. Local YAML syntax validation
-2. Local structure validation
-3. GitLab CI Lint API for server-side validation
+File: gitlab_dry_run_validator.py
+Purpose: Validates GitLab CI/CD pipeline YAML and Dockerfiles before they are committed to a
+    repository. Performs six validation checks: YAML syntax, Dockerfile syntax, pipeline
+    structure (stages/variables/jobs), stage dependency correctness, Nexus image compliance,
+    and server-side validation via the GitLab CI Lint API.
+When Used: Called by the generator generate_with_validation method and by the self-healing
+    workflow to pre-validate generated pipelines before committing. Also used by the
+    gitlab_llm_fixer iterative_fix loop to re-check after each fix attempt.
+Why Created: Built as a dedicated pre-commit validation layer to catch YAML errors, missing
+    stages, public registry references, and other structural issues before they reach GitLab
+    and cause pipeline failures, reducing the need for expensive self-healing fix cycles.
 """
 import re
 import yaml

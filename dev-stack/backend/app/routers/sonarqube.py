@@ -1,5 +1,14 @@
 """
-SonarQube API router
+File: sonarqube.py
+Purpose: Exposes a comprehensive REST proxy to the SonarQube API, covering project management,
+    quality-gate status, code metrics retrieval, issue listing by severity/type, analysis history,
+    and a composite project summary endpoint.
+When Used: Invoked by the frontend SonarQube tool card for browsing projects and quality data,
+    and consumed internally by the compliance checker to aggregate quality-gate results via the
+    /sonarqube/* routes.
+Why Created: Wraps the SonarQubeIntegration client into a FastAPI router with Pydantic response
+    models, keeping SonarQube-specific API details out of higher-level services like the
+    compliance checker and pipeline generators.
 """
 from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional, Dict, Any

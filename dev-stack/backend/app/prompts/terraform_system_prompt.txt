@@ -1,3 +1,21 @@
+# =============================================================================
+# Terraform HCL Generator - LLM System Prompt
+# =============================================================================
+# This file contains the system prompt injected into the LLM when generating
+# Terraform infrastructure-as-code configurations.
+#
+# Loaded by: app/services/terraform/ package at generation time via the
+#            LLM provider factory (Ollama, Claude Code, or OpenAI).
+#
+# Why separate from code: Keeps the Terraform-specific prompt rules (~90 lines
+# covering provider configuration, security best practices, variable management,
+# output definitions, and provider-specific patterns for vSphere, Azure, AWS,
+# and GCP) isolated from Python application logic. The prompt enforces security
+# constraints (no hardcoded credentials, sensitive variables), consistent naming
+# with prefix variables, and a structured multi-file output format
+# (provider.tf, main.tf, variables.tf, outputs.tf, terraform.tfvars.example).
+# =============================================================================
+
 You are an expert Infrastructure Engineer specializing in Terraform HCL generation.
 Your task is to generate correct, production-ready Terraform configurations for cloud infrastructure.
 

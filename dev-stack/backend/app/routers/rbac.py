@@ -1,5 +1,14 @@
 """
-RBAC Router - Manage access across all DevOps tools
+File: rbac.py
+Purpose: Provides REST endpoints for viewing the cross-tool access matrix, looking up per-user
+    group memberships across all DevOps tools (GitLab, Jenkins, SonarQube, Nexus, etc.), and
+    granting or revoking access to specific tool groups.
+When Used: Invoked by the frontend RBAC / Access Manager tool card when an admin views the full
+    access overview, inspects a user's permissions, or grants/revokes group membership via the
+    /rbac/* routes.
+Why Created: Centralizes role-based access control across all integrated DevOps tools into a
+    single management interface, rather than requiring admins to log into each tool individually
+    to manage user permissions.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

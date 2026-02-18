@@ -1,8 +1,14 @@
 """
-Claude Code CLI Integration
-
-Calls the Claude Code CLI as a subprocess to generate LLM responses.
-Designed as a drop-in replacement for OllamaIntegration.generate().
+File: claude_code.py
+Purpose: LLM provider that invokes the Claude Code CLI as a subprocess to generate pipeline YAML,
+         Dockerfiles, and Terraform configs. Implements the same generate() interface as Ollama
+         so it can be swapped in transparently via the LLM registry.
+When Used: When LLM_PROVIDER is set to 'claude-code'. Called by pipeline generators, LLM fixers,
+           and the terraform generator to get LLM responses from Claude (Sonnet/Opus) instead of
+           local Ollama models. The CLI binary runs inside the backend Docker container.
+Why Created: Provides access to Anthropic's Claude models as an alternative to local Ollama inference,
+             enabling higher-quality pipeline generation without requiring a GPU. Uses the CLI
+             approach (not API) because the Claude Code CLI handles auth via mounted .claude directory.
 """
 import asyncio
 import json

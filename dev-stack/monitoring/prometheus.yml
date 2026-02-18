@@ -1,4 +1,14 @@
-﻿global:
+﻿# File: prometheus.yml
+# Purpose: Prometheus monitoring configuration. Defines scrape targets for collecting metrics from
+#          all services in the dev-stack: Prometheus itself, Node Exporter (system metrics), and
+#          any other exporters configured. Sets 15-second scrape and evaluation intervals.
+# When Used: Mounted into the Prometheus container at /etc/prometheus/prometheus.yml and read on
+#            startup. Prometheus uses this to discover which endpoints to scrape for metrics.
+# Why Created: Centralizes observability for the dev-stack platform, enabling Grafana dashboards
+#              to visualize system health, resource usage, and service availability across all
+#              containers in the stack.
+
+global:
   scrape_interval: 15s
   evaluation_interval: 15s
 

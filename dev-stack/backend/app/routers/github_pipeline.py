@@ -1,9 +1,14 @@
 """
-GitHub Actions Pipeline Router
-
-API endpoints for generating, committing, and managing GitHub Actions workflows.
-Supports both GitHub.com and Gitea (free self-hosted alternative).
-Includes chat interface for frontend chatbot, progress tracking, and self-healing.
+File: github_pipeline.py
+Purpose: Provides the full lifecycle for GitHub Actions workflow generation -- chat interface,
+    YAML/Dockerfile generation with LLM validation, commit to Gitea, build monitoring via
+    Gitea Actions API, reinforcement-learning feedback, and self-healing fix loops.
+When Used: Invoked by the frontend GitHub Actions tool card chat and API calls when a user pastes
+    a Gitea repo URL to generate a workflow, approves a commit, or monitors a running Gitea
+    Actions build via the /github-pipeline/* routes.
+Why Created: Mirrors the Jenkins pipeline router architecture but targets Gitea Actions (GitHub
+    Actions compatible) workflows under the github-projects Gitea org, with its own chat state,
+    URL translation, and Gitea Actions-specific monitoring logic.
 """
 import re
 import uuid

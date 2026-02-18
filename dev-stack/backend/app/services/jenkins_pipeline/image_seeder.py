@@ -1,11 +1,17 @@
 """
-Image Seeder for Jenkins Pipelines
-
-Ensures all Docker images referenced in a generated Jenkinsfile
-exist in the Nexus registry. If an image is missing, it is copied
-from DockerHub into Nexus via `skopeo copy`.
-
-Mirrors the GitLab image_seeder.py adapted for Jenkinsfile Groovy syntax.
+File: image_seeder.py
+Purpose: Extracts Docker image references from generated Jenkinsfiles (Groovy syntax) and
+    ensures each image exists in the Nexus private registry. Missing images are automatically
+    copied from DockerHub into Nexus using skopeo. Reuses core seeding infrastructure from
+    the GitLab image_seeder but adds Jenkins-specific image extraction patterns (docker agent
+    blocks, docker.build() calls, docker.withRegistry patterns).
+When Used: Called automatically after every pipeline generation (both LLM-generated and
+    default templates) to guarantee that all referenced images are available in Nexus before
+    the Jenkins build runs. This prevents build failures due to missing images in the
+    air-gapped/private registry environment.
+Why Created: Separated from the generator because image seeding is an infrastructure concern
+    independent of pipeline generation logic. The Jenkins variant parses Groovy syntax instead
+    of YAML, requiring different regex patterns than the GitLab/GitHub seeders.
 """
 import asyncio
 import re

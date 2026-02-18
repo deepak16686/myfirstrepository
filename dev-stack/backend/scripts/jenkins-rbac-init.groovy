@@ -1,3 +1,14 @@
+/*
+ * File: jenkins-rbac-init.groovy
+ * Purpose: Jenkins Groovy init script that creates the svc-devops-backend service account user,
+ *          generates an API token for it, and configures Matrix Authorization Strategy with
+ *          granular permissions for devops-readonly, devops-readwrite, and devops-admin groups.
+ * When Used: Placed in Jenkins' init.groovy.d/ directory and executed automatically on Jenkins startup.
+ *            Runs every time Jenkins starts but is idempotent — skips user creation if already exists.
+ * Why Created: Enables the backend to interact with Jenkins via API using a dedicated service account
+ *              instead of the admin user, and establishes consistent RBAC groups that match the
+ *              permission model used across all other tools in the dev-stack.
+ */
 import jenkins.model.*
 import hudson.security.*
 import org.jenkinsci.plugins.matrixauth.*

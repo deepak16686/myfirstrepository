@@ -1,10 +1,26 @@
 #!/bin/sh
+# File: rbac-init.sh
+# Purpose: Initializes Role-Based Access Control (RBAC) across all DevOps tools in the stack.
+#          Creates three permission groups (devops-readonly, devops-readwrite, devops-admin) and a
+#          service account (svc-devops-backend) in GitLab, Gitea, SonarQube, Nexus, and Vault.
+# When Used: Runs once as the 'rbac-init' container at stack startup (after all tools are healthy).
+#            Executes automatically via docker-compose with depends_on health checks. Idempotent —
+#            safe to re-run if a tool was temporarily unavailable.
+# Why Created: Ensures consistent RBAC policies across all tools so the backend uses a dedicated
+#              service account with least-privilege access instead of admin credentials, and teams
+#              can be assigned to appropriate permission groups uniformly across all tools.
 set -e
 
 echo "============================================================"
 echo "  RBAC Initialization - Groups & Service Accounts"
 echo "============================================================"
 echo ""
+
+# Resolve Vault token: env var first, then token file (persistent mode)
+if [ -z "$VAULT_TOKEN" ] && [ -f /vault/file/.root-token ]; then
+    export VAULT_TOKEN=$(cat /vault/file/.root-token)
+    echo "Vault token loaded from /vault/file/.root-token"
+fi
 
 # Install curl and jq (vault image only has wget)
 apk add --no-cache curl jq >/dev/null 2>&1

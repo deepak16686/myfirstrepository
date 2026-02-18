@@ -1,11 +1,8 @@
 """
-vSphere (On-Prem) Default Terraform Templates
-
-Templates for VMware vSphere infrastructure:
-- Virtual Machines (Linux/Windows)
-- Kubernetes Clusters (VMs with kubeadm)
-- Container Services (Docker host VMs)
-- Networking (Distributed Switches, Port Groups)
+File: vsphere.py
+Purpose: Provides hardcoded default Terraform HCL templates for on-premises vSphere infrastructure, covering Linux/Windows VMs via template cloning, Kubernetes clusters deployed as kubeadm-bootstrapped VMs, Docker host VMs for container workloads, and distributed virtual switches with port groups.
+When Used: Called by the default_templates dispatcher when the user selects vSphere as the provider and no ChromaDB or LLM-generated template is available.
+Why Created: Ensures the Terraform generator always has a working baseline template for every vSphere resource type, even when ChromaDB is empty and the LLM is unavailable or produces invalid output.
 """
 from typing import Dict, Optional
 

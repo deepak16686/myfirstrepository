@@ -1,9 +1,16 @@
 """
-Jenkins Pipeline Router
-
-API endpoints for generating, committing, and managing Jenkins Declarative Pipelines.
-Generates Jenkinsfile + Dockerfile for projects hosted on Gitea (separate from GitLab).
-Jenkins repos are on Gitea to avoid dual CI triggers when committing.
+File: jenkins_pipeline.py
+Purpose: Provides the full lifecycle for Jenkins Declarative Pipeline generation -- chat interface,
+    Jenkinsfile/Dockerfile generation with LLM validation, commit to Gitea, Jenkins build
+    monitoring, reinforcement-learning feedback storage, and self-healing fix loops with
+    background task orchestration.
+When Used: Invoked by the frontend Jenkins Generator tool card chat and API calls when a user
+    pastes a Gitea repo URL to generate a Jenkinsfile, approves a commit, or monitors a running
+    Jenkins multibranch build via the /jenkins-pipeline/* routes.
+Why Created: Mirrors the GitLab pipeline router architecture but targets Jenkins Declarative
+    Pipelines on Gitea-hosted repos (jenkins-projects org), with its own chat state, URL
+    translation between Docker-internal and browser-accessible Gitea URLs, and Jenkins-specific
+    build/stage monitoring.
 """
 import re
 import uuid

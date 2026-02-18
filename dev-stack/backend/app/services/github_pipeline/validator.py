@@ -1,5 +1,14 @@
 """
-Validation and fixing functions for GitHub Actions workflows and Dockerfiles.
+File: validator.py
+Purpose: Provides post-generation validation and automatic fixing of GitHub Actions workflow YAML
+    and Dockerfiles. Ensures the workflow has required env variables, self-hosted runners, and
+    proper YAML structure. Fixes Dockerfiles by replacing public registry references with Nexus
+    and adding the ARG BASE_REGISTRY directive.
+When Used: Called by the generator facade after LLM-generated output is parsed (Priority 3 path)
+    to catch and correct common LLM mistakes before the workflow enters the iterative LLM fixer
+    loop or is returned to the user.
+Why Created: Separated from the generator to keep rule-based validation and fixup logic (which
+    does not require an LLM) distinct from LLM-powered generation and fixing.
 """
 import re
 import yaml
