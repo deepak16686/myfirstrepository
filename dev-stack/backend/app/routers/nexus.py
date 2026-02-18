@@ -1,5 +1,13 @@
 """
-Nexus Repository Manager API router
+File: nexus.py
+Purpose: Exposes a comprehensive REST proxy to the Nexus Repository Manager API, covering
+    repository management, component/asset CRUD, Docker image listing, scheduled tasks,
+    blob stores, and user/role administration.
+When Used: Invoked by the frontend Nexus tool card and by internal services (pipeline generators,
+    dependency scanner) whenever artifact repository operations are needed via the /nexus/* routes.
+Why Created: Wraps the NexusIntegration client into a FastAPI router with proper error handling
+    and Pydantic response models, keeping Nexus-specific API logic out of higher-level services
+    like the dependency scanner and pipeline image seeders.
 """
 from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional

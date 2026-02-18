@@ -1,5 +1,13 @@
 """
-Pydantic schemas for API requests and responses
+File: app/models/schemas.py
+Purpose: Pydantic schemas for general-purpose API requests and responses -- covers tool
+    configuration CRUD, GitLab/SonarQube/Trivy/Nexus resource models, unified AI tool-call
+    contracts, connectivity reporting, and Jira access-request models.
+When Used: Imported by routers (tools, gitlab, sonarqube, trivy, nexus, unified, connectivity)
+    and services that need typed representations of external tool resources.
+Why Created: Provides a shared schema library for all non-pipeline-specific endpoints, keeping
+    data contracts centralized so that multiple routers can reference the same model classes
+    (e.g., ToolInfo, APIResponse, ConnectivityResult) without duplication.
 """
 from typing import Dict, Any, Optional, List
 from pydantic import BaseModel, Field

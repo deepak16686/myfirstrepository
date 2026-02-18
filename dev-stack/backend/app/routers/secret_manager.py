@@ -1,7 +1,13 @@
 """
-Secret Manager Router
-
-Endpoints for managing secrets across GitLab, Gitea, and Jenkins.
+File: secret_manager.py
+Purpose: Provides REST endpoints for listing, creating, updating, and deleting CI/CD secrets
+    (variables, tokens, credentials) across GitLab, Gitea, and Jenkins from a single unified
+    interface, with support for project-scoped, org-scoped, and system-level secrets.
+When Used: Invoked by the frontend Secret Manager tool card when a user views all secrets across
+    platforms, creates a new secret for a specific project/org, or updates/deletes existing
+    secrets via the /secret-manager/* routes.
+Why Created: Centralizes secret management across three different CI platforms into one API,
+    eliminating the need to manage secrets separately in each tool's native interface.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

@@ -1,9 +1,48 @@
 """
-Default Pipeline Templates
-
-Standalone functions for generating default .gitlab-ci.yml and Dockerfile templates.
+File: default_templates.py
+Purpose: Provides hardcoded default .gitlab-ci.yml and Dockerfile templates for each supported
+    programming language (Java, Python, JavaScript, Go, Scala, PHP, Rust). These templates
+    define the full 9-stage pipeline (compile through learn) with Nexus registry, SonarQube,
+    Trivy, Splunk, and reinforcement learning stages baked in.
+When Used: Used as a fallback when no proven template exists in ChromaDB (the RL database)
+    and also as the base reference when the LLM generates a pipeline for an unknown or
+    unsupported language. Also used by the template-only generation mode.
+Why Created: Extracted from the monolithic pipeline_generator.py to isolate the large
+    template string constants (hundreds of lines of YAML per language) into their own module,
+    keeping the main generator file focused on orchestration logic.
 """
+import re
 from typing import Dict, Any
+
+from .constants import LANGUAGE_COMPILE_IMAGES, LANGUAGE_DOCKERFILE_IMAGES, LANGUAGE_RUNTIME_IMAGES
+
+
+def _apply_resolved_images(template: str, analysis: Dict[str, Any]) -> str:
+    """
+    Replace hardcoded image tags in a template with dynamically resolved ones
+    from deep analysis.  For example, if deep analysis detected java_version=21,
+    replaces 'maven:3.9-eclipse-temurin-17' with 'maven:3.9-eclipse-temurin-21'.
+    """
+    resolved_compile = analysis.get("resolved_compile_image")
+    resolved_runtime = analysis.get("resolved_runtime_image")
+    lang = analysis.get("language", "")
+
+    if resolved_compile:
+        # Find the static default for this language and replace it
+        static_compile = LANGUAGE_COMPILE_IMAGES.get(lang)
+        if static_compile and static_compile != resolved_compile:
+            template = template.replace(static_compile, resolved_compile)
+
+        static_dockerfile = LANGUAGE_DOCKERFILE_IMAGES.get(lang)
+        if static_dockerfile and static_dockerfile != resolved_compile:
+            template = template.replace(static_dockerfile, resolved_compile)
+
+    if resolved_runtime:
+        static_runtime = LANGUAGE_RUNTIME_IMAGES.get(lang)
+        if static_runtime and static_runtime != resolved_runtime:
+            template = template.replace(static_runtime, resolved_runtime)
+
+    return template
 
 
 # Common notify + learn suffix for ALL language templates
@@ -314,11 +353,14 @@ push_to_nexus:
         'go': base_template + '''
 compile:
   stage: compile
-  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/golang:1.21-alpine
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/golang:1.22-alpine-git
   tags: [docker]
   script:
+    - export GONOSUMCHECK="*"
+    - export GOFLAGS="-mod=mod"
+    - go mod tidy
     - go mod download
-    - go build -o app .
+    - CGO_ENABLED=0 GOOS=linux go build -o app .
     - echo "Compile check passed — Dockerfile will re-compile via multi-stage build"
 
 build_image:
@@ -334,17 +376,23 @@ build_image:
 
 test:
   stage: test
-  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/golang:1.21-alpine
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/golang:1.22-alpine-git
   tags: [docker]
   script:
+    - export GONOSUMCHECK="*"
+    - export GOFLAGS="-mod=mod"
+    - go mod tidy
     - go test ./... -v || true
   allow_failure: true
 
 sast:
   stage: sast
-  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/golang:1.21-alpine
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/golang:1.22-alpine-git
   tags: [docker]
   script:
+    - export GONOSUMCHECK="*"
+    - export GOFLAGS="-mod=mod"
+    - go mod tidy
     - go vet ./... || true
   allow_failure: true
 
@@ -598,7 +646,12 @@ push:
     }
 
     # Fallback to Python template (more generic than Java for unknown languages)
-    return templates.get(language, templates.get('python', templates['java']))
+    ci = templates.get(language, templates.get('python', templates['java']))
+
+    # Apply dynamically resolved images from deep analysis (e.g., java_version=21
+    # → maven:3.9-eclipse-temurin-21 instead of the hardcoded :17)
+    ci = _apply_resolved_images(ci, analysis)
+    return ci
 
 
 def _get_default_dockerfile(analysis: Dict[str, Any]) -> str:
@@ -657,11 +710,12 @@ CMD ["npm", "start"]
 ''',
         'go': '''# Go Dockerfile - uses Nexus private registry
 ARG BASE_REGISTRY=ai-nexus:5001
-FROM ${BASE_REGISTRY}/apm-repo/demo/golang:1.21-alpine as builder
+FROM ${BASE_REGISTRY}/apm-repo/demo/golang:1.22-alpine-git as builder
 
 WORKDIR /app
+ENV GONOSUMCHECK=* GOFLAGS=-mod=mod
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod tidy && go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
@@ -730,4 +784,8 @@ CMD ["./app"]
     }
 
     # Fallback to Python template (more generic than Java for unknown languages)
-    return templates.get(language, templates.get('python', templates['java']))
+    df = templates.get(language, templates.get('python', templates['java']))
+
+    # Apply dynamically resolved images from deep analysis
+    df = _apply_resolved_images(df, analysis)
+    return df

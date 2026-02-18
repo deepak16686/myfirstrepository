@@ -1,7 +1,17 @@
 """
-ChromaDB template operations for Jenkins pipelines.
-
-Handles retrieving reference Jenkinsfiles and best-performing templates.
+File: templates.py
+Purpose: Manages ChromaDB-backed template operations for Jenkins pipelines: retrieving
+    reference Jenkinsfiles for LLM prompts, fetching the best-performing template from
+    successful pipelines (ranked by success count and build duration), ensuring the Learn
+    stage curl exists in generated pipelines, and resolving ChromaDB collection name-to-UUID
+    mappings required by the v2 API.
+When Used: Called during pipeline generation to check if a proven successful template exists
+    in ChromaDB (priority 1 in the generation chain) and to fetch reference templates that
+    guide LLM output. The _ensure_learn_stage() function is applied to every generated
+    Jenkinsfile to guarantee the RL feedback curl is present.
+Why Created: Extracted from the generator to separate ChromaDB query logic and template
+    management from the core generation orchestration, keeping template retrieval, ranking,
+    and post-processing in a focused module.
 """
 import re
 import httpx

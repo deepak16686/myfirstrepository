@@ -1,7 +1,13 @@
 """
-GitHub Actions Pipeline Generator Constants
-
-Module-level constants for GitHub Actions workflow generation.
+File: constants.py
+Purpose: Defines shared constants for the GitHub Actions pipeline generator, including ChromaDB
+    collection names, required job names, and language-to-image/command mappings for compile, build,
+    runtime, SAST, and Dockerfile stages.
+When Used: Imported by templates.py, learning.py, validator.py, and the LLM fixer whenever they
+    need the canonical list of required jobs, Nexus image names, or compile commands for a given
+    programming language.
+Why Created: Consolidated magic strings and lookup tables into a single source of truth so that
+    image names, job lists, and collection names stay consistent across all modules in the package.
 """
 
 FEEDBACK_COLLECTION = "github_actions_feedback"

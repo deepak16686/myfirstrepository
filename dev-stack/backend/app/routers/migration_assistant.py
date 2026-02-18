@@ -1,7 +1,14 @@
 """
-Migration Assistant Router
-
-Endpoints for converting pipeline configurations between formats.
+File: migration_assistant.py
+Purpose: Provides REST endpoints for auto-detecting pipeline configuration formats (GitLab CI,
+    Jenkinsfile, GitHub Actions) and converting pipelines from one format to another, with
+    optional LLM-assisted conversion for complex transformations.
+When Used: Invoked by the frontend Migration Assistant tool card when a user pastes a pipeline
+    configuration to detect its format, or requests conversion between CI systems (e.g., GitLab
+    CI to Jenkinsfile) via the /migration-assistant/* routes.
+Why Created: Enables users migrating between CI/CD platforms to automatically translate their
+    existing pipeline configurations, reducing manual rewriting effort when moving projects
+    between GitLab, Jenkins, and GitHub Actions.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

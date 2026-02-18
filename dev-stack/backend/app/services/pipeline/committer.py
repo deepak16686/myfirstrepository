@@ -1,7 +1,13 @@
 """
-GitLab Commit Functions
-
-Standalone async function for committing files to GitLab repositories.
+File: committer.py
+Purpose: Commits generated pipeline files (.gitlab-ci.yml, Dockerfile) to a GitLab repository
+    by creating or updating files on a new or existing branch via the GitLab Commits API.
+When Used: Invoked after pipeline generation and validation are complete, when the user
+    approves committing the generated files to their repository (either manually or via
+    the self-healing auto-commit flow).
+Why Created: Extracted from the monolithic pipeline_generator.py to separate the Git/GitLab
+    commit logic from pipeline generation and validation concerns, making each module
+    independently testable and easier to maintain.
 """
 from typing import Dict, Any
 

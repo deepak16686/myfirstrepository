@@ -1,7 +1,13 @@
 """
-Repository Analysis Functions
-
-Standalone functions for parsing GitLab URLs and analyzing repository structure.
+File: analyzer.py
+Purpose: Parses GitLab repository URLs and analyzes repository structure by reading the file
+    tree via the GitLab API to detect programming language, framework, and package manager.
+When Used: Called at the start of every pipeline generation request to understand what kind
+    of project the user has, so the correct CI/CD templates and Docker images can be selected.
+Why Created: Extracted from the monolithic pipeline_generator.py to isolate repository
+    analysis logic (URL parsing, language/framework detection, deep file-content scanning)
+    into a standalone module that can be reused by other services without pulling in the
+    full generator class.
 """
 import re
 from typing import Dict, Any, List
@@ -89,12 +95,42 @@ async def analyze_repository(repo_url: str, gitlab_token: str) -> Dict[str, Any]
             "project_name": project['name'],
             "default_branch": project.get('default_branch', 'main'),
             "files": file_names,
+            "all_paths": all_file_paths,
             "language": _detect_language(file_names, all_file_paths),
             "framework": _detect_framework(file_names),
             "package_manager": _detect_package_manager(file_names),
             "has_dockerfile": 'Dockerfile' in file_names,
             "has_gitlab_ci": '.gitlab-ci.yml' in file_names
         }
+
+        # Deep content analysis — reads key config files for richer detection
+        from app.services.shared.deep_analyzer import deep_analyze
+
+        async def _read_gitlab_file(path: str):
+            try:
+                encoded = path.replace('/', '%2F')
+                r = await client.get(
+                    f"{parsed['host']}/api/v4/projects/{parsed['project_path']}/repository/files/{encoded}/raw",
+                    headers=headers,
+                    params={"ref": analysis["default_branch"]}
+                )
+                return r.text if r.status_code == 200 else None
+            except Exception:
+                return None
+
+        deep = await deep_analyze(
+            analysis["language"], analysis["framework"],
+            file_names, all_file_paths, _read_gitlab_file
+        )
+        analysis.update(deep)
+
+        # Override framework if deep analysis found a more specific one
+        if deep.get("framework"):
+            analysis["framework"] = deep["framework"]
+
+        # Resolve dynamic images and pre-seed into Nexus
+        from app.services.shared.deep_analyzer import resolve_and_seed_images
+        await resolve_and_seed_images(analysis)
 
         return analysis
 

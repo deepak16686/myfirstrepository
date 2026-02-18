@@ -1,15 +1,17 @@
 """
-GitHub Actions Self-Healing Workflow
-
-Orchestrates complete self-healing pipeline workflow:
-1. Analyze repository
-2. Check ChromaDB for proven templates
-3. Generate workflow (if no template)
-4. Validate with dry-run
-5. Fix errors with LLM (if validation fails)
-6. Commit to repository
-7. Monitor workflow execution
-8. Store successful templates for RL
+File: github_self_healing_workflow.py
+Purpose: Orchestrates the complete end-to-end self-healing pipeline for GitHub Actions: analyzes
+    the repository, generates a workflow (from ChromaDB template or LLM), validates with the dry-run
+    validator, iteratively fixes errors via the LLM fixer, commits to the repository, monitors
+    workflow execution by polling Gitea Actions, records successful results for RL, and creates a
+    GitHub/Gitea issue if all attempts fail.
+When Used: Called by the /self-heal endpoint when a user requests fully automated pipeline
+    generation with no manual approval steps. Runs the entire lifecycle autonomously, including
+    re-attempting fixes from runtime logs if the committed workflow fails.
+Why Created: Kept as a standalone orchestrator outside the github_pipeline package because it
+    composes multiple independent services (generator, dry-run validator, LLM fixer, committer,
+    status monitor) into a single automated workflow that would not fit cleanly inside any one
+    of those modules.
 """
 import asyncio
 from typing import Dict, Any, Optional
@@ -178,9 +180,12 @@ class GitHubSelfHealingWorkflow:
                         state.status = "success"
                         state.run_id = run_result.get("run_id")
 
-                        # Step 7: Store successful template
-                        await self._store_successful_template(state)
-                        print(f"[SelfHeal] Workflow completed successfully!")
+                        # Step 7: Store successful template (only if all jobs passed)
+                        stored = await self._store_successful_template(state)
+                        if stored:
+                            print(f"[SelfHeal] Workflow completed successfully — template stored!")
+                        else:
+                            print(f"[SelfHeal] Workflow completed but template NOT stored (quality gate)")
                     else:
                         state.status = "workflow_failed"
                         state.errors.append({
@@ -298,54 +303,86 @@ class GitHubSelfHealingWorkflow:
                 if run_result.get("success"):
                     state.status = "success"
                     state.run_id = run_result.get("run_id")
-                    await self._store_successful_template(state)
+                    stored = await self._store_successful_template(state)
+                    if stored:
+                        print("[SelfHeal] Fixed template stored in ChromaDB")
 
-    async def _store_successful_template(self, state: WorkflowState):
-        """Store successful template in ChromaDB for RL"""
+    async def _store_successful_template(self, state: WorkflowState) -> bool:
+        """Store successful template in ChromaDB for RL — only if ALL jobs passed.
+
+        Returns True if template was stored, False otherwise.
+        """
         try:
-            import httpx
-            import yaml
-            from datetime import datetime
+            # QUALITY GATE: Verify all workflow jobs passed before storing.
+            if not state.run_id:
+                print("[SelfHeal] Template NOT saved to RAG — no run_id to verify")
+                return False
 
-            doc_id = f"{state.analysis['language']}_{state.analysis['framework']}_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            all_passed = await self._all_jobs_passed(state)
+            if not all_passed:
+                print("[SelfHeal] Template NOT saved to RAG — not all jobs passed")
+                return False
 
-            document = yaml.dump({
-                "workflow": state.workflow,
-                "dockerfile": state.dockerfile
-            })
+            # Use the learning module's proper storage function instead of raw ChromaDB API
+            from app.services.github_pipeline.learning import store_successful_pipeline
 
-            metadata = {
-                "language": state.analysis.get("language", "unknown"),
-                "framework": state.analysis.get("framework", "generic"),
-                "type": "github-actions",
-                "success": True,
-                "timestamp": datetime.now().isoformat()
-            }
-
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                # Ensure collection exists
-                await client.post(
-                    f"{self.chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections",
-                    json={
-                        "name": github_pipeline_generator.SUCCESSFUL_PIPELINES_COLLECTION,
-                        "metadata": {"hnsw:space": "cosine"}
-                    }
-                )
-
-                # Add document
-                await client.post(
-                    f"{self.chromadb_url}/api/v2/tenants/default_tenant/databases/default_database/collections/{github_pipeline_generator.SUCCESSFUL_PIPELINES_COLLECTION}/add",
-                    json={
-                        "ids": [doc_id],
-                        "documents": [document],
-                        "metadatas": [metadata]
-                    }
-                )
-
-            print(f"[SelfHeal] Stored successful template: {doc_id}")
+            stored = await store_successful_pipeline(
+                repo_url=state.repo_url,
+                run_id=state.run_id,
+                workflow_content=state.workflow or "",
+                dockerfile_content=state.dockerfile or "",
+                language=state.analysis.get("language", "unknown"),
+                framework=state.analysis.get("framework", "generic"),
+            )
+            if stored:
+                print(f"[SelfHeal] Stored successful template for {state.analysis.get('language')}/{state.analysis.get('framework')}")
+            return stored
 
         except Exception as e:
             print(f"[SelfHeal] Failed to store template: {e}")
+            return False
+
+    async def _all_jobs_passed(self, state: WorkflowState) -> bool:
+        """Check if ALL workflow jobs passed (no failures except learn-record/notify-failure)."""
+        try:
+            import httpx
+
+            parsed = github_pipeline_generator.parse_github_url(state.repo_url)
+            api_base = f"{parsed['host']}/api/v1/repos/{parsed['owner']}/{parsed['repo']}"
+            headers = {"Authorization": f"token {state.github_token}"}
+
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                jobs_resp = await client.get(
+                    f"{api_base}/actions/runs/{state.run_id}/jobs",
+                    headers=headers
+                )
+                if jobs_resp.status_code != 200:
+                    print(f"[SelfHeal] Quality gate: could not fetch jobs (status {jobs_resp.status_code})")
+                    return False
+
+                jobs_data = jobs_resp.json()
+                jobs_list = jobs_data.get("jobs", []) if isinstance(jobs_data, dict) else jobs_data
+
+                # Exclude learn-record (still running) and notify-failure (skipped on success)
+                skip_names = {"learn-record", "notify-failure"}
+                non_learn_jobs = [j for j in jobs_list if j.get("name") not in skip_names]
+
+                if not non_learn_jobs:
+                    print("[SelfHeal] Quality gate: no jobs found to verify")
+                    return False
+
+                for job in non_learn_jobs:
+                    conclusion = job.get("conclusion", "")
+                    if conclusion != "success":
+                        print(f"[SelfHeal] Quality gate: job '{job.get('name')}' has conclusion '{conclusion}' — NOT saving")
+                        return False
+
+                print(f"[SelfHeal] Quality gate: all {len(non_learn_jobs)} jobs passed")
+                return True
+
+        except Exception as e:
+            print(f"[SelfHeal] Quality gate check failed: {e}")
+            return False
 
     async def _create_failure_issue(
         self,

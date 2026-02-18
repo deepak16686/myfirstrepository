@@ -1,7 +1,16 @@
 """
-GitHub Actions Dry Run Validator
-
-Validates GitHub Actions workflow and Dockerfile before committing.
+File: github_dry_run_validator.py
+Purpose: Performs comprehensive pre-commit validation of GitHub Actions workflows and Dockerfiles
+    without actually running them. Checks YAML syntax, Dockerfile syntax, workflow structure
+    (required jobs, env vars, runner type), job dependency graph integrity, secrets usage, and
+    detects hardcoded credentials.
+When Used: Called by the /dry-run endpoint and the self-healing workflow's validate-and-fix loop
+    to verify a generated workflow is structurally correct before committing it to the repository.
+    Also used by the /generate-validated endpoint to provide validation results alongside generated
+    output.
+Why Created: Kept as a standalone service outside the github_pipeline package because it provides
+    a distinct validation concern (static analysis without LLM) that is used independently by
+    multiple callers -- the router, the self-healing workflow, and potentially other services.
 """
 import re
 import yaml

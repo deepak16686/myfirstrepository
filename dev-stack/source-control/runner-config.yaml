@@ -1,3 +1,13 @@
+# File: runner-config.yaml
+# Purpose: Configuration for the Gitea Actions runner (act_runner). Defines runner capacity,
+#          environment variables (Nexus credentials, SonarQube/Splunk tokens), Docker container
+#          settings, networking, and label-to-image mappings for workflow jobs.
+# When Used: Mounted into the gitea-runner container at /data/config.yaml and read on runner startup.
+#            Controls how the runner executes GitHub Actions-compatible workflows pushed to Gitea repos.
+# Why Created: Customizes the act_runner for the dev-stack environment — sets insecure registry for
+#              Nexus (localhost:5001), configures Docker-in-Docker networking, maps job labels to
+#              specific Docker images, and injects tool credentials as environment variables so
+#              pipeline jobs can push images, run scans, and send notifications without hardcoded secrets.
 # Gitea Act Runner Configuration
 # This runner is compatible with GitHub Actions workflow syntax
 

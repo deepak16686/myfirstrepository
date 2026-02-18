@@ -1,7 +1,12 @@
 """
-Pipeline Monitoring Functions
-
-Standalone async function for monitoring GitLab pipeline status.
+File: monitor.py
+Purpose: Queries the GitLab Pipelines API to retrieve the latest pipeline status for a given
+    branch, including pipeline ID, duration, web URL, and details of any failed jobs.
+When Used: Called by the pipeline router status endpoint and by the self-healing workflow
+    to check whether a committed pipeline has succeeded or failed so it can decide whether
+    to trigger the LLM fixer or record the result for reinforcement learning.
+Why Created: Extracted from the monolithic pipeline_generator.py to isolate the GitLab API
+    polling logic into a small, focused module separate from generation and commit concerns.
 """
 from typing import Dict, Any
 

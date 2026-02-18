@@ -1,8 +1,15 @@
 """
-LLM Fixer Service
-
-Uses LLM (Ollama) to automatically fix failed pipeline configurations.
-Analyzes error logs, identifies issues, and generates corrected files.
+File: llm_fixer.py
+Purpose: General-purpose LLM fixer that analyzes pipeline failure error logs, classifies the
+    error type (image not found, TLS/network, build failure, YAML syntax, etc.), queries Nexus
+    for available images, and prompts the LLM to generate corrected .gitlab-ci.yml and
+    Dockerfile content. Supports both validation-error fixing and live job-log fixing.
+When Used: Called by the self-healing workflow when a committed pipeline fails in GitLab. The
+    fix_from_job_log method fetches the failed job trace from GitLab, and the
+    fix_validation_errors method handles pre-commit dry-run failures.
+Why Created: Built as a dedicated service to encapsulate the error-analysis-to-fix pipeline,
+    keeping the LLM prompt engineering and response parsing for fixes separate from the
+    generation prompts in the pipeline generator. Works with both Ollama and Claude Code.
 """
 import re
 import json

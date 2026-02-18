@@ -1,7 +1,18 @@
 """
-Pipeline Validation and Fixing Functions
-
-Standalone functions for validating and fixing generated pipelines and Dockerfiles.
+File: validator.py
+Purpose: Validates and auto-corrects generated .gitlab-ci.yml and Dockerfile content using
+    a comprehensive set of guardrails. Enforces required stages, Nexus registry usage, correct
+    language-specific images, proper YAML escaping, Kaniko auth formatting, and the presence
+    of the RL learn stage. Also provides helper functions for extracting code blocks from
+    LLM markdown output.
+When Used: Called immediately after LLM generation (or ChromaDB template retrieval) to
+    sanitize the output before it reaches the user or gets committed. Every pipeline passes
+    through validate_and_fix_pipeline_images and _validate_and_fix_pipeline before being
+    returned from the generator.
+Why Created: Extracted from the monolithic pipeline_generator.py to isolate the extensive
+    validation and auto-correction logic (10+ guardrails, image fixers, code block extractors)
+    into a dedicated module, reducing the generator file from 3291 lines and making the
+    validation rules independently testable and maintainable.
 """
 import re
 from typing import Optional
@@ -88,12 +99,17 @@ learn_record:
 
 
 def validate_and_fix_pipeline_images(
-    gitlab_ci: str, dockerfile: str, language: str
+    gitlab_ci: str, dockerfile: str, language: str, analysis: dict = None
 ) -> tuple:
     """
     Validate that pipeline images match the project language and fix if wrong.
     This catches cases where the LLM generates a pipeline with wrong images
     (e.g., using maven image for a Rust project).
+
+    If `analysis` dict is provided and contains `resolved_compile_image` /
+    `resolved_runtime_image` from deep analysis, those take priority over the
+    static LANGUAGE_*_IMAGES constants.  This ensures that version-specific
+    images (e.g., maven:3.9-eclipse-temurin-21 for Java 21) are used.
 
     Returns (fixed_gitlab_ci, fixed_dockerfile, corrections_made)
     """
@@ -101,8 +117,15 @@ def validate_and_fix_pipeline_images(
     lang = language.lower()
     corrections = []
 
-    correct_compile_image = LANGUAGE_COMPILE_IMAGES.get(lang)
-    correct_dockerfile_image = LANGUAGE_DOCKERFILE_IMAGES.get(lang)
+    # Prefer dynamically resolved images from deep analysis over static constants
+    correct_compile_image = (
+        (analysis or {}).get("resolved_compile_image")
+        or LANGUAGE_COMPILE_IMAGES.get(lang)
+    )
+    correct_dockerfile_image = (
+        (analysis or {}).get("resolved_compile_image")
+        or LANGUAGE_DOCKERFILE_IMAGES.get(lang)
+    )
     correct_commands = LANGUAGE_COMPILE_COMMANDS.get(lang)
 
     if not correct_compile_image:
@@ -145,6 +168,25 @@ def validate_and_fix_pipeline_images(
                 )
                 corrections.append(f"CI: Replaced hardcoded {img} with {correct_compile_image}")
 
+    # -- Fix same-language outdated image versions --
+    # LLM may generate older versions (e.g., golang:1.21-alpine instead of golang:1.22-alpine-git)
+    if correct_compile_image and full_correct_image not in gitlab_ci:
+        # Find all image references for this language family in CI
+        lang_prefix = correct_compile_image.split(':')[0]  # e.g. "golang", "rust", "python"
+        old_image_pattern = rf'(\${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/)({_re.escape(lang_prefix)}:[^\s"\']+)'
+        for m in _re.finditer(old_image_pattern, gitlab_ci):
+            old_img = m.group(2)
+            if old_img != correct_compile_image:
+                gitlab_ci = gitlab_ci.replace(m.group(0), full_correct_image)
+                corrections.append(f"CI: Upgraded {old_img} to {correct_compile_image}")
+        # Also fix hardcoded versions
+        old_hardcoded_pattern = rf'(localhost:5001/apm-repo/demo/)({_re.escape(lang_prefix)}:[^\s"\']+)'
+        for m in _re.finditer(old_hardcoded_pattern, gitlab_ci):
+            old_img = m.group(2)
+            if old_img != correct_compile_image:
+                gitlab_ci = gitlab_ci.replace(m.group(0), f"localhost:5001/apm-repo/demo/{correct_compile_image}")
+                corrections.append(f"CI: Upgraded hardcoded {old_img} to {correct_compile_image}")
+
     # -- Fix compile commands if wrong --
     if correct_commands and lang == "rust":
         # Common wrong commands for Rust
@@ -171,6 +213,18 @@ def validate_and_fix_pipeline_images(
                 if wrong_df_img in dockerfile:
                     dockerfile = dockerfile.replace(wrong_df_img, correct_df_img)
                     corrections.append(f"Dockerfile: Replaced {img} with {correct_dockerfile_image}")
+
+        # Fix same-language outdated Dockerfile images
+        lang_prefix = correct_dockerfile_image.split(':')[0]
+        for prefix_variant in [nexus_dockerfile_prefix, "${BASE_REGISTRY}/apm-repo/demo/"]:
+            old_df_pattern = _re.compile(
+                rf'({_re.escape(prefix_variant)})({_re.escape(lang_prefix)}:[^\s"\']+)'
+            )
+            for m in old_df_pattern.finditer(dockerfile):
+                old_img = m.group(2)
+                if old_img != correct_dockerfile_image:
+                    dockerfile = dockerfile.replace(m.group(0), f"{prefix_variant}{correct_dockerfile_image}")
+                    corrections.append(f"Dockerfile: Upgraded {old_img} to {correct_dockerfile_image}")
 
         # Fix Dockerfile that uses alpine/nginx for Rust (needs rust image)
         if lang == "rust" and "cargo" not in dockerfile:
@@ -493,11 +547,11 @@ def _validate_and_fix_dockerfile(dockerfile: str, language: str) -> str:
         'node:20': f'{nexus_registry}/node:20-alpine',
         'node:latest': f'{nexus_registry}/node:18-alpine',
         'node': f'{nexus_registry}/node:18-alpine',
-        # Go
-        'golang:1.21': f'{nexus_registry}/golang:1.21-alpine',
-        'golang:1.22': f'{nexus_registry}/golang:1.22-alpine',
-        'golang:latest': f'{nexus_registry}/golang:1.21-alpine',
-        'golang': f'{nexus_registry}/golang:1.21-alpine',
+        # Go (must include git for go mod download)
+        'golang:1.21': f'{nexus_registry}/golang:1.22-alpine-git',
+        'golang:1.22': f'{nexus_registry}/golang:1.22-alpine-git',
+        'golang:latest': f'{nexus_registry}/golang:1.22-alpine-git',
+        'golang': f'{nexus_registry}/golang:1.22-alpine-git',
         # Base images
         'alpine:3': f'{nexus_registry}/alpine:3.18',
         'alpine:latest': f'{nexus_registry}/alpine:3.18',

@@ -1,3 +1,13 @@
+<!--
+  File: dev-stack-dashboard.html
+  Purpose: Interactive service dashboard showing all dev-stack services with their URLs, ports, status,
+           and quick-access links. Groups services by category (Core, CI/CD, Source Control, Security,
+           Monitoring, Ticketing) with color-coded cards and live status indicators.
+  When Used: Opened directly in a browser as a quick-reference for accessing any service in the stack.
+             Provides clickable links to each service's web UI (e.g., GitLab, Jenkins, Vault, Grafana).
+  Why Created: With 31 services running on different ports, developers need a single dashboard to find
+               the right URL without memorizing port numbers or checking docker-compose.yml every time.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>

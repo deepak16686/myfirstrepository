@@ -1,14 +1,16 @@
 """
-GitLab Pipeline Generator Service - Facade Class
-
-This service handles:
-1. Generating gitlab-ci.yml and Dockerfile using Ollama
-2. Committing files to GitLab repositories
-3. Monitoring pipeline status
-4. Storing and retrieving feedback from ChromaDB for reinforcement learning
-
-The class delegates to standalone functions in sibling modules while maintaining
-backward compatibility with existing callers.
+File: generator.py
+Purpose: Facade class (PipelineGeneratorService) that orchestrates GitLab CI/CD pipeline
+    generation. Delegates to sibling modules for analysis, validation, committing, monitoring,
+    templates, and learning, while owning the core LLM prompt construction and the
+    generate-validate-fix orchestration flow (generate_pipeline_files, generate_with_validation).
+When Used: Instantiated as a singleton at package import time. Its methods are called by the
+    pipeline router for every user-facing operation: generating pipelines, committing to GitLab,
+    checking pipeline status, managing templates, and recording RL feedback.
+Why Created: After splitting the original 3291-line pipeline_generator.py into focused modules,
+    this facade was kept as the central orchestrator to maintain backward compatibility with
+    all existing callers (router, self-healing workflow, chat service) while delegating the
+    actual work to the specialized sibling modules.
 """
 import re
 import json
@@ -91,10 +93,10 @@ class PipelineGeneratorService:
         return _ensure_learn_stage(pipeline_yaml)
 
     def validate_and_fix_pipeline_images(
-        self, gitlab_ci: str, dockerfile: str, language: str
+        self, gitlab_ci: str, dockerfile: str, language: str, analysis: dict = None
     ) -> tuple:
         from .validator import validate_and_fix_pipeline_images
-        return validate_and_fix_pipeline_images(gitlab_ci, dockerfile, language)
+        return validate_and_fix_pipeline_images(gitlab_ci, dockerfile, language, analysis)
 
     def _validate_and_fix_pipeline(self, generated: str, reference: Optional[str]) -> str:
         from .validator import _validate_and_fix_pipeline
@@ -124,17 +126,17 @@ class PipelineGeneratorService:
         from .default_templates import _get_default_dockerfile
         return _get_default_dockerfile(analysis)
 
-    async def get_reference_pipeline(self, language: str, framework: str) -> Optional[str]:
+    async def get_reference_pipeline(self, language: str, framework: str, build_tool: str = "") -> Optional[str]:
         from .templates import get_reference_pipeline
-        return await get_reference_pipeline(language, framework)
+        return await get_reference_pipeline(language, framework, build_tool)
 
-    async def get_best_pipeline_config(self, language: str, framework: str = "") -> Optional[str]:
+    async def get_best_pipeline_config(self, language: str, framework: str = "", build_tool: str = "") -> Optional[str]:
         from .templates import get_best_pipeline_config
-        return await get_best_pipeline_config(language, framework)
+        return await get_best_pipeline_config(language, framework, build_tool)
 
-    async def get_best_template_files(self, language: str, framework: str = "") -> Optional[Dict[str, str]]:
+    async def get_best_template_files(self, language: str, framework: str = "", build_tool: str = "") -> Optional[Dict[str, str]]:
         from .templates import get_best_template_files
-        return await get_best_template_files(language, framework)
+        return await get_best_template_files(language, framework, build_tool)
 
     async def _store_validated_template(
         self, gitlab_ci: str, dockerfile: str, language: str, framework: str
@@ -152,13 +154,14 @@ class PipelineGeneratorService:
     async def store_successful_pipeline(
         self, repo_url: str, gitlab_token: str, branch: str, pipeline_id: int,
         gitlab_ci_content: str, dockerfile_content: str, language: str, framework: str,
-        duration: Optional[int] = None, stages_passed: Optional[List[str]] = None
+        duration: Optional[int] = None, stages_passed: Optional[List[str]] = None,
+        build_tool: str = ""
     ) -> bool:
         from .templates import store_successful_pipeline
         return await store_successful_pipeline(
             repo_url, gitlab_token, branch, pipeline_id,
             gitlab_ci_content, dockerfile_content, language, framework,
-            duration, stages_passed
+            duration, stages_passed, build_tool
         )
 
     async def get_successful_pipelines(
@@ -254,10 +257,13 @@ class PipelineGeneratorService:
         # - Ollama: Use template DIRECTLY without LLM (Ollama tends to ignore templates)
         # - Claude Code: Pass template as mandatory reference to Claude for adaptation
         # ===================================================================
-        print(f"[RL-Direct] Checking for proven templates for {analysis['language']}/{analysis['framework']}...")
+        build_tool = analysis.get('build_tool', '')
+        print(f"[RL-Direct] Checking for proven templates for {analysis['language']}/{analysis['framework']}"
+              f"{f'/{build_tool}' if build_tool else ''}...")
         template_files = await self.get_best_template_files(
             analysis['language'],
-            analysis['framework']
+            analysis['framework'],
+            build_tool
         )
 
         if template_files and template_files.get('gitlab_ci'):
@@ -272,10 +278,18 @@ class PipelineGeneratorService:
                 gitlab_ci = template_files['gitlab_ci']
                 dockerfile = template_files['dockerfile']
 
+                # Rewrite template images to match this project's resolved versions
+                from app.services.shared.deep_analyzer import rewrite_template_images
+                gitlab_ci, dockerfile, rewrite_corrections = rewrite_template_images(
+                    gitlab_ci, dockerfile, analysis
+                )
+                if rewrite_corrections:
+                    print(f"[RL-Direct] Rewrote {len(rewrite_corrections)} image(s): {rewrite_corrections}")
+
                 # Validate and fix images even for proven templates — stored templates
                 # may use outdated image versions (e.g., golang:1.21 when project needs 1.22)
                 gitlab_ci, dockerfile, img_corrections = self.validate_and_fix_pipeline_images(
-                    gitlab_ci, dockerfile, analysis['language']
+                    gitlab_ci, dockerfile, analysis['language'], analysis
                 )
                 if img_corrections:
                     print(f"[RL-Direct] Fixed {len(img_corrections)} image(s) in proven template: {img_corrections}")
@@ -324,7 +338,8 @@ class PipelineGeneratorService:
             # Fallback: query ChromaDB for a reference pipeline (may be cross-language)
             reference_pipeline, ref_source_language = await self.get_reference_pipeline(
                 analysis['language'],
-                analysis['framework']
+                analysis['framework'],
+                build_tool
             )
 
         # Get relevant feedback from previous corrections
@@ -387,6 +402,11 @@ You MUST use this as your base and ONLY modify language-specific parts.
         additional_context_line = f"Additional context: {additional_context}" if additional_context else ""
         project_files_str = ', '.join(analysis['files'][:15])
 
+        # Build deep analysis context from file-content scanning
+        from app.services.shared.deep_analyzer import build_deep_context
+        deep_context = build_deep_context(analysis)
+        deep_section = f"\n## DEEP ANALYSIS (from file content scanning):\n{deep_context}\n" if deep_context else ""
+
         prompt = f"""
 \u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557
 \u2551                    GITLAB CI/CD PIPELINE GENERATOR                            \u2551
@@ -401,7 +421,7 @@ Generate .gitlab-ci.yml and Dockerfile for a {analysis['language']} {analysis['f
 - Framework: {analysis['framework']}
 - Package Manager: {analysis['package_manager']}
 - Project Files: {project_files_str}
-
+{deep_section}
 {reference_context}
 
 {template_warning}
@@ -585,9 +605,17 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             final_gitlab_ci = self._ensure_learn_stage(final_gitlab_ci)
             final_dockerfile = dockerfile or self._get_default_dockerfile(analysis)
 
+            # Rewrite images to match this project's resolved versions
+            from app.services.shared.deep_analyzer import rewrite_template_images
+            final_gitlab_ci, final_dockerfile, rewrite_corrections = rewrite_template_images(
+                final_gitlab_ci, final_dockerfile, analysis
+            )
+            if rewrite_corrections:
+                print(f"[LLM-Generate] Rewrote {len(rewrite_corrections)} image(s): {rewrite_corrections}")
+
             # Validate and auto-correct images for the detected language
             final_gitlab_ci, final_dockerfile, img_corrections = self.validate_and_fix_pipeline_images(
-                final_gitlab_ci, final_dockerfile, analysis['language']
+                final_gitlab_ci, final_dockerfile, analysis['language'], analysis
             )
 
             # Auto-seed any missing images into Nexus
@@ -659,15 +687,10 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
         gitlab_ci = result.get('gitlab_ci', '')
         dockerfile = result.get('dockerfile', '')
         analysis = result.get('analysis', {})
+        is_rag_template = result.get('template_source') == 'reinforcement_learning'
 
-        # If template was used directly from ChromaDB, skip validation (already proven)
-        if result.get('template_source') == 'reinforcement_learning':
-            print("[Validation Flow] Using proven template from RL - skipping validation")
-            return {
-                **result,
-                'validation_skipped': True,
-                'validation_reason': 'Template from reinforcement learning (already validated)'
-            }
+        if is_rag_template:
+            print("[Validation Flow] RAG template found — still validating (templates can be stale or mismatched)")
 
         # Step 2: Validate the generated pipeline
         print("[Validation Flow] Running dry-run validation...")

@@ -1,7 +1,14 @@
 """
-ChromaDB template operations for GitHub Actions workflows.
-
-Handles retrieving reference workflows and best-performing templates.
+File: templates.py
+Purpose: Manages ChromaDB template retrieval for GitHub Actions workflows. Resolves collection
+    UUIDs for the ChromaDB v2 API, fetches reference workflows for LLM context, retrieves the
+    best-performing proven template from the successful_pipelines collection, and ensures every
+    workflow includes a correctly-formatted learn-record job (using wget, not curl).
+When Used: Called during the Priority 1 check in generate_workflow_files() to look for a proven
+    successful template in ChromaDB, and during LLM generation (Priority 3) to provide a reference
+    workflow. The _ensure_learn_job() function is applied to every generated workflow before return.
+Why Created: Extracted from the generator to isolate all ChromaDB query logic and the learn-job
+    injection/fixup logic, which involves YAML parsing and the on:/true: boolean workaround.
 """
 import re
 import yaml

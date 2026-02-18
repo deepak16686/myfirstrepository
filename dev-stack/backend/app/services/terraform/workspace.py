@@ -1,8 +1,8 @@
 """
-Terraform Workspace Manager
-
-Manages isolated workspace directories for terraform operations.
-Each generation/plan/apply gets its own directory with .tf files.
+File: workspace.py
+Purpose: Manages isolated temporary workspace directories for Terraform operations, writing .tf files to disk and providing CRUD operations for workspace lifecycle (create, read, update, cleanup) with automatic age-based cleanup.
+When Used: Called by the LLM fixer and router when terraform CLI operations (init, validate, plan, apply) need a physical directory with .tf files on disk.
+Why Created: Terraform CLI requires files on the filesystem rather than in-memory strings, so this module bridges the gap by managing temp directories with unique IDs, enabling concurrent terraform operations without conflicts.
 """
 import os
 import shutil

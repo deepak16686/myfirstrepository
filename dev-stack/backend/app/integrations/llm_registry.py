@@ -1,8 +1,12 @@
 """
-LLM Provider Registry
-
-Central registry managing all LLM providers with metadata and runtime switching.
-Replaces the simple if/else factory with a data-driven approach.
+File: llm_registry.py
+Purpose: Central registry that manages all available LLM providers (Ollama, Claude Code CLI, OpenAI)
+         with metadata (name, description, models, status) and supports runtime switching between
+         providers via set_active_provider(). Singleton instance used throughout the application.
+When Used: Instantiated once at import time. Queried by llm_provider.py on every LLM call. Modified
+           by the llm_settings router when users switch providers via the frontend.
+Why Created: Supports multiple LLM backends with runtime switching so users can compare providers
+             without restarting the backend. Replaces the original simple if/else factory.
 """
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any

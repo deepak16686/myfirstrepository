@@ -1,9 +1,8 @@
 """
-Terraform Generator Service - Facade Class.
-
-Main orchestration class that delegates to specialized modules.
-Mirrors the Jenkins pipeline generator pattern with full RL feedback,
-template storage, and LLM-based generation.
+File: generator.py
+Purpose: Main facade class (TerraformGeneratorService) that orchestrates Terraform HCL generation by prioritizing ChromaDB proven templates, then LLM-based generation with RL feedback, then hardcoded default templates as fallback. Also handles validation and iterative LLM fixing.
+When Used: Called by the Terraform router for generate, generate-with-validation, and chat endpoints whenever a user requests infrastructure-as-code generation.
+Why Created: Mirrors the pipeline generator pattern used by GitLab/Jenkins/GitHub Actions generators, providing a single entry point that delegates to analyzer, templates, learning, and validator modules while managing the generation priority chain.
 """
 import os
 import re

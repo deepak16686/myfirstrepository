@@ -1,5 +1,12 @@
 """
-Splunk HEC (HTTP Event Collector) Integration
+File: splunk.py
+Purpose: Splunk HTTP Event Collector (HEC) client for sending pipeline events and performing health
+         checks. Handles self-signed TLS certificates (verify=False) common in development Splunk
+         instances and uses the 'Splunk <token>' authorization header format.
+When Used: Called by the connectivity router for health checks. Pipeline notify stages send events
+           directly via curl/wget in the generated CI/CD YAML using the HEC token from Vault.
+Why Created: Provides observability into pipeline execution by forwarding build events to Splunk,
+             enabling dashboards that track pipeline success rates and failure patterns.
 """
 import httpx
 from typing import Optional, Dict, Any

@@ -1,9 +1,17 @@
 """
-Jenkins Pipeline Generator Service - Facade Class.
-
-Main orchestration class that delegates to specialized modules.
-Mirrors the GitLab pipeline generator pattern with full RL feedback,
-image seeding, and LLM-based iterative fixing.
+File: generator.py
+Purpose: Facade class (JenkinsPipelineGeneratorService) that orchestrates the entire Jenkins
+    pipeline generation workflow. Delegates to specialized modules for analysis, template
+    retrieval, LLM generation, validation, image seeding, committing, build status, and
+    reinforcement learning. Implements the priority chain: ChromaDB proven template > LLM
+    generation with RL feedback > default templates, plus a generate_with_validation() method
+    that runs iterative LLM fixing until the pipeline passes text-based validation.
+When Used: The singleton instance (jenkins_pipeline_generator) is the primary entry point for
+    the Jenkins pipeline router. Every /generate, /generate-validated, /chat, /commit, /status,
+    and /learn endpoint ultimately calls methods on this facade.
+Why Created: After splitting the monolithic 3000+ line generator into separate modules, this
+    facade was created to maintain a single unified API surface. It keeps the router thin by
+    exposing delegated methods while hiding the internal module structure.
 """
 import os
 import re
@@ -324,6 +332,15 @@ class JenkinsPipelineGeneratorService:
         if best_template and best_template.get("jenkinsfile"):
             print(f"[Jenkins Pipeline] Using proven template from ChromaDB")
             jenkinsfile = self._ensure_learn_stage(best_template["jenkinsfile"])
+            dockerfile = best_template.get("dockerfile", self._get_default_dockerfile(analysis))
+
+            # Rewrite template images to match this project's resolved versions
+            from app.services.shared.deep_analyzer import rewrite_template_images
+            jenkinsfile, dockerfile, rewrite_corrections = rewrite_template_images(
+                jenkinsfile, dockerfile, analysis
+            )
+            if rewrite_corrections:
+                print(f"[Jenkins Pipeline] Rewrote {len(rewrite_corrections)} image(s): {rewrite_corrections}")
 
             # Auto-seed any missing images into Nexus
             await self._seed_images(jenkinsfile)
@@ -331,7 +348,7 @@ class JenkinsPipelineGeneratorService:
             return {
                 "success": True,
                 "jenkinsfile": jenkinsfile,
-                "dockerfile": best_template.get("dockerfile", self._get_default_dockerfile(analysis)),
+                "dockerfile": dockerfile,
                 "analysis": analysis,
                 "model_used": "chromadb-successful",
                 "feedback_used": 0,
@@ -342,6 +359,15 @@ class JenkinsPipelineGeneratorService:
         if use_template_only:
             jenkinsfile = self._get_default_jenkinsfile(analysis, agent_label)
             dockerfile = self._get_default_dockerfile(analysis)
+
+            # Rewrite default template images to match this project's resolved versions
+            from app.services.shared.deep_analyzer import rewrite_template_images
+            jenkinsfile, dockerfile, rewrite_corrections = rewrite_template_images(
+                jenkinsfile, dockerfile, analysis
+            )
+            if rewrite_corrections:
+                print(f"[Jenkins Pipeline] Rewrote {len(rewrite_corrections)} default template image(s): {rewrite_corrections}")
+
             return {
                 "success": True,
                 "jenkinsfile": self._ensure_learn_stage(jenkinsfile),
@@ -371,6 +397,14 @@ class JenkinsPipelineGeneratorService:
                     generated.get("dockerfile", ""), language
                 )
 
+                # Rewrite LLM-generated images to match this project's resolved versions
+                from app.services.shared.deep_analyzer import rewrite_template_images
+                jenkinsfile, dockerfile, rewrite_corrections = rewrite_template_images(
+                    jenkinsfile, dockerfile, analysis
+                )
+                if rewrite_corrections:
+                    print(f"[Jenkins Pipeline] Rewrote {len(rewrite_corrections)} LLM image(s): {rewrite_corrections}")
+
                 # Auto-seed any missing images into Nexus
                 jenkinsfile = self._ensure_learn_stage(jenkinsfile)
                 await self._seed_images(jenkinsfile)
@@ -389,6 +423,15 @@ class JenkinsPipelineGeneratorService:
         # Fallback: Use default templates
         jenkinsfile = self._get_default_jenkinsfile(analysis, agent_label)
         dockerfile = self._get_default_dockerfile(analysis)
+
+        # Rewrite fallback template images to match this project's resolved versions
+        from app.services.shared.deep_analyzer import rewrite_template_images
+        jenkinsfile, dockerfile, rewrite_corrections = rewrite_template_images(
+            jenkinsfile, dockerfile, analysis
+        )
+        if rewrite_corrections:
+            print(f"[Jenkins Pipeline] Rewrote {len(rewrite_corrections)} fallback image(s): {rewrite_corrections}")
+
         jenkinsfile = self._ensure_learn_stage(jenkinsfile)
 
         # Auto-seed images for default templates too
@@ -454,6 +497,11 @@ class JenkinsPipelineGeneratorService:
             with open(prompt_path, 'r') as f:
                 system_prompt = f.read()
 
+        # Build deep analysis context
+        from app.services.shared.deep_analyzer import build_deep_context
+        deep_context = build_deep_context(analysis)
+        deep_section = f"\nDeep Analysis (from file content scanning):\n{deep_context}\n" if deep_context else ""
+
         prompt = f"""{system_prompt}
 
 Generate a Jenkinsfile (Declarative Pipeline) and Dockerfile for a {analysis['language']} project.
@@ -462,7 +510,7 @@ Project Analysis:
 - Language: {analysis['language']}
 - Framework: {analysis['framework']}
 - Package Manager: {analysis['package_manager']}
-
+{deep_section}
 Requirements:
 - Use Nexus private registry for ALL images: ${{NEXUS_REGISTRY}}/apm-repo/demo/<image>
 - Use Jenkins Declarative Pipeline syntax
@@ -616,16 +664,7 @@ Output format:
         dockerfile = result.get('dockerfile', '')
         analysis = result.get('analysis', {})
 
-        # If template was used directly from ChromaDB, skip validation
-        if result.get('template_source') == 'reinforcement_learning':
-            print("[Jenkins Validation Flow] Using proven template from RL - skipping validation")
-            return {
-                **result,
-                'validation_skipped': True,
-                'validation_reason': 'Template from reinforcement learning (already validated)'
-            }
-
-        # Step 2: Run LLM fixer iterative validation
+        # Step 2: Run LLM fixer iterative validation (all sources go through validation now)
         print("[Jenkins Validation Flow] Running iterative validation and fixing...")
         fix_result = await jenkins_llm_fixer.iterative_fix(
             jenkinsfile=jenkinsfile,

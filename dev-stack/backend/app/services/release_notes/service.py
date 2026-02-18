@@ -1,7 +1,8 @@
 """
-Release Notes Generator Service
-
-Fetches commits from a repo and generates formatted release notes via LLM.
+File: service.py
+Purpose: Fetches commit history from a repository via the CommitHistoryService, then generates formatted release notes by sending the commits to an LLM with one of three system prompts (standard, keepachangelog, or detailed format).
+When Used: Called by the release notes router when users provide a repository URL and date range and request auto-generated release notes.
+Why Created: Automates the tedious process of writing release notes by combining git log data with LLM summarization, supporting multiple output formats to match different team conventions.
 """
 from typing import Dict, Any, Optional
 

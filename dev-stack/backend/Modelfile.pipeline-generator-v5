@@ -1,3 +1,21 @@
+# =============================================================================
+# Ollama Model Definition: pipeline-generator-v5
+# =============================================================================
+# Base model: qwen3:32b (Alibaba Qwen 3, 32 billion parameters)
+# Purpose: Custom Ollama model fine-tuned via system prompt for generating
+#     GitLab CI/CD pipeline configurations (.gitlab-ci.yml + Dockerfile).
+# When used: Created via 'ollama create pipeline-generator-v5 -f Modelfile.pipeline-generator-v5'
+#     and invoked by the pipeline generator service when LLM_PROVIDER=ollama.
+# Why it exists: Bundles the full system prompt (Nexus registry rules, 9-stage
+#     pipeline structure, language-specific templates) into a named Ollama model
+#     so that each LLM call does not need to re-send the large system prompt.
+#     Temperature 0.2 ensures deterministic, rule-following output. Context
+#     window of 8192 tokens accommodates large repo analysis + full pipeline output.
+# Note: When LLM_PROVIDER is 'claude-code' or 'openai', this Modelfile is not
+#     used -- the system prompt is loaded from app/prompts/pipeline_system_prompt.txt
+#     instead and passed directly to the respective API.
+# =============================================================================
+
 FROM qwen3:32b
 
 PARAMETER temperature 0.2

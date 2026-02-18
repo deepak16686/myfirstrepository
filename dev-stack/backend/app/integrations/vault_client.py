@@ -1,9 +1,15 @@
 """
-HashiCorp Vault Integration
-
-Fetches secrets from Vault KV-v2 engine at application startup.
-Supports both token auth (dev/admin) and AppRole auth (service accounts).
-Falls back gracefully to environment variables if Vault is unavailable.
+File: vault_client.py
+Purpose: HashiCorp Vault KV-v2 secret client implemented as a singleton. Resolves the root token from
+         either VAULT_TOKEN env var or the persistent file at /vault/file/.root-token. Supports both
+         token auth (dev/admin) and AppRole auth (VAULT_ROLE_ID + VAULT_SECRET_ID for service accounts).
+         Falls back gracefully to environment variables if Vault is unavailable.
+When Used: Called by config.py at startup to overlay Vault secrets onto Settings fields (GitLab PAT,
+           Gitea token, SonarQube token, Nexus password, etc.). The secret resolution priority chain
+           is: service-accounts path > admin path > environment variables.
+Why Created: Centralizes all secret management through Vault so credentials are never stored in .env
+             files or docker-compose environment variables in production. The fallback mechanism
+             ensures the backend still starts even if Vault is temporarily unavailable.
 """
 import os
 import logging
@@ -15,9 +21,12 @@ logger = logging.getLogger(__name__)
 class VaultSecretResolver:
     """Resolves secrets from HashiCorp Vault KV-v2."""
 
+    # Path where vault-init stores the root token (persistent mode)
+    TOKEN_FILE = "/vault/file/.root-token"
+
     def __init__(self):
         self.vault_url = os.environ.get("VAULT_URL", "http://vault:8200")
-        self.vault_token = os.environ.get("VAULT_TOKEN", "")
+        self.vault_token = self._resolve_token()
         self._vault_role_id = os.environ.get("VAULT_ROLE_ID", "")
         self._vault_secret_id = os.environ.get("VAULT_SECRET_ID", "")
         self._client = None
@@ -25,6 +34,22 @@ class VaultSecretResolver:
         self._available = False
         self._auth_method = None
         self._connect()
+
+    def _resolve_token(self) -> str:
+        """Resolve Vault token: env var first, then token file (persistent mode)."""
+        env_token = os.environ.get("VAULT_TOKEN", "")
+        if env_token:
+            return env_token
+        # Try reading from the shared vault-data volume (written by vault-init)
+        if os.path.isfile(self.TOKEN_FILE):
+            try:
+                token = open(self.TOKEN_FILE).read().strip()
+                if token:
+                    logger.info(f"Vault token loaded from {self.TOKEN_FILE}")
+                    return token
+            except Exception as e:
+                logger.warning(f"Could not read {self.TOKEN_FILE}: {e}")
+        return ""
 
     def _connect(self):
         """Attempt to connect to Vault via AppRole or token."""

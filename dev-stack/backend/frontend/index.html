@@ -1,3 +1,14 @@
+<!--
+  File: index.html
+  Purpose: Main HTML page for the AI DevOps Platform frontend. Defines the page structure including
+           the sidebar with tool category cards (DevOps, Infrastructure, Security, Observability),
+           the main chat interface area, and script/style dependencies (Highlight.js, Marked, Mermaid).
+  When Used: Served by the FastAPI backend at the root URL. This is the entry point for all user
+             interactions with the platform — users select a tool card and chat with it.
+  Why Created: Provides the single-page application shell that hosts the conversational UI for all
+               backend tools (pipeline generators, Terraform, secret manager, compliance checker, etc.),
+               replacing the need for separate web dashboards per tool.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>

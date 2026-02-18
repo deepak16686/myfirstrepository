@@ -1,7 +1,14 @@
 """
-Release Notes Generator Router
-
-Endpoints for generating release notes from git commits via LLM.
+File: release_notes.py
+Purpose: Provides REST endpoints for generating LLM-summarized release notes from git commits
+    within a date range, and for listing repository branches as a convenience proxy to the
+    commit history service.
+When Used: Invoked by the frontend Release Notes Generator tool card when a user selects a
+    repository, date range, and format style to auto-generate release notes via the
+    /release-notes/* routes.
+Why Created: Combines the commit history service (raw commit fetching) with LLM summarization
+    into a purpose-built release notes workflow, keeping this higher-level orchestration
+    separate from the raw commit history endpoints.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

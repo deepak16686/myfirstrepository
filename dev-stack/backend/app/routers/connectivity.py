@@ -1,5 +1,15 @@
 """
-Connectivity Router - Check connectivity to all DevOps tools
+File: connectivity.py
+Purpose: Performs concurrent health checks against every configured DevOps tool (GitLab, Jenkins,
+    SonarQube, Trivy, Nexus, Ollama, ChromaDB, Jira, Splunk, GitHub/Gitea, Redis, PostgreSQL),
+    returning version info, latency, and per-tool access-group metadata, and also handles
+    Jira-based access-request submissions.
+When Used: Invoked by the frontend Connectivity Validator dashboard on page load to display the
+    health/status grid of all tools, and when a user submits a tool access request form that
+    creates a Jira ticket via the /connectivity/* routes.
+Why Created: Provides a single endpoint that fans out health checks to all integrations in
+    parallel, centralizing tool display metadata and access-group definitions that would
+    otherwise be scattered across individual tool routers.
 """
 import asyncio
 import time

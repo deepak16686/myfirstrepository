@@ -1,8 +1,8 @@
 """
-Secret Manager Service
-
-Unified view/CRUD of secrets across GitLab CI/CD variables,
-Gitea org secrets (2 orgs), and Jenkins credentials.
+File: service.py
+Purpose: Provides unified CRUD operations for CI/CD secrets across GitLab CI/CD variables, Gitea organization secrets (jenkins-projects and github-projects orgs), and Jenkins credentials, presenting them in a single aggregated view.
+When Used: Called by the secret manager router when users list, create, update, or delete secrets through the frontend's secret management tool.
+Why Created: Eliminates the need to manage secrets in three separate tool UIs by providing a single API that reads and writes secrets across GitLab, Gitea, and Jenkins, using each platform's native API under the hood.
 """
 import asyncio
 from typing import Dict, Any, List, Optional

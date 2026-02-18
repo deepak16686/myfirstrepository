@@ -1,5 +1,14 @@
 """
-Base class for tool integrations
+File: base.py
+Purpose: Abstract base class for all DevOps tool integrations. Provides shared HTTP client methods
+         (GET, POST, PUT, DELETE) with configurable timeouts and authentication, a ToolExecutor
+         context class for wrapping tool operations with error handling, and the abstract interface
+         that all tool-specific integration classes must implement.
+When Used: Inherited by every integration class (GitLab, Jenkins, Nexus, SonarQube, Trivy, Splunk,
+           Jira, ChromaDB, Ollama). The BaseIntegration.check_connection() method is called by the
+           connectivity router's health check endpoint.
+Why Created: Eliminates code duplication across 10+ tool integrations by centralizing HTTP client
+             logic, connection checking, and error handling patterns in one reusable base class.
 """
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional

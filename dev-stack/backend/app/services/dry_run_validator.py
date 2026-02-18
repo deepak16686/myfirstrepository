@@ -1,9 +1,8 @@
 """
-Dry Run Validator Service
-
-Validates Dockerfile and .gitlab-ci.yml before committing to GitLab.
-This catches syntax errors, invalid configurations, and common mistakes
-BEFORE the pipeline runs, saving time and resources.
+File: dry_run_validator.py
+Purpose: Pre-commit validation service that checks Dockerfile syntax, YAML structure, GitLab CI schema compliance (via GitLab's lint API), and Nexus image availability before pipeline files are committed, catching errors early.
+When Used: Called by the pipeline router's dry-run endpoint and by the self-healing workflow before committing generated pipeline files to GitLab.
+Why Created: Prevents wasted CI/CD runs by validating generated pipeline files locally before they reach GitLab, catching syntax errors, invalid stage references, missing Nexus images, and Dockerfile issues that would otherwise only surface after a commit.
 """
 import re
 import yaml

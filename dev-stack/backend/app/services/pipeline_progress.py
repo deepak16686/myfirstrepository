@@ -1,8 +1,14 @@
 """
-Pipeline Progress Store - In-memory tracking of pipeline monitoring and self-healing progress.
-
-Keyed by "{project_id}:{branch}" so the frontend can poll by the values
-it receives from the commit response.
+File: pipeline_progress.py
+Purpose: In-memory progress store that tracks the real-time status of pipeline monitoring
+    and self-healing operations. Stores timestamped events (monitoring, fixing, committing,
+    success, failure) keyed by project_id:branch so the frontend can poll for live updates.
+When Used: Created when a pipeline is committed and the monitoring background task starts.
+    Updated throughout the self-healing workflow as each stage progresses. Polled by the
+    frontend via the /progress endpoint to display live status to the user.
+Why Created: Built as a lightweight in-memory store to bridge the gap between long-running
+    background tasks (pipeline monitoring, self-healing) and the frontend polling model,
+    allowing users to see real-time progress without WebSocket complexity.
 """
 from datetime import datetime
 from typing import Dict, Optional, List

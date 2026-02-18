@@ -1,7 +1,14 @@
 """
-Commit History Router
-
-Endpoints for fetching commit history from GitLab and Gitea repositories.
+File: commit_history.py
+Purpose: Provides REST endpoints for listing branches, fetching paginated commit history within a
+    date range, and retrieving single-commit details (including changed files) from GitLab and
+    Gitea repositories.
+When Used: Invoked by the frontend Commit History tool card when a user enters a repository URL
+    and date range to browse commits, and also consumed internally by the Release Notes generator
+    to gather raw commit data before LLM summarization.
+Why Created: Centralizes cross-platform git history retrieval (supporting both GitLab and Gitea
+    APIs) into a single router, decoupling it from the pipeline generators and release notes
+    router that consume this data.
 """
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel

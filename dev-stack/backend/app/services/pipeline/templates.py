@@ -1,7 +1,15 @@
 """
-ChromaDB Template CRUD Functions
-
-Standalone async functions for managing pipeline templates in ChromaDB.
+File: templates.py
+Purpose: Manages pipeline template storage and retrieval in ChromaDB. Provides CRUD operations
+    for proven pipeline templates (from successful RL runs), manually uploaded templates, and
+    validated templates. Implements the priority-based template lookup (exact language match,
+    cross-language fallback, built-in default).
+When Used: Called during pipeline generation to find the best existing template before invoking
+    the LLM, after successful pipeline runs to store proven configurations, and by the manual
+    template upload API endpoint for seeding the RL database with known-good configurations.
+Why Created: Extracted from the monolithic pipeline_generator.py to consolidate all ChromaDB
+    template CRUD operations into a single module, separating data persistence from the
+    generation orchestration and validation logic.
 """
 import hashlib
 from typing import Dict, Any, Optional, List
@@ -23,13 +31,13 @@ def _get_chromadb() -> ChromaDBIntegration:
     return ChromaDBIntegration(chromadb_config)
 
 
-async def get_reference_pipeline(language: str, framework: str) -> tuple:
+async def get_reference_pipeline(language: str, framework: str, build_tool: str = "") -> tuple:
     """
     Get reference pipeline from RL successful pipelines or built-in defaults.
     Returns (template_yaml, source_language) tuple.
 
     PRIORITY ORDER:
-    1. Best successful pipeline from RL for this language (proven)
+    1. Best successful pipeline from RL for this language+build_tool (proven)
     2. ANY successful pipeline from RL (cross-language, proven)
     3. Built-in default template for the language (hardcoded fallback)
 
@@ -41,7 +49,7 @@ async def get_reference_pipeline(language: str, framework: str) -> tuple:
     try:
         # PRIORITY 1: Check for successful pipelines for this language
         print(f"[RL] Checking for successful pipelines for {language}/{framework}...")
-        best_config = await get_best_pipeline_config(language, framework)
+        best_config = await get_best_pipeline_config(language, framework, build_tool)
         if best_config:
             print(f"[RL] Using proven successful pipeline config ({len(best_config)} chars)")
             return _ensure_learn_stage(best_config), language
@@ -117,7 +125,8 @@ async def get_any_successful_pipeline() -> tuple:
 
 async def get_best_pipeline_config(
     language: str,
-    framework: str = ""
+    framework: str = "",
+    build_tool: str = ""
 ) -> Optional[str]:
     """
     Get the best performing pipeline configuration for a language/framework.
@@ -128,12 +137,13 @@ async def get_best_pipeline_config(
     Args:
         language: Programming language
         framework: Optional framework
+        build_tool: Optional build tool (maven, gradle, etc.) for more precise matching
 
     Returns:
         The best gitlab-ci.yml content, or None if no successful configs exist
     """
     try:
-        successful = await get_successful_pipelines(language, framework, limit=10)
+        successful = await get_successful_pipelines(language, framework, build_tool=build_tool, limit=10)
 
         if not successful:
             print(f"[RL] No successful pipelines found for {language}/{framework}")
@@ -167,7 +177,8 @@ async def get_best_pipeline_config(
 
 async def get_best_template_files(
     language: str,
-    framework: str = ""
+    framework: str = "",
+    build_tool: str = ""
 ) -> Optional[Dict[str, str]]:
     """
     Get the best performing pipeline template with BOTH gitlab-ci and dockerfile.
@@ -176,12 +187,13 @@ async def get_best_template_files(
     Args:
         language: Programming language
         framework: Optional framework
+        build_tool: Optional build tool (maven, gradle, etc.) for precise matching
 
     Returns:
         Dict with 'gitlab_ci' and 'dockerfile' keys, or None if no template exists
     """
     try:
-        successful = await get_successful_pipelines(language, framework, limit=10)
+        successful = await get_successful_pipelines(language, framework, build_tool=build_tool, limit=10)
 
         if not successful:
             print(f"[RL-Direct] No templates found for {language}/{framework}")
@@ -324,7 +336,8 @@ async def store_manual_template(
     framework: str,
     gitlab_ci: str,
     dockerfile: Optional[str] = None,
-    description: Optional[str] = None
+    description: Optional[str] = None,
+    build_tool: str = ""
 ) -> bool:
     """
     Manually store a pipeline configuration as a proven template.
@@ -336,6 +349,7 @@ async def store_manual_template(
         gitlab_ci: The .gitlab-ci.yml content
         dockerfile: Optional Dockerfile content
         description: Optional description of the template
+        build_tool: Optional build tool (maven, gradle, pip, etc.)
 
     Returns:
         True if stored successfully, False otherwise
@@ -371,6 +385,7 @@ Source: manual_upload
         metadata = {
             "language": language.lower(),
             "framework": framework.lower(),
+            "build_tool": build_tool.lower() if build_tool else "",
             "source": "manual_upload",
             "stages_count": stages_count,
             "duration": 0,  # Unknown for manual templates
@@ -422,7 +437,8 @@ async def store_successful_pipeline(
     language: str,
     framework: str,
     duration: Optional[int] = None,
-    stages_passed: Optional[List[str]] = None
+    stages_passed: Optional[List[str]] = None,
+    build_tool: str = ""
 ) -> bool:
     """
     Store a successful pipeline configuration in ChromaDB for reinforcement learning.
@@ -439,6 +455,7 @@ async def store_successful_pipeline(
         framework: Framework used
         duration: Pipeline duration in seconds
         stages_passed: List of stage names that passed
+        build_tool: Build tool used (maven, gradle, pip, etc.)
     """
     try:
         chromadb = _get_chromadb()
@@ -485,6 +502,7 @@ Stages Passed: {', '.join(stages_passed) if stages_passed else 'all'}
         metadata = {
             "language": language.lower(),
             "framework": framework.lower(),
+            "build_tool": build_tool.lower() if build_tool else "",
             "pipeline_id": str(pipeline_id),
             "duration": duration or 0,
             "stages_count": len(stages_passed) if stages_passed else 8,
@@ -531,15 +549,17 @@ Stages Passed: {', '.join(stages_passed) if stages_passed else 'all'}
 async def get_successful_pipelines(
     language: str,
     framework: str = "",
+    build_tool: str = "",
     limit: int = 5
 ) -> List[Dict[str, Any]]:
     """
-    Retrieve successful pipeline configurations for a given language/framework.
+    Retrieve successful pipeline configurations for a given language/framework/build_tool.
     Used during pipeline generation to learn from past successes.
 
     Args:
         language: Programming language to filter by
         framework: Optional framework to filter by
+        build_tool: Optional build tool (maven, gradle, etc.) for precise matching
         limit: Maximum number of results to return
 
     Returns:
@@ -548,16 +568,18 @@ async def get_successful_pipelines(
     try:
         chromadb = _get_chromadb()
 
-        # Build filter - try exact language+framework first
-        if framework:
-            where_filter = {
-                "$and": [
-                    {"language": language.lower()},
-                    {"framework": framework.lower()}
-                ]
-            }
+        # Build filter — try most specific match first, then broaden
+        # Priority: language + build_tool > language + framework > language only
+        conditions = [{"language": language.lower()}]
+        if build_tool:
+            conditions.append({"build_tool": build_tool.lower()})
+        elif framework:
+            conditions.append({"framework": framework.lower()})
+
+        if len(conditions) > 1:
+            where_filter = {"$and": conditions}
         else:
-            where_filter = {"language": language.lower()}
+            where_filter = conditions[0]
 
         results = await chromadb.get_documents(
             collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
@@ -566,9 +588,22 @@ async def get_successful_pipelines(
             include=["documents", "metadatas"]
         )
 
-        # Fallback: if exact framework match returned nothing, try language-only
-        if framework and (not results or not results.get('ids')):
-            print(f"[RL] No exact match for {language}/{framework}, trying language-only...")
+        # Fallback 1: if build_tool match returned nothing, try language + framework
+        if build_tool and (not results or not results.get('ids')) and framework:
+            print(f"[RL] No match for {language}/{build_tool}, trying {language}/{framework}...")
+            results = await chromadb.get_documents(
+                collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
+                where={"$and": [
+                    {"language": language.lower()},
+                    {"framework": framework.lower()}
+                ]},
+                limit=limit,
+                include=["documents", "metadatas"]
+            )
+
+        # Fallback 2: if still nothing, try language-only
+        if (build_tool or framework) and (not results or not results.get('ids')):
+            print(f"[RL] No exact match for {language}/{framework or build_tool}, trying language-only...")
             results = await chromadb.get_documents(
                 collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
                 where={"language": language.lower()},
@@ -590,13 +625,14 @@ async def get_successful_pipelines(
                 "document": doc,
                 "language": metadata.get('language', ''),
                 "framework": metadata.get('framework', ''),
+                "build_tool": metadata.get('build_tool', ''),
                 "pipeline_id": metadata.get('pipeline_id', ''),
                 "duration": metadata.get('duration', 0),
                 "timestamp": metadata.get('timestamp', ''),
                 "stages_count": metadata.get('stages_count', 0)
             })
 
-        print(f"[RL] Found {len(successful_configs)} successful pipelines for {language}/{framework or 'any'}")
+        print(f"[RL] Found {len(successful_configs)} successful pipelines for {language}/{framework or build_tool or 'any'}")
         return successful_configs
 
     except Exception as e:

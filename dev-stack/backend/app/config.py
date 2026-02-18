@@ -1,6 +1,13 @@
 """
-Configuration management for DevOps Tools Backend
-Supports dynamic tool configuration via environment variables, config file, and Vault
+File: app/config.py
+Purpose: Central configuration management -- loads settings from environment variables, .env file,
+    and HashiCorp Vault (with fallback priority: service-account creds > admin creds > env vars).
+    Also provides ToolsManager for dynamic registration and lookup of DevOps tool connections.
+When Used: Imported at application startup (by app/main.py and most routers/services) to access
+    the global 'settings' and 'tools_manager' singletons.
+Why Created: Consolidates all configuration for 12+ integrated tools (GitLab, Jenkins, SonarQube,
+    Nexus, Gitea, Splunk, Jira, Vault, Terraform, Ollama, ChromaDB, Redis, Postgres) into a
+    single Pydantic Settings class with Vault secret overlay, avoiding scattered env-var reads.
 """
 import os
 import json

@@ -1,11 +1,15 @@
 """
-Default workflow and Dockerfile templates for various languages.
-
-Provides built-in templates for Java, Python, Node.js, and Go.
-Container jobs (compile, static-analysis) use actions/checkout@v4 inside fresh containers.
-Non-container jobs (build-image, sonarqube) use shell git clone to avoid stale
-action cache issues on Gitea act_runner's host executor.
-Dockerfiles are multi-stage (Java, Go) so each job is self-contained - no artifact passing.
+File: default_templates.py
+Purpose: Provides hardcoded, Gitea-Actions-compatible workflow YAML and Dockerfile templates for
+    Java, Python, Node.js, and Go projects. Templates include all 10 pipeline jobs (compile through
+    learn-record) with proper Nexus registry references, shell-based checkout for host-executor
+    jobs, and multi-stage Dockerfiles for compiled languages.
+When Used: Used as Priority 2 in the generation flow -- when no proven ChromaDB template exists
+    but the detected language is a known one (java, python, javascript, go). Also serves as the
+    final fallback (Priority 4) if LLM generation fails for unknown languages.
+Why Created: Extracted from the generator to keep reliable, battle-tested templates separate from
+    LLM generation logic. These templates bypass the LLM entirely because the LLM often produces
+    Gitea-incompatible patterns (wrong registries, docker login actions, artifact upload).
 """
 from typing import Dict, Any
 
@@ -15,7 +19,7 @@ from typing import Dict, Any
 _SHELL_CHECKOUT = '''- name: Checkout code
         run: |
           cd / && rm -rf "$GITHUB_WORKSPACE" || true
-          git clone --depth 1 --branch "$GITHUB_REF_NAME" \\
+          git clone --depth 1 --branch "$GITHUB_REF_NAME" \
             "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git" "$GITHUB_WORKSPACE"
           cd "$GITHUB_WORKSPACE"'''
 
@@ -42,6 +46,8 @@ def _env_block() -> str:
     """
     return '''env:
   NEXUS_REGISTRY: localhost:5001
+  NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
   IMAGE_NAME: apm-repo/demo/${{ github.event.repository.name }}
   IMAGE_TAG: "1.0.${{ github.run_number }}"
   RELEASE_TAG: "1.0.release-${{ github.run_number }}"
@@ -87,6 +93,7 @@ def _tail_jobs(runner_type: str, sonar_sources: str = "src") -> str:
     steps:
       - name: Tag and Push Release
         run: |
+          echo "${{{{ env.NEXUS_PASSWORD }}}}" | docker login ${{{{ env.NEXUS_REGISTRY }}}} -u "${{{{ env.NEXUS_USERNAME }}}}" --password-stdin
           docker pull ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           docker tag ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
             ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.RELEASE_TAG }}}}
@@ -168,6 +175,7 @@ jobs:
           docker build \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          echo "${{{{ env.NEXUS_PASSWORD }}}}" | docker login ${{{{ env.NEXUS_REGISTRY }}}} -u "${{{{ env.NEXUS_USERNAME }}}}" --password-stdin
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
@@ -230,6 +238,7 @@ jobs:
           docker build \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          echo "${{{{ env.NEXUS_PASSWORD }}}}" | docker login ${{{{ env.NEXUS_REGISTRY }}}} -u "${{{{ env.NEXUS_USERNAME }}}}" --password-stdin
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
@@ -292,6 +301,7 @@ jobs:
           docker build \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          echo "${{{{ env.NEXUS_PASSWORD }}}}" | docker login ${{{{ env.NEXUS_REGISTRY }}}} -u "${{{{ env.NEXUS_USERNAME }}}}" --password-stdin
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
@@ -360,6 +370,7 @@ jobs:
           docker build \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}} \\
             -t ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest .
+          echo "${{{{ env.NEXUS_PASSWORD }}}}" | docker login ${{{{ env.NEXUS_REGISTRY }}}} -u "${{{{ env.NEXUS_USERNAME }}}}" --password-stdin
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:${{{{ env.IMAGE_TAG }}}}
           docker push ${{{{ env.NEXUS_REGISTRY }}}}/${{{{ env.IMAGE_NAME }}}}:latest
 
@@ -407,7 +418,7 @@ RUN mvn dependency:resolve || true
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM localhost:5001/apm-repo/demo/amazoncorretto:17-alpine-jdk
+FROM localhost:5001/apm-repo/demo/eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080

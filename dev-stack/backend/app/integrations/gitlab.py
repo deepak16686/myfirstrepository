@@ -1,5 +1,13 @@
 """
-GitLab API Integration
+File: gitlab.py
+Purpose: GitLab v4 REST API client for managing projects, pipelines, jobs, branches, commits, merge
+         requests, and CI/CD variables. Provides the full CRUD surface needed by the pipeline generator
+         and the GitLab proxy router.
+When Used: Called by the GitLab pipeline committer (to push .gitlab-ci.yml), the pipeline monitor
+           (to check pipeline/job status), the self-healing workflow (to fetch failed job logs),
+           and the gitlab router (as a REST proxy for the frontend).
+Why Created: Centralizes all GitLab API interactions behind a typed async client with proper auth
+             handling, so multiple services can interact with GitLab without duplicating HTTP logic.
 """
 from typing import List, Optional, Dict, Any
 from app.integrations.base import BaseIntegration

@@ -1,9 +1,8 @@
 """
-Terraform LLM Fixer
-
-Iterative fix loop for Terraform HCL configurations.
-Validates using text-based checks and optionally terraform CLI,
-then uses LLM to fix errors and retries.
+File: terraform_llm_fixer.py
+Purpose: Implements an iterative fix loop for Terraform HCL configurations, sending validation errors back to the LLM with the original code so it can produce corrected versions, repeating until validation passes or max attempts are exhausted.
+When Used: Called by TerraformGeneratorService.generate_with_validation() when the initial LLM-generated Terraform files fail text-based or CLI validation.
+Why Created: Mirrors the LLM fixer pattern from the GitLab/Jenkins/GitHub pipeline generators, providing automated self-healing for Terraform configs so users get working HCL without manual debugging.
 """
 import os
 import re

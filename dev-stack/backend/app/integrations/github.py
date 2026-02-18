@@ -1,7 +1,14 @@
 """
-GitHub API Integration
-
-Supports both GitHub.com and self-hosted GitHub Enterprise/Gitea.
+File: github.py
+Purpose: GitHub/Gitea REST API client for managing repositories, branches, file contents, workflows,
+         and Actions runs. Supports both GitHub.com and self-hosted Gitea servers using the compatible
+         API surface (repos, contents, branches, actions/runs, actions/secrets).
+When Used: Called by the GitHub pipeline committer to push workflow files to Gitea, by the status
+           module to monitor Gitea Actions runs, and by the secret_manager to manage org-level
+           secrets. Uses 'token' auth format required by Gitea for write operations.
+Why Created: Provides a unified client for GitHub-compatible APIs so the GitHub Actions pipeline
+             generator can work with Gitea (the dev-stack's source control) using the same
+             interface that would work against real GitHub.com or GitHub Enterprise.
 """
 from typing import List, Optional, Dict, Any
 import base64

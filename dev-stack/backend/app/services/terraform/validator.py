@@ -1,8 +1,8 @@
 """
-Terraform HCL Validator
-
-Text-based validation of Terraform files before running terraform CLI.
-Catches obvious structural issues early to avoid wasting terraform init/plan time.
+File: validator.py
+Purpose: Performs text-based validation of Terraform HCL files, checking for structural correctness (terraform/provider blocks, resource types), variable declaration consistency, and security issues (hardcoded credentials) without requiring the terraform CLI.
+When Used: Called by the generator and LLM fixer as a fast pre-check before optionally running the heavier terraform init/validate CLI commands, catching obvious errors early.
+Why Created: Provides a lightweight validation layer that works without the terraform binary installed, enabling quick feedback loops during iterative LLM fixing and catching common mistakes like missing provider blocks or undeclared variables.
 """
 import re
 from typing import Dict, List, Tuple

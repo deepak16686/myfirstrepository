@@ -1,8 +1,8 @@
 """
-Dependency Scanner Service
-
-Scan Docker images for vulnerabilities via Trivy,
-with Nexus image listing for convenient selection.
+File: service.py
+Purpose: Scans Docker images for vulnerabilities using Trivy's HTTP API, lists available images from the Nexus Docker registry for convenient selection, and maintains an in-memory scan history with severity breakdowns.
+When Used: Called by the dependency scanner router when users select a Docker image to scan, view past scan results, or browse available images in the Nexus registry.
+Why Created: Provides on-demand container vulnerability scanning as a frontend tool, complementing the pipeline-integrated Trivy scans by allowing ad-hoc image inspection outside of CI/CD workflows.
 """
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone

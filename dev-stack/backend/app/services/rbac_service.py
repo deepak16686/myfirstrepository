@@ -1,9 +1,8 @@
 """
-RBAC Service - Aggregates access data from all DevOps tools
-
-Queries each tool's API using admin credentials (from Vault) to:
-- List users and their group memberships across all tools
-- Grant/revoke group access per tool
+File: rbac_service.py
+Purpose: Aggregates role-based access control data from all five DevOps tools (GitLab, Gitea, SonarQube, Nexus, Jenkins), providing a unified view of users and groups with the ability to grant or revoke access across tools from a single API.
+When Used: Called by the RBAC router when users view the access management dashboard, inspect a user's cross-tool permissions, or grant/revoke group membership on any tool.
+Why Created: Eliminates the need to manage access in five separate tool UIs by providing a single aggregated RBAC interface that queries each tool's API using admin credentials retrieved from HashiCorp Vault.
 """
 import asyncio
 import logging

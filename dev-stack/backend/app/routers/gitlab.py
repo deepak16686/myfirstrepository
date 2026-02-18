@@ -1,5 +1,13 @@
 """
-GitLab API router
+File: gitlab.py
+Purpose: Exposes a comprehensive REST proxy to the GitLab API, covering projects, pipelines, jobs,
+    branches, commits, and merge requests, enabling the frontend and other services to interact
+    with GitLab without needing direct GitLab API knowledge.
+When Used: Invoked by the frontend GitLab tool card and by internal services whenever GitLab
+    project, pipeline, job, branch, or merge-request data is needed via the /gitlab/* routes.
+Why Created: Wraps the GitLabIntegration client into a FastAPI router with proper error handling
+    and Pydantic response models, keeping GitLab-specific API logic out of the pipeline
+    generators and other higher-level services.
 """
 from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional, Dict, Any

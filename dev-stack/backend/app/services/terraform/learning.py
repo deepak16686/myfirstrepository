@@ -1,7 +1,8 @@
 """
-Reinforcement Learning / Feedback Functions for Terraform Configurations
-
-Stores and retrieves feedback for iterative improvement of Terraform generation.
+File: learning.py
+Purpose: Implements reinforcement learning (RL) feedback storage and retrieval for Terraform configurations via ChromaDB. Stores user corrections, successful configs, and plan results to improve future LLM-based generation.
+When Used: Called during generation to retrieve past feedback for prompt enrichment, and after successful terraform plan/apply to store proven configurations for future reuse.
+Why Created: Enables the Terraform generator to learn from past successes and failures, reducing reliance on the LLM over time by building a knowledge base of validated configurations in ChromaDB.
 """
 import hashlib
 from typing import Dict, Any, List, Optional

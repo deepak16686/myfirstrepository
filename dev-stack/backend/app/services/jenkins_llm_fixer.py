@@ -1,9 +1,18 @@
 """
-Jenkins Pipeline LLM Fixer
-
-Uses LLM to fix Jenkins pipeline errors based on validation results.
-Implements iterative fix-and-validate cycle.
-Mirrors gitlab_llm_fixer.py adapted for Jenkinsfile syntax.
+File: jenkins_llm_fixer.py
+Purpose: Iteratively fixes Jenkins Declarative Pipeline errors using an LLM. Receives a
+    Jenkinsfile and Dockerfile with validation errors/warnings, constructs a detailed fix
+    prompt with mandatory rules and available Nexus images, sends it to the configured LLM
+    provider (Ollama or Claude Code), parses the corrected output, and repeats until
+    validation passes or the maximum attempt count is reached.
+When Used: Called by the generator's generate_with_validation() method after initial pipeline
+    generation when text-based validation detects errors. Runs up to 10 fix iterations,
+    re-validating after each LLM correction. Also used by the /fix endpoint for on-demand
+    pipeline repair.
+Why Created: Separated from the generator as a dedicated fixer module (mirroring
+    gitlab_llm_fixer.py) to isolate the iterative fix-validate loop and its LLM interaction
+    from the main generation flow. Includes its own text-based Jenkinsfile validator since
+    there is no remote lint API for Jenkins Declarative Pipelines.
 """
 import re
 from typing import Dict, Any, Optional, Tuple

@@ -1,8 +1,14 @@
 """
-Git commit operations for Jenkins pipeline files.
-
-Commits Jenkinsfile and Dockerfile to Gitea repositories via Gitea API v1.
-Jenkins repos are hosted on Gitea (separate from GitLab) to avoid dual CI triggers.
+File: committer.py
+Purpose: Commits generated Jenkinsfile and Dockerfile to a Gitea repository via the Gitea
+    REST API v1. Creates a timestamped feature branch, checks for existing files (using SHA
+    for updates vs. POST for creates), and returns a browser-accessible URL for the new branch.
+When Used: Invoked after the user approves a generated pipeline in the chat flow. The router
+    calls commit_to_repo() to push the AI-generated files to a new branch in the Gitea repo,
+    which then triggers a Jenkins multibranch pipeline scan and build.
+Why Created: Extracted from the generator to separate git operations from pipeline generation
+    logic, keeping the commit workflow (branch creation, file upload, URL translation) in a
+    dedicated module that mirrors the GitLab/GitHub committer pattern.
 """
 import base64
 import httpx

@@ -1,9 +1,8 @@
 """
-Terraform Context Analyzer
-
-Builds context descriptions and provider configuration for Terraform generation.
-Unlike pipeline generators (which analyze repos), this module structures the
-user's provider+resource selection into generation context.
+File: analyzer.py
+Purpose: Builds context descriptions, provider configurations, and resource-specific generation hints for Terraform HCL generation. Structures the user's provider and resource type selection into structured context that the LLM and validator can consume.
+When Used: Called by the TerraformGeneratorService during generation to build prompts, and by the Terraform router to serve the provider/resource tree to the frontend.
+Why Created: Separates context-building logic from the main generator facade, providing provider-specific requirements and hints (e.g., which Azure resources to use for VMs vs. Kubernetes) without cluttering the orchestration layer.
 """
 from typing import Dict, Any, Optional
 

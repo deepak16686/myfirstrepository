@@ -1,3 +1,19 @@
+# =============================================================================
+# Jira Software docker-compose overlay
+# =============================================================================
+# Defines the Atlassian Jira Software 9.12 service and its dedicated PostgreSQL
+# database for use by the DevOps platform. Jira is used for access-request
+# ticket creation (the connectivity dashboard's "Request Access" feature creates
+# Jira issues via the backend's /api/v1/connectivity/request-access endpoint).
+#
+# This is a standalone compose file that can be run alongside the main stack:
+#   docker compose -f docker-compose.jira.yml up -d
+#
+# It requires the 'ai-platform-net' external network to exist so that the
+# backend container can reach Jira at http://jira:8080 on the shared network.
+# Jira is exposed to the host on port 8180 (mapped from container port 8080).
+# =============================================================================
+
 services:
   jira:
     image: atlassian/jira-software:9.12

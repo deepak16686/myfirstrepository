@@ -1,3 +1,21 @@
+# =============================================================================
+# LEGACY standalone docker-compose for the backend service only.
+# =============================================================================
+# This file was used before the dev-stack consolidation (2026-02-17).
+# The MAIN compose file is now at:
+#   d:\Repos\ai-folder\dev-stack\docker-compose.yml
+# which defines all 31 services under a single 'dev-stack' compose project.
+#
+# This file is kept for reference and quick local testing of the backend in
+# isolation. It defines the devops-tools-backend service with all environment
+# variables, volume mounts (config, Vault token, Claude CLI auth), and a
+# chromadb-admin sidecar. It expects the 'ai-platform-net' and 'gitlab-net'
+# Docker networks to already exist (created by the main compose file).
+#
+# To use the main stack instead:
+#   docker compose -p dev-stack -f "D:/Repos/ai-folder/dev-stack/docker-compose.yml" up -d
+# =============================================================================
+
 version: '3.8'
 
 services:
@@ -64,14 +82,14 @@ services:
       - JENKINS_GIT_URL=http://gitea-server:3000
       - JENKINS_GIT_TOKEN=${JENKINS_GIT_TOKEN:-5a2628e0c10773e0d1f4b10429d698037e4d5ae3}
 
-      # Vault
+      # Vault (token read from /vault/file/.root-token)
       - VAULT_URL=http://vault:8200
-      - VAULT_TOKEN=${VAULT_TOKEN:-dev-root-token}
 
       # Debug mode
       - DEBUG=false
     volumes:
       - devops-tools-config:/app/config
+      - vault-data:/vault/file:ro
       - C:/Users/deepak/.claude:/root/.claude
     networks:
       - ai-platform-net
@@ -101,3 +119,5 @@ networks:
 
 volumes:
   devops-tools-config:
+  vault-data:
+    external: true

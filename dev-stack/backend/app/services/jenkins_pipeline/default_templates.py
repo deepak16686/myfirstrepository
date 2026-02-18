@@ -1,8 +1,16 @@
 """
-Default Jenkinsfile and Dockerfile templates for various languages.
-
-Provides built-in templates for Java, Python, Node.js, and Go.
-Uses Jenkins Declarative Pipeline syntax with Docker Pipeline plugin.
+File: default_templates.py
+Purpose: Provides hardcoded, proven Jenkinsfile and Dockerfile templates for all supported
+    languages (Java, Python, Node.js, Go, Rust, Ruby, PHP, Scala, C#/.NET). Each template
+    implements the full 9-stage Jenkins Declarative Pipeline (Compile through Learn) with
+    Nexus private registry integration, Splunk notifications, and RL feedback recording.
+When Used: Used as the fallback when no ChromaDB-stored successful template exists and the
+    LLM either fails or is not requested. Also used as reference templates that the LLM
+    prompt includes to guide generation, and by the validator as a default when input is empty.
+Why Created: Extracted from the generator to keep the large template strings (14+ language
+    variants of both Jenkinsfile and Dockerfile) separate from orchestration logic. Includes
+    reusable helper functions (_env_block, _build_image_stage, _trivy_stage, etc.) to reduce
+    duplication across language templates.
 """
 from typing import Dict, Any
 
