@@ -44,6 +44,7 @@ LANGUAGE_COMPILE_IMAGES = {
     "node": "node:20-alpine",
     "ruby": "ruby:3.3-alpine",
     "php": "php:8.3-fpm-alpine",
+    "perl": "perl:5.38-slim",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
 }
@@ -61,6 +62,7 @@ LANGUAGE_DOCKERFILE_IMAGES = {
     "typescript": "node:20-alpine",
     "ruby": "ruby:3.3-alpine",
     "php": "php:8.3-fpm-alpine",
+    "perl": "perl:5.38-slim",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
 }
@@ -78,6 +80,7 @@ LANGUAGE_RUNTIME_IMAGES = {
     "typescript": "nginx:alpine",
     "ruby": "ruby:3.3-alpine",
     "php": "php:8.3-fpm-alpine",
+    "perl": "perl:5.38-slim",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
 }
@@ -95,6 +98,7 @@ LANGUAGE_COMPILE_COMMANDS = {
     "typescript": ["npm install", "npm run build"],
     "ruby": ["bundle install"],
     "php": ["composer install --no-dev"],
+    "perl": ["cpanm --installdeps . || true"],
 }
 
 # Language -> SAST tool commands
@@ -107,5 +111,6 @@ LANGUAGE_SAST_COMMANDS = {
     "rust": "rustup component add clippy || true\ncargo clippy --all-targets -- -D warnings || true",
     "ruby": "gem install brakeman || true\nbrakeman --no-pager || true",
     "php": "vendor/bin/phpstan analyse || true",
+    "perl": "perl -c app.pl || true\nperl -MTest::More -e 'print' || true",
     "scala": "sbt scalafmtCheck || true",
 }

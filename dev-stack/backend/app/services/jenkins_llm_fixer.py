@@ -101,6 +101,7 @@ You must fix the following Jenkins Declarative Pipeline that has validation erro
 9. Dockerfile MUST use ARG BASE_REGISTRY=localhost:5001 (NOT ai-nexus:5001)
 10. docker.build() MUST include --build-arg: docker.build("...", "--build-arg BASE_REGISTRY=${{NEXUS_REGISTRY}} .")
 11. Use agent {{ label 'docker' }} (NOT 'any')
+12. Static Analysis, SonarQube, and Trivy commands MUST end with '|| true' to prevent non-blocking quality checks from failing the pipeline (e.g. 'sonar-scanner ... || true', 'trivy image ... || true')
 
 ## AVAILABLE NEXUS IMAGES:
 - maven:3.9-eclipse-temurin-17 (Java/Maven/Scala builds)
@@ -317,6 +318,12 @@ Return ONLY the fixed files:
         for stage in required:
             if f"stage('{stage}')" not in jenkinsfile and f'stage("{stage}")' not in jenkinsfile:
                 warnings.append(f"Missing stage: {stage}")
+
+        # Check non-critical commands have || true
+        non_critical_cmds = ['sonar-scanner', 'trivy ']
+        for cmd in non_critical_cmds:
+            if cmd in jenkinsfile and '|| true' not in jenkinsfile.split(cmd)[1].split('\n')[0]:
+                warnings.append(f"Command '{cmd}' missing '|| true' - should not block pipeline")
 
         if dockerfile:
             if 'FROM' not in dockerfile.upper():

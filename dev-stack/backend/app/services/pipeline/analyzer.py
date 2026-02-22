@@ -163,8 +163,10 @@ def _detect_language(files: List[str], all_paths: List[str] = None) -> str:
         return 'rust'
     elif 'Gemfile' in files:
         return 'ruby'
-    elif 'composer.json' in files:
+    elif 'composer.json' in files or any(f.endswith('.php') for f in all_files):
         return 'php'
+    elif 'cpanfile' in files or 'Makefile.PL' in files or 'Build.PL' in files or any(f.endswith('.pl') for f in all_files) or any(f.endswith('.pm') for f in all_files):
+        return 'perl'
     elif 'mix.exs' in files:
         return 'elixir'
     elif any(f.endswith('.csproj') for f in all_files) or any(f.endswith('.sln') for f in all_files):

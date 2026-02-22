@@ -38,6 +38,7 @@ LANGUAGE_COMPILE_IMAGES = {
     "node": "node:20-alpine",
     "ruby": "ruby:3.3-alpine",
     "php": "php:8.3-fpm-alpine",
+    "perl": "perl:5.38-slim",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
 }
@@ -64,6 +65,7 @@ LANGUAGE_DOCKERFILE_IMAGES = {
     "node": "node:20-alpine",
     "ruby": "ruby:3.3-alpine",
     "php": "php:8.3-fpm-alpine",
+    "perl": "perl:5.38-slim",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
 }
@@ -90,6 +92,7 @@ LANGUAGE_RUNTIME_IMAGES = {
     "node": "node:20-alpine",
     "ruby": "ruby:3.3-alpine",
     "php": "php:8.3-fpm-alpine",
+    "perl": "perl:5.38-slim",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
 }
@@ -114,4 +117,5 @@ LANGUAGE_COMPILE_COMMANDS = {
     "node": ["npm install", "npm run build || true"],
     "ruby": ["bundle install"],
     "php": ["composer install --no-dev"],
+    "perl": ["cpanm --installdeps . || true"],
 }

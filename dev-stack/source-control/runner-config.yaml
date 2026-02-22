@@ -19,7 +19,7 @@ runner:
   file: /data/.runner
 
   # Runner capacity - number of concurrent jobs
-  capacity: 2
+  capacity: 6
 
   # Environment variables available to all jobs
   envs:

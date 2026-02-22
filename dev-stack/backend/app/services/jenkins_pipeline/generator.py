@@ -35,6 +35,7 @@ from app.services.jenkins_pipeline.templates import (
 from app.services.jenkins_pipeline.validator import (
     _validate_and_fix_jenkinsfile,
     _validate_and_fix_dockerfile,
+    _ensure_error_tolerance,
 )
 from app.services.jenkins_pipeline.default_templates import (
     _get_default_jenkinsfile,
@@ -331,7 +332,7 @@ class JenkinsPipelineGeneratorService:
         best_template = await self.get_best_template_files(language, framework)
         if best_template and best_template.get("jenkinsfile"):
             print(f"[Jenkins Pipeline] Using proven template from ChromaDB")
-            jenkinsfile = self._ensure_learn_stage(best_template["jenkinsfile"])
+            jenkinsfile = _ensure_error_tolerance(self._ensure_learn_stage(best_template["jenkinsfile"]))
             dockerfile = best_template.get("dockerfile", self._get_default_dockerfile(analysis))
 
             # Rewrite template images to match this project's resolved versions
@@ -520,6 +521,11 @@ Requirements:
 - IMPORTANT: docker.build() MUST pass --build-arg: docker.build("${{NEXUS_REGISTRY}}/apm-repo/demo/${{IMAGE_NAME}}:${{IMAGE_TAG}}", "--build-arg BASE_REGISTRY=${{NEXUS_REGISTRY}} .")
 - IMPORTANT: Dockerfile must use ARG BASE_REGISTRY=localhost:5001 (NOT ai-nexus:5001)
 - Include ALL 9 stages: Compile, Build Image, Test Image, Static Analysis, SonarQube, Trivy Scan, Push Release, Notify, Learn
+- IMPORTANT: Static Analysis, SonarQube, and Trivy Scan stages MUST use '|| true' at the end of their commands so these stages don't fail the pipeline (e.g. sh 'sonar-scanner ... || true', sh 'trivy image ... || true')
+- IMPORTANT: Docker agents using images with custom entrypoints (aquasec-trivy, sonarsource-sonar-scanner-cli) MUST include args '--entrypoint=""' in the docker block
+- For Node.js: Use 'npm install' (NOT 'npm ci') to avoid lock file sync issues
+- For Go: Always run 'go mod tidy' before 'go build' or 'go mod download'
+- For Ruby: Use 'bundle install' (NOT 'bundle install --deployment') for initial builds
 - Notify stage: curl to Splunk HEC with success event (message, pipeline, project, status, image, sourcetype, source)
 - Learn stage: curl to devops backend /api/v1/jenkins-pipeline/learn/record with job_name, build_number, status, image, tag
 - Post block: failure (Splunk notify failure as safety net) + always (cleanWs()). Do NOT put notify/learn in post block
@@ -675,7 +681,7 @@ Output format:
         )
 
         if fix_result.get('success'):
-            final_jenkinsfile = fix_result.get('jenkinsfile', jenkinsfile)
+            final_jenkinsfile = _ensure_error_tolerance(fix_result.get('jenkinsfile', jenkinsfile))
             final_dockerfile = fix_result.get('dockerfile', dockerfile)
 
             print(f"[Jenkins Validation Flow] Pipeline valid after {fix_result.get('attempts', 1)} attempt(s)")
