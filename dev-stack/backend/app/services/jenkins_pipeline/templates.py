@@ -184,20 +184,41 @@ async def get_best_template_files(
                             best_idx = i
 
                     doc = documents[best_idx]
-                    # Try to parse as structured document
-                    try:
-                        import yaml
-                        parsed = yaml.safe_load(doc)
+                    # Extract Jenkinsfile and Dockerfile from Markdown format
+                    jenkinsfile = ""
+                    dockerfile = ""
+
+                    # Extract content between ```groovy ... ``` fences
+                    groovy_match = re.search(
+                        r'```groovy\s*\n(.*?)\n\s*```',
+                        doc, re.DOTALL
+                    )
+                    if groovy_match:
+                        jenkinsfile = groovy_match.group(1).strip()
+
+                    # Extract content between ```dockerfile ... ``` fences
+                    docker_match = re.search(
+                        r'```dockerfile\s*\n(.*?)\n\s*```',
+                        doc, re.DOTALL
+                    )
+                    if docker_match:
+                        dockerfile = docker_match.group(1).strip()
+
+                    # Fallback: try YAML parse for non-markdown format
+                    if not jenkinsfile:
+                        try:
+                            import yaml
+                            parsed = yaml.safe_load(doc)
+                            if isinstance(parsed, dict):
+                                jenkinsfile = parsed.get("jenkinsfile", "")
+                                dockerfile = parsed.get("dockerfile", "")
+                        except Exception:
+                            pass
+
+                    if jenkinsfile:
                         return {
-                            "jenkinsfile": parsed.get("jenkinsfile", ""),
-                            "dockerfile": parsed.get("dockerfile", ""),
-                            "source": "chromadb-successful"
-                        }
-                    except Exception:
-                        # Return raw document as jenkinsfile
-                        return {
-                            "jenkinsfile": doc,
-                            "dockerfile": "",
+                            "jenkinsfile": jenkinsfile,
+                            "dockerfile": dockerfile,
                             "source": "chromadb-successful"
                         }
 

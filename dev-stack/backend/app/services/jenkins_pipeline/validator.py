@@ -94,7 +94,119 @@ def _validate_and_fix_jenkinsfile(
     # 8. Fix agent label 'any' → 'docker'
     fixed = re.sub(r"agent\s*\{\s*label\s*'any'\s*\}", "agent { label 'docker' }", fixed)
 
+    # 9. Ensure || true on non-critical commands (sonar-scanner, trivy, static analysis)
+    fixed = _ensure_error_tolerance(fixed)
+
+    # 10. Ensure --entrypoint="" for images with custom entrypoints (trivy, sonar-scanner)
+    fixed = _ensure_entrypoint_override(fixed)
+
     return fixed
+
+
+def _ensure_error_tolerance(jenkinsfile: str) -> str:
+    """Ensure non-critical commands have || true to prevent pipeline failures.
+
+    SonarQube, Trivy, and static analysis tools should never block the pipeline.
+    This works at the sh command level (not image references) by matching
+    sh '...' / sh "..." / sh triple-quote blocks that contain non-critical commands.
+    """
+    if not jenkinsfile:
+        return jenkinsfile
+
+    non_critical_cmds = [
+        'sonar-scanner', 'trivy ', 'trivy\t',
+        'spotbugs:', 'pmd:', 'checkstyle:',
+        'bandit ', 'pylint ', 'flake8 ', 'eslint ',
+        'go vet', 'cargo clippy', 'brakeman ', 'phpstan ',
+    ]
+
+    def _needs_fix(text):
+        """Check if text contains a non-critical command without || true."""
+        for cmd in non_critical_cmds:
+            if cmd in text and '|| true' not in text:
+                return True
+        return False
+
+    result = jenkinsfile
+
+    # Pattern 1: sh 'single-line command' (single quotes)
+    def fix_sh_single(m):
+        prefix, content, suffix = m.group(1), m.group(2), m.group(3)
+        if _needs_fix(content):
+            return f"{prefix}{content} || true{suffix}"
+        return m.group(0)
+    result = re.sub(r"(sh\s+')((?:[^'\\]|\\.)*?)(')", fix_sh_single, result)
+
+    # Pattern 2: sh "single-line command" (double quotes)
+    def fix_sh_double(m):
+        prefix, content, suffix = m.group(1), m.group(2), m.group(3)
+        if _needs_fix(content):
+            return f"{prefix}{content} || true{suffix}"
+        return m.group(0)
+    result = re.sub(r'(sh\s+")((?:[^"\\]|\\.)*?)(")', fix_sh_double, result)
+
+    # Pattern 3: sh '''multi-line''' or sh """multi-line"""
+    def fix_sh_triple(m):
+        prefix, content, suffix = m.group(1), m.group(2), m.group(3)
+        if _needs_fix(content):
+            # Add || true before the closing triple-quote on the last command line
+            lines = content.rstrip().split('\n')
+            # Find last non-empty line (before closing quotes)
+            for i in range(len(lines) - 1, -1, -1):
+                stripped = lines[i].strip()
+                if stripped and not stripped.startswith('#'):
+                    if '|| true' not in lines[i] and not stripped.endswith('\\'):
+                        lines[i] = lines[i].rstrip() + ' || true'
+                    break
+            return f"{prefix}{chr(10).join(lines)}{suffix}"
+        return m.group(0)
+    result = re.sub(r"(sh\s+''')(.*?)(''')", fix_sh_triple, result, flags=re.DOTALL)
+    result = re.sub(r'(sh\s+""")(.*?)(""")', fix_sh_triple, result, flags=re.DOTALL)
+
+    return result
+
+
+def _ensure_entrypoint_override(jenkinsfile: str) -> str:
+    """Ensure Docker agents using images with custom entrypoints have --entrypoint="" args.
+
+    Images like aquasec-trivy and sonarsource-sonar-scanner-cli have custom ENTRYPOINT
+    that conflicts with Jenkins shell commands. Adding args '--entrypoint=""' fixes this.
+    """
+    if not jenkinsfile:
+        return jenkinsfile
+
+    # Images that need --entrypoint="" override
+    entrypoint_images = ['aquasec-trivy', 'sonar-scanner-cli']
+
+    for img_pattern in entrypoint_images:
+        # Find docker agent blocks that reference this image
+        # Pattern: image "...{img_pattern}..." followed by optional args
+        # We need to add args '--entrypoint=""' if not already present
+        pattern = re.compile(
+            r"(image\s+[\"'].*?" + re.escape(img_pattern) + r".*?[\"']\s*\n)"
+            r"(\s*registryUrl.*?\n)?"
+            r"(\s*registryCredentialsId.*?\n)?"
+            r"(\s*reuseNode.*?\n)?",
+            re.DOTALL
+        )
+
+        for match in pattern.finditer(jenkinsfile):
+            block = match.group(0)
+            # Check if args '--entrypoint=""' already exists nearby
+            end_pos = match.end()
+            next_100 = jenkinsfile[end_pos:end_pos + 100]
+            if "--entrypoint" not in block and "--entrypoint" not in next_100:
+                # Find where to insert args (after reuseNode or registryCredentialsId or image line)
+                insert_after = block.rstrip()
+                indent = "                    "
+                # Detect indent from the image line
+                img_line = match.group(1)
+                leading = len(img_line) - len(img_line.lstrip())
+                indent = " " * leading
+                new_block = block.rstrip() + "\n" + indent + "args '--entrypoint=\"\"'" + "\n"
+                jenkinsfile = jenkinsfile.replace(block, new_block, 1)
+
+    return jenkinsfile
 
 
 def _validate_and_fix_dockerfile(dockerfile: str, language: str) -> str:

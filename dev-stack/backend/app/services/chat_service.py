@@ -350,6 +350,10 @@ After committing, mention the template_source in your response so the user knows
         repo_url: str
     ) -> Dict:
         """Generate pipeline using the pipeline service"""
+        if not self.gitlab_token:
+            return {
+                "error": "GitLab token is missing or invalid. Please provide a GitLab personal access token with api scope to proceed. Would you like to provide one now?"
+            }
         try:
             async with httpx.AsyncClient(timeout=300.0) as client:
                 response = await client.post(
