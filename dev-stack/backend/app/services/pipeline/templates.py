@@ -199,12 +199,15 @@ async def get_best_template_files(
             print(f"[RL-Direct] No templates found for {language}/{framework}")
             return None
 
-        # Sort by stages count (more is better) and duration (less is better)
-        # Prioritize manual_upload source (verified working configs)
+        # Sort by: framework match > manual templates > stages count > duration
+        # Framework-matching templates MUST rank higher to avoid cross-framework issues
+        # (e.g., using a Spring Boot template for Quarkus — different build artifacts)
+        fw_lower = framework.lower() if framework else ""
         sorted_configs = sorted(
             successful,
             key=lambda x: (
-                -1 if x.get('id', '').startswith('manual_') else 0,  # Manual templates first
+                0 if fw_lower and x.get('framework', '').lower() == fw_lower else 1,  # Exact framework match first
+                -1 if x.get('id', '').startswith('manual_') else 0,  # Manual templates second
                 -x.get('stages_count', 0),
                 x.get('duration', float('inf'))
             )
@@ -569,28 +572,40 @@ async def get_successful_pipelines(
         chromadb = _get_chromadb()
 
         # Build filter — try most specific match first, then broaden
-        # Priority: language + build_tool > language + framework > language only
-        conditions = [{"language": language.lower()}]
-        if build_tool:
-            conditions.append({"build_tool": build_tool.lower()})
-        elif framework:
-            conditions.append({"framework": framework.lower()})
+        # Priority: language + build_tool + framework > language + build_tool > language + framework > language only
+        results = None
 
-        if len(conditions) > 1:
-            where_filter = {"$and": conditions}
-        else:
-            where_filter = conditions[0]
+        # Priority 1: language + build_tool + framework (most specific)
+        if build_tool and framework:
+            results = await chromadb.get_documents(
+                collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
+                where={"$and": [
+                    {"language": language.lower()},
+                    {"build_tool": build_tool.lower()},
+                    {"framework": framework.lower()}
+                ]},
+                limit=limit,
+                include=["documents", "metadatas"]
+            )
+            if results and results.get('ids'):
+                print(f"[RL] Matched on language+build_tool+framework: {language}/{build_tool}/{framework}")
 
-        results = await chromadb.get_documents(
-            collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
-            where=where_filter,
-            limit=limit,
-            include=["documents", "metadatas"]
-        )
+        # Priority 2: language + build_tool
+        if build_tool and (not results or not results.get('ids')):
+            print(f"[RL] No match for {language}/{build_tool}/{framework}, trying {language}/{build_tool}...")
+            results = await chromadb.get_documents(
+                collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
+                where={"$and": [
+                    {"language": language.lower()},
+                    {"build_tool": build_tool.lower()}
+                ]},
+                limit=limit,
+                include=["documents", "metadatas"]
+            )
 
-        # Fallback 1: if build_tool match returned nothing, try language + framework
-        if build_tool and (not results or not results.get('ids')) and framework:
-            print(f"[RL] No match for {language}/{build_tool}, trying {language}/{framework}...")
+        # Priority 3: language + framework
+        if (not results or not results.get('ids')) and framework:
+            print(f"[RL] No match for {language}/{build_tool or 'any'}, trying {language}/{framework}...")
             results = await chromadb.get_documents(
                 collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
                 where={"$and": [
@@ -601,9 +616,9 @@ async def get_successful_pipelines(
                 include=["documents", "metadatas"]
             )
 
-        # Fallback 2: if still nothing, try language-only
-        if (build_tool or framework) and (not results or not results.get('ids')):
-            print(f"[RL] No exact match for {language}/{framework or build_tool}, trying language-only...")
+        # Priority 4: language only
+        if not results or not results.get('ids'):
+            print(f"[RL] No exact match for {language}/{framework or build_tool or 'any'}, trying language-only...")
             results = await chromadb.get_documents(
                 collection_name=SUCCESSFUL_PIPELINES_COLLECTION,
                 where={"language": language.lower()},

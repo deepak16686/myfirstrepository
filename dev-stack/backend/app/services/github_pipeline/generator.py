@@ -261,6 +261,14 @@ class GitHubPipelineGeneratorService:
         except Exception as e:
             print(f"[GitHub Pipeline] Image seeding warning: {e}")
 
+        # Derive template_source from model_used for chat display
+        if model_used == "chromadb-successful":
+            template_source = "reinforcement_learning"
+        elif model_used == "default-template":
+            template_source = "default"
+        else:
+            template_source = "llm"
+
         return {
             "success": True,
             "workflow": fix_result["workflow"],
@@ -268,7 +276,7 @@ class GitHubPipelineGeneratorService:
             "analysis": analysis,
             "model_used": model_used,
             "feedback_used": result.get("feedback_used", 0),
-            "template_source": None,
+            "template_source": template_source,
             "validation_skipped": False,
             "validation_passed": fix_result.get("success", False),
             "validation_errors": fix_result.get("final_errors", []),
