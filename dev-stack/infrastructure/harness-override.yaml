@@ -1,0 +1,175 @@
+## Harness Self-Managed Enterprise Edition — Dev Override
+## Chart: harness/harness v0.37.0
+## Deployed without Istio, using NodePort + nginx reverse proxy via Tailscale
+
+global:
+  # Access URL — via nginx reverse proxy on Tailscale
+  loadbalancerURL: "https://deepak-desktop.tailac51e7.ts.net"
+
+  # Disable autoscaling for dev
+  autoscaling:
+    enabled: false
+
+  # Disable Istio (using external nginx reverse proxy)
+  istio:
+    enabled: false
+    gateway:
+      create: false
+
+  # Disable Kubernetes Ingress (using external nginx reverse proxy)
+  ingress:
+    enabled: false
+
+  # Enable Next-Gen Platform
+  ng:
+    enabled: true
+
+  # Enable CI + CD modules
+  ci:
+    enabled: true
+  cd:
+    enabled: true
+
+  # Disable optional modules to save resources
+  sto:
+    enabled: false
+  srm:
+    enabled: false
+  ff:
+    enabled: false
+  ccm:
+    enabled: false
+  chaos:
+    enabled: false
+  code:
+    enabled: false
+  iacm:
+    enabled: false
+  idp:
+    enabled: false
+  dbops:
+    enabled: false
+  ssca:
+    enabled: false
+  cg:
+    enabled: false
+  opa:
+    enabled: false
+  ti:
+    enabled: false
+  cdc:
+    enabled: false
+
+  # Database — use in-cluster
+  database:
+    mongo:
+      installed: true
+    postgres:
+      installed: true
+      hosts:
+        - postgres:5432
+    redis:
+      installed: true
+
+  # No license (trial mode)
+  license:
+    cg: ""
+    ng: ""
+
+  # Storage class — use default
+  storageClassName: ""
+
+## Infrastructure sub-chart overrides
+infra:
+  database:
+    mongodb:
+      persistence:
+        size: 10Gi
+    redis:
+      sentinel:
+        enabled: true
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 5Gi
+    postgres:
+      persistence:
+        size: 5Gi
+    minio:
+      persistence:
+        size: 10Gi
+    timescaledb:
+      storage:
+        dataCapacity: 10Gi
+        walCapacity: 5Gi
+
+## Platform sub-chart overrides
+platform:
+  access-control:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  gateway:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  harness-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  log-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  ng-auth-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  ng-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  next-gen-ui:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  pipeline-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  platform-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  scm-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+  template-service:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+## CI sub-chart overrides
+ci:
+  ci-manager:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []
+
+## CD sub-chart overrides
+cd:
+  gitops:
+    affinity: {}
+    nodeSelector: {}
+    tolerations: []

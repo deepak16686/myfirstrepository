@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
+        h1 { text-align: center; font-size: 2rem; margin-bottom: 0.5rem; color: #f8fafc; }
+        .subtitle { text-align: center; color: #94a3b8; margin-bottom: 0.5rem; }
+        .badge-row { text-align: center; margin-bottom: 2rem; }
+        .badge { display: inline-block; font-size: 0.7rem; padding: 3px 10px; border-radius: 9999px; margin: 0 4px; }
+        .badge-k8s { background: #1e3a5f; color: #60a5fa; }
+        .badge-docker { background: #1a3324; color: #4ade80; }
+        .section-title { font-size: 1rem; color: #94a3b8; margin: 1.5rem auto 0.75rem; max-width: 1200px; padding-left: 0.25rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; max-width: 1200px; margin: 0 auto; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; text-decoration: none; color: #e2e8f0; transition: all 0.2s; position: relative; }
+        .card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.2); }
+        .card h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .card p { font-size: 0.85rem; color: #94a3b8; }
+        .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; margin-top: 0.5rem; }
+        .scm { background: #1e3a5f; color: #60a5fa; }
+        .ci { background: #3b1f2b; color: #f472b6; }
+        .monitor { background: #1a3324; color: #4ade80; }
+        .logging { background: #3b2f1a; color: #fbbf24; }
+        .infra { background: #2d1b4e; color: #a78bfa; }
+        .app { background: #312e3a; color: #c4b5fd; }
+        .security { background: #3b1a1a; color: #f87171; }
+        .artifacts { background: #1a3333; color: #5eead4; }
+        .storage { background: #2d2b1b; color: #fde68a; }
+        .runtime { font-size: 0.6rem; position: absolute; top: 0.75rem; right: 0.75rem; padding: 2px 6px; border-radius: 4px; }
+        .rt-k8s { background: #172554; color: #60a5fa; }
+        .rt-docker { background: #14332a; color: #4ade80; }
+    </style>
+</head>
+<body>
+    <h1>DevOps Platform</h1>
+    <p class="subtitle">deepak-desktop.tailac51e7.ts.net</p>
+    <div class="badge-row">
+        <span class="badge badge-k8s">Kubernetes</span>
+        <span class="badge badge-docker">Docker Compose</span>
+    </div>
+
+    <div class="section-title">Source Control &amp; CI/CD</div>
+    <div class="grid">
+        <a class="card" href="/gitlab/"><span class="runtime rt-docker">Docker</span><h3>GitLab</h3><p>Source code, CI/CD pipelines, merge requests</p><span class="tag scm">Source Control</span></a>
+        <a class="card" href="/argocd/"><span class="runtime rt-k8s">K8s</span><h3>ArgoCD</h3><p>GitOps continuous delivery for Kubernetes</p><span class="tag ci">CI/CD</span></a>
+        <a class="card" href="/jenkins/"><span class="runtime rt-k8s">K8s</span><h3>Jenkins</h3><p>Automation server for CI/CD pipelines</p><span class="tag ci">CI/CD</span></a>
+        <a class="card" href="/harness/"><span class="runtime rt-k8s">K8s</span><h3>Harness</h3><p>CI/CD platform with pipelines, delegates, and deployment verification</p><span class="tag ci">CI/CD</span></a>
+    </div>
+
+    <div class="section-title">Brandmatik Application</div>
+    <div class="grid">
+        <a class="card" href="/brandmatik/"><span class="runtime rt-k8s">K8s</span><h3>Brandmatik API</h3><p>API Gateway — trend collector, content generator, scoring engine</p><span class="tag app">Application</span></a>
+        <a class="card" href="/brandmatik/docs"><span class="runtime rt-k8s">K8s</span><h3>API Docs (Swagger)</h3><p>OpenAPI documentation for all Brandmatik services</p><span class="tag app">Application</span></a>
+    </div>
+
+    <div class="section-title">Code Quality &amp; Security</div>
+    <div class="grid">
+        <a class="card" href="/sonarqube/"><span class="runtime rt-k8s">K8s</span><h3>SonarQube</h3><p>Code quality analysis, security scanning, tech debt tracking</p><span class="tag security">Code Quality</span></a>
+        <a class="card" href="/harbor/"><span class="runtime rt-k8s">K8s</span><h3>Harbor</h3><p>Container registry with built-in Trivy vulnerability scanning</p><span class="tag security">Security</span></a>
+    </div>
+
+    <div class="section-title">Artifact Management &amp; Storage</div>
+    <div class="grid">
+        <a class="card" href="/nexus/"><span class="runtime rt-k8s">K8s</span><h3>Nexus Repository</h3><p>Artifact repository — Maven, npm, Docker, PyPI, NuGet</p><span class="tag artifacts">Artifacts</span></a>
+        <a class="card" href="/minio/"><span class="runtime rt-k8s">K8s</span><h3>MinIO</h3><p>S3-compatible object storage for artifacts and backups</p><span class="tag storage">Storage</span></a>
+    </div>
+
+    <div class="section-title">Secrets &amp; Configuration</div>
+    <div class="grid">
+        <a class="card" href="/vault/"><span class="runtime rt-k8s">K8s</span><h3>HashiCorp Vault</h3><p>Secrets management, encryption as a service, access control</p><span class="tag infra">Secrets</span></a>
+    </div>
+
+    <div class="section-title">Monitoring &amp; Alerting</div>
+    <div class="grid">
+        <a class="card" href="/grafana/"><span class="runtime rt-k8s">K8s</span><h3>Grafana</h3><p>Dashboards, metrics visualization (kube-prometheus-stack)</p><span class="tag monitor">Monitoring</span></a>
+        <a class="card" href="/prometheus/"><span class="runtime rt-k8s">K8s</span><h3>Prometheus</h3><p>Metrics collection, PromQL queries, alerting rules</p><span class="tag monitor">Monitoring</span></a>
+        <a class="card" href="/alertmanager/"><span class="runtime rt-k8s">K8s</span><h3>Alertmanager</h3><p>Alert routing, silencing, notification management</p><span class="tag monitor">Monitoring</span></a>
+        <a class="card" href="/jaeger/"><span class="runtime rt-k8s">K8s</span><h3>Jaeger</h3><p>Distributed tracing, request flow visualization</p><span class="tag monitor">Tracing</span></a>
+    </div>
+
+    <div class="section-title">Logging &amp; Search</div>
+    <div class="grid">
+        <a class="card" href="/kibana/"><span class="runtime rt-k8s">K8s</span><h3>Kibana</h3><p>Log visualization, dashboards, search</p><span class="tag logging">Logging</span></a>
+        <a class="card" href="/elasticsearch/"><span class="runtime rt-k8s">K8s</span><h3>Elasticsearch</h3><p>Log storage, full-text search engine</p><span class="tag logging">Logging</span></a>
+    </div>
+</body>
+</html>
