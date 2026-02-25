@@ -17,6 +17,32 @@ services:
   # CORE AI PLATFORM
   # ============================================================
 
+  # ============================================================
+  # REVERSE PROXY — Tailscale Funnel entry point
+  # All tools accessible at https://deepak-desktop.tailac51e7.ts.net/<tool>
+  # ============================================================
+
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "8443:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+      - ticketing-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:80/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
   vault:
     image: hashicorp/vault:1.15
     container_name: vault
@@ -262,6 +288,14 @@ services:
     ports:
       - "8929:80"
       - "2224:22"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://deepak-desktop.tailac51e7.ts.net/gitlab'
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        gitlab_rails['relative_url_root'] = '/gitlab'
     volumes:
       - C:/Users/deepak/gitlab_docker/config:/etc/gitlab
       - C:/Users/deepak/gitlab_docker/logs:/var/log/gitlab
@@ -531,6 +565,8 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+      - '--web.external-url=/prometheus/'
+      - '--web.route-prefix=/prometheus/'
     networks:
       - monitoring-network
       - ai-platform-net
@@ -544,6 +580,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_INSTALL_PLUGINS=redis-datasource
+      - GF_SERVER_ROOT_URL=https://deepak-desktop.tailac51e7.ts.net/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
       - grafana-data:/var/lib/grafana
     networks:
