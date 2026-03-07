@@ -1,0 +1,235 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: zabbix
+  labels:
+    app.kubernetes.io/name: zabbix
+    app.kubernetes.io/part-of: monitoring
+---
+# ──────────────────────────────────────────────
+# Zabbix PostgreSQL Database
+# ──────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-db
+  namespace: zabbix
+  labels:
+    app: zabbix-db
+    app.kubernetes.io/name: zabbix
+    app.kubernetes.io/component: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-db
+  template:
+    metadata:
+      labels:
+        app: zabbix-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              value: "zabbix"
+            - name: POSTGRES_PASSWORD
+              value: "Admin@123"
+            - name: POSTGRES_DB
+              value: "zabbix"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - zabbix
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - zabbix
+            initialDelaySeconds: 5
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-db
+  namespace: zabbix
+  labels:
+    app: zabbix-db
+spec:
+  type: ClusterIP
+  selector:
+    app: zabbix-db
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+      protocol: TCP
+---
+# ──────────────────────────────────────────────
+# Zabbix Server
+# ──────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server
+  namespace: zabbix
+  labels:
+    app: zabbix-server
+    app.kubernetes.io/name: zabbix
+    app.kubernetes.io/component: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-server
+  template:
+    metadata:
+      labels:
+        app: zabbix-server
+    spec:
+      containers:
+        - name: zabbix-server
+          image: zabbix/zabbix-server-pgsql:latest
+          ports:
+            - name: server
+              containerPort: 10051
+              protocol: TCP
+          env:
+            - name: DB_SERVER_HOST
+              value: "zabbix-db"
+            - name: POSTGRES_USER
+              value: "zabbix"
+            - name: POSTGRES_PASSWORD
+              value: "Admin@123"
+            - name: POSTGRES_DB
+              value: "zabbix"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          livenessProbe:
+            tcpSocket:
+              port: server
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: server
+            initialDelaySeconds: 30
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-server
+  namespace: zabbix
+  labels:
+    app: zabbix-server
+spec:
+  type: ClusterIP
+  selector:
+    app: zabbix-server
+  ports:
+    - name: server
+      port: 10051
+      targetPort: server
+      protocol: TCP
+---
+# ──────────────────────────────────────────────
+# Zabbix Web (Nginx + PostgreSQL frontend)
+# ──────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-web
+  namespace: zabbix
+  labels:
+    app: zabbix-web
+    app.kubernetes.io/name: zabbix
+    app.kubernetes.io/component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-web
+  template:
+    metadata:
+      labels:
+        app: zabbix-web
+    spec:
+      containers:
+        - name: zabbix-web
+          image: zabbix/zabbix-web-nginx-pgsql:latest
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: ZBX_SERVER_HOST
+              value: "zabbix-server"
+            - name: DB_SERVER_HOST
+              value: "zabbix-db"
+            - name: POSTGRES_USER
+              value: "zabbix"
+            - name: POSTGRES_PASSWORD
+              value: "Admin@123"
+            - name: POSTGRES_DB
+              value: "zabbix"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-web
+  namespace: zabbix
+  labels:
+    app: zabbix-web
+spec:
+  type: NodePort
+  selector:
+    app: zabbix-web
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      nodePort: 30243
+      protocol: TCP

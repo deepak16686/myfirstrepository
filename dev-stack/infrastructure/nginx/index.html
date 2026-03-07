@@ -3,88 +3,778 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Platform</title>
+    <title>Dev Stack - DevOps Platform</title>
     <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2332;
+            --border: #1e2d3d;
+            --border-hover: #3b82f6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #eab308;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+            --accent-orange: #f97316;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
-        h1 { text-align: center; font-size: 2rem; margin-bottom: 0.5rem; color: #f8fafc; }
-        .subtitle { text-align: center; color: #94a3b8; margin-bottom: 0.5rem; }
-        .badge-row { text-align: center; margin-bottom: 2rem; }
-        .badge { display: inline-block; font-size: 0.7rem; padding: 3px 10px; border-radius: 9999px; margin: 0 4px; }
-        .badge-k8s { background: #1e3a5f; color: #60a5fa; }
-        .badge-docker { background: #1a3324; color: #4ade80; }
-        .section-title { font-size: 1rem; color: #94a3b8; margin: 1.5rem auto 0.75rem; max-width: 1200px; padding-left: 0.25rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; max-width: 1200px; margin: 0 auto; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; text-decoration: none; color: #e2e8f0; transition: all 0.2s; position: relative; }
-        .card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.2); }
-        .card h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
-        .card p { font-size: 0.85rem; color: #94a3b8; }
-        .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; margin-top: 0.5rem; }
-        .scm { background: #1e3a5f; color: #60a5fa; }
-        .ci { background: #3b1f2b; color: #f472b6; }
-        .monitor { background: #1a3324; color: #4ade80; }
-        .logging { background: #3b2f1a; color: #fbbf24; }
-        .infra { background: #2d1b4e; color: #a78bfa; }
-        .app { background: #312e3a; color: #c4b5fd; }
-        .security { background: #3b1a1a; color: #f87171; }
-        .artifacts { background: #1a3333; color: #5eead4; }
-        .storage { background: #2d2b1b; color: #fde68a; }
-        .runtime { font-size: 0.6rem; position: absolute; top: 0.75rem; right: 0.75rem; padding: 2px 6px; border-radius: 4px; }
-        .rt-k8s { background: #172554; color: #60a5fa; }
-        .rt-docker { background: #14332a; color: #4ade80; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .bg-grid {
+            position: fixed; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .bg-glow {
+            position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 600px; z-index: 0;
+            background: radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem; position: relative; z-index: 1; }
+
+        /* Header */
+        .header { text-align: center; margin-bottom: 2.5rem; }
+        .header h1 {
+            font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .header .subtitle {
+            color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+        .header .subtitle a { color: var(--accent-blue); text-decoration: none; }
+        .header .subtitle a:hover { text-decoration: underline; }
+        .stats-bar {
+            display: flex; justify-content: center; gap: 2rem; margin-top: 1.25rem; flex-wrap: wrap;
+        }
+        .stat {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.8rem; color: var(--text-secondary);
+        }
+        .stat-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .stat-dot.green { background: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
+        .stat-dot.red { background: var(--accent-red); box-shadow: 0 0 6px var(--accent-red); }
+        .stat-dot.yellow { background: var(--accent-yellow); box-shadow: 0 0 6px var(--accent-yellow); }
+        .stat-value { font-weight: 600; color: var(--text-primary); }
+
+        /* Search */
+        .search-box {
+            max-width: 480px; margin: 0 auto 2rem; position: relative;
+        }
+        .search-box input {
+            width: 100%; padding: 0.75rem 1rem 0.75rem 2.75rem;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; color: var(--text-primary); font-size: 0.9rem;
+            outline: none; transition: border-color 0.2s;
+        }
+        .search-box input:focus { border-color: var(--accent-blue); }
+        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box svg {
+            position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%);
+            width: 18px; height: 18px; color: var(--text-muted);
+        }
+
+        /* Sections */
+        .section { margin-bottom: 2rem; }
+        .section-header {
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 1rem; padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .section-title { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .section-count {
+            font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;
+            background: rgba(59,130,246,0.1); color: var(--accent-blue);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0.875rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: var(--card-accent, var(--accent-blue));
+            opacity: 0; transition: opacity 0.25s;
+        }
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            background: var(--bg-card-hover);
+        }
+        .card:hover::before { opacity: 1; }
+        .card-top { display: flex; align-items: center; justify-content: space-between; }
+        .card-title-row { display: flex; align-items: center; gap: 0.625rem; }
+        .card-icon {
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; flex-shrink: 0;
+        }
+        .card h3 { font-size: 1rem; font-weight: 600; }
+        .card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+        .card-path {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.7rem; color: var(--text-muted);
+            background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 4px;
+        }
+        .card-port {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.7rem; color: var(--text-muted);
+        }
+
+        /* Status indicator */
+        .status {
+            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .status.up { background: var(--accent-green); box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+        .status.down { background: var(--accent-red); box-shadow: 0 0 8px rgba(239,68,68,0.5); }
+        .status.checking {
+            background: var(--text-muted);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Category color accents */
+        .cat-ai .card-icon { background: rgba(168,85,247,0.15); color: #c084fc; }
+        .cat-ai .card { --card-accent: var(--accent-purple); }
+        .cat-scm .card-icon { background: rgba(59,130,246,0.15); color: #60a5fa; }
+        .cat-scm .card { --card-accent: var(--accent-blue); }
+        .cat-cicd .card-icon { background: rgba(236,72,153,0.15); color: #f472b6; }
+        .cat-cicd .card { --card-accent: var(--accent-pink); }
+        .cat-quality .card-icon { background: rgba(239,68,68,0.15); color: #f87171; }
+        .cat-quality .card { --card-accent: var(--accent-red); }
+        .cat-monitor .card-icon { background: rgba(34,197,94,0.15); color: #4ade80; }
+        .cat-monitor .card { --card-accent: var(--accent-green); }
+        .cat-pm .card-icon { background: rgba(6,182,212,0.15); color: #22d3ee; }
+        .cat-pm .card { --card-accent: var(--accent-cyan); }
+        .cat-storage .card-icon { background: rgba(249,115,22,0.15); color: #fb923c; }
+        .cat-storage .card { --card-accent: var(--accent-orange); }
+
+        .section-icon.ai { background: rgba(168,85,247,0.15); color: #c084fc; }
+        .section-icon.scm { background: rgba(59,130,246,0.15); color: #60a5fa; }
+        .section-icon.cicd { background: rgba(236,72,153,0.15); color: #f472b6; }
+        .section-icon.quality { background: rgba(239,68,68,0.15); color: #f87171; }
+        .section-icon.monitor { background: rgba(34,197,94,0.15); color: #4ade80; }
+        .section-icon.pm { background: rgba(6,182,212,0.15); color: #22d3ee; }
+        .section-icon.storage { background: rgba(249,115,22,0.15); color: #fb923c; }
+
+        /* Footer */
+        .footer {
+            text-align: center; margin-top: 3rem; padding-top: 1.5rem;
+            border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem;
+        }
+        .footer span { color: var(--text-secondary); }
+        .last-check { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        /* Hidden for search */
+        .card.hidden { display: none; }
+        .section.hidden { display: none; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .header h1 { font-size: 1.75rem; }
+            .grid { grid-template-columns: 1fr; }
+            .stats-bar { gap: 1rem; }
+        }
     </style>
 </head>
 <body>
-    <h1>DevOps Platform</h1>
-    <p class="subtitle">deepak-desktop.tailac51e7.ts.net</p>
-    <div class="badge-row">
-        <span class="badge badge-k8s">Kubernetes</span>
-        <span class="badge badge-docker">Docker Compose</span>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1>Dev Stack</h1>
+            <p class="subtitle">
+                <a href="https://devstack.deepaksharma.live" target="_blank">devstack.deepaksharma.live</a>
+                &nbsp;&middot;&nbsp; Docker Compose &nbsp;&middot;&nbsp; 35 Services
+            </p>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-dot green"></span>
+                    <span class="stat-value" id="count-up">0</span> online
+                </div>
+                <div class="stat">
+                    <span class="stat-dot red"></span>
+                    <span class="stat-value" id="count-down">0</span> offline
+                </div>
+                <div class="stat">
+                    <span class="stat-dot yellow"></span>
+                    <span class="stat-value" id="count-checking">0</span> checking
+                </div>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="search" placeholder="Search services... (Ctrl+K)" autocomplete="off">
+        </div>
+
+        <!-- Core AI Platform -->
+        <div class="section cat-ai" data-section="ai">
+            <div class="section-header">
+                <div class="section-icon ai">&#x1F9E0;</div>
+                <span class="section-title">Core AI Platform</span>
+                <span class="section-count">6 services</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/devops-api/" data-health="/devops-api/health" data-name="DevOps Backend">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x2699;</div>
+                            <h3>DevOps Backend</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>FastAPI backend — pipeline generation, chat, self-healing, CI/CD orchestration</p>
+                    <div class="card-footer">
+                        <span class="card-path">/devops-api/</span>
+                        <span class="card-port">:8003</span>
+                    </div>
+                </a>
+                <a class="card" href="/devops-api/docs" data-health="/devops-api/health" data-name="API Docs">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4D6;</div>
+                            <h3>API Docs (Swagger)</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>OpenAPI documentation — 22 routers, pipeline generators, tool integrations</p>
+                    <div class="card-footer">
+                        <span class="card-path">/devops-api/docs</span>
+                        <span class="card-port">:8003</span>
+                    </div>
+                </a>
+                <a class="card" href="/ollama/" data-health="/ollama/api/tags" data-name="Ollama">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F916;</div>
+                            <h3>Ollama</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Local LLM inference — qwen3:32b, GPU-accelerated (NVIDIA)</p>
+                    <div class="card-footer">
+                        <span class="card-path">/ollama/</span>
+                        <span class="card-port">:11434</span>
+                    </div>
+                </a>
+                <a class="card" href="/chromadb/api/v1/heartbeat" data-health="/chromadb/api/v1/heartbeat" data-name="ChromaDB">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F5C3;</div>
+                            <h3>ChromaDB</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Vector database — RAG template storage, pipeline learning feedback</p>
+                    <div class="card-footer">
+                        <span class="card-path">/chromadb/</span>
+                        <span class="card-port">:8005</span>
+                    </div>
+                </a>
+                <a class="card" href="/chromadb-admin/" data-health="/chromadb-admin/" data-name="ChromaDB Admin">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F50D;</div>
+                            <h3>ChromaDB Admin</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Web UI for browsing ChromaDB collections, embeddings, and metadata</p>
+                    <div class="card-footer">
+                        <span class="card-path">/chromadb-admin/</span>
+                        <span class="card-port">:3001</span>
+                    </div>
+                </a>
+                <a class="card" href="/vault/" data-health="/vault/v1/sys/health" data-name="Vault">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F510;</div>
+                            <h3>HashiCorp Vault</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Secrets management — KV-v2 store, auto-unseal, AppRole auth, RBAC</p>
+                    <div class="card-footer">
+                        <span class="card-path">/vault/</span>
+                        <span class="card-port">:8200</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Source Control -->
+        <div class="section cat-scm" data-section="scm">
+            <div class="section-header">
+                <div class="section-icon scm">&#x1F4E6;</div>
+                <span class="section-title">Source Control</span>
+                <span class="section-count">2 services</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/gitlab/" data-health="/gitlab/" data-name="GitLab">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F98A;</div>
+                            <h3>GitLab CE</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Source code management, CI/CD pipelines, merge requests, container registry</p>
+                    <div class="card-footer">
+                        <span class="card-path">/gitlab/</span>
+                        <span class="card-port">:8929</span>
+                    </div>
+                </a>
+                <a class="card" href="/gitea/" data-health="/gitea/" data-name="Gitea">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x2615;</div>
+                            <h3>Gitea</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Lightweight Git hosting — Jenkins &amp; GitHub Actions repos, Gitea Actions runner</p>
+                    <div class="card-footer">
+                        <span class="card-path">/gitea/</span>
+                        <span class="card-port">:3002</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- CI/CD -->
+        <div class="section cat-cicd" data-section="cicd">
+            <div class="section-header">
+                <div class="section-icon cicd">&#x1F680;</div>
+                <span class="section-title">CI/CD</span>
+                <span class="section-count">1 service + 3 agents</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/jenkins/" data-health="/jenkins/login" data-name="Jenkins">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F477;</div>
+                            <h3>Jenkins</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Automation server — multibranch pipelines, 3 Docker agents, Gitea integration</p>
+                    <div class="card-footer">
+                        <span class="card-path">/jenkins/</span>
+                        <span class="card-port">:8080</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quality & Security -->
+        <div class="section cat-quality" data-section="quality">
+            <div class="section-header">
+                <div class="section-icon quality">&#x1F6E1;</div>
+                <span class="section-title">Quality &amp; Security</span>
+                <span class="section-count">3 services</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/sonarqube/" data-health="/sonarqube/api/system/status" data-name="SonarQube">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F50E;</div>
+                            <h3>SonarQube</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Code quality analysis — SAST, security hotspots, tech debt, coverage</p>
+                    <div class="card-footer">
+                        <span class="card-path">/sonarqube/</span>
+                        <span class="card-port">:9002</span>
+                    </div>
+                </a>
+                <a class="card" href="/nexus/" data-health="/nexus/service/rest/v1/status" data-name="Nexus">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4E6;</div>
+                            <h3>Nexus Repository</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Artifact repository — Docker, Maven, npm, PyPI, raw; registry on :5001</p>
+                    <div class="card-footer">
+                        <span class="card-path">/nexus/</span>
+                        <span class="card-port">:8181</span>
+                    </div>
+                </a>
+                <a class="card" href="/trivy/" data-health="/trivy/" data-name="Trivy">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F575;</div>
+                            <h3>Trivy</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Container vulnerability scanner — CVE detection, SBOM, license checks</p>
+                    <div class="card-footer">
+                        <span class="card-path">/trivy/</span>
+                        <span class="card-port">:8183</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Monitoring -->
+        <div class="section cat-monitor" data-section="monitor">
+            <div class="section-header">
+                <div class="section-icon monitor">&#x1F4CA;</div>
+                <span class="section-title">Monitoring &amp; Observability</span>
+                <span class="section-count">7 services</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/grafana/" data-health="/grafana/api/health" data-name="Grafana">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4C8;</div>
+                            <h3>Grafana</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Dashboards &amp; visualization — Prometheus, Loki, Redis datasources</p>
+                    <div class="card-footer">
+                        <span class="card-path">/grafana/</span>
+                        <span class="card-port">:3000</span>
+                    </div>
+                </a>
+                <a class="card" href="/prometheus/" data-health="/prometheus/-/healthy" data-name="Prometheus">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F525;</div>
+                            <h3>Prometheus</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Metrics collection — PromQL, alerting rules, service discovery</p>
+                    <div class="card-footer">
+                        <span class="card-path">/prometheus/</span>
+                        <span class="card-port">:9090</span>
+                    </div>
+                </a>
+                <a class="card" href="/jaeger/" data-health="/jaeger/" data-name="Jaeger">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F50D;</div>
+                            <h3>Jaeger</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Distributed tracing — request flow visualization, latency analysis</p>
+                    <div class="card-footer">
+                        <span class="card-path">/jaeger/</span>
+                        <span class="card-port">:16686</span>
+                    </div>
+                </a>
+                <a class="card" href="/splunk/" data-health="/splunk/" data-name="Splunk">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4DD;</div>
+                            <h3>Splunk</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Log management — HEC ingestion, search, dashboards, alerting</p>
+                    <div class="card-footer">
+                        <span class="card-path">/splunk/</span>
+                        <span class="card-port">:10000</span>
+                    </div>
+                </a>
+                <a class="card" href="/loki/" data-health="/loki/ready" data-name="Loki">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4DC;</div>
+                            <h3>Loki</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Log aggregation — Grafana-native, LogQL queries, label-based indexing</p>
+                    <div class="card-footer">
+                        <span class="card-path">/loki/</span>
+                        <span class="card-port">:3100</span>
+                    </div>
+                </a>
+                <a class="card" href="/cadvisor/" data-health="/cadvisor/healthz" data-name="cAdvisor">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4E6;</div>
+                            <h3>cAdvisor</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Container metrics — CPU, memory, network, disk per container</p>
+                    <div class="card-footer">
+                        <span class="card-path">/cadvisor/</span>
+                        <span class="card-port">:8182</span>
+                    </div>
+                </a>
+                <a class="card" href="/node-exporter/" data-health="/node-exporter/metrics" data-name="Node Exporter">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F5A5;</div>
+                            <h3>Node Exporter</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Host metrics — CPU, RAM, disk, network exported to Prometheus</p>
+                    <div class="card-footer">
+                        <span class="card-path">/node-exporter/</span>
+                        <span class="card-port">:9100</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Storage -->
+        <div class="section cat-storage" data-section="storage">
+            <div class="section-header">
+                <div class="section-icon storage">&#x1F4BE;</div>
+                <span class="section-title">Storage &amp; Data</span>
+                <span class="section-count">3 services</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/minio/" data-health="/s3/minio/health/live" data-name="MinIO">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F5C4;</div>
+                            <h3>MinIO</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>S3-compatible object storage — artifacts, backups, console UI</p>
+                    <div class="card-footer">
+                        <span class="card-path">/minio/</span>
+                        <span class="card-port">:9001</span>
+                    </div>
+                </a>
+                <div class="card" data-name="PostgreSQL" style="cursor: default;">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F418;</div>
+                            <h3>PostgreSQL</h3>
+                        </div>
+                        <div class="status up" title="Healthy (via Docker)"></div>
+                    </div>
+                    <p>Primary database — platform data, migrations (user: platform)</p>
+                    <div class="card-footer">
+                        <span class="card-path">tcp://ai-postgres</span>
+                        <span class="card-port">:5432</span>
+                    </div>
+                </div>
+                <div class="card" data-name="Redis" style="cursor: default;">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x26A1;</div>
+                            <h3>Redis</h3>
+                        </div>
+                        <div class="status up" title="Healthy (via Docker)"></div>
+                    </div>
+                    <p>In-memory cache &amp; session store — pipeline progress, chat state</p>
+                    <div class="card-footer">
+                        <span class="card-path">tcp://redis</span>
+                        <span class="card-port">:6379</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Management -->
+        <div class="section cat-pm" data-section="pm">
+            <div class="section-header">
+                <div class="section-icon pm">&#x1F4CB;</div>
+                <span class="section-title">Project Management</span>
+                <span class="section-count">2 services</span>
+            </div>
+            <div class="grid">
+                <a class="card" href="/jira/" data-health="/jira/" data-name="Jira">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4CC;</div>
+                            <h3>Jira</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Issue tracking — sprints, boards, backlog, epics (Atlassian 9.12)</p>
+                    <div class="card-footer">
+                        <span class="card-path">/jira/</span>
+                        <span class="card-port">:8180</span>
+                    </div>
+                </a>
+                <a class="card" href="/redmine/" data-health="/redmine/" data-name="Redmine">
+                    <div class="card-top">
+                        <div class="card-title-row">
+                            <div class="card-icon">&#x1F4D3;</div>
+                            <h3>Redmine</h3>
+                        </div>
+                        <div class="status checking"></div>
+                    </div>
+                    <p>Project tracking — issues, Gantt charts, wiki, time tracking</p>
+                    <div class="card-footer">
+                        <span class="card-path">/redmine/</span>
+                        <span class="card-port">:8090</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <span>Dev Stack</span> &middot; Docker Compose &middot; 35 Services &middot; 5 Networks
+            <div class="last-check" id="last-check">Checking service health...</div>
+        </footer>
     </div>
 
-    <div class="section-title">Source Control &amp; CI/CD</div>
-    <div class="grid">
-        <a class="card" href="/gitlab/"><span class="runtime rt-docker">Docker</span><h3>GitLab</h3><p>Source code, CI/CD pipelines, merge requests</p><span class="tag scm">Source Control</span></a>
-        <a class="card" href="/argocd/"><span class="runtime rt-k8s">K8s</span><h3>ArgoCD</h3><p>GitOps continuous delivery for Kubernetes</p><span class="tag ci">CI/CD</span></a>
-        <a class="card" href="/jenkins/"><span class="runtime rt-k8s">K8s</span><h3>Jenkins</h3><p>Automation server for CI/CD pipelines</p><span class="tag ci">CI/CD</span></a>
-        <a class="card" href="/harness/"><span class="runtime rt-k8s">K8s</span><h3>Harness</h3><p>CI/CD platform with pipelines, delegates, and deployment verification</p><span class="tag ci">CI/CD</span></a>
-    </div>
+    <script>
+        // ── Health Check System ──
+        const cards = document.querySelectorAll('.card[data-health]');
+        let counts = { up: 0, down: 0, checking: cards.length };
 
-    <div class="section-title">Brandmatik Application</div>
-    <div class="grid">
-        <a class="card" href="/brandmatik/"><span class="runtime rt-k8s">K8s</span><h3>Brandmatik API</h3><p>API Gateway — trend collector, content generator, scoring engine</p><span class="tag app">Application</span></a>
-        <a class="card" href="/brandmatik/docs"><span class="runtime rt-k8s">K8s</span><h3>API Docs (Swagger)</h3><p>OpenAPI documentation for all Brandmatik services</p><span class="tag app">Application</span></a>
-    </div>
+        function updateCounts() {
+            document.getElementById('count-up').textContent = counts.up;
+            document.getElementById('count-down').textContent = counts.down;
+            document.getElementById('count-checking').textContent = counts.checking;
+        }
+        updateCounts();
 
-    <div class="section-title">Code Quality &amp; Security</div>
-    <div class="grid">
-        <a class="card" href="/sonarqube/"><span class="runtime rt-k8s">K8s</span><h3>SonarQube</h3><p>Code quality analysis, security scanning, tech debt tracking</p><span class="tag security">Code Quality</span></a>
-        <a class="card" href="/harbor/"><span class="runtime rt-k8s">K8s</span><h3>Harbor</h3><p>Container registry with built-in Trivy vulnerability scanning</p><span class="tag security">Security</span></a>
-    </div>
+        async function checkHealth(card) {
+            const url = card.getAttribute('data-health');
+            const dot = card.querySelector('.status');
+            if (!url || !dot) return;
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 5000);
+                const res = await fetch(url, {
+                    method: 'GET',
+                    mode: 'no-cors',
+                    signal: controller.signal,
+                    cache: 'no-store'
+                });
+                clearTimeout(timeout);
+                dot.className = 'status up';
+                dot.title = 'Online';
+                counts.up++;
+            } catch (e) {
+                // no-cors mode always throws for cross-origin, try with HEAD
+                try {
+                    const controller2 = new AbortController();
+                    const timeout2 = setTimeout(() => controller2.abort(), 5000);
+                    const res2 = await fetch(url, { signal: controller2.signal, cache: 'no-store' });
+                    clearTimeout(timeout2);
+                    dot.className = res2.ok || res2.status < 500 ? 'status up' : 'status down';
+                    dot.title = res2.ok ? 'Online' : `HTTP ${res2.status}`;
+                    if (res2.ok || res2.status < 500) counts.up++; else counts.down++;
+                } catch (e2) {
+                    dot.className = 'status down';
+                    dot.title = 'Offline';
+                    counts.down++;
+                }
+            }
+            counts.checking--;
+            updateCounts();
+        }
 
-    <div class="section-title">Artifact Management &amp; Storage</div>
-    <div class="grid">
-        <a class="card" href="/nexus/"><span class="runtime rt-k8s">K8s</span><h3>Nexus Repository</h3><p>Artifact repository — Maven, npm, Docker, PyPI, NuGet</p><span class="tag artifacts">Artifacts</span></a>
-        <a class="card" href="/minio/"><span class="runtime rt-k8s">K8s</span><h3>MinIO</h3><p>S3-compatible object storage for artifacts and backups</p><span class="tag storage">Storage</span></a>
-    </div>
+        // Staggered health checks
+        cards.forEach((card, i) => {
+            setTimeout(() => checkHealth(card), i * 200);
+        });
 
-    <div class="section-title">Secrets &amp; Configuration</div>
-    <div class="grid">
-        <a class="card" href="/vault/"><span class="runtime rt-k8s">K8s</span><h3>HashiCorp Vault</h3><p>Secrets management, encryption as a service, access control</p><span class="tag infra">Secrets</span></a>
-    </div>
+        // Refresh every 30s
+        setInterval(() => {
+            counts = { up: 0, down: 0, checking: cards.length };
+            updateCounts();
+            cards.forEach((card, i) => {
+                const dot = card.querySelector('.status');
+                if (dot) dot.className = 'status checking';
+                setTimeout(() => checkHealth(card), i * 200);
+            });
+            document.getElementById('last-check').textContent =
+                'Last checked: ' + new Date().toLocaleTimeString();
+        }, 30000);
 
-    <div class="section-title">Monitoring &amp; Alerting</div>
-    <div class="grid">
-        <a class="card" href="/grafana/"><span class="runtime rt-k8s">K8s</span><h3>Grafana</h3><p>Dashboards, metrics visualization (kube-prometheus-stack)</p><span class="tag monitor">Monitoring</span></a>
-        <a class="card" href="/prometheus/"><span class="runtime rt-k8s">K8s</span><h3>Prometheus</h3><p>Metrics collection, PromQL queries, alerting rules</p><span class="tag monitor">Monitoring</span></a>
-        <a class="card" href="/alertmanager/"><span class="runtime rt-k8s">K8s</span><h3>Alertmanager</h3><p>Alert routing, silencing, notification management</p><span class="tag monitor">Monitoring</span></a>
-        <a class="card" href="/jaeger/"><span class="runtime rt-k8s">K8s</span><h3>Jaeger</h3><p>Distributed tracing, request flow visualization</p><span class="tag monitor">Tracing</span></a>
-    </div>
+        setTimeout(() => {
+            document.getElementById('last-check').textContent =
+                'Last checked: ' + new Date().toLocaleTimeString();
+        }, cards.length * 200 + 1000);
 
-    <div class="section-title">Logging &amp; Search</div>
-    <div class="grid">
-        <a class="card" href="/kibana/"><span class="runtime rt-k8s">K8s</span><h3>Kibana</h3><p>Log visualization, dashboards, search</p><span class="tag logging">Logging</span></a>
-        <a class="card" href="/elasticsearch/"><span class="runtime rt-k8s">K8s</span><h3>Elasticsearch</h3><p>Log storage, full-text search engine</p><span class="tag logging">Logging</span></a>
-    </div>
+        // ── Search ──
+        const searchInput = document.getElementById('search');
+        searchInput.addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase().trim();
+            document.querySelectorAll('.card').forEach(card => {
+                const name = (card.getAttribute('data-name') || '').toLowerCase();
+                const text = card.textContent.toLowerCase();
+                card.classList.toggle('hidden', q && !name.includes(q) && !text.includes(q));
+            });
+            document.querySelectorAll('.section').forEach(section => {
+                const visibleCards = section.querySelectorAll('.card:not(.hidden)');
+                section.classList.toggle('hidden', q && visibleCards.length === 0);
+            });
+        });
+
+        // Ctrl+K shortcut
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.blur();
+            }
+        });
+    </script>
 </body>
 </html>

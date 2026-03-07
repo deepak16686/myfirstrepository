@@ -1,0 +1,167 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — Source Control Management
+# Services: GitLab CE (+runner), Gitea (+runner)
+# Usage: docker compose -p infra-stack -f scm.yml up -d
+# =============================================================================
+
+services:
+
+  # ===========================================================================
+  # GITLAB CE
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # GitLab CE — primary SCM, CI/CD pipelines, container registry
+  # Web: http://localhost:8929  |  SSH: localhost:2224  |  via proxy: /gitlab/
+  # Data: C:/Users/deepak/gitlab_docker/ (bind mount, preserves all GitLab data)
+  # Config: external_url uses Tailscale domain with /gitlab sub-path
+  # ---------------------------------------------------------------------------
+  gitlab-server:
+    image: gitlab/gitlab-ce:latest
+    container_name: gitlab-server
+    hostname: gitlab-server
+    restart: always
+    ports:
+      - "8929:80"
+      - "2224:22"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://devstack.deepaksharma.live/gitlab'
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        gitlab_rails['relative_url_root'] = '/gitlab'
+    volumes:
+      - C:/Users/deepak/gitlab_docker/config:/etc/gitlab
+      - C:/Users/deepak/gitlab_docker/logs:/var/log/gitlab
+      - C:/Users/deepak/gitlab_docker/data:/var/opt/gitlab
+    shm_size: 256m
+    networks:
+      global-infra-net:
+      ai-platform-net:
+        aliases:
+          - gitlab
+          - git
+      gitlab-net:
+      monitoring-network:
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/gitlab/bin/gitlab-healthcheck --fail --max-time 10"]
+      interval: 60s
+      timeout: 30s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # GitLab Runner — CI/CD job executor for GitLab pipelines
+  # Config: C:/Users/deepak/.gitlab-runner/config.toml (bind mount)
+  # Shares Docker socket for DinD (Docker-in-Docker) pipeline jobs
+  # ---------------------------------------------------------------------------
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    restart: always
+    environment:
+      - GITLAB_RUNNER_LISTEN_ADDRESS=0.0.0.0:8093
+    volumes:
+      - C:/Users/deepak/.gitlab-runner/config.toml:/etc/gitlab-runner/config.toml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    depends_on:
+      - gitlab-server
+
+  # ===========================================================================
+  # GITEA
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # Gitea — lightweight Git hosting for Jenkins + GitHub Actions pipelines
+  # Web: http://localhost:3002  |  SSH: localhost:2222  |  via proxy: /gitea/
+  # Admin token: stored in Vault at secret/gitea
+  # Orgs: jenkins-projects (Jenkins repos), github-projects (Gitea Actions repos)
+  # ---------------------------------------------------------------------------
+  gitea-server:
+    image: gitea/gitea:latest
+    container_name: gitea-server
+    restart: always
+    ports:
+      - "3002:3000"
+      - "2222:22"
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__server__ROOT_URL=https://devstack.deepaksharma.live/gitea/
+      - GITEA__server__HTTP_PORT=3000
+      - GITEA__server__SSH_PORT=2222
+      - GITEA__service__DISABLE_REGISTRATION=false
+      - GITEA__service__REQUIRE_SIGNIN_VIEW=false
+      - GITEA__actions__ENABLED=true
+      - GITEA__actions__DEFAULT_ACTIONS_URL=https://github.com
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - global-infra-net
+      - ai-platform-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # Gitea Act Runner — GitHub Actions-compatible CI runner for Gitea
+  # Uses custom act_runner image from Nexus registry (includes all build tools)
+  # Runner token: GITEA_RUNNER_TOKEN env var or set in .env
+  # Network: uses ai-platform-net so job containers can reach all infra services
+  # ---------------------------------------------------------------------------
+  gitea-runner:
+    image: localhost:5001/apm-repo/demo/gitea-act-runner:latest
+    container_name: gitea-runner
+    restart: always
+    environment:
+      - GITEA_INSTANCE_URL=http://gitea-server:3000
+      - GITEA_RUNNER_REGISTRATION_TOKEN=${GITEA_RUNNER_TOKEN:-mHgHYvs7ei1F47cVrEwijEdReGXEYXUrGUQDzRLx}
+      - GITEA_RUNNER_NAME=self-hosted-runner
+      - GITEA_RUNNER_LABELS=self-hosted,docker
+      - CONFIG_FILE=/config/config.yaml
+    volumes:
+      - gitea-runner-data:/data
+      - ./config/source-control/runner-config.yaml:/config/config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - global-infra-net
+      - ai-platform-net
+    depends_on:
+      gitea-server:
+        condition: service_healthy
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  global-infra-net:
+    name: global-infra-net
+    driver: bridge
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+  gitlab-net:
+    name: gitlab-net
+    driver: bridge
+  monitoring-network:
+    name: monitoring-network
+    driver: bridge
+
+# ── Volumes (external — mapped to existing named volumes) ─────────────────────
+volumes:
+  gitea-data:
+    name: gitea-setup_gitea-data
+    external: true
+  gitea-runner-data:
+    name: gitea-setup_gitea-runner-data
+    external: true

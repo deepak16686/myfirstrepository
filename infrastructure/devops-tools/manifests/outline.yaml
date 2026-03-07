@@ -1,0 +1,173 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: outline
+  labels:
+    app: outline
+---
+# --- Redis for Outline ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline-redis
+  namespace: outline
+  labels:
+    app: outline-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline-redis
+  template:
+    metadata:
+      labels:
+        app: outline-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: outline-redis
+  namespace: outline
+  labels:
+    app: outline-redis
+spec:
+  type: ClusterIP
+  selector:
+    app: outline-redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+      protocol: TCP
+---
+# --- PostgreSQL for Outline ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline-db
+  namespace: outline
+  labels:
+    app: outline-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline-db
+  template:
+    metadata:
+      labels:
+        app: outline-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              value: "outline"
+            - name: POSTGRES_PASSWORD
+              value: "Admin@123"
+            - name: POSTGRES_DB
+              value: "outline"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: outline-db
+  namespace: outline
+  labels:
+    app: outline-db
+spec:
+  type: ClusterIP
+  selector:
+    app: outline-db
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+---
+# --- Outline Application ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline-app
+  namespace: outline
+  labels:
+    app: outline-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline-app
+  template:
+    metadata:
+      labels:
+        app: outline-app
+    spec:
+      containers:
+        - name: outline
+          image: outlinewiki/outline:latest
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: DATABASE_URL
+              value: "postgres://outline:Admin@123@outline-db:5432/outline"
+            - name: REDIS_URL
+              value: "redis://outline-redis:6379"
+            - name: SECRET_KEY
+              value: "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+            - name: UTILS_SECRET
+              value: "q1w2e3r4t5y6u7i8o9p0a1s2d3f4g5h6"
+            - name: URL
+              value: "http://localhost:30502"
+            - name: FORCE_HTTPS
+              value: "false"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: outline-app
+  namespace: outline
+  labels:
+    app: outline-app
+spec:
+  type: NodePort
+  selector:
+    app: outline-app
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30502
+      protocol: TCP

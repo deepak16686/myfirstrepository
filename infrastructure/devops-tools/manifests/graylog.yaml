@@ -1,0 +1,185 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: graylog
+  labels:
+    app: graylog
+---
+# --- MongoDB for Graylog ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graylog-mongodb
+  namespace: graylog
+  labels:
+    app: graylog-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graylog-mongodb
+  template:
+    metadata:
+      labels:
+        app: graylog-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:6
+          ports:
+            - containerPort: 27017
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog-mongodb
+  namespace: graylog
+  labels:
+    app: graylog-mongodb
+spec:
+  type: ClusterIP
+  selector:
+    app: graylog-mongodb
+  ports:
+    - name: mongodb
+      port: 27017
+      targetPort: 27017
+      protocol: TCP
+---
+# --- OpenSearch for Graylog ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graylog-opensearch
+  namespace: graylog
+  labels:
+    app: graylog-opensearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graylog-opensearch
+  template:
+    metadata:
+      labels:
+        app: graylog-opensearch
+    spec:
+      containers:
+        - name: opensearch
+          image: opensearchproject/opensearch:2
+          ports:
+            - containerPort: 9200
+              protocol: TCP
+          env:
+            - name: discovery.type
+              value: "single-node"
+            - name: DISABLE_SECURITY_PLUGIN
+              value: "true"
+            - name: OPENSEARCH_JAVA_OPTS
+              value: "-Xms256m -Xmx256m"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog-opensearch
+  namespace: graylog
+  labels:
+    app: graylog-opensearch
+spec:
+  type: ClusterIP
+  selector:
+    app: graylog-opensearch
+  ports:
+    - name: opensearch
+      port: 9200
+      targetPort: 9200
+      protocol: TCP
+---
+# --- Graylog Server ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graylog
+  namespace: graylog
+  labels:
+    app: graylog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graylog
+  template:
+    metadata:
+      labels:
+        app: graylog
+    spec:
+      containers:
+        - name: graylog
+          image: graylog/graylog:6.1
+          ports:
+            - containerPort: 9000
+              name: web
+              protocol: TCP
+          env:
+            - name: GRAYLOG_PASSWORD_SECRET
+              value: "somepasswordpepper1234567890"
+            - name: GRAYLOG_ROOT_PASSWORD_SHA2
+              value: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+            - name: GRAYLOG_HTTP_EXTERNAL_URI
+              value: "http://localhost:30253/"
+            - name: GRAYLOG_ELASTICSEARCH_HOSTS
+              value: "http://graylog-opensearch:9200"
+            - name: GRAYLOG_MONGODB_URI
+              value: "mongodb://graylog-mongodb:27017/graylog"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /api/system/lbstatus
+              port: 9000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/system/lbstatus
+              port: 9000
+            initialDelaySeconds: 90
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog
+  namespace: graylog
+  labels:
+    app: graylog
+spec:
+  type: NodePort
+  selector:
+    app: graylog
+  ports:
+    - name: web
+      port: 9000
+      targetPort: 9000
+      nodePort: 30253
+      protocol: TCP

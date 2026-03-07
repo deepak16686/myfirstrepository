@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: thanos
+  labels:
+    app.kubernetes.io/name: thanos
+    app.kubernetes.io/part-of: monitoring
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thanos-query
+  namespace: thanos
+  labels:
+    app: thanos-query
+    app.kubernetes.io/name: thanos
+    app.kubernetes.io/component: query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thanos-query
+  template:
+    metadata:
+      labels:
+        app: thanos-query
+    spec:
+      containers:
+        - name: thanos-query
+          image: quay.io/thanos/thanos:v0.36.1
+          command:
+            - thanos
+            - query
+            - "--http-address=0.0.0.0:10902"
+            - "--store=dns+prometheus-kube-prometheus-prometheus.monitoring.svc:10901"
+          ports:
+            - name: http
+              containerPort: 10902
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thanos-query
+  namespace: thanos
+  labels:
+    app: thanos-query
+spec:
+  type: NodePort
+  selector:
+    app: thanos-query
+  ports:
+    - name: http
+      port: 10902
+      targetPort: http
+      nodePort: 30240
+      protocol: TCP

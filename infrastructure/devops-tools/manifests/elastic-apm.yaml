@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: elastic-apm
+  labels:
+    app: elastic-apm
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apm-server-config
+  namespace: elastic-apm
+  labels:
+    app: elastic-apm
+data:
+  apm-server.yml: |
+    apm-server:
+      host: "0.0.0.0:8200"
+    output.elasticsearch:
+      hosts: ["elasticsearch-master.logging.svc:9200"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elastic-apm
+  namespace: elastic-apm
+  labels:
+    app: elastic-apm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elastic-apm
+  template:
+    metadata:
+      labels:
+        app: elastic-apm
+    spec:
+      containers:
+        - name: apm-server
+          image: docker.elastic.co/apm/apm-server:8.17.0
+          ports:
+            - containerPort: 8200
+              name: apm
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: apm-server-config
+              mountPath: /usr/share/apm-server/apm-server.yml
+              subPath: apm-server.yml
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8200
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8200
+            initialDelaySeconds: 30
+            periodSeconds: 15
+      volumes:
+        - name: apm-server-config
+          configMap:
+            name: apm-server-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elastic-apm
+  namespace: elastic-apm
+  labels:
+    app: elastic-apm
+spec:
+  type: NodePort
+  selector:
+    app: elastic-apm
+  ports:
+    - name: apm
+      port: 8200
+      targetPort: 8200
+      nodePort: 30265
+      protocol: TCP

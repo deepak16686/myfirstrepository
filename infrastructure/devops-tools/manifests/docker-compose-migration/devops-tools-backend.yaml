@@ -1,0 +1,111 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devops-tools-config
+  namespace: devops-tools
+  labels:
+    app: devops-tools-backend
+data:
+  # Service URLs - pointing to K8s services
+  GITLAB_URL: "http://gitlab.gitlab.svc.cluster.local:80"
+  SONARQUBE_URL: "http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000"
+  NEXUS_URL: "http://nexus-nexus-repository-manager.nexus.svc.cluster.local:8081"
+  GITHUB_URL: "http://gitea-http.gitea.svc.cluster.local:3000"
+  CHROMADB_URL: "http://chromadb.chromadb.svc.cluster.local:8000"
+  OLLAMA_URL: "http://ollama.ollama.svc.cluster.local:11434"
+  REDIS_URL: "redis://redis.redis.svc.cluster.local:6379/0"
+  JIRA_URL: "http://jira.jira.svc.cluster.local:8080"
+  JIRA_PROJECT_KEY: "DEVOPS"
+  SPLUNK_URL: "https://splunk.splunk.svc.cluster.local:8088"
+  JENKINS_URL: "http://jenkins.jenkins.svc.cluster.local:8080/jenkins"
+  JENKINS_GIT_URL: "http://gitea-http.gitea.svc.cluster.local:3000"
+  VAULT_URL: "http://vault.vault.svc.cluster.local:8200"
+  LLM_PROVIDER: "claude-code"
+  CLAUDE_MODEL: "opus"
+  CLAUDE_TIMEOUT: "300"
+  DEBUG: "false"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-tools-backend
+  namespace: devops-tools
+  labels:
+    app: devops-tools-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-tools-backend
+  template:
+    metadata:
+      labels:
+        app: devops-tools-backend
+    spec:
+      containers:
+        - name: backend
+          image: python:3.12-slim
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              mkdir -p /app
+              pip install --no-cache-dir fastapi uvicorn httpx redis 2>/dev/null
+              python3 -c "
+              import pathlib
+              pathlib.Path('/app/health.py').write_text('''
+              from fastapi import FastAPI
+              app = FastAPI(title=\"DevOps Tools Backend\")
+              @app.get(\"/health\")
+              def health():
+                  return {\"status\": \"ok\", \"service\": \"devops-tools-backend\"}
+              @app.get(\"/ready\")
+              def ready():
+                  return {\"status\": \"ready\"}
+              @app.get(\"/info\")
+              def info():
+                  return {\"service\": \"devops-tools-backend\", \"version\": \"1.0.0\", \"runtime\": \"kubernetes\"}
+              '''.strip())
+              "
+              cd /app && uvicorn health:app --host 0.0.0.0 --port 8003
+          ports:
+            - containerPort: 8003
+          envFrom:
+            - configMapRef:
+                name: devops-tools-config
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8003
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8003
+            initialDelaySeconds: 60
+            periodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-tools-backend
+  namespace: devops-tools
+  labels:
+    app: devops-tools-backend
+spec:
+  type: NodePort
+  selector:
+    app: devops-tools-backend
+  ports:
+    - port: 8003
+      targetPort: 8003
+      nodePort: 30003
+      name: http

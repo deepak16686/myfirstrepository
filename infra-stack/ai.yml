@@ -1,0 +1,113 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — AI / ML Services
+# Services: Ollama (LLM inference), ChromaDB (vector DB), ChromaDB-Admin, Qdrant
+# Usage: docker compose -p infra-stack -f ai.yml up -d
+# Requires NVIDIA GPU drivers + nvidia-container-toolkit for Ollama GPU support
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Ollama — local LLM inference server (GPU-accelerated)
+  # API: http://ollama:11434  |  via proxy: /ollama/
+  # Models: qwen3:32b (default), pull via: docker exec ollama ollama pull <model>
+  # ---------------------------------------------------------------------------
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - global-infra-net
+      - ai-platform-net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # ---------------------------------------------------------------------------
+  # ChromaDB — vector database for RAG, embeddings, pipeline templates
+  # API: http://chromadb:8000  |  via proxy: /chromadb/
+  # Host port: 8005 (internal container port 8000)
+  # ---------------------------------------------------------------------------
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    restart: always
+    ports:
+      - "8005:8000"
+    volumes:
+      - chromadb-data:/data
+    networks:
+      - global-infra-net
+      - ai-platform-net
+
+  # ---------------------------------------------------------------------------
+  # ChromaDB Admin — web UI for browsing ChromaDB collections
+  # UI: http://localhost:3001  |  via proxy: /chromadb-admin/
+  # ---------------------------------------------------------------------------
+  chromadb-admin:
+    image: sanderdw/chromadb-admin:latest
+    container_name: chromadb-admin
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      - CHROMADB_HOST=http://chromadb:8000
+    networks:
+      - global-infra-net
+      - ai-platform-net
+    depends_on:
+      - chromadb
+
+  # ---------------------------------------------------------------------------
+  # Qdrant — high-performance vector database (alternative to ChromaDB)
+  # REST: http://qdrant:6333  |  gRPC: http://qdrant:6334
+  # ---------------------------------------------------------------------------
+  qdrant:
+    image: qdrant/qdrant:v1.12.5
+    container_name: qdrant
+    restart: always
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - global-infra-net
+      - ai-platform-net
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/localhost/6333'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  global-infra-net:
+    name: global-infra-net
+    driver: bridge
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+
+# ── Volumes (external — mapped to existing named volumes) ─────────────────────
+volumes:
+  ollama-data:
+    name: ollama
+    external: true
+  chromadb-data:
+    name: chromadb-data
+    external: true
+  qdrant-data:
+    name: qdrant-data
+    external: true

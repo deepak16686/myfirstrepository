@@ -1,0 +1,8 @@
+{
+    "name": "financial-analysis",
+    "version": "1.0.0",
+    "description": "Claude Cowork financial-analysis plugin",
+    "installed_at": "2026-02-27T03:29:12Z",
+    "source": "anthropic/knowledge-work-plugins",
+    "enabled": true
+}

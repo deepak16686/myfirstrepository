@@ -1,0 +1,209 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — Monitoring & Observability
+# Services: Prometheus, Grafana, Loki, Jaeger, Node-Exporter, cAdvisor, Splunk
+# Usage: docker compose -p infra-stack -f monitoring.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Prometheus — metrics collection and alerting
+  # Web: http://localhost:9090  |  via proxy: /prometheus/
+  # Config: config/prometheus/prometheus.yml (scrapes all infra services)
+  # ---------------------------------------------------------------------------
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.external-url=/prometheus/'
+      - '--web.route-prefix=/prometheus/'
+    networks:
+      - global-infra-net
+      - monitoring-network
+      - ai-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Grafana — dashboards and visualization
+  # Web: http://localhost:3000  |  via proxy: /grafana/
+  # Admin: admin / admin  |  Datasources: Prometheus, Loki, Redis
+  # ---------------------------------------------------------------------------
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=redis-datasource
+      - GF_SERVER_ROOT_URL=https://devstack.deepaksharma.live/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - global-infra-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # Loki — log aggregation (Grafana-native, LogQL)
+  # API: http://loki:3100  |  Port: 3100
+  # via proxy: /loki/
+  # ---------------------------------------------------------------------------
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: always
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki
+    networks:
+      - global-infra-net
+      - monitoring-network
+      - ai-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Jaeger — distributed tracing (OpenTelemetry compatible)
+  # UI: http://localhost:16686  |  Collector: 14268  |  via proxy: /jaeger/
+  # ---------------------------------------------------------------------------
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    restart: always
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    networks:
+      - global-infra-net
+      - monitoring-network
+      - ai-platform-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:16686/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # Node Exporter — host system metrics (CPU, RAM, disk, network)
+  # Metrics: http://localhost:9100/metrics  |  via proxy: /node-exporter/
+  # Scraped by Prometheus for infrastructure dashboards
+  # ---------------------------------------------------------------------------
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: always
+    ports:
+      - "9100:9100"
+    networks:
+      - global-infra-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:9100/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # cAdvisor — container-level metrics (CPU, memory, network per container)
+  # Web: http://localhost:8182  |  via proxy: /cadvisor/
+  # Requires privileged access and host volume mounts for Docker stats
+  # ---------------------------------------------------------------------------
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: always
+    privileged: true
+    ports:
+      - "8182:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - global-infra-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # Splunk — log management, HEC ingestion, dashboards, alerting
+  # Web: http://localhost:10000  |  HEC: http://localhost:8088
+  # via proxy: /splunk/  |  Admin: admin / Admin@1234
+  # NOTE: Splunk takes ~2 minutes to start — start_period is 120s
+  # ---------------------------------------------------------------------------
+  ai-splunk:
+    image: splunk/splunk:latest
+    container_name: ai-splunk
+    restart: always
+    ports:
+      - "8088:8088"
+      - "10000:8000"
+    environment:
+      - SPLUNK_PASSWORD=Admin@1234
+      - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
+      - SPLUNK_START_ARGS=--accept-license
+    volumes:
+      - splunk-etc:/opt/splunk/etc
+      - splunk-var:/opt/splunk/var
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/splunk/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  global-infra-net:
+    name: global-infra-net
+    driver: bridge
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+  gitlab-net:
+    name: gitlab-net
+    driver: bridge
+  monitoring-network:
+    name: monitoring-network
+    driver: bridge
+
+# ── Volumes (external — mapped to existing named volumes) ─────────────────────
+volumes:
+  prometheus-data:
+    name: ai-folder_prometheus-data
+    external: true
+  grafana-data:
+    name: ai-folder_grafana-data
+    external: true
+  loki-data:
+    name: ai-folder_loki-data
+    external: true
+  splunk-etc:
+    name: 4ab1508871e7553d3fc1fc3b4c36b8f5829f7ddd10a19524406793aeb42ea9c1
+    external: true
+  splunk-var:
+    name: 9dc29ee918744304858a17e8cd0228efe7076d256f699d4d216b1d1df0618624
+    external: true

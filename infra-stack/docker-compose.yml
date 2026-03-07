@@ -1,0 +1,51 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — Master Entry Point
+# =============================================================================
+# Single, permanent infrastructure stack that provides ALL DevOps tools.
+# Every application stack connects to this via the shared 'global-infra-net'.
+#
+# USAGE:
+#   Start all:        docker compose -p infra-stack up -d
+#   Stop all:         docker compose -p infra-stack down         (data preserved)
+#   Restart service:  docker compose -p infra-stack restart <service>
+#   Logs:             docker compose -p infra-stack logs -f <service>
+#   Status:           docker compose -p infra-stack ps
+#
+# SERVICE GROUPS (start individually):
+#   docker compose -p infra-stack -f security.yml up -d
+#   docker compose -p infra-stack -f core.yml up -d
+#   docker compose -p infra-stack -f ai.yml up -d
+#   docker compose -p infra-stack -f scm.yml up -d
+#   docker compose -p infra-stack -f cicd.yml up -d
+#   docker compose -p infra-stack -f quality.yml up -d
+#   docker compose -p infra-stack -f monitoring.yml up -d
+#   docker compose -p infra-stack -f projects.yml up -d
+#
+# APPLICATION STACKS — connect to infra via shared network:
+#   networks:
+#     global-infra-net:
+#       external: true
+#
+# SERVICE GROUPS:
+#   security.yml    — Vault (secrets), nginx-proxy (reverse proxy)
+#   core.yml        — PostgreSQL, Redis, MinIO (shared data services)
+#   ai.yml          — Ollama, ChromaDB, ChromaDB-Admin, Qdrant
+#   scm.yml         — GitLab (+runner), Gitea (+runner)
+#   cicd.yml        — Jenkins (master + 3 agents)
+#   quality.yml     — SonarQube (+DB), Nexus, Trivy
+#   monitoring.yml  — Prometheus, Grafana, Loki, Jaeger, cAdvisor, Node-Exporter, Splunk
+#   projects.yml    — Jira (+DB), Redmine (+DB)
+#
+# ALL services use restart: always — they never stop unless explicitly commanded.
+# ALL volumes are external (mapped to existing named volumes) — zero data loss.
+# =============================================================================
+
+include:
+  - security.yml
+  - core.yml
+  - ai.yml
+  - scm.yml
+  - cicd.yml
+  - quality.yml
+  - monitoring.yml
+  - projects.yml

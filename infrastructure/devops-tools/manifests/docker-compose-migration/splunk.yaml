@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: splunk
+  namespace: splunk
+  labels:
+    app: splunk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: splunk
+  template:
+    metadata:
+      labels:
+        app: splunk
+    spec:
+      containers:
+        - name: splunk
+          image: splunk/splunk:latest
+          ports:
+            - containerPort: 8000
+              name: web
+            - containerPort: 8088
+              name: hec
+            - containerPort: 8089
+              name: mgmt
+          env:
+            - name: SPLUNK_PASSWORD
+              value: "Admin@1234"
+            - name: SPLUNK_GENERAL_TERMS
+              value: "--accept-sgt-current-at-splunk-com"
+            - name: SPLUNK_START_ARGS
+              value: "--accept-license"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+          volumeMounts:
+            - name: splunk-etc
+              mountPath: /opt/splunk/etc
+            - name: splunk-var
+              mountPath: /opt/splunk/var
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
+      volumes:
+        - name: splunk-etc
+          emptyDir: {}
+        - name: splunk-var
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: splunk
+  namespace: splunk
+  labels:
+    app: splunk
+spec:
+  type: NodePort
+  selector:
+    app: splunk
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30850
+      name: web
+    - port: 8088
+      targetPort: 8088
+      nodePort: 30851
+      name: hec

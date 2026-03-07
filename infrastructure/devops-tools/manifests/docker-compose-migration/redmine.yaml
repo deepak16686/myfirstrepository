@@ -1,0 +1,135 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redmine-db
+  namespace: redmine
+  labels:
+    app: redmine-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redmine-db
+  template:
+    metadata:
+      labels:
+        app: redmine-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "redmine"
+            - name: POSTGRES_PASSWORD
+              value: "redmine123"
+            - name: POSTGRES_DB
+              value: "redmine"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: redmine-pg-data
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "redmine", "-d", "redmine"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: redmine-pg-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redmine-db
+  namespace: redmine
+  labels:
+    app: redmine-db
+spec:
+  selector:
+    app: redmine-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redmine
+  namespace: redmine
+  labels:
+    app: redmine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redmine
+  template:
+    metadata:
+      labels:
+        app: redmine
+    spec:
+      containers:
+        - name: redmine
+          image: redmine:5-alpine
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDMINE_DB_POSTGRES
+              value: "redmine-db"
+            - name: REDMINE_DB_PORT
+              value: "5432"
+            - name: REDMINE_DB_USERNAME
+              value: "redmine"
+            - name: REDMINE_DB_PASSWORD
+              value: "redmine123"
+            - name: REDMINE_DB_DATABASE
+              value: "redmine"
+            - name: REDMINE_SECRET_KEY_BASE
+              value: "redmine-secret-key-base-change-in-production"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: redmine-data
+              mountPath: /usr/src/redmine/files
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+      volumes:
+        - name: redmine-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redmine
+  namespace: redmine
+  labels:
+    app: redmine
+spec:
+  type: NodePort
+  selector:
+    app: redmine
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30091
+      name: http

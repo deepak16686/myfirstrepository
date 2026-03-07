@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ollama
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chromadb
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: splunk
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jira
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redmine
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: loki
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devops-tools
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cadvisor
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redis

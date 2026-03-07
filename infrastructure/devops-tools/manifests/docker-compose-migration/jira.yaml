@@ -1,0 +1,130 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jira-postgres
+  namespace: jira
+  labels:
+    app: jira-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jira-postgres
+  template:
+    metadata:
+      labels:
+        app: jira-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "jiradb"
+            - name: POSTGRES_USER
+              value: "jira"
+            - name: POSTGRES_PASSWORD
+              value: "jira123"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: jira-pg-data
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "jira", "-d", "jiradb"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: jira-pg-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jira-postgres
+  namespace: jira
+  labels:
+    app: jira-postgres
+spec:
+  selector:
+    app: jira-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jira
+  namespace: jira
+  labels:
+    app: jira
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jira
+  template:
+    metadata:
+      labels:
+        app: jira
+    spec:
+      containers:
+        - name: jira
+          image: atlassian/jira-software:9.12
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ATL_JDBC_URL
+              value: "jdbc:postgresql://jira-postgres:5432/jiradb"
+            - name: ATL_JDBC_USER
+              value: "jira"
+            - name: ATL_JDBC_PASSWORD
+              value: "jira123"
+            - name: ATL_DB_DRIVER
+              value: "org.postgresql.Driver"
+            - name: ATL_DB_TYPE
+              value: "postgres72"
+            - name: JVM_MINIMUM_MEMORY
+              value: "384m"
+            - name: JVM_MAXIMUM_MEMORY
+              value: "1024m"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+          volumeMounts:
+            - name: jira-data
+              mountPath: /var/atlassian/application-data/jira
+      volumes:
+        - name: jira-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jira
+  namespace: jira
+  labels:
+    app: jira
+spec:
+  type: NodePort
+  selector:
+    app: jira
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30180
+      name: http
