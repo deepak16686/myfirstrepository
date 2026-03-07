@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: awx
+  labels:
+    app: awx
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: awx-admin-password
+  namespace: awx
+  labels:
+    app: awx
+type: Opaque
+data:
+  password: QWRtaW5AMTIz
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+  namespace: awx
+  labels:
+    app: awx
+spec:
+  service_type: NodePort
+  nodeport_port: 30235
+  admin_user: admin
+  admin_password_secret: awx-admin-password

@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mimir
+  labels:
+    app.kubernetes.io/name: mimir
+    app.kubernetes.io/part-of: monitoring
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mimir-config
+  namespace: mimir
+  labels:
+    app: mimir
+data:
+  mimir.yaml: |
+    multitenancy_enabled: false
+
+    server:
+      http_listen_port: 8080
+
+    blocks_storage:
+      backend: filesystem
+      filesystem:
+        dir: /data/mimir
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mimir
+  namespace: mimir
+  labels:
+    app: mimir
+    app.kubernetes.io/name: mimir
+    app.kubernetes.io/component: all-in-one
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mimir
+  template:
+    metadata:
+      labels:
+        app: mimir
+    spec:
+      containers:
+        - name: mimir
+          image: grafana/mimir:latest
+          args:
+            - "-config.file=/etc/mimir/mimir.yaml"
+            - "-target=all"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: mimir-config
+              mountPath: /etc/mimir
+              readOnly: true
+            - name: mimir-data
+              mountPath: /data/mimir
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: mimir-config
+          configMap:
+            name: mimir-config
+        - name: mimir-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mimir
+  namespace: mimir
+  labels:
+    app: mimir
+spec:
+  type: NodePort
+  selector:
+    app: mimir
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      nodePort: 30241
+      protocol: TCP

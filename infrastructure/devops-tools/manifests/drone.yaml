@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: drone
+  labels:
+    app: drone
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drone
+  namespace: drone
+  labels:
+    app: drone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drone
+  template:
+    metadata:
+      labels:
+        app: drone
+    spec:
+      containers:
+        - name: drone
+          image: drone/drone:2
+          ports:
+            - containerPort: 80
+          env:
+            - name: DRONE_SERVER_HOST
+              value: "localhost:30210"
+            - name: DRONE_SERVER_PROTO
+              value: "http"
+            - name: DRONE_DATABASE_DRIVER
+              value: "sqlite3"
+            - name: DRONE_DATABASE_DATASOURCE
+              value: "/data/database.sqlite"
+            - name: DRONE_RPC_SECRET
+              value: "super-secret-rpc"
+            - name: DRONE_USER_CREATE
+              value: "username:admin,admin:true"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+      volumes:
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drone
+  namespace: drone
+  labels:
+    app: drone
+spec:
+  type: NodePort
+  selector:
+    app: drone
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30210
+      protocol: TCP

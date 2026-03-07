@@ -1,0 +1,8 @@
+{
+    "name": "brand-voice",
+    "version": "1.0.0",
+    "description": "Claude Cowork brand-voice plugin",
+    "installed_at": "2026-02-27T03:29:13Z",
+    "source": "anthropic/knowledge-work-plugins",
+    "enabled": true
+}

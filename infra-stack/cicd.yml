@@ -1,0 +1,151 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — CI/CD
+# Services: Jenkins Master, Jenkins Agent 1/2/3
+# Usage: docker compose -p infra-stack -f cicd.yml up -d
+# Jenkins URL: http://localhost:8080/jenkins  |  via proxy: /jenkins/
+# Agent secrets: stored in .env or set via JENKINS_AGENT_SECRET_* env vars
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Master — automation server for Gitea-backed multibranch pipelines
+  # Web: http://localhost:8080/jenkins  |  Agent port: 50000
+  # Admin: admin / admin123  (configured via init.groovy.d)
+  # Prefix: /jenkins (set via JENKINS_OPTS)
+  # ---------------------------------------------------------------------------
+  jenkins-master:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-master
+    restart: always
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - ./config/jenkins/jenkins-rbac-init.groovy:/var/jenkins_home/init.groovy.d/03-rbac-init.groovy:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/jenkins/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Agent 1 — build executor with Docker socket access
+  # Label: docker  |  Secret: set JENKINS_AGENT_SECRET_1 in .env
+  # ---------------------------------------------------------------------------
+  jenkins-agent-1:
+    image: jenkins/inbound-agent:latest
+    container_name: jenkins-agent-1
+    restart: always
+    user: root
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_AGENT_NAME=agent-1
+      - JENKINS_SECRET=${JENKINS_AGENT_SECRET_1:-66fbf53f95bb677bd41780239be7474afd24d1e34a11814e0f32e97489d89880}
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - jenkins-agent-1-data:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    depends_on:
+      - jenkins-master
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Agent 2 — build executor with Docker socket access
+  # ---------------------------------------------------------------------------
+  jenkins-agent-2:
+    image: jenkins/inbound-agent:latest
+    container_name: jenkins-agent-2
+    restart: always
+    user: root
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_AGENT_NAME=agent-2
+      - JENKINS_SECRET=${JENKINS_AGENT_SECRET_2:-fe466dc2c3c658e66071cbb8df177ef227120fb4b448ccb7c1a9ed753b3924ab}
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - jenkins-agent-2-data:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    depends_on:
+      - jenkins-master
+
+  # ---------------------------------------------------------------------------
+  # Jenkins Agent 3 — build executor with Docker socket access
+  # ---------------------------------------------------------------------------
+  jenkins-agent-3:
+    image: jenkins/inbound-agent:latest
+    container_name: jenkins-agent-3
+    restart: always
+    user: root
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080/jenkins
+      - JENKINS_AGENT_NAME=agent-3
+      - JENKINS_SECRET=${JENKINS_AGENT_SECRET_3:-c819856611f0faf66a354351faad64b1406bb3e470b1906b6e0ea6fa5c61dd5e}
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - jenkins-agent-3-data:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+    depends_on:
+      - jenkins-master
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  global-infra-net:
+    name: global-infra-net
+    driver: bridge
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+  gitlab-net:
+    name: gitlab-net
+    driver: bridge
+  monitoring-network:
+    name: monitoring-network
+    driver: bridge
+  jenkins-net:
+    name: jenkins-net
+    driver: bridge
+
+# ── Volumes (external — mapped to existing named volumes) ─────────────────────
+volumes:
+  jenkins-data:
+    name: clawd_jenkins-data
+    external: true
+  jenkins-agent-1-data:
+    name: clawd_jenkins-agent-1-data
+    external: true
+  jenkins-agent-2-data:
+    name: clawd_jenkins-agent-2-data
+    external: true
+  jenkins-agent-3-data:
+    name: clawd_jenkins-agent-3-data
+    external: true

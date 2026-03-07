@@ -1,0 +1,51 @@
+{
+    "project": "dev-stack",
+    "plugins_dir": "plugins",
+    "context_dir": "context",
+    "installed_at": "2026-02-27T03:29:13Z",
+    "plugin_count": 21,
+    "waves": {
+        "wave1": {
+            "date": "2025-01-30",
+            "count": 11,
+            "plugins": [
+  "data-analysis",
+  "productivity",
+  "sales",
+  "legal",
+  "product-management",
+  "marketing",
+  "finance",
+  "customer-support",
+  "enterprise-search",
+  "bio-research",
+  "cowork-plugin-management"
+]
+        },
+        "wave2": {
+            "date": "2025-02-24",
+            "count": 10,
+            "plugins": [
+  "financial-analysis",
+  "investment-banking",
+  "equity-research",
+  "private-equity",
+  "wealth-management",
+  "hr",
+  "engineering",
+  "design",
+  "operations",
+  "brand-voice"
+]
+        }
+    },
+    "tier_ranking": {
+        "S": ["data-analysis", "productivity", "sales"],
+        "A": ["legal", "product-management", "marketing", "finance"],
+        "B": ["customer-support", "hr", "engineering", "operations", "design",
+               "financial-analysis", "investment-banking", "equity-research",
+               "private-equity", "brand-voice"],
+        "C": ["enterprise-search", "bio-research", "cowork-plugin-management",
+               "wealth-management"]
+    }
+}

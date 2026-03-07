@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: woodpecker
+  labels:
+    app: woodpecker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: woodpecker
+  namespace: woodpecker
+  labels:
+    app: woodpecker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: woodpecker
+  template:
+    metadata:
+      labels:
+        app: woodpecker
+    spec:
+      containers:
+        - name: woodpecker
+          image: woodpeckerci/woodpecker-server:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: WOODPECKER_OPEN
+              value: "true"
+            - name: WOODPECKER_HOST
+              value: "http://localhost:30211"
+            - name: WOODPECKER_AGENT_SECRET
+              value: "secret123"
+            - name: WOODPECKER_ADMIN
+              value: "admin"
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/woodpecker
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+      volumes:
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: woodpecker
+  namespace: woodpecker
+  labels:
+    app: woodpecker
+spec:
+  type: NodePort
+  selector:
+    app: woodpecker
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30211
+      protocol: TCP

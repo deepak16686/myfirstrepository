@@ -1,0 +1,98 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "MultiEdit",
+      "Bash(npx prettier --write:*)",
+      "Bash(npx eslint --fix:*)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run format:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx playwright:*)",
+      "Bash(pytest:*)",
+      "Bash(ruff check:*)",
+      "Bash(ruff format:*)",
+      "Bash(docker build:*)",
+      "Bash(docker compose:*)",
+      "Bash(kubectl apply --dry-run:*)",
+      "Bash(terraform plan:*)",
+      "Bash(terraform fmt:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(kubectl delete:*)",
+      "Bash(terraform destroy:*)",
+      "Bash(docker system prune:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "name": "block-env-edits",
+        "description": "Prevent accidental .env file modifications",
+        "match_tools": ["Edit", "Write", "MultiEdit"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.env($|\\.)'; then echo 'BLOCKED: .env files must be edited manually for security'; exit 1; fi"
+      },
+      {
+        "name": "block-lockfile-edits",
+        "description": "Prevent manual lock file modifications",
+        "match_tools": ["Edit", "Write"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(package-lock|yarn\\.lock|pnpm-lock|go\\.sum|Cargo\\.lock)'; then echo 'BLOCKED: Lock files should not be manually edited'; exit 1; fi"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "name": "auto-format-frontend",
+        "description": "Auto-format TypeScript, TSX, CSS, and JSON files with Prettier after editing",
+        "match_tools": ["Edit", "Write", "MultiEdit"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.(tsx?|jsx?|css|scss|json|mdx?)$'; then if [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../.prettierrc\" ] || [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../.prettierrc.json\" ] || [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../../.prettierrc\" ]; then npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null; fi; fi"
+      },
+      {
+        "name": "auto-lint-frontend",
+        "description": "Auto-lint TypeScript and TSX files with ESLint after editing",
+        "match_tools": ["Edit", "Write", "MultiEdit"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.(tsx?|jsx?)$'; then if [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../eslint.config.mjs\" ] || [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../.eslintrc.json\" ]; then npx eslint --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null || true; fi; fi"
+      },
+      {
+        "name": "auto-format-python",
+        "description": "Auto-format Python files with Ruff after editing",
+        "match_tools": ["Edit", "Write", "MultiEdit"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.py$'; then command -v ruff &>/dev/null && ruff format \"$CLAUDE_FILE_PATH\" 2>/dev/null && ruff check --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null || true; fi"
+      },
+      {
+        "name": "validate-dockerfile",
+        "description": "Lint Dockerfile after editing",
+        "match_tools": ["Edit", "Write"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qi 'dockerfile'; then command -v hadolint &>/dev/null && hadolint \"$CLAUDE_FILE_PATH\" 2>/dev/null || true; fi"
+      },
+      {
+        "name": "validate-k8s-manifests",
+        "description": "Validate Kubernetes YAML after editing",
+        "match_tools": ["Edit", "Write"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE 'k8s/|kubernetes/|manifests/' && echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.ya?ml$'; then kubectl apply --dry-run=client -f \"$CLAUDE_FILE_PATH\" 2>/dev/null || echo 'WARNING: K8s manifest validation failed'; fi"
+      },
+      {
+        "name": "validate-terraform",
+        "description": "Format and validate Terraform files after editing",
+        "match_tools": ["Edit", "Write"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.tf$'; then command -v terraform &>/dev/null && terraform fmt \"$CLAUDE_FILE_PATH\" 2>/dev/null || true; fi"
+      },
+      {
+        "name": "track-all-changes",
+        "description": "Log all file operations for task tracking",
+        "match_tools": ["Write", "Edit", "MultiEdit"],
+        "command": "mkdir -p .claude/task-log && echo \"$(date '+%Y-%m-%d %H:%M:%S') | $CLAUDE_TOOL_NAME | $CLAUDE_FILE_PATH\" >> .claude/task-log/.file-changes.log 2>/dev/null || true"
+      }
+    ]
+  }
+}

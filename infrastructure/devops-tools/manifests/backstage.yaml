@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: backstage
+  labels:
+    app: backstage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    app: backstage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+        - name: backstage
+          image: roadiehq/community-backstage-image:latest
+          ports:
+            - containerPort: 7007
+              protocol: TCP
+          env:
+            - name: APP_CONFIG_app_baseUrl
+              value: "http://localhost:30505"
+            - name: APP_CONFIG_backend_baseUrl
+              value: "http://localhost:30505"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    app: backstage
+spec:
+  type: NodePort
+  selector:
+    app: backstage
+  ports:
+    - port: 7007
+      targetPort: 7007
+      nodePort: 30505
+      protocol: TCP

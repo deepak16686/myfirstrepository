@@ -1,0 +1,115 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — Core Data Services
+# Services: PostgreSQL (shared DB), Redis (cache), MinIO (object storage)
+# Usage: docker compose -p infra-stack -f core.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — shared relational database for all application stacks
+  # Each app gets its own database + user (see config/postgres-init/)
+  # Connection: postgresql://platform:platform123@ai-postgres:5432/<db>
+  # ---------------------------------------------------------------------------
+  ai-postgres:
+    image: postgres:15-alpine
+    container_name: ai-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=platform123
+      - POSTGRES_DB=modernization_platform
+      - POSTGRES_USER=platform
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./config/postgres-init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform -d modernization_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Redis — shared cache, session store, pub/sub broker
+  # Connection: redis://redis:6379/0
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # MinIO — S3-compatible object storage
+  # API: http://minio:9000  |  Console: http://localhost:9001  |  via proxy: /minio/
+  # Credentials: admin / admin123
+  # ---------------------------------------------------------------------------
+  minio:
+    image: minio/minio
+    container_name: minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  global-infra-net:
+    name: global-infra-net
+    driver: bridge
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+  gitlab-net:
+    name: gitlab-net
+    driver: bridge
+  monitoring-network:
+    name: monitoring-network
+    driver: bridge
+
+# ── Volumes (external — mapped to existing named volumes) ─────────────────────
+volumes:
+  postgres-data:
+    name: postgres-data
+    external: true
+  redis-data:
+    name: redis-data
+    external: true
+  minio-data:
+    name: minio-data
+    external: true

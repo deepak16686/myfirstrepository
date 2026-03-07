@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildkite-agent
+  namespace: default
+  labels:
+    app: buildkite-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buildkite-agent
+  template:
+    metadata:
+      labels:
+        app: buildkite-agent
+    spec:
+      containers:
+        - name: buildkite-agent
+          image: buildkite/agent:3
+          env:
+            - name: BUILDKITE_AGENT_TOKEN
+              value: "placeholder-token"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"

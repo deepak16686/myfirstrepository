@@ -1,0 +1,115 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chromadb
+  namespace: chromadb
+  labels:
+    app: chromadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chromadb
+  template:
+    metadata:
+      labels:
+        app: chromadb
+    spec:
+      containers:
+        - name: chromadb
+          image: chromadb/chroma:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: chromadb-data
+              mountPath: /chroma/chroma
+          livenessProbe:
+            httpGet:
+              path: /api/v2/heartbeat
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/v2/heartbeat
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: chromadb-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chromadb
+  namespace: chromadb
+  labels:
+    app: chromadb
+spec:
+  type: NodePort
+  selector:
+    app: chromadb
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30805
+      name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chromadb-admin
+  namespace: chromadb
+  labels:
+    app: chromadb-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chromadb-admin
+  template:
+    metadata:
+      labels:
+        app: chromadb-admin
+    spec:
+      containers:
+        - name: chromadb-admin
+          image: sanderdw/chromadb-admin:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: CHROMADB_HOST
+              value: "http://chromadb.chromadb.svc.cluster.local:8000"
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chromadb-admin
+  namespace: chromadb
+  labels:
+    app: chromadb-admin
+spec:
+  type: NodePort
+  selector:
+    app: chromadb-admin
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30801
+      name: http

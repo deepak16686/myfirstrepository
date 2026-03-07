@@ -1,0 +1,162 @@
+# =============================================================================
+# INFRASTRUCTURE STACK — Security Layer
+# Services: nginx-proxy (reverse proxy), Vault, vault-init, vault-unseal, rbac-init
+# Usage: docker compose -p infra-stack -f security.yml up -d
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Nginx Reverse Proxy — single entry point for all infra tools
+  # Port 8443 → all services via sub-path routing
+  # ---------------------------------------------------------------------------
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "8443:80"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - global-infra-net
+      - ai-platform-net
+      - gitlab-net
+      - monitoring-network
+      - jenkins-net
+      - ticketing-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:80/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # HashiCorp Vault — persistent secrets management
+  # UI: http://localhost:8200/ui  |  via proxy: /vault/
+  # Root token: /vault/file/.root-token (on vault-data volume)
+  # ---------------------------------------------------------------------------
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: vault
+    restart: always
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+    volumes:
+      - vault-data:/vault/file
+      - ./config/vault/vault-config.hcl:/vault/config/vault.hcl:ro
+    command: vault server -config=/vault/config/vault.hcl
+    networks:
+      - global-infra-net
+      - ai-platform-net
+    healthcheck:
+      test: ["CMD", "sh", "-c", "vault status -address=http://127.0.0.1:8200 2>&1 | grep -E 'Sealed.*false|Sealed.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ---------------------------------------------------------------------------
+  # Vault Init — one-time initialization + secret seeding
+  # Runs once: initializes, unseals, seeds all tool credentials, creates RBAC.
+  # Skips seeding if /vault/file/.vault-initialized marker exists.
+  # ---------------------------------------------------------------------------
+  vault-init:
+    image: hashicorp/vault:1.15
+    container_name: vault-init
+    restart: "no"
+    depends_on:
+      vault:
+        condition: service_healthy
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - GITLAB_PAT=${GITLAB_PAT:-}
+    volumes:
+      - ./config/scripts/vault-init.sh:/vault-init.sh:ro
+      - vault-data:/vault/file
+    entrypoint: ["/bin/sh", "/vault-init.sh"]
+    networks:
+      - ai-platform-net
+
+  # ---------------------------------------------------------------------------
+  # Vault Unseal — sidecar that auto-unseals Vault after any restart
+  # Polls every 10s; unseals using key stored at /vault/file/.unseal-key
+  # ---------------------------------------------------------------------------
+  vault-unseal:
+    image: hashicorp/vault:1.15
+    container_name: vault-unseal
+    restart: always
+    depends_on:
+      vault:
+        condition: service_healthy
+    environment:
+      - VAULT_ADDR=http://vault:8200
+    volumes:
+      - ./config/scripts/vault-unseal.sh:/vault-unseal.sh:ro
+      - vault-data:/vault/file:ro
+    entrypoint: ["/bin/sh", "/vault-unseal.sh"]
+    networks:
+      - ai-platform-net
+
+  # ---------------------------------------------------------------------------
+  # RBAC Init — creates groups + service accounts across all tools
+  # Runs once after all tools are healthy. Idempotent — safe to re-run.
+  # ---------------------------------------------------------------------------
+  rbac-init:
+    image: hashicorp/vault:1.15
+    container_name: rbac-init
+    restart: "no"
+    depends_on:
+      vault-init:
+        condition: service_completed_successfully
+      gitlab-server:
+        condition: service_healthy
+      gitea-server:
+        condition: service_healthy
+      jenkins-master:
+        condition: service_healthy
+      ai-sonarqube:
+        condition: service_healthy
+      ai-nexus:
+        condition: service_started
+    environment:
+      - VAULT_ADDR=http://vault:8200
+    volumes:
+      - ./config/scripts/rbac-init.sh:/rbac-init.sh:ro
+      - vault-data:/vault/file:ro
+    entrypoint: ["/bin/sh", "/rbac-init.sh"]
+    networks:
+      - ai-platform-net
+      - gitlab-net
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  global-infra-net:
+    name: global-infra-net
+    driver: bridge
+  ai-platform-net:
+    name: ai-platform-net
+    driver: bridge
+  gitlab-net:
+    name: gitlab-net
+    driver: bridge
+  monitoring-network:
+    name: monitoring-network
+    driver: bridge
+  jenkins-net:
+    name: jenkins-net
+    driver: bridge
+  ticketing-net:
+    name: ticketing-net
+    driver: bridge
+
+# ── Volumes ───────────────────────────────────────────────────────────────────
+volumes:
+  vault-data:
+    name: vault-data
+    external: true
