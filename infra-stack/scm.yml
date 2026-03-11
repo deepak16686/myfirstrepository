@@ -32,6 +32,9 @@ services:
         nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
         gitlab_rails['gitlab_shell_ssh_port'] = 2224
         gitlab_rails['relative_url_root'] = '/gitlab'
+        # Prometheus monitoring — expose /-/metrics for Prometheus scraping
+        prometheus_monitoring['enable'] = true
+        gitlab_rails['monitoring_whitelist'] = ['0.0.0.0/0']
     volumes:
       - C:/Users/deepak/gitlab_docker/config:/etc/gitlab
       - C:/Users/deepak/gitlab_docker/logs:/var/log/gitlab
@@ -50,6 +53,7 @@ services:
       interval: 60s
       timeout: 30s
       retries: 5
+      start_period: 300s
 
   # ---------------------------------------------------------------------------
   # GitLab Runner — CI/CD job executor for GitLab pipelines

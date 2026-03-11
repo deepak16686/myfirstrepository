@@ -3,47 +3,68 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
+
+  # Prometheus self-scrape (running on /prometheus/ sub-path)
   - job_name: 'prometheus'
+    metrics_path: /prometheus/metrics
     static_configs:
       - targets: ['localhost:9090']
 
+  # Node Exporter — host system metrics
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['node-exporter:9100']
 
+  # cAdvisor — container-level metrics
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['cadvisor:8080']
 
-  - job_name: 'ollama'
-    static_configs:
-      - targets: ['ollama:11434']
-
-  - job_name: 'minio'
-    metrics_path: /minio/v2/metrics/cluster
-    static_configs:
-      - targets: ['minio:9000']
-
+  # Grafana — served at /grafana/metrics (GF_SERVER_SERVE_FROM_SUB_PATH=true)
   - job_name: 'grafana'
+    metrics_path: /grafana/metrics
     static_configs:
       - targets: ['grafana:3000']
 
+  # Loki — log aggregation metrics
   - job_name: 'loki'
     static_configs:
       - targets: ['loki:3100']
 
+  # Jaeger — distributed tracing metrics
   - job_name: 'jaeger'
     static_configs:
       - targets: ['jaeger:14269']
 
+  # Qdrant — vector database metrics
   - job_name: 'qdrant'
     metrics_path: /metrics
     static_configs:
       - targets: ['qdrant:6333']
 
+  # MinIO — object storage metrics (MINIO_PROMETHEUS_AUTH_TYPE=public in core.yml)
+  - job_name: 'minio'
+    metrics_path: /minio/v2/metrics/cluster
+    static_configs:
+      - targets: ['minio:9000']
+
+  # HashiCorp Vault — secrets metrics (root token bearer auth)
   - job_name: 'vault'
     metrics_path: /v1/sys/metrics
     params:
       format: ['prometheus']
+    bearer_token: 'VAULT_TOKEN_REDACTED'
     static_configs:
       - targets: ['vault:8200']
+
+  # Jenkins — CI/CD metrics (Prometheus Metrics plugin)
+  - job_name: 'jenkins'
+    metrics_path: /jenkins/prometheus/
+    static_configs:
+      - targets: ['jenkins-master:8080']
+
+  # GitLab — metrics (enabled via prometheus_monitoring in omnibus config in scm.yml)
+  - job_name: 'gitlab'
+    metrics_path: /gitlab/-/metrics
+    static_configs:
+      - targets: ['gitlab-server:80']
