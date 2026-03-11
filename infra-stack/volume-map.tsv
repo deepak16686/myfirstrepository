@@ -1,0 +1,24 @@
+# source_kind	source_name_or_path	target_kind	target_name_or_path	description
+volume	platform-postgres-data	volume	postgres-data	platform-setup PostgreSQL -> canonical PostgreSQL
+volume	platform-redis-data	volume	redis-data	platform-setup Redis -> canonical Redis
+volume	platform-minio-data	volume	minio-data	platform-setup MinIO -> canonical MinIO
+volume	platform-chromadb-data	volume	chromadb-data	platform-setup ChromaDB -> canonical ChromaDB
+volume	platform-ollama-data	volume	ollama	platform-setup Ollama -> canonical Ollama
+volume	platform-nexus-data	volume	nexus-data	platform-setup Nexus -> canonical Nexus
+volume	platform-trivy-cache	volume	trivy-cache	platform-setup Trivy cache -> canonical Trivy cache
+volume	platform-sonarqube-db-data	volume	sonarqube-postgres-data	platform-setup Sonar DB -> canonical Sonar DB
+volume	platform-sonarqube-data	volume	sonarqube-data	platform-setup Sonar data -> canonical Sonar data
+volume	platform-sonarqube-extensions	volume	sonarqube-extensions	platform-setup Sonar extensions -> canonical Sonar extensions
+volume	platform-sonarqube-logs	volume	sonarqube-logs	platform-setup Sonar logs -> canonical Sonar logs
+volume	platform-redmine-db-data	volume	plane_redmine-db-data	platform-setup Redmine DB -> canonical Redmine DB
+volume	platform-redmine-data	volume	plane_redmine-data	platform-setup Redmine files -> canonical Redmine files
+volume	platform-redmine-plugins	volume	plane_redmine-plugins	platform-setup Redmine plugins -> canonical Redmine plugins
+volume	platform-redmine-themes	volume	plane_redmine-themes	platform-setup Redmine themes -> canonical Redmine themes
+volume	platform-gitlab-config	bind	C:/Users/deepak/gitlab_docker/config	platform-setup GitLab config -> canonical bind mount
+volume	platform-gitlab-logs	bind	C:/Users/deepak/gitlab_docker/logs	platform-setup GitLab logs -> canonical bind mount
+volume	platform-gitlab-data	bind	C:/Users/deepak/gitlab_docker/data	platform-setup GitLab data -> canonical bind mount
+volume	platform-gitlab-runner-config	bind	C:/Users/deepak/.gitlab-runner	platform-setup GitLab runner config -> canonical bind mount
+volume	platform-prometheus-data	volume	ai-folder_prometheus-data	platform-setup Prometheus -> canonical Prometheus
+volume	platform-grafana-data	volume	ai-folder_grafana-data	platform-setup Grafana -> canonical Grafana
+volume	platform-loki-data	volume	ai-folder_loki-data	platform-setup Loki -> canonical Loki
+volume	platform-open-webui-data	retain	platform-open-webui-data	legacy app data retained outside shared infra

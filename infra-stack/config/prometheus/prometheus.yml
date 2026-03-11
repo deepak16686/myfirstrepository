@@ -15,10 +15,35 @@ scrape_configs:
     static_configs:
       - targets: ['cadvisor:8080']
 
-  - job_name: 'dcgm-exporter'
-    static_configs:
-      - targets: ['dcgm-exporter:9400']
-
   - job_name: 'ollama'
     static_configs:
       - targets: ['ollama:11434']
+
+  - job_name: 'minio'
+    metrics_path: /minio/v2/metrics/cluster
+    static_configs:
+      - targets: ['minio:9000']
+
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['grafana:3000']
+
+  - job_name: 'loki'
+    static_configs:
+      - targets: ['loki:3100']
+
+  - job_name: 'jaeger'
+    static_configs:
+      - targets: ['jaeger:14269']
+
+  - job_name: 'qdrant'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['qdrant:6333']
+
+  - job_name: 'vault'
+    metrics_path: /v1/sys/metrics
+    params:
+      format: ['prometheus']
+    static_configs:
+      - targets: ['vault:8200']

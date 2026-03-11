@@ -97,7 +97,9 @@ services:
     restart: always
     ports:
       - "8183:8080"
-    command: server --listen 0.0.0.0:8080
+    command: server --listen 0.0.0.0:8080 --cache-dir /var/lib/trivy
+    volumes:
+      - trivy-cache:/var/lib/trivy
     networks:
       - global-infra-net
       - ai-platform-net
@@ -134,3 +136,5 @@ volumes:
   nexus-data:
     name: nexus-data
     external: true
+  trivy-cache:
+    name: trivy-cache
