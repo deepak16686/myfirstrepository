@@ -69,11 +69,37 @@ services:
     ports:
       - "3100:3100"
     volumes:
+      - ./config/loki/loki-config.yml:/etc/loki/local-config.yaml:ro
       - loki-data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
     networks:
       - global-infra-net
       - monitoring-network
       - ai-platform-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3100/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # Promtail — forwards Docker container logs into Loki
+  # Internal only; scraped by Docker service discovery over the Docker socket
+  # ---------------------------------------------------------------------------
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: always
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - ./config/promtail/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - global-infra-net
+      - monitoring-network
+      - ai-platform-net
+    depends_on:
+      - loki
 
   # ---------------------------------------------------------------------------
   # Jaeger — distributed tracing (OpenTelemetry compatible)
@@ -109,6 +135,15 @@ services:
     restart: always
     ports:
       - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     networks:
       - global-infra-net
       - monitoring-network
@@ -131,6 +166,8 @@ services:
     ports:
       - "8182:8080"
     volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
