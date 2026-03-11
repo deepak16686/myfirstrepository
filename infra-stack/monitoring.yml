@@ -76,11 +76,8 @@ services:
       - global-infra-net
       - monitoring-network
       - ai-platform-net
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:3100/ready || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+    # grafana/loki:latest is a fully distroless image (no shell, no wget, no curl).
+    # Health is monitored via Prometheus scraping loki:3100/metrics instead.
 
   # ---------------------------------------------------------------------------
   # Promtail — forwards Docker container logs into Loki
@@ -186,6 +183,33 @@ services:
   # via proxy: /splunk/  |  Admin: admin / Admin@1234
   # NOTE: Splunk takes ~2 minutes to start — start_period is 120s
   # ---------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
+  # DCGM Exporter — NVIDIA GPU metrics (utilisation, memory, temperature)
+  # Metrics: http://localhost:9400/metrics  |  via proxy: /dcgm/
+  # Consolidated from ai-lab — single GPU exporter for the whole host
+  # ---------------------------------------------------------------------------
+  dcgm-exporter:
+    image: nvidia/dcgm-exporter:3.3.8-3.6.0-ubuntu22.04
+    container_name: dcgm-exporter
+    restart: always
+    ports:
+      - "9400:9400"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    cap_add:
+      - SYS_ADMIN
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - global-infra-net
+      - monitoring-network
+
   ai-splunk:
     image: splunk/splunk:latest
     container_name: ai-splunk
