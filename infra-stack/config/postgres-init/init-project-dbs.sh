@@ -31,6 +31,10 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
   \$\$;
   CREATE DATABASE taskflow OWNER taskflow;
   GRANT ALL PRIVILEGES ON DATABASE taskflow TO taskflow;
+  CREATE DATABASE taskflow_auth OWNER taskflow;
+  GRANT ALL PRIVILEGES ON DATABASE taskflow_auth TO taskflow;
+  CREATE DATABASE taskflow_tasks OWNER taskflow;
+  GRANT ALL PRIVILEGES ON DATABASE taskflow_tasks TO taskflow;
 EOSQL
 
 # ── Add more projects below as needed ─────────────────────────────────────────
