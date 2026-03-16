@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DevOps Chat Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/hcl.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/groovy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+<body>
+<div class="app-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <!-- Brand -->
+        <div class="sidebar-brand">
+            <div class="brand-avatar">🤖</div>
+            <div class="brand-text">
+                <div class="brand-name">DevOps AI</div>
+                <div class="brand-sub">Chat Portal</div>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle" title="Collapse sidebar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- API Health -->
+        <div class="health-bar" id="healthBar">
+            <div class="health-indicator" id="healthDot"></div>
+            <span class="health-text" id="healthText">Connecting...</span>
+            <button class="health-refresh" onclick="checkApiHealth()" title="Refresh">↻</button>
+        </div>
+
+        <!-- Tool list -->
+        <div class="sidebar-scroll">
+            <div class="sidebar-section-label">TOOLS</div>
+            <nav class="tool-nav" id="toolNav">
+                <!-- Populated by JS -->
+            </nav>
+
+            <div class="sidebar-section-label" style="margin-top:16px;">QUICK LINKS</div>
+            <div class="quick-links" id="quickLinks">
+                <!-- Populated by JS with correct base URLs -->
+            </div>
+        </div>
+
+        <!-- Sidebar footer -->
+        <div class="sidebar-footer">
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
+                <span id="themeIcon">🌙</span>
+            </button>
+            <span class="sidebar-version">v2.0</span>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN AREA ===== -->
+    <div class="main-area">
+
+        <!-- Chat Header -->
+        <header class="chat-header" id="chatHeader">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleSidebar()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="tool-badge" id="toolBadge">
+                    <span class="tool-badge-icon" id="headerToolIcon">🤖</span>
+                    <div class="tool-badge-info">
+                        <div class="tool-badge-name" id="headerToolName">AI DevOps Portal</div>
+                        <div class="tool-badge-status" id="headerToolStatus">Select a tool to begin</div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="llm-badge" id="llmBadge">
+                    <span class="llm-dot"></span>
+                    <span id="llmLabel">LLM</span>
+                </div>
+                <button class="btn-ghost" onclick="newChat()" id="newChatBtn" title="New conversation">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    New Chat
+                </button>
+            </div>
+        </header>
+
+        <!-- Content area -->
+        <div class="content-area">
+
+            <!-- Welcome screen -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-hero">
+                    <div class="welcome-logo">🤖</div>
+                    <h1>AI DevOps Chat Portal</h1>
+                    <p>AI-powered automation for all your DevOps workflows.<br>Select a tool from the sidebar or pick one below.</p>
+                </div>
+                <div class="quick-tool-grid" id="quickToolGrid">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="welcome-tip">
+                    <span class="tip-icon">💡</span>
+                    <span>Tip: Paste a repository URL in the pipeline generators to auto-detect your tech stack</span>
+                </div>
+            </div>
+
+            <!-- Chat view -->
+            <div class="chat-view hidden" id="chatView">
+                <div class="messages-container" id="messagesContainer"></div>
+            </div>
+
+            <!-- Redirect view (for non-chat tools) -->
+            <div class="redirect-view hidden" id="redirectView">
+                <div class="redirect-card">
+                    <div class="redirect-icon" id="redirectIcon">🔗</div>
+                    <h2 id="redirectTitle">Open in Full Portal</h2>
+                    <p id="redirectDesc">This tool has a dedicated interface in the full portal.</p>
+                    <a id="redirectLink" href="http://localhost:8003" target="_blank" class="btn-primary">
+                        Open Full Portal →
+                    </a>
+                    <p class="redirect-note">The full portal is available at <code>http://localhost:8003</code></p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Input area -->
+        <div class="input-area" id="inputArea">
+            <div class="input-toolbar">
+                <div class="input-tool-label">
+                    <span id="inputToolIcon">💬</span>
+                    <span id="inputToolName">Select a tool</span>
+                </div>
+                <div class="input-conv-id" id="convIdDisplay"></div>
+            </div>
+            <div class="input-row">
+                <div class="textarea-wrapper">
+                    <textarea
+                        id="messageInput"
+                        placeholder="Type your message... (Enter to send, Shift+Enter for newline)"
+                        rows="1"
+                        disabled
+                    ></textarea>
+                </div>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading overlay for tool switch -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -52,6 +52,24 @@ services:
       retries: 3
       start_period: 30s
 
+  chatbot-portal:
+    build: ../chatbot-portal
+    container_name: chatbot-portal
+    ports:
+      - "3005:3001"
+    networks:
+      - global-infra-net
+    depends_on:
+      devops-tools-backend:
+        condition: service_healthy
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
 networks:
   global-infra-net:
     external: true
