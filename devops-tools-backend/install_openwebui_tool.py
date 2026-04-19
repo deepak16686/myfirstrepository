@@ -2,13 +2,19 @@
 """
 Install the GitLab Pipeline Generator tool into Open-WebUI
 """
+import os
 import sqlite3
 import json
 import time
 
+# Fail fast at module import if GITLAB_PAT is not provided via environment.
+# The token must be injected at runtime (host env, Docker secret, or Vault).
+_GITLAB_PAT = os.environ["GITLAB_PAT"]
+
 TOOL_CODE = '''"""
 GitLab Pipeline Generator Tool for Open-WebUI
 """
+import os
 import requests
 from typing import Optional
 from pydantic import BaseModel, Field
@@ -23,8 +29,8 @@ class Tools:
             description="URL of the DevOps Tools Backend"
         )
         DEFAULT_GITLAB_TOKEN: str = Field(
-            default="${GITLAB_TOKEN}",
-            description="Default GitLab access token"
+            default_factory=lambda: os.environ["GITLAB_PAT"],
+            description="Default GitLab access token (sourced from GITLAB_PAT env var)"
         )
 
     def __init__(self):
