@@ -4,9 +4,16 @@ Supports dynamic tool configuration via environment variables and config file
 """
 import os
 import json
+from pathlib import Path
 from typing import Dict, Any, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from pydantic_settings import BaseSettings
+
+
+# Repository layout anchors
+_APP_DIR = Path(__file__).resolve().parent          # .../devops-tools-backend/app
+_PROJECT_ROOT = _APP_DIR.parent                     # .../devops-tools-backend
+_DEFAULT_REGISTRY_PATH = _PROJECT_ROOT / "config" / "tools.yaml"
 
 
 class ToolConfig(BaseModel):
@@ -31,34 +38,92 @@ class Settings(BaseSettings):
     cors_origins: list = ["*"]
 
     # Tool configurations - loaded from environment or config file
-    gitlab_url: str = "http://host.docker.internal:8929"
+    # Use container names for Docker network communication
+    gitlab_url: str = "http://gitlab-server"
     gitlab_token: Optional[str] = None
 
-    sonarqube_url: str = "http://host.docker.internal:9002"
+    sonarqube_url: str = "http://sonarqube:9000"
     sonarqube_token: Optional[str] = None
     sonarqube_username: str = "admin"
     sonarqube_password: Optional[str] = None
 
-    trivy_url: str = "http://host.docker.internal:8083"
+    trivy_url: str = "http://trivy:8083"
 
-    nexus_url: str = "http://host.docker.internal:8081"
+    nexus_url: str = "http://ai-nexus:8081"
     nexus_username: str = "admin"
     nexus_password: Optional[str] = None
 
-    chromadb_url: str = "http://host.docker.internal:8000"
+    chromadb_url: str = "http://chromadb:8000"
 
-    ollama_url: str = "http://host.docker.internal:11434"
+    ollama_url: str = "http://ollama:11434"
 
-    redis_url: str = "redis://host.docker.internal:6379/0"
+    redis_url: str = "redis://redis:6379/0"
 
-    postgres_url: str = "postgresql://modernization:modernization123@host.docker.internal:5432/legacy_modernization"
+    # Postgres DSN must be provided via env (POSTGRES_URL) or config file.
+    # No credential default is shipped in source.
+    postgres_url: Optional[str] = None
 
     # Config file path for additional tools
     tools_config_path: str = "/app/config/tools.json"
 
+    # ------------------------------------------------------------------
+    # Portal registry + health prober settings
+    # ------------------------------------------------------------------
+    # Path to the canonical YAML tool registry consumed by /api/v1/portal/*.
+    # Can be absolute or relative; relative resolves against repo root.
+    tools_registry_path: Path = _DEFAULT_REGISTRY_PATH
+
+    # How often the background task re-probes every tool.
+    health_probe_interval_seconds: int = 30
+    # Per-request timeout for a single HTTP probe.
+    health_probe_timeout_seconds: float = 4.0
+    # TTL written on each portal:health:* Redis key.
+    health_cache_ttl_seconds: int = 60
+
+    # Optional explicit path to the `tailscale` CLI. When None, we look up
+    # via PATH at call time.
+    tailscale_cli_path: Optional[str] = None
+
+    # ------------------------------------------------------------------
+    # Vault-backed credentials endpoint (GET /portal/tools/{id}/credentials)
+    # ------------------------------------------------------------------
+    # Base URL of the Vault server (e.g. "http://vault:8200" inside the
+    # compose network, or "http://localhost:8200" from the host). Empty
+    # disables the credentials endpoint → 503.
+    vault_addr: str = Field(default="", description="Vault address, e.g. http://vault:8200")
+    # Token used by the backend to read KV v2 secrets. NEVER surfaced in
+    # logs, responses, or settings.dict() output — we exclude it from repr
+    # via pydantic Field(repr=False) so accidental `print(settings)` never
+    # leaks it.
+    vault_token: str = Field(default="", repr=False, description="Vault token (never logged)")
+    # Per-request HTTP timeout for Vault reads.
+    vault_timeout_seconds: float = 3.0
+
+    # Header clients must present to fetch credentials. The *name* is
+    # configurable mostly so ingress / proxy middleware can distinguish it.
+    portal_operator_header: str = "X-Portal-Operator"
+    # Exact-value token that clients send in `portal_operator_header`.
+    # Empty disables the credentials endpoint entirely (→ 503).
+    portal_operator_token: str = Field(
+        default="",
+        repr=False,
+        description="Operator token compared with hmac.compare_digest; empty disables endpoint",
+    )
+
+    @field_validator("tools_registry_path", mode="after")
+    @classmethod
+    def _resolve_registry_path(cls, v: Path) -> Path:
+        """Resolve relative paths against the repo root so the backend can be
+        started from any CWD without losing its config."""
+        p = Path(v)
+        if not p.is_absolute():
+            p = (_PROJECT_ROOT / p).resolve()
+        return p
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
+        extra = "ignore"
 
 
 class ToolsManager:

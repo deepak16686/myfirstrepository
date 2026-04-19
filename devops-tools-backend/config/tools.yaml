@@ -1,0 +1,798 @@
+# Canonical DevOps Portal Tool Registry
+# Single source of truth for the DevOps Portal tool catalog.
+# Consumed by: devops-tools-backend /api/v1/portal/tools endpoint
+# Schema version: 1
+#
+# Each tool entry:
+#   id              — stable slug (kebab-case)
+#   name            — display name
+#   category        — grouping used by the portal UI filter
+#   description     — one-line blurb (shown on card)
+#   icon            — lucide-react icon name (https://lucide.dev/icons)
+#   url_internal    — container-network URL (used by backend for health probes)
+#   url_external    — host/localhost URL (used by user browsers, shown as "Launch")
+#   url_funnel      — optional public HTTPS URL via Tailscale Funnel
+#                     (now set for EVERY HTTP-serving tool thanks to the TCP-passthrough
+#                     design documented in docs/PUBLIC_ACCESS_DEEPAKSHARMA_LIVE.md)
+#   url_tailnet     — tailnet-only HTTPS URL via `tailscale serve`; present
+#                     for every tool, reachable only by devices on the tailnet
+#   health          — live-probe spec
+#   credentials     — free-text pointer to vault/env/docs (NEVER the value)
+#   embed           — bool: can be safely iframed inside the portal?
+#   tags            — free-form array for search + filter chips
+#   compose_project — which docker compose project owns this container
+#   container_name  — container name (for pg_isready / redis-cli exec probes)
+#
+# Tailscale exposure design (see docs/PUBLIC_ACCESS_DEEPAKSHARMA_LIVE.md):
+#   - Funnel (public internet): ALL 29 HTTP-serving tools at <id>.deepaksharma.live,
+#     routed through a single Tailscale Funnel TCP-passthrough on :443 that hands
+#     encrypted traffic to host nginx on :8443. Nginx terminates TLS with a
+#     Let's Encrypt wildcard cert and dispatches by SNI ($host) to the local
+#     service port. This collapses the previous 3-slot design into a single
+#     funnel slot — see docs/PUBLIC_ACCESS_DEEPAKSHARMA_LIVE.md §"Why this design".
+#   - Serve (tailnet only):    every tool at <id>.deepak-desktop.tailac51e7.ts.net
+#     via the legacy HTTPS serve config (kept for internal / lab access).
+#   Custom domain "deepaksharma.live" uses a wildcard CNAME
+#   (*.deepaksharma.live -> deepak-desktop.tailac51e7.ts.net).
+
+schema_version: 1
+generated_at: 2026-04-19
+source_of_truth: devops-tools-backend/config/tools.yaml
+
+categories:
+  - id: ai
+    name: "AI & LLM"
+    order: 1
+    color: "#7c3aed"
+  - id: cicd
+    name: "CI/CD"
+    order: 2
+    color: "#f59e0b"
+  - id: scm
+    name: "Source Control"
+    order: 3
+    color: "#ef4444"
+  - id: quality
+    name: "Code Quality"
+    order: 4
+    color: "#10b981"
+  - id: security
+    name: "Security"
+    order: 5
+    color: "#dc2626"
+  - id: registry
+    name: "Artifacts & Registry"
+    order: 6
+    color: "#3b82f6"
+  - id: observability
+    name: "Observability"
+    order: 7
+    color: "#06b6d4"
+  - id: metrics
+    name: "Metrics & Exporters"
+    order: 8
+    color: "#0ea5e9"
+  - id: logging
+    name: "Logging"
+    order: 9
+    color: "#8b5cf6"
+  - id: data
+    name: "Databases & Storage"
+    order: 10
+    color: "#f97316"
+  - id: pm
+    name: "Project Management"
+    order: 11
+    color: "#ec4899"
+  - id: gateway
+    name: "Gateway & Proxy"
+    order: 12
+    color: "#64748b"
+  - id: platform
+    name: "Platform API"
+    order: 13
+    color: "#14b8a6"
+  - id: projects
+    name: "Projects"
+    order: 14
+    color: "#a855f7"
+
+tools:
+  # ====== AI & LLM ======
+  - id: ollama
+    name: Ollama
+    category: ai
+    description: Local LLM inference server — qwen3:32b, pipeline-generator-v5, nomic-embed.
+    icon: brain
+    url_internal: http://ollama:11434
+    url_external: http://localhost:11434
+    # Public via Tailscale Funnel (TCP passthrough) + host nginx SNI router.
+    # Protect at the nginx edge with basic auth or an OLLAMA_API_KEY header
+    # — this endpoint has no built-in auth (see PUBLIC_ACCESS §Phase F).
+    url_funnel: https://ollama.deepaksharma.live
+    url_tailnet: https://ollama.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /api/tags
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    # The vault secret holds {username, password, realm, url}; the portal
+    # CredentialsPanel surfaces them to the operator via X-Portal-Operator.
+    credentials: vault:secret/devops/ollama/basic-auth
+    embed: false
+    tags: [llm, inference, gpu, local-ai]
+    compose_project: infra-stack
+    container_name: ollama
+
+  - id: chromadb
+    name: ChromaDB
+    category: ai
+    description: Vector database (v2 API) — pipeline feedback, templates, successful pipelines.
+    icon: database
+    url_internal: http://chromadb:8000
+    url_external: http://localhost:8005
+    # Enable CHROMA_SERVER_AUTHN_CREDENTIALS + CHROMA_SERVER_AUTHN_PROVIDER before exposing.
+    url_funnel: https://chromadb.deepaksharma.live
+    url_tailnet: https://chromadb.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /api/v2/heartbeat
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/chromadb/basic-auth
+    embed: false
+    tags: [vector-db, rag, embeddings]
+    compose_project: infra-stack
+    container_name: chromadb
+
+  - id: chromadb-admin
+    name: ChromaDB Admin
+    category: ai
+    description: Web UI for ChromaDB collections, documents, and queries.
+    icon: database-zap
+    url_internal: http://chromadb-admin:3000
+    url_external: http://localhost:3001
+    url_funnel: https://chromadb-admin.deepaksharma.live
+    url_tailnet: https://chromadb-admin.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/chromadb-admin/basic-auth
+    embed: true
+    tags: [vector-db, admin-ui]
+    compose_project: infra-stack
+    container_name: chromadb-admin
+
+  - id: qdrant
+    name: Qdrant
+    category: ai
+    description: High-performance vector database with REST and gRPC APIs.
+    icon: vector-square
+    url_internal: http://qdrant:6333
+    url_external: http://localhost:6333
+    # Set `QDRANT__SERVICE__API_KEY` before exposing — REST endpoint has no
+    # built-in auth by default.
+    url_funnel: https://qdrant.deepaksharma.live
+    url_tailnet: https://qdrant.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /healthz
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    # Still recommended to ALSO set QDRANT__SERVICE__API_KEY as defense-in-depth.
+    credentials: vault:secret/devops/qdrant/basic-auth
+    embed: false
+    tags: [vector-db, rag]
+    compose_project: infra-stack
+    container_name: qdrant
+
+  # ====== CI/CD ======
+  - id: jenkins
+    name: Jenkins
+    category: cicd
+    description: Master CI server with 3 inbound agents for parallel builds.
+    icon: hard-hat
+    url_internal: http://jenkins-master:8080
+    url_external: http://localhost:8080
+    url_funnel: https://jenkins.deepaksharma.live
+    url_tailnet: https://jenkins.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /login
+      expect_status: 200
+    credentials: vault:secret/devops/jenkins/admin
+    embed: true
+    tags: [ci, cd, jenkins]
+    compose_project: infra-stack
+    container_name: jenkins-master
+
+  - id: gitlab-runner
+    name: GitLab Runner
+    category: cicd
+    description: GitLab CI executor registered against local GitLab instance.
+    icon: play-circle
+    url_internal: ""
+    url_external: ""
+    url_funnel: null
+    url_tailnet: null
+    health:
+      method: docker_ps
+      expect_status: running
+    credentials: none
+    embed: false
+    tags: [ci, gitlab]
+    compose_project: infra-stack
+    container_name: gitlab-runner
+
+  - id: gitea-runner
+    name: Gitea Actions Runner
+    category: cicd
+    description: Gitea Actions (GitHub Actions-compatible) runner.
+    icon: play-circle
+    url_internal: ""
+    url_external: ""
+    url_funnel: null
+    url_tailnet: null
+    health:
+      method: docker_ps
+      expect_status: running
+    credentials: none
+    embed: false
+    tags: [ci, gitea]
+    compose_project: infra-stack
+    container_name: gitea-runner
+
+  # ====== SCM ======
+  - id: gitlab
+    name: GitLab
+    category: scm
+    description: Self-hosted GitLab Community Edition — SCM, CI, registry.
+    icon: git-branch
+    url_internal: http://gitlab-server
+    url_external: http://localhost:8929
+    # Public funnel slot #3 — exposes GitLab at https://gitlab.deepaksharma.live.
+    url_funnel: https://gitlab.deepaksharma.live
+    url_tailnet: https://gitlab.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /-/readiness
+      expect_status: 200
+    credentials: vault:secret/devops/gitlab/root
+    embed: true
+    tags: [scm, ci, gitlab, public]
+    compose_project: infra-stack
+    container_name: gitlab-server
+
+  - id: gitea
+    name: Gitea
+    category: scm
+    description: Lightweight self-hosted Git server with Actions support.
+    icon: git-fork
+    url_internal: http://gitea-server:3000
+    url_external: http://localhost:3002
+    url_funnel: https://gitea.deepaksharma.live
+    url_tailnet: https://gitea.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /api/healthz
+      expect_status: 200
+    credentials: vault:secret/devops/gitea/admin
+    embed: true
+    tags: [scm, gitea, lightweight]
+    compose_project: infra-stack
+    container_name: gitea-server
+
+  # ====== Code Quality ======
+  - id: sonarqube
+    name: SonarQube
+    category: quality
+    description: Static code analysis, quality gates, technical debt tracking.
+    icon: shield-check
+    url_internal: http://ai-sonarqube:9000
+    url_external: http://localhost:9002
+    url_funnel: https://sonarqube.deepaksharma.live
+    url_tailnet: https://sonarqube.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /api/system/status
+      expect_status: 200
+    credentials: vault:secret/devops/sonarqube/admin
+    embed: true
+    tags: [code-quality, sast, quality-gate]
+    compose_project: infra-stack
+    container_name: ai-sonarqube
+
+  # ====== Security ======
+  - id: vault
+    name: HashiCorp Vault
+    category: security
+    description: Secret store, dynamic credentials, encryption as a service.
+    icon: key-round
+    url_internal: http://vault:8200
+    url_external: http://localhost:8200
+    url_funnel: https://vault.deepaksharma.live
+    url_tailnet: https://vault.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /v1/sys/health?standbyok=true
+      expect_status: 200
+    credentials: env:VAULT_TOKEN
+    embed: true
+    tags: [secrets, vault, encryption]
+    compose_project: infra-stack
+    container_name: vault
+
+  - id: trivy
+    name: Trivy
+    category: security
+    description: Vulnerability scanner for containers, filesystems, IaC, and SBOMs.
+    icon: scan-search
+    url_internal: http://trivy-server:8080
+    url_external: http://localhost:8183
+    # Trivy-server has NO built-in auth — front with nginx basic auth before exposing.
+    url_funnel: https://trivy.deepaksharma.live
+    url_tailnet: https://trivy.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /healthz
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/trivy/basic-auth
+    embed: false
+    tags: [security, sca, vuln, sbom]
+    compose_project: infra-stack
+    container_name: trivy-server
+
+  # ====== Registry & Artifacts ======
+  - id: nexus
+    name: Sonatype Nexus 3
+    category: registry
+    description: Universal artifact repository — Docker, npm, Maven, PyPI.
+    icon: package
+    url_internal: http://ai-nexus:8081
+    url_external: http://localhost:8181
+    url_funnel: https://nexus.deepaksharma.live
+    url_tailnet: https://nexus.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /service/rest/v1/status
+      expect_status: 200
+    credentials: vault:secret/devops/nexus/admin
+    embed: true
+    tags: [registry, artifacts, docker-registry]
+    compose_project: infra-stack
+    container_name: ai-nexus
+
+  - id: nexus-docker-registry
+    name: Nexus Docker Registry
+    category: registry
+    description: Docker registry hosted by Nexus on port 5001 (pull from localhost:5001).
+    icon: container
+    url_internal: http://ai-nexus:5001
+    url_external: http://localhost:5001
+    # Short subdomain `nexus-docker` used at the nginx SNI router for ergonomics
+    # (Docker CLI doesn't mind the hostname length, but shorter is friendlier
+    # for `docker login nexus-docker.deepaksharma.live`).
+    url_funnel: https://nexus-docker.deepaksharma.live
+    url_tailnet: https://nexus-docker-registry.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /v2/
+      expect_status: [200, 401]
+    credentials: vault:secret/devops/nexus/admin
+    embed: false
+    tags: [registry, docker-registry]
+    compose_project: infra-stack
+    container_name: ai-nexus
+
+  # ====== Observability ======
+  - id: grafana
+    name: Grafana
+    category: observability
+    description: Dashboards for metrics, logs, traces. Primary obs UI.
+    icon: line-chart
+    url_internal: http://grafana:3000
+    url_external: http://localhost:3000
+    # Public funnel slot #2 — exposes Grafana at https://grafana.deepaksharma.live.
+    url_funnel: https://grafana.deepaksharma.live
+    url_tailnet: https://grafana.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /api/health
+      expect_status: 200
+    credentials: vault:secret/devops/grafana/admin
+    embed: true
+    tags: [dashboards, metrics, logs, public]
+    compose_project: infra-stack
+    container_name: grafana
+
+  - id: prometheus
+    name: Prometheus
+    category: observability
+    description: Time-series metrics database with PromQL query engine.
+    icon: activity
+    url_internal: http://prometheus:9090
+    url_external: http://localhost:9090
+    # No built-in auth. Put nginx basic auth in front OR uncomment the allow/deny
+    # block in nginx-proxy/portal.conf to IP-restrict to the tailnet peers.
+    url_funnel: https://prometheus.deepaksharma.live
+    url_tailnet: https://prometheus.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /-/ready
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/prometheus/basic-auth
+    embed: true
+    tags: [metrics, tsdb, promql]
+    compose_project: infra-stack
+    container_name: prometheus
+
+  - id: loki
+    name: Loki
+    category: observability
+    description: Log aggregation system — label-based indexing, LogQL query.
+    icon: file-text
+    url_internal: http://loki:3100
+    url_external: http://localhost:3100
+    # No built-in auth. Front with nginx basic auth before public exposure.
+    url_funnel: https://loki.deepaksharma.live
+    url_tailnet: https://loki.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /ready
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/loki/basic-auth
+    embed: false
+    tags: [logs, loki, logql]
+    compose_project: infra-stack
+    container_name: loki
+
+  - id: jaeger
+    name: Jaeger
+    category: observability
+    description: Distributed tracing — accepts OTLP, Zipkin, Jaeger protocols.
+    icon: network
+    url_internal: http://jaeger:16686
+    url_external: http://localhost:16686
+    # No built-in auth. Front with nginx basic auth before public exposure.
+    url_funnel: https://jaeger.deepaksharma.live
+    url_tailnet: https://jaeger.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/jaeger/basic-auth
+    embed: true
+    tags: [tracing, opentelemetry, distributed]
+    compose_project: infra-stack
+    container_name: jaeger
+
+  - id: promtail
+    name: Promtail
+    category: observability
+    description: Log shipper for Loki — tails container logs.
+    icon: send
+    url_internal: ""
+    url_external: ""
+    url_funnel: null
+    url_tailnet: null
+    health:
+      method: docker_ps
+      expect_status: running
+    credentials: none
+    embed: false
+    tags: [logs, promtail, agent]
+    compose_project: infra-stack
+    container_name: promtail
+
+  # ====== Metrics & Exporters ======
+  - id: cadvisor
+    name: cAdvisor
+    category: metrics
+    description: Container resource usage and performance metrics.
+    icon: cpu
+    url_internal: http://cadvisor:8080
+    url_external: http://localhost:8182
+    # Leaks container internals; ALWAYS front with basic auth before public exposure.
+    url_funnel: https://cadvisor.deepaksharma.live
+    url_tailnet: https://cadvisor.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /healthz
+      expect_status: 200
+    # Upstream has no native auth AND leaks container internals —
+    # gated at nginx edge with basic auth (add IP allow-list too).
+    credentials: vault:secret/devops/cadvisor/basic-auth
+    embed: true
+    tags: [metrics, containers, cadvisor]
+    compose_project: infra-stack
+    container_name: cadvisor
+
+  - id: node-exporter
+    name: Node Exporter
+    category: metrics
+    description: Host-level metrics for Prometheus (CPU, memory, disk, net).
+    icon: server
+    url_internal: http://node-exporter:9100
+    url_external: http://localhost:9100
+    # Leaks host-level telemetry; ALWAYS front with basic auth before public exposure.
+    url_funnel: https://node-exporter.deepaksharma.live
+    url_tailnet: https://node-exporter.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /metrics
+      expect_status: 200
+    # Upstream has no native auth AND leaks host-level telemetry —
+    # gated at nginx edge with basic auth (add IP allow-list too).
+    credentials: vault:secret/devops/node-exporter/basic-auth
+    embed: false
+    tags: [metrics, host, prometheus-exporter]
+    compose_project: infra-stack
+    container_name: node-exporter
+
+  - id: dcgm-exporter
+    name: NVIDIA DCGM Exporter
+    category: metrics
+    description: GPU metrics for Prometheus (utilization, memory, temp, power).
+    icon: gpu
+    url_internal: http://dcgm-exporter:9400
+    url_external: http://localhost:9400
+    # Leaks GPU telemetry; ALWAYS front with basic auth before public exposure.
+    url_funnel: https://dcgm-exporter.deepaksharma.live
+    url_tailnet: https://dcgm-exporter.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /metrics
+      expect_status: 200
+    # Upstream has no native auth AND leaks GPU telemetry —
+    # gated at nginx edge with basic auth (add IP allow-list too).
+    credentials: vault:secret/devops/dcgm-exporter/basic-auth
+    embed: false
+    tags: [metrics, gpu, nvidia, dcgm]
+    compose_project: infra-stack
+    container_name: dcgm-exporter
+
+  # ====== Logging ======
+  - id: splunk
+    name: Splunk Enterprise
+    category: logging
+    description: Full-featured log platform with HEC (8088 HTTPS).
+    icon: search-check
+    url_internal: http://ai-splunk:8000
+    url_external: http://localhost:10000
+    url_funnel: https://splunk.deepaksharma.live
+    url_tailnet: https://splunk.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /en-US/account/login
+      expect_status: 200
+    credentials: vault:secret/devops/splunk/admin
+    embed: true
+    tags: [logs, splunk, hec]
+    compose_project: infra-stack
+    container_name: ai-splunk
+
+  # ====== Data ======
+  - id: postgres-ai
+    name: Postgres (ai-postgres)
+    category: data
+    description: Primary Postgres 15 — backs SonarQube, backend apps.
+    icon: database
+    url_internal: postgres://ai-postgres:5432
+    url_external: postgres://localhost:5432
+    url_funnel: null
+    url_tailnet: null
+    health:
+      method: docker_exec
+      command: ["pg_isready", "-U", "postgres"]
+      expect_exit_code: 0
+    credentials: vault:secret/devops/postgres/ai
+    embed: false
+    tags: [database, postgres, sql]
+    compose_project: infra-stack
+    container_name: ai-postgres
+
+  - id: redis
+    name: Redis
+    category: data
+    description: In-memory data store — cache, pub/sub, rate-limiting.
+    icon: zap
+    url_internal: redis://redis:6379
+    url_external: redis://localhost:6379
+    url_funnel: null
+    url_tailnet: null
+    health:
+      method: docker_exec
+      command: ["redis-cli", "ping"]
+      expect_exit_code: 0
+    credentials: none
+    embed: false
+    tags: [cache, redis, in-memory]
+    compose_project: infra-stack
+    container_name: redis
+
+  - id: minio
+    name: MinIO
+    category: data
+    description: S3-compatible object storage with web console on :9001.
+    icon: hard-drive
+    url_internal: http://minio:9001
+    url_external: http://localhost:9001
+    url_funnel: https://minio.deepaksharma.live
+    url_tailnet: https://minio.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /minio/health/live
+      expect_status: 200
+    credentials: vault:secret/devops/minio/admin
+    embed: true
+    tags: [storage, s3, object-store]
+    compose_project: infra-stack
+    container_name: minio
+
+  # ====== Project Management ======
+  - id: jira
+    name: Jira Software
+    category: pm
+    description: Issue tracking, agile boards, roadmap planning.
+    icon: kanban
+    url_internal: http://jira:8080
+    url_external: http://localhost:8180
+    url_funnel: https://jira.deepaksharma.live
+    url_tailnet: https://jira.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /status
+      expect_status: 200
+    credentials: vault:secret/devops/jira/admin
+    embed: true
+    tags: [pm, agile, atlassian]
+    compose_project: infra-stack
+    container_name: jira
+
+  - id: redmine
+    name: Redmine
+    category: pm
+    description: Lightweight project mgmt with issue tracking, wiki, timelog.
+    icon: clipboard-list
+    url_internal: http://redmine:3000
+    url_external: http://localhost:8090
+    url_funnel: https://redmine.deepaksharma.live
+    url_tailnet: https://redmine.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    credentials: vault:secret/devops/redmine/admin
+    embed: true
+    tags: [pm, issue-tracking]
+    compose_project: infra-stack
+    container_name: redmine
+
+  # ====== Gateway ======
+  - id: nginx-proxy
+    name: Nginx Reverse Proxy
+    category: gateway
+    description: Entry-point reverse proxy for path-based routing (backs funnel slot #1).
+    icon: router
+    url_internal: http://nginx-proxy:80
+    url_external: http://localhost:8443
+    url_funnel: null
+    url_tailnet: https://nginx-proxy.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /
+      expect_status: [200, 404]
+    credentials: none
+    embed: false
+    tags: [proxy, nginx, gateway]
+    compose_project: infra-stack
+    container_name: nginx-proxy
+
+  # ====== Platform API ======
+  - id: devops-tools-backend
+    name: DevOps Tools API
+    category: platform
+    description: FastAPI backend — tool catalog, pipeline generator, RL engine.
+    icon: server-cog
+    url_internal: http://devops-tools-backend:8003
+    url_external: http://localhost:8003
+    # Dedicated api.deepaksharma.live subdomain; nginx-proxy routes Host=api.*
+    # directly to the backend on 127.0.0.1:8003. The apex deepaksharma.live
+    # still serves /api/* to the backend via the frontend subdomain for
+    # backward compatibility (see portal.conf @spa_api_passthrough).
+    url_funnel: https://api.deepaksharma.live
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [api, backend, fastapi, public]
+    compose_project: dev-stack
+    container_name: devops-tools-backend
+    docs_url: http://localhost:8003/docs
+
+  - id: devops-tools-frontend
+    name: DevOps Portal Frontend
+    category: platform
+    description: React/Vite SPA — unified dashboard rendered by nginx, consumes the backend API.
+    icon: layout-dashboard
+    url_internal: http://devops-tools-backend-frontend:80
+    url_external: http://localhost:5173
+    # Shares funnel slot #1 with the backend (nginx routes /api/* to backend, / to frontend).
+    url_funnel: https://deepaksharma.live
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [ui, frontend, react, vite, public]
+    compose_project: dev-stack
+    container_name: devops-tools-backend-frontend
+
+  # ====== Projects (running apps — deep-link only) ======
+  - id: brandmatik
+    name: Brandmatik
+    category: projects
+    description: 11-service social-media analytics platform (gateway :8100, Qdrant :6335).
+    icon: layers
+    url_internal: http://brandmatik-api-gateway:8000
+    url_external: http://localhost:8100
+    url_funnel: https://brandmatik.deepaksharma.live
+    url_tailnet: https://brandmatik.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: true
+    tags: [project, microservices]
+    compose_project: brandmatik
+    container_name: brandmatik-api-gateway
+
+  - id: chaos-platform
+    name: Chaos Platform
+    category: projects
+    description: 18-service chaos engineering platform — experiments, telemetry, AI engine.
+    icon: zap-off
+    url_internal: http://chaos-api-gateway:8080
+    url_external: http://localhost:28080
+    url_funnel: https://chaos-platform.deepaksharma.live
+    url_tailnet: https://chaos-platform.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /
+      expect_status: [200, 404]
+    credentials: none
+    embed: true
+    tags: [project, chaos-engineering, kubernetes]
+    compose_project: chaos-platform-setup
+    container_name: chaos-api-gateway
+
+  - id: taskflow
+    name: Taskflow
+    category: projects
+    description: 5-service Spring-Boot task-management microservices demo.
+    icon: check-square
+    url_internal: http://taskflow-api-gateway:8080
+    url_external: http://localhost:18080
+    url_funnel: https://taskflow.deepaksharma.live
+    url_tailnet: https://taskflow.deepak-desktop.tailac51e7.ts.net
+    health:
+      method: GET
+      path: /actuator/health
+      expect_status: 200
+    credentials: none
+    embed: true
+    tags: [project, java, spring-boot]
+    compose_project: taskflow
+    container_name: taskflow-api-gateway
