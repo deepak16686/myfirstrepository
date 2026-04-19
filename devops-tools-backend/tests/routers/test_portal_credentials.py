@@ -195,9 +195,10 @@ def test_credentials_tool_not_found_returns_404(client: TestClient) -> None:
 def test_credentials_tool_without_credentials_returns_204(
     client: TestClient,
 ) -> None:
-    """`ollama` has `credentials: none` in the real registry."""
+    """`redis` has `credentials: none` in the real registry (internal service,
+    no basic-auth gate, no Vault pointer)."""
     resp = client.get(
-        "/api/v1/portal/tools/ollama/credentials",
+        "/api/v1/portal/tools/redis/credentials",
         headers={OPERATOR_HEADER: OPERATOR_TOKEN},
     )
     assert resp.status_code == 204
