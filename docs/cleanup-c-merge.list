@@ -1,0 +1,7 @@
+# Consolidation targets (format: KEEP <-- MERGE source1, source2)
+devops-tools-backend/docs/ARCHITECTURE.md <-- devops-tools-backend/ARCHITECTURE.md
+devops-tools-backend/.env.example <-- .env.example
+files/RUNNER-SETUP.md <-- files/RUNNER-SETUP-SUMMARY.md, files/RUNNER-QUICK-REFERENCE.md
+files/complete_documentation.md <-- files/complete_documentation.pdf
+devops-tools-backend/docs/README.md <-- README.md (root)
+.github/copilot-instructions.md <-- AGENTS.md (if overlap found in future)

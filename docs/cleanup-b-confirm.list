@@ -1,0 +1,60 @@
+desktop-content
+python-project
+test
+files/complete_documentation.pdf
+files/nexus-setup.ps1
+files/push-20-images-to-nexus.ps1
+files/setup-gitlab-and-runners.ps1
+files/setup-gitlab-runner-dind.ps1
+files/setup-gitlab-server.ps1
+files/validate-platform.ps1
+files/rebuild-platform.ps1
+files/gitlab-ci-dind-example.yml
+files/loki-config.yml
+files/prometheus.yml
+files/promtail-config.yml
+register-runner.ps1
+setup-fastapi.ps1
+setup-claude-code.sh
+monitoring-stack.yml
+monitoring/prometheus.yml
+security-tools.yml
+splunk-docker-compose.yml
+sonarqube-projects.csv
+sonarqube-projects.md
+docker-desktop-inventory.md
+Credentials Details.txt
+Screenshots/Gitlab-AI-RAG-template-test.png
+Screenshots/Screenshot 2026-02-06 105758.png
+Screenshots/Screenshot 2026-02-06 113113.png
+Screenshots/Screenshot 2026-02-06 115014.png
+Screenshots/Screenshot 2026-02-06 115743.png
+Screenshots/Screenshot 2026-02-07 223051.png
+Screenshots/startup-error.png
+Screenshots/tools-drectory.png
+app
+gitlab-runner
+gitlab-runner-test
+nexus/push-images-to-nexus.sh
+nexus/push-language-stacks-to-nexus.sh
+nexus/push-to-apm-repo-demo.sh
+plane/check_db.rb
+plane/configure_project.rb
+plane/create_trackers.rb
+plane/fix_trackers.rb
+plane/full_setup.rb
+plane/setup_redmine.rb
+plane/test_syntax.py
+rag-ai/test_output/api.log
+rag-ai/test_output/test_results.json
+rag-ai/test_output/dockerfiles/Dockerfile.java
+rag-ai/test_output/dockerfiles/Dockerfile.node
+rag-ai/test_output/dockerfiles/Dockerfile.python
+rag-ai/test_output/gitlab-ci/.gitlab-ci.java.yml
+rag-ai/test_output/gitlab-ci/.gitlab-ci.node.yml
+rag-ai/test_output/gitlab-ci/.gitlab-ci.python.yml
+.ruff_cache
+devops-tools-backend/.ruff_cache
+devops-tools-backend/.pytest_cache
+devops-tools-backend/.benchmarks
+devops-tools-backend/frontend/dist
