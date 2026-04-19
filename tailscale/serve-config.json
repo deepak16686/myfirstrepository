@@ -1,0 +1,90 @@
+// =============================================================================
+// DevOps Portal — Tailscale Funnel SINGLE-SLOT TCP passthrough config.
+// -----------------------------------------------------------------------------
+// Why this file looks so different from the previous (3-slot HTTPS) version:
+//
+//   * Tailscale Funnel free-tier caps public HTTPS services at 3 host:port
+//     tuples. The previous design used all 3 (portal apex + grafana + gitlab)
+//     and marked the other 30 tools "tailnet-only". The user now wants ALL
+//     tools publicly reachable on *.deepaksharma.live.
+//
+//   * A single `tailscale funnel` entry in TCP passthrough mode on port 443
+//     counts as ONE service, regardless of how many SNI hostnames flow
+//     through it. This is the loophole we exploit to expose 28+ tools
+//     on one funnel slot.
+//
+//   * Tailscale's built-in HTTPS cert is only issued for the tailnet MagicDNS
+//     name (`*.deepak-desktop.tailac51e7.ts.net`). Serving `*.deepaksharma.live`
+//     therefore requires OUR OWN Let's Encrypt wildcard cert, terminated
+//     at host-side nginx on port 8443 (see nginx-proxy/portal.conf).
+//
+// -----------------------------------------------------------------------------
+// Format: legacy TCP/Web/AllowFunnel huJSON. Verified against:
+//   * https://tailscale.com/kb/1247/funnel  ("Tailscale Funnel")
+//   * https://tailscale.com/kb/1242/tailscale-serve  ("tailscale serve")
+//   * `tailscale serve --help` / `tailscale funnel --help` output for 1.84.x.
+//
+// TCP block semantics (verified against docs above):
+//   * TCP["443"].HTTPS:true       — this is a TLS listener; Funnel requires it
+//                                   for public ingress on 443.
+//   * TCP["443"].TCPForward       — raw TCP forward target; the bytes on the
+//                                   wire are NOT decrypted by tailscaled.
+//   * TCP["443"].TerminateTLS:""  — explicit sentinel meaning "DO NOT terminate
+//                                   TLS at tailscaled; the downstream target
+//                                   (host nginx on :8443) will terminate."
+//                                   Empty string = no SNI restriction, so ALL
+//                                   SNIs flowing through the funnel pass through.
+//
+// Allowed funnel ports on free tier (verified at
+// https://tailscale.com/kb/1223/funnel-availability#funnel-ports):
+//   * 443, 8443, 10000
+//   Port 443 is the only one that doesn't require end-users to include the
+//   port in the URL — so that's the one we use. `bootstrap-tcp.sh --apply`
+//   will explicitly `tailscale funnel --bg 443` to enable it.
+//
+// Forward target port selection:
+//   * Tailscaled owns :443 on the tailnet side (public). It cannot also bind
+//     :443 on the loopback (would conflict). So host nginx binds :8443 and we
+//     forward to 127.0.0.1:8443.
+//
+// MagicDNS placeholder:
+//   The bootstrap script substitutes ${MAGIC_DNS_NAME} at runtime using
+//   `tailscale status --json | jq -r .Self.DNSName | sed 's/\.$//'`.
+//   NEVER hardcode the tailnet name in git; it's specific to the account
+//   and can leak personal info.
+// -----------------------------------------------------------------------------
+// huJSON specifics (https://github.com/tailscale/hujson):
+//   * Comments (// and /* */) are permitted.
+//   * Trailing commas are permitted.
+//   * `tailscale serve set-config` round-trips this into the daemon as JSON.
+//
+// Do not include real tokens, cert material, or API keys anywhere in this
+// file — tailscaled writes this to disk verbatim under /var/lib/tailscale.
+// =============================================================================
+{
+  // ---------------------------------------------------------------------------
+  // TCP block — single TLS listener on :443, pass-through to host nginx.
+  // ---------------------------------------------------------------------------
+  "TCP": {
+    "443": {
+      "HTTPS": true,
+      "TCPForward": "127.0.0.1:8443",
+      "TerminateTLS": ""
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // AllowFunnel — only the MagicDNS :443 tuple is public.
+  // Exactly ONE host:port entry here => consumes 1 of 3 funnel slots.
+  //
+  // IMPORTANT: for TCP passthrough, AllowFunnel is keyed on the node's
+  // MagicDNS name (Self.DNSName without trailing dot). Every SNI the client
+  // presents at the TLS layer is simply relayed to 127.0.0.1:8443 — nginx
+  // handles SNI dispatch to the right backend.
+  //
+  // bootstrap-tcp.sh substitutes ${MAGIC_DNS_NAME} from `tailscale status --json`.
+  // ---------------------------------------------------------------------------
+  "AllowFunnel": {
+    "${MAGIC_DNS_NAME}:443": true,
+  },
+}

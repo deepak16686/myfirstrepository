@@ -1,0 +1,3 @@
+# Keep real credentials out of git. The .example sibling is intentionally tracked.
+htpasswd
+certs/

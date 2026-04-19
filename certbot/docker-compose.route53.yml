@@ -1,0 +1,80 @@
+# =============================================================================
+# docker-compose.route53.yml — Let's Encrypt WILDCARD via AWS Route 53 DNS-01.
+# Fallback path for users whose zone is hosted in Route 53 instead of Cloudflare.
+#
+# Usage:
+#   docker compose -f certbot/docker-compose.route53.yml run --rm certbot-r53
+#   docker compose -f certbot/docker-compose.route53.yml run --rm certbot-r53-staging
+#   docker compose -f certbot/docker-compose.route53.yml run --rm certbot-r53-renew
+#
+# Auth model:
+#   certbot/dns-route53 honours the standard AWS SDK credential chain:
+#     1. AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY env vars (we use this path)
+#     2. AWS_SHARED_CREDENTIALS_FILE
+#     3. EC2/ECS/EKS instance role (not applicable on Docker Desktop)
+#   Verified at https://certbot-dns-route53.readthedocs.io/en/stable/
+#
+# Image pin: certbot/dns-route53:v2.11.0   (published 2024-06-06, digest below)
+#   digest: sha256:6b67c93f55d6b5edb8d888158044ccaff979a1c6f440f00fc11775483122c482
+# =============================================================================
+name: certbot-wildcard-r53
+
+x-certbot-r53-common: &certbot-r53-common
+  image: certbot/dns-route53:v2.11.0
+  restart: "no"
+  # env_file uses `required: false` so `docker compose config` works before
+  # the operator has populated secrets/route53.env. At runtime the script
+  # preflight aborts if the file is missing; here we just want static validation
+  # to pass. Requires Compose v2.24.0+ (verified at
+  # https://docs.docker.com/reference/compose-file/services/#env_file).
+  env_file:
+    - path: ./secrets/route53.env
+      required: false
+  volumes:
+    - ./letsencrypt:/etc/letsencrypt
+    - ./logs:/var/log/letsencrypt
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+
+services:
+
+  certbot-r53:
+    <<: *certbot-r53-common
+    container_name: certbot-r53-issue
+    command: >-
+      certonly
+      --dns-route53
+      --dns-route53-propagation-seconds 30
+      --preferred-challenges dns
+      --agree-tos
+      --email ${CERTBOT_EMAIL:-deepakdce2009@gmail.com}
+      -d "*.deepaksharma.live"
+      -d "deepaksharma.live"
+      --non-interactive
+      --keep-until-expiring
+      --expand
+
+  certbot-r53-staging:
+    <<: *certbot-r53-common
+    container_name: certbot-r53-issue-staging
+    command: >-
+      certonly
+      --dns-route53
+      --dns-route53-propagation-seconds 30
+      --preferred-challenges dns
+      --agree-tos
+      --email ${CERTBOT_EMAIL:-deepakdce2009@gmail.com}
+      -d "*.deepaksharma.live"
+      -d "deepaksharma.live"
+      --non-interactive
+      --staging
+      --cert-name deepaksharma.live-staging
+
+  certbot-r53-renew:
+    <<: *certbot-r53-common
+    container_name: certbot-r53-renew
+    command: >-
+      renew
+      --non-interactive
+      --dns-route53-propagation-seconds 30

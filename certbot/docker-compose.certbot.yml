@@ -1,0 +1,115 @@
+# =============================================================================
+# docker-compose.certbot.yml — Let's Encrypt WILDCARD issuance via Cloudflare
+# DNS-01 challenge (required for *.deepaksharma.live — HTTP-01 cannot issue
+# wildcards; verified at https://letsencrypt.org/docs/challenge-types/#dns-01-challenge).
+#
+# Usage:
+#   # Issue cert (one-shot):
+#   docker compose -f certbot/docker-compose.certbot.yml run --rm certbot
+#
+#   # Staging dry-run (recommended first — avoids hitting the prod 5/week
+#   # duplicate-cert rate limit; verified at
+#   # https://letsencrypt.org/docs/rate-limits/):
+#   docker compose -f certbot/docker-compose.certbot.yml run --rm certbot-staging
+#
+#   # Renew (idempotent; skips if <30 days haven't elapsed):
+#   docker compose -f certbot/docker-compose.certbot.yml run --rm certbot-renew
+#
+# Directory contract:
+#   certbot/letsencrypt/           -> /etc/letsencrypt     (cert state; persistent)
+#   certbot/secrets/cloudflare.ini -> /etc/letsencrypt/cloudflare.ini  (chmod 600, ro)
+#   certbot/logs/                  -> /var/log/letsencrypt (renewal logs)
+#
+# Image pin:
+#   certbot/dns-cloudflare:v2.11.0  (published 2024-06-06, digest below)
+#     digest: sha256:6fda5efe1140c256dd01ac5823731423c41914eb5962dd44e01cdd33bf7a0fa6
+#   Use the sha256 form in prod to freeze the artefact:
+#     image: certbot/dns-cloudflare:v2.11.0@sha256:6fda5efe1140c256dd01ac5823731423c41914eb5962dd44e01cdd33bf7a0fa6
+#
+# Email: override via `CERTBOT_EMAIL` in ./.env or shell env. Default is the
+# repo maintainer.  Let's Encrypt sends expiry warnings to this address.
+# =============================================================================
+name: certbot-wildcard
+
+# YAML anchor: every service inherits this common shape. Keeps the four
+# certbot variants (issue / issue-staging / renew / revoke) DRY.
+x-certbot-common: &certbot-common
+  image: certbot/dns-cloudflare:v2.11.0
+  restart: "no"
+  volumes:
+    - ./letsencrypt:/etc/letsencrypt
+    - ./logs:/var/log/letsencrypt
+    - ./secrets/cloudflare.ini:/etc/letsencrypt/cloudflare.ini:ro
+  # certbot-managed /etc/letsencrypt contains private keys -> keep read-only
+  # filesystem OFF (certbot writes into /etc/letsencrypt); but drop caps.
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+
+services:
+
+  # ---------- PROD: issue wildcard cert against Let's Encrypt prod API -----
+  certbot:
+    <<: *certbot-common
+    container_name: certbot-issue
+    command: >-
+      certonly
+      --dns-cloudflare
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini
+      --dns-cloudflare-propagation-seconds 60
+      --preferred-challenges dns
+      --agree-tos
+      --email ${CERTBOT_EMAIL:-deepakdce2009@gmail.com}
+      -d "*.deepaksharma.live"
+      -d "deepaksharma.live"
+      --non-interactive
+      --keep-until-expiring
+      --expand
+
+  # ---------- STAGING: dry-run against Let's Encrypt staging API -----------
+  # Staging certs are untrusted but don't count against the 5/week duplicate
+  # rate limit. Use this on FIRST RUN and after every config change.
+  # Staging endpoint: https://acme-staging-v02.api.letsencrypt.org/directory
+  certbot-staging:
+    <<: *certbot-common
+    container_name: certbot-issue-staging
+    command: >-
+      certonly
+      --dns-cloudflare
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini
+      --dns-cloudflare-propagation-seconds 60
+      --preferred-challenges dns
+      --agree-tos
+      --email ${CERTBOT_EMAIL:-deepakdce2009@gmail.com}
+      -d "*.deepaksharma.live"
+      -d "deepaksharma.live"
+      --non-interactive
+      --staging
+      --cert-name deepaksharma.live-staging
+
+  # ---------- RENEW: idempotent, non-interactive ---------------------------
+  # certbot renew only renews certs with <30 days left by default.
+  # --deploy-hook runs ONLY on successful renewal (skipped on no-op).
+  certbot-renew:
+    <<: *certbot-common
+    container_name: certbot-renew
+    command: >-
+      renew
+      --non-interactive
+      --dns-cloudflare-propagation-seconds 60
+      --deploy-hook "echo 'Deploy hook fired. Reload nginx from host via issue-cert.sh post-step.'"
+
+  # ---------- REVOKE: emergency cert revocation ----------------------------
+  # Only used during the rollback runbook. Keep OFF by default.
+  # Usage:
+  #   docker compose -f certbot/docker-compose.certbot.yml run --rm \
+  #     certbot-revoke \
+  #     revoke --cert-path /etc/letsencrypt/live/deepaksharma.live/fullchain.pem \
+  #     --reason keycompromise --non-interactive
+  certbot-revoke:
+    <<: *certbot-common
+    container_name: certbot-revoke
+    profiles: ["revoke"]    # only starts when -- profile revoke is passed
+    entrypoint: ["certbot"]
+    command: ["--help", "revoke"]

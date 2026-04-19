@@ -1,0 +1,4 @@
+# Never commit the plaintext bootstrap JSON emitted by generate-htpasswd.sh.
+# It contains the 11 basic-auth passwords in plaintext for one-shot seeding
+# into Vault; after `seed-vault-basic-auth.py` succeeds you can delete it.
+credentials-to-seed.json
