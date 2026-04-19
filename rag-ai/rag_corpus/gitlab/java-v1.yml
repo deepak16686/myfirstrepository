@@ -10,10 +10,9 @@ stages:
 
 variables:
   RELEASE_TAG: "1.0.release-${CI_PIPELINE_IID}"
-  NEXUS_REGISTRY: "ai-nexus:5001"
-  NEXUS_PULL_REGISTRY: "localhost:5001"
-  NEXUS_USERNAME: "admin"
-  NEXUS_PASSWORD: "r"
+  # Nexus endpoints/credentials must be set as GitLab CI/CD variables.
+  # NEXUS_REGISTRY / NEXUS_PULL_REGISTRY / NEXUS_USERNAME / NEXUS_PASSWORD
+  # are injected from project Settings -> CI/CD -> Variables (masked).
   IMAGE_NAME: "my-image-test"
   IMAGE_TAG: "1.0.${CI_PIPELINE_IID}"
   # Docker-in-Docker configuration
@@ -26,7 +25,7 @@ variables:
   FF_NETWORK_PER_BUILD: "true"
   # Splunk HEC configuration
   SPLUNK_HEC_URL: "http://ai-splunk:8088"
-  SPLUNK_HEC_TOKEN: "your-hec-token-here"
+  # SPLUNK_HEC_URL and SPLUNK_HEC_TOKEN must come from masked CI/CD variables.
 
 compile_jar:
   stage: compile
@@ -128,16 +127,16 @@ sonarqube:
     - docker
   before_script:
     - echo "=== Testing SonarQube Connectivity ==="
-    - curl -s http://172.20.0.9:9000/api/system/status
+    - curl -s ${SONARQUBE_URL}/api/system/status
     - echo ""
     - echo "=== Configuration ==="
     - echo "Project Key = legacy-asset-management"
-    - echo "Host URL = http://172.20.0.9:9000"
+    - echo "Host URL = ${SONARQUBE_URL}"
     - echo "Java Version:"
     - java -version
   script:
     - echo "=== Running SonarQube Analysis ==="
-    - mvn sonar:sonar -Dsonar.projectKey=legacy-asset-management -Dsonar.projectName="Legacy Asset Management" -Dsonar.host.url=http://172.20.0.9:9000 -Dsonar.token=sqp_539569347f2e8ba7bca30741181171c898cdc045
+    - mvn sonar:sonar -Dsonar.projectKey=legacy-asset-management -Dsonar.projectName="Legacy Asset Management" -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.token=${SONAR_TOKEN}
   dependencies:
     - test_image
   only:

@@ -295,7 +295,7 @@ services:
     image: grafana/grafana:latest
     container_name: platform-grafana
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD is required}
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_SERVER_ROOT_URL: http://localhost:${GRAFANA_PORT}
     ports:

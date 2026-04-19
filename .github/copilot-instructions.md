@@ -90,15 +90,15 @@ docker-compose logs -f        # Stream logs
 - **JAR artifact**: Pushed to GitLab artifacts with 1-hour expiration, reused by Docker build stage
 
 ### Database & Persistence
-- **PostgreSQL**: User `modernization`, password `modernization123`, default DB `legacy_modernization`
+- **PostgreSQL**: User `${POSTGRES_AI_USER}` (e.g. `modernization`), password `${POSTGRES_AI_PASSWORD}` from env/Vault, default DB `${POSTGRES_AI_DB}` (e.g. `legacy_modernization`)
 - **Redis**: No auth, used for caching; `redis://redis:6379/0`
-- **MinIO**: User/pass `minioadmin`/`minioadmin123`, S3-compatible object storage
+- **MinIO**: User `${MINIO_ROOT_USER}` (default `minioadmin`), password `${MINIO_ROOT_PASSWORD}` from env/Vault, S3-compatible object storage
 - **ChromaDB**: Vector DB for embeddings, HTTP endpoint at port 8000
 - **Ollama**: Local LLM inference, port 11434 (models: deepseek-coder:33b, qwen2.5-coder:32b)
 
 ### Monitoring & Observability
 - **Prometheus**: Metrics collection, port 9090
-- **Grafana**: Dashboard UI, port 3000 (admin/admin123)
+- **Grafana**: Dashboard UI, port 3000 (admin / `${GRAFANA_ADMIN_PASSWORD}` from env/Vault)
 - **Loki**: Log aggregation with Promtail
 - **Jaeger**: Distributed tracing, port 16686
 - All stack configs in `files/monitoring-stack.yml`

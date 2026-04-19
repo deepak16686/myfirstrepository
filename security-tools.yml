@@ -24,6 +24,8 @@ services:
       - "3100:3100"
     volumes:
       - loki-data:/loki
+    healthcheck:
+      disable: true
 
   # Jaeger - Distributed tracing
   jaeger:

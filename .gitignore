@@ -1,4 +1,12 @@
-﻿# Python
+﻿# =============================================================================
+# .gitignore - DevOps platform repo
+# =============================================================================
+# Secrets scanning: git secrets / gitleaks / trufflehog run in pre-commit.
+# See .env.example for the list of expected env vars.
+# Also see devops-tools-backend/docs/SECRET_ROTATION.md.
+# =============================================================================
+
+# ---- Python ---------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *.class
@@ -14,40 +22,88 @@ pip-delete-this-directory.txt
 .coverage
 htmlcov/
 
-# IDE
+# ---- IDE ------------------------------------------------------------------
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# ---- OS -------------------------------------------------------------------
 .DS_Store
 Thumbs.db
 desktop.ini
+nul
 
-# Project specific
+# ---- Project caches / artifacts -------------------------------------------
 chromadb-data/
 *.log
-nul
 files.zip
+Screenshots/
 
-# Credentials
+# ---- Environment files ----------------------------------------------------
+# Never commit actual env files. ONLY .env.example is tracked.
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# ---- Secret / credential material -----------------------------------------
 *credentials*.txt
 *password*.txt
-.env
 *.pem
 *.key
+*.p12
+*.pfx
+*.crt
+*.jks
+*.keystore
+**/credentials
+**/credentials.json
+**/serviceAccount*.json
+**/.vault-token
+**/secrets.yaml
+**/secrets.yml
+# K8s Secret templates are OK if they contain only <REPLACE_ME> placeholders:
+!**/_secrets-template.yaml
+!**/_secrets-template.yml
 
-# Build
+# ---- Terraform / IaC state ------------------------------------------------
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ---- Claude Code / editor session state -----------------------------------
+# Local session permissions + history may contain command-line secrets;
+# do not track them.
+.claude/settings.local.json
+.claude/settings.json
+.claude/sessions/
+.claude/.history/
+
+# ---- Open WebUI function backups (may contain embedded PATs) --------------
+**/openwebui_functions/*.py.bak*
+**/openwebui_functions/*.backup*
+
+# ---- Build artifacts ------------------------------------------------------
 dist/
 build/
 *.egg-info/
 
-# Docker
+# ---- Docker ---------------------------------------------------------------
 docker-compose.override.yml
 
-# Temp
+# ---- Temp / backup --------------------------------------------------------
 *.tmp
 *.bak
+*.bak-*
 *.backup-*
+# Session-specific timestamp backups made during edits:
+*.bak-????????-??????

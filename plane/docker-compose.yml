@@ -6,9 +6,9 @@ services:
     container_name: redmine-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: redmine
-      POSTGRES_PASSWORD: redmine123
-      POSTGRES_DB: redmine
+      POSTGRES_USER: ${REDMINE_DB_USERNAME:?REDMINE_DB_USERNAME is required}
+      POSTGRES_PASSWORD: ${REDMINE_DB_PASSWORD:?REDMINE_DB_PASSWORD is required}
+      POSTGRES_DB: ${REDMINE_DB_NAME:-redmine}
     volumes:
       - redmine-db-data:/var/lib/postgresql/data
     networks:
@@ -28,10 +28,10 @@ services:
     environment:
       REDMINE_DB_POSTGRES: redmine-db
       REDMINE_DB_PORT: 5432
-      REDMINE_DB_USERNAME: redmine
-      REDMINE_DB_PASSWORD: redmine123
-      REDMINE_DB_DATABASE: redmine
-      REDMINE_SECRET_KEY_BASE: redmine-secret-key-base-change-in-production
+      REDMINE_DB_USERNAME: ${REDMINE_DB_USERNAME:?REDMINE_DB_USERNAME is required}
+      REDMINE_DB_PASSWORD: ${REDMINE_DB_PASSWORD:?REDMINE_DB_PASSWORD is required}
+      REDMINE_DB_DATABASE: ${REDMINE_DB_NAME:-redmine}
+      REDMINE_SECRET_KEY_BASE: ${REDMINE_SECRET_KEY_BASE:?REDMINE_SECRET_KEY_BASE is required}
     volumes:
       - redmine-data:/usr/src/redmine/files
       - redmine-plugins:/usr/src/redmine/plugins
