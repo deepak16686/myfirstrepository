@@ -128,7 +128,7 @@ docker exec redis redis-cli FLUSHALL
 # MinIO
 # -----
 # Access MinIO console: http://localhost:9001
-# Credentials: minioadmin / minioadmin123
+# Credentials: ${MINIO_ROOT_USER} / ${MINIO_ROOT_PASSWORD}  (from .env)
 
 # ChromaDB
 # --------
@@ -279,7 +279,7 @@ nvidia_gpu_utilization
 # ============================================================================
 
 # Access Grafana: http://localhost:3000
-# Default credentials: admin / admin123
+# Default credentials: admin / ${GRAFANA_ADMIN_PASSWORD}  (from .env)
 
 # Add Prometheus data source:
 # Configuration > Data Sources > Add data source > Prometheus

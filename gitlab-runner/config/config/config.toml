@@ -55,5 +55,9 @@ shutdown_timeout = 0
       alias = "minio"
 
     [runners.docker.services.variables]
-      MINIO_ROOT_USER = "minioadmin"
-      MINIO_ROOT_PASSWORD = "minioadmin123"
+      # Credentials are not baked into the runner config; set these via
+      # GitLab CI/CD Variables at the group or project level. Replace
+      # <REPLACE_ME> before applying, or comment this block out to rely on
+      # the runner's environment.
+      MINIO_ROOT_USER = "<REPLACE_ME>"
+      MINIO_ROOT_PASSWORD = "<REPLACE_ME>"

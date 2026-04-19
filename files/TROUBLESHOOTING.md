@@ -421,8 +421,8 @@
 
 **Solutions:**
 1. **Verify Credentials**:
-   - Username: `minioadmin`
-   - Password: `minioadmin123`
+   - Username: `${MINIO_ROOT_USER}`  (default `minioadmin`)
+   - Password: `${MINIO_ROOT_PASSWORD}`  (set in `.env`, never hardcoded)
 
 2. **Check Environment Variables**:
    ```powershell

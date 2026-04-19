@@ -204,7 +204,7 @@ docker run --rm --network modernization-network curlimages/curl curl http://nexu
 # (ensure DOCKER_REGISTRY_PASSWORD is masked in CI/CD variables)
 
 # Test login locally
-docker login -u admin -p admin123 nexus-docker:5001
+docker login -u "${NEXUS_USERNAME:-admin}" -p "${NEXUS_PASSWORD:?NEXUS_PASSWORD required}" nexus-docker:5001
 ```
 
 ### Out of Disk Space During Builds

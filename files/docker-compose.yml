@@ -32,9 +32,9 @@ services:
     image: postgres:15-alpine
     container_name: postgres
     environment:
-      POSTGRES_USER: modernization
-      POSTGRES_PASSWORD: modernization123
-      POSTGRES_DB: legacy_modernization
+      POSTGRES_USER: ${POSTGRES_AI_USER:?POSTGRES_AI_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_AI_PASSWORD:?POSTGRES_AI_PASSWORD is required}
+      POSTGRES_DB: ${POSTGRES_AI_DB:-legacy_modernization}
     ports:
       - "5432:5432"
     volumes:
@@ -69,8 +69,8 @@ services:
     image: minio/minio:latest
     container_name: minio
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin123
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?MINIO_ROOT_USER is required}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?MINIO_ROOT_PASSWORD is required}
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
@@ -158,7 +158,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD is required}
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_SERVER_ROOT_URL: http://localhost:3000
     ports:

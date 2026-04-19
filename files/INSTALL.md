@@ -130,7 +130,7 @@ After deployment, access services at:
 
 **Monitoring:**
 - Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000 (admin/admin123)
+- Grafana: http://localhost:3000 (admin / `${GRAFANA_ADMIN_PASSWORD}` from `.env`)
 - Loki: http://localhost:3100
 - Jaeger: http://localhost:16686
 
@@ -241,9 +241,11 @@ After successful deployment:
 
 Remember to change these in production:
 
-- **PostgreSQL**: modernization / modernization123
-- **MinIO**: minioadmin / minioadmin123
-- **Grafana**: admin / admin123
+- **PostgreSQL**: `${POSTGRES_AI_USER}` / `${POSTGRES_AI_PASSWORD}` (see `.env`)
+- **MinIO**: `${MINIO_ROOT_USER}` / `${MINIO_ROOT_PASSWORD}` (see `.env`)
+- **Grafana**: admin / `${GRAFANA_ADMIN_PASSWORD}` (see `.env`)
+
+> All defaults pulled from `.env`; never hardcode in this repo.
 
 ---
 

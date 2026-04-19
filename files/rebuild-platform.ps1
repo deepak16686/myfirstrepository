@@ -142,9 +142,9 @@ docker run -d `
     --name $CONTAINERS.PostgreSQL `
     --network $NETWORKS.Modernization `
     -p "$($PORTS.PostgreSQL):5432" `
-    -e POSTGRES_USER=admin `
-    -e POSTGRES_PASSWORD=admin123 `
-    -e POSTGRES_DB=modernization `
+    -e POSTGRES_USER="$($env:POSTGRES_AI_USER ?? (throw 'POSTGRES_AI_USER is required'))" `
+    -e POSTGRES_PASSWORD="$($env:POSTGRES_AI_PASSWORD ?? (throw 'POSTGRES_AI_PASSWORD is required'))" `
+    -e POSTGRES_DB="$($env:POSTGRES_AI_DB ?? 'modernization')" `
     -v "$($VOLUMES.PostgreSQL):/var/lib/postgresql/data" `
     --restart unless-stopped `
     postgres:16-alpine | Out-Null
@@ -168,8 +168,8 @@ docker run -d `
     --network $NETWORKS.Modernization `
     -p "$($PORTS.MinIO):9000" `
     -p "$($PORTS.MinIOConsole):9001" `
-    -e MINIO_ROOT_USER=admin `
-    -e MINIO_ROOT_PASSWORD=admin123 `
+    -e MINIO_ROOT_USER="$($env:MINIO_ROOT_USER ?? (throw 'MINIO_ROOT_USER is required'))" `
+    -e MINIO_ROOT_PASSWORD="$($env:MINIO_ROOT_PASSWORD ?? (throw 'MINIO_ROOT_PASSWORD is required'))" `
     -v "$($VOLUMES.MinIO):/data" `
     --restart unless-stopped `
     minio/minio server /data --console-address ":9001" | Out-Null
@@ -243,7 +243,7 @@ if (-not $SkipMonitoring) {
         --name $CONTAINERS.Grafana `
         --network $NETWORKS.Monitoring `
         -p "$($PORTS.Grafana):3000" `
-        -e GF_SECURITY_ADMIN_PASSWORD=admin123 `
+        -e GF_SECURITY_ADMIN_PASSWORD="$($env:GRAFANA_ADMIN_PASSWORD ?? (throw 'GRAFANA_ADMIN_PASSWORD is required'))" `
         -v "$($VOLUMES.Grafana):/var/lib/grafana" `
         --restart unless-stopped `
         grafana/grafana:latest | Out-Null
@@ -346,7 +346,7 @@ Write-Host "  - Open WebUI        : http://localhost:$($PORTS.OpenWebUI)" -Foreg
 
 if (-not $SkipMonitoring) {
     Write-Host "`n  - Prometheus        : http://localhost:$($PORTS.Prometheus)" -ForegroundColor White
-    Write-Host "  - Grafana           : http://localhost:$($PORTS.Grafana) (admin/admin123)" -ForegroundColor White
+    Write-Host "  - Grafana           : http://localhost:$($PORTS.Grafana) (admin / `$env:GRAFANA_ADMIN_PASSWORD)" -ForegroundColor White
     Write-Host "  - Loki              : http://localhost:$($PORTS.Loki)" -ForegroundColor White
     Write-Host "  - Jaeger            : http://localhost:$($PORTS.JaegerUI)" -ForegroundColor White
 }

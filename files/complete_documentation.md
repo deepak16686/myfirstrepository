@@ -54,9 +54,9 @@ docker-compose down -v
 ### Infrastructure Services
 | Service | Port | Purpose | Credentials |
 |---------|------|---------|-------------|
-| PostgreSQL | 5432 | Relational database | `modernization` / `modernization123` |
+| PostgreSQL | 5432 | Relational database | `${POSTGRES_AI_USER}` / `${POSTGRES_AI_PASSWORD}` (from `.env`) |
 | Redis | 6379 | Caching layer | No authentication |
-| MinIO | 9000, 9001 | Object storage | `minioadmin` / `minioadmin123` |
+| MinIO | 9000, 9001 | Object storage | `${MINIO_ROOT_USER}` / `${MINIO_ROOT_PASSWORD}` (from `.env`) |
 | ChromaDB | 8000 | Vector database | No authentication |
 | Ollama | 11434 | AI model server | No authentication |
 
@@ -64,7 +64,7 @@ docker-compose down -v
 | Service | Port | Purpose | Credentials |
 |---------|------|---------|-------------|
 | Prometheus | 9090 | Metrics collection | No authentication |
-| Grafana | 3000 | Visualization | `admin` / `admin123` |
+| Grafana | 3000 | Visualization | `admin` / `${GRAFANA_ADMIN_PASSWORD}` (from `.env`) |
 | Loki | 3100 | Log aggregation | No authentication |
 | Jaeger | 16686 | Distributed tracing | No authentication |
 
@@ -140,7 +140,7 @@ docker exec ollama ollama run qwen2.5-coder:32b-instruct-q4_K_M "Explain what a 
 docker exec -it postgres psql -U modernization -d legacy_modernization
 
 # Connection string
-postgresql://modernization:modernization123@localhost:5432/legacy_modernization
+postgresql://${POSTGRES_AI_USER}:${POSTGRES_AI_PASSWORD}@localhost:5432/${POSTGRES_AI_DB}
 ```
 
 **Redis**:
@@ -249,7 +249,7 @@ docker network prune -f
 Visit http://localhost:9090/targets to verify all scrape targets are UP.
 
 ### Grafana Dashboards
-1. Log in to Grafana: http://localhost:3000 (admin / admin123)
+1. Log in to Grafana: http://localhost:3000 (admin / ${GRAFANA_ADMIN_PASSWORD})
 2. Add Prometheus data source:
    - URL: `http://prometheus:9090`
 3. Add Loki data source:
@@ -279,9 +279,9 @@ container_memory_usage_bytes / 1024 / 1024 / 1024
 ## 🔐 Security Considerations
 
 ### Default Credentials (Change in Production!)
-- PostgreSQL: `modernization` / `modernization123`
-- MinIO: `minioadmin` / `minioadmin123`
-- Grafana: `admin` / `admin123`
+- PostgreSQL: `${POSTGRES_AI_USER}` / `${POSTGRES_AI_PASSWORD}` (from `.env`)
+- MinIO: `${MINIO_ROOT_USER}` / `${MINIO_ROOT_PASSWORD}` (from `.env`)
+- Grafana: `admin` / `${GRAFANA_ADMIN_PASSWORD}` (from `.env`)
 
 ### Network Isolation
 - Services are isolated in Docker networks
@@ -487,7 +487,7 @@ After deployment, access services at:
 
 **Monitoring:**
 - Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000 (admin/admin123)
+- Grafana: http://localhost:3000 (admin / `${GRAFANA_ADMIN_PASSWORD}` from .env)
 - Loki: http://localhost:3100
 - Jaeger: http://localhost:16686
 
@@ -598,9 +598,9 @@ After successful deployment:
 
 Remember to change these in production:
 
-- **PostgreSQL**: modernization / modernization123
-- **MinIO**: minioadmin / minioadmin123
-- **Grafana**: admin / admin123
+- **PostgreSQL**: ${POSTGRES_AI_USER} / ${POSTGRES_AI_PASSWORD}
+- **MinIO**: ${MINIO_ROOT_USER} / ${MINIO_ROOT_PASSWORD}
+- **Grafana**: admin / ${GRAFANA_ADMIN_PASSWORD}
 
 ---
 
@@ -747,7 +747,7 @@ docker exec redis redis-cli FLUSHALL
 # MinIO
 # -----
 # Access MinIO console: http://localhost:9001
-# Credentials: minioadmin / minioadmin123
+# Credentials: ${MINIO_ROOT_USER} / ${MINIO_ROOT_PASSWORD}
 
 # ChromaDB
 # --------
@@ -898,7 +898,7 @@ nvidia_gpu_utilization
 # ============================================================================
 
 # Access Grafana: http://localhost:3000
-# Default credentials: admin / admin123
+# Default credentials: admin / ${GRAFANA_ADMIN_PASSWORD}
 
 # Add Prometheus data source:
 # Configuration > Data Sources > Add data source > Prometheus
@@ -1409,7 +1409,7 @@ docker-compose version
 **Solutions:**
 1. **Verify Credentials**:
    - Username: `minioadmin`
-   - Password: `minioadmin123`
+   - Password: `${MINIO_ROOT_PASSWORD}` (from `.env`)
 
 2. **Check Environment Variables**:
    ```powershell
@@ -1810,7 +1810,7 @@ docker run --rm --network modernization-network curlimages/curl curl http://nexu
 # (ensure DOCKER_REGISTRY_PASSWORD is masked in CI/CD variables)
 
 # Test login locally
-docker login -u admin -p admin123 nexus-docker:5001
+docker login -u "${NEXUS_USERNAME:-admin}" -p "${NEXUS_PASSWORD:?NEXUS_PASSWORD required}" nexus-docker:5001
 ```
 
 ### Out of Disk Space During Builds
