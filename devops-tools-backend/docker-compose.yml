@@ -44,6 +44,12 @@ services:
       - DEBUG=${DEBUG:-false}
     volumes:
       - devops-tools-config:/app/config
+      # Docker Engine UNIX socket — read-only. Lets the health prober classify
+      # non-HTTP tools (runners, promtail) via the `docker_ps` / `docker_exec`
+      # probe methods. :ro so a compromised backend cannot spawn or stop
+      # containers. Works under Docker Desktop + WSL2 because Desktop
+      # virtualizes the socket inside the MobyVM.
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - ai-platform-net
       - gitlab-net

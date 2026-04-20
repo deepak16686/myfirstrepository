@@ -1,0 +1,33 @@
+# =============================================================================
+# Dockerfile.godaddy — certbot base image with the GoDaddy DNS-01 plugin.
+# -----------------------------------------------------------------------------
+# The official certbot/certbot image does NOT ship a GoDaddy plugin (only
+# Cloudflare, Route53, Google, DigitalOcean are "official"; GoDaddy is
+# community-maintained). We extend the base image and install the third-party
+# plugin via pip. Pinned versions keep builds reproducible.
+#
+# Upstream pointers:
+#   * certbot base:            https://hub.docker.com/r/certbot/certbot
+#   * plugin source:           https://github.com/miigotu/certbot-dns-godaddy
+#   * plugin PyPI:             https://pypi.org/project/certbot-dns-godaddy/
+#
+# Known plugin caveat (2026 status): GoDaddy silently gates API access for
+# accounts with fewer than 10 domains or non-Plus plans. If issuance fails with
+# HTTP 403 'UNABLE_TO_AUTHENTICATE' the account doesn't meet the threshold —
+# fall back to the manual path (`issue-cert-manual.sh`) or delegate DNS to
+# Cloudflare (recommended long-term). See ../docs/GODADDY_DNS_SETUP.md.
+# =============================================================================
+FROM certbot/certbot:v2.11.0
+
+# The plugin targets certbot >=1.7. 0.2.9 is the last 0.x release; it works
+# against certbot 2.x per the README's version matrix.
+ARG CERTBOT_DNS_GODADDY_VERSION=0.2.9
+
+RUN pip install --no-cache-dir \
+    "certbot-dns-godaddy==${CERTBOT_DNS_GODADDY_VERSION}"
+
+# Verify the plugin registered. A failed registration surfaces as a build-time
+# error (non-zero exit) rather than a runtime surprise on the operator's first
+# issuance attempt.
+RUN certbot plugins 2>&1 | grep -q 'dns-godaddy' \
+    || (echo 'dns-godaddy plugin failed to register' >&2 && exit 1)

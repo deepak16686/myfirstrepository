@@ -13,6 +13,8 @@
 #   ./issue-cert.sh --dry-run            # Cloudflare, STAGING (untrusted cert)
 #   ./issue-cert.sh --provider=route53   # Route53, PROD
 #   ./issue-cert.sh --provider=route53 --dry-run
+#   ./issue-cert.sh --provider=godaddy   # GoDaddy (community plugin), PROD
+#   ./issue-cert.sh --provider=godaddy --dry-run
 #
 # Runs inside Git Bash on Windows (forward-slash paths everywhere).
 # =============================================================================
@@ -77,8 +79,18 @@ case "$PROVIDER" in
         SERVICE_STAGING="certbot-r53-staging"
         SECRET_FILE="$CERTBOT_DIR/secrets/route53.env"
         ;;
+    godaddy)
+        # Community-maintained plugin (certbot-dns-godaddy). Baked into
+        # local/certbot-dns-godaddy:2.11.0 via Dockerfile.godaddy. Expects
+        # API key + secret from developer.godaddy.com/keys. See
+        # docs/GODADDY_DNS_SETUP.md for the account-gating caveat.
+        COMPOSE_FILE="$CERTBOT_DIR/docker-compose.godaddy.yml"
+        SERVICE="certbot-godaddy"
+        SERVICE_STAGING="certbot-godaddy-staging"
+        SECRET_FILE="$CERTBOT_DIR/secrets/godaddy.ini"
+        ;;
     *)
-        error "Unknown provider '$PROVIDER'. Use: cloudflare | route53"
+        error "Unknown provider '$PROVIDER'. Use: cloudflare | route53 | godaddy"
         exit 2
         ;;
 esac

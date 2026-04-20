@@ -34,10 +34,27 @@ export type CategoryId = z.infer<typeof CategoryIdSchema>;
 const ProbeSpecSchema = z
   .object({
     method: z.string(),
-    path: z.string().optional(),
-    expect_status: z.union([z.number(), z.array(z.number())]).optional(),
-    command: z.array(z.string()).optional(),
-    expect_exit_code: z.number().optional(),
+    path: z.string().nullable().optional(),
+    expect_status: z.union([z.number(), z.string(), z.array(z.number())]).nullable().optional(),
+    command: z.array(z.string()).nullable().optional(),
+    expect_exit_code: z.number().nullable().optional(),
+  })
+  .passthrough();
+
+/* ------------------------------------------------------------------------ */
+/* Live health entry (runtime probe result)                                   */
+/* ------------------------------------------------------------------------ */
+/* Declared before ToolSchema so the Tool.health field can reference it.
+ * Backend sends the runtime health state under `tool.health`, and the
+ * (config-only) probe spec under `tool.health_spec`. */
+const LiveHealthSchema = z
+  .object({
+    status: HealthStatusSchema,
+    latency_ms: z.number().nullable().optional(),
+    last_checked: z.string().nullable().optional(),
+    error: z.string().nullable().optional(),
+    http_status: z.number().nullable().optional(),
+    tool_id: z.string().optional(),
   })
   .passthrough();
 
@@ -54,13 +71,14 @@ export const ToolSchema = z.object({
   url_external: z.string().nullable().optional(),
   url_funnel: z.string().nullable().optional(),
   url_tailnet: z.string().nullable().optional(),
-  health: ProbeSpecSchema.optional(),
-  credentials: z.string().optional(),
+  health: LiveHealthSchema.nullable().optional(),
+  health_spec: ProbeSpecSchema.nullable().optional(),
+  credentials: z.string().nullable().optional(),
   embed: z.boolean().default(false),
   tags: z.array(z.string()).default([]),
-  compose_project: z.string().optional(),
-  container_name: z.string().optional(),
-  docs_url: z.string().optional(),
+  compose_project: z.string().nullable().optional(),
+  container_name: z.string().nullable().optional(),
+  docs_url: z.string().nullable().optional(),
   // Live health fields — enriched by backend
   health_status: HealthStatusSchema.optional(),
   latency_ms: z.number().nullable().optional(),

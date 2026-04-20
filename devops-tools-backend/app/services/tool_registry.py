@@ -38,11 +38,14 @@ class HealthSpec(BaseModel):
 
     model_config = ConfigDict(extra="allow")
 
-    method: Literal["GET", "POST", "HEAD", "docker_ps", "docker_exec"] = "GET"
+    method: Literal["GET", "POST", "HEAD", "tcp", "docker_ps", "docker_exec"] = "GET"
     path: str | None = None
     expect_status: int | list[int] | Literal["running"] | None = 200
     expect_exit_code: int | None = None
     command: list[str] | None = None
+    # TCP probe: which port to connect to. When set, derived from url_internal
+    # if omitted (e.g. "postgres://ai-postgres:5432" → port 5432).
+    port: int | None = None
 
     @field_validator("expect_status", mode="before")
     @classmethod

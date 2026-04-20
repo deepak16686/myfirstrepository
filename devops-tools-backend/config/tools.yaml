@@ -109,8 +109,8 @@ tools:
     # Public via Tailscale Funnel (TCP passthrough) + host nginx SNI router.
     # Protect at the nginx edge with basic auth or an OLLAMA_API_KEY header
     # — this endpoint has no built-in auth (see PUBLIC_ACCESS §Phase F).
-    url_funnel: https://ollama.deepaksharma.live
-    url_tailnet: https://ollama.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/ollama/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/ollama/
     health:
       method: GET
       path: /api/tags
@@ -132,8 +132,8 @@ tools:
     url_internal: http://chromadb:8000
     url_external: http://localhost:8005
     # Enable CHROMA_SERVER_AUTHN_CREDENTIALS + CHROMA_SERVER_AUTHN_PROVIDER before exposing.
-    url_funnel: https://chromadb.deepaksharma.live
-    url_tailnet: https://chromadb.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/chromadb/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chromadb/
     health:
       method: GET
       path: /api/v2/heartbeat
@@ -150,10 +150,13 @@ tools:
     category: ai
     description: Web UI for ChromaDB collections, documents, and queries.
     icon: database-zap
-    url_internal: http://chromadb-admin:3000
+    # fengzhichao/chromadb-admin listens on 3001 inside the container (not 3000).
+    # Port publish on the host is also :3001. Don't "normalize" to 3000 — the
+    # image hard-codes 3001 in next.config.js.
+    url_internal: http://chromadb-admin:3001
     url_external: http://localhost:3001
-    url_funnel: https://chromadb-admin.deepaksharma.live
-    url_tailnet: https://chromadb-admin.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/chromadb-admin/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chromadb-admin/
     health:
       method: GET
       path: /
@@ -174,8 +177,8 @@ tools:
     url_external: http://localhost:6333
     # Set `QDRANT__SERVICE__API_KEY` before exposing — REST endpoint has no
     # built-in auth by default.
-    url_funnel: https://qdrant.deepaksharma.live
-    url_tailnet: https://qdrant.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/qdrant/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/qdrant/
     health:
       method: GET
       path: /healthz
@@ -196,11 +199,13 @@ tools:
     icon: hard-hat
     url_internal: http://jenkins-master:8080
     url_external: http://localhost:8080
-    url_funnel: https://jenkins.deepaksharma.live
-    url_tailnet: https://jenkins.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://jenkins.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/jenkins/login
     health:
+      # Jenkins is started with JENKINS_OPTS=--prefix=/jenkins so every path is
+      # served under /jenkins/*. /login with no prefix returns Jetty 404.
       method: GET
-      path: /login
+      path: /jenkins/login
       expect_status: 200
     credentials: vault:secret/devops/jenkins/admin
     embed: true
@@ -251,13 +256,24 @@ tools:
     description: Self-hosted GitLab Community Edition — SCM, CI, registry.
     icon: git-branch
     url_internal: http://gitlab-server
-    url_external: http://localhost:8929
-    # Public funnel slot #3 — exposes GitLab at https://gitlab.deepaksharma.live.
-    url_funnel: https://gitlab.deepaksharma.live
-    url_tailnet: https://gitlab.deepak-desktop.tailac51e7.ts.net
+    # GitLab's external_url is "/gitlab" so bare "/" returns 404. The Launch
+    # button goes directly to the sign-in page.
+    url_external: http://localhost:8929/gitlab/users/sign_in
+    # Public URL: GoDaddy forwards the apex subdomain with a 301 to
+    # tailnet/gitlab/, which nginx-proxy then path-routes to gitlab-server.
+    # GoDaddy forwarding is exact-URL only — subpaths 404 at GoDaddy's edge —
+    # so url_funnel MUST be the bare subdomain.
+    url_funnel: https://gitlab.deepaksharma.live/
+    # Tailnet URL hits the funnel → nginx-proxy path router directly, skipping
+    # GoDaddy; can use the deep link.
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/gitlab/users/sign_in
     health:
+      # This GitLab has external_url='.../gitlab' so all routes live under
+      # /gitlab/*. /-/readiness is also IP-whitelisted by default (only
+      # 127.0.0.1 can hit it), so we probe /gitlab/users/sign_in which always
+      # returns 200 when Puma + nginx + sidekiq are up.
       method: GET
-      path: /-/readiness
+      path: /gitlab/users/sign_in
       expect_status: 200
     credentials: vault:secret/devops/gitlab/root
     embed: true
@@ -272,8 +288,8 @@ tools:
     icon: git-fork
     url_internal: http://gitea-server:3000
     url_external: http://localhost:3002
-    url_funnel: https://gitea.deepaksharma.live
-    url_tailnet: https://gitea.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/gitea/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/gitea/
     health:
       method: GET
       path: /api/healthz
@@ -292,8 +308,8 @@ tools:
     icon: shield-check
     url_internal: http://ai-sonarqube:9000
     url_external: http://localhost:9002
-    url_funnel: https://sonarqube.deepaksharma.live
-    url_tailnet: https://sonarqube.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://sonarqube.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/sonarqube/
     health:
       method: GET
       path: /api/system/status
@@ -312,8 +328,8 @@ tools:
     icon: key-round
     url_internal: http://vault:8200
     url_external: http://localhost:8200
-    url_funnel: https://vault.deepaksharma.live
-    url_tailnet: https://vault.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://vault.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/vault/
     health:
       method: GET
       path: /v1/sys/health?standbyok=true
@@ -332,8 +348,8 @@ tools:
     url_internal: http://trivy-server:8080
     url_external: http://localhost:8183
     # Trivy-server has NO built-in auth — front with nginx basic auth before exposing.
-    url_funnel: https://trivy.deepaksharma.live
-    url_tailnet: https://trivy.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/trivy/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/trivy/
     health:
       method: GET
       path: /healthz
@@ -353,8 +369,8 @@ tools:
     icon: package
     url_internal: http://ai-nexus:8081
     url_external: http://localhost:8181
-    url_funnel: https://nexus.deepaksharma.live
-    url_tailnet: https://nexus.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://nexus.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/nexus/
     health:
       method: GET
       path: /service/rest/v1/status
@@ -375,8 +391,8 @@ tools:
     # Short subdomain `nexus-docker` used at the nginx SNI router for ergonomics
     # (Docker CLI doesn't mind the hostname length, but shorter is friendlier
     # for `docker login nexus-docker.deepaksharma.live`).
-    url_funnel: https://nexus-docker.deepaksharma.live
-    url_tailnet: https://nexus-docker-registry.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/nexus-docker-registry/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/nexus-docker-registry/
     health:
       method: GET
       path: /v2/
@@ -396,8 +412,8 @@ tools:
     url_internal: http://grafana:3000
     url_external: http://localhost:3000
     # Public funnel slot #2 — exposes Grafana at https://grafana.deepaksharma.live.
-    url_funnel: https://grafana.deepaksharma.live
-    url_tailnet: https://grafana.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://grafana.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/grafana/
     health:
       method: GET
       path: /api/health
@@ -417,11 +433,13 @@ tools:
     url_external: http://localhost:9090
     # No built-in auth. Put nginx basic auth in front OR uncomment the allow/deny
     # block in nginx-proxy/portal.conf to IP-restrict to the tailnet peers.
-    url_funnel: https://prometheus.deepaksharma.live
-    url_tailnet: https://prometheus.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/prometheus/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/prometheus/
     health:
+      # Prometheus is launched with --web.route-prefix=/prometheus/ so ALL
+      # paths (including readiness) are served under /prometheus/*.
       method: GET
-      path: /-/ready
+      path: /prometheus/-/ready
       expect_status: 200
     # Upstream has no native auth — gated at nginx edge with basic auth.
     credentials: vault:secret/devops/prometheus/basic-auth
@@ -438,8 +456,8 @@ tools:
     url_internal: http://loki:3100
     url_external: http://localhost:3100
     # No built-in auth. Front with nginx basic auth before public exposure.
-    url_funnel: https://loki.deepaksharma.live
-    url_tailnet: https://loki.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/loki/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/loki/
     health:
       method: GET
       path: /ready
@@ -459,8 +477,8 @@ tools:
     url_internal: http://jaeger:16686
     url_external: http://localhost:16686
     # No built-in auth. Front with nginx basic auth before public exposure.
-    url_funnel: https://jaeger.deepaksharma.live
-    url_tailnet: https://jaeger.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/jaeger/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/jaeger/
     health:
       method: GET
       path: /
@@ -477,13 +495,17 @@ tools:
     category: observability
     description: Log shipper for Loki — tails container logs.
     icon: send
-    url_internal: ""
-    url_external: ""
-    url_funnel: null
-    url_tailnet: null
+    # Promtail serves its own HTTP metrics + /ready + /metrics on :9080
+    # (default listen addr). Prefer this over the docker_ps probe so we can
+    # surface "ready but not shipping" / "pipeline errors" distinctly.
+    url_internal: http://promtail:9080
+    url_external: http://localhost:9080
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/promtail/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/promtail/
     health:
-      method: docker_ps
-      expect_status: running
+      method: GET
+      path: /ready
+      expect_status: 200
     credentials: none
     embed: false
     tags: [logs, promtail, agent]
@@ -499,8 +521,8 @@ tools:
     url_internal: http://cadvisor:8080
     url_external: http://localhost:8182
     # Leaks container internals; ALWAYS front with basic auth before public exposure.
-    url_funnel: https://cadvisor.deepaksharma.live
-    url_tailnet: https://cadvisor.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/cadvisor/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/cadvisor/
     health:
       method: GET
       path: /healthz
@@ -521,8 +543,8 @@ tools:
     url_internal: http://node-exporter:9100
     url_external: http://localhost:9100
     # Leaks host-level telemetry; ALWAYS front with basic auth before public exposure.
-    url_funnel: https://node-exporter.deepaksharma.live
-    url_tailnet: https://node-exporter.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/node-exporter/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/node-exporter/
     health:
       method: GET
       path: /metrics
@@ -543,8 +565,8 @@ tools:
     url_internal: http://dcgm-exporter:9400
     url_external: http://localhost:9400
     # Leaks GPU telemetry; ALWAYS front with basic auth before public exposure.
-    url_funnel: https://dcgm-exporter.deepaksharma.live
-    url_tailnet: https://dcgm-exporter.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/dcgm-exporter/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/dcgm-exporter/
     health:
       method: GET
       path: /metrics
@@ -565,8 +587,8 @@ tools:
     icon: search-check
     url_internal: http://ai-splunk:8000
     url_external: http://localhost:10000
-    url_funnel: https://splunk.deepaksharma.live
-    url_tailnet: https://splunk.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/splunk/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/splunk/
     health:
       method: GET
       path: /en-US/account/login
@@ -588,9 +610,11 @@ tools:
     url_funnel: null
     url_tailnet: null
     health:
-      method: docker_exec
-      command: ["pg_isready", "-U", "postgres"]
-      expect_exit_code: 0
+      # TCP-connect probe — just verifies the postgres listener answers.
+      # For a deeper probe (actual SQL round-trip) switch to docker_exec with
+      # command=[pg_isready, -U, postgres], which is also supported now that
+      # the backend has the docker socket mounted.
+      method: tcp
     credentials: vault:secret/devops/postgres/ai
     embed: false
     tags: [database, postgres, sql]
@@ -607,9 +631,9 @@ tools:
     url_funnel: null
     url_tailnet: null
     health:
-      method: docker_exec
-      command: ["redis-cli", "ping"]
-      expect_exit_code: 0
+      # TCP-connect probe — verifies the redis listener answers. For a PING
+      # round-trip, switch to docker_exec with command=[redis-cli, ping].
+      method: tcp
     credentials: none
     embed: false
     tags: [cache, redis, in-memory]
@@ -623,8 +647,8 @@ tools:
     icon: hard-drive
     url_internal: http://minio:9001
     url_external: http://localhost:9001
-    url_funnel: https://minio.deepaksharma.live
-    url_tailnet: https://minio.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/minio/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/minio/
     health:
       method: GET
       path: /minio/health/live
@@ -643,8 +667,8 @@ tools:
     icon: kanban
     url_internal: http://jira:8080
     url_external: http://localhost:8180
-    url_funnel: https://jira.deepaksharma.live
-    url_tailnet: https://jira.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/jira/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/jira/
     health:
       method: GET
       path: /status
@@ -662,8 +686,8 @@ tools:
     icon: clipboard-list
     url_internal: http://redmine:3000
     url_external: http://localhost:8090
-    url_funnel: https://redmine.deepaksharma.live
-    url_tailnet: https://redmine.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/redmine/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/redmine/
     health:
       method: GET
       path: /
@@ -682,8 +706,8 @@ tools:
     icon: router
     url_internal: http://nginx-proxy:80
     url_external: http://localhost:8443
-    url_funnel: null
-    url_tailnet: https://nginx-proxy.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/nginx-proxy/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/nginx-proxy/
     health:
       method: GET
       path: /
@@ -706,8 +730,8 @@ tools:
     # directly to the backend on 127.0.0.1:8003. The apex deepaksharma.live
     # still serves /api/* to the backend via the frontend subdomain for
     # backward compatibility (see portal.conf @spa_api_passthrough).
-    url_funnel: https://api.deepaksharma.live
-    url_tailnet: https://deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/devops-tools-backend/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/devops-tools-backend/
     health:
       method: GET
       path: /health
@@ -722,13 +746,19 @@ tools:
   - id: devops-tools-frontend
     name: DevOps Portal Frontend
     category: platform
-    description: React/Vite SPA — unified dashboard rendered by nginx, consumes the backend API.
+    description: React/Vite SPA — bundled and served by the devops-tools-backend
+      container from /app/frontend/dist at the root of :8003. There is NO
+      separate frontend container — this entry probes the same FastAPI process
+      but checks the SPA shell instead of /health.
     icon: layout-dashboard
-    url_internal: http://devops-tools-backend-frontend:80
-    url_external: http://localhost:5173
+    # The SPA is served by the same container as the API. Probe the root
+    # (SPA shell) rather than /health so a broken bundle surfaces distinctly
+    # from a broken API.
+    url_internal: http://devops-tools-backend:8003
+    url_external: http://localhost:8003
     # Shares funnel slot #1 with the backend (nginx routes /api/* to backend, / to frontend).
-    url_funnel: https://deepaksharma.live
-    url_tailnet: https://deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/devops-tools-frontend/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/devops-tools-frontend/
     health:
       method: GET
       path: /
@@ -737,7 +767,7 @@ tools:
     embed: false
     tags: [ui, frontend, react, vite, public]
     compose_project: dev-stack
-    container_name: devops-tools-backend-frontend
+    container_name: devops-tools-backend
 
   # ====== Projects (running apps — deep-link only) ======
   - id: brandmatik
@@ -745,10 +775,15 @@ tools:
     category: projects
     description: 11-service social-media analytics platform (gateway :8100, Qdrant :6335).
     icon: layers
-    url_internal: http://brandmatik-api-gateway:8000
+    # Brandmatik lives on its own compose network (brandmatik_brandmatik-net)
+    # which the devops-tools-backend can't join without losing its primary
+    # network. The gateway publishes :8100 to the host, so the backend reaches
+    # it via host.docker.internal — the magic DNS name Docker Desktop maps to
+    # the host loopback automatically.
+    url_internal: http://host.docker.internal:8100
     url_external: http://localhost:8100
-    url_funnel: https://brandmatik.deepaksharma.live
-    url_tailnet: https://brandmatik.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/brandmatik/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik/
     health:
       method: GET
       path: /health
@@ -764,14 +799,17 @@ tools:
     category: projects
     description: 18-service chaos engineering platform — experiments, telemetry, AI engine.
     icon: zap-off
-    url_internal: http://chaos-api-gateway:8080
+    # Chaos platform lives on chaos-platform-setup_chaos_network — same
+    # cross-network situation as Brandmatik; reach via host.docker.internal.
+    # / returns 404 from the gateway (no root route); /health returns 200.
+    url_internal: http://host.docker.internal:28080
     url_external: http://localhost:28080
-    url_funnel: https://chaos-platform.deepaksharma.live
-    url_tailnet: https://chaos-platform.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/chaos-platform/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-platform/
     health:
       method: GET
-      path: /
-      expect_status: [200, 404]
+      path: /health
+      expect_status: 200
     credentials: none
     embed: true
     tags: [project, chaos-engineering, kubernetes]
@@ -783,13 +821,16 @@ tools:
     category: projects
     description: 5-service Spring-Boot task-management microservices demo.
     icon: check-square
+    # Taskflow's gateway is Spring-Cloud-Gateway without actuator enabled;
+    # it exposes a plain /health endpoint that 200s when Eureka + routes are
+    # reachable. /actuator/health returns 404.
     url_internal: http://taskflow-api-gateway:8080
     url_external: http://localhost:18080
-    url_funnel: https://taskflow.deepaksharma.live
-    url_tailnet: https://taskflow.deepak-desktop.tailac51e7.ts.net
+    url_funnel: https://deepak-desktop.tailac51e7.ts.net/taskflow/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/taskflow/
     health:
       method: GET
-      path: /actuator/health
+      path: /health
       expect_status: 200
     credentials: none
     embed: true

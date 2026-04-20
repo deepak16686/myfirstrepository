@@ -107,3 +107,6 @@ docker-compose.override.yml
 *.backup-*
 # Session-specific timestamp backups made during edits:
 *.bak-????????-??????
+.gitlab-root-creds.local
+.remember/
+*.stackdump
