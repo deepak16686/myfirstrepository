@@ -55,7 +55,10 @@ export default tseslint.config(
     files: [
       'src/components/common/StatusRail.tsx',
       'src/components/layout/Sidebar.tsx',
+      'src/components/layout/CategoryChips.tsx',
+      'src/components/layout/StatsStrip.tsx',
       'src/components/tools/ToolsCompactView.tsx',
+      'src/components/cards/ToolCard.tsx',
     ],
     rules: {
       'react-hooks/rules-of-hooks': 'off',
@@ -76,6 +79,17 @@ export default tseslint.config(
   // acknowledged and suppressed only for this file.
   {
     files: ['src/router.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  // CredentialsPopover exports `hasCredentials` alongside the component
+  // because the predicate is a trivial one-liner that's tightly coupled
+  // to the popover's rendering logic (both short-circuit on "no credentials
+  // pointer"). Splitting it into its own file would add ceremony without
+  // improving clarity.
+  {
+    files: ['src/components/panels/CredentialsPopover.tsx'],
     rules: {
       'react-refresh/only-export-components': 'off',
     },

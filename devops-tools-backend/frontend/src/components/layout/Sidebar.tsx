@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import {
+  Activity,
   BarChart3,
   Boxes,
   MessageSquare,
@@ -23,7 +24,8 @@ interface SidebarProps {
 }
 
 const MAIN_NAV = [
-  { to: '/', label: 'Overview', icon: BarChart3 },
+  { to: '/', label: 'Portal', icon: Activity },
+  { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/tools', label: 'Tools', icon: Boxes },
   { to: '/pipelines', label: 'Pipelines', icon: GitPullRequestArrow },
   { to: '/chat', label: 'AI Chat', icon: MessageSquare },

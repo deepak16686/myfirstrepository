@@ -571,6 +571,18 @@
   opacity: 1;
 }
 
+/* Horizontally scrollable rows (category chips) with a near-invisible
+ * scrollbar. Keeps the overflow functional for trackpad + touch but
+ * removes the visual noise that stock scrollbars add to a tight
+ * instrument panel. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* =========================================================================
  * Chat markdown styles (kept minimal — chat page uses shadcn primitives)
  * ========================================================================= */

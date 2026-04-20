@@ -212,8 +212,9 @@ export function CommandPalette(): React.ReactElement | null {
   );
 
   const navItems: { id: string; label: string; icon: LucideIcon; to: string; hint: string }[] = [
-    { id: 'go-overview', label: 'Overview', icon: BarChart3, to: '/', hint: 'g d' },
-    { id: 'go-tools', label: 'Tools', icon: Boxes, to: '/tools', hint: 'g t' },
+    { id: 'go-portal', label: 'Portal (dense grid)', icon: Boxes, to: '/', hint: 'g h' },
+    { id: 'go-analytics', label: 'Analytics', icon: BarChart3, to: '/analytics', hint: 'g a' },
+    { id: 'go-tools', label: 'Tools (grid/table/compact)', icon: Activity, to: '/tools', hint: 'g t' },
     { id: 'go-pipelines', label: 'Pipelines', icon: GitPullRequestArrow, to: '/pipelines', hint: 'g p' },
     { id: 'go-chat', label: 'AI Chat', icon: MessageSquare, to: '/chat', hint: 'g c' },
   ];

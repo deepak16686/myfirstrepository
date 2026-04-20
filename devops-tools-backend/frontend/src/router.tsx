@@ -1,23 +1,28 @@
-/* Router — core shell + Dashboard + Tools render eagerly (they're the fast
- * path). EmbedView, Pipelines, Chat, NotFound are code-split via React.lazy
- * so the initial bundle stays lean. Each lazy route gets a Suspense fallback
- * that matches the shell's max width and spacing. */
+/* Router — core shell + DensePortal (default root) render eagerly. The
+ * legacy Dashboard (rich analytics) lives at /analytics, the Tools page
+ * (grid/table/compact with URL-synced filters) lives at /tools, and
+ * EmbedView / Pipelines / Chat / NotFound are code-split via React.lazy
+ * so the initial bundle stays lean. Each lazy route gets a Suspense
+ * fallback that matches the shell's spacing. */
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { AppShell } from '@/components/layout/AppShell';
-import { Dashboard } from '@/pages/Dashboard';
-import { Tools } from '@/pages/Tools';
+import { DensePortal } from '@/pages/DensePortal';
 import { Skeleton } from '@/components/ui/skeleton';
 
+const Dashboard = lazy(() =>
+  import('@/pages/Dashboard').then((m) => ({ default: m.Dashboard })),
+);
+const Tools = lazy(() => import('@/pages/Tools').then((m) => ({ default: m.Tools })));
 const EmbedView = lazy(() =>
-  import('@/pages/EmbedView').then((m) => ({ default: m.EmbedView }))
+  import('@/pages/EmbedView').then((m) => ({ default: m.EmbedView })),
 );
 const Pipelines = lazy(() =>
-  import('@/pages/Pipelines').then((m) => ({ default: m.Pipelines }))
+  import('@/pages/Pipelines').then((m) => ({ default: m.Pipelines })),
 );
 const Chat = lazy(() => import('@/pages/Chat').then((m) => ({ default: m.Chat })));
 const NotFound = lazy(() =>
-  import('@/pages/NotFound').then((m) => ({ default: m.NotFound }))
+  import('@/pages/NotFound').then((m) => ({ default: m.NotFound })),
 );
 
 function PageFallback(): React.ReactElement {
@@ -41,8 +46,23 @@ export const router = createBrowserRouter([
   {
     element: <AppShell />,
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: '/tools', element: <Tools /> },
+      { index: true, element: <DensePortal /> },
+      {
+        path: '/analytics',
+        element: (
+          <Suspended>
+            <Dashboard />
+          </Suspended>
+        ),
+      },
+      {
+        path: '/tools',
+        element: (
+          <Suspended>
+            <Tools />
+          </Suspended>
+        ),
+      },
       {
         path: '/embed/:toolId',
         element: (

@@ -90,9 +90,12 @@ export function GlobalShortcuts(): null {
       }
       if (gBuffer === 'g') {
         const k = e.key.toLowerCase();
-        if (k === 'd' || k === 'o') {
+        if (k === 'd' || k === 'o' || k === 'h') {
           e.preventDefault();
           navigate('/');
+        } else if (k === 'a') {
+          e.preventDefault();
+          navigate('/analytics');
         } else if (k === 't') {
           e.preventDefault();
           navigate('/tools');
