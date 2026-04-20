@@ -57,6 +57,29 @@ class Settings(BaseSettings):
 
     ollama_url: str = "http://ollama:11434"
 
+    # Jenkins (used by Jenkins pipeline generator for job status polling)
+    jenkins_url: str = "http://jenkins-master:8080/jenkins"
+    jenkins_username: str = "admin"
+    jenkins_password: Optional[str] = Field(default="", repr=False)
+    # The git backend Jenkins pulls from (Gitea by default — Jenkins itself
+    # has no Git server, it only polls).
+    jenkins_git_url: str = "http://gitea-server:3000"
+    jenkins_git_token: Optional[str] = Field(default="", repr=False)
+
+    # GitHub (used by GitHub Actions pipeline generator for repo analysis/commit).
+    # github_url defaults to Gitea's API in container so the stack is self-hosted;
+    # override to https://api.github.com for real GitHub.
+    github_url: str = "http://gitea-server:3000"
+    github_token: Optional[str] = Field(default="", repr=False)
+
+    # LLM provider registry — selects which backend powers pipeline generation.
+    # Supported ids: "ollama", "claude-code", "openai". Default is ollama (local).
+    llm_provider: str = "ollama"
+    # Optional override for Claude CLI's model flag (opus/sonnet/haiku).
+    claude_model: Optional[str] = None
+    # Optional OpenAI API key; when empty the OpenAI provider is disabled in the registry.
+    openai_api_key: Optional[str] = Field(default="", repr=False)
+
     redis_url: str = "redis://redis:6379/0"
 
     # Postgres DSN must be provided via env (POSTGRES_URL) or config file.

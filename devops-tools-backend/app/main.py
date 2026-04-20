@@ -22,9 +22,9 @@ import os
 from contextlib import asynccontextmanager
 
 import httpx
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import JSONResponse, FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from app.config import settings, tools_manager
@@ -32,7 +32,9 @@ from app.integrations.redis_client import HealthCache
 from app.integrations.vault import VaultClient, build_vault_client
 from app.routers import (
     chat,
+    github_pipeline,
     gitlab,
+    jenkins_pipeline,
     nexus,
     pipeline,
     sonarqube,
@@ -149,21 +151,53 @@ app.add_middleware(
 
 
 # ============================================================================
-# Root endpoints
+# Root + SPA serving
+# ----------------------------------------------------------------------------
+# The portal frontend is a Vite + React SPA built into frontend/dist/. We
+# serve it from this FastAPI app so the single backend container handles both
+# `/api/*` and `/` + client-side routes (`/tools`, `/pipelines`, `/embed/...`).
+#
+# Routing contract:
+#   /                      -> dist/index.html           (SPA bootstrap)
+#   /favicon.svg           -> dist/favicon.svg          (static)
+#   /assets/<hash>.{js,css,woff2}  -> dist/assets/...   (mount, long cache)
+#   /api/*, /docs, /redoc, /openapi.json -> API routers (registered earlier)
+#   /<anything-else>       -> dist/index.html           (SPA fallback for
+#                                                        client-side routing)
+#
+# The SPA fallback MUST be registered LAST so the API routers match first.
 # ============================================================================
+
+FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+FRONTEND_DIST = os.path.join(FRONTEND_DIR, "dist")
+FRONTEND_INDEX = os.path.join(FRONTEND_DIST, "index.html")
+FRONTEND_ASSETS = os.path.join(FRONTEND_DIST, "assets")
+FRONTEND_FAVICON = os.path.join(FRONTEND_DIST, "favicon.svg")
+
+# Paths that must NEVER fall through to the SPA (return real 404 instead).
+# Kept as a tuple for startswith checks; order does not matter.
+_API_PREFIXES = ("api/", "docs", "redoc", "openapi.json", "assets/", "static/", "chat")
+
 
 @app.get("/")
 async def root():
-    """Serve frontend UI"""
-    frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "index.html")
-    if os.path.exists(frontend_path):
-        return FileResponse(frontend_path)
+    """Serve the SPA shell or a JSON fallback when the bundle is missing."""
+    if os.path.isfile(FRONTEND_INDEX):
+        return FileResponse(FRONTEND_INDEX, media_type="text/html")
     return {
         "name": settings.app_name,
         "version": settings.app_version,
         "docs": "/docs",
-        "health": "/health"
+        "health": "/health",
+        "note": "frontend/dist/index.html missing — run `npm run build` in frontend/",
     }
+
+
+@app.get("/favicon.svg", include_in_schema=False)
+async def favicon():
+    if os.path.isfile(FRONTEND_FAVICON):
+        return FileResponse(FRONTEND_FAVICON, media_type="image/svg+xml")
+    return Response(status_code=404)
 
 
 @app.get("/api")
@@ -209,24 +243,53 @@ app.include_router(trivy.router, prefix=settings.api_prefix)
 app.include_router(nexus.router, prefix=settings.api_prefix)
 app.include_router(unified.router, prefix=settings.api_prefix)
 app.include_router(pipeline.router, prefix=settings.api_prefix)
+# Jenkins + GitHub Actions pipeline generators (restored from pre-cleanup 73aa217).
+# Each router declares its own prefix (/jenkins-pipeline, /github-pipeline) so the
+# API prefix just puts them under /api/v1/.
+app.include_router(jenkins_pipeline.router, prefix=settings.api_prefix)
+app.include_router(github_pipeline.router, prefix=settings.api_prefix)
 app.include_router(portal_router.router, prefix=settings.api_prefix)
 app.include_router(chat.router)  # Chat API has its own prefix
 
 # ============================================================================
 # Static files for frontend
+# ----------------------------------------------------------------------------
+# Mount the Vite build output:
+#   * /assets/* -> frontend/dist/assets/*   (hashed, immutable — long cache)
+#   * /static/* -> frontend/dist/           (legacy compatibility; optional)
+# StaticFiles.html=False so a stray request to /assets/ (no filename) 404s
+# instead of trying to auto-serve an index — keeps the SPA fallback in charge.
 # ============================================================================
 
-frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
-if os.path.exists(frontend_dir):
-    app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
-    # Also serve CSS and JS directly
-    @app.get("/styles.css")
-    async def get_styles():
-        return FileResponse(os.path.join(frontend_dir, "styles.css"), media_type="text/css")
+if os.path.isdir(FRONTEND_ASSETS):
+    app.mount(
+        "/assets",
+        StaticFiles(directory=FRONTEND_ASSETS, html=False),
+        name="spa-assets",
+    )
 
-    @app.get("/app.js")
-    async def get_app_js():
-        return FileResponse(os.path.join(frontend_dir, "app.js"), media_type="application/javascript")
+if os.path.isdir(FRONTEND_DIST):
+    app.mount(
+        "/static",
+        StaticFiles(directory=FRONTEND_DIST, html=False),
+        name="spa-static",
+    )
+
+
+# ============================================================================
+# SPA fallback — MUST be registered last so every prior route/mount wins.
+# Client-side routes (/tools, /pipelines, /embed/<id>, /chat, /...) hit this
+# and get the SPA shell back with 200, letting React Router take over.
+# ============================================================================
+
+@app.get("/{full_path:path}", include_in_schema=False)
+async def spa_fallback(full_path: str, request: Request):
+    # Never absorb API/docs/assets — those should 404 cleanly if missing.
+    if full_path.startswith(_API_PREFIXES):
+        raise HTTPException(status_code=404, detail="Not Found")
+    if os.path.isfile(FRONTEND_INDEX):
+        return FileResponse(FRONTEND_INDEX, media_type="text/html")
+    raise HTTPException(status_code=404, detail="Frontend bundle missing")
 
 
 # ============================================================================
