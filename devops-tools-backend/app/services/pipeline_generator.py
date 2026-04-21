@@ -215,12 +215,19 @@ learn_record:
                     "project_path": path.replace('/', '%2F')
                 }
 
-        # Handle HTTP(S) URLs - preserve original protocol
+        # Handle HTTP(S) URLs - preserve original protocol.
+        # For GitLab instances with a relative_url_root (external_url ends in
+        # "/gitlab"), the API is at `{protocol}://{host}/gitlab/api/v4/...`.
+        # Detect the leading "gitlab/" path segment and promote it into the
+        # host so the caller's `{host}/api/v4/...` string building works.
         match = re.match(r'(https?)://([^/]+)/(.+)', url)
         if match:
             protocol = match.group(1)
             host = match.group(2)
             path = match.group(3)
+            if path.startswith("gitlab/"):
+                host = f"{host}/gitlab"
+                path = path[len("gitlab/"):]
             return {
                 "host": f"{protocol}://{host}",
                 "path": path,
