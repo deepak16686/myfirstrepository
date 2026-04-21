@@ -504,26 +504,27 @@ async def list_categories(request: Request) -> list[CategoryOut]:
 # changes, and so the value is discoverable via imports.
 PUBLIC_FUNNEL_HOST_SUFFIX = ".deepaksharma.live"
 PUBLIC_FUNNEL_HOST_APEX = "deepaksharma.live"
+# Tailnet hostnames (Tailscale MagicDNS + the Funnel's public .ts.net hostname)
+# also count as "the user is off-host" for the launch-URL decision: url_tailnet
+# is a public-reachable URL through the funnel, whereas url_external
+# (localhost) isn't reachable at all from off-host.
+_TAILNET_HOST_SUFFIXES = (".ts.net", ".tailscale.net")
 
 
 def _is_public_host(host: str) -> bool:
-    """True if the Host header indicates a public-funnel-served request.
-
-    Matches:
-        deepaksharma.live
-        deepaksharma.live:443
-        grafana.deepaksharma.live
-        grafana.deepaksharma.live:443
-    Does NOT match:
-        deepak-desktop.tailac51e7.ts.net (tailnet — use url_tailnet if you want)
-        localhost
-        devops-tools-backend (in-cluster)
-    """
+    """True if the Host header is a deepaksharma.live subdomain."""
     if not host:
         return False
-    # Strip trailing :port before matching.
     bare = host.split(":", 1)[0]
     return bare == PUBLIC_FUNNEL_HOST_APEX or bare.endswith(PUBLIC_FUNNEL_HOST_SUFFIX)
+
+
+def _is_tailnet_host(host: str) -> bool:
+    """True if the Host header is a Tailscale MagicDNS name."""
+    if not host:
+        return False
+    bare = host.split(":", 1)[0]
+    return any(bare.endswith(suffix) for suffix in _TAILNET_HOST_SUFFIXES)
 
 
 @router.post(
@@ -553,15 +554,21 @@ async def launch(tool_id: str, request: Request) -> LaunchResponse:
     host = (request.headers.get("host") or "").lower()
 
     # --- Public-funnel Host header + tool has a funnel URL? --------------
-    # This path runs AFTER the nginx-proxy wildcard SNI router terminates TLS,
-    # so Host here is whatever the nginx server_name matched (e.g. the portal
-    # apex or api.deepaksharma.live), NOT the per-tool subdomain.
-    if _is_public_host(host) and tool.url_funnel:
-        redirect = tool.url_funnel
+    # User is on https://deepaksharma.live or https://<tool>.deepaksharma.live.
+    # url_funnel is the branded public URL (GoDaddy 301 → tailnet) for the
+    # 6 tools that have one. Fall back to url_tailnet for the rest (also
+    # public via the funnel).
+    if _is_public_host(host):
+        redirect = tool.url_funnel or tool.url_tailnet or tool.url_external
+    # --- Tailnet Host header (user hit the public .ts.net funnel URL) ----
+    # url_external is localhost — NOT reachable from off-host. url_tailnet
+    # points at the same hostname the user's already on so it always works.
+    elif _is_tailnet_host(host):
+        redirect = tool.url_tailnet or tool.url_funnel or tool.url_external
     else:
         # Treat "*.svc", "*.local", bare container hostnames, or any compose
         # hostname as same-origin -> prefer internal URL. Otherwise use
-        # external.
+        # external (local access from the same machine).
         prefer_internal = any(
             host.endswith(suffix) for suffix in (".svc", ".local", ".internal")
         ) or "devops-tools-backend" in host
