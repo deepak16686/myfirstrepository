@@ -110,3 +110,4 @@ docker-compose.override.yml
 .gitlab-root-creds.local
 .remember/
 *.stackdump
+.credentials.local
