@@ -48,8 +48,15 @@ def parse_gitlab_url(url: str) -> Dict[str, str]:
         protocol = match.group(1)
         host = match.group(2)
         path = match.group(3)
+        # Handle GitLab relative URL root (e.g., /gitlab prefix)
+        # If path starts with 'gitlab/', include it in host
+        if path.startswith('gitlab/'):
+            base = f"{protocol}://{host}/gitlab"
+            path = path[len('gitlab/'):]
+        else:
+            base = f"{protocol}://{host}"
         return {
-            "host": f"{protocol}://{host}",
+            "host": base,
             "path": path,
             "project_path": path.replace('/', '%2F')
         }

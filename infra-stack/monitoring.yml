@@ -23,7 +23,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--web.external-url=/prometheus/'
+      - '--web.external-url=https://prometheus.deepaksharma.live/prometheus/'
       - '--web.route-prefix=/prometheus/'
     networks:
       - global-infra-net
@@ -44,7 +44,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_INSTALL_PLUGINS=redis-datasource
-      - GF_SERVER_ROOT_URL=https://devstack.deepaksharma.live/grafana/
+      - GF_SERVER_ROOT_URL=https://grafana.deepaksharma.live/grafana/
+      - GF_SERVER_DOMAIN=grafana.deepaksharma.live
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
       - grafana-data:/var/lib/grafana
@@ -218,7 +219,7 @@ services:
       - "8088:8088"
       - "10000:8000"
     environment:
-      - SPLUNK_PASSWORD=${SPLUNK_PASSWORD}
+      - SPLUNK_PASSWORD=Hiagb@1234
       - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
       - SPLUNK_START_ARGS=--accept-license
     volumes:

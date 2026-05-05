@@ -21,6 +21,7 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 
 from app.config import settings
+from app.public_urls import get_tool_browser_url, to_browser_git_url, to_internal_git_url
 from app.services.jenkins_pipeline import jenkins_pipeline_generator
 from app.services.jenkins_pipeline.learning import (
     get_relevant_feedback,
@@ -178,16 +179,12 @@ _chat_pending: Dict[str, Dict] = {}  # conversation_id -> pending pipeline data
 
 def _to_internal_url(url: str) -> str:
     """Translate browser-accessible Gitea URL to Docker-internal URL."""
-    internal_host = settings.jenkins_git_url.replace("http://", "")
-    url = url.replace("localhost:3002", internal_host)
-    url = url.replace("127.0.0.1:3002", internal_host)
-    return url
+    return to_internal_git_url(url)
 
 
 def _to_browser_url(url: str) -> str:
     """Translate Docker-internal Gitea URL to browser-accessible URL."""
-    internal_host = settings.jenkins_git_url.replace("http://", "")
-    return url.replace(internal_host, "localhost:3002")
+    return to_browser_git_url(url)
 
 
 def _extract_url(text: str) -> Optional[str]:
@@ -368,7 +365,7 @@ async def jenkins_chat(request: ChatRequest, background_tasks: BackgroundTasks):
                 del _chat_pending[conversation_id]
 
                 # Build Jenkins build URL for the user
-                jenkins_build_url = f"http://localhost:8080/jenkins/job/{parsed['repo']}/job/{branch}/"
+                jenkins_build_url = f"{get_tool_browser_url('jenkins')}job/{parsed['repo']}/job/{branch}/"
 
                 return {
                     "conversation_id": conversation_id,
@@ -416,7 +413,7 @@ async def jenkins_chat(request: ChatRequest, background_tasks: BackgroundTasks):
                 "1. **Generate a pipeline** - Provide a repository URL\n"
                 "2. **Commit files** - Say 'commit' after reviewing the generated files\n"
                 "3. **Check status** - Say 'status' to check the current state\n\n"
-                "**Example:** `Generate a pipeline for http://localhost:3002/jenkins-projects/java-springboot-api`"
+                "**Example:** `Generate a pipeline for https://gitea.deepaksharma.live/jenkins-projects/java-springboot-api`"
             )
         }
 
@@ -1094,11 +1091,6 @@ async def monitor_build_for_learning(
             build_status = status.get("status", "unknown")
             build_number = status.get("build_number", 0)
             building = status.get("building", True)
-            build_url = status.get("url", "")
-            # Convert internal Jenkins URL to browser-accessible URL
-            if build_url:
-                build_url = build_url.replace("http://localhost:8080", "http://localhost:8080")
-
             print(f"[Jenkins Monitor] {job_name} #{build_number}: {build_status} (building={building})")
 
             if project_id and branch:
@@ -1114,7 +1106,7 @@ async def monitor_build_for_learning(
                             stage_parts.append(f"{icon} {s['name']}{dur}")
                         stage_msg = " | " + " \u2192 ".join(stage_parts)
 
-                jenkins_link = f"http://localhost:8080/jenkins/job/{job_name}/{build_number}/console"
+                jenkins_link = f"{get_tool_browser_url('jenkins')}job/{job_name}/{build_number}/console"
                 if build_status == "not_found":
                     progress_store.update(project_id, branch, "build_running",
                         "Waiting for Jenkins to discover the branch...")
@@ -1150,7 +1142,7 @@ async def monitor_build_for_learning(
                             icon = {"SUCCESS": "\u2705", "FAILED": "\u274c"}.get(s["status"], "\u2b1c")
                             stage_parts.append(f"{icon} {s['name']} ({s['duration_sec']}s)")
                         stage_summary = "\n".join(stage_parts) if stage_parts else ""
-                        jenkins_link = f"http://localhost:8080/jenkins/job/{job_name}/{build_number}/console"
+                        jenkins_link = f"{get_tool_browser_url('jenkins')}job/{job_name}/{build_number}/console"
                         progress_store.complete(project_id, branch, "success",
                             f"Build #{build_number} succeeded! \u2705\n{stage_summary}\n[View Console]({jenkins_link})")
                     return
@@ -1163,7 +1155,7 @@ async def monitor_build_for_learning(
                         stages = await jenkins_pipeline_generator.get_build_stages(job_name, build_number)
                         failed_stages = [s["name"] for s in stages if s["status"] == "FAILED"]
                         failed_info = f" (failed at: {', '.join(failed_stages)})" if failed_stages else ""
-                        jenkins_link = f"http://localhost:8080/jenkins/job/{job_name}/{build_number}/console"
+                        jenkins_link = f"{get_tool_browser_url('jenkins')}job/{job_name}/{build_number}/console"
                         progress_store.update(project_id, branch, "build_failed",
                             f"Build #{build_number} failed{failed_info}. [Console]({jenkins_link}) | Starting self-healing...")
 

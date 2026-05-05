@@ -13,6 +13,8 @@
 
 // Configuration
 const API_BASE_URL = window.location.origin;
+const PUBLIC_BASE_URL = 'https://devstack.deepaksharma.live';
+const TAILSCALE_BASE_URL = 'https://deepak-desktop.tailac51e7.ts.net';
 let conversationId = null;
 let isLoading = false;
 let currentCategory = 'devops';
@@ -122,7 +124,7 @@ const toolConfig = {
 
 Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.
 
-**Example:** "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"`
+**Example:** "Generate a pipeline for https://gitlab.deepaksharma.live/gitlab/ai-pipeline-projects/java-springboot-api"`
     },
     'jenkins-generator': {
         name: 'Jenkins Pipeline Generator',
@@ -135,7 +137,7 @@ Compile → Build Image → Test Image → Static Analysis → SonarQube → Tri
 
 Just provide a repository URL and I'll analyze it and create the pipeline files.
 
-**Example:** "Generate a pipeline for http://localhost:3002/jenkins-projects/java-springboot-api"
+**Example:** "Generate a pipeline for https://gitea.deepaksharma.live/jenkins-projects/java-springboot-api"
 
 **Commands:**
 - Provide a **URL** to generate a pipeline
@@ -153,7 +155,7 @@ compile → build-image → test-image → static-analysis → sonarqube → tri
 
 Just provide a repository URL and I'll analyze it and create the workflow files.
 
-**Example:** "Generate a workflow for http://localhost:3002/github-projects/java-springboot-api"
+**Example:** "Generate a workflow for https://gitea.deepaksharma.live/github-projects/java-springboot-api"
 
 **Commands:**
 - Provide a **URL** to generate a workflow
@@ -224,6 +226,25 @@ let sendButton;
 let connectionStatus;
 let conversationIdElement;
 
+function getPreferredPublicToolUrl(path, customHost = '') {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    const host = window.location.hostname;
+
+    if (host.includes('tailac51e7.ts.net')) {
+        return `${TAILSCALE_BASE_URL}${normalizedPath}`;
+    }
+
+    if (host === 'devstack.deepaksharma.live') {
+        return `${PUBLIC_BASE_URL}${normalizedPath}`;
+    }
+
+    if (customHost) {
+        return `https://${customHost}.deepaksharma.live/`;
+    }
+
+    return `${PUBLIC_BASE_URL}${normalizedPath}`;
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     // Get DOM elements
@@ -232,6 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sendButton = document.getElementById('sendButton');
     connectionStatus = document.getElementById('connectionStatus');
     conversationIdElement = document.getElementById('conversationId');
+
+    const chromadbAdminLink = document.getElementById('chromadbAdminLink');
+    if (chromadbAdminLink) {
+        chromadbAdminLink.href = getPreferredPublicToolUrl('/chromadb-admin/', 'chromadb-admin');
+    }
 
     // Configure marked for markdown parsing
     marked.setOptions({

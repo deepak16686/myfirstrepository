@@ -19,6 +19,7 @@ from pydantic import BaseModel
 from typing import Optional, Dict, Any
 
 from app.config import settings
+from app.public_urls import get_tool_browser_url, to_browser_git_url, to_internal_git_url
 from app.services.github_pipeline import github_pipeline_generator
 from app.services.github_pipeline.learning import (
     get_relevant_feedback,
@@ -171,16 +172,12 @@ _chat_pending: Dict[str, Dict] = {}  # conversation_id -> pending pipeline data
 
 def _to_internal_url(url: str) -> str:
     """Translate browser-accessible Gitea URL to Docker-internal URL."""
-    internal_host = settings.github_url.replace("http://", "")
-    url = url.replace("localhost:3002", internal_host)
-    url = url.replace("127.0.0.1:3002", internal_host)
-    return url
+    return to_internal_git_url(url)
 
 
 def _to_browser_url(url: str) -> str:
     """Translate Docker-internal Gitea URL to browser-accessible URL."""
-    internal_host = settings.github_url.replace("http://", "")
-    return url.replace(internal_host, "localhost:3002")
+    return to_browser_git_url(url)
 
 
 def _extract_url(text: str) -> Optional[str]:
@@ -358,7 +355,7 @@ async def github_chat(request: ChatRequest, background_tasks: BackgroundTasks):
                 del _chat_pending[conversation_id]
 
                 # Build Gitea Actions URL for the user
-                gitea_actions_url = f"http://localhost:3002/{parsed['owner']}/{parsed['repo']}/actions"
+                gitea_actions_url = f"{get_tool_browser_url('gitea')}{parsed['owner']}/{parsed['repo']}/actions"
 
                 return {
                     "conversation_id": conversation_id,
@@ -406,7 +403,7 @@ async def github_chat(request: ChatRequest, background_tasks: BackgroundTasks):
                 "1. **Generate a workflow** - Provide a repository URL\n"
                 "2. **Commit files** - Say 'commit' after reviewing the generated files\n"
                 "3. **Check status** - Say 'status' to check the current state\n\n"
-                "**Example:** `Generate a workflow for http://localhost:3002/github-projects/java-springboot-api`"
+                "**Example:** `Generate a workflow for https://gitea.deepaksharma.live/github-projects/java-springboot-api`"
             )
         }
 
@@ -1067,7 +1064,7 @@ async def monitor_workflow_for_learning(
     parsed = github_pipeline_generator.parse_repo_url(repo_url)
     api_base = f"{settings.github_url}/api/v1/repos/{parsed['owner']}/{parsed['repo']}"
     headers = {"Authorization": f"token {github_token}"}
-    gitea_actions_url = f"http://localhost:3002/{parsed['owner']}/{parsed['repo']}/actions"
+    gitea_actions_url = f"{get_tool_browser_url('gitea')}{parsed['owner']}/{parsed['repo']}/actions"
 
     print(f"[GitHub Monitor] Starting workflow monitor for {parsed['owner']}/{parsed['repo']} branch={branch} (max_heal={max_heal_attempts})")
 

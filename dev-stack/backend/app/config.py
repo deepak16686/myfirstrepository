@@ -38,6 +38,9 @@ class Settings(BaseSettings):
     # API Settings
     api_prefix: str = "/api/v1"
     cors_origins: list = ["*"]
+    public_base_url: str = "https://devstack.deepaksharma.live"
+    public_base_domain: str = "deepaksharma.live"
+    tailscale_base_url: str = "https://deepak-desktop.tailac51e7.ts.net"
 
     # Tool configurations - loaded from environment or config file
     # Use container names for Docker network communication

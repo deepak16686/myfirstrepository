@@ -19,7 +19,7 @@ services:
       - "8003:8003"
     environment:
       # Service URLs — all infra services reachable via global-infra-net
-      - GITLAB_URL=http://gitlab-server
+      - GITLAB_URL=http://gitlab-server/gitlab
       - SONARQUBE_URL=http://ai-sonarqube:9000
       - TRIVY_URL=http://trivy-server:8080
       - NEXUS_URL=http://ai-nexus:8081
@@ -29,12 +29,16 @@ services:
       - LLM_PROVIDER=${LLM_PROVIDER:-claude-code}
       - CLAUDE_MODEL=${CLAUDE_MODEL:-opus}
       - CLAUDE_TIMEOUT=${CLAUDE_TIMEOUT:-300}
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-https://devstack.deepaksharma.live}
+      - PUBLIC_BASE_DOMAIN=${PUBLIC_BASE_DOMAIN:-deepaksharma.live}
+      - TAILSCALE_BASE_URL=${TAILSCALE_BASE_URL:-https://deepak-desktop.tailac51e7.ts.net}
       - REDIS_URL=redis://redis:6379/0
       - JIRA_URL=${JIRA_URL:-http://jira:8080}
       - JIRA_PROJECT_KEY=${JIRA_PROJECT_KEY:-DEVOPS}
       - SPLUNK_URL=https://ai-splunk:8088
       - JENKINS_URL=http://jenkins-master:8080/jenkins
       - JENKINS_GIT_URL=http://gitea-server:3000
+      - POSTGRES_URL=postgresql://platform:platform123@ai-postgres:5432/modernization_platform
       - DEBUG=false
       # Vault integration (token read from /vault/file/.root-token)
       - VAULT_URL=http://vault:8200
@@ -53,6 +57,10 @@ services:
       start_period: 30s
 
   chatbot-portal:
+    # Legacy standalone chat UI. The canonical UI is the React/Vite portal
+    # bundled into devops-tools-backend on :8003; keep this service opt-in so
+    # normal stack startup exposes only one portal UI.
+    profiles: ["legacy-ui"]
     build: ../chatbot-portal
     container_name: chatbot-portal
     ports:
@@ -64,7 +72,7 @@ services:
         condition: service_healthy
     restart: always
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3001/"]
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3001/"]
       interval: 30s
       timeout: 5s
       retries: 3

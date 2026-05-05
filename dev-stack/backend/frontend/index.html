@@ -451,7 +451,7 @@
                         <div style="flex:2;min-width:280px;">
                             <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Repository URL</label>
                             <input type="text" id="commitRepoUrl"
-                                placeholder="http://localhost:8929/root/project or http://localhost:3002/org/repo"
+                                placeholder="https://gitlab.deepaksharma.live/gitlab/group/project or https://gitea.deepaksharma.live/org/repo"
                                 onchange="fetchBranches()" onblur="fetchBranches()"
                                 style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;">
                         </div>
@@ -525,7 +525,7 @@
                         <button class="new-chat-button" onclick="refreshChromaDBSummary()">
                             Refresh
                         </button>
-                        <a href="http://localhost:3001" target="_blank" class="new-chat-button"
+                        <a href="https://chromadb-admin.deepaksharma.live/" target="_blank" rel="noopener" id="chromadbAdminLink" class="new-chat-button"
                            style="text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
                             Open Admin UI &#8599;
                         </a>
@@ -692,7 +692,7 @@
                     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
                         <div style="flex:2;min-width:250px;">
                             <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Repository URL</label>
-                            <input type="text" id="rnRepoUrl" placeholder="http://gitlab-server/root/project" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;" onblur="fetchRNBranches()">
+                            <input type="text" id="rnRepoUrl" placeholder="https://gitlab.deepaksharma.live/gitlab/group/project" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9em;" onblur="fetchRNBranches()">
                         </div>
                         <div style="min-width:150px;">
                             <label style="display:block;font-size:0.8em;color:#666;margin-bottom:4px;font-weight:600;">Branch</label>
@@ -893,7 +893,7 @@
                             <div class="message-content">
                                 <p>Hello! I'm your AI DevOps assistant. I can help you generate CI/CD pipelines for your GitLab repositories.</p>
                                 <p>Just provide me with a GitLab repository URL and I'll analyze it and create appropriate Dockerfile and .gitlab-ci.yml files for you.</p>
-                                <p><strong>Example:</strong> "Generate a pipeline for http://gitlab-server/ai-pipeline-projects/java-springboot-api"</p>
+                                <p><strong>Example:</strong> "Generate a pipeline for https://gitlab.deepaksharma.live/gitlab/ai-pipeline-projects/java-springboot-api"</p>
                             </div>
                         </div>
                     </div>
@@ -901,7 +901,7 @@
                     <div class="input-container">
                         <textarea
                             id="messageInput"
-                            placeholder="Enter your message... (e.g., Generate a pipeline for http://gitlab-server/group/project)"
+                            placeholder="Enter your message... (e.g., Generate a pipeline for https://gitlab.deepaksharma.live/gitlab/group/project)"
                             rows="2"
                         ></textarea>
                         <button id="sendButton" onclick="sendMessage()">

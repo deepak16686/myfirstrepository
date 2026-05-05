@@ -122,6 +122,38 @@
                 <div class="messages-container" id="messagesContainer"></div>
             </div>
 
+            <!-- Credentials Dashboard view -->
+            <div class="credentials-view hidden" id="credentialsView">
+                <div class="creds-header">
+                    <h2>🔐 Service Credentials Dashboard</h2>
+                    <div class="creds-meta">
+                        <span class="creds-vault-badge" id="vaultBadge">Vault: checking...</span>
+                        <button class="btn-ghost" onclick="loadCredentialsDashboard()" title="Refresh">↻ Refresh</button>
+                    </div>
+                </div>
+                <div class="creds-filters">
+                    <input type="text" id="credsSearch" placeholder="Search services..." class="creds-search" oninput="filterCredentials()">
+                    <select id="credsCategory" class="creds-select" onchange="filterCredentials()">
+                        <option value="all">All Categories</option>
+                        <option value="scm">Source Control</option>
+                        <option value="cicd">CI/CD</option>
+                        <option value="quality">Code Quality</option>
+                        <option value="registry">Registry</option>
+                        <option value="security">Security</option>
+                        <option value="monitoring">Monitoring</option>
+                        <option value="logging">Logging</option>
+                        <option value="project">Project Mgmt</option>
+                        <option value="storage">Storage</option>
+                        <option value="ai">AI/ML</option>
+                        <option value="database">Database</option>
+                        <option value="notification">Notification</option>
+                    </select>
+                </div>
+                <div class="creds-grid" id="credsGrid">
+                    <div class="creds-loading">Loading credentials from Vault...</div>
+                </div>
+            </div>
+
             <!-- Redirect view (for non-chat tools) -->
             <div class="redirect-view hidden" id="redirectView">
                 <div class="redirect-card">

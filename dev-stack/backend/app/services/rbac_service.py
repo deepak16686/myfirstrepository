@@ -11,6 +11,7 @@ from typing import Dict, List, Optional, Any
 import httpx
 
 from app.config import settings
+from app.public_urls import get_tool_browser_url, get_tool_dashboard_url, get_tool_tailscale_url
 from app.integrations.vault_client import vault
 
 logger = logging.getLogger(__name__)
@@ -671,253 +672,278 @@ async def revoke_access(username: str, tool: str, group: str) -> dict:
 # Tool Directory - URLs & Credentials
 # ============================================================
 
-# Browser-accessible URLs (host port mappings from docker-compose)
+def _tool_urls(tool_id: str, *extras: dict) -> list:
+    urls = [
+        {"label": "Tailscale", "url": get_tool_tailscale_url(tool_id)},
+        {"label": "Shared Domain", "url": get_tool_dashboard_url(tool_id)},
+    ]
+    urls.extend(extras)
+    return urls
+
+
 TOOL_DIRECTORY = [
     {
         "id": "gitlab",
         "name": "GitLab",
         "icon": "gitlab",
         "color": "#e24329",
-        "browser_url": "https://devstack.deepaksharma.live/gitlab/",
+        "browser_url": get_tool_browser_url("gitlab"),
         "description": "Source code management, CI/CD pipelines",
         "auth_type": "basic",
         "vault_path": "gitlab",
         "cred_fields": {"username": "username", "password": "password", "token": "token"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "gitlab",
             {"label": "Direct (local)", "url": "http://localhost:8929"},
-        ],
+        ),
     },
     {
         "id": "gitea",
         "name": "Gitea",
         "icon": "gitea",
         "color": "#609926",
-        "browser_url": "https://devstack.deepaksharma.live/gitea/",
+        "browser_url": get_tool_browser_url("gitea"),
         "description": "Git hosting for Jenkins & GitHub Actions projects",
         "auth_type": "basic",
         "vault_path": "gitea",
         "cred_fields": {"username": "username", "password": "password", "token": "token"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "gitea",
             {"label": "Direct (local)", "url": "http://localhost:3002"},
-        ],
+        ),
     },
     {
         "id": "jenkins",
         "name": "Jenkins",
         "icon": "jenkins",
         "color": "#d33833",
-        "browser_url": "https://devstack.deepaksharma.live/jenkins/",
+        "browser_url": get_tool_browser_url("jenkins"),
         "description": "CI/CD automation server",
         "auth_type": "basic",
         "vault_path": "jenkins",
         "cred_fields": {"username": "username", "password": "password"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "jenkins",
             {"label": "Direct (local)", "url": "http://localhost:8080/jenkins/"},
-        ],
+        ),
     },
     {
         "id": "sonarqube",
         "name": "SonarQube",
         "icon": "sonarqube",
         "color": "#4e9bcd",
-        "browser_url": "https://devstack.deepaksharma.live/sonarqube/",
+        "browser_url": get_tool_browser_url("sonarqube"),
         "description": "Code quality and security analysis",
         "auth_type": "basic",
         "vault_path": "sonarqube",
         "cred_fields": {"password": "password"},
         "static_creds": {"username": "admin"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "sonarqube",
             {"label": "Direct (local)", "url": "http://localhost:9002"},
-        ],
+        ),
     },
     {
         "id": "nexus",
         "name": "Nexus Repository",
         "icon": "nexus",
         "color": "#1ba1c5",
-        "browser_url": "https://devstack.deepaksharma.live/nexus/",
+        "browser_url": get_tool_browser_url("nexus"),
         "description": "Artifact repository and Docker registry",
         "auth_type": "basic",
         "vault_path": "nexus",
         "cred_fields": {"username": "username", "password": "password"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "nexus",
             {"label": "Direct (local)", "url": "http://localhost:8181"},
             {"label": "Docker Registry", "url": "http://localhost:5001"},
-        ],
+        ),
     },
     {
         "id": "vault",
         "name": "HashiCorp Vault",
         "icon": "vault",
         "color": "#000000",
-        "browser_url": "https://devstack.deepaksharma.live/vault/",
+        "browser_url": get_tool_browser_url("vault"),
         "description": "Secret management and encryption",
         "auth_type": "token",
         "vault_path": None,
         "cred_fields": {},
         "static_creds": {"token": "dev-root-token"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "vault",
             {"label": "Direct (local)", "url": "http://localhost:8200"},
-        ],
+        ),
     },
     {
         "id": "chromadb",
         "name": "ChromaDB Admin",
         "icon": "chromadb",
         "color": "#FF6F00",
-        "browser_url": "https://devstack.deepaksharma.live/chromadb-admin/",
+        "browser_url": get_tool_browser_url("chromadb-admin"),
         "description": "Vector database admin UI",
         "auth_type": "none",
         "vault_path": None,
         "cred_fields": {},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "chromadb-admin",
             {"label": "Direct (local)", "url": "http://localhost:3001"},
-        ],
+        ),
     },
     {
         "id": "grafana",
         "name": "Grafana",
         "icon": "grafana",
         "color": "#F46800",
-        "browser_url": "https://devstack.deepaksharma.live/grafana/",
+        "browser_url": get_tool_browser_url("grafana"),
         "description": "Monitoring dashboards and alerting",
         "auth_type": "basic",
         "vault_path": None,
         "cred_fields": {},
         "static_creds": {"username": "admin", "password": "admin"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "grafana",
             {"label": "Direct (local)", "url": "http://localhost:3000"},
-        ],
+        ),
     },
     {
         "id": "prometheus",
         "name": "Prometheus",
         "icon": "prometheus",
         "color": "#E6522C",
-        "browser_url": "https://devstack.deepaksharma.live/prometheus/",
+        "browser_url": get_tool_browser_url("prometheus"),
         "description": "Metrics collection and querying",
         "auth_type": "none",
         "vault_path": None,
         "cred_fields": {},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "prometheus",
             {"label": "Direct (local)", "url": "http://localhost:9090"},
-        ],
+        ),
     },
     {
         "id": "minio",
         "name": "MinIO",
         "icon": "minio",
         "color": "#C72C48",
-        "browser_url": "https://devstack.deepaksharma.live/minio/",
+        "browser_url": get_tool_browser_url("minio"),
         "description": "Object storage (S3-compatible)",
         "auth_type": "basic",
         "vault_path": None,
         "cred_fields": {},
         "static_creds": {"username": "minioadmin", "password": "minioadmin"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "minio",
             {"label": "Direct (local)", "url": "http://localhost:9001"},
             {"label": "S3 API (local)", "url": "http://localhost:9000"},
-        ],
+        ),
     },
     {
         "id": "splunk",
         "name": "Splunk",
         "icon": "splunk",
         "color": "#65A637",
-        "browser_url": "https://devstack.deepaksharma.live/splunk/",
+        "browser_url": get_tool_browser_url("splunk"),
         "description": "Log aggregation and SIEM",
         "auth_type": "basic",
         "vault_path": "splunk",
         "cred_fields": {"token": "token"},
         "static_creds": {"username": "admin", "password": "Chang3d!"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "splunk",
             {"label": "Direct (local)", "url": "http://localhost:10000"},
-        ],
+        ),
     },
     {
         "id": "jaeger",
         "name": "Jaeger",
         "icon": "jaeger",
         "color": "#60D0E4",
-        "browser_url": "https://devstack.deepaksharma.live/jaeger/",
+        "browser_url": get_tool_browser_url("jaeger"),
         "description": "Distributed tracing",
         "auth_type": "none",
         "vault_path": None,
         "cred_fields": {},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "jaeger",
             {"label": "Direct (local)", "url": "http://localhost:16686"},
-        ],
+        ),
     },
     {
         "id": "cadvisor",
         "name": "cAdvisor",
         "icon": "cadvisor",
         "color": "#2196F3",
-        "browser_url": "https://devstack.deepaksharma.live/cadvisor/",
+        "browser_url": get_tool_browser_url("cadvisor"),
         "description": "Container resource monitoring",
         "auth_type": "none",
         "vault_path": None,
         "cred_fields": {},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "cadvisor",
             {"label": "Direct (local)", "url": "http://localhost:8182"},
-        ],
+        ),
     },
     {
         "id": "trivy",
         "name": "Trivy Server",
         "icon": "trivy",
         "color": "#1904DA",
-        "browser_url": "https://devstack.deepaksharma.live/trivy/",
+        "browser_url": get_tool_browser_url("trivy"),
         "description": "Container vulnerability scanning",
         "auth_type": "none",
         "vault_path": None,
         "cred_fields": {},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "trivy",
             {"label": "Direct (local)", "url": "http://localhost:8183"},
-        ],
+        ),
     },
     {
         "id": "ollama",
         "name": "Ollama",
         "icon": "ollama",
         "color": "#000000",
-        "browser_url": "https://devstack.deepaksharma.live/ollama/",
+        "browser_url": get_tool_browser_url("ollama"),
         "description": "Local LLM inference engine",
         "auth_type": "none",
         "vault_path": None,
         "cred_fields": {},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "ollama",
             {"label": "Direct (local)", "url": "http://localhost:11434"},
-        ],
+        ),
     },
     {
         "id": "jira",
         "name": "Jira",
         "icon": "jira",
         "color": "#0052CC",
-        "browser_url": "https://devstack.deepaksharma.live/jira/",
+        "browser_url": get_tool_browser_url("jira"),
         "description": "Project and issue tracking",
         "auth_type": "basic",
         "vault_path": "jira",
         "cred_fields": {"username": "username", "api_token": "api_token"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "jira",
             {"label": "Direct (local)", "url": "http://localhost:8180"},
-        ],
+        ),
     },
     {
         "id": "redmine",
         "name": "Redmine",
         "icon": "redmine",
         "color": "#B32024",
-        "browser_url": "https://devstack.deepaksharma.live/redmine/",
+        "browser_url": get_tool_browser_url("redmine"),
         "description": "Project management and issue tracking",
         "auth_type": "basic",
         "vault_path": None,
         "cred_fields": {},
         "static_creds": {"username": "admin", "password": "admin"},
-        "extra_urls": [
+        "extra_urls": _tool_urls(
+            "redmine",
             {"label": "Direct (local)", "url": "http://localhost:8090"},
-        ],
+        ),
     },
 ]
 

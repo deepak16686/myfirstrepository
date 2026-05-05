@@ -9,6 +9,7 @@ import httpx
 from typing import Dict, Any, Optional
 from datetime import datetime
 
+from app.public_urls import to_browser_git_url
 from app.services.github_pipeline.analyzer import parse_github_url
 
 
@@ -96,7 +97,7 @@ async def commit_to_repo(
                 last_commit = resp.json()
 
         if last_commit:
-            browser_host = host.replace("gitea-server:3000", "localhost:3002")
+            browser_host = to_browser_git_url(host)
             return {
                 "success": True,
                 "branch": branch_name,

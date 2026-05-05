@@ -5,64 +5,63 @@
       "Edit",
       "Write",
       "MultiEdit",
-      "Bash(npx prettier --write:*)",
-      "Bash(npx eslint --fix:*)",
-      "Bash(npx tsc --noEmit:*)",
-      "Bash(npm test:*)",
-      "Bash(npm run lint:*)",
-      "Bash(npm run format:*)",
-      "Bash(npm run build:*)",
-      "Bash(npx playwright:*)",
       "Bash(pytest:*)",
       "Bash(ruff check:*)",
       "Bash(ruff format:*)",
-      "Bash(docker build:*)",
+      "Bash(python -m:*)",
+      "Bash(pip install:*)",
       "Bash(docker compose:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker build:*)",
+      "Bash(curl:*)",
       "Bash(kubectl apply --dry-run:*)",
+      "Bash(kubectl get:*)",
+      "Bash(kubectl describe:*)",
       "Bash(terraform plan:*)",
       "Bash(terraform fmt:*)",
+      "Bash(terraform validate:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(vault kv:*)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
       "Bash(git push --force:*)",
       "Bash(kubectl delete:*)",
       "Bash(terraform destroy:*)",
-      "Bash(docker system prune:*)"
+      "Bash(docker system prune:*)",
+      "Bash(docker rm -f:*)",
+      "Bash(vault secrets disable:*)"
     ]
   },
   "hooks": {
     "PreToolUse": [
       {
         "name": "block-env-edits",
-        "description": "Prevent accidental .env file modifications",
+        "description": "Prevent accidental .env file modifications — use Vault instead",
         "match_tools": ["Edit", "Write", "MultiEdit"],
-        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.env($|\\.)'; then echo 'BLOCKED: .env files must be edited manually for security'; exit 1; fi"
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.env($|\\.)'; then echo 'BLOCKED: .env files must be edited manually. Update Vault secrets instead.'; exit 1; fi"
       },
       {
         "name": "block-lockfile-edits",
         "description": "Prevent manual lock file modifications",
         "match_tools": ["Edit", "Write"],
-        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(package-lock|yarn\\.lock|pnpm-lock|go\\.sum|Cargo\\.lock)'; then echo 'BLOCKED: Lock files should not be manually edited'; exit 1; fi"
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(package-lock|yarn\\.lock|pnpm-lock|go\\.sum|Cargo\\.lock|requirements\\.txt\\.lock)'; then echo 'BLOCKED: Lock files should not be manually edited'; exit 1; fi"
+      },
+      {
+        "name": "block-credential-exposure",
+        "description": "Block writing files that might contain raw credentials",
+        "match_tools": ["Write"],
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(credentials|secrets|tokens)\\.'; then echo 'WARNING: Verify no raw secrets are being written to this file'; fi"
       }
     ],
     "PostToolUse": [
-      {
-        "name": "auto-format-frontend",
-        "description": "Auto-format TypeScript, TSX, CSS, and JSON files with Prettier after editing",
-        "match_tools": ["Edit", "Write", "MultiEdit"],
-        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.(tsx?|jsx?|css|scss|json|mdx?)$'; then if [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../.prettierrc\" ] || [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../.prettierrc.json\" ] || [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../../.prettierrc\" ]; then npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null; fi; fi"
-      },
-      {
-        "name": "auto-lint-frontend",
-        "description": "Auto-lint TypeScript and TSX files with ESLint after editing",
-        "match_tools": ["Edit", "Write", "MultiEdit"],
-        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.(tsx?|jsx?)$'; then if [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../eslint.config.mjs\" ] || [ -f \"$(dirname \"$CLAUDE_FILE_PATH\")/../.eslintrc.json\" ]; then npx eslint --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null || true; fi; fi"
-      },
       {
         "name": "auto-format-python",
         "description": "Auto-format Python files with Ruff after editing",
@@ -76,10 +75,10 @@
         "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qi 'dockerfile'; then command -v hadolint &>/dev/null && hadolint \"$CLAUDE_FILE_PATH\" 2>/dev/null || true; fi"
       },
       {
-        "name": "validate-k8s-manifests",
-        "description": "Validate Kubernetes YAML after editing",
+        "name": "validate-yaml",
+        "description": "Validate YAML syntax after editing docker-compose or k8s manifests",
         "match_tools": ["Edit", "Write"],
-        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE 'k8s/|kubernetes/|manifests/' && echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.ya?ml$'; then kubectl apply --dry-run=client -f \"$CLAUDE_FILE_PATH\" 2>/dev/null || echo 'WARNING: K8s manifest validation failed'; fi"
+        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(docker-compose|k8s|kubernetes|manifests).*\\.ya?ml$'; then python3 -c \"import yaml; yaml.safe_load(open('$CLAUDE_FILE_PATH'))\" 2>/dev/null || echo 'WARNING: YAML syntax validation failed'; fi"
       },
       {
         "name": "validate-terraform",

@@ -39,7 +39,7 @@ import os
 
 from app.config import settings, tools_manager
 from app.integrations.vault_client import vault
-from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity, jenkins_pipeline, terraform, llm_settings, commit_history, chromadb_browser, secret_manager, dependency_scanner, release_notes, migration_assistant, compliance_checker, rbac
+from app.routers import tools, gitlab, sonarqube, trivy, nexus, unified, pipeline, chat, github_pipeline, connectivity, jenkins_pipeline, terraform, llm_settings, commit_history, chromadb_browser, secret_manager, dependency_scanner, release_notes, migration_assistant, compliance_checker, rbac, credentials_dashboard
 
 
 @asynccontextmanager
@@ -153,6 +153,7 @@ app.include_router(release_notes.router, prefix=settings.api_prefix)
 app.include_router(migration_assistant.router, prefix=settings.api_prefix)
 app.include_router(compliance_checker.router, prefix=settings.api_prefix)
 app.include_router(rbac.router, prefix=settings.api_prefix)
+app.include_router(credentials_dashboard.router, prefix=settings.api_prefix)
 app.include_router(chat.router)  # Chat API has its own prefix
 
 # ============================================================================

@@ -3,25 +3,20 @@
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
-      "description": "Live documentation for Next.js, React, TailwindCSS, shadcn/ui, Framer Motion, and all npm packages"
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-server-playwright"],
-      "description": "Browser automation for responsive testing, screenshot capture, accessibility audits, and visual regression"
+      "description": "Live documentation for FastAPI, Python, Docker, Kubernetes, Terraform, and all libraries"
     },
     "postgres": {
       "command": "npx",
       "args": ["-y", "@anthropic-ai/mcp-server-postgres"],
       "env": {
-        "DATABASE_URL": "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}"
+        "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/postgres"
       },
-      "description": "Direct PostgreSQL queries and schema inspection"
+      "description": "Direct PostgreSQL queries — main DB (ai-postgres), SonarQube DB (ai-sonar-db), Jira DB, Redmine DB"
     },
     "memory": {
       "command": "npx",
       "args": ["-y", "@anthropic-ai/mcp-server-memory"],
-      "description": "Persistent cross-session memory for design decisions, component patterns, and project context"
+      "description": "Persistent cross-session memory for pipeline patterns, debug findings, and architectural decisions"
     }
   }
 }

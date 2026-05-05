@@ -14,7 +14,8 @@ services:
   # GitLab CE — primary SCM, CI/CD pipelines, container registry
   # Web: http://localhost:8929  |  SSH: localhost:2224  |  via proxy: /gitlab/
   # Data: C:/Users/deepak/gitlab_docker/ (bind mount, preserves all GitLab data)
-  # Config: external_url uses Tailscale domain with /gitlab sub-path
+  # Config: GitLab keeps its /gitlab relative root, but now publishes on the
+  # dedicated custom host gitlab.deepaksharma.live as well as the shared Tailscale path.
   # ---------------------------------------------------------------------------
   gitlab-server:
     image: gitlab/gitlab-ce:latest
@@ -26,7 +27,7 @@ services:
       - "2224:22"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://devstack.deepaksharma.live/gitlab'
+        external_url 'https://gitlab.deepaksharma.live/gitlab'
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
         nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
@@ -98,7 +99,7 @@ services:
       - USER_UID=1000
       - USER_GID=1000
       - GITEA__database__DB_TYPE=sqlite3
-      - GITEA__server__ROOT_URL=https://devstack.deepaksharma.live/gitea/
+      - GITEA__server__ROOT_URL=https://gitea.deepaksharma.live/
       - GITEA__server__HTTP_PORT=3000
       - GITEA__server__SSH_PORT=2222
       - GITEA__service__DISABLE_REGISTRATION=false

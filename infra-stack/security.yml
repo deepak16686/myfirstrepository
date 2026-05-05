@@ -104,6 +104,24 @@ services:
       - ai-platform-net
 
   # ---------------------------------------------------------------------------
+  # Cloudflare Tunnel — exposes all services via *.deepaksharma.live
+  # Zero Trust tunnel: Cloudflare handles TLS, no port forwarding needed.
+  # Setup: run config/scripts/cloudflare-tunnel-setup.sh once to create tunnel
+  # ---------------------------------------------------------------------------
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - global-infra-net
+    depends_on:
+      nginx-proxy:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
   # RBAC Init — creates groups + service accounts across all tools
   # Runs once after all tools are healthy. Idempotent — safe to re-run.
   # ---------------------------------------------------------------------------

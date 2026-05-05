@@ -28,7 +28,7 @@ class ChatService:
                     "properties": {
                         "repo_url": {
                             "type": "string",
-                            "description": "The GitLab repository URL (e.g., http://gitlab-server/root/my-project)"
+                            "description": "The GitLab repository URL (e.g., https://gitlab.deepaksharma.live/gitlab/root/my-project)"
                         }
                     },
                     "required": ["repo_url"]

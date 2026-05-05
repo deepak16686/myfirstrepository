@@ -28,8 +28,8 @@ class JenkinsIntegration(BaseIntegration):
 
     async def health_check(self) -> ToolStatus:
         try:
-            # Try with context path first, then without
-            for prefix in [self.CONTEXT_PATH, ""]:
+            # base_url already includes /jenkins context path, so use /api/json directly
+            for prefix in ["", self.CONTEXT_PATH]:
                 response = await self.get(f"{prefix}/api/json")
                 if response.headers.get("X-Jenkins"):
                     return ToolStatus.HEALTHY
@@ -44,7 +44,7 @@ class JenkinsIntegration(BaseIntegration):
 
     async def get_version(self) -> Optional[str]:
         try:
-            for prefix in [self.CONTEXT_PATH, ""]:
+            for prefix in ["", self.CONTEXT_PATH]:
                 response = await self.get(f"{prefix}/api/json")
                 version = response.headers.get("X-Jenkins")
                 if version:
@@ -55,13 +55,13 @@ class JenkinsIntegration(BaseIntegration):
 
     async def list_jobs(self) -> List[Dict[str, Any]]:
         """List all Jenkins jobs"""
-        response = await self.get(f"{self.CONTEXT_PATH}/api/json?tree=jobs[name,url,color]")
+        response = await self.get("/api/json?tree=jobs[name,url,color]")
         response.raise_for_status()
         return response.json().get("jobs", [])
 
     async def get_job(self, job_name: str) -> Optional[Dict[str, Any]]:
         """Get details of a specific job"""
-        response = await self.get(f"{self.CONTEXT_PATH}/job/{job_name}/api/json")
+        response = await self.get(f"/job/{job_name}/api/json")
         if response.status_code == 200:
             return response.json()
         return None

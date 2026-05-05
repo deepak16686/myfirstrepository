@@ -9,8 +9,11 @@
 // nginx-proxy (https://deepak-desktop.tailac51e7.ts.net/chatbot/)
 // ============================================================
 const TAILSCALE_BASE = 'https://deepak-desktop.tailac51e7.ts.net';
+const CUSTOM_BASE = 'https://devstack.deepaksharma.live';
 const IS_TAILSCALE = window.location.hostname.includes('tailac51e7.ts.net')
     || window.location.hostname.includes('tailscale');
+const IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const PUBLIC_BASE = IS_LOCAL ? TAILSCALE_BASE : window.location.origin || CUSTOM_BASE;
 
 // When accessed via Tailscale (/chatbot/), API calls go to /api/v1/...
 // nginx-proxy handles /api/ -> devops-tools-backend:8003
@@ -18,8 +21,8 @@ const IS_TAILSCALE = window.location.hostname.includes('tailac51e7.ts.net')
 // Either way, /api/v1/... works as-is because window.location.origin resolves correctly.
 
 function tsUrl(path) {
-    // Return a Tailscale-absolute URL for inter-tool links
-    return `${TAILSCALE_BASE}${path}`;
+    // Preserve the current public host when available, but keep a Tailscale fallback for localhost access.
+    return `${PUBLIC_BASE}${path}`;
 }
 
 // ============================================================
@@ -68,7 +71,7 @@ I analyze your repository and generate production-ready CI/CD files:
                 type: 'chat',
                 tags: ['Jenkins', 'Groovy'],
                 quickPrompts: [
-                    'Generate a Jenkinsfile for http://localhost:3002/jenkins-projects/java-springboot-api',
+                    'Generate a Jenkinsfile for https://gitea.deepaksharma.live/jenkins-projects/java-springboot-api',
                     'Create a Jenkins pipeline for Python FastAPI',
                     'Generate a pipeline for a Go application',
                 ],
@@ -86,7 +89,7 @@ Compile → Build Image → Test → Static Analysis → SonarQube → Trivy →
 
 **Get started:** Paste a Gitea repository URL
 
-> Example: \`Generate a pipeline for http://localhost:3002/jenkins-projects/java-springboot-api\`
+> Example: \`Generate a pipeline for https://gitea.deepaksharma.live/jenkins-projects/java-springboot-api\`
 
 **Commands after generation:**
 - \`commit\` — commit files to the repository
@@ -101,7 +104,7 @@ Compile → Build Image → Test → Static Analysis → SonarQube → Trivy →
                 type: 'chat',
                 tags: ['GitHub Actions', 'YAML'],
                 quickPrompts: [
-                    'Generate a workflow for http://localhost:3002/github-projects/java-springboot-api',
+                    'Generate a workflow for https://gitea.deepaksharma.live/github-projects/java-springboot-api',
                     'Create a GitHub Actions workflow for Python project',
                     'Generate a workflow for Node.js application',
                 ],
@@ -119,7 +122,7 @@ compile → build-image → test-image → static-analysis → sonarqube → tri
 
 **Get started:** Paste a Gitea repository URL
 
-> Example: \`Generate a workflow for http://localhost:3002/github-projects/java-springboot-api\`
+> Example: \`Generate a workflow for https://gitea.deepaksharma.live/github-projects/java-springboot-api\`
 
 **Commands after generation:**
 - \`commit\` — commit files to the repository
@@ -275,6 +278,14 @@ I generate **Infrastructure as Code** configurations for multiple cloud provider
                 type: 'redirect',
                 redirect: tsUrl('/devops-api/'),
                 tags: ['Directory'],
+            },
+            {
+                id: 'credentials-dashboard',
+                name: 'Credentials Dashboard',
+                icon: '🔐',
+                desc: 'View all service credentials, URLs, and health status',
+                type: 'dashboard',
+                tags: ['Credentials', 'Vault'],
             },
         ],
     },
@@ -539,6 +550,9 @@ function openTool(toolId) {
     if (tool.type === 'redirect') {
         showRedirectView(tool);
         disableInput();
+    } else if (tool.type === 'dashboard' && tool.id === 'credentials-dashboard') {
+        showCredentialsDashboard();
+        disableInput();
     } else {
         showChatView(tool);
         enableInput(tool);
@@ -584,6 +598,7 @@ function hideAllViews() {
     document.getElementById('welcomeScreen').classList.add('hidden');
     document.getElementById('chatView').classList.add('hidden');
     document.getElementById('redirectView').classList.add('hidden');
+    document.getElementById('credentialsView').classList.add('hidden');
 }
 
 // ============================================================
@@ -891,3 +906,149 @@ function escapeHtml(text) {
 
 // Auto health check every 60 seconds
 setInterval(checkApiHealth, 60000);
+
+// ============================================================
+// CREDENTIALS DASHBOARD
+// ============================================================
+let credentialsData = [];
+
+function showCredentialsDashboard() {
+    hideAllViews();
+    document.getElementById('credentialsView').classList.remove('hidden');
+    loadCredentialsDashboard();
+}
+
+async function loadCredentialsDashboard() {
+    const grid = document.getElementById('credsGrid');
+    grid.innerHTML = '<div class="creds-loading"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div> Loading credentials from Vault...</div>';
+
+    try {
+        const res = await fetch('/api/v1/credentials-dashboard/', { signal: AbortSignal.timeout(15000) });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        credentialsData = data.services || [];
+
+        // Update vault badge
+        const badge = document.getElementById('vaultBadge');
+        if (data.vault_available) {
+            badge.textContent = 'Vault: Connected';
+            badge.className = 'creds-vault-badge vault-ok';
+        } else {
+            badge.textContent = 'Vault: Offline';
+            badge.className = 'creds-vault-badge vault-err';
+        }
+
+        renderCredentials(credentialsData);
+    } catch (err) {
+        grid.innerHTML = `<div class="creds-error">Failed to load credentials: ${escapeHtml(err.message)}</div>`;
+    }
+}
+
+function renderCredentials(services) {
+    const grid = document.getElementById('credsGrid');
+    if (!services.length) {
+        grid.innerHTML = '<div class="creds-empty">No services found</div>';
+        return;
+    }
+
+    const CATEGORY_LABELS = {
+        scm: 'Source Control', cicd: 'CI/CD', quality: 'Code Quality',
+        registry: 'Registry', security: 'Security', monitoring: 'Monitoring',
+        logging: 'Logging', project: 'Project Mgmt', storage: 'Storage',
+        ai: 'AI/ML', database: 'Database', notification: 'Notification', tool: 'Tool',
+    };
+
+    const CATEGORY_ICONS = {
+        scm: '📂', cicd: '⚙️', quality: '🛡️', registry: '📦', security: '🔒',
+        monitoring: '📊', logging: '📝', project: '📋', storage: '💾',
+        ai: '🧠', database: '🗄️', notification: '📧', tool: '🔧',
+    };
+
+    grid.innerHTML = services.map(svc => {
+        const statusClass = svc.status === 'healthy' ? 'status-healthy' : svc.status === 'unhealthy' ? 'status-unhealthy' : 'status-unknown';
+        const statusDot = svc.status === 'healthy' ? '🟢' : svc.status === 'unhealthy' ? '🔴' : '🟡';
+        const catLabel = CATEGORY_LABELS[svc.category] || svc.category;
+        const catIcon = CATEGORY_ICONS[svc.category] || '🔧';
+
+        let credsHtml = '';
+        if (svc.username) {
+            credsHtml += `<div class="cred-row"><span class="cred-label">Username</span><span class="cred-value">${escapeHtml(svc.username)}<button class="copy-btn" onclick="copyText('${escapeAttr(svc.username)}',this)" title="Copy">📋</button></span></div>`;
+        }
+        if (svc.password) {
+            credsHtml += `<div class="cred-row"><span class="cred-label">Password</span><span class="cred-value cred-secret" data-revealed="false" data-secret="${escapeAttr(svc.password)}"><span class="secret-mask">••••••••</span><button class="reveal-btn" onclick="toggleReveal(this.closest('.cred-secret'))" title="Show/Hide">👁️</button><button class="copy-btn" onclick="copyText('${escapeAttr(svc.password)}',this)" title="Copy">📋</button></span></div>`;
+        }
+        if (svc.token) {
+            const shortToken = svc.token.length > 16 ? svc.token.substring(0, 8) + '...' + svc.token.slice(-4) : svc.token;
+            credsHtml += `<div class="cred-row"><span class="cred-label">Token</span><span class="cred-value cred-secret" data-revealed="false" data-secret="${escapeAttr(svc.token)}"><span class="secret-mask">${escapeHtml(shortToken)}</span><button class="reveal-btn" onclick="toggleReveal(this.closest('.cred-secret'))" title="Show/Hide">👁️</button><button class="copy-btn" onclick="copyText('${escapeAttr(svc.token)}',this)" title="Copy">📋</button></span></div>`;
+        }
+        if (!svc.username && !svc.password && !svc.token) {
+            credsHtml += `<div class="cred-row"><span class="cred-label">Auth</span><span class="cred-value cred-noauth">No authentication required</span></div>`;
+        }
+
+        // Extra fields
+        const extraEntries = Object.entries(svc.extra || {}).filter(([k]) => !['auth','note'].includes(k));
+        let extraHtml = '';
+        if (extraEntries.length > 0) {
+            extraHtml = extraEntries.map(([k, v]) => `<div class="cred-row"><span class="cred-label">${escapeHtml(k)}</span><span class="cred-value">${escapeHtml(String(v))}<button class="copy-btn" onclick="copyText('${escapeAttr(String(v))}',this)" title="Copy">📋</button></span></div>`).join('');
+        }
+
+        const note = svc.extra?.note ? `<div class="cred-note">${escapeHtml(svc.extra.note)}</div>` : '';
+
+        return `
+        <div class="cred-card ${statusClass}" data-category="${svc.category}" data-name="${svc.display_name.toLowerCase()}">
+            <div class="cred-card-header">
+                <div class="cred-card-title">
+                    <span class="cred-status-dot">${statusDot}</span>
+                    <h3>${escapeHtml(svc.display_name)}</h3>
+                </div>
+                <span class="cred-cat-badge">${catIcon} ${catLabel}</span>
+            </div>
+            <div class="cred-url">
+                <a href="${escapeAttr(svc.url)}" target="_blank" rel="noopener">${escapeHtml(svc.url)}</a>
+                <button class="copy-btn" onclick="copyText('${escapeAttr(svc.url)}',this)" title="Copy URL">📋</button>
+            </div>
+            <div class="cred-details">
+                ${credsHtml}
+                ${extraHtml}
+            </div>
+            ${note}
+        </div>`;
+    }).join('');
+}
+
+function filterCredentials() {
+    const search = (document.getElementById('credsSearch')?.value || '').toLowerCase();
+    const category = document.getElementById('credsCategory')?.value || 'all';
+    const filtered = credentialsData.filter(svc => {
+        const matchName = svc.display_name.toLowerCase().includes(search) || svc.name.toLowerCase().includes(search);
+        const matchCat = category === 'all' || svc.category === category;
+        return matchName && matchCat;
+    });
+    renderCredentials(filtered);
+}
+
+function toggleReveal(el) {
+    const revealed = el.dataset.revealed === 'true';
+    const mask = el.querySelector('.secret-mask');
+    if (revealed) {
+        const secret = el.dataset.secret;
+        mask.textContent = secret.length > 16 ? secret.substring(0, 8) + '...' + secret.slice(-4) : '••••••••';
+        el.dataset.revealed = 'false';
+    } else {
+        mask.textContent = el.dataset.secret;
+        el.dataset.revealed = 'true';
+    }
+}
+
+function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✅';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+    }).catch(() => showToast('Copy failed', 'error'));
+}
+
+function escapeAttr(str) {
+    return str.replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}

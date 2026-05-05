@@ -28,6 +28,7 @@ from app.services.pipeline_progress import progress_store
 from app.services.dry_run_validator import dry_run_validator
 from app.services.llm_fixer import llm_fixer
 from app.integrations.llm_provider import get_active_provider_name
+from app.config import settings
 
 from app.models.pipeline_schemas import (
     GeneratePipelineRequest, GeneratePipelineResponse,
@@ -65,7 +66,7 @@ async def _fetch_pipeline_files(
         for filename, key in file_map.items():
             try:
                 resp = await client.get(
-                    f"http://gitlab-server/api/v4/projects/{project_id}/repository/files/{filename}/raw",
+                    f"{settings.gitlab_url}/api/v4/projects/{project_id}/repository/files/{filename}/raw",
                     headers=headers,
                     params={"ref": branch}
                 )
@@ -82,7 +83,7 @@ async def _check_all_jobs_passed(project_id: int, pipeline_id: int, gitlab_token
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.get(
-                f"http://gitlab-server/api/v4/projects/{project_id}/pipelines/{pipeline_id}/jobs",
+                f"{settings.gitlab_url}/api/v4/projects/{project_id}/pipelines/{pipeline_id}/jobs",
                 headers={"PRIVATE-TOKEN": gitlab_token}
             )
             if resp.status_code != 200:
@@ -135,7 +136,7 @@ async def monitor_pipeline_for_learning(
             async with httpx.AsyncClient() as client:
                 headers = {"PRIVATE-TOKEN": gitlab_token}
 
-                pipelines_url = f"http://gitlab-server/api/v4/projects/{project_id}/pipelines"
+                pipelines_url = f"{settings.gitlab_url}/api/v4/projects/{project_id}/pipelines"
                 resp = await client.get(
                     pipelines_url,
                     headers=headers,

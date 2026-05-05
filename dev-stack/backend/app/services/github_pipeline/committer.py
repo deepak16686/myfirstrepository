@@ -13,7 +13,7 @@ import httpx
 from typing import Dict, Any, Optional
 from datetime import datetime
 
-from app.config import settings
+from app.public_urls import to_browser_git_url
 from app.services.github_pipeline.analyzer import parse_github_url
 
 
@@ -121,8 +121,7 @@ async def commit_to_github(
                 last_commit = resp.json()
 
         if last_commit:
-            # Use browser-accessible URL for the web link
-            browser_host = host.replace("gitea-server:3000", "localhost:3002")
+            browser_host = to_browser_git_url(host)
             return {
                 "success": True,
                 "branch": branch_name,

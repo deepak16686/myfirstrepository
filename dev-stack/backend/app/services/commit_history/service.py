@@ -11,6 +11,7 @@ from urllib.parse import urlparse, quote
 import httpx
 
 from app.config import settings
+from app.public_urls import to_browser_git_url, to_internal_git_url
 from app.services.pipeline.analyzer import parse_gitlab_url
 from app.services.github_pipeline.analyzer import parse_github_url
 
@@ -20,18 +21,14 @@ class CommitHistoryService:
 
     def _to_internal_url(self, url: str) -> str:
         """Translate browser-facing URLs to internal Docker network URLs."""
-        # Gitea: localhost:3002 -> gitea-server:3000
-        url = url.replace("localhost:3002", "gitea-server:3000")
-        # GitLab: localhost:8929 -> gitlab-server
-        url = url.replace("localhost:8929", "gitlab-server")
+        url = to_internal_git_url(url)
         url = url.replace("localhost:18929", "prod-gitlab-server")
         url = url.replace("localhost:13002", "prod-gitea-server:3000")
         return url
 
     def _to_browser_url(self, url: str) -> str:
         """Translate internal Docker URLs to browser-facing URLs."""
-        url = url.replace("gitea-server:3000", "localhost:3002")
-        url = url.replace("gitlab-server", "localhost:8929")
+        url = to_browser_git_url(url)
         url = url.replace("prod-gitlab-server", "localhost:18929")
         url = url.replace("prod-gitea-server:3000", "localhost:13002")
         return url
