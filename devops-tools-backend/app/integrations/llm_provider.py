@@ -19,5 +19,5 @@ def get_llm_provider(provider_id: str = None):
 
 
 def get_active_provider_name() -> str:
-    """Get the display name of the active LLM provider (e.g. 'Claude Code (opus)')."""
+    """Get the display name of the active LLM provider."""
     return llm_registry.get_active_display_name()

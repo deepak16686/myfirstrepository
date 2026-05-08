@@ -89,10 +89,18 @@ class ClaudeCodeIntegration:
 
         raw_output = ""
         try:
+            # Inside the container we run as root by default; the Claude CLI
+            # refuses to start as root unless `IS_SANDBOX=1` is set
+            # (a deliberate safety check). Containerised Linux IS our sandbox,
+            # so set the env var per-invocation so we don't have to rebuild
+            # the image to switch users.
+            env = os.environ.copy()
+            env.setdefault("IS_SANDBOX", "1")
             process = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
+                env=env,
             )
 
             stdout, stderr = await asyncio.wait_for(

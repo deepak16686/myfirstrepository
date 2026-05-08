@@ -2,7 +2,7 @@
 # GitLab CI/CD Pipeline Generator - LLM System Prompt
 # =============================================================================
 # This file contains the system prompt injected into the LLM (Ollama qwen3:32b,
-# Claude Code, or OpenAI) when generating GitLab CI/CD pipelines.
+# Codex Code, OpenAI, or another configured provider) when generating GitLab CI/CD pipelines.
 #
 # Loaded by: app/services/pipeline/pipeline_generator.py at generation time.
 #            Also embedded in Modelfile.pipeline-generator-v5 for the Ollama model.
@@ -72,6 +72,9 @@ Ruby:
 PHP:
 - php:8.2-fpm-alpine (PHP 8.2)
 
+Elixir/Phoenix:
+- hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1 (Elixir 1.16 / Erlang 26)
+
 Build/CI Tools:
 - kaniko-executor:debug (Docker image builds)
 - curlimages-curl:latest (HTTP requests)
@@ -122,7 +125,7 @@ build_image:
   tags: [docker]
   script:
     - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${NEXUS_INTERNAL_REGISTRY}\":{\"username\":\"${NEXUS_USERNAME}\",\"password\":\"${NEXUS_PASSWORD}\"}}}" > /kaniko/.docker/config.json
+    - 'printf ''{"auths":{"%s":{"username":"%s","password":"%s"}}}'' "$NEXUS_INTERNAL_REGISTRY" "$NEXUS_USERNAME" "$NEXUS_PASSWORD" > /kaniko/.docker/config.json'
     - /kaniko/executor --context ${CI_PROJECT_DIR} --dockerfile ${CI_PROJECT_DIR}/Dockerfile --destination ${NEXUS_INTERNAL_REGISTRY}/apm-repo/demo/${IMAGE_NAME}:${IMAGE_TAG} --insecure --skip-tls-verify --insecure-registry=ai-nexus:5001
 
 ## RULE 7: DOCKERFILE FORMAT (MANDATORY)
@@ -365,6 +368,46 @@ WORKDIR /app
 COPY --from=builder /app/target/release/* .
 EXPOSE 8080
 CMD ["./app"]
+
+### Elixir/Phoenix:
+# Do not install Elixir or Erlang with apk. Alpine packages are too old for
+# Phoenix projects that require Elixir 1.16. Use the hexpm-elixir Nexus image.
+compile_elixir:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1
+  script:
+    - apk add --no-cache bash ca-certificates curl build-base git nodejs npm openssl ncurses-libs
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get --only ${MIX_ENV}
+    - mix deps.compile
+    - mix compile
+
+Dockerfile:
+ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1 AS build
+WORKDIR /app
+RUN apk add --no-cache bash ca-certificates curl build-base git nodejs npm openssl ncurses-libs
+ENV MIX_ENV=prod
+ENV PHX_SERVER=true
+ENV PHX_HOST=localhost
+ENV DATABASE_URL=ecto://postgres:postgres@localhost/postgres
+ENV SECRET_KEY_BASE=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+RUN mix local.hex --force && mix local.rebar --force
+COPY mix.exs mix.lock* ./
+COPY config ./config
+RUN mix deps.get --only prod && mix deps.compile
+COPY . .
+RUN mix compile && mix release
+
+FROM ${BASE_REGISTRY}/apm-repo/demo/alpine:3.18
+WORKDIR /app
+RUN apk add --no-cache bash ca-certificates libstdc++ openssl ncurses-libs
+ENV MIX_ENV=prod
+ENV PHX_SERVER=true
+COPY --from=build /app/_build/prod/rel ./
+EXPOSE 4000
+CMD ["sh", "-c", "exec /app/*/bin/* start"]
 
 ## RULE 9: SONARQUBE JOB FORMAT
 code_quality:

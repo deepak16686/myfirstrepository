@@ -302,13 +302,18 @@ async def record_build_result(
         dockerfile_content = ""
 
         async with httpx.AsyncClient(timeout=30.0) as client:
-            for filepath in ['.github/workflows/ci.yml', 'Dockerfile']:
+            # Gitea accepts workflows under .gitea/workflows/ OR .github/workflows/
+            for filepath in [
+                '.gitea/workflows/ci.yml',
+                '.github/workflows/ci.yml',
+                'Dockerfile',
+            ]:
                 file_url = f"{api_base}/raw/{filepath}"
                 file_resp = await client.get(file_url, headers=headers, params={"ref": branch})
                 if file_resp.status_code == 200:
-                    if 'ci.yml' in filepath:
+                    if 'ci.yml' in filepath and not workflow_content:
                         workflow_content = file_resp.text
-                    else:
+                    elif filepath == 'Dockerfile':
                         dockerfile_content = file_resp.text
 
         result = {

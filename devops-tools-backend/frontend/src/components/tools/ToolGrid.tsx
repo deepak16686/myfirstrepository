@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import type { Category, HealthStatus, Tool } from '@/types/tool';
 import { ToolCard } from './ToolCard';
 import { useUiStore } from '@/store/ui';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch, resolveCurrentLaunchUrl } from '@/lib/launch';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Search } from 'lucide-react';
 
@@ -54,19 +54,11 @@ export function ToolGrid({
   }, [tools, query, categoryFilter, healthFilter]);
 
   const onLaunch = async (tool: Tool): Promise<void> => {
-    if (!tool.url_external) {
-      toast.error('No external URL configured for this tool.');
+    if (!resolveCurrentLaunchUrl(tool)) {
+      toast.error('No launch URL configured for this tool.');
       return;
     }
-    const target = tool.url_external;
-    try {
-      const res = await launchTool(tool.id);
-      const dest = res.redirect_url || target;
-      window.open(dest, '_blank', 'noopener,noreferrer');
-    } catch {
-      // Backend endpoint may not exist yet — fall back to direct URL.
-      window.open(target, '_blank', 'noopener,noreferrer');
-    }
+    await openToolLaunch(tool);
   };
 
   const onEmbed = (tool: Tool): void => {

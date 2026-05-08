@@ -3,18 +3,25 @@ Reinforcement Learning / Feedback Functions
 
 Standalone async functions for RL feedback loop and pipeline result recording.
 """
-import hashlib
 from typing import Dict, Any, List
-from datetime import datetime
 
 import httpx
 
 from app.config import tools_manager
 from app.integrations.chromadb import ChromaDBIntegration
 
-from .constants import FEEDBACK_COLLECTION
 from .analyzer import parse_gitlab_url, analyze_repository
 from .templates import store_successful_pipeline
+
+
+ALLOWED_SKIPPED_JOBS = {"notify_failure"}
+ALLOWED_IN_PROGRESS_JOBS = {"learn_record"}
+BLOCKING_JOB_STATES = {
+    "failed",
+    "canceled",
+    "manual",
+    "scheduled",
+}
 
 
 def _get_chromadb() -> ChromaDBIntegration:
@@ -22,47 +29,52 @@ def _get_chromadb() -> ChromaDBIntegration:
     return ChromaDBIntegration(chromadb_config)
 
 
+def _pipeline_warning_reasons(pipeline: Dict[str, Any]) -> List[str]:
+    detailed_status = pipeline.get("detailed_status") or {}
+    fields = [
+        str(detailed_status.get("group", "")),
+        str(detailed_status.get("label", "")),
+        str(detailed_status.get("text", "")),
+        str(detailed_status.get("icon", "")),
+    ]
+    return [field for field in fields if "warning" in field.lower()]
+
+
+def _job_label(job: Dict[str, Any]) -> str:
+    name = job.get("name") or "unknown"
+    status = job.get("status") or "unknown"
+    allow_failure = " allow_failure=true" if job.get("allow_failure") else ""
+    return f"{name}:{status}{allow_failure}"
+
+
+def _blocking_jobs_for_strict_success(jobs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Return jobs that prove the pipeline is not a clean all-stage success."""
+    blocking = []
+    for job in jobs:
+        name = job.get("name") or ""
+        status = job.get("status") or ""
+
+        if name in ALLOWED_IN_PROGRESS_JOBS and status in {"created", "pending", "running", "success"}:
+            continue
+        if name in ALLOWED_SKIPPED_JOBS and status == "skipped":
+            continue
+        if status == "success":
+            continue
+
+        if status in BLOCKING_JOB_STATES or status in {"skipped", "created", "pending", "running"}:
+            blocking.append(job)
+
+    return blocking
+
+
 async def get_relevant_feedback(language: str, framework: str, limit: int = 5) -> List[Dict[str, Any]]:
     """
-    Retrieve relevant feedback from ChromaDB based on language and framework.
-    This implements the reinforcement learning aspect.
+    Feedback documents are intentionally disabled for GitLab pipeline
+    generation. ChromaDB must contain only:
+    - gitlab_successful_template: verified successful RL templates
+    - Generic_template: generic stage reference used by LLM fallback
     """
-    try:
-        chromadb = _get_chromadb()
-
-        # Check if collection exists
-        collection = await chromadb.get_collection(FEEDBACK_COLLECTION)
-        if not collection:
-            await chromadb.close()
-            return []
-
-        # Query for similar cases
-        query_text = f"pipeline for {language} {framework} application"
-        results = await chromadb.query(
-            collection_id=FEEDBACK_COLLECTION,
-            query_texts=[query_text],
-            n_results=limit,
-            include=["documents", "metadatas"]
-        )
-
-        await chromadb.close()
-
-        feedback_list = []
-        if results and results.get('documents'):
-            for i, doc in enumerate(results['documents'][0]):
-                metadata = results['metadatas'][0][i] if results.get('metadatas') else {}
-                feedback_list.append({
-                    "feedback": doc,
-                    "language": metadata.get('language'),
-                    "framework": metadata.get('framework'),
-                    "error_type": metadata.get('error_type'),
-                    "fix_description": metadata.get('fix_description')
-                })
-
-        return feedback_list
-    except Exception as e:
-        print(f"Error getting feedback: {e}")
-        return []
+    return []
 
 
 async def store_feedback(
@@ -76,63 +88,10 @@ async def store_feedback(
     fix_description: str
 ) -> bool:
     """
-    Store feedback from manual corrections for reinforcement learning.
+    Disabled to keep ChromaDB restricted to the two GitLab template sections.
     """
-    try:
-        chromadb = _get_chromadb()
-
-        # Ensure collection exists
-        collection = await chromadb.get_collection(FEEDBACK_COLLECTION)
-        if not collection:
-            await chromadb.create_collection(
-                FEEDBACK_COLLECTION,
-                metadata={"description": "Pipeline generation feedback for RL"}
-            )
-
-        # Generate unique ID based on content
-        content_hash = hashlib.md5(
-            f"{original_gitlab_ci}{corrected_gitlab_ci}".encode()
-        ).hexdigest()[:12]
-
-        # Create feedback document
-        feedback_doc = f"""
-## Original GitLab CI:
-```yaml
-{original_gitlab_ci[:500]}...
-```
-
-## Corrected GitLab CI:
-```yaml
-{corrected_gitlab_ci[:500]}...
-```
-
-## Error Type: {error_type}
-## Fix Description: {fix_description}
-
-## Key Changes:
-- Language: {language}
-- Framework: {framework}
-"""
-
-        # Store in ChromaDB
-        await chromadb.add_documents(
-            collection_name=FEEDBACK_COLLECTION,
-            ids=[f"feedback_{content_hash}_{datetime.now().strftime('%Y%m%d%H%M%S')}"],
-            documents=[feedback_doc],
-            metadatas=[{
-                "language": language,
-                "framework": framework,
-                "error_type": error_type,
-                "fix_description": fix_description,
-                "timestamp": datetime.now().isoformat()
-            }]
-        )
-
-        await chromadb.close()
-        return True
-    except Exception as e:
-        print(f"Error storing feedback: {e}")
-        return False
+    print("[RL] Feedback storage skipped; only successful templates are stored.")
+    return False
 
 
 async def record_pipeline_result(
@@ -174,13 +133,15 @@ async def record_pipeline_result(
 
             # Get pipeline jobs to see which stages passed
             jobs_url = f"{parsed['host']}/api/v4/projects/{parsed['project_path']}/pipelines/{pipeline_id}/jobs"
-            jobs_resp = await client.get(jobs_url, headers=headers)
+            jobs_resp = await client.get(jobs_url, headers=headers, params={"per_page": 100})
             jobs = jobs_resp.json() if jobs_resp.status_code == 200 else []
 
             stages_passed = [job['name'] for job in jobs if job.get('status') == 'success']
             stages_failed = [job['name'] for job in jobs if job.get('status') == 'failed']
             stages_running = [job['name'] for job in jobs if job.get('status') == 'running']
             stages_skipped = [job['name'] for job in jobs if job.get('status') == 'skipped']
+            warning_reasons = _pipeline_warning_reasons(pipeline)
+            blocking_jobs = _blocking_jobs_for_strict_success(jobs)
 
             # Handle the case when called from the learn_record job itself
             # If pipeline is "running" but only learn_record is running and all other jobs passed,
@@ -189,7 +150,7 @@ async def record_pipeline_result(
             if status == 'running':
                 # Check if only learn-related jobs are still running
                 non_learn_running = [j for j in stages_running if 'learn' not in j.lower()]
-                if not non_learn_running and not stages_failed:
+                if not non_learn_running and not blocking_jobs and not warning_reasons:
                     # All non-learn jobs have passed, treat as success
                     effective_status = 'success'
                     print(f"[RL] Pipeline {pipeline_id} is running but all non-learn stages passed - treating as success")
@@ -197,7 +158,12 @@ async def record_pipeline_result(
                     return {
                         "success": True,
                         "status": status,
-                        "message": f"Pipeline still {status}, will record when complete",
+                        "message": (
+                            f"Pipeline still {status} or has non-passing jobs; "
+                            "will not record until every required job is green"
+                        ),
+                        "non_passing_jobs": [_job_label(job) for job in blocking_jobs],
+                        "warning_reasons": warning_reasons,
                         "recorded": False
                     }
             elif status not in ['success', 'failed']:
@@ -236,25 +202,49 @@ async def record_pipeline_result(
                 "framework": framework,
                 "stages_passed": stages_passed,
                 "stages_failed": stages_failed,
+                "stages_skipped": stages_skipped,
+                "warning_reasons": warning_reasons,
+                "non_passing_jobs": [_job_label(job) for job in blocking_jobs],
                 "duration": pipeline.get('duration'),
                 "recorded": False
             }
 
             if status == 'success':
-                # QUALITY GATE: Only save to RAG DB when ALL stages pass.
-                # notify_failure is expected to be skipped (it's when: on_failure).
-                # learn_record may still be running (it's the caller).
-                # Any other failed or skipped job means the pipeline is NOT fully proven.
-                unexpected_failed = [j for j in stages_failed if j not in ('learn_record',)]
-                unexpected_skipped = [j for j in stages_skipped if j not in ('notify_failure',)]
-
-                if unexpected_failed or unexpected_skipped:
-                    issue_jobs = unexpected_failed + unexpected_skipped
-                    print(f"[RL] Pipeline {pipeline_id} succeeded but has non-passing jobs: {issue_jobs} — NOT saving to RAG")
+                direct_rag_markers = (
+                    "Pipeline Source: RAG (proven template from ChromaDB)",
+                    'PIPELINE_SOURCE: "RAG (proven template from ChromaDB)"',
+                    'PIPELINE_GENERATOR: "chromadb-direct"',
+                )
+                if any(marker in gitlab_ci_content for marker in direct_rag_markers):
+                    print(
+                        f"[RL] Pipeline {pipeline_id} is a direct RAG reuse "
+                        f"({language}/{framework}) — NOT saving back to RAG"
+                    )
                     result["message"] = (
-                        f"Pipeline succeeded but not all stages passed "
-                        f"(failed: {unexpected_failed}, skipped: {unexpected_skipped}). "
-                        f"NOT saving to RAG DB — only fully passing pipelines are stored."
+                        "Pipeline succeeded from direct RAG reuse. NOT saving "
+                        "back to RAG; direct RAG hits already came from "
+                        "gitlab_successful_template and operator deletes must "
+                        "remain effective."
+                    )
+                    result["recorded"] = False
+                    return result
+
+                # STRICT QUALITY GATE: Store to RAG only when GitLab reports a
+                # clean success and every real job is green. GitLab marks a
+                # pipeline as `success` even when an allow_failure job failed;
+                # that appears as detailed_status=success-with-warnings and
+                # must never become a reusable RAG template.
+                if warning_reasons or blocking_jobs:
+                    print(
+                        f"[RL] Pipeline {pipeline_id} is not a clean success "
+                        f"(warnings={warning_reasons}, jobs={[_job_label(job) for job in blocking_jobs]}) "
+                        "— NOT saving to RAG"
+                    )
+                    result["message"] = (
+                        "Pipeline did not pass cleanly. GitLab reported warnings "
+                        f"{warning_reasons or 'none'} and non-passing jobs "
+                        f"{[_job_label(job) for job in blocking_jobs] or 'none'}. "
+                        "NOT saving to RAG DB; only all-green pipelines are stored."
                     )
                     result["recorded"] = False
                 else:
@@ -272,7 +262,13 @@ async def record_pipeline_result(
                         stages_passed=stages_passed
                     )
                     result["recorded"] = stored
-                    result["message"] = "Pipeline succeeded with ALL stages passing! Configuration stored for reinforcement learning."
+                    result["message"] = (
+                        "Pipeline succeeded with ALL stages passing. "
+                        "Configuration stored for reinforcement learning."
+                        if stored else
+                        "Pipeline succeeded with ALL stages passing, but RAG storage "
+                        "was skipped because the exact template already exists or storage failed."
+                    )
             else:
                 # Record failure for analysis
                 result["message"] = f"Pipeline failed. Failed stages: {', '.join(stages_failed)}"

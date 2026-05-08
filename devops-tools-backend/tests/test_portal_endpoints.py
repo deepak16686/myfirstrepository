@@ -187,11 +187,10 @@ def test_launch_prefers_url_funnel_when_host_is_subdomain_public(
     assert body["redirect_url"] == tool["url_funnel"]
 
 
-def test_launch_public_host_falls_back_to_external_when_no_funnel(
+def test_launch_public_host_rejects_tools_without_public_url(
     client: TestClient,
 ) -> None:
-    """If the tool has no url_funnel (e.g. redis, postgres-ai), a public
-    Host should fall back to url_external (or url_internal) without crashing."""
+    """Public-origin launches must not fall back to localhost/internal URLs."""
     all_tools = client.get("/api/v1/portal/tools").json()
     tool = _find_tool(
         all_tools,
@@ -202,14 +201,8 @@ def test_launch_public_host_falls_back_to_external_when_no_funnel(
         f"/api/v1/portal/launch/{tool['id']}",
         headers={"Host": "deepaksharma.live"},
     )
-    assert resp.status_code == 200
-    body = resp.json()
-    # The funnel path is skipped (tool has no url_funnel); we then fall
-    # through to the existing same-origin heuristic. For a public host
-    # that isn't an in-cluster suffix, `prefer_internal` is False so we
-    # pick url_external (or url_internal if external is empty).
-    expected = tool.get("url_external") or tool.get("url_internal") or ""
-    assert body["redirect_url"] == expected
+    assert resp.status_code == 409
+    assert "no launch URL" in resp.json()["detail"]
 
 
 def test_launch_internal_host_still_prefers_internal(client: TestClient) -> None:

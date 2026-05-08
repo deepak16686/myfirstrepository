@@ -11,7 +11,7 @@ import { ToolCard } from '@/components/tools/ToolCard';
 import { ToolsTableView } from '@/components/tools/ToolsTableView';
 import { ToolsCompactView } from '@/components/tools/ToolsCompactView';
 import { useUiStore, type SavedViewKey } from '@/store/ui';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch, resolveCurrentLaunchUrl } from '@/lib/launch';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -92,16 +92,11 @@ export function Tools(): React.ReactElement {
   }, [categories]);
 
   const onLaunch = async (t: Tool): Promise<void> => {
-    if (!t.url_external) {
-      toast.error('No external URL configured');
+    if (!resolveCurrentLaunchUrl(t)) {
+      toast.error('No public launch URL configured');
       return;
     }
-    try {
-      const r = await launchTool(t.id);
-      window.open(r.redirect_url || t.url_external, '_blank', 'noopener,noreferrer');
-    } catch {
-      window.open(t.url_external, '_blank', 'noopener,noreferrer');
-    }
+    await openToolLaunch(t);
   };
 
   const onEmbed = (t: Tool): void => {

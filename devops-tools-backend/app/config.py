@@ -73,14 +73,34 @@ class Settings(BaseSettings):
     github_token: Optional[str] = Field(default="", repr=False)
 
     # LLM provider registry — selects which backend powers pipeline generation.
-    # Supported ids: "ollama", "claude-code", "openai". Default is ollama (local).
+    # Supported ids: "ollama", "codex-code", "claude-code", "openai".
+    # Default is ollama (local) unless overridden by env.
     llm_provider: str = "ollama"
+    # Optional override for Codex CLI's model flag.
+    codex_model: Optional[str] = "gpt-5.5"
+    # Timeout (seconds) for Codex CLI non-interactive invocation via `exec`.
+    codex_timeout: int = 600
     # Optional override for Claude CLI's model flag (opus/sonnet/haiku).
     claude_model: Optional[str] = None
+    # Timeout (seconds) for Claude CLI non-interactive invocation via `-p`.
+    # Generation runs tend to be 30-90s; long-form reasoning can push past 180s.
+    claude_timeout: int = 300
     # Optional OpenAI API key; when empty the OpenAI provider is disabled in the registry.
     openai_api_key: Optional[str] = Field(default="", repr=False)
 
     redis_url: str = "redis://redis:6379/0"
+
+    # ------------------------------------------------------------------
+    # Public-facing URLs — used to build click-through links the user
+    # opens from the portal (e.g. GitLab pipeline pages).
+    # ------------------------------------------------------------------
+    # Cloudflare public URL used by the chat/pipeline tools to build
+    # click-through links the user opens from the portal.
+    public_base_url: Optional[str] = "https://deepaksharma.live"
+    public_base_domain: Optional[str] = "deepaksharma.live"
+    # Legacy Tailscale Funnel URL retained only as a fallback for tailnet-only
+    # operation. Prefer PUBLIC_BASE_URL for browser-facing links.
+    tailscale_base_url: str = "https://deepaksharma.live"
 
     # Postgres DSN must be provided via env (POSTGRES_URL) or config file.
     # No credential default is shipped in source.

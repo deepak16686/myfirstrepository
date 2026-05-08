@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "DevOps Portal SPA — unified dashboard for 34 locally-hosted DevOps/AI tools.",
+  "description": "DevOps Portal SPA — unified dashboard for 62 locally-hosted DevOps/AI tools.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

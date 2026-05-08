@@ -59,6 +59,7 @@ export default tseslint.config(
       'src/components/layout/StatsStrip.tsx',
       'src/components/tools/ToolsCompactView.tsx',
       'src/components/cards/ToolCard.tsx',
+      'src/components/cards/PipelineProgressCard.tsx',
     ],
     rules: {
       'react-hooks/rules-of-hooks': 'off',

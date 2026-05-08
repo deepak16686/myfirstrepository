@@ -61,7 +61,7 @@ class LLMFixer:
         self.nexus_url = "http://ai-nexus:5001"
 
     def _get_llm(self):
-        """Get the configured LLM provider (Ollama or Claude Code)."""
+        """Get the configured LLM provider."""
         return get_llm_provider()
 
     async def analyze_error(self, error_log: str) -> Tuple[str, str]:

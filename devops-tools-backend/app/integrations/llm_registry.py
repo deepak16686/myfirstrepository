@@ -59,6 +59,16 @@ class LLMProviderRegistry:
             enabled=True,
         )
 
+        # Codex Code CLI
+        self._providers["codex-code"] = LLMProviderInfo(
+            id="codex-code",
+            name="Codex Code",
+            description="OpenAI Codex via CLI for code generation",
+            models=["gpt-5.5", "gpt-5.3-codex", "gpt-5.3-codex-spark", "gpt-5.2"],
+            default_model=settings.codex_model or "gpt-5.5",
+            enabled=True,  # CLI is installed in the backend image
+        )
+
         # Claude Code CLI
         self._providers["claude-code"] = LLMProviderInfo(
             id="claude-code",
@@ -97,7 +107,7 @@ class LLMProviderRegistry:
         return self._providers.get(self._active_provider_id)
 
     def get_active_display_name(self) -> str:
-        """Human-readable name like 'Claude Code (opus)'."""
+        """Human-readable active provider name, e.g. 'Codex Code (gpt-5.5)'."""
         info = self.get_active_provider_info()
         return info.display_name if info else "Unknown LLM"
 
@@ -129,7 +139,10 @@ class LLMProviderRegistry:
         """Factory: create a provider instance. Defaults to active provider."""
         pid = provider_id or self._active_provider_id
 
-        if pid == "claude-code":
+        if pid == "codex-code":
+            from app.integrations.codex_code import CodexCodeIntegration
+            return CodexCodeIntegration()
+        elif pid == "claude-code":
             from app.integrations.claude_code import ClaudeCodeIntegration
             return ClaudeCodeIntegration()
         elif pid == "openai":

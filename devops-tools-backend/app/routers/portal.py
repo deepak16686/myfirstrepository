@@ -494,11 +494,11 @@ async def list_categories(request: Request) -> list[CategoryOut]:
 # ---------------------------------------------------------------------------
 # Launch — pick the right URL flavour for the request's origin.
 # ---------------------------------------------------------------------------
-# Public funnel domain suffix that, when it appears in the Host header, tells
-# us the request arrived via the internet-facing Tailscale Funnel + nginx
-# wildcard SNI router. In that scenario the user's browser can *only* reach
-# tools via public DNS (they don't have the tailnet running), so we MUST
-# redirect to `url_funnel` rather than `url_external` (localhost).
+# Public domain suffix that, when it appears in the Host header, tells us the
+# request arrived via the internet-facing Cloudflare/nginx public route. In
+# that scenario the user's browser can only rely on public DNS, so we MUST
+# redirect to `url_funnel` rather than `url_external` (localhost) or
+# `url_tailnet` (Tailscale).
 #
 # Kept as a module constant so tests can monkeypatch it if the domain ever
 # changes, and so the value is discoverable via imports.
@@ -537,7 +537,7 @@ async def launch(tool_id: str, request: Request) -> LaunchResponse:
 
     Priority order (first non-empty wins):
 
-        request Host is `*.deepaksharma.live` -> url_funnel (if set)
+        request Host is `*.deepaksharma.live` -> url_funnel only
         in-cluster same-origin heuristic      -> url_internal
         everything else                       -> url_external
 
@@ -553,13 +553,12 @@ async def launch(tool_id: str, request: Request) -> LaunchResponse:
 
     host = (request.headers.get("host") or "").lower()
 
-    # --- Public-funnel Host header + tool has a funnel URL? --------------
+    # --- Public Host header + tool has a public URL? ---------------------
     # User is on https://deepaksharma.live or https://<tool>.deepaksharma.live.
-    # url_funnel is the branded public URL (GoDaddy 301 → tailnet) for the
-    # 6 tools that have one. Fall back to url_tailnet for the rest (also
-    # public via the funnel).
+    # Never fall back to Tailnet or localhost from a public origin: launch
+    # buttons on the public dashboard must stay on branded public domains.
     if _is_public_host(host):
-        redirect = tool.url_funnel or tool.url_tailnet or tool.url_external
+        redirect = tool.url_funnel
     # --- Tailnet Host header (user hit the public .ts.net funnel URL) ----
     # url_external is localhost — NOT reachable from off-host. url_tailnet
     # points at the same hostname the user's already on so it always works.

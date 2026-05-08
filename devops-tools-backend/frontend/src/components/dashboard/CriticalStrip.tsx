@@ -7,7 +7,7 @@ import type { Tool } from '@/types/tool';
 import { resolveIcon } from '@/lib/icons';
 import { HealthDot } from '@/components/tools/HealthDot';
 import { useUiStore } from '@/store/ui';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch, resolveCurrentLaunchUrl } from '@/lib/launch';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { formatLatency, timeAgo } from '@/lib/utils';
 
@@ -38,16 +38,11 @@ export function CriticalStrip({ tools }: CriticalStripProps): React.ReactElement
   }
 
   const launch = async (t: Tool): Promise<void> => {
-    if (!t.url_external) {
-      toast.error('No external URL configured.');
+    if (!resolveCurrentLaunchUrl(t)) {
+      toast.error('No launch URL configured.');
       return;
     }
-    try {
-      const r = await launchTool(t.id);
-      window.open(r.redirect_url || t.url_external, '_blank', 'noopener,noreferrer');
-    } catch {
-      window.open(t.url_external, '_blank', 'noopener,noreferrer');
-    }
+    await openToolLaunch(t);
   };
 
   return (

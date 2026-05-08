@@ -160,7 +160,7 @@
 | rbac-init | hashicorp/vault:1.15 | Created (one-shot) |
 | vault-init | hashicorp/vault:1.15 | Exited 5w ago (one-shot) |
 | brandmatik-db-migrations | brandmatik/brandmatik-db-migrations:latest | Exited 10d ago (one-shot) |
-| chatbot-portal | dev-stack-chatbot-portal | Up 16h (unhealthy — legacy) |
+| chatbot-portal | dev-stack-chatbot-portal | Removed; legacy UI is profile-gated and replaced by devops-tools-backend on 8003 |
 
 ---
 
@@ -174,7 +174,7 @@ Unique host ports bound to loopback (127.0.0.1:...) or 0.0.0.0:... across all co
 3000  → grafana
 3001  → chromadb-admin
 3002  → gitea web
-3005  → chatbot-portal
+3005  → unbound (legacy chatbot-portal removed)
 3100  → loki
 4222  → chaos-nats (client)
 5001  → ai-nexus Docker registry

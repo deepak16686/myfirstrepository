@@ -20,7 +20,7 @@ import { HealthDot } from './HealthDot';
 import { resolveIcon } from '@/lib/icons';
 import { statusMeta } from '@/lib/status';
 import { cn, formatLatency, timeAgo } from '@/lib/utils';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch, resolveCurrentLaunchUrl } from '@/lib/launch';
 import { useUiStore } from '@/store/ui';
 
 interface ToolsTableViewProps {
@@ -173,16 +173,11 @@ export function ToolsTableView({
         cell: ({ row }) => {
           const t = row.original;
           const launch = async (): Promise<void> => {
-            if (!t.url_external) {
-              toast.error('No external URL configured');
+            if (!resolveCurrentLaunchUrl(t)) {
+              toast.error('No launch URL configured');
               return;
             }
-            try {
-              const r = await launchTool(t.id);
-              window.open(r.redirect_url || t.url_external, '_blank', 'noopener,noreferrer');
-            } catch {
-              window.open(t.url_external, '_blank', 'noopener,noreferrer');
-            }
+            await openToolLaunch(t);
           };
           return (
             <div className="flex items-center justify-end gap-1">
@@ -209,7 +204,7 @@ export function ToolsTableView({
                 size="sm"
                 className="h-7 gap-1.5 px-2.5 font-mono text-[11px] uppercase tracking-wider"
                 onClick={launch}
-                disabled={!t.url_external}
+                disabled={!resolveCurrentLaunchUrl(t)}
               >
                 Launch
                 <ExternalLink className="h-3 w-3" />

@@ -4,9 +4,10 @@ Pipeline Generator Constants
 Module-level constants extracted from PipelineGeneratorService class.
 """
 
-FEEDBACK_COLLECTION = "pipeline_feedback"
-TEMPLATES_COLLECTION = "pipeline_templates"
-SUCCESSFUL_PIPELINES_COLLECTION = "successful_pipelines"  # For reinforcement learning
+FEEDBACK_COLLECTION = "gitlab_successful_template"
+TEMPLATES_COLLECTION = "Generic_template"
+SUCCESSFUL_PIPELINES_COLLECTION = "gitlab_successful_template"  # Verified RL templates only
+GENERIC_TEMPLATE_COLLECTION = "Generic_template"  # Generic stage reference for LLM fallback
 DEFAULT_MODEL = "pipeline-generator-v5"  # Custom model with auto-commit workflow + Nexus rules
 
 # Language -> correct compile/build image in Nexus
@@ -24,6 +25,8 @@ LANGUAGE_COMPILE_IMAGES = {
     "celery": "python:3.11-slim",
     "go": "golang:1.22-alpine",
     "golang": "golang:1.22-alpine",
+    "elixir": "hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1",
+    "phoenix": "hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1",
     "rust": "rust:1.93-slim",
     "javascript": "node:20-alpine",
     "typescript": "node:20-alpine",
@@ -33,6 +36,7 @@ LANGUAGE_COMPILE_IMAGES = {
     "php": "php:8.3-fpm-alpine",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
+    "perl": "perl:5.32-slim",
 }
 
 # Language -> correct Dockerfile base image in Nexus
@@ -50,6 +54,8 @@ LANGUAGE_DOCKERFILE_IMAGES = {
     "celery": "python:3.11-slim",
     "go": "golang:1.22-alpine",
     "golang": "golang:1.22-alpine",
+    "elixir": "hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1",
+    "phoenix": "hexpm-elixir:1.16.3-erlang-26.2.5-alpine-3.19.1",
     "rust": "rust:1.93-slim",
     "javascript": "node:20-alpine",
     "typescript": "node:20-alpine",
@@ -59,6 +65,7 @@ LANGUAGE_DOCKERFILE_IMAGES = {
     "php": "php:8.3-fpm-alpine",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
+    "perl": "perl:5.32-slim",
 }
 
 # Language -> correct runtime image in Nexus (for Dockerfile FROM runtime stage)
@@ -76,6 +83,8 @@ LANGUAGE_RUNTIME_IMAGES = {
     "celery": "python:3.11-slim",
     "go": "alpine:3.18",
     "golang": "alpine:3.18",
+    "elixir": "alpine:3.18",
+    "phoenix": "alpine:3.18",
     "rust": "alpine:3.18",
     "javascript": "nginx:alpine",
     "typescript": "nginx:alpine",
@@ -85,6 +94,7 @@ LANGUAGE_RUNTIME_IMAGES = {
     "php": "php:8.3-fpm-alpine",
     "csharp": "dotnet-aspnet:8.0-alpine",
     "dotnet": "dotnet-aspnet:8.0-alpine",
+    "perl": "perl:5.32-slim",
 }
 
 # Language -> correct compile commands
@@ -100,6 +110,20 @@ LANGUAGE_COMPILE_COMMANDS = {
     "celery": ["pip install -r requirements.txt"],
     "go": ["go build -o app ./..."],
     "golang": ["go build -o app ./..."],
+    "elixir": [
+        "mix local.hex --force",
+        "mix local.rebar --force",
+        "mix deps.get --only ${MIX_ENV:-prod}",
+        "mix deps.compile",
+        "mix compile",
+    ],
+    "phoenix": [
+        "mix local.hex --force",
+        "mix local.rebar --force",
+        "mix deps.get --only ${MIX_ENV:-prod}",
+        "mix deps.compile",
+        "mix compile",
+    ],
     "rust": ["cargo build --release"],
     "javascript": ["npm install", "npm run build || true"],
     "typescript": ["npm install", "npm run build"],
@@ -107,4 +131,7 @@ LANGUAGE_COMPILE_COMMANDS = {
     "node": ["npm install", "npm run build || true"],
     "ruby": ["bundle install"],
     "php": ["composer install --no-dev"],
+    "perl": [
+        '[ -f Makefile.PL ] && perl Makefile.PL && make || echo "no Makefile.PL"'
+    ],
 }

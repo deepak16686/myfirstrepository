@@ -47,7 +47,14 @@ def test_real_registry_every_tool_has_core_fields() -> None:
         assert t.icon
         # health spec is always present
         assert t.health is not None
-        assert t.health.method in {"GET", "POST", "HEAD", "docker_ps", "docker_exec"}
+        assert t.health.method in {
+            "GET",
+            "POST",
+            "HEAD",
+            "tcp",
+            "docker_ps",
+            "docker_exec",
+        }
 
 
 def test_real_registry_categories_cover_all_tools() -> None:

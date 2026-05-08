@@ -174,23 +174,25 @@ async def get_best_template_files(
                 metadatas = data.get("metadatas", [])
 
                 if documents:
-                    # Sort by success_count and duration
-                    best_idx = 0
-                    best_score = 0
+                    # Prefer entries that actually parse into a Jenkinsfile.
+                    # Scoring ties ignored when a candidate yields no content.
+                    best_idx = -1
+                    best_score = float("-inf")
                     for i, meta in enumerate(metadatas):
                         score = meta.get("success_count", 0) * 100 - meta.get("duration", 0)
                         if score > best_score:
                             best_score = score
                             best_idx = i
+                    if best_idx < 0:
+                        best_idx = 0
 
                     doc = documents[best_idx]
-                    # Extract Jenkinsfile and Dockerfile from Markdown format
+                    # Extract Jenkinsfile and Dockerfile from Markdown format.
+                    # Accept groovy, plain, or unlabeled fences (seed data uses plain ```).
                     jenkinsfile = ""
                     dockerfile = ""
-
-                    # Extract content between ```groovy ... ``` fences
                     groovy_match = re.search(
-                        r'```groovy\s*\n(.*?)\n\s*```',
+                        r'```(?:groovy|Jenkinsfile|jenkinsfile)?\s*\n(pipeline\s*\{.*?)\n\s*```',
                         doc, re.DOTALL
                     )
                     if groovy_match:

@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { HealthDot } from './HealthDot';
 import { cn, formatLatency } from '@/lib/utils';
 import { statusMeta } from '@/lib/status';
+import { resolveCurrentLaunchUrl } from '@/lib/launch';
 
 interface ToolCardProps {
   tool: Tool;
@@ -210,7 +211,7 @@ function _ToolCard({
                 e.stopPropagation();
                 onLaunch(tool);
               }}
-              disabled={!tool.url_external}
+              disabled={!resolveCurrentLaunchUrl(tool)}
             >
               Launch
               <ExternalLink className="h-3 w-3" />

@@ -23,17 +23,15 @@
 #   compose_project — which docker compose project owns this container
 #   container_name  — container name (for pg_isready / redis-cli exec probes)
 #
-# Tailscale exposure design (see docs/PUBLIC_ACCESS_DEEPAKSHARMA_LIVE.md):
-#   - Funnel (public internet): ALL 29 HTTP-serving tools at <id>.deepaksharma.live,
-#     routed through a single Tailscale Funnel TCP-passthrough on :443 that hands
-#     encrypted traffic to host nginx on :8443. Nginx terminates TLS with a
-#     Let's Encrypt wildcard cert and dispatches by SNI ($host) to the local
-#     service port. This collapses the previous 3-slot design into a single
-#     funnel slot — see docs/PUBLIC_ACCESS_DEEPAKSHARMA_LIVE.md §"Why this design".
+# Public exposure design:
+#   - Public internet: HTTP-serving tools at <id>.deepaksharma.live,
+#     routed through the Cloudflare Tunnel to nginx on :8443. Nginx terminates
+#     TLS with a wildcard cert and dispatches by SNI ($host) to the local
+#     service port.
 #   - Serve (tailnet only):    every tool at <id>.deepak-desktop.tailac51e7.ts.net
 #     via the legacy HTTPS serve config (kept for internal / lab access).
-#   Custom domain "deepaksharma.live" uses a wildcard CNAME
-#   (*.deepaksharma.live -> deepak-desktop.tailac51e7.ts.net).
+#   Custom domain "deepaksharma.live" uses Cloudflare DNS records mapped to
+#   the deepaksharma-live tunnel.
 
 schema_version: 1
 generated_at: 2026-04-19
@@ -109,7 +107,7 @@ tools:
     # Public via Tailscale Funnel (TCP passthrough) + host nginx SNI router.
     # Protect at the nginx edge with basic auth or an OLLAMA_API_KEY header
     # — this endpoint has no built-in auth (see PUBLIC_ACCESS §Phase F).
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/ollama/
+    url_funnel: https://ollama.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/ollama/
     health:
       method: GET
@@ -132,7 +130,7 @@ tools:
     url_internal: http://chromadb:8000
     url_external: http://localhost:8005
     # Enable CHROMA_SERVER_AUTHN_CREDENTIALS + CHROMA_SERVER_AUTHN_PROVIDER before exposing.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/chromadb/
+    url_funnel: https://chromadb.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chromadb/
     health:
       method: GET
@@ -155,7 +153,7 @@ tools:
     # image hard-codes 3001 in next.config.js.
     url_internal: http://chromadb-admin:3001
     url_external: http://localhost:3001
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/chromadb-admin/
+    url_funnel: https://chromadb-admin.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chromadb-admin/
     health:
       method: GET
@@ -177,7 +175,7 @@ tools:
     url_external: http://localhost:6333
     # Set `QDRANT__SERVICE__API_KEY` before exposing — REST endpoint has no
     # built-in auth by default.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/qdrant/
+    url_funnel: https://qdrant.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/qdrant/
     health:
       method: GET
@@ -199,7 +197,7 @@ tools:
     icon: hard-hat
     url_internal: http://jenkins-master:8080
     url_external: http://localhost:8080
-    url_funnel: https://jenkins.deepaksharma.live/
+    url_funnel: https://jenkins.deepaksharma.live/jenkins/login
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/jenkins/login
     health:
       # Jenkins is started with JENKINS_OPTS=--prefix=/jenkins so every path is
@@ -288,7 +286,7 @@ tools:
     icon: git-fork
     url_internal: http://gitea-server:3000
     url_external: http://localhost:3002
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/gitea/
+    url_funnel: https://gitea.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/gitea/
     health:
       method: GET
@@ -321,25 +319,6 @@ tools:
     container_name: ai-sonarqube
 
   # ====== Security ======
-  - id: vault
-    name: HashiCorp Vault
-    category: security
-    description: Secret store, dynamic credentials, encryption as a service.
-    icon: key-round
-    url_internal: http://vault:8200
-    url_external: http://localhost:8200
-    url_funnel: https://vault.deepaksharma.live/
-    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/vault/
-    health:
-      method: GET
-      path: /v1/sys/health?standbyok=true
-      expect_status: 200
-    credentials: env:VAULT_TOKEN
-    embed: true
-    tags: [secrets, vault, encryption]
-    compose_project: infra-stack
-    container_name: vault
-
   - id: trivy
     name: Trivy
     category: security
@@ -348,7 +327,7 @@ tools:
     url_internal: http://trivy-server:8080
     url_external: http://localhost:8183
     # Trivy-server has NO built-in auth — front with nginx basic auth before exposing.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/trivy/
+    url_funnel: https://trivy.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/trivy/
     health:
       method: GET
@@ -391,8 +370,8 @@ tools:
     # Short subdomain `nexus-docker` used at the nginx SNI router for ergonomics
     # (Docker CLI doesn't mind the hostname length, but shorter is friendlier
     # for `docker login nexus-docker.deepaksharma.live`).
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/nexus-docker-registry/
-    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/nexus-docker-registry/
+    url_funnel: https://nexus-docker.deepaksharma.live/v2/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/nexus-docker/
     health:
       method: GET
       path: /v2/
@@ -433,7 +412,7 @@ tools:
     url_external: http://localhost:9090
     # No built-in auth. Put nginx basic auth in front OR uncomment the allow/deny
     # block in nginx-proxy/portal.conf to IP-restrict to the tailnet peers.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/prometheus/
+    url_funnel: https://prometheus.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/prometheus/
     health:
       # Prometheus is launched with --web.route-prefix=/prometheus/ so ALL
@@ -456,7 +435,7 @@ tools:
     url_internal: http://loki:3100
     url_external: http://localhost:3100
     # No built-in auth. Front with nginx basic auth before public exposure.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/loki/
+    url_funnel: https://loki.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/loki/
     health:
       method: GET
@@ -477,7 +456,7 @@ tools:
     url_internal: http://jaeger:16686
     url_external: http://localhost:16686
     # No built-in auth. Front with nginx basic auth before public exposure.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/jaeger/
+    url_funnel: https://jaeger.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/jaeger/
     health:
       method: GET
@@ -500,13 +479,14 @@ tools:
     # surface "ready but not shipping" / "pipeline errors" distinctly.
     url_internal: http://promtail:9080
     url_external: http://localhost:9080
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/promtail/
+    url_funnel: https://promtail.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/promtail/
     health:
       method: GET
       path: /ready
       expect_status: 200
-    credentials: none
+    # Upstream has no native auth — gated at nginx edge with basic auth.
+    credentials: vault:secret/devops/promtail/basic-auth
     embed: false
     tags: [logs, promtail, agent]
     compose_project: infra-stack
@@ -521,7 +501,7 @@ tools:
     url_internal: http://cadvisor:8080
     url_external: http://localhost:8182
     # Leaks container internals; ALWAYS front with basic auth before public exposure.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/cadvisor/
+    url_funnel: https://cadvisor.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/cadvisor/
     health:
       method: GET
@@ -543,7 +523,7 @@ tools:
     url_internal: http://node-exporter:9100
     url_external: http://localhost:9100
     # Leaks host-level telemetry; ALWAYS front with basic auth before public exposure.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/node-exporter/
+    url_funnel: https://node-exporter.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/node-exporter/
     health:
       method: GET
@@ -565,7 +545,7 @@ tools:
     url_internal: http://dcgm-exporter:9400
     url_external: http://localhost:9400
     # Leaks GPU telemetry; ALWAYS front with basic auth before public exposure.
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/dcgm-exporter/
+    url_funnel: https://dcgm-exporter.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/dcgm-exporter/
     health:
       method: GET
@@ -587,7 +567,7 @@ tools:
     icon: search-check
     url_internal: http://ai-splunk:8000
     url_external: http://localhost:10000
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/splunk/
+    url_funnel: https://splunk.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/splunk/
     health:
       method: GET
@@ -647,7 +627,7 @@ tools:
     icon: hard-drive
     url_internal: http://minio:9001
     url_external: http://localhost:9001
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/minio/
+    url_funnel: https://minio.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/minio/
     health:
       method: GET
@@ -667,7 +647,7 @@ tools:
     icon: kanban
     url_internal: http://jira:8080
     url_external: http://localhost:8180
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/jira/
+    url_funnel: https://jira.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/jira/
     health:
       method: GET
@@ -686,7 +666,7 @@ tools:
     icon: clipboard-list
     url_internal: http://redmine:3000
     url_external: http://localhost:8090
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/redmine/
+    url_funnel: https://redmine.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/redmine/
     health:
       method: GET
@@ -706,7 +686,7 @@ tools:
     icon: router
     url_internal: http://nginx-proxy:80
     url_external: http://localhost:8443
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/nginx-proxy/
+    url_funnel: https://deepaksharma.live/healthz
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/nginx-proxy/
     health:
       method: GET
@@ -730,7 +710,7 @@ tools:
     # directly to the backend on 127.0.0.1:8003. The apex deepaksharma.live
     # still serves /api/* to the backend via the frontend subdomain for
     # backward compatibility (see portal.conf @spa_api_passthrough).
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/devops-tools-backend/
+    url_funnel: https://api.deepaksharma.live/docs
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/devops-tools-backend/
     health:
       method: GET
@@ -757,7 +737,7 @@ tools:
     url_internal: http://devops-tools-backend:8003
     url_external: http://localhost:8003
     # Shares funnel slot #1 with the backend (nginx routes /api/* to backend, / to frontend).
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/devops-tools-frontend/
+    url_funnel: https://deepaksharma.live/tools
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/devops-tools-frontend/
     health:
       method: GET
@@ -782,7 +762,7 @@ tools:
     # the host loopback automatically.
     url_internal: http://host.docker.internal:8100
     url_external: http://localhost:8100
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/brandmatik/
+    url_funnel: https://brandmatik.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik/
     health:
       method: GET
@@ -804,7 +784,7 @@ tools:
     # / returns 404 from the gateway (no root route); /health returns 200.
     url_internal: http://host.docker.internal:28080
     url_external: http://localhost:28080
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/chaos-platform/
+    url_funnel: https://chaos-portal.deepaksharma.live/
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-platform/
     health:
       method: GET
@@ -826,7 +806,7 @@ tools:
     # reachable. /actuator/health returns 404.
     url_internal: http://taskflow-api-gateway:8080
     url_external: http://localhost:18080
-    url_funnel: https://deepak-desktop.tailac51e7.ts.net/taskflow/
+    url_funnel: https://taskflow.deepaksharma.live/health
     url_tailnet: https://deepak-desktop.tailac51e7.ts.net/taskflow/
     health:
       method: GET
@@ -837,3 +817,555 @@ tools:
     tags: [project, java, spring-boot]
     compose_project: taskflow
     container_name: taskflow-api-gateway
+
+  # ====== Publicly mapped project sub-services and utility UIs ======
+  - id: mailhog
+    name: MailHog
+    category: projects
+    description: Development SMTP catcher UI used by Taskflow and local service tests.
+    icon: send
+    url_internal: http://taskflow-mailhog:8025
+    url_external: http://localhost:8025
+    url_funnel: https://mailhog.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/mailhog/
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    credentials: vault:secret/devops/mailhog/basic-auth
+    embed: true
+    tags: [mail, smtp, dev-tool, public]
+    compose_project: taskflow
+    container_name: taskflow-mailhog
+
+  - id: brandmatik-trend
+    name: Brandmatik Trend Collector
+    category: projects
+    description: Brandmatik trend ingestion and trend-analysis API.
+    icon: activity
+    url_internal: http://brandmatik-trend-collector:8001
+    url_external: http://localhost:8101
+    url_funnel: https://brandmatik-trend.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-trend/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, trends, public]
+    compose_project: brandmatik
+    container_name: brandmatik-trend-collector
+
+  - id: brandmatik-scoring
+    name: Brandmatik Scoring Engine
+    category: projects
+    description: Brand scoring and ranking API for social content intelligence.
+    icon: activity
+    url_internal: http://brandmatik-scoring-engine:8002
+    url_external: http://localhost:8102
+    url_funnel: https://brandmatik-scoring.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-scoring/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, scoring, public]
+    compose_project: brandmatik
+    container_name: brandmatik-scoring-engine
+
+  - id: brandmatik-content
+    name: Brandmatik Content Generator
+    category: projects
+    description: AI content-generation API for campaign and post drafts.
+    icon: file-text
+    url_internal: http://brandmatik-content-generator:8003
+    url_external: http://localhost:8103
+    url_funnel: https://brandmatik-content.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-content/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, content, public]
+    compose_project: brandmatik
+    container_name: brandmatik-content-generator
+
+  - id: brandmatik-business
+    name: Brandmatik Business Service
+    category: projects
+    description: Business-profile and account-domain API for Brandmatik.
+    icon: server
+    url_internal: http://brandmatik-business-service:8004
+    url_external: http://localhost:8104
+    url_funnel: https://brandmatik-business.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-business/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, business, public]
+    compose_project: brandmatik
+    container_name: brandmatik-business-service
+
+  - id: brandmatik-posting
+    name: Brandmatik Posting Service
+    category: projects
+    description: Social-post scheduling and publishing API.
+    icon: send
+    url_internal: http://brandmatik-posting-service:8005
+    url_external: http://localhost:8105
+    url_funnel: https://brandmatik-posting.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-posting/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, posting, public]
+    compose_project: brandmatik
+    container_name: brandmatik-posting-service
+
+  - id: brandmatik-analytics
+    name: Brandmatik Analytics Service
+    category: projects
+    description: Analytics and reporting API for social-media performance.
+    icon: line-chart
+    url_internal: http://brandmatik-analytics-service:8006
+    url_external: http://localhost:8106
+    url_funnel: https://brandmatik-analytics.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-analytics/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, analytics, public]
+    compose_project: brandmatik
+    container_name: brandmatik-analytics-service
+
+  - id: brandmatik-feedback
+    name: Brandmatik Feedback Service
+    category: projects
+    description: Feedback capture and review API for generated content loops.
+    icon: clipboard-list
+    url_internal: http://brandmatik-feedback-service:8007
+    url_external: http://localhost:8107
+    url_funnel: https://brandmatik-feedback.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-feedback/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, feedback, public]
+    compose_project: brandmatik
+    container_name: brandmatik-feedback-service
+
+  - id: brandmatik-notification
+    name: Brandmatik Notification Service
+    category: projects
+    description: Notification dispatch API for Brandmatik workflows.
+    icon: send
+    url_internal: http://brandmatik-notification-service:8008
+    url_external: http://localhost:8108
+    url_funnel: https://brandmatik-notification.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-notification/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, notifications, public]
+    compose_project: brandmatik
+    container_name: brandmatik-notification-service
+
+  - id: brandmatik-mock
+    name: Brandmatik Mock Social Poster
+    category: projects
+    description: Mock social-posting service for safe local publishing tests.
+    icon: layers
+    url_internal: http://brandmatik-mock-social-poster:8010
+    url_external: http://localhost:8110
+    url_funnel: https://brandmatik-mock.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-mock/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [brandmatik, api, mock, public]
+    compose_project: brandmatik
+    container_name: brandmatik-mock-social-poster
+
+  - id: brandmatik-qdrant
+    name: Brandmatik Qdrant
+    category: projects
+    description: Brandmatik vector database API for embeddings and similarity search.
+    icon: vector-square
+    url_internal: http://brandmatik-qdrant:6333
+    url_external: http://localhost:6335
+    url_funnel: https://brandmatik-qdrant.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/brandmatik-qdrant/
+    health:
+      method: GET
+      path: /healthz
+      expect_status: 200
+    credentials: vault:secret/devops/brandmatik-qdrant/basic-auth
+    embed: false
+    tags: [brandmatik, vector-db, qdrant, public]
+    compose_project: brandmatik
+    container_name: brandmatik-qdrant
+
+  - id: chaos-portal
+    name: Chaos Portal UI
+    category: projects
+    description: Browser UI for chaos experiments, services, and platform status.
+    icon: layout-dashboard
+    url_internal: http://chaos-portal-ui:3001
+    url_external: http://localhost:13001
+    url_funnel: https://chaos-portal.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-portal/
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    credentials: none
+    embed: true
+    tags: [chaos-platform, ui, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-portal-ui
+
+  - id: chaos-auth
+    name: Chaos Auth Service
+    category: projects
+    description: Authentication API for the chaos platform.
+    icon: key-round
+    url_internal: http://chaos-auth-service:8081
+    url_external: http://localhost:28081
+    url_funnel: https://chaos-auth.deepaksharma.live/health
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-auth/health
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, api, auth, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-auth-service
+
+  - id: chaos-experiment
+    name: Chaos Experiment Engine
+    category: projects
+    description: Experiment orchestration API for controlled failure injection.
+    icon: zap-off
+    url_internal: http://chaos-experiment-engine:8082
+    url_external: http://localhost:28082
+    url_funnel: https://chaos-experiment.deepaksharma.live/health
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-experiment/health
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, api, experiments, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-experiment-engine
+
+  - id: chaos-telemetry
+    name: Chaos Telemetry Aggregator
+    category: projects
+    description: Telemetry ingestion API and gRPC collector for chaos experiments.
+    icon: activity
+    url_internal: http://chaos-telemetry-aggregator:8083
+    url_external: http://localhost:28083
+    url_funnel: https://chaos-telemetry.deepaksharma.live/health
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-telemetry/health
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, api, telemetry, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-telemetry-aggregator
+
+  - id: chaos-ai
+    name: Chaos AI Engine
+    category: projects
+    description: AI-assisted experiment analysis and recommendation API.
+    icon: brain
+    url_internal: http://chaos-ai-engine:8084
+    url_external: http://localhost:28084
+    url_funnel: https://chaos-ai.deepaksharma.live/docs
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-ai/docs
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, api, ai, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-ai-engine
+
+  - id: chaos-report
+    name: Chaos Report Service
+    category: projects
+    description: Report generation API for chaos experiment outcomes.
+    icon: file-text
+    url_internal: http://chaos-report-service:8085
+    url_external: http://localhost:28085
+    url_funnel: https://chaos-report.deepaksharma.live/docs
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-report/docs
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, api, reports, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-report-service
+
+  - id: chaos-notify
+    name: Chaos Notification Service
+    category: projects
+    description: Notification API for chaos experiment events and alerts.
+    icon: send
+    url_internal: http://chaos-notification-service:8086
+    url_external: http://localhost:28086
+    url_funnel: https://chaos-notify.deepaksharma.live/health
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-notify/health
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, api, notifications, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-notification-service
+
+  - id: chaos-target1
+    name: Chaos Target App 1
+    category: projects
+    description: Demo target service used for chaos experiments.
+    icon: server
+    url_internal: http://chaos-target-app-1:8090
+    url_external: http://localhost:28090
+    url_funnel: https://chaos-target1.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-target1/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, target, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-target-app-1
+
+  - id: chaos-target2
+    name: Chaos Target App 2
+    category: projects
+    description: Demo target service used for chaos experiments.
+    icon: server
+    url_internal: http://chaos-target-app-2:8090
+    url_external: http://localhost:28091
+    url_funnel: https://chaos-target2.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-target2/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, target, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-target-app-2
+
+  - id: chaos-target3
+    name: Chaos Target App 3
+    category: projects
+    description: Demo target service used for chaos experiments.
+    icon: server
+    url_internal: http://chaos-target-app-3:8090
+    url_external: http://localhost:28092
+    url_funnel: https://chaos-target3.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-target3/
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [chaos-platform, target, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-target-app-3
+
+  - id: chaos-grafana
+    name: Chaos Grafana
+    category: projects
+    description: Grafana dashboards for the chaos platform.
+    icon: line-chart
+    url_internal: http://chaos-grafana:3000
+    url_external: http://localhost:13000
+    url_funnel: https://chaos-grafana.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-grafana/
+    health:
+      method: GET
+      path: /api/health
+      expect_status: 200
+    credentials: vault:secret/devops/chaos-grafana/admin
+    embed: true
+    tags: [chaos-platform, grafana, dashboards, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-grafana
+
+  - id: chaos-prometheus
+    name: Chaos Prometheus
+    category: projects
+    description: Prometheus metrics database for the chaos platform.
+    icon: activity
+    url_internal: http://chaos-prometheus:9090
+    url_external: http://localhost:19090
+    url_funnel: https://chaos-prometheus.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-prometheus/
+    health:
+      method: GET
+      path: /-/ready
+      expect_status: 200
+    credentials: vault:secret/devops/chaos-prometheus/basic-auth
+    embed: true
+    tags: [chaos-platform, prometheus, metrics, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-prometheus
+
+  - id: chaos-credentials
+    name: Chaos Credentials Dashboard
+    category: projects
+    description: Development-only credentials dashboard for the chaos platform.
+    icon: key-round
+    url_internal: http://chaos-credentials-dashboard:9091
+    url_external: http://localhost:9091
+    url_funnel: https://chaos-credentials.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-credentials/
+    health:
+      method: GET
+      path: /
+      expect_status: 200
+    credentials: vault:secret/devops/chaos-credentials/basic-auth
+    embed: true
+    tags: [chaos-platform, credentials, dev-tool, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-credentials-dashboard
+
+  - id: chaos-minio
+    name: Chaos MinIO
+    category: projects
+    description: S3-compatible object storage console for the chaos platform.
+    icon: hard-drive
+    url_internal: http://chaos-minio:9001
+    url_external: http://localhost:19001
+    url_funnel: https://chaos-minio.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-minio/
+    health:
+      method: GET
+      path: /minio/health/live
+      expect_status: 200
+    credentials: vault:secret/devops/chaos-minio/admin
+    embed: true
+    tags: [chaos-platform, minio, storage, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-minio
+
+  - id: chaos-nats
+    name: Chaos NATS
+    category: projects
+    description: NATS monitoring endpoint for chaos platform event transport.
+    icon: network
+    url_internal: http://chaos-nats:8222
+    url_external: http://localhost:8222
+    url_funnel: https://chaos-nats.deepaksharma.live/
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/chaos-nats/
+    health:
+      method: GET
+      path: /healthz
+      expect_status: 200
+    credentials: vault:secret/devops/chaos-nats/basic-auth
+    embed: false
+    tags: [chaos-platform, nats, queue, public]
+    compose_project: chaos-platform-setup
+    container_name: chaos-nats
+
+  - id: taskflow-auth
+    name: Taskflow Auth Service
+    category: projects
+    description: Authentication microservice for the Taskflow demo.
+    icon: key-round
+    url_internal: http://taskflow-auth-service:8080
+    url_external: http://localhost:18081
+    url_funnel: https://taskflow-auth.deepaksharma.live/health
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/taskflow-auth/health
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [taskflow, api, auth, public]
+    compose_project: taskflow
+    container_name: taskflow-auth-service
+
+  - id: taskflow-task
+    name: Taskflow Task Service
+    category: projects
+    description: Task domain microservice for the Taskflow demo.
+    icon: check-square
+    url_internal: http://taskflow-task-service:8080
+    url_external: http://localhost:18082
+    url_funnel: https://taskflow-task.deepaksharma.live/docs
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/taskflow-task/docs
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [taskflow, api, tasks, public]
+    compose_project: taskflow
+    container_name: taskflow-task-service
+
+  - id: taskflow-notify
+    name: Taskflow Notification Service
+    category: projects
+    description: Notification microservice for the Taskflow demo.
+    icon: send
+    url_internal: http://taskflow-notification-service:8080
+    url_external: http://localhost:18083
+    url_funnel: https://taskflow-notify.deepaksharma.live/health
+    url_tailnet: https://deepak-desktop.tailac51e7.ts.net/taskflow-notify/health
+    health:
+      method: GET
+      path: /health
+      expect_status: 200
+    credentials: none
+    embed: false
+    tags: [taskflow, api, notifications, public]
+    compose_project: taskflow
+    container_name: taskflow-notification-service

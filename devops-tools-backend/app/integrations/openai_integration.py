@@ -2,7 +2,7 @@
 OpenAI API Integration
 
 Calls the OpenAI-compatible API to generate LLM responses.
-Designed as a drop-in replacement matching Ollama/Claude interface:
+Designed as a drop-in replacement matching the local LLM provider interface:
     async generate(model, prompt, system, context, options) -> {"response": "..."}
     async close()
 """
@@ -33,7 +33,7 @@ class OpenAIIntegration:
         self._system_prompt_cache: Optional[str] = None
 
     def _load_system_prompt(self) -> str:
-        """Load the pipeline system prompt (shared with Claude)."""
+        """Load the shared pipeline system prompt."""
         if self._system_prompt_cache is not None:
             return self._system_prompt_cache
 

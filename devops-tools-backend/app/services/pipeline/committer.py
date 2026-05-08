@@ -29,7 +29,10 @@ async def commit_to_gitlab(
     """
     parsed = parse_gitlab_url(repo_url)
 
-    async with httpx.AsyncClient() as client:
+    # GitLab can take several seconds to create the commit and trigger the
+    # pipeline on this local omnibus stack; the default 5s httpx timeout is
+    # too short and can report failure after the commit has already landed.
+    async with httpx.AsyncClient(timeout=60.0) as client:
         headers = {
             "PRIVATE-TOKEN": gitlab_token,
             "Content-Type": "application/json"

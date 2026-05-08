@@ -208,14 +208,44 @@ def test_credentials_tool_without_credentials_returns_204(
 
 def test_credentials_unsupported_scheme_returns_400(
     client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path,
 ) -> None:
-    """`vault` tool itself uses `credentials: env:VAULT_TOKEN` — not `vault:`."""
+    """A credentials pointer with an unsupported scheme returns 400."""
+    registry_path = tmp_path / "tools.yaml"
+    registry_path.write_text(
+        """
+schema_version: 1
+categories:
+  - {id: platform, name: Platform, order: 1}
+tools:
+  - id: env-backed-tool
+    name: Env Backed Tool
+    category: platform
+    description: test fixture
+    icon: server
+    url_internal: http://env-backed-tool:8080
+    url_external: http://localhost:8080
+    health: {method: GET, path: /, expect_status: 200}
+    credentials: env:DEMO_TOKEN
+    embed: false
+    tags: []
+""",
+        encoding="utf-8",
+    )
+    from app.config import settings as app_settings
+    from app.services.tool_registry import invalidate_registry_cache
+
+    monkeypatch.setattr(app_settings, "tools_registry_path", registry_path)
+    invalidate_registry_cache()
+
     resp = client.get(
-        "/api/v1/portal/tools/vault/credentials",
+        "/api/v1/portal/tools/env-backed-tool/credentials",
         headers={OPERATOR_HEADER: OPERATOR_TOKEN},
     )
     assert resp.status_code == 400
     assert resp.json()["detail"] == "unsupported credentials pointer scheme"
+    invalidate_registry_cache()
 
 
 def test_credentials_success_returns_fields(

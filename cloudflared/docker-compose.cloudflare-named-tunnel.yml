@@ -1,0 +1,18 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.3.0
+    container_name: cloudflared-deepaksharma-live
+    restart: unless-stopped
+    command:
+      - tunnel
+      - --config
+      - /etc/cloudflared/config.yml
+      - run
+    volumes:
+      - ./:/etc/cloudflared:ro
+    networks:
+      - ai-platform-net
+
+networks:
+  ai-platform-net:
+    external: true

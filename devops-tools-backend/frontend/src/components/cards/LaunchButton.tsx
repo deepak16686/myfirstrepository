@@ -18,7 +18,7 @@ import type { Tool } from '@/types/tool';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { contextLabel, type LaunchContext } from '@/lib/urls';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch } from '@/lib/launch';
 
 interface LaunchButtonProps {
   tool: Tool;
@@ -42,15 +42,8 @@ export function LaunchButton({
       toast.error(`No launch URL configured for ${tool.name}`);
       return;
     }
-    // Best-effort: ask the backend for a (maybe-rewritten) redirect first.
-    try {
-      const r = await launchTool(tool.id);
-      const target = r.redirect_url && r.redirect_url.length > 0 ? r.redirect_url : url;
-      window.open(target, '_blank', 'noopener,noreferrer');
-    } catch {
-      // Backend is optional — open the context-resolved URL directly.
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
+    const opened = await openToolLaunch(tool);
+    if (!opened) toast.error(`No launch URL configured for ${tool.name}`);
   };
 
   return (

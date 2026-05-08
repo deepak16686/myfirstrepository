@@ -8,9 +8,10 @@
  *   2. Tailnet        → user loaded https://<host>.tail****.ts.net or one of
  *                        Tailscale's magic DNS hostnames (100.x.x.x also
  *                        qualifies). Prefer the tool's url_tailnet.
- *   3. Public funnel  → user loaded https://<tool>.deepaksharma.live via the
- *                        Tailscale Funnel. Prefer url_funnel, which is the
- *                        HTTPS Funnel endpoint that survives NAT.
+ *   3. Public domain  → user loaded https://<tool>.deepaksharma.live via the
+ *                        public Cloudflare/nginx route. Use url_funnel only,
+ *                        so public launches never fall back to Tailnet or
+ *                        localhost URLs.
  *
  * `resolveLaunchUrl` is a **pure function** — it takes the tool and the
  * hostname, and returns the best URL to open. It is framework-agnostic and
@@ -31,7 +32,7 @@ export function classifyHostname(hostname: string | null | undefined): LaunchCon
   // Tailscale MagicDNS name or 100.x.x.x (CGNAT) are always tailnet.
   if (h.endsWith('.ts.net') || h.endsWith('.tailscale.net')) return 'tailnet';
   if (/^100\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.test(h)) return 'tailnet';
-  // Tailscale Funnel exposes *.deepaksharma.live as the public DNS.
+  // Cloudflare/nginx exposes *.deepaksharma.live as the public DNS.
   if (h.endsWith('.deepaksharma.live') || h === 'deepaksharma.live') return 'public';
   // Anything else (localhost, 127.x, LAN IP, *.local) is treated as local.
   return 'local';
@@ -40,10 +41,10 @@ export function classifyHostname(hostname: string | null | undefined): LaunchCon
 /**
  * Choose the best URL to open for this tool given the current launch
  * context. Falls through in priority order so that a tool without a funnel
- * URL still gets SOMETHING reasonable when the user is on the public origin.
+ * URL still gets something reasonable in local/tailnet contexts.
  *
  * Priority per context:
- *   public  → url_funnel  > url_tailnet > url_external > url_internal
+ *   public  → url_funnel only
  *   tailnet → url_tailnet > url_funnel  > url_external > url_internal
  *   local   → url_external > url_tailnet > url_funnel  > url_internal
  */
@@ -55,7 +56,7 @@ export function resolveLaunchUrl(tool: Tool, context: LaunchContext): string | n
 
   const order: Array<string | null> =
     context === 'public'
-      ? [funnel, tailnet, external, internal]
+      ? [funnel]
       : context === 'tailnet'
         ? [tailnet, funnel, external, internal]
         : [external, tailnet, funnel, internal];

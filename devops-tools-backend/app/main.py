@@ -6,7 +6,7 @@ This backend provides a unified API layer for integrating with various DevOps to
 - SonarQube: Code quality, security analysis
 - Trivy: Container security scanning
 - Nexus: Artifact repository management
-- Ollama: LLM integration
+- LLM provider: Codex Code by default, with local/legacy alternatives
 - ChromaDB: Vector database for RAG
 - Portal: Unified catalog + live health for every locally-hosted tool
 
@@ -176,7 +176,10 @@ FRONTEND_FAVICON = os.path.join(FRONTEND_DIST, "favicon.svg")
 
 # Paths that must NEVER fall through to the SPA (return real 404 instead).
 # Kept as a tuple for startswith checks; order does not matter.
-_API_PREFIXES = ("api/", "docs", "redoc", "openapi.json", "assets/", "static/", "chat")
+# NB: do NOT add bare "chat" here — that prefix would swallow the SPA route
+# `/chat` (the AI Chat page) and break the React Router. The chat backend
+# is already covered by the `api/` prefix (mounted at `/api/v1/chat/`).
+_API_PREFIXES = ("api/", "docs", "redoc", "openapi.json", "assets/", "static/")
 
 
 @app.get("/")

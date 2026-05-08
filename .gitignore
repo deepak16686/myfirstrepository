@@ -40,6 +40,8 @@ chromadb-data/
 *.log
 files.zip
 Screenshots/
+/output/
+/*.png
 
 # ---- Environment files ----------------------------------------------------
 # Never commit actual env files. ONLY .env.example is tracked.
@@ -87,6 +89,10 @@ override.tf.json
 .claude/settings.json
 .claude/sessions/
 .claude/.history/
+.Codex/reports/
+.Codex/task-log/
+.playwright-cli/
+.playwright-mcp/
 
 # ---- Open WebUI function backups (may contain embedded PATs) --------------
 **/openwebui_functions/*.py.bak*
@@ -105,6 +111,7 @@ docker-compose.override.yml
 *.bak
 *.bak-*
 *.backup-*
+/package.json
 # Session-specific timestamp backups made during edits:
 *.bak-????????-??????
 .gitlab-root-creds.local

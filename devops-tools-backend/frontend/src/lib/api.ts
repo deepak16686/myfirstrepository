@@ -35,6 +35,8 @@ import {
   ToolSchema,
   type ChatResponse,
   ChatResponseSchema,
+  type PipelineProgress,
+  PipelineProgressSchema,
 } from '@/types/tool';
 
 /* ------------------------------------------------------------------------ */
@@ -398,15 +400,89 @@ export async function fetchPipelines(): Promise<PipelineRun[]> {
 /* ------------------------------------------------------------------------ */
 export async function sendChat(
   message: string,
-  conversationId: string | null
+  conversationId: string | null,
+  requestId?: string,
 ): Promise<ChatResponse> {
   return api('/api/v1/chat/', ChatResponseSchema, {
     method: 'POST',
-    body: JSON.stringify({ message, conversation_id: conversationId }),
+    body: JSON.stringify({
+      message,
+      conversation_id: conversationId,
+      request_id: requestId ?? null,
+    }),
   });
 }
 
 export async function newConversation(): Promise<{ conversation_id: string }> {
   const schema = z.object({ conversation_id: z.string() });
   return api('/api/v1/chat/new', schema, { method: 'POST' });
+}
+
+/**
+ * Live in-flight phase emitted by `_tool_run_pipeline` while the main
+ * `/api/v1/chat/` POST is still working. The frontend polls every ~1.5s
+ * keyed by the `request_id` it sent on the chat POST.
+ *
+ * Phase enum (loose — backend may add more):
+ *   idle | analyzing | checking_rag | rag_hit | llm_validated | llm_fixed
+ *   | committing | monitoring | validation_failed | error
+ */
+const ChatInflightSchema = z
+  .object({
+    phase: z.string(),
+    message: z.string().optional(),
+    ts: z.number().optional(),
+    rag_hit: z.boolean().optional(),
+    fix_attempts: z.number().optional(),
+    language: z.string().optional(),
+    framework: z.string().optional(),
+    branch: z.string().optional(),
+    gitlab_pipelines_url: z.string().optional(),
+    repo_url: z.string().optional(),
+    errors: z.array(z.string()).optional(),
+  })
+  .passthrough();
+export type ChatInflight = z.infer<typeof ChatInflightSchema>;
+
+export async function fetchChatInflight(key: string): Promise<ChatInflight> {
+  return api(
+    `/api/v1/chat/inflight/${encodeURIComponent(key)}`,
+    ChatInflightSchema,
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Pipeline self-heal monitor — polled by the chat after `commit_pipeline`    */
+/* ------------------------------------------------------------------------ */
+/**
+ * Poll the in-memory progress store for a (project_id, branch) pair.
+ *
+ * Endpoint: `GET /api/v1/pipeline/progress/{project_id}/{branch}`
+ *
+ *   • The branch segment is URL-encoded — branches like
+ *     `feature/ai-pipeline-abc` contain slashes, and FastAPI's `branch:path`
+ *     converter accepts the un-escaped slash, but we encode anyway so the
+ *     client survives a tightening of the route in either direction.
+ *   • If the backend hasn't started monitoring yet (or already evicted
+ *     completed entries) the response is `{ found: false }` — the schema
+ *     parses fine and the caller renders a "waiting…" state.
+ *   • A 404 is also gracefully translated to `{ found: false }` so the
+ *     poll loop doesn't bail on the first response that races backend
+ *     monitor startup.
+ */
+export async function fetchPipelineProgress(
+  projectId: number,
+  branch: string,
+): Promise<PipelineProgress> {
+  const path = `/api/v1/pipeline/progress/${encodeURIComponent(
+    String(projectId),
+  )}/${encodeURIComponent(branch)}`;
+  try {
+    return await api(path, PipelineProgressSchema);
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 404) {
+      return { found: false };
+    }
+    throw e;
+  }
 }

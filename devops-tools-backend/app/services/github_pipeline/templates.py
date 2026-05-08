@@ -182,20 +182,20 @@ async def get_best_template_files(
                 metadatas = data.get("metadatas", [])
 
                 if documents:
-                    # Sort by success_count and duration
-                    best_idx = 0
-                    best_score = 0
+                    best_idx = -1
+                    best_score = float("-inf")
                     for i, meta in enumerate(metadatas):
                         score = meta.get("success_count", 0) * 100 - meta.get("duration", 0)
                         if score > best_score:
                             best_score = score
                             best_idx = i
+                    if best_idx < 0:
+                        best_idx = 0
 
                     doc = documents[best_idx]
                     try:
-                        # Document is stored as markdown with embedded code blocks
-                        # Extract workflow from ```yaml ... ``` block
-                        yaml_match = re.search(r'```yaml\s*\n(.*?)```', doc, re.DOTALL)
+                        # Accept yaml/yml/unlabeled fences. Seed data uses plain ```.
+                        yaml_match = re.search(r'```(?:ya?ml)?\s*\n(.*?)```', doc, re.DOTALL)
                         dockerfile_match = re.search(r'```dockerfile\s*\n(.*?)```', doc, re.DOTALL)
 
                         workflow = yaml_match.group(1).strip() if yaml_match else ""

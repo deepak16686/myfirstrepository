@@ -1,0 +1,13 @@
+tunnel: replace-with-tunnel-uuid
+credentials-file: /etc/cloudflared/replace-with-tunnel-uuid.json
+
+ingress:
+  - hostname: deepaksharma.live
+    service: https://nginx-proxy:8443
+    originRequest:
+      noTLSVerify: true
+  - hostname: "*.deepaksharma.live"
+    service: https://nginx-proxy:8443
+    originRequest:
+      noTLSVerify: true
+  - service: http_status:404

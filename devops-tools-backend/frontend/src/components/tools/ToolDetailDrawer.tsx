@@ -34,7 +34,7 @@ import { useHealth } from '@/hooks/useHealth';
 import { useUiStore } from '@/store/ui';
 import { resolveIcon, categoryIcons } from '@/lib/icons';
 import { formatLatency, timeAgo } from '@/lib/utils';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch, resolveCurrentLaunchUrl } from '@/lib/launch';
 import type { HealthStatus } from '@/types/tool';
 
 function KeyValue({
@@ -110,16 +110,11 @@ export function ToolDetailDrawer(): React.ReactElement | null {
   const CategoryIcon = categoryIcons[tool.category] ?? Icon;
 
   const handleLaunch = async (): Promise<void> => {
-    if (!tool.url_external) {
-      toast.error('No external URL configured.');
+    if (!resolveCurrentLaunchUrl(tool)) {
+      toast.error('No launch URL configured.');
       return;
     }
-    try {
-      const r = await launchTool(tool.id);
-      window.open(r.redirect_url || tool.url_external, '_blank', 'noopener,noreferrer');
-    } catch {
-      window.open(tool.url_external, '_blank', 'noopener,noreferrer');
-    }
+    await openToolLaunch(tool);
   };
 
   const handleEmbed = (): void => {
@@ -272,7 +267,7 @@ export function ToolDetailDrawer(): React.ReactElement | null {
               </Button>
             ) : null}
           </div>
-          <Button size="sm" onClick={handleLaunch} disabled={!tool.url_external}>
+          <Button size="sm" onClick={handleLaunch} disabled={!resolveCurrentLaunchUrl(tool)}>
             Launch
             <ExternalLink className="h-3.5 w-3.5" />
           </Button>

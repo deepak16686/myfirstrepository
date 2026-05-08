@@ -155,11 +155,101 @@ export const ChatMessageSchema = z.object({
 });
 export type ChatMessage = z.infer<typeof ChatMessageSchema>;
 
+/**
+ * After a successful `commit_pipeline` tool call the backend kicks off a
+ * background self-healing monitor and surfaces the polling key on the
+ * chat response. The frontend uses this hint to start polling
+ * `/api/v1/pipeline/progress/{project_id}/{branch}`.
+ *
+ * The field is optional because:
+ *   • non-commit messages don't trigger monitoring
+ *   • older deploys may not include the field — Chat.tsx falls back to a
+ *     regex on `message` when `monitoring` is absent.
+ */
+export const ChatMonitoringHintSchema = z.object({
+  project_id: z.number(),
+  branch: z.string(),
+  self_healing_enabled: z.boolean().optional(),
+  max_heal_attempts: z.number().optional(),
+  monitor_mode: z.string().optional(),
+});
+export type ChatMonitoringHint = z.infer<typeof ChatMonitoringHintSchema>;
+
+/**
+ * Generation metadata attached to a chat response after a successful
+ * `generate_pipeline` tool call. The backend populates this from
+ * `app/services/pipeline/generator.py::generate_pipeline_files`:
+ *   - `rag_hit=true`             → Priority-1 RAG short-circuit (chromadb-direct)
+ *   - `fix_attempts>1`           → LLM single-shot needed N-1 fixer passes
+ *   - `persisted_to_rag=true`    → fixer-validated pipeline saved for next time
+ *   - `validation_passed=false`  → fixer exhausted 10 attempts; user should review
+ */
+export const ChatGenerationInfoSchema = z
+  .object({
+    template_source: z.string().nullable().optional(),
+    source_token: z.string().nullable().optional(),
+    rag_hit: z.boolean().nullable().optional(),
+    had_rag_reference: z.boolean().nullable().optional(),
+    fix_attempts: z.number().nullable().optional(),
+    validation_passed: z.boolean().nullable().optional(),
+    persisted_to_rag: z.boolean().nullable().optional(),
+    model_used: z.string().nullable().optional(),
+    language: z.string().nullable().optional(),
+    framework: z.string().nullable().optional(),
+  })
+  .passthrough();
+export type ChatGenerationInfo = z.infer<typeof ChatGenerationInfoSchema>;
+
 export const ChatResponseSchema = z.object({
   message: z.string(),
   conversation_id: z.string(),
+  pending_pipeline: z.unknown().nullable().optional(),
+  monitoring: ChatMonitoringHintSchema.nullable().optional(),
+  generation: ChatGenerationInfoSchema.nullable().optional(),
 });
 export type ChatResponse = z.infer<typeof ChatResponseSchema>;
+
+/* ------------------------------------------------------------------------ */
+/* Pipeline progress (live self-healing monitor)                              */
+/* ------------------------------------------------------------------------ */
+/**
+ * Mirrors `app/services/pipeline_progress.py::PipelineProgress.to_dict()`.
+ * Status enum is intentionally permissive: backend may add new stages
+ * over time and we don't want a Zod failure to break the polling loop.
+ */
+export const PipelineProgressEventSchema = z.object({
+  timestamp: z.string(),
+  stage: z.string(),
+  message: z.string(),
+  attempt: z.number(),
+  max_attempts: z.number(),
+});
+export type PipelineProgressEvent = z.infer<typeof PipelineProgressEventSchema>;
+
+export const PipelineProgressSchema = z.object({
+  found: z.boolean(),
+  project_id: z.number().optional(),
+  branch: z.string().optional(),
+  status: z.string().optional(),
+  current_message: z.string().optional(),
+  attempt: z.number().optional(),
+  max_attempts: z.number().optional(),
+  pipeline_id: z.number().nullable().optional(),
+  completed: z.boolean().optional(),
+  model_used: z.string().nullable().optional(),
+  fixer_model_used: z.string().nullable().optional(),
+  events: z.array(PipelineProgressEventSchema).optional(),
+  // Click-through URLs the user opens to watch the run live in GitLab.
+  // `pipelines_browser_url` is the branch-filtered list page; populated
+  // as soon as the monitor starts. `pipeline_web_url` is the deep link
+  // to the specific pipeline run; populated once the monitor learns the
+  // pipeline_id (typically within ~5s of the commit).
+  pipelines_browser_url: z.string().nullable().optional(),
+  pipeline_web_url: z.string().nullable().optional(),
+  // Backend may also include a "message" field on the not-found branch.
+  message: z.string().optional(),
+});
+export type PipelineProgress = z.infer<typeof PipelineProgressSchema>;
 
 /* ------------------------------------------------------------------------ */
 /* Credentials reveal                                                         */

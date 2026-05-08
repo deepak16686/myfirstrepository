@@ -5,10 +5,59 @@ Standalone functions for parsing GitLab URLs and analyzing repository structure.
 """
 import re
 from typing import Dict, Any, List
+from urllib.parse import urlparse
 
 import httpx
 
 from app.config import settings
+
+
+LEGACY_TAILSCALE_HOSTS = {"deepak-desktop.tailac51e7.ts.net"}
+
+
+def _host_name(netloc: str) -> str:
+    """Return the lowercase hostname without credentials or port."""
+    parsed = urlparse(f"//{netloc}")
+    return (parsed.hostname or netloc).lower()
+
+
+def _configured_hostname(url: str) -> str:
+    parsed = urlparse(url)
+    return (parsed.hostname or "").lower()
+
+
+def _managed_gitlab_api_base() -> str:
+    return settings.gitlab_url.rstrip("/")
+
+
+def _is_managed_gitlab_url(netloc: str, path: str) -> bool:
+    """True when the browser URL points at this local GitLab instance."""
+    host = _host_name(netloc)
+    public_domain = (
+        (getattr(settings, "public_base_domain", None) or "").lower()
+        or _configured_hostname(getattr(settings, "public_base_url", "") or "")
+    )
+    configured_tailscale_host = _configured_hostname(
+        getattr(settings, "tailscale_base_url", "") or ""
+    )
+
+    managed_hosts = {
+        "gitlab-server",
+        "localhost",
+        "127.0.0.1",
+        "host.docker.internal",
+        configured_tailscale_host,
+        *LEGACY_TAILSCALE_HOSTS,
+    }
+    if public_domain:
+        managed_hosts.update({public_domain, f"gitlab.{public_domain}"})
+
+    if host in managed_hosts:
+        return True
+
+    # Tailscale path-router URLs expose GitLab under /gitlab. Treat those as
+    # this managed instance even if the exact tailnet hostname changes later.
+    return host.endswith(".ts.net") and path.startswith("gitlab/")
 
 
 def parse_gitlab_url(url: str) -> Dict[str, str]:
@@ -21,29 +70,49 @@ def parse_gitlab_url(url: str) -> Dict[str, str]:
     - http://localhost:8929/user/repo
     - git@gitlab.com:user/repo.git
     """
-    # Remove .git suffix if present
-    url = url.rstrip('/').replace('.git', '')
+    url = url.strip().rstrip('/')
 
     # Handle SSH URLs
     if url.startswith('git@'):
         match = re.match(r'git@([^:]+):(.+)', url)
         if match:
             host = match.group(1)
-            path = match.group(2)
+            path = match.group(2).rstrip("/")
+            if path.endswith(".git"):
+                path = path[:-4]
+            api_host = (
+                _managed_gitlab_api_base()
+                if _is_managed_gitlab_url(host, path)
+                else f"https://{host}"
+            )
             return {
-                "host": f"https://{host}",
+                "host": api_host,
                 "path": path,
                 "project_path": path.replace('/', '%2F')
             }
 
-    # Handle HTTP(S) URLs - preserve original protocol
+    # Handle HTTP(S) URLs - preserve original protocol.
+    # For GitLab instances with a relative_url_root (external_url ends in
+    # "/gitlab"), the API is at `{protocol}://{host}/gitlab/api/v4/...`.
+    # Detect the leading "gitlab/" path segment and promote it into the
+    # host so the caller's `{host}/api/v4/...` string building works.
     match = re.match(r'(https?)://([^/]+)/(.+)', url)
     if match:
         protocol = match.group(1)
         host = match.group(2)
-        path = match.group(3)
+        path = match.group(3).rstrip("/")
+        if path.endswith(".git"):
+            path = path[:-4]
+        had_gitlab_prefix = path.startswith("gitlab/")
+        if path.startswith("gitlab/"):
+            path = path[len("gitlab/"):]
+        api_host = (
+            _managed_gitlab_api_base()
+            if _is_managed_gitlab_url(host, match.group(3).rstrip("/"))
+            else f"{protocol}://{host}{'/gitlab' if had_gitlab_prefix else ''}"
+        )
         return {
-            "host": f"{protocol}://{host}",
+            "host": api_host,
             "path": path,
             "project_path": path.replace('/', '%2F')
         }
@@ -89,6 +158,7 @@ async def analyze_repository(repo_url: str, gitlab_token: str) -> Dict[str, Any]
             "project_name": project['name'],
             "default_branch": project.get('default_branch', 'main'),
             "files": file_names,
+            "all_files": all_file_paths,
             "language": _detect_language(file_names, all_file_paths),
             "framework": _detect_framework(file_names),
             "package_manager": _detect_package_manager(file_names),
@@ -137,12 +207,27 @@ def _detect_language(files: List[str], all_paths: List[str] = None) -> str:
         return 'swift'
     elif any(f.endswith('.ts') for f in all_files) and 'package.json' not in files:
         return 'typescript'
+    # Perl: detect by Makefile.PL, cpanfile, dist.ini, or any .pl/.pm files
+    elif (
+        'Makefile.PL' in files
+        or 'cpanfile' in files
+        or 'dist.ini' in files
+        or any(f.endswith('.pl') for f in all_files)
+        or any(f.endswith('.pm') for f in all_files)
+    ):
+        return 'perl'
     return 'unknown'
 
 
 def _detect_framework(files: List[str]) -> str:
     """Detect framework based on files"""
-    if 'next.config.js' in files or 'next.config.mjs' in files:
+    if 'Makefile.PL' in files:
+        return 'makefile-pl'
+    elif 'cpanfile' in files:
+        return 'cpanfile'
+    elif 'dist.ini' in files:
+        return 'dist-zilla'
+    elif 'next.config.js' in files or 'next.config.mjs' in files:
         return 'nextjs'
     elif 'angular.json' in files:
         return 'angular'
@@ -168,7 +253,11 @@ def _detect_framework(files: List[str]) -> str:
 
 def _detect_package_manager(files: List[str]) -> str:
     """Detect package manager"""
-    if 'yarn.lock' in files:
+    if 'cpanfile' in files:
+        return 'cpanfile'
+    elif 'Makefile.PL' in files:
+        return 'makefile-pl'
+    elif 'yarn.lock' in files:
         return 'yarn'
     elif 'package-lock.json' in files:
         return 'npm'

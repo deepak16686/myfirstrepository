@@ -2,7 +2,20 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies
+# Install Node.js (for Codex Code and optional legacy CLI providers) +
+# curl/ca-certificates so we can
+# pull the NodeSource setup script. The Codex CLI runs as the default LLM
+# provider when LLM_PROVIDER=codex-code is set in the environment, and
+# authenticates via the host's ~/.codex directory mounted to /root/.codex.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates skopeo && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    npm install -g @openai/codex && \
+    npm install -g @anthropic-ai/claude-code && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 

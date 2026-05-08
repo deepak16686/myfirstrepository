@@ -27,7 +27,7 @@ class GeneratePipelineRequest(BaseModel):
     )
     model: str = Field(
         default="pipeline-generator-v5",
-        description="Ollama model to use for generation"
+        description="Model hint for the active LLM provider"
     )
     use_template_only: bool = Field(
         default=False,
@@ -55,7 +55,7 @@ class GenerateWithValidationRequest(BaseModel):
     )
     model: str = Field(
         default="pipeline-generator-v5",
-        description="Ollama model to use for generation"
+        description="Model hint for the active LLM provider"
     )
     max_fix_attempts: int = Field(
         default=3,

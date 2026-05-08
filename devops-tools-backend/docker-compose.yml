@@ -7,8 +7,8 @@ services:
     ports:
       - "8003:8003"
     environment:
-      # GitLab (use container name on shared network)
-      - GITLAB_URL=${GITLAB_URL:-http://gitlab-server}
+      # GitLab (use container name on shared network; this instance is mounted at /gitlab)
+      - GITLAB_URL=${GITLAB_URL:-http://gitlab-server/gitlab}
       # Fail loudly if GITLAB_TOKEN is not provided.
       - GITLAB_TOKEN=${GITLAB_TOKEN:?GITLAB_TOKEN is required}
 
@@ -27,18 +27,52 @@ services:
       # Fail loudly if NEXUS_PASSWORD is not provided.
       - NEXUS_PASSWORD=${NEXUS_PASSWORD:?NEXUS_PASSWORD is required}
 
-      # ChromaDB
-      - CHROMADB_URL=${CHROMADB_URL:-http://chromadb:8000}
+      # ChromaDB — pin to the in-cluster service name. We deliberately
+      # ignore .env's CHROMADB_URL (which often points at localhost:8000
+      # for host-side scripts) because the backend runs inside the
+      # ai-platform-net Docker network and must reach the chromadb
+      # container by its service alias.
+      - CHROMADB_URL=http://chromadb:8000
 
       # Ollama
       - OLLAMA_URL=${OLLAMA_URL:-http://ollama:11434}
 
+      # LLM provider — defaults to Codex Code CLI using the host's Codex auth
+      # (mounted at /root/.codex). Set LLM_PROVIDER=ollama to fall back to
+      # local Ollama (pipeline-generator-v5).
+      - LLM_PROVIDER=${LLM_PROVIDER:-codex-code}
+      - CODEX_MODEL=${CODEX_MODEL:-gpt-5.5}
+      - CODEX_TIMEOUT=${CODEX_TIMEOUT:-600}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-opus}
+      - CLAUDE_TIMEOUT=${CLAUDE_TIMEOUT:-300}
+
+      # Public URL — used by the chat tool to build click-through GitLab
+      # pipeline links the user can open from any browser. Cloudflare is the
+      # canonical public entrypoint; TAILSCALE_BASE_URL is retained only as a
+      # legacy fallback for old code paths.
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-https://deepaksharma.live}
+      - PUBLIC_BASE_DOMAIN=${PUBLIC_BASE_DOMAIN:-deepaksharma.live}
+      - TAILSCALE_BASE_URL=${TAILSCALE_BASE_URL:-https://deepaksharma.live}
+
+      # Jenkins — used by jenkins-pipeline generator to trigger builds
+      - JENKINS_URL=${JENKINS_URL:-http://jenkins-master:8080/jenkins}
+      - JENKINS_USERNAME=${JENKINS_USERNAME:-admin}
+      - JENKINS_PASSWORD=${JENKINS_PASSWORD:-}
+      # Gitea backend Jenkins pulls from — jenkins-projects org lives here
+      - JENKINS_GIT_URL=${JENKINS_GIT_URL:-http://gitea-server:3000}
+      - JENKINS_GIT_TOKEN=${JENKINS_GIT_TOKEN:-}
+
+      # GitHub Actions / Gitea — used by github-pipeline generator (Gitea is
+      # wire-compatible with GitHub API, so pointing github_url at Gitea lets
+      # the generator commit to github-projects/* repos and run via gitea-runner)
+      - GITHUB_URL=${GITHUB_URL:-http://gitea-server:3000}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+
       # Redis
       - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
 
-      # PostgreSQL - build DSN from discrete components so password is not
-      # hardcoded. Fail loudly if password is missing.
-      - POSTGRES_URL=postgresql://${POSTGRES_AI_USER:-modernization}:${POSTGRES_AI_PASSWORD:?POSTGRES_AI_PASSWORD is required}@${POSTGRES_AI_HOST:-ai-postgres}:${POSTGRES_AI_PORT:-5432}/${POSTGRES_AI_DB:-legacy_modernization}
+      # PostgreSQL - DSN is supplied by .env or the operator environment.
+      - POSTGRES_URL=${POSTGRES_URL:?POSTGRES_URL is required}
 
       # Debug mode
       - DEBUG=${DEBUG:-false}
@@ -50,6 +84,14 @@ services:
       # containers. Works under Docker Desktop + WSL2 because Desktop
       # virtualizes the socket inside the MobyVM.
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Codex CLI auth/config — maps the operator's host ~/.codex into the
+      # container so `codex exec` can use the existing login.
+      - C:/Users/deepak/.codex:/root/.codex
+      # Optional legacy Claude CLI auth. The active default is Codex Code,
+      # but the legacy provider remains available if LLM_PROVIDER is changed.
+      - C:/Users/deepak/.claude:/root/.claude
+      # The legacy CLI also reads /root/.claude.json as a sibling file.
+      - C:/Users/deepak/.claude.json:/root/.claude.json
     networks:
       # Every compose project the backend probes tools in. External networks
       # must be declared at the bottom of the file with `external: true`.

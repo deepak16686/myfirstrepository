@@ -88,6 +88,7 @@ NEXUS_TO_DOCKERHUB = {
     "hadolint-hadolint": "hadolint/hadolint",
     "checkmarx-kics": "checkmarx/kics",
     "grafana-grafana": "grafana/grafana",
+    "hexpm-elixir": "hexpm/elixir",
 }
 
 

@@ -30,7 +30,7 @@ import {
 import { useTools } from '@/hooks/useTools';
 import { useUiStore } from '@/store/ui';
 import { useTheme } from '@/hooks/useTheme';
-import { launchTool } from '@/lib/api';
+import { openToolLaunch, resolveCurrentLaunchUrl } from '@/lib/launch';
 import { resolveIcon } from '@/lib/icons';
 import { statusMeta } from '@/lib/status';
 import { cn, modKey } from '@/lib/utils';
@@ -177,7 +177,8 @@ export function CommandPalette(): React.ReactElement | null {
         keywords: ['scm', 'git'],
         onSelect: () => {
           const gl = (tools ?? []).find((t) => t.id === 'gitlab');
-          window.open(gl?.url_external ?? 'http://localhost:8082', '_blank', 'noopener,noreferrer');
+          if (gl) void openToolLaunch(gl);
+          else window.open('https://gitlab.deepaksharma.live/', '_blank', 'noopener,noreferrer');
         },
       },
       {
@@ -187,7 +188,8 @@ export function CommandPalette(): React.ReactElement | null {
         keywords: ['observability', 'metrics'],
         onSelect: () => {
           const g = (tools ?? []).find((t) => t.id === 'grafana');
-          window.open(g?.url_external ?? 'http://localhost:3000', '_blank', 'noopener,noreferrer');
+          if (g) void openToolLaunch(g);
+          else window.open('https://grafana.deepaksharma.live/', '_blank', 'noopener,noreferrer');
         },
       },
       {
@@ -197,7 +199,8 @@ export function CommandPalette(): React.ReactElement | null {
         keywords: ['logs', 'siem'],
         onSelect: () => {
           const s = (tools ?? []).find((t) => t.id === 'splunk');
-          window.open(s?.url_external ?? 'http://localhost:8000', '_blank', 'noopener,noreferrer');
+          if (s) void openToolLaunch(s);
+          else window.open('https://splunk.deepaksharma.live/', '_blank', 'noopener,noreferrer');
         },
       },
       {
@@ -253,16 +256,11 @@ export function CommandPalette(): React.ReactElement | null {
       return;
     }
     // launch
-    if (!tool.url_external) {
-      toast.error('No external URL configured');
+    if (!resolveCurrentLaunchUrl(tool)) {
+      toast.error('No launch URL configured');
       return;
     }
-    try {
-      const r = await launchTool(tool.id);
-      window.open(r.redirect_url || tool.url_external, '_blank', 'noopener,noreferrer');
-    } catch {
-      window.open(tool.url_external, '_blank', 'noopener,noreferrer');
-    }
+    await openToolLaunch(tool);
   };
 
   // Capture modifier state just before cmdk fires onSelect (it fires on keydown/click).

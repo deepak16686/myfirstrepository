@@ -31,6 +31,11 @@ class PipelineProgress:
     completed: bool = False
     model_used: Optional[str] = None
     fixer_model_used: Optional[str] = None
+    # User-facing GitLab URLs the portal renders as click-through links
+    # while the pipeline is still running. Both are filled in by the
+    # monitor as soon as it learns project_path / pipeline_id.
+    pipelines_browser_url: Optional[str] = None  # /-/pipelines?ref=<branch>
+    pipeline_web_url: Optional[str] = None       # /-/pipelines/<pipeline_id>
 
     def add_event(self, stage: str, message: str, attempt: int = 0):
         self.status = stage
@@ -56,6 +61,8 @@ class PipelineProgress:
             "completed": self.completed,
             "model_used": self.model_used,
             "fixer_model_used": self.fixer_model_used,
+            "pipelines_browser_url": self.pipelines_browser_url,
+            "pipeline_web_url": self.pipeline_web_url,
             "events": [
                 {
                     "timestamp": e.timestamp,
@@ -106,6 +113,22 @@ class PipelineProgressStore:
         progress = self.get(project_id, branch)
         if progress:
             progress.pipeline_id = pipeline_id
+
+    def set_urls(
+        self,
+        project_id: int,
+        branch: str,
+        pipelines_browser_url: Optional[str] = None,
+        pipeline_web_url: Optional[str] = None,
+    ):
+        """Attach click-through URLs the portal can render as live links."""
+        progress = self.get(project_id, branch)
+        if not progress:
+            return
+        if pipelines_browser_url:
+            progress.pipelines_browser_url = pipelines_browser_url
+        if pipeline_web_url:
+            progress.pipeline_web_url = pipeline_web_url
 
 
 # Singleton instance

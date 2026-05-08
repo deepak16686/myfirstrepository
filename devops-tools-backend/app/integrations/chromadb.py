@@ -117,10 +117,9 @@ class ChromaDBIntegration(BaseIntegration):
 
     async def delete_collection(self, name: str) -> bool:
         """Delete a collection by name"""
-        uuid = await self._get_collection_uuid(name)
-        if not uuid:
-            return False
-        response = await self.delete(self._collection_path(uuid))
+        # ChromaDB v2 delete expects the collection name in this deployment,
+        # while list/get return UUIDs. Use the name to avoid stale UUID 404s.
+        response = await self.delete(self._collection_path(name))
         if name in self._collection_uuid_cache:
             del self._collection_uuid_cache[name]
         return response.status_code in [200, 204]

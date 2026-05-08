@@ -29,7 +29,7 @@ class JenkinsLLMFixer:
         self.ollama_config = tools_manager.get_tool("ollama")
 
     def _get_llm(self):
-        """Get the configured LLM provider (Ollama or Claude Code)."""
+        """Get the configured LLM provider."""
         return get_llm_provider()
 
     async def fix_pipeline(
