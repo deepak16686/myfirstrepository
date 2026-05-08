@@ -6,7 +6,7 @@ AI-powered legacy application modernization REST API.
 
 1. Build and run:
 ```powershell
-cd legacy-modernization-api
+cd services/legacy-modernization-api
 docker-compose up -d --build
 ```
 

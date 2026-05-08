@@ -118,7 +118,7 @@ services:
 
   modernization-api:
     build:
-      context: ../legacy-modernization-api
+      context: ../../services/legacy-modernization-api
       dockerfile: Dockerfile
     container_name: platform-modernization-api
     ports:
@@ -132,8 +132,8 @@ services:
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
       CHROMADB_URL: http://chromadb:8000
     volumes:
-      - ../legacy-modernization-api/app:/app/app
-      - ../legacy-modernization-api/logs:/app/logs
+      - ../../services/legacy-modernization-api/app:/app/app
+      - ../../services/legacy-modernization-api/logs:/app/logs
     networks:
       - platform-net
     restart: unless-stopped

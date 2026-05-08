@@ -3,7 +3,7 @@
 DevOps Portal — Async Smoke Tester
 ==================================
 
-Walks the canonical tool registry (``devops-tools-backend/config/tools.yaml``)
+Walks the canonical tool registry (``services/devops-tools-backend/config/tools.yaml``)
 and performs a shallow GET health probe against every tool that advertises a
 browser-reachable ``url_external`` + ``health.method == "GET"``.
 
@@ -20,9 +20,9 @@ Design rules (enforced — do not relax without discussion):
 
 Run manually (Docker Desktop stack must be UP):
 
-    python scripts/e2e/smoke.py
-    python scripts/e2e/smoke.py --only grafana,gitlab --json
-    python scripts/e2e/smoke.py --base-external https://ai-dev.tailnet.ts.net
+    python infrastructure/scripts/e2e/smoke.py
+    python infrastructure/scripts/e2e/smoke.py --only grafana,gitlab --json
+    python infrastructure/scripts/e2e/smoke.py --base-external https://ai-dev.tailnet.ts.net
 
 CLI contract is intentionally stable: the companion ``run-all.sh`` and the
 ``tool_login.py`` driver both shell out here and parse ``--json`` output.
@@ -47,7 +47,7 @@ import yaml
 # Constants
 # ----------------------------------------------------------------------------
 
-DEFAULT_REGISTRY = Path("devops-tools-backend/config/tools.yaml")
+DEFAULT_REGISTRY = Path("services/devops-tools-backend/config/tools.yaml")
 DEFAULT_PORTAL_BASE = "http://localhost:8003"
 DEFAULT_PORTAL_MIN_TOOLS = 30
 HTTP_TIMEOUT_SECONDS = 5.0

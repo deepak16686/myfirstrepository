@@ -11,7 +11,7 @@ If your current stack is running, change ports in `.env` before starting this on
 ## Quick start
 
 ```bash
-cd platform-setup
+cd infrastructure/platform-setup
 ./scripts/up.sh
 ```
 

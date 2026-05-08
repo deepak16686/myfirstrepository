@@ -1,22 +1,18 @@
-version: '3.8'
-
 services:
   devops-tools-backend:
-    build: .
+    build: ../../../services/devops-tools-backend
     container_name: devops-tools-backend
     ports:
       - "8003:8003"
+    env_file:
+      - ../../../services/devops-tools-backend/.env
     environment:
       # GitLab (use container name on shared network; this instance is mounted at /gitlab)
       - GITLAB_URL=${GITLAB_URL:-http://gitlab-server/gitlab}
-      # Fail loudly if GITLAB_TOKEN is not provided.
-      - GITLAB_TOKEN=${GITLAB_TOKEN:?GITLAB_TOKEN is required}
 
       # SonarQube
       - SONARQUBE_URL=${SONARQUBE_URL:-http://ai-sonarqube:9000}
       - SONARQUBE_USERNAME=${SONARQUBE_USERNAME:-admin}
-      # Fail loudly if SONARQUBE_PASSWORD is not provided. No default value.
-      - SONARQUBE_PASSWORD=${SONARQUBE_PASSWORD:?SONARQUBE_PASSWORD is required}
 
       # Trivy
       - TRIVY_URL=${TRIVY_URL:-http://trivy-server:8083}
@@ -24,8 +20,6 @@ services:
       # Nexus
       - NEXUS_URL=${NEXUS_URL:-http://ai-nexus:8081}
       - NEXUS_USERNAME=${NEXUS_USERNAME:-admin}
-      # Fail loudly if NEXUS_PASSWORD is not provided.
-      - NEXUS_PASSWORD=${NEXUS_PASSWORD:?NEXUS_PASSWORD is required}
 
       # ChromaDB — pin to the in-cluster service name. We deliberately
       # ignore .env's CHROMADB_URL (which often points at localhost:8000
@@ -57,27 +51,21 @@ services:
       # Jenkins — used by jenkins-pipeline generator to trigger builds
       - JENKINS_URL=${JENKINS_URL:-http://jenkins-master:8080/jenkins}
       - JENKINS_USERNAME=${JENKINS_USERNAME:-admin}
-      - JENKINS_PASSWORD=${JENKINS_PASSWORD:-}
       # Gitea backend Jenkins pulls from — jenkins-projects org lives here
       - JENKINS_GIT_URL=${JENKINS_GIT_URL:-http://gitea-server:3000}
-      - JENKINS_GIT_TOKEN=${JENKINS_GIT_TOKEN:-}
 
       # GitHub Actions / Gitea — used by github-pipeline generator (Gitea is
       # wire-compatible with GitHub API, so pointing github_url at Gitea lets
       # the generator commit to github-projects/* repos and run via gitea-runner)
       - GITHUB_URL=${GITHUB_URL:-http://gitea-server:3000}
-      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
 
       # Redis
       - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
 
-      # PostgreSQL - DSN is supplied by .env or the operator environment.
-      - POSTGRES_URL=${POSTGRES_URL:?POSTGRES_URL is required}
-
       # Debug mode
       - DEBUG=${DEBUG:-false}
     volumes:
-      - devops-tools-config:/app/config
+      - ../../../services/devops-tools-backend/config:/app/config:ro
       # Docker Engine UNIX socket — read-only. Lets the health prober classify
       # non-HTTP tools (runners, promtail) via the `docker_ps` / `docker_exec`
       # probe methods. :ro so a compromised backend cannot spawn or stop
@@ -115,10 +103,10 @@ services:
   # ===========================================================================
   # nginx-proxy — wildcard SNI router terminating TLS on :8443.
   # ---------------------------------------------------------------------------
-  # Config: ../nginx-proxy/portal.conf (read-only mount).
-  # Cert source of truth: ../nginx-proxy/certs/{fullchain,privkey}.pem —
-  #   populated by ../certbot/issue-cert.sh (and refreshed by
-  #   ../certbot/renew-cert.sh). See ../certbot/README.md §"nginx-proxy wiring".
+  # Config: ../../reverse-proxy/nginx/portal.conf (read-only mount).
+  # Cert source of truth: ../../reverse-proxy/nginx/certs/{fullchain,privkey}.pem —
+  #   populated by ../../certbot/issue-cert.sh (and refreshed by
+  #   ../../certbot/renew-cert.sh). See ../../certbot/README.md §"nginx-proxy wiring".
   # portal.conf expects certs at /etc/letsencrypt/live/deepaksharma.live/*.pem,
   # so we mount the certs/ directory at that path (Strategy B in the runbook).
   # ===========================================================================
@@ -136,16 +124,16 @@ services:
       - "127.0.0.1:8070:80"
     volumes:
       # Router config — read-only, reloaded via `nginx -s reload`.
-      - ../nginx-proxy/portal.conf:/etc/nginx/conf.d/portal.conf:ro
+      - ../../reverse-proxy/nginx/portal.conf:/etc/nginx/conf.d/portal.conf:ro
       # Wildcard cert — populated by certbot/issue-cert.sh; ro to nginx.
-      - ../nginx-proxy/certs:/etc/letsencrypt/live/deepaksharma.live:ro
+      - ../../reverse-proxy/nginx/certs:/etc/letsencrypt/live/deepaksharma.live:ro
       # Basic-auth htpasswd for the 11 naked tools (ollama, chromadb,
       # chromadb-admin, qdrant, trivy, prometheus, loki, jaeger, cadvisor,
       # node-exporter, dcgm-exporter). Path MUST match the $auth_file map in
       # portal.conf (/etc/nginx/auth/htpasswd). Bcrypt-only — generate via
       # scripts/auth/generate-htpasswd.sh. The file is gitignored at
-      # nginx-proxy/.gitignore so real creds never land in the repo.
-      - ../nginx-proxy/htpasswd:/etc/nginx/auth/htpasswd:ro
+      # infrastructure/reverse-proxy/nginx/.gitignore so real creds never land in the repo.
+      - ../../reverse-proxy/nginx/htpasswd:/etc/nginx/auth/htpasswd:ro
     networks:
       # Same network set as devops-tools-backend — nginx-proxy's path-router
       # server block at :80 proxy_passes to every tool's container hostname,
@@ -214,6 +202,3 @@ networks:
     external: true
   chaos-platform-setup_chaos_network:
     external: true
-
-volumes:
-  devops-tools-config:

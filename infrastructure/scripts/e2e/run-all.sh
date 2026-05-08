@@ -7,12 +7,12 @@
 #   2) vault_smoke.py  — Vault reachability + KV pointer presence
 #   3) tool_login.py   — Playwright login checks (only if smoke passes)
 #
-# Aggregates all three JSON reports into scripts/e2e/report.json.
+# Aggregates all three JSON reports into infrastructure/scripts/e2e/report.json.
 # Idempotent and safe to re-run. Never logs credential values.
 #
-# Prereqs (see scripts/e2e/README.md):
+# Prereqs (see infrastructure/scripts/e2e/README.md):
 #   python -m venv .venv && source .venv/Scripts/activate
-#   pip install -r scripts/e2e/requirements.txt
+#   pip install -r infrastructure/scripts/e2e/requirements.txt
 #   playwright install chromium
 #   export GRAFANA_ADMIN_PASSWORD=... etc.
 #
@@ -29,7 +29,7 @@ set -o pipefail
 
 # --- Locate ourselves (Git Bash on Windows handles this fine) -----------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 REPORT_DIR="${SCRIPT_DIR}"
 SMOKE_REPORT="${REPORT_DIR}/smoke-report.json"
 VAULT_REPORT="${REPORT_DIR}/vault-report.json"
@@ -118,7 +118,7 @@ rm -f "${SMOKE_REPORT}" "${VAULT_REPORT}" "${LOGIN_REPORT}" "${FINAL_REPORT}"
 info "phase 1/3 — smoke.py"
 set +o errexit
 "${PY}" "${SCRIPT_DIR}/smoke.py" \
-  --registry "devops-tools-backend/config/tools.yaml" \
+  --registry "services/devops-tools-backend/config/tools.yaml" \
   --report "${SMOKE_REPORT}"
 SMOKE_RC=$?
 set -o errexit
@@ -132,7 +132,7 @@ fi
 info "phase 2/3 — vault_smoke.py"
 set +o errexit
 "${PY}" "${SCRIPT_DIR}/vault_smoke.py" \
-  --registry "devops-tools-backend/config/tools.yaml" \
+  --registry "services/devops-tools-backend/config/tools.yaml" \
   --report "${VAULT_REPORT}"
 VAULT_RC=$?
 set -o errexit

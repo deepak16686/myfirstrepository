@@ -32,7 +32,7 @@ RUN mkdir -p /app/config
 EXPOSE 8003
 
 # Health check — python-only so we don't need to install curl into the slim image.
-# Matches the compose-level healthcheck in devops-tools-backend/docker-compose.yml.
+# Matches the compose-level healthcheck in infrastructure/compose/devops-tools/docker-compose.yml.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8003/health', timeout=5).status==200 else 1)" || exit 1
 

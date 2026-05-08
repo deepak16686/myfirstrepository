@@ -10,7 +10,7 @@
 #   /tmp/env-in-both.txt       — variables present in both (check values match)
 #
 # Usage:
-#   bash scripts/ops/diff-env-example.sh
+#   bash infrastructure/scripts/ops/diff-env-example.sh
 #   cat /tmp/env-only-in-root.txt     # decide which to copy over
 #
 # Safety: this script prints ONLY variable names, never values.
@@ -19,7 +19,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 ROOT=".env.example"
-BACKEND="devops-tools-backend/.env.example"
+BACKEND="services/devops-tools-backend/.env.example"
 
 [[ -f "$ROOT"    ]] || { echo "missing: $ROOT"    >&2; exit 1; }
 [[ -f "$BACKEND" ]] || { echo "missing: $BACKEND" >&2; exit 1; }

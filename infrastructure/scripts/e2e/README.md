@@ -1,7 +1,7 @@
 # DevOps Portal — End-to-End Smoke + Login Harness
 
 Manual operator harness for the DevOps Portal tool registry (33 tools
-defined in `devops-tools-backend/config/tools.yaml`). Run this *after*
+defined in `services/devops-tools-backend/config/tools.yaml`). Run this *after*
 bringing the Docker Desktop stack up — it will fail loudly if anything
 is offline.
 
@@ -39,7 +39,7 @@ is offline.
 ## Quickstart (Windows Git Bash)
 
 ```bash
-cd scripts/e2e
+cd infrastructure/scripts/e2e
 python -m venv .venv
 source .venv/Scripts/activate    # Windows Git Bash
 python -m pip install --upgrade pip
@@ -72,7 +72,7 @@ export VAULT_TOKEN='hvs.xxxxxxxxxxxxxxxx'
 
 ```bash
 # Smoke only
-python smoke.py --registry ../../devops-tools-backend/config/tools.yaml
+python smoke.py --registry ../../../services/devops-tools-backend/config/tools.yaml
 
 # Subset — space/newlines are tolerated; commas are the separator
 python smoke.py --only grafana,prometheus,loki --json

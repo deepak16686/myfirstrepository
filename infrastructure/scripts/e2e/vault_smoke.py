@@ -40,7 +40,7 @@ import httpx
 import yaml
 
 
-DEFAULT_REGISTRY = Path("devops-tools-backend/config/tools.yaml")
+DEFAULT_REGISTRY = Path("services/devops-tools-backend/config/tools.yaml")
 DEFAULT_VAULT_ADDR = "http://localhost:8200"
 HTTP_TIMEOUT_SECONDS = 5.0
 

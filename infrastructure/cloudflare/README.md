@@ -20,19 +20,19 @@ Cloudflare Tunnel is a reverse proxy: the browser stays on `https://deepaksharma
 | `deepaksharma.live` | HTTPS | `https://nginx-proxy:8443` | Disable TLS verification for origin |
 | `*.deepaksharma.live` | HTTPS | `https://nginx-proxy:8443` | Disable TLS verification for origin |
 
-The wildcard route lets the existing `nginx-proxy/portal.conf` host router keep handling subdomains such as `grafana.deepaksharma.live`, `chatbot.deepaksharma.live`, and `vault.deepaksharma.live`.
+The wildcard route lets `infrastructure/reverse-proxy/nginx/portal.conf` keep handling subdomains such as `grafana.deepaksharma.live`, `chatbot.deepaksharma.live`, and `vault.deepaksharma.live`.
 
-6. Copy the Docker connector token from Cloudflare and put it in `cloudflared/.env`:
+6. Copy the Docker connector token from Cloudflare and put it in `infrastructure/cloudflare/.env`:
 
 ```powershell
-Copy-Item cloudflared\.env.example cloudflared\.env
-notepad cloudflared\.env
+Copy-Item infrastructure\cloudflare\.env.example infrastructure\cloudflare\.env
+notepad infrastructure\cloudflare\.env
 ```
 
 ## Run
 
 ```powershell
-docker compose --env-file cloudflared\.env -f cloudflared\docker-compose.cloudflare-tunnel.yml up -d
+docker compose --env-file infrastructure\cloudflare\.env -f infrastructure\cloudflare\docker-compose.cloudflare-tunnel.yml up -d
 ```
 
 ## Verify
