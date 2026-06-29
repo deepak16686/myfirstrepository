@@ -1,0 +1,183 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+      - button "Collapse sidebar" [ref=e62]:
+        - img
+        - generic [ref=e63]: Collapse
+    - generic [ref=e64]:
+      - banner [ref=e65]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - searchbox "Search" [ref=e70]
+          - generic [ref=e71]:
+            - img [ref=e72]
+            - text: /
+        - button "Open command palette" [ref=e74]:
+          - generic [ref=e75]: Command
+          - generic [ref=e76]:
+            - generic [ref=e77]: Ctrl
+            - generic [ref=e78]: K
+        - generic [ref=e79]:
+          - button "Hide status rail" [pressed] [ref=e80]:
+            - img
+          - 'status "Tailscale status: Local only" [ref=e81]':
+            - img [ref=e83]
+            - generic [ref=e84]: Local only
+          - button "Notifications" [ref=e85]:
+            - img
+          - 'button "Theme: system (light)" [ref=e87]':
+            - img
+          - button "Account" [ref=e88]:
+            - generic [ref=e89]:
+              - img
+            - generic [ref=e90]: operator
+      - region "Tool status rail" [ref=e100]:
+        - generic [ref=e101]: Status rail
+        - generic [ref=e102]:
+          - button "Nginx Reverse Proxy — OFFLINE" [ref=e103]
+          - button "Brandmatik — OPERATIONAL" [ref=e104]
+          - button "Brandmatik Analytics Service — OPERATIONAL" [ref=e105]
+          - button "Brandmatik Business Service — OPERATIONAL" [ref=e106]
+          - button "Brandmatik Content Generator — OPERATIONAL" [ref=e107]
+          - button "Brandmatik Feedback Service — OPERATIONAL" [ref=e108]
+          - button "Brandmatik Mock Social Poster — OPERATIONAL" [ref=e109]
+          - button "Brandmatik Notification Service — OPERATIONAL" [ref=e110]
+          - button "Brandmatik Posting Service — OPERATIONAL" [ref=e111]
+          - button "Brandmatik Qdrant — OPERATIONAL" [ref=e112]
+          - button "Brandmatik Scoring Engine — OPERATIONAL" [ref=e113]
+          - button "Brandmatik Trend Collector — OPERATIONAL" [ref=e114]
+          - button "cAdvisor — OPERATIONAL" [ref=e115]
+          - button "Chaos AI Engine — OPERATIONAL" [ref=e116]
+          - button "Chaos Auth Service — OPERATIONAL" [ref=e117]
+          - button "Chaos Credentials Dashboard — OPERATIONAL" [ref=e118]
+          - button "Chaos Experiment Engine — OPERATIONAL" [ref=e119]
+          - button "Chaos Grafana — OPERATIONAL" [ref=e120]
+          - button "Chaos MinIO — OPERATIONAL" [ref=e121]
+          - button "Chaos NATS — OPERATIONAL" [ref=e122]
+          - button "Chaos Notification Service — OPERATIONAL" [ref=e123]
+          - button "Chaos Platform — OPERATIONAL" [ref=e124]
+          - button "Chaos Portal UI — OPERATIONAL" [ref=e125]
+          - button "Chaos Prometheus — OPERATIONAL" [ref=e126]
+          - button "Chaos Report Service — OPERATIONAL" [ref=e127]
+          - button "Chaos Target App 1 — OPERATIONAL" [ref=e128]
+          - button "Chaos Target App 2 — OPERATIONAL" [ref=e129]
+          - button "Chaos Target App 3 — OPERATIONAL" [ref=e130]
+          - button "Chaos Telemetry Aggregator — OPERATIONAL" [ref=e131]
+          - button "ChromaDB — OPERATIONAL" [ref=e132]
+          - button "ChromaDB Admin — OPERATIONAL" [ref=e133]
+          - button "DevOps Portal Frontend — OPERATIONAL" [ref=e134]
+          - button "DevOps Tools API — OPERATIONAL" [ref=e135]
+          - button "Gitea — OPERATIONAL" [ref=e136]
+          - button "Gitea Actions Runner — OPERATIONAL" [ref=e137]
+          - button "GitLab — OPERATIONAL" [ref=e138]
+          - button "GitLab Runner — OPERATIONAL" [ref=e139]
+          - button "Grafana — OPERATIONAL" [ref=e140]
+          - button "Jaeger — OPERATIONAL" [ref=e141]
+          - button "Jenkins — OPERATIONAL" [ref=e142]
+          - button "Jira Software — OPERATIONAL" [ref=e143]
+          - button "Loki — OPERATIONAL" [ref=e144]
+          - button "MailHog — OPERATIONAL" [ref=e145]
+          - button "MinIO — OPERATIONAL" [ref=e146]
+          - button "Nexus Docker Registry — OPERATIONAL" [ref=e147]
+          - button "Node Exporter — OPERATIONAL" [ref=e148]
+          - button "NVIDIA DCGM Exporter — OPERATIONAL" [ref=e149]
+          - button "Ollama — OPERATIONAL" [ref=e150]
+          - button "Postgres (ai-postgres) — OPERATIONAL" [ref=e151]
+          - button "Prometheus — OPERATIONAL" [ref=e152]
+          - button "Promtail — OPERATIONAL" [ref=e153]
+          - button "Qdrant — OPERATIONAL" [ref=e154]
+          - button "Redis — OPERATIONAL" [ref=e155]
+          - button "Redmine — OPERATIONAL" [ref=e156]
+          - button "SonarQube — OPERATIONAL" [ref=e157]
+          - button "Sonatype Nexus 3 — OPERATIONAL" [ref=e158]
+          - button "Splunk Enterprise — OPERATIONAL" [ref=e159]
+          - button "Taskflow — OPERATIONAL" [ref=e160]
+          - button "Taskflow Auth Service — OPERATIONAL" [ref=e161]
+          - button "Taskflow Notification Service — OPERATIONAL" [ref=e162]
+          - button "Taskflow Task Service — OPERATIONAL" [ref=e163]
+          - button "Trivy — OPERATIONAL" [ref=e164]
+        - generic [ref=e165]:
+          - generic [ref=e166]: "61"
+          - generic [ref=e167]: /
+          - generic [ref=e168]: "0"
+          - generic [ref=e169]: /
+          - generic [ref=e170]: "1"
+      - main [ref=e92]:
+        - generic [ref=e171]:
+          - generic [ref=e172]:
+            - generic [ref=e173]:
+              - paragraph [ref=e174]: Assistant
+              - heading "AI DevOps Chat" [level=1] [ref=e176]
+              - paragraph [ref=e177]: Pipeline generator, tool-catalog Q&A, and infrastructure debugging — powered by Codex Code + RAG.
+            - button "New chat" [ref=e179]:
+              - img
+              - text: New chat
+          - generic [ref=e180]:
+            - generic [ref=e181]:
+              - generic [ref=e184]: Live session
+              - generic [ref=e185]: session 1f6426a9…
+            - generic [ref=e189]:
+              - generic [ref=e191]:
+                - img [ref=e193]
+                - generic [ref=e196]:
+                  - generic [ref=e197]:
+                    - paragraph [ref=e214]: Hello — I am your DevOps copilot. Give me a GitLab repository URL and I will generate an appropriate Dockerfile and .gitlab-ci.yml, or ask about any tool in the portal.
+                    - paragraph [ref=e215]:
+                      - strong [ref=e216]: "Example:"
+                      - code [ref=e217]: Generate a pipeline for http://gitlab-server/root/golang-sample-app
+                  - generic [ref=e202]: 27s ago
+              - generic [ref=e219]:
+                - img [ref=e221]
+                - generic [ref=e224]:
+                  - paragraph [ref=e226]: Generate a pipeline for http://gitlab-server/root/golang-sample-app
+                  - generic [ref=e227]: 6s ago
+              - generic [ref=e229]:
+                - img [ref=e231]
+                - generic [ref=e234]:
+                  - generic [ref=e235]:
+                    - paragraph [ref=e236]: "Pipeline run failed: Client error '404 Not Found' for url 'http://gitlab-server/gitlab/api/v4/projects/root%2Fgolang-sample-app'"
+                    - paragraph [ref=e237]: "For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+                  - generic [ref=e238]: 0s ago
+            - generic [ref=e203]:
+              - generic [ref=e204]:
+                - img [ref=e205]
+                - textbox "Ask me to generate a pipeline, debug a failing build, or explain a tool…" [ref=e207]
+                - button "Send" [disabled]:
+                  - img
+              - paragraph [ref=e208]: "Enter to send · Shift+Enter for newline · backend: /api/v1/chat/"
+  - region "Notifications alt+T"

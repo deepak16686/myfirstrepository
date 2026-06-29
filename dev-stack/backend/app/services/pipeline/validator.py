@@ -98,6 +98,31 @@ learn_record:
     return pipeline_yaml
 
 
+def _analysis_paths(analysis: dict = None) -> list:
+    if not analysis:
+        return []
+
+    paths = []
+    for key in ("files", "all_paths"):
+        value = analysis.get(key) or []
+        if isinstance(value, str):
+            value = [value]
+        paths.extend(str(path).replace("\\", "/") for path in value)
+    return paths
+
+
+def _has_gradle_wrapper(analysis: dict = None) -> bool:
+    paths = _analysis_paths(analysis)
+    return any(path.endswith("gradlew") for path in paths) or any(
+        path.startswith("gradle/wrapper/") for path in paths
+    )
+
+
+def _is_gradle_project(lang: str, analysis: dict = None) -> bool:
+    build_tool = str((analysis or {}).get("build_tool") or (analysis or {}).get("package_manager") or "").lower()
+    return build_tool == "gradle" and lang in {"java", "kotlin", "scala", "spring-boot", "quarkus"}
+
+
 def validate_and_fix_pipeline_images(
     gitlab_ci: str, dockerfile: str, language: str, analysis: dict = None
 ) -> tuple:
@@ -136,6 +161,7 @@ def validate_and_fix_pipeline_images(
 
     nexus_prefix = "${NEXUS_PULL_REGISTRY}/apm-repo/demo/"
     full_correct_image = f"{nexus_prefix}{correct_compile_image}"
+    is_gradle_project = _is_gradle_project(lang, analysis)
 
     # -- Fix .gitlab-ci.yml compile job image --
     # Find compile job and check its image
@@ -187,6 +213,29 @@ def validate_and_fix_pipeline_images(
                 gitlab_ci = gitlab_ci.replace(m.group(0), f"localhost:5001/apm-repo/demo/{correct_compile_image}")
                 corrections.append(f"CI: Upgraded hardcoded {old_img} to {correct_compile_image}")
 
+    # -- Fix Gradle projects that were generated as amazoncorretto + apk-installed Gradle --
+    # Installing Gradle through Alpine's apk package can pull a newer OpenJDK into a Java 17 job.
+    # Use the pre-seeded Gradle/JDK image instead so the build toolchain is explicit and stable.
+    if is_gradle_project and correct_compile_image:
+        wrong_gradle_build_images = (
+            "amazoncorretto:17-alpine-jdk",
+            "eclipse-temurin:17-jdk",
+            "eclipse-temurin:17-jre",
+            "maven:3.9-eclipse-temurin-17",
+            "maven:3.9-eclipse-temurin-21",
+        )
+        for wrong_img in wrong_gradle_build_images:
+            wrong_full = f"{nexus_prefix}{wrong_img}"
+            if wrong_full in gitlab_ci:
+                gitlab_ci = gitlab_ci.replace(wrong_full, full_correct_image)
+                corrections.append(f"CI: Replaced Gradle build image {wrong_img} with {correct_compile_image}")
+
+        before_ci = gitlab_ci
+        gitlab_ci = _re.sub(r'^\s*-\s*apk add --no-cache gradle\s*\n', '', gitlab_ci, flags=_re.MULTILINE)
+        gitlab_ci = _re.sub(r'^\s*-\s*sed -i [^\n]*apk/repositories\s*&&\s*apk add --no-cache gradle\s*\n', '', gitlab_ci, flags=_re.MULTILINE)
+        if gitlab_ci != before_ci:
+            corrections.append("CI: Removed apk-based Gradle installation")
+
     # -- Fix compile commands if wrong --
     if correct_commands and lang == "rust":
         # Common wrong commands for Rust
@@ -225,6 +274,42 @@ def validate_and_fix_pipeline_images(
                 if old_img != correct_dockerfile_image:
                     dockerfile = dockerfile.replace(m.group(0), f"{prefix_variant}{correct_dockerfile_image}")
                     corrections.append(f"Dockerfile: Upgraded {old_img} to {correct_dockerfile_image}")
+
+        if is_gradle_project and correct_compile_image:
+            gradle_build_from = f"${{BASE_REGISTRY}}/apm-repo/demo/{correct_compile_image}"
+            wrong_gradle_docker_images = (
+                "amazoncorretto:17-alpine-jdk",
+                "eclipse-temurin:17-jdk",
+                "maven:3.9-eclipse-temurin-17",
+                "maven:3.9-eclipse-temurin-21",
+            )
+            for wrong_img in wrong_gradle_docker_images:
+                wrong_from = f"${{BASE_REGISTRY}}/apm-repo/demo/{wrong_img}"
+                pattern = _re.compile(
+                    rf'^(FROM\s+){_re.escape(wrong_from)}(\s+AS\s+[^\s]+)\s*$',
+                    flags=_re.MULTILINE | _re.IGNORECASE,
+                )
+                dockerfile, count = pattern.subn(rf'\1{gradle_build_from}\2', dockerfile, count=1)
+                if count:
+                    corrections.append(f"Dockerfile: Replaced Gradle build image {wrong_img} with {correct_compile_image}")
+
+            before_df = dockerfile
+            dockerfile = _re.sub(r'^\s*RUN\s+apk add --no-cache gradle\s*\n', '', dockerfile, flags=_re.MULTILINE)
+            dockerfile = _re.sub(
+                r'^\s*RUN\s+sed -i [^\n]*apk/repositories\s*&&\s*apk add --no-cache gradle\s*\n',
+                '',
+                dockerfile,
+                flags=_re.MULTILINE,
+            )
+            if dockerfile != before_df:
+                corrections.append("Dockerfile: Removed apk-based Gradle installation")
+
+            if not _has_gradle_wrapper(analysis):
+                before_df = dockerfile
+                dockerfile = _re.sub(r'^\s*COPY\s+gradle/\s+gradle/\s*\n', '', dockerfile, flags=_re.MULTILINE)
+                dockerfile = _re.sub(r'^\s*COPY\s+gradlew\*\s+\./\s*\n', '', dockerfile, flags=_re.MULTILINE)
+                if dockerfile != before_df:
+                    corrections.append("Dockerfile: Removed Gradle wrapper COPY lines because the repo has no wrapper")
 
         # Fix Dockerfile that uses alpine/nginx for Rust (needs rust image)
         if lang == "rust" and "cargo" not in dockerfile:

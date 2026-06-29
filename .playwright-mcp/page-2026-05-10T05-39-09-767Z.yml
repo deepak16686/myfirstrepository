@@ -1,0 +1,2685 @@
+- generic:
+  - generic:
+    - generic:
+      - link:
+        - /url: "#main-content"
+        - text: Skip to main content
+      - status
+      - complementary:
+        - generic:
+          - generic:
+            - img
+          - generic:
+            - paragraph: DevOps Portal
+            - paragraph: control plane
+        - navigation:
+          - list:
+            - listitem:
+              - link:
+                - /url: /
+                - img
+                - generic: Portal
+            - listitem:
+              - link:
+                - /url: /analytics
+                - img
+                - generic: Analytics
+            - listitem:
+              - link:
+                - /url: /tools
+                - img
+                - generic: Tools
+            - listitem:
+              - link:
+                - /url: /pipelines
+                - img
+                - generic: Pipelines
+            - listitem:
+              - link:
+                - /url: /chat
+                - img
+                - generic: AI Chat
+          - generic:
+            - paragraph: Categories
+            - list:
+              - listitem:
+                - button:
+                  - img
+                  - generic: AI & LLM
+                  - generic: "4"
+              - listitem:
+                - button:
+                  - img
+                  - generic: CI/CD
+                  - generic: "3"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Source Control
+                  - generic: "2"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Code Quality
+                  - generic: "1"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Security
+                  - generic: "1"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Artifacts & Registry
+                  - generic: "2"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Observability
+                  - generic: "5"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Metrics & Exporters
+                  - generic: "3"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Logging
+                  - generic: "1"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Databases & Storage
+                  - generic: "3"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Project Management
+                  - generic: "2"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Gateway & Proxy
+                  - generic: "1"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Platform API
+                  - generic: "2"
+              - listitem:
+                - button:
+                  - img
+                  - generic: Projects
+                  - generic: "32"
+            - paragraph: Health
+            - list:
+              - listitem:
+                - button:
+                  - generic: Healthy
+              - listitem:
+                - button:
+                  - generic: Degraded
+              - listitem:
+                - button:
+                  - generic: Down
+              - listitem:
+                - button:
+                  - generic: Unknown
+        - generic:
+          - button:
+            - img
+            - generic: Collapse
+      - generic:
+        - banner:
+          - generic:
+            - img
+            - searchbox
+            - generic:
+              - img
+              - text: /
+          - button:
+            - generic: Command
+            - generic:
+              - generic: Ctrl
+              - generic: K
+          - generic:
+            - button:
+              - img
+            - status:
+              - img
+              - generic: Public route unavailable
+            - button:
+              - img
+            - button:
+              - img
+            - button:
+              - generic:
+                - img
+              - generic: operator
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - text: Operations Launchpad
+                      - generic:
+                        - img
+                        - text: 58 public routes
+                    - generic:
+                      - heading [level=1]: Tools
+                      - paragraph: Launch, inspect, and triage every AI, delivery, security, data, and observability service from one route-aware control plane.
+                    - generic:
+                      - button:
+                        - generic:
+                          - img
+                          - generic: healthy
+                        - generic: "62"
+                      - button:
+                        - generic:
+                          - img
+                          - generic: degraded
+                        - generic: "0"
+                      - button:
+                        - generic:
+                          - img
+                          - generic: down
+                        - generic: "0"
+                      - button:
+                        - generic:
+                          - img
+                          - generic: unknown
+                        - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: registered
+                        - img
+                      - generic:
+                        - generic: "62"
+                        - generic: 62 visible now
+                    - generic:
+                      - generic:
+                        - generic: operational
+                        - img
+                      - generic:
+                        - generic: "62"
+                        - generic: 0 need review
+                    - generic:
+                      - generic:
+                        - generic: avg latency
+                        - img
+                      - generic:
+                        - generic: 24ms
+                        - generic: 62 probes
+                    - generic:
+                      - generic:
+                        - generic: embeddable
+                        - img
+                      - generic:
+                        - generic: "23"
+                        - generic: last probe 16s ago
+              - region:
+                - button:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic: "7"
+                  - generic:
+                    - heading [level=2]: AI fabric
+                    - paragraph: LLM inference, vectors, RAG stores
+                  - generic:
+                    - generic: AI & LLM
+                    - generic: Databases & Storage
+                - button:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic: "37"
+                  - generic:
+                    - heading [level=2]: Delivery lanes
+                    - paragraph: SCM, runners, pipelines
+                  - generic:
+                    - generic: CI/CD
+                    - generic: Source Control
+                    - generic: Projects
+                - button:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic: "9"
+                  - generic:
+                    - heading [level=2]: Telemetry mesh
+                    - paragraph: Metrics, logs, traces, probes
+                  - generic:
+                    - generic: Observability
+                    - generic: Metrics & Exporters
+                    - generic: Logging
+                - button:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic: "4"
+                  - generic:
+                    - heading [level=2]: Risk surface
+                    - paragraph: Quality, scanners, registries
+                  - generic:
+                    - generic: Security
+                    - generic: Code Quality
+                    - generic: Artifacts & Registry
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic: control
+                      - generic:
+                        - button [pressed]:
+                          - img
+                          - generic: Grid
+                        - button:
+                          - img
+                          - generic: Table
+                        - button:
+                          - img
+                          - generic: Compact
+                    - generic:
+                      - img
+                      - searchbox
+                      - generic:
+                        - img
+                        - text: K
+                  - generic:
+                    - generic: showing 62 of 62
+                    - generic:
+                      - button [pressed]: All tools
+                      - button: AI
+                      - button: CI-CD
+                      - button: Down now
+              - generic:
+                - generic:
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Ollama
+                            - generic:
+                              - generic: AI & LLM
+                              - generic: ollama
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Local LLM inference server — qwen3:32b, pipeline-generator-v5, nomic-embed.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 25ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#llm"
+                        - generic: "#inference"
+                        - generic: "#gpu"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: ChromaDB
+                            - generic:
+                              - generic: AI & LLM
+                              - generic: chromadb
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Vector database (v2 API) — pipeline feedback, templates, successful pipelines.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 13ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#vector-db"
+                        - generic: "#rag"
+                        - generic: "#embeddings"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: ChromaDB Admin
+                            - generic:
+                              - generic: AI & LLM
+                              - generic: chromadb-admin
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Web UI for ChromaDB collections, documents, and queries.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 15ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#vector-db"
+                        - generic: "#admin-ui"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Qdrant
+                            - generic:
+                              - generic: AI & LLM
+                              - generic: qdrant
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: High-performance vector database with REST and gRPC APIs.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 13ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#vector-db"
+                        - generic: "#rag"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Jenkins
+                            - generic:
+                              - generic: CI/CD
+                              - generic: jenkins
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Master CI server with 3 inbound agents for parallel builds.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 18ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#ci"
+                        - generic: "#cd"
+                        - generic: "#jenkins"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: GitLab Runner
+                            - generic:
+                              - generic: CI/CD
+                              - generic: gitlab-runner
+                        - generic:
+                          - img
+                          - text: Local
+                      - paragraph: GitLab CI executor registered against local GitLab instance.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 12ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#ci"
+                        - generic: "#gitlab"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button [disabled]:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Gitea Actions Runner
+                            - generic:
+                              - generic: CI/CD
+                              - generic: gitea-runner
+                        - generic:
+                          - img
+                          - text: Local
+                      - paragraph: Gitea Actions (GitHub Actions-compatible) runner.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 9ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#ci"
+                        - generic: "#gitea"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button [disabled]:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: GitLab
+                            - generic:
+                              - generic: Source Control
+                              - generic: gitlab
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Self-hosted GitLab Community Edition — SCM, CI, registry.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 65ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#scm"
+                        - generic: "#ci"
+                        - generic: "#gitlab"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Gitea
+                            - generic:
+                              - generic: Source Control
+                              - generic: gitea
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Lightweight self-hosted Git server with Actions support.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#scm"
+                        - generic: "#gitea"
+                        - generic: "#lightweight"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: SonarQube
+                            - generic:
+                              - generic: Code Quality
+                              - generic: sonarqube
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Static code analysis, quality gates, technical debt tracking.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 11ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#code-quality"
+                        - generic: "#sast"
+                        - generic: "#quality-gate"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Trivy
+                            - generic:
+                              - generic: Security
+                              - generic: trivy
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Vulnerability scanner for containers, filesystems, IaC, and SBOMs.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#security"
+                        - generic: "#sca"
+                        - generic: "#vuln"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Sonatype Nexus 3
+                            - generic:
+                              - generic: Artifacts & Registry
+                              - generic: nexus
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Universal artifact repository — Docker, npm, Maven, PyPI.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 9ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#registry"
+                        - generic: "#artifacts"
+                        - generic: "#docker-registry"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Nexus Docker Registry
+                            - generic:
+                              - generic: Artifacts & Registry
+                              - generic: nexus-docker-registry
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Docker registry hosted by Nexus; pull via nexus-docker.deepaksharma.live.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 11ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#registry"
+                        - generic: "#docker-registry"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Grafana
+                            - generic:
+                              - generic: Observability
+                              - generic: grafana
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Dashboards for metrics, logs, traces. Primary obs UI.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#dashboards"
+                        - generic: "#metrics"
+                        - generic: "#logs"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Prometheus
+                            - generic:
+                              - generic: Observability
+                              - generic: prometheus
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Time-series metrics database with PromQL query engine.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#metrics"
+                        - generic: "#tsdb"
+                        - generic: "#promql"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Loki
+                            - generic:
+                              - generic: Observability
+                              - generic: loki
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Log aggregation system — label-based indexing, LogQL query.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#logs"
+                        - generic: "#loki"
+                        - generic: "#logql"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Jaeger
+                            - generic:
+                              - generic: Observability
+                              - generic: jaeger
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Distributed tracing — accepts OTLP, Zipkin, Jaeger protocols.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#tracing"
+                        - generic: "#opentelemetry"
+                        - generic: "#distributed"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Promtail
+                            - generic:
+                              - generic: Observability
+                              - generic: promtail
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Log shipper for Loki — tails container logs.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#logs"
+                        - generic: "#promtail"
+                        - generic: "#agent"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: cAdvisor
+                            - generic:
+                              - generic: Metrics & Exporters
+                              - generic: cadvisor
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Container resource usage and performance metrics.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#metrics"
+                        - generic: "#containers"
+                        - generic: "#cadvisor"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Node Exporter
+                            - generic:
+                              - generic: Metrics & Exporters
+                              - generic: node-exporter
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Host-level metrics for Prometheus (CPU, memory, disk, net).
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 75ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#metrics"
+                        - generic: "#host"
+                        - generic: "#prometheus-exporter"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: NVIDIA DCGM Exporter
+                            - generic:
+                              - generic: Metrics & Exporters
+                              - generic: dcgm-exporter
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: GPU metrics for Prometheus (utilization, memory, temp, power).
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#metrics"
+                        - generic: "#gpu"
+                        - generic: "#nvidia"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Splunk Enterprise
+                            - generic:
+                              - generic: Logging
+                              - generic: splunk
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Full-featured log platform with HEC (8088 HTTPS).
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#logs"
+                        - generic: "#splunk"
+                        - generic: "#hec"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Postgres (ai-postgres)
+                            - generic:
+                              - generic: Databases & Storage
+                              - generic: postgres-ai
+                        - generic:
+                          - img
+                          - text: Local
+                      - paragraph: Primary Postgres 15 — backs SonarQube, backend apps.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 4ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#database"
+                        - generic: "#postgres"
+                        - generic: "#sql"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button [disabled]:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Redis
+                            - generic:
+                              - generic: Databases & Storage
+                              - generic: redis
+                        - generic:
+                          - img
+                          - text: Local
+                      - paragraph: In-memory data store — cache, pub/sub, rate-limiting.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 4ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#cache"
+                        - generic: "#redis"
+                        - generic: "#in-memory"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button [disabled]:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: MinIO
+                            - generic:
+                              - generic: Databases & Storage
+                              - generic: minio
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: S3-compatible object storage with web console on :9001.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 9ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#storage"
+                        - generic: "#s3"
+                        - generic: "#object-store"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Jira Software
+                            - generic:
+                              - generic: Project Management
+                              - generic: jira
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Issue tracking, agile boards, roadmap planning.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 10ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#pm"
+                        - generic: "#agile"
+                        - generic: "#atlassian"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Redmine
+                            - generic:
+                              - generic: Project Management
+                              - generic: redmine
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Lightweight project mgmt with issue tracking, wiki, timelog.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 24ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#pm"
+                        - generic: "#issue-tracking"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Nginx Reverse Proxy
+                            - generic:
+                              - generic: Gateway & Proxy
+                              - generic: nginx-proxy
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Entry-point reverse proxy for path-based routing (backs funnel slot
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 829ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#proxy"
+                        - generic: "#nginx"
+                        - generic: "#gateway"
+                      - generic:
+                        - generic: last probe 16s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: DevOps Tools API
+                            - generic:
+                              - generic: Platform API
+                              - generic: devops-tools-backend
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: FastAPI backend — tool catalog, pipeline generator, RL engine.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 10ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#api"
+                        - generic: "#backend"
+                        - generic: "#fastapi"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - link:
+                            - /url: https://api.deepaksharma.live/docs
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: DevOps Portal Frontend
+                            - generic:
+                              - generic: Platform API
+                              - generic: devops-tools-frontend
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: React/Vite SPA — bundled and served by the devops-tools-backend container from /app/frontend/dist at the root of :8003. There is NO separate frontend container — this entry probes the same FastAPI process but checks the SPA shell instead of /health.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 18ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#ui"
+                        - generic: "#frontend"
+                        - generic: "#react"
+                        - generic: "+2"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: 11-service social-media analytics platform (gateway :8100, Qdrant :6335).
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 15ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#project"
+                        - generic: "#microservices"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Platform
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-platform
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: 18-service chaos engineering platform — experiments, telemetry, AI engine.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 13ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#project"
+                        - generic: "#chaos-engineering"
+                        - generic: "#kubernetes"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Taskflow
+                            - generic:
+                              - generic: Projects
+                              - generic: taskflow
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: 5-service Spring-Boot task-management microservices demo.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#project"
+                        - generic: "#java"
+                        - generic: "#spring-boot"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: MailHog
+                            - generic:
+                              - generic: Projects
+                              - generic: mailhog
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Development SMTP catcher UI used by Taskflow and local service tests.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#mail"
+                        - generic: "#smtp"
+                        - generic: "#dev-tool"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Trend Collector
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-trend
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Brandmatik trend ingestion and trend-analysis API.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 10ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#trends"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Scoring Engine
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-scoring
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Brand scoring and ranking API for social content intelligence.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#scoring"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Content Generator
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-content
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: AI content-generation API for campaign and post drafts.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 16ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#content"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Business Service
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-business
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Business-profile and account-domain API for Brandmatik.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 9ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#business"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Posting Service
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-posting
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Social-post scheduling and publishing API.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 9ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#posting"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Analytics Service
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-analytics
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Analytics and reporting API for social-media performance.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#analytics"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Feedback Service
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-feedback
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Feedback capture and review API for generated content loops.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#feedback"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Notification Service
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-notification
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Notification dispatch API for Brandmatik workflows.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 3ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#notifications"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Mock Social Poster
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-mock
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Mock social-posting service for safe local publishing tests.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#api"
+                        - generic: "#mock"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Brandmatik Qdrant
+                            - generic:
+                              - generic: Projects
+                              - generic: brandmatik-qdrant
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Brandmatik vector database API for embeddings and similarity search.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#brandmatik"
+                        - generic: "#vector-db"
+                        - generic: "#qdrant"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Portal UI
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-portal
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Browser UI for chaos experiments, services, and platform status.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 10ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#ui"
+                        - generic: "#public"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Auth Service
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-auth
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Authentication API for the chaos platform.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#api"
+                        - generic: "#auth"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Experiment Engine
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-experiment
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Experiment orchestration API for controlled failure injection.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#api"
+                        - generic: "#experiments"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Telemetry Aggregator
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-telemetry
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Telemetry ingestion API and gRPC collector for chaos experiments.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#api"
+                        - generic: "#telemetry"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos AI Engine
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-ai
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: AI-assisted experiment analysis and recommendation API.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#api"
+                        - generic: "#ai"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Report Service
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-report
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Report generation API for chaos experiment outcomes.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 8ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#api"
+                        - generic: "#reports"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Notification Service
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-notify
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Notification API for chaos experiment events and alerts.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#api"
+                        - generic: "#notifications"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Target App 1
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-target1
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Demo target service used for chaos experiments.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 5ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#target"
+                        - generic: "#public"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Target App 2
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-target2
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Demo target service used for chaos experiments.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#target"
+                        - generic: "#public"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Target App 3
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-target3
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Demo target service used for chaos experiments.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#target"
+                        - generic: "#public"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Grafana
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-grafana
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Grafana dashboards for the chaos platform.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 7ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#grafana"
+                        - generic: "#dashboards"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Prometheus
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-prometheus
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Prometheus metrics database for the chaos platform.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#prometheus"
+                        - generic: "#metrics"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos Credentials Dashboard
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-credentials
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Development-only credentials dashboard for the chaos platform.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#credentials"
+                        - generic: "#dev-tool"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos MinIO
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-minio
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: S3-compatible object storage console for the chaos platform.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#minio"
+                        - generic: "#storage"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Chaos NATS
+                            - generic:
+                              - generic: Projects
+                              - generic: chaos-nats
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: NATS monitoring endpoint for chaos platform event transport.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 5ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#chaos-platform"
+                        - generic: "#nats"
+                        - generic: "#queue"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Taskflow Auth Service
+                            - generic:
+                              - generic: Projects
+                              - generic: taskflow-auth
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Authentication microservice for the Taskflow demo.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 5ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#taskflow"
+                        - generic: "#api"
+                        - generic: "#auth"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Taskflow Task Service
+                            - generic:
+                              - generic: Projects
+                              - generic: taskflow-task
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Task domain microservice for the Taskflow demo.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 6ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#taskflow"
+                        - generic: "#api"
+                        - generic: "#tasks"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+                  - generic:
+                    - button:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - heading [level=3]: Taskflow Notification Service
+                            - generic:
+                              - generic: Projects
+                              - generic: taskflow-notify
+                        - generic:
+                          - img
+                          - text: Public
+                      - paragraph: Notification microservice for the Taskflow demo.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status
+                            - generic: HEALTHY
+                          - generic: 5ms rtt
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic: "#taskflow"
+                        - generic: "#api"
+                        - generic: "#notifications"
+                        - generic: "+1"
+                      - generic:
+                        - generic: last probe 17s ago
+                        - generic:
+                          - button:
+                            - img
+                          - button:
+                            - text: Launch
+                            - img
+    - region "Notifications alt+T"
+  - dialog "GitLab" [ref=e3252]:
+    - generic [ref=e3254]:
+      - img [ref=e3256]
+      - generic [ref=e3260]:
+        - generic [ref=e3261]:
+          - heading "GitLab" [level=2] [ref=e3262]
+          - generic [ref=e3263]:
+            - 'status "Status: healthy" [ref=e3264]'
+            - text: OPERATIONAL
+        - paragraph [ref=e3267]:
+          - img [ref=e3268]
+          - generic [ref=e3272]: scm
+          - generic [ref=e3273]: /
+          - generic [ref=e3274]: gitlab
+    - generic [ref=e3275]:
+      - paragraph [ref=e3276]: Self-hosted GitLab Community Edition — SCM, CI, registry.
+      - generic [ref=e3277]:
+        - generic [ref=e3278]:
+          - generic [ref=e3279]:
+            - paragraph [ref=e3280]: Latency trend
+            - paragraph [ref=e3281]: 65ms
+          - generic [ref=e3282]:
+            - paragraph [ref=e3283]: Last probe
+            - paragraph [ref=e3284]: 37s ago
+          - button "Re-probe now" [active] [ref=e3285]:
+            - img
+        - img [ref=e3287]
+      - generic [ref=e3289]:
+        - 'link "Open Public URL: https://gitlab.deepaksharma.live/" [ref=e3290] [cursor=pointer]':
+          - /url: https://gitlab.deepaksharma.live/
+          - img [ref=e3291]
+          - generic [ref=e3294]: Public
+          - img [ref=e3295]
+        - button "Copy Public URL" [ref=e3299]:
+          - img [ref=e3300]
+      - generic [ref=e3303]:
+        - generic [ref=e3304]:
+          - generic [ref=e3305]: Container
+          - generic [ref=e3306]: gitlab-server
+          - button "Copy Container" [ref=e3307]:
+            - img
+        - generic [ref=e3308]:
+          - generic [ref=e3309]: Compose
+          - generic [ref=e3310]: infra-stack
+        - generic [ref=e3311]:
+          - generic [ref=e3312]: Credentials
+          - generic [ref=e3313]: <redacted>
+      - generic [ref=e3315]:
+        - generic [ref=e3316]:
+          - img [ref=e3318]
+          - generic [ref=e3321]:
+            - paragraph [ref=e3322]: Credentials stored in Vault
+            - paragraph [ref=e3323]: Click to reveal — operator token required
+        - button "Reveal credentials" [ref=e3324]:
+          - img
+          - text: Reveal
+      - generic [ref=e3325]:
+        - img [ref=e3326]
+        - generic [ref=e3329]: Tags
+      - generic [ref=e3330]:
+        - generic [ref=e3331]: scm
+        - generic [ref=e3332]: ci
+        - generic [ref=e3333]: gitlab
+        - generic [ref=e3334]: public
+    - generic [ref=e3335]:
+      - button "Embed" [ref=e3337]:
+        - img
+        - text: Embed
+      - button "Launch" [ref=e3338]:
+        - text: Launch
+        - img
+    - button "Close drawer" [ref=e3339]:
+      - img [ref=e3340]

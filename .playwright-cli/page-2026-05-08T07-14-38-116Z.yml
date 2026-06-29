@@ -1,0 +1,290 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+        - paragraph [ref=e2864]: Categories
+        - list [ref=e2865]:
+          - listitem [ref=e2866]:
+            - button "AI & LLM 4" [ref=e2867]:
+              - img [ref=e2868]
+              - generic [ref=e2878]: AI & LLM
+              - generic [ref=e2879]: "4"
+          - listitem [ref=e2880]:
+            - button "CI/CD 3" [ref=e2881]:
+              - img [ref=e2882]
+              - generic [ref=e2885]: CI/CD
+              - generic [ref=e2886]: "3"
+          - listitem [ref=e2887]:
+            - button "Source Control 2" [ref=e2888]:
+              - img [ref=e2889]
+              - generic [ref=e2893]: Source Control
+              - generic [ref=e2894]: "2"
+          - listitem [ref=e2895]:
+            - button "Code Quality 1" [ref=e2896]:
+              - img [ref=e2897]
+              - generic [ref=e2900]: Code Quality
+              - generic [ref=e2901]: "1"
+          - listitem [ref=e2902]:
+            - button "Security 1" [ref=e2903]:
+              - img [ref=e2904]
+              - generic [ref=e2907]: Security
+              - generic [ref=e2908]: "1"
+          - listitem [ref=e2909]:
+            - button "Artifacts & Registry 2" [ref=e2910]:
+              - img [ref=e2911]
+              - generic [ref=e2915]: Artifacts & Registry
+              - generic [ref=e2916]: "2"
+          - listitem [ref=e2917]:
+            - button "Observability 5" [ref=e2918]:
+              - img [ref=e2919]
+              - generic [ref=e2922]: Observability
+              - generic [ref=e2923]: "5"
+          - listitem [ref=e2924]:
+            - button "Metrics & Exporters 3" [ref=e2925]:
+              - img [ref=e2926]
+              - generic [ref=e2928]: Metrics & Exporters
+              - generic [ref=e2929]: "3"
+          - listitem [ref=e2930]:
+            - button "Logging 1" [ref=e2931]:
+              - img [ref=e2932]
+              - generic [ref=e2935]: Logging
+              - generic [ref=e2936]: "1"
+          - listitem [ref=e2937]:
+            - button "Databases & Storage 3" [ref=e2938]:
+              - img [ref=e2939]
+              - generic [ref=e2943]: Databases & Storage
+              - generic [ref=e2944]: "3"
+          - listitem [ref=e2945]:
+            - button "Project Management 2" [ref=e2946]:
+              - img [ref=e2947]
+              - generic [ref=e2948]: Project Management
+              - generic [ref=e2949]: "2"
+          - listitem [ref=e2950]:
+            - button "Gateway & Proxy 1" [ref=e2951]:
+              - img [ref=e2952]
+              - generic [ref=e2956]: Gateway & Proxy
+              - generic [ref=e2957]: "1"
+          - listitem [ref=e2958]:
+            - button "Platform API 2" [ref=e2959]:
+              - img [ref=e2960]
+              - generic [ref=e2972]: Platform API
+              - generic [ref=e2973]: "2"
+          - listitem [ref=e2974]:
+            - button "Projects 32" [ref=e2975]:
+              - img [ref=e2976]
+              - generic [ref=e2980]: Projects
+              - generic [ref=e2981]: "32"
+        - paragraph [ref=e2982]: Health
+        - list [ref=e2983]:
+          - listitem [ref=e2984]:
+            - button "Healthy" [ref=e2985]:
+              - generic [ref=e2987]: Healthy
+          - listitem [ref=e2988]:
+            - button "Degraded" [ref=e2989]:
+              - generic [ref=e2991]: Degraded
+          - listitem [ref=e2992]:
+            - button "Down" [ref=e2993]:
+              - generic [ref=e2995]: Down
+          - listitem [ref=e2996]:
+            - button "Unknown" [ref=e2997]:
+              - generic [ref=e2999]: Unknown
+      - button "Collapse sidebar" [ref=e62]:
+        - img
+        - generic [ref=e63]: Collapse
+    - generic [ref=e64]:
+      - banner [ref=e65]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - searchbox "Search" [ref=e70]
+          - generic [ref=e71]:
+            - img [ref=e72]
+            - text: /
+        - button "Open command palette" [ref=e74]:
+          - generic [ref=e75]: Command
+          - generic [ref=e76]:
+            - generic [ref=e77]: Ctrl
+            - generic [ref=e78]: K
+        - generic [ref=e79]:
+          - button "Hide status rail" [pressed] [ref=e80]:
+            - img
+          - 'status "Tailscale status: Local only" [ref=e81]':
+            - img [ref=e83]
+            - generic [ref=e84]: Local only
+          - button "Notifications" [ref=e85]:
+            - img
+          - 'button "Theme: system (light)" [ref=e87]':
+            - img
+          - button "Account" [ref=e88]:
+            - generic [ref=e89]:
+              - img
+            - generic [ref=e90]: operator
+      - region "Tool status rail" [ref=e164]:
+        - generic [ref=e165]: Status rail
+        - generic [ref=e166]:
+          - button "Nginx Reverse Proxy — OFFLINE" [ref=e167]
+          - button "Brandmatik — OPERATIONAL" [ref=e168]
+          - button "Brandmatik Analytics Service — OPERATIONAL" [ref=e169]
+          - button "Brandmatik Business Service — OPERATIONAL" [ref=e170]
+          - button "Brandmatik Content Generator — OPERATIONAL" [ref=e171]
+          - button "Brandmatik Feedback Service — OPERATIONAL" [ref=e172]
+          - button "Brandmatik Mock Social Poster — OPERATIONAL" [ref=e173]
+          - button "Brandmatik Notification Service — OPERATIONAL" [ref=e174]
+          - button "Brandmatik Posting Service — OPERATIONAL" [ref=e175]
+          - button "Brandmatik Qdrant — OPERATIONAL" [ref=e176]
+          - button "Brandmatik Scoring Engine — OPERATIONAL" [ref=e177]
+          - button "Brandmatik Trend Collector — OPERATIONAL" [ref=e178]
+          - button "cAdvisor — OPERATIONAL" [ref=e179]
+          - button "Chaos AI Engine — OPERATIONAL" [ref=e180]
+          - button "Chaos Auth Service — OPERATIONAL" [ref=e181]
+          - button "Chaos Credentials Dashboard — OPERATIONAL" [ref=e182]
+          - button "Chaos Experiment Engine — OPERATIONAL" [ref=e183]
+          - button "Chaos Grafana — OPERATIONAL" [ref=e184]
+          - button "Chaos MinIO — OPERATIONAL" [ref=e185]
+          - button "Chaos NATS — OPERATIONAL" [ref=e186]
+          - button "Chaos Notification Service — OPERATIONAL" [ref=e187]
+          - button "Chaos Platform — OPERATIONAL" [ref=e188]
+          - button "Chaos Portal UI — OPERATIONAL" [ref=e189]
+          - button "Chaos Prometheus — OPERATIONAL" [ref=e190]
+          - button "Chaos Report Service — OPERATIONAL" [ref=e191]
+          - button "Chaos Target App 1 — OPERATIONAL" [ref=e192]
+          - button "Chaos Target App 2 — OPERATIONAL" [ref=e193]
+          - button "Chaos Target App 3 — OPERATIONAL" [ref=e194]
+          - button "Chaos Telemetry Aggregator — OPERATIONAL" [ref=e195]
+          - button "ChromaDB — OPERATIONAL" [ref=e196]
+          - button "ChromaDB Admin — OPERATIONAL" [ref=e197]
+          - button "DevOps Portal Frontend — OPERATIONAL" [ref=e198]
+          - button "DevOps Tools API — OPERATIONAL" [ref=e199]
+          - button "Gitea — OPERATIONAL" [ref=e200]
+          - button "Gitea Actions Runner — OPERATIONAL" [ref=e201]
+          - button "GitLab — OPERATIONAL" [ref=e202]
+          - button "GitLab Runner — OPERATIONAL" [ref=e203]
+          - button "Grafana — OPERATIONAL" [ref=e204]
+          - button "Jaeger — OPERATIONAL" [ref=e205]
+          - button "Jenkins — OPERATIONAL" [ref=e206]
+          - button "Jira Software — OPERATIONAL" [ref=e207]
+          - button "Loki — OPERATIONAL" [ref=e208]
+          - button "MailHog — OPERATIONAL" [ref=e209]
+          - button "MinIO — OPERATIONAL" [ref=e210]
+          - button "Nexus Docker Registry — OPERATIONAL" [ref=e211]
+          - button "Node Exporter — OPERATIONAL" [ref=e212]
+          - button "NVIDIA DCGM Exporter — OPERATIONAL" [ref=e213]
+          - button "Ollama — OPERATIONAL" [ref=e214]
+          - button "Postgres (ai-postgres) — OPERATIONAL" [ref=e215]
+          - button "Prometheus — OPERATIONAL" [ref=e216]
+          - button "Promtail — OPERATIONAL" [ref=e217]
+          - button "Qdrant — OPERATIONAL" [ref=e218]
+          - button "Redis — OPERATIONAL" [ref=e219]
+          - button "Redmine — OPERATIONAL" [ref=e220]
+          - button "SonarQube — OPERATIONAL" [ref=e221]
+          - button "Sonatype Nexus 3 — OPERATIONAL" [ref=e222]
+          - button "Splunk Enterprise — OPERATIONAL" [ref=e223]
+          - button "Taskflow — OPERATIONAL" [ref=e224]
+          - button "Taskflow Auth Service — OPERATIONAL" [ref=e225]
+          - button "Taskflow Notification Service — OPERATIONAL" [ref=e226]
+          - button "Taskflow Task Service — OPERATIONAL" [ref=e227]
+          - button "Trivy — OPERATIONAL" [ref=e228]
+        - generic [ref=e3000]:
+          - generic [ref=e3001]: "61"
+          - generic [ref=e3002]: /
+          - generic [ref=e3003]: "0"
+          - generic [ref=e3004]: /
+          - generic [ref=e3005]: "1"
+      - main [ref=e92]:
+        - generic [ref=e3007]:
+          - generic [ref=e3008]:
+            - generic [ref=e3009]:
+              - paragraph [ref=e3010]: Catalog
+              - heading "Tools" [level=1] [ref=e3012]
+              - paragraph [ref=e3013]: Every tool registered in config/tools.yaml with live health. Cycle views with the tabs, refine with the saved-view chips, or press / to search.
+            - button "Clear filters (1)" [ref=e5167]:
+              - img
+              - text: Clear filters (1)
+          - generic [ref=e3015]:
+            - generic [ref=e3016]:
+              - generic [ref=e3017]:
+                - button "Grid" [pressed] [ref=e3018]:
+                  - img [ref=e3019]
+                  - text: Grid
+                - button "Table" [ref=e3025]:
+                  - img [ref=e3026]
+                  - text: Table
+                - button "Compact" [ref=e3028]:
+                  - img [ref=e3029]
+                  - text: Compact
+              - generic [ref=e3030]: showing 1 of 62
+            - generic [ref=e3032]:
+              - img [ref=e3033]
+              - searchbox "Filter tools" [ref=e3036]
+            - generic [ref=e3037]:
+              - button "All tools" [ref=e3038]
+              - button "AI" [ref=e3039]
+              - button "CI-CD" [ref=e3040]
+              - button "Down now" [active] [pressed] [ref=e3041]
+          - generic [ref=e5168]:
+            - generic [ref=e5169]: active filters
+            - generic [ref=e5170]:
+              - text: "view:"
+              - generic [ref=e5171]: down
+          - button "Nginx Reverse Proxy — OFFLINE. Open detail." [ref=e3952] [cursor=pointer]:
+            - generic [ref=e3953]:
+              - generic [ref=e3954]:
+                - img [ref=e3956]
+                - generic [ref=e3960]:
+                  - heading "Nginx Reverse Proxy" [level=3] [ref=e3961]
+                  - generic [ref=e3962]:
+                    - generic [ref=e3963]: Gateway & Proxy
+                    - generic [ref=e3964]: nginx-proxy
+                    - generic "Publicly reachable" [ref=e3965]:
+                      - img [ref=e3966]
+                      - text: Public
+              - generic [ref=e3969]:
+                - 'status "Status: down" [ref=e3970]'
+                - generic [ref=e3973]: DOWN
+            - paragraph [ref=e3974]: Entry-point reverse proxy for path-based routing (backs funnel slot
+            - generic [ref=e3975]:
+              - generic [ref=e3976]: "#proxy"
+              - generic [ref=e3977]: "#nginx"
+              - generic [ref=e3978]: "#gateway"
+            - generic [ref=e3979]:
+              - generic [ref=e3980]: 4.01srtt
+              - generic [ref=e3981]:
+                - button "Info for Nginx Reverse Proxy" [ref=e3982]:
+                  - img
+                - button "Launch Nginx Reverse Proxy" [ref=e3983]:
+                  - text: Launch
+                  - img
+  - region "Notifications alt+T"

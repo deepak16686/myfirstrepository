@@ -1,0 +1,330 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [active] [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+      - button "Collapse sidebar" [ref=e62]:
+        - img
+        - generic [ref=e63]: Collapse
+    - generic [ref=e64]:
+      - banner [ref=e65]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - searchbox "Search" [ref=e70]
+          - generic [ref=e71]:
+            - img [ref=e72]
+            - text: /
+        - button "Open command palette" [ref=e74]:
+          - generic [ref=e75]: Command
+          - generic [ref=e76]:
+            - generic [ref=e77]: Ctrl
+            - generic [ref=e78]: K
+        - generic [ref=e79]:
+          - button "Hide status rail" [pressed] [ref=e80]:
+            - img
+          - 'status "Public route status: Public route unavailable" [ref=e81]':
+            - img [ref=e216]
+            - generic [ref=e84]: Public route unavailable
+          - button "Notifications" [ref=e85]:
+            - img
+          - 'button "Theme: system (light)" [ref=e87]':
+            - img
+          - button "Account" [ref=e88]:
+            - generic [ref=e89]:
+              - img
+            - generic [ref=e90]: operator
+      - region "Tool status rail" [ref=e217]:
+        - generic [ref=e218]: Status rail
+        - generic [ref=e219]:
+          - button "Brandmatik — OPERATIONAL" [ref=e220]
+          - button "Brandmatik Analytics Service — OPERATIONAL" [ref=e221]
+          - button "Brandmatik Business Service — OPERATIONAL" [ref=e222]
+          - button "Brandmatik Content Generator — OPERATIONAL" [ref=e223]
+          - button "Brandmatik Feedback Service — OPERATIONAL" [ref=e224]
+          - button "Brandmatik Mock Social Poster — OPERATIONAL" [ref=e225]
+          - button "Brandmatik Notification Service — OPERATIONAL" [ref=e226]
+          - button "Brandmatik Posting Service — OPERATIONAL" [ref=e227]
+          - button "Brandmatik Qdrant — OPERATIONAL" [ref=e228]
+          - button "Brandmatik Scoring Engine — OPERATIONAL" [ref=e229]
+          - button "Brandmatik Trend Collector — OPERATIONAL" [ref=e230]
+          - button "cAdvisor — OPERATIONAL" [ref=e231]
+          - button "ChromaDB — OPERATIONAL" [ref=e232]
+          - button "ChromaDB Admin — OPERATIONAL" [ref=e233]
+          - button "DevOps Portal Frontend — OPERATIONAL" [ref=e234]
+          - button "DevOps Tools API — OPERATIONAL" [ref=e235]
+          - button "Gitea — OPERATIONAL" [ref=e236]
+          - button "Gitea Actions Runner — OPERATIONAL" [ref=e237]
+          - button "GitLab — OPERATIONAL" [ref=e238]
+          - button "GitLab Runner — OPERATIONAL" [ref=e239]
+          - button "Grafana — OPERATIONAL" [ref=e240]
+          - button "Jaeger — OPERATIONAL" [ref=e241]
+          - button "Jenkins — OPERATIONAL" [ref=e242]
+          - button "Jira Software — OPERATIONAL" [ref=e243]
+          - button "Loki — OPERATIONAL" [ref=e244]
+          - button "MinIO — OPERATIONAL" [ref=e245]
+          - button "Nexus Docker Registry — OPERATIONAL" [ref=e246]
+          - button "Nginx Reverse Proxy — OPERATIONAL" [ref=e247]
+          - button "Node Exporter — OPERATIONAL" [ref=e248]
+          - button "NVIDIA DCGM Exporter — OPERATIONAL" [ref=e249]
+          - button "Ollama — OPERATIONAL" [ref=e250]
+          - button "Postgres (ai-postgres) — OPERATIONAL" [ref=e251]
+          - button "Prometheus — OPERATIONAL" [ref=e252]
+          - button "Promtail — OPERATIONAL" [ref=e253]
+          - button "Qdrant — OPERATIONAL" [ref=e254]
+          - button "Redis — OPERATIONAL" [ref=e255]
+          - button "Redmine — OPERATIONAL" [ref=e256]
+          - button "SonarQube — OPERATIONAL" [ref=e257]
+          - button "Sonatype Nexus 3 — OPERATIONAL" [ref=e258]
+          - button "Splunk Enterprise — OPERATIONAL" [ref=e259]
+          - button "Trivy — OPERATIONAL" [ref=e260]
+        - generic [ref=e261]:
+          - generic [ref=e262]: "41"
+          - generic [ref=e263]: /
+          - generic [ref=e264]: "0"
+          - generic [ref=e265]: /
+          - generic [ref=e266]: "0"
+      - main [ref=e92]:
+        - generic [ref=e268]:
+          - generic [ref=e272]:
+            - generic [ref=e273]:
+              - generic [ref=e274]:
+                - img [ref=e275]
+                - text: CI/CD provider control
+              - generic [ref=e277]:
+                - heading "Pipeline Generator" [level=1] [ref=e278]
+                - paragraph [ref=e279]: Generate, validate, commit, monitor, and self-heal GitLab, Jenkins, and Gitea pipelines from the same operating flow. Every provider writes native files to scratch branches only.
+              - generic [ref=e280]:
+                - link "Generate in chat" [ref=e281] [cursor=pointer]:
+                  - /url: /chat
+                  - img
+                  - text: Generate in chat
+                - link "Provider API" [ref=e282] [cursor=pointer]:
+                  - /url: /api/v1/pipeline/providers
+                  - img
+                  - text: Provider API
+            - generic [ref=e283]:
+              - generic [ref=e284]:
+                - generic [ref=e285]:
+                  - generic [ref=e286]: providers
+                  - img [ref=e287]
+                - generic [ref=e291]:
+                  - generic [ref=e292]: "3"
+                  - generic [ref=e293]: GitLab, Jenkins, Gitea
+              - generic [ref=e294]:
+                - generic [ref=e295]:
+                  - generic [ref=e296]: recent runs
+                  - img [ref=e297]
+                - generic [ref=e299]:
+                  - generic [ref=e300]: "0"
+                  - generic [ref=e301]: 0 active now
+              - generic [ref=e302]:
+                - generic [ref=e303]:
+                  - generic [ref=e304]: failed
+                  - img [ref=e305]
+                - generic [ref=e307]:
+                  - generic [ref=e308]: "0"
+                  - generic [ref=e309]: self-heal eligible
+              - generic [ref=e310]:
+                - generic [ref=e311]:
+                  - generic [ref=e312]: dry-runs
+                  - img [ref=e313]
+                - generic [ref=e316]:
+                  - generic [ref=e317]: "on"
+                  - generic [ref=e318]: validate before commit
+          - region "Pipeline providers" [ref=e319]:
+            - article [ref=e320]:
+              - generic [ref=e323]:
+                - generic [ref=e324]:
+                  - img [ref=e326]
+                  - generic [ref=e330]:
+                    - heading "GitLab CI" [level=2] [ref=e331]
+                    - paragraph [ref=e332]: /pipeline
+                - generic [ref=e333]: docker
+              - generic [ref=e334]:
+                - generic [ref=e335]:
+                  - img [ref=e336]
+                  - text: .gitlab-ci.yml
+                - generic [ref=e341]:
+                  - img [ref=e342]
+                  - text: Dockerfile
+              - generic [ref=e347]:
+                - generic [ref=e348]:
+                  - generic [ref=e349]: native flow
+                  - generic [ref=e350]: feature/ai-pipeline-*
+                - generic [ref=e351]:
+                  - generic [ref=e352]: analyze repo
+                  - generic [ref=e353]: generate pipeline
+                  - generic [ref=e354]: validate dry run
+                  - generic [ref=e355]: commit scratch branch
+                  - generic [ref=e356]: trigger or detect run
+                  - generic [ref=e357]: monitor run
+                  - generic [ref=e358]: self-heal
+                  - generic [ref=e359]: record learning
+              - generic [ref=e360]:
+                - generic [ref=e361]:
+                  - paragraph [ref=e362]: dry-run
+                  - paragraph [ref=e363]: /pipeline/dry-run
+                - generic [ref=e364]:
+                  - paragraph [ref=e365]: self-heal
+                  - paragraph [ref=e366]: /pipeline/self-heal
+              - paragraph [ref=e367]: Commits only to GitLab scratch branch; main branch remains untouched.
+            - article [ref=e368]:
+              - generic [ref=e371]:
+                - generic [ref=e372]:
+                  - img [ref=e374]
+                  - generic [ref=e376]:
+                    - heading "Jenkins" [level=2] [ref=e377]
+                    - paragraph [ref=e378]: /jenkins-pipeline
+                - generic [ref=e379]: docker
+              - generic [ref=e380]:
+                - generic [ref=e381]:
+                  - img [ref=e382]
+                  - text: Jenkinsfile
+                - generic [ref=e387]:
+                  - img [ref=e388]
+                  - text: Dockerfile
+              - generic [ref=e393]:
+                - generic [ref=e394]:
+                  - generic [ref=e395]: native flow
+                  - generic [ref=e396]: jenkins-pipeline-*
+                - generic [ref=e397]:
+                  - generic [ref=e398]: analyze repo
+                  - generic [ref=e399]: generate pipeline
+                  - generic [ref=e400]: validate dry run
+                  - generic [ref=e401]: commit scratch branch
+                  - generic [ref=e402]: trigger or detect run
+                  - generic [ref=e403]: monitor run
+                  - generic [ref=e404]: self-heal
+                  - generic [ref=e405]: record learning
+              - generic [ref=e406]:
+                - generic [ref=e407]:
+                  - paragraph [ref=e408]: dry-run
+                  - paragraph [ref=e409]: /jenkins-pipeline/dry-run
+                - generic [ref=e410]:
+                  - paragraph [ref=e411]: self-heal
+                  - paragraph [ref=e412]: /jenkins-pipeline/self-heal
+              - paragraph [ref=e413]: Commits only to Gitea scratch branch, Jenkins multibranch scan; main branch remains untouched.
+            - article [ref=e414]:
+              - generic [ref=e417]:
+                - generic [ref=e418]:
+                  - img [ref=e420]
+                  - generic [ref=e423]:
+                    - heading "Gitea Actions" [level=2] [ref=e424]
+                    - paragraph [ref=e425]: /github-pipeline
+                - generic [ref=e426]: self-hosted
+              - generic [ref=e427]:
+                - generic [ref=e428]:
+                  - img [ref=e429]
+                  - text: .gitea/workflows/ci.yml
+                - generic [ref=e434]:
+                  - img [ref=e435]
+                  - text: Dockerfile
+              - generic [ref=e440]:
+                - generic [ref=e441]:
+                  - generic [ref=e442]: native flow
+                  - generic [ref=e443]: ci-pipeline-*
+                - generic [ref=e444]:
+                  - generic [ref=e445]: analyze repo
+                  - generic [ref=e446]: generate pipeline
+                  - generic [ref=e447]: validate dry run
+                  - generic [ref=e448]: commit scratch branch
+                  - generic [ref=e449]: trigger or detect run
+                  - generic [ref=e450]: monitor run
+                  - generic [ref=e451]: self-heal
+                  - generic [ref=e452]: record learning
+              - generic [ref=e453]:
+                - generic [ref=e454]:
+                  - paragraph [ref=e455]: dry-run
+                  - paragraph [ref=e456]: /github-pipeline/dry-run
+                - generic [ref=e457]:
+                  - paragraph [ref=e458]: self-heal
+                  - paragraph [ref=e459]: /github-pipeline/self-heal
+              - paragraph [ref=e460]: Commits only to Gitea scratch branch, Actions workflow; main branch remains untouched.
+          - generic [ref=e461]:
+            - generic [ref=e462]:
+              - paragraph [ref=e463]: recent execution
+              - heading "GitLab run monitor" [level=2] [ref=e464]
+            - generic [ref=e465]:
+              - img [ref=e466]
+              - text: refresh 45s
+          - region "Live GitLab monitor" [ref=e469]:
+            - generic [ref=e470]:
+              - generic [ref=e471]:
+                - paragraph [ref=e472]: Live GitLab monitor
+                - paragraph [ref=e473]: Active branch monitors update every 2s with GitLab job status.
+              - generic [ref=e474]:
+                - img [ref=e475]
+                - text: refresh 2s
+            - generic [ref=e478]: No active self-healing monitor is running right now.
+          - table [ref=e481]:
+            - rowgroup [ref=e482]:
+              - row "Pipeline Status Ref SHA Duration Updated" [ref=e483]:
+                - columnheader "Pipeline" [ref=e484] [cursor=pointer]:
+                  - generic [ref=e485]:
+                    - text: Pipeline
+                    - img [ref=e486]
+                - columnheader "Status" [ref=e489] [cursor=pointer]:
+                  - generic [ref=e490]:
+                    - text: Status
+                    - img [ref=e491]
+                - columnheader "Ref" [ref=e494] [cursor=pointer]:
+                  - generic [ref=e495]:
+                    - text: Ref
+                    - img [ref=e496]
+                - columnheader "SHA" [ref=e499] [cursor=pointer]:
+                  - generic [ref=e500]:
+                    - text: SHA
+                    - img [ref=e501]
+                - columnheader "Duration" [ref=e504] [cursor=pointer]:
+                  - generic [ref=e505]:
+                    - text: Duration
+                    - img [ref=e506]
+                - columnheader "Updated" [ref=e509] [cursor=pointer]:
+                  - generic [ref=e510]:
+                    - text: Updated
+                    - img [ref=e511]
+                - columnheader [ref=e514]
+            - rowgroup [ref=e515]:
+              - row "No pipelines yet When GitLab returns data from /api/v1/gitlab/pipelines, runs will appear here." [ref=e516]:
+                - cell "No pipelines yet When GitLab returns data from /api/v1/gitlab/pipelines, runs will appear here." [ref=e517]:
+                  - generic [ref=e518]:
+                    - img [ref=e519]
+                    - paragraph [ref=e524]: No pipelines yet
+                    - paragraph [ref=e525]:
+                      - text: When GitLab returns data from
+                      - code [ref=e526]: /api/v1/gitlab/pipelines
+                      - text: ", runs will appear here."
+  - region "Notifications alt+T"

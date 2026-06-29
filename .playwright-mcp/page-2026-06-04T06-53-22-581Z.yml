@@ -1,0 +1,11 @@
+- generic [active] [ref=e1]:
+  - heading "Unknown subdomain" [level=1] [ref=e2]
+  - paragraph [ref=e3]:
+    - text: This subdomain of
+    - code [ref=e4]: deepaksharma.live
+    - text: is not mapped to any tool.
+  - paragraph [ref=e5]:
+    - text: See the portal at
+    - link "https://deepaksharma.live" [ref=e6] [cursor=pointer]:
+      - /url: https://deepaksharma.live
+    - text: for the full list of services.

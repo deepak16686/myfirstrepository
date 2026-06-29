@@ -1,0 +1,47 @@
+[mcp_servers.docker]
+args = [
+    "-y",
+    "mcp-server-docker",
+]
+command = "npx"
+
+[mcp_servers.kubernetes]
+args = [
+    "-y",
+    "kubernetes-mcp-server@latest",
+]
+command = "npx"
+
+[mcp_servers.ollama]
+args = [
+    "-y",
+    "ollama-mcp-server",
+]
+command = "npx"
+
+[mcp_servers.ollama.env]
+OLLAMA_HOST = "http://localhost:11434"
+
+[mcp_servers.prometheus]
+args = [
+    "-y",
+    "@wkronmiller/prometheus-mcp-server",
+]
+command = "npx"
+
+[mcp_servers.prometheus.env]
+PROMETHEUS_URL = "http://localhost:9090"
+
+[mcp_servers.selenium]
+args = [
+    "-y",
+    "@angiejones/mcp-selenium",
+]
+command = "npx"
+
+[mcp_servers.terraform]
+args = [
+    "-y",
+    "terraform-mcp-server@latest",
+]
+command = "npx"

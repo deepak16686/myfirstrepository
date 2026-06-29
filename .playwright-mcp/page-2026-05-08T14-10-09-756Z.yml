@@ -1,0 +1,454 @@
+- generic [active] [ref=e1]:
+  - link "Join Datadog at DASH in NYC, June 9-10. | The future of AI + Observability starts here." [ref=e3] [cursor=pointer]:
+    - /url: https://dash.datadoghq.com/?utm_source=events&utm_medium=internal&utm_campaign=summit-202606dash&utm_term=HPbanner
+    - generic [ref=e5]: Join Datadog at DASH in NYC, June 9-10. | The future of AI + Observability starts here.
+  - generic:
+    - navigation [ref=e6]:
+      - generic [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - link "Product" [ref=e11] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/
+            - text:                   
+          - listitem [ref=e12]:
+            - link "Customers" [ref=e13] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/customers/
+          - listitem [ref=e14]:
+            - link "Pricing" [ref=e15] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/pricing/
+          - listitem [ref=e16]:
+            - link "Solutions" [ref=e17] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/
+          - listitem [ref=e18]:
+            - link "Docs" [ref=e19] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/
+        - link "DataDog DataDog" [ref=e21] [cursor=pointer]:
+          - /url: https://www.datadoghq.com/
+          - img "DataDog" [ref=e22]
+          - img "DataDog" [ref=e23]
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "About" [ref=e26] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/about/leadership/
+          - listitem [ref=e27]:
+            - link "Blog" [ref=e28] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/blog/
+          - listitem [ref=e29]:
+            - link "Login" [ref=e30] [cursor=pointer]:
+              - /url: https://app.datadoghq.com/
+          - listitem [ref=e31]:
+            - link "Search toggle" [ref=e32] [cursor=pointer]:
+              - /url: "#"
+              - button "Open search bar." [ref=e33]:
+                - img [ref=e34]
+          - listitem [ref=e37]:
+            - link "GET STARTED FREE" [ref=e38] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/
+              - generic [ref=e39]: GET STARTED FREE
+    - text:          
+    - search [ref=e44]:
+      - searchbox "Search" [ref=e45]
+      - button "Clear the search query" [ref=e46] [cursor=pointer]:
+        - img [ref=e47]
+  - banner [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - heading "AI-Powered Observability and Security" [level=1] [ref=e52]
+        - generic [ref=e53]: See inside any stack, any app, at any scale, anywhere.
+      - generic [ref=e56]:
+        - button "Free trial" [ref=e58] [cursor=pointer]
+        - button " SEE THE PLATFORM" [ref=e60] [cursor=pointer]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: 
+            - generic [ref=e63]: SEE THE PLATFORM
+    - generic [ref=e65]:
+      - generic [ref=e67]: Thousands of customers love & trust Datadog
+      - generic [ref=e69]:
+        - link "Samsung Customer Logo":
+          - /url: https://www.datadoghq.com/customers/
+          - img
+        - link "Nasdaq Customer Logo":
+          - /url: https://www.datadoghq.com/customers/
+          - img
+        - link "Korean Air Customer Logo":
+          - /url: https://www.datadoghq.com/customers/
+          - img
+        - link "Shell Customer Logo":
+          - /url: https://www.datadoghq.com/customers/
+          - img
+        - link "HashiCorp Customer Logo":
+          - /url: https://www.datadoghq.com/customers/
+          - img
+        - link "SNCF Customer Logo":
+          - /url: https://www.datadoghq.com/customers/
+          - img
+  - generic [ref=e70]:
+    - figure [ref=e72]:
+      - img "DASH 2025" [ref=e74]
+    - generic [ref=e75]:
+      - figure [ref=e77]:
+        - img "DASH Gradient Background" [ref=e79]
+      - generic [ref=e80]:
+        - generic [ref=e81]: DASH is Back on June 9-10, 2026
+        - paragraph [ref=e82]: Join thousands of engineers, developers, and security experts in New York City for two days of hands-on learning, meaningful connections, and a first look at the AI-native platform built for the way you actually work. See the future of observability and security—powered by AI.
+        - link "Link to DASH site" [ref=e83] [cursor=pointer]:
+          - /url: https://dash.datadoghq.com/?utm_source=hp&utm_medium=internal&utm_campaign=summit-202606dash
+          - text: SAVE THE DATE
+          - generic [ref=e84]: 
+  - generic [ref=e90]:
+    - heading "2025 GARTNER® MAGIC QUADRANT™" [level=5] [ref=e91]
+    - heading "Datadog has been recognized as a Leader in the Gartner Magic Quadrant™ for Digital Experience Monitoring" [level=2] [ref=e92]
+    - link "Gartner Magic Quadrant™ DEM" [ref=e93] [cursor=pointer]:
+      - /url: resources/gartner-magic-quadrant-digital-experience-monitoring-2025/?utm_source=inbound&utm_medium=corpsite-display&utm_campaign=int-rum-ww-homepage-rotating-report-gartnermq2025-dem
+      - text: Learn More
+  - main [ref=e94]:
+    - generic [ref=e96]:
+      - heading "Products" [level=2] [ref=e97]
+      - generic [ref=e101]:
+        - group [ref=e102]:
+          - generic "Infrastructure" [ref=e103] [cursor=pointer]
+          - generic [ref=e104]: From overview to deep details, fast
+          - link "Learn more about Datadog Infrastructure" [ref=e106] [cursor=pointer]:
+            - /url: https://www.datadoghq.com/product/infrastructure-monitoring/
+            - generic [ref=e107]: Learn more
+            - generic [ref=e108]: 
+          - generic [ref=e109]:
+            - link "Link to https://www.datadoghq.com/product/infrastructure-monitoring/" [ref=e110] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/infrastructure-monitoring/
+              - generic "Infrastructure" [ref=e111]
+            - figure:
+              - link:
+                - /url: https://www.datadoghq.com/product/infrastructure-monitoring/
+        - group [ref=e113]:
+          - generic "Log Management" [ref=e114] [cursor=pointer]
+          - text: 
+        - group [ref=e115]:
+          - generic "APM" [ref=e116] [cursor=pointer]
+          - text: 
+        - group [ref=e117]:
+          - generic "Security Monitoring" [ref=e118] [cursor=pointer]
+          - text: 
+        - group [ref=e119]:
+          - generic "Network Monitoring" [ref=e120] [cursor=pointer]
+          - text: 
+        - group [ref=e121]:
+          - generic "Synthetic Monitoring" [ref=e122] [cursor=pointer]
+          - text: 
+        - group [ref=e123]:
+          - generic "Real User Monitoring" [ref=e124] [cursor=pointer]
+          - text: 
+        - group [ref=e125]:
+          - generic "Serverless" [ref=e126] [cursor=pointer]
+          - text: 
+    - generic [ref=e127]:
+      - generic [ref=e132]:
+        - generic [ref=e133]: read the report
+        - generic [ref=e134]: State of AI Engineering
+        - paragraph [ref=e135]: For our 2026 State of AI Engineering report, we analyzed data from thousands of AI agent environments to assess trends in agent development, architecture, and operations.
+        - link "Link to post" [ref=e136] [cursor=pointer]:
+          - /url: https://www.datadoghq.com/state-of-ai-engineering/
+          - text: LEARN MORE
+          - generic [ref=e137]: 
+      - generic [ref=e138]:
+        - figure [ref=e140]:
+          - img "join our team" [ref=e142]
+        - generic [ref=e143]:
+          - generic [ref=e144]: Careers
+          - generic [ref=e145]: Join Our Pack
+          - paragraph [ref=e146]: We are building the monitoring and security platform for developers, IT operations teams and business users in the cloud age. And we need talented people like you to join our team.
+          - link "Link to careers site" [ref=e147] [cursor=pointer]:
+            - /url: https://careers.datadoghq.com/
+            - text: LEARN MORE
+            - generic [ref=e148]: 
+      - generic [ref=e151]:
+        - generic [ref=e152]: Want to learn more about Datadog?
+        - generic [ref=e153]: Datadog hosts events both online and in-person. See all that Datadog has to offer by visiting our Events & Webinars hub.
+        - link "learn more" [ref=e156] [cursor=pointer]:
+          - /url: https://www.datadoghq.com/events-webinars/
+          - generic [ref=e157]: learn more
+  - contentinfo [ref=e158]:
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - link "Free Trial" [ref=e162] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e163]: Free Trial
+        - paragraph [ref=e164]: Download mobile app
+        - generic [ref=e165]:
+          - link "Apple Store Link" [ref=e166] [cursor=pointer]:
+            - /url: https://apps.apple.com/app/datadog/id1391380318
+            - img [ref=e168]
+          - link "Google Play Store Link" [ref=e171] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.datadog.app
+            - img [ref=e173]
+      - generic [ref=e178]:
+        - paragraph [ref=e179]: Product
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - link "Infrastructure Monitoring" [ref=e184] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/infrastructure-monitoring/
+            - link "Network Monitoring" [ref=e186] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/network-monitoring/
+            - link "Container Monitoring" [ref=e188] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/container-monitoring/
+            - link "Serverless" [ref=e190] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/serverless-monitoring/
+            - link "Cloud Cost Management" [ref=e192] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-cost-management/
+            - link "Cloudcraft" [ref=e194] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloudcraft/
+            - link "Kubernetes Autoscaling" [ref=e196] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/kubernetes-autoscaling/
+            - link "Application Performance Monitoring" [ref=e198] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/apm/
+            - link "Software Catalog" [ref=e200] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/software-catalog/
+            - link "Universal Service Monitoring" [ref=e202] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/universal-service-monitoring/
+            - link "Data Streams Monitoring" [ref=e204] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/data-streams-monitoring/
+            - link "Jobs Monitoring" [ref=e206] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/data-observability/jobs-monitoring/
+            - link "Quality Monitoring" [ref=e208] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/data-observability/quality-monitoring/
+            - link "Database Monitoring" [ref=e210] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/database-monitoring/
+            - link "Continuous Profiler" [ref=e212] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/code-profiling/
+            - link "Dynamic Instrumentation" [ref=e214] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/dynamic-instrumentation/
+            - link "Log Management" [ref=e216] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/log-management/
+            - link "Sensitive Data Scanner" [ref=e218] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/sensitive-data-scanner/
+            - link "Audit Trail" [ref=e220] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/audit-trail/
+            - link "Observability Pipelines" [ref=e222] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/observability-pipelines/
+            - link "Cloud Security" [ref=e224] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-security/
+            - link "Cloud Security Posture Management" [ref=e226] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-security/#posture-management
+            - link "Workload Protection" [ref=e228] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/workload-protection/
+            - link "Cloud Infrastructure Entitlement Management" [ref=e230] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-security/#entitlement-management
+            - link "Vulnerability Management" [ref=e232] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-security/#vulnerability-management
+            - link "Compliance" [ref=e234] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-security/#compliance
+            - link "App and API Protection" [ref=e236] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/app-and-api-protection/
+            - link "Software Composition Analysis" [ref=e238] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/software-composition-analysis/
+            - link "Code Security" [ref=e240] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/code-security/
+            - link "Static Code Analysis (SAST)" [ref=e242] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/sast/
+            - link "Runtime Code Analysis (IAST)" [ref=e244] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/iast/
+            - link "IaC Security" [ref=e246] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/iac-security
+            - link "Cloud SIEM" [ref=e248] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/cloud-siem/
+            - link "Browser Real User Monitoring" [ref=e250] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/real-user-monitoring/
+            - link "Mobile Real User Monitoring" [ref=e252] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/real-user-monitoring/mobile-rum/
+            - link "Product Analytics" [ref=e254] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/product-analytics/
+            - link "Experiments" [ref=e256] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/experiments/
+            - link "Session Replay" [ref=e258] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/real-user-monitoring/session-replay/
+            - link "Synthetic Monitoring" [ref=e260] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/synthetic-monitoring/
+            - link "Mobile App Testing" [ref=e262] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/mobile-app-testing/
+            - link "Continuous Testing" [ref=e264] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/continuous-testing/
+            - link "Error Tracking" [ref=e266] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/error-tracking/
+          - generic [ref=e267]:
+            - link "BYOC Log Management" [ref=e268] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/byoc-logs/
+            - link "Internal Developer Portal" [ref=e269] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/internal-developer-portal/
+            - link "CI Visibility" [ref=e270] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ci-cd-monitoring/
+            - link "Test Optimization" [ref=e271] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/test-optimization/
+            - link "Feature Flags" [ref=e272] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/feature-flags/
+            - link "Code Coverage" [ref=e273] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/code-coverage/
+            - link "Service Level Objectives" [ref=e274] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/service-level-objectives/
+            - link "Incident Response" [ref=e275] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/incident-response/
+            - link "Event Management" [ref=e276] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/event-management/
+            - link "Case Management" [ref=e277] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/case-management/
+            - link "Bits AI Agents" [ref=e278] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ai/bits-ai-agents/
+            - link "Bits AI SRE" [ref=e279] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ai/bits-ai-sre/
+            - link "Bits AI Security Analyst" [ref=e280] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ai/bits-ai-security-analyst/
+            - link "MCP Server" [ref=e281] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ai/mcp-server/
+            - link "Agent Directory" [ref=e282] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ai/agent-directory/
+            - link "Metrics" [ref=e283] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/metrics/
+            - link "Watchdog" [ref=e284] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/watchdog/
+            - link "LLM Observability" [ref=e285] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/ai/llm-observability/
+            - link "AI Integrations" [ref=e286] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/integrations/#cat-aiml
+            - link "Workflow Automation" [ref=e287] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/workflow-automation/
+            - link "App Builder" [ref=e288] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/app-builder/
+            - link "CoScreen" [ref=e289] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/coscreen/
+            - link "Teams" [ref=e290] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/account_management/teams/
+            - link "Dashboards" [ref=e291] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/dashboards/
+            - link "Notebooks" [ref=e292] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/notebooks/
+            - link "Mobile App" [ref=e293] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/service_management/mobile/?tab=ios
+            - link "Fleet Automation" [ref=e294] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/fleet-automation/
+            - link "Governance Console" [ref=e295] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/governance-console/
+            - link "Access Control" [ref=e296] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/account_management/rbac/?tab=datadogapplication
+            - link "OpenTelemetry" [ref=e297] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/solutions/opentelemetry/
+            - link "Alerts" [ref=e298] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/alerts/
+            - link "Integrations" [ref=e299] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/integrations/
+            - link "IDE Plugins" [ref=e300] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/ides/
+            - link "API" [ref=e301] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/api/
+            - link "Marketplace" [ref=e302] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/marketplacepartners/
+            - link "Security Labs Research" [ref=e303] [cursor=pointer]:
+              - /url: https://securitylabs.datadoghq.com/
+            - link "Open Source Projects" [ref=e304] [cursor=pointer]:
+              - /url: https://opensource.datadoghq.com/
+            - link "Storage Management" [ref=e305] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/storage-management/
+            - link "GPU Monitoring" [ref=e306] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/gpu-monitoring/
+            - link "DORA Metrics" [ref=e307] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/platform/dora-metrics/
+            - link "Secret Scanning" [ref=e308] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product/secret-scanning/
+      - generic [ref=e309]:
+        - paragraph [ref=e310]: Resources
+        - generic [ref=e312]:
+          - generic [ref=e313]:
+            - link "Pricing" [ref=e315] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/pricing/
+            - link "Documentation" [ref=e317] [cursor=pointer]:
+              - /url: https://docs.datadoghq.com/
+            - link "Support" [ref=e319] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/support/
+            - link "Services & Enablement" [ref=e321] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/support-services/
+            - link "Product Preview Program" [ref=e323] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/product-preview/
+            - link "Certification" [ref=e325] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/certification/overview/
+          - generic [ref=e326]:
+            - link "Open Source" [ref=e327] [cursor=pointer]:
+              - /url: https://opensource.datadoghq.com/
+            - link "Events and Webinars" [ref=e328] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/events-webinars/
+            - link "Security" [ref=e329] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/security/
+            - link "Privacy Center" [ref=e330] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/privacy/
+            - link "Knowledge Center" [ref=e331] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/knowledge-center/
+            - link "Learning Resources" [ref=e332] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/learn/
+      - generic [ref=e333]:
+        - paragraph [ref=e334]: About
+        - generic [ref=e336]:
+          - generic [ref=e337]:
+            - link "Contact Us" [ref=e339] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/about/contact/
+            - link "Partners" [ref=e341] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/partner/network/
+            - link "Press" [ref=e343] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/about/latest-news/press-releases/
+            - link "Leadership" [ref=e345] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/about/leadership/
+            - link "Careers" [ref=e347] [cursor=pointer]:
+              - /url: https://careers.datadoghq.com/
+            - link "Legal" [ref=e349] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/legal/
+          - generic [ref=e350]:
+            - link "Investor Relations" [ref=e351] [cursor=pointer]:
+              - /url: https://investors.datadoghq.com/
+            - link "Analyst Reports" [ref=e352] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/about/analyst/
+            - link "ESG Report" [ref=e353] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/esg-report/
+            - link "Vendor Help" [ref=e354] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/vendor-help/
+            - link "Trust Hub" [ref=e355] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/trust/
+      - generic [ref=e356]:
+        - paragraph [ref=e357]: Blog
+        - generic [ref=e359]:
+          - generic [ref=e360]:
+            - link "The Monitor" [ref=e362] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/blog/
+            - link "Engineering" [ref=e364] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/blog/engineering/
+          - generic [ref=e365]:
+            - link "AI" [ref=e366] [cursor=pointer]:
+              - /url: https://www.datadoghq.com/blog/ai/
+            - link "Security Labs" [ref=e367] [cursor=pointer]:
+              - /url: https://securitylabs.datadoghq.com/
+    - generic [ref=e371]:
+      - button "Icon/world English" [ref=e374] [cursor=pointer]:
+        - generic [ref=e375]:
+          - img "Icon/world" [ref=e377]
+          - generic [ref=e380]: English
+        - img [ref=e382]
+      - generic [ref=e385]:
+        - link "Twitter link" [ref=e387] [cursor=pointer]:
+          - /url: https://twitter.com/datadoghq
+          - generic [ref=e388]: 
+        - link "Instagram link" [ref=e390] [cursor=pointer]:
+          - /url: https://www.instagram.com/datadoghq/
+          - generic [ref=e391]: 
+        - link "Youtube link" [ref=e393] [cursor=pointer]:
+          - /url: https://www.youtube.com/user/DatadogHQ
+          - generic [ref=e394]: 
+        - link "LinkedIn link" [ref=e396] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/datadog
+          - generic [ref=e397]: 
+      - generic [ref=e399]:
+        - generic [ref=e400]: © Datadog 2026
+        - generic [ref=e401]:
+          - link "Terms" [ref=e402] [cursor=pointer]:
+            - /url: https://www.datadoghq.com/legal/terms/
+          - generic [ref=e403]: "|"
+        - generic [ref=e404]:
+          - link "Privacy" [ref=e405] [cursor=pointer]:
+            - /url: https://www.datadoghq.com/legal/privacy/
+          - generic [ref=e406]: "|"
+        - link "Your Privacy Choices" [ref=e408] [cursor=pointer]:
+          - /url: "#"
+  - iframe

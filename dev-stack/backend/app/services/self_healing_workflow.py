@@ -57,6 +57,7 @@ class WorkflowState:
     max_attempts: int = 10
     dockerfile: str = ""
     gitlab_ci: str = ""
+    analysis: Dict[str, Any] = field(default_factory=dict)
     template_source: str = ""  # "chromadb", "llm_generated", "llm_fixed"
     errors: List[str] = field(default_factory=list)
     logs: List[str] = field(default_factory=list)
@@ -647,6 +648,21 @@ class SelfHealingWorkflow:
             f"Starting auto-fix for failed pipeline #{pipeline_id}...")
 
         try:
+            try:
+                analysis = await pipeline_generator.analyze_repository(repo_url, gitlab_token)
+                state.analysis = analysis
+                state.language = analysis.get("language", state.language)
+                state.framework = analysis.get("framework", state.framework)
+                build_tool = analysis.get("build_tool") or analysis.get("package_manager")
+                java_version = analysis.get("java_version") or analysis.get("language_version")
+                state.log(
+                    f"Repository analysis for fixer: language={state.language}, "
+                    f"framework={state.framework}, build_tool={build_tool or 'unknown'}, "
+                    f"java_version={java_version or 'unknown'}"
+                )
+            except Exception as analysis_err:
+                state.log(f"Repository analysis unavailable for fixer: {str(analysis_err)[:120]}")
+
             # ═══════════════════════════════════════════════════════════
             # Auto-Fix Loop (reuses pattern from run() lines 298-363)
             # ═══════════════════════════════════════════════════════════
@@ -722,7 +738,7 @@ class SelfHealingWorkflow:
 
                 # Validate and auto-correct images for the detected language
                 state.gitlab_ci, state.dockerfile, img_fixes = pipeline_generator.validate_and_fix_pipeline_images(
-                    state.gitlab_ci, state.dockerfile, state.language, getattr(state, 'analysis', None)
+                    state.gitlab_ci, state.dockerfile, state.language, state.analysis
                 )
                 if img_fixes:
                     state.log(f"Image validator corrected {len(img_fixes)} issues: {', '.join(img_fixes[:3])}")

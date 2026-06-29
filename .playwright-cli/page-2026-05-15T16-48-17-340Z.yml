@@ -1,0 +1,215 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+      - button "Collapse sidebar" [ref=e62]:
+        - img
+        - generic [ref=e63]: Collapse
+    - generic [ref=e64]:
+      - banner [ref=e65]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - searchbox "Search" [ref=e70]
+          - generic [ref=e71]:
+            - img [ref=e72]
+            - text: /
+        - button "Open command palette" [ref=e74]:
+          - generic [ref=e75]: Command
+          - generic [ref=e76]:
+            - generic [ref=e77]: Ctrl
+            - generic [ref=e78]: K
+        - generic [ref=e79]:
+          - button "Hide status rail" [pressed] [ref=e80]:
+            - img
+          - 'status "Public route status: Public route unavailable" [ref=e81]':
+            - img [ref=e83]
+            - generic [ref=e84]: Public route unavailable
+          - button "Notifications" [ref=e85]:
+            - img
+          - 'button "Theme: system (light)" [ref=e87]':
+            - img
+          - button "Account" [ref=e88]:
+            - generic [ref=e89]:
+              - img
+            - generic [ref=e90]: operator
+      - region "Tool status rail" [ref=e92]:
+        - generic [ref=e93]: Status rail
+        - generic [ref=e94]:
+          - button "Brandmatik — OPERATIONAL" [ref=e95]
+          - button "Brandmatik Analytics Service — OPERATIONAL" [ref=e96]
+          - button "Brandmatik Business Service — OPERATIONAL" [ref=e97]
+          - button "Brandmatik Content Generator — OPERATIONAL" [ref=e98]
+          - button "Brandmatik Feedback Service — OPERATIONAL" [ref=e99]
+          - button "Brandmatik Mock Social Poster — OPERATIONAL" [ref=e100]
+          - button "Brandmatik Notification Service — OPERATIONAL" [ref=e101]
+          - button "Brandmatik Posting Service — OPERATIONAL" [ref=e102]
+          - button "Brandmatik Qdrant — OPERATIONAL" [ref=e103]
+          - button "Brandmatik Scoring Engine — OPERATIONAL" [ref=e104]
+          - button "Brandmatik Trend Collector — OPERATIONAL" [ref=e105]
+          - button "cAdvisor — OPERATIONAL" [ref=e106]
+          - button "ChromaDB — OPERATIONAL" [ref=e107]
+          - button "ChromaDB Admin — OPERATIONAL" [ref=e108]
+          - button "DevOps Portal Frontend — OPERATIONAL" [ref=e109]
+          - button "DevOps Tools API — OPERATIONAL" [ref=e110]
+          - button "Gitea — OPERATIONAL" [ref=e111]
+          - button "Gitea Actions Runner — OPERATIONAL" [ref=e112]
+          - button "GitLab — OPERATIONAL" [ref=e113]
+          - button "GitLab Runner — OPERATIONAL" [ref=e114]
+          - button "Grafana — OPERATIONAL" [ref=e115]
+          - button "Jaeger — OPERATIONAL" [ref=e116]
+          - button "Jenkins — OPERATIONAL" [ref=e117]
+          - button "Jira Software — OPERATIONAL" [ref=e118]
+          - button "Loki — OPERATIONAL" [ref=e119]
+          - button "MinIO — OPERATIONAL" [ref=e120]
+          - button "Nexus Docker Registry — OPERATIONAL" [ref=e121]
+          - button "Nginx Reverse Proxy — OPERATIONAL" [ref=e122]
+          - button "Node Exporter — OPERATIONAL" [ref=e123]
+          - button "NVIDIA DCGM Exporter — OPERATIONAL" [ref=e124]
+          - button "Ollama — OPERATIONAL" [ref=e125]
+          - button "Postgres (ai-postgres) — OPERATIONAL" [ref=e126]
+          - button "Prometheus — OPERATIONAL" [ref=e127]
+          - button "Promtail — OPERATIONAL" [ref=e128]
+          - button "Qdrant — OPERATIONAL" [ref=e129]
+          - button "Redis — OPERATIONAL" [ref=e130]
+          - button "Redmine — OPERATIONAL" [ref=e131]
+          - button "SonarQube — OPERATIONAL" [ref=e132]
+          - button "Sonatype Nexus 3 — OPERATIONAL" [ref=e133]
+          - button "Splunk Enterprise — OPERATIONAL" [ref=e134]
+          - button "Trivy — OPERATIONAL" [ref=e135]
+        - generic [ref=e136]:
+          - generic [ref=e137]: "41"
+          - generic [ref=e138]: /
+          - generic [ref=e139]: "0"
+          - generic [ref=e140]: /
+          - generic [ref=e141]: "0"
+      - main [ref=e142]:
+        - generic [ref=e144]:
+          - generic [ref=e148]:
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - img [ref=e151]
+                - text: Portal control plane
+              - generic [ref=e153]:
+                - heading "Mission Control" [level=1] [ref=e154]
+                - paragraph [ref=e155]: A dense operating view for every registered AI, delivery, security, data, and observability service. Filter fast, inspect health, launch routes, and open embedded tools from one surface.
+              - generic [ref=e156]:
+                - button "Tools view" [ref=e157]:
+                  - img
+                  - text: Tools view
+                - button "Ask AI" [ref=e158]:
+                  - img
+                  - text: Ask AI
+            - generic [ref=e159]:
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - generic [ref=e162]: registered
+                  - img [ref=e163]
+                - generic [ref=e167]:
+                  - generic [ref=e168]: "41"
+                  - generic [ref=e169]: 0 categories
+              - generic [ref=e170]:
+                - generic [ref=e171]:
+                  - generic [ref=e172]: healthy
+                  - img [ref=e173]
+                - generic [ref=e176]:
+                  - generic [ref=e177]: "41"
+                  - generic [ref=e178]: live probes responding
+              - generic [ref=e179]:
+                - generic [ref=e180]:
+                  - generic [ref=e181]: failing
+                  - img [ref=e182]
+                - generic [ref=e185]:
+                  - generic [ref=e186]: "0"
+                  - generic [ref=e187]: down or degraded
+              - generic [ref=e188]:
+                - generic [ref=e189]:
+                  - generic [ref=e190]: visible
+                  - img [ref=e191]
+                - generic [ref=e193]:
+                  - generic [ref=e194]: "41"
+                  - generic [ref=e195]: after filters
+          - status "Portal health summary" [ref=e196]:
+            - generic [ref=e197]:
+              - img [ref=e198]
+              - generic [ref=e200]: Total
+              - generic [ref=e201]: "41"
+            - generic [ref=e202]:
+              - img [ref=e203]
+              - generic [ref=e206]: Healthy
+              - generic [ref=e208]:
+                - text: "41"
+                - generic [ref=e209]: · 100%
+            - generic [ref=e210]:
+              - img [ref=e211]
+              - generic [ref=e213]: Degraded
+              - generic [ref=e214]: "0"
+            - generic [ref=e215]:
+              - img [ref=e216]
+              - generic [ref=e219]: Down
+              - generic [ref=e220]: "0"
+            - generic [ref=e221]:
+              - generic [ref=e222]: Last probe
+              - generic [ref=e223]: 46s ago
+              - button "Refresh health probes" [ref=e224]:
+                - img
+          - generic [ref=e225]:
+            - toolbar "Filter by category" [ref=e226]:
+              - button "All 41" [pressed] [ref=e227]:
+                - img [ref=e228]
+                - generic [ref=e230]: All
+                - generic [ref=e231]: "41"
+            - generic [ref=e233]:
+              - generic [ref=e234]:
+                - img [ref=e235]
+                - searchbox "Filter tools" [ref=e238]
+                - generic [ref=e239]: 41/41
+              - generic [ref=e240]:
+                - button "Healthy" [ref=e241]: Healthy
+                - button "Degraded" [ref=e243]: Degraded
+                - button "Down" [ref=e245]: Down
+                - button "Unknown" [ref=e247]: Unknown
+                - button "Failing only" [ref=e249]:
+                  - img [ref=e250]
+                  - text: Failing only
+          - generic [ref=e252]:
+            - img [ref=e253]
+            - paragraph [ref=e256]: no tools match the current filter
+            - paragraph [ref=e257]:
+              - text: Backend returned no tools. Check
+              - code [ref=e258]: /api/v1/portal/tools
+              - text: .
+  - region "Notifications alt+T"

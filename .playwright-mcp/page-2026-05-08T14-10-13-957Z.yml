@@ -1,0 +1,677 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e3]:
+    - generic [ref=e7]:
+      - generic [ref=e9]:
+        - 'link "What’s new: Grafana 13 release, the latest in AI, OSS project updates, and more from GrafanaCON2026" [ref=e10] [cursor=pointer]':
+          - /url: /blog/grafanacon-2026-announcements/
+          - img [ref=e11]
+          - paragraph [ref=e14]: "What’s new: Grafana 13 release, the latest in AI, OSS project updates, and more from GrafanaCON2026"
+        - link "Learn more" [ref=e15] [cursor=pointer]:
+          - /url: /blog/grafanacon-2026-announcements/
+          - text: Learn more
+          - img
+      - generic [ref=e16]:
+        - button "EN" [ref=e18] [cursor=pointer]:
+          - generic [ref=e19]: EN
+          - img [ref=e20]
+        - link "Downloads" [ref=e22] [cursor=pointer]:
+          - /url: /get/
+        - link "Contact Us" [ref=e23] [cursor=pointer]:
+          - /url: /contact/
+    - navigation "Main navigation" [ref=e27]:
+      - generic [ref=e28]:
+        - link "Logo" [ref=e29] [cursor=pointer]:
+          - /url: /
+          - img "Logo" [ref=e30]
+        - list [ref=e33]:
+          - listitem [ref=e34]:
+            - button "Grafana Cloud" [ref=e35] [cursor=pointer]:
+              - text: Grafana Cloud
+              - img [ref=e36]
+          - listitem [ref=e38]:
+            - button "Solutions" [ref=e39] [cursor=pointer]:
+              - text: Solutions
+              - img [ref=e40]
+          - listitem [ref=e42]:
+            - link "Pricing" [ref=e43] [cursor=pointer]:
+              - /url: /pricing/
+          - listitem [ref=e44]:
+            - button "Open Source" [ref=e45] [cursor=pointer]:
+              - text: Open Source
+              - img [ref=e46]
+          - listitem [ref=e48]:
+            - button "Learn" [ref=e49] [cursor=pointer]:
+              - text: Learn
+              - img [ref=e50]
+          - listitem [ref=e52]:
+            - link "Docs" [ref=e53] [cursor=pointer]:
+              - /url: /docs/
+          - listitem [ref=e54]:
+            - navigation "Company" [ref=e55]:
+              - list [ref=e57]:
+                - listitem [ref=e58]:
+                  - button "Company" [ref=e59] [cursor=pointer]:
+                    - text: Company
+                    - img [ref=e60]
+        - generic [ref=e62]:
+          - button "AI/Search" [ref=e63] [cursor=pointer]:
+            - generic [ref=e64]:
+              - img [ref=e65]
+              - text: AI/Search
+          - link "Sign in" [ref=e66] [cursor=pointer]:
+            - /url: /auth/sign-in/
+          - link "Sign up" [ref=e67] [cursor=pointer]:
+            - /url: /auth/sign-up/create-user/
+  - main [ref=e68]:
+    - generic [ref=e72]:
+      - heading "Full-stack observability with actually useful AI" [level=1] [ref=e73]
+      - paragraph [ref=e77]: "Grafana Cloud: Cost-efficient by design. Built on open standards."
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - generic [ref=e80]:
+            - generic [ref=e81]: The Free Forever plan
+            - button "More information" [ref=e82]:
+              - generic [ref=e83]: i
+          - link "Get started free" [ref=e84] [cursor=pointer]:
+            - /url: /auth/sign-up/create-user/?pg=hp&plcmt=hero-btn-1&cta=free
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - generic [ref=e87]: Plans to suit every scale
+            - button "More information" [ref=e88]:
+              - generic [ref=e89]: i
+          - link "Compare plans" [ref=e90] [cursor=pointer]:
+            - /url: /pricing/?pg=hp&plcmt=hero-btn-2&cta=plans
+    - search "Ask AI question input" [ref=e95]:
+      - generic [ref=e96]:
+        - img [ref=e97]
+        - generic [ref=e98]: Ask AI
+      - textbox "Type your question" [ref=e99]:
+        - /placeholder: How do I get started with Grafana?
+      - button "Submit question" [ref=e100]:
+        - img [ref=e101]
+    - paragraph [ref=e107]: Trusted by everyone from startups to the Fortune 500
+    - generic [ref=e111]:
+      - generic [ref=e112]:
+        - 'heading "Link to section: See clearly. Act faster. Spend smarter. See clearly. Act faster. Spend smarter." [level=2] [ref=e113]':
+          - 'link "Link to section: See clearly. Act faster. Spend smarter."':
+            - /url: "#see-clearly-act-faster-spend-smarter"
+            - img [ref=e114] [cursor=pointer]
+          - text: See clearly. Act faster. Spend smarter.
+        - generic:
+          - generic:
+            - generic:
+              - paragraph
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - 'heading "Link to section: No hype, just actually useful AI No hype, just actually useful AI" [level=3] [ref=e122]':
+              - 'link "Link to section: No hype, just actually useful AI"':
+                - /url: "#no-hype-just-actually-useful-ai"
+                - img [ref=e123] [cursor=pointer]
+              - text: No hype, just actually useful AI
+            - paragraph [ref=e129]: Whether you’re an experienced SRE or new to Grafana, our built-in AI helps you build dashboards, find and fix issues faster, and get instant answers for your most complex queries. All in an easy chat.
+            - link "Grafana Cloud AI Assistant" [ref=e131] [cursor=pointer]:
+              - /url: /products/cloud/ai-assistant/?pg=hp&plcmt=txt-img-alternating
+              - text: Grafana Cloud AI Assistant
+              - img
+          - generic [ref=e134]:
+            - button "View in fullscreen"
+        - generic [ref=e135]:
+          - generic [ref=e138]:
+            - button "View in fullscreen"
+          - generic [ref=e139]:
+            - 'heading "Link to section: Cut costs. Only pay for the data that matters. Cut costs. Only pay for the data that matters." [level=3] [ref=e142]':
+              - 'link "Link to section: Cut costs. Only pay for the data that matters."':
+                - /url: "#cut-costs-only-pay-for-the-data-that-matters"
+                - img [ref=e143] [cursor=pointer]
+              - text: Cut costs. Only pay for the data that matters.
+            - paragraph [ref=e149]: Half of telemetry spend is wasted. Grafana Cloud’s Adaptive Telemetry suite automatically identifies the data worth your attention and aggregates the rest, cutting your telemetry costs by up to 80%.
+            - link "Cost optimization" [ref=e151] [cursor=pointer]:
+              - /url: /products/cloud/adaptive-telemetry/?pg=hp&plcmt=txt-img-alternating
+              - text: Cost optimization
+              - img
+        - generic [ref=e152]:
+          - generic [ref=e153]:
+            - 'heading "Link to section: Break down data silos. Troubleshoot faster. Break down data silos. Troubleshoot faster." [level=3] [ref=e156]':
+              - 'link "Link to section: Break down data silos. Troubleshoot faster."':
+                - /url: "#break-down-data-silos-troubleshoot-faster"
+                - img [ref=e157] [cursor=pointer]
+              - text: Break down data silos. Troubleshoot faster.
+            - paragraph [ref=e163]: Too many tools and data silos? Grafana Cloud unifies telemetry signals into one clear map so your teams can move faster and operate with confidence.
+            - link "Full-stack observability" [ref=e165] [cursor=pointer]:
+              - /url: /solutions/full-stack-observability/?pg=hp&plcmt=txt-img-alternating
+              - text: Full-stack observability
+              - img
+          - generic [ref=e168]:
+            - button "View in fullscreen"
+    - region "Plug in, not lock in" [ref=e171]:
+      - generic [ref=e175]:
+        - 'heading "Link to section: Plug in, not lock in Plug in, not lock in" [level=2] [ref=e176]':
+          - 'link "Link to section: Plug in, not lock in"':
+            - /url: "#plug-in-not-lock-in"
+            - img [ref=e177] [cursor=pointer]
+          - text: Plug in, not lock in
+        - paragraph [ref=e182]: Connect your existing tools and data sources to Grafana Cloud — no rip-and-replace required. Built on open standards like OpenTelemetry and Prometheus, with hundreds of plugins and integrations ready to extend your stack.
+        - link "See integrations" [ref=e185] [cursor=pointer]:
+          - /url: /integrations/?pg=hp&plcmt=integrations-cta
+          - text: See integrations
+          - img
+    - generic [ref=e189]:
+      - generic [ref=e190]:
+        - 'heading "Link to section: Observe everything. Solve anything. Observe everything. Solve anything." [level=2] [ref=e191]':
+          - 'link "Link to section: Observe everything. Solve anything."':
+            - /url: "#observe-everything-solve-anything"
+            - img [ref=e192] [cursor=pointer]
+          - text: Observe everything. Solve anything.
+        - paragraph [ref=e195]: Our open observability cloud includes incident response, testing, synthetic monitoring, and more, built on open standards and usable by individual teams or across an organization.
+      - generic [ref=e196]:
+        - generic [ref=e197]:
+          - heading [level=3]
+          - heading "Products & Solutions" [level=3] [ref=e198]
+        - generic [ref=e199]:
+          - generic [ref=e201]:
+            - link "AI-Powered Observability" [ref=e202] [cursor=pointer]:
+              - /url: /products/cloud/ai-tools-for-observability/?pg=hp&plcmt=marketecture-ai-powered-observability
+              - generic [ref=e205]: AI-Powered Observability
+            - link "Full-Stack Observability" [ref=e206] [cursor=pointer]:
+              - /url: /solutions/full-stack-observability/?pg=hp&plcmt=marketecture-full-stack-observability
+              - generic [ref=e209]: Full-Stack Observability
+            - link "Cost Management with Adaptive Telemetry" [ref=e210] [cursor=pointer]:
+              - /url: /products/cloud/cost-management-optimization/?pg=hp&plcmt=marketecture-cost-management-with-adaptive-telemetry
+              - generic [ref=e213]: Cost Management with Adaptive Telemetry
+            - link "Native OpenTelemetry Support" [ref=e214] [cursor=pointer]:
+              - /url: /solutions/opentelemetry/?pg=hp&plcmt=marketecture-native-opentelemetry-support
+              - generic [ref=e217]: Native OpenTelemetry Support
+          - generic [ref=e219]:
+            - link "AI Assistant" [ref=e220] [cursor=pointer]:
+              - /url: /products/cloud/ai-assistant/?pg=hp&plcmt=marketecture-ai-assistant
+              - generic [ref=e223]: AI Assistant
+            - link "Application Observability" [ref=e224] [cursor=pointer]:
+              - /url: /products/cloud/application-observability/?pg=hp&plcmt=marketecture-application-observability
+              - generic [ref=e227]: Application Observability
+            - link "Kubernetes Monitoring" [ref=e228] [cursor=pointer]:
+              - /url: /products/cloud/kubernetes/?pg=hp&plcmt=marketecture-kubernetes-monitoring
+              - generic [ref=e231]: Kubernetes Monitoring
+            - link "Frontend Observability" [ref=e232] [cursor=pointer]:
+              - /url: /products/cloud/frontend-observability/?pg=hp&plcmt=marketecture-frontend-observability
+              - generic [ref=e235]: Frontend Observability
+            - link "Incident Response & Management (IRM)" [ref=e236] [cursor=pointer]:
+              - /url: /products/cloud/irm/?pg=hp&plcmt=marketecture-incident-response-management-irm
+              - generic [ref=e239]: Incident Response & Management (IRM)
+            - link "Dashboards & Data Visualization" [ref=e240] [cursor=pointer]:
+              - /url: /products/cloud/grafana/?pg=hp&plcmt=marketecture-dashboards-data-visualization
+              - generic [ref=e243]: Dashboards & Data Visualization
+            - link "Database Observability" [ref=e244] [cursor=pointer]:
+              - /url: /products/cloud/database-observability/?pg=hp&plcmt=marketecture-database-observability
+              - generic [ref=e247]: Database Observability
+            - link "Performance & Load Testing" [ref=e248] [cursor=pointer]:
+              - /url: /products/cloud/performance-load-testing-k6/?pg=hp&plcmt=marketecture-performance-load-testing
+              - generic [ref=e251]: Performance & Load Testing
+            - link "Synthetic Monitoring" [ref=e252] [cursor=pointer]:
+              - /url: /products/cloud/synthetic-monitoring/?pg=hp&plcmt=marketecture-synthetic-monitoring
+              - generic [ref=e255]: Synthetic Monitoring
+            - link "Digital Experience Monitoring (DEM)" [ref=e256] [cursor=pointer]:
+              - /url: /solutions/digital-experience-monitoring/?pg=hp&plcmt=marketecture-digital-experience-monitoring-dem
+              - generic [ref=e259]: Digital Experience Monitoring (DEM)
+            - link "Infrastructure & Cloud Observability" [ref=e260] [cursor=pointer]:
+              - /url: /solutions/cloud-infrastructure-observability/?pg=hp&plcmt=marketecture-infrastructure-cloud-observability
+              - generic [ref=e263]: Infrastructure & Cloud Observability
+            - link "Site Reliability" [ref=e264] [cursor=pointer]:
+              - /url: /solutions/site-reliability/?pg=hp&plcmt=marketecture-site-reliability
+              - generic [ref=e267]: Site Reliability
+        - generic [ref=e269]:
+          - heading "Telemetry" [level=3] [ref=e270]
+          - generic [ref=e271]:
+            - link "Logs" [ref=e272] [cursor=pointer]:
+              - /url: /products/cloud/logs/?pg=hp&plcmt=marketecture-logs
+              - generic [ref=e275]: Logs
+            - link "Metrics" [ref=e276] [cursor=pointer]:
+              - /url: /products/cloud/metrics/?pg=hp&plcmt=marketecture-metrics
+              - generic [ref=e279]: Metrics
+            - link "Traces" [ref=e280] [cursor=pointer]:
+              - /url: /products/cloud/traces/?pg=hp&plcmt=marketecture-traces
+              - generic [ref=e283]: Traces
+            - link "Profiles" [ref=e284] [cursor=pointer]:
+              - /url: /products/cloud/profiles/?pg=hp&plcmt=marketecture-profiles
+              - generic [ref=e287]: Profiles
+    - generic [ref=e291]:
+      - generic [ref=e292]:
+        - generic [ref=e293]: Secure. Compliant. Proven.
+        - link "View certifications" [ref=e294] [cursor=pointer]:
+          - /url: https://trust.grafana.com/?pg=hp&plcmt=secure-compliant-proven-button
+          - text: View certifications
+          - img
+      - generic [ref=e295]:
+        - generic [ref=e297]: FEDRAMP Compliant
+        - generic [ref=e299]: NATSEC100 Certified
+        - generic [ref=e301]: PCI DSS Compliant
+        - generic [ref=e303]: A-LIGN Certified
+        - generic [ref=e305]: AICPA SOC Type II Verified
+        - generic [ref=e307]: GDPR Compliant
+    - 'region "Demo time: Try Grafana Cloud" [ref=e310]':
+      - generic [ref=e313]:
+        - 'heading "Link to section: Demo time: Try Grafana Cloud Demo time: Try Grafana Cloud" [level=2] [ref=e314]':
+          - 'link "Link to section: Demo time: Try Grafana Cloud"':
+            - /url: "#demo-time-try-grafana-cloud"
+            - img [ref=e315] [cursor=pointer]
+          - text: "Demo time: Try Grafana Cloud"
+        - paragraph [ref=e320]: Jump right in, no registration required.
+        - link "Open Grafana Play" [ref=e323] [cursor=pointer]:
+          - /url: https://play.grafana.org/d/maggk24/grafana-cloud/?pg=hp&plcmt=play-demo
+          - text: Open Grafana Play
+          - img
+    - region "Feature cards carousel" [ref=e326]:
+      - region [ref=e328]:
+        - generic [ref=e330]:
+          - group [ref=e331]:
+            - article [ref=e332]:
+              - generic [ref=e333]:
+                - 'heading "Link to section: Shaping the future of observability Shaping the future of observability" [level=3] [ref=e334]':
+                  - 'link "Link to section: Shaping the future of observability"':
+                    - /url: "#shaping-the-future-of-observability"
+                    - img [ref=e335] [cursor=pointer]
+                  - text: Shaping the future of observability
+                - paragraph [ref=e340]: Grafana Labs CEO Raj Dutt discusses how we're reimagining SaaS economics and simplifying complexity.
+                - link "Watch the keynote" [ref=e342] [cursor=pointer]:
+                  - /url: https://www.youtube.com/watch?v=MJXpfFgFCjg
+                  - text: Watch the keynote
+                  - img
+          - group [ref=e345]:
+            - article [ref=e346]:
+              - generic [ref=e347]:
+                - 'heading "Link to section: Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms" [level=3] [ref=e348]':
+                  - 'link "Link to section: Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms"':
+                    - /url: "#leader-in-the-2025-gartner-magic-quadrant-for-observability-"
+                    - img [ref=e349] [cursor=pointer]
+                  - text: Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms
+                - paragraph [ref=e354]: Gartner evaluated 20 vendors based on their Ability to Execute and Completeness of Vision, and Grafana Labs was positioned furthest in Completeness of Vision.
+                - link "Read more" [ref=e356] [cursor=pointer]:
+                  - /url: /resources/grafana-observability-platforms-gartner-magic-quadrant-2025/?pg=hp&plcmt=feature-card-carousel-carousel-1-cta
+                  - text: Read more
+                  - img
+          - group [ref=e359]:
+            - article [ref=e360]:
+              - generic [ref=e361]:
+                - 'heading "Link to section: Insights on the state of observability Insights on the state of observability" [level=3] [ref=e362]':
+                  - 'link "Link to section: Insights on the state of observability"':
+                    - /url: "#insights-on-the-state-of-observability"
+                    - img [ref=e363] [cursor=pointer]
+                  - text: Insights on the state of observability
+                - paragraph [ref=e368]: Explore insights from the industry’s largest community-driven survey on the evolving state of observability.
+                - link "Survey results" [ref=e370] [cursor=pointer]:
+                  - /url: /observability-survey/?pg=hp&plcmt=feature-card-carousel-carousel-2-cta
+                  - text: Survey results
+                  - img
+          - group [ref=e373]:
+            - article [ref=e374]:
+              - generic [ref=e375]:
+                - 'heading "Link to section: Biggest updates from GrafanaCON Biggest updates from GrafanaCON" [level=3] [ref=e376]':
+                  - 'link "Link to section: Biggest updates from GrafanaCON"':
+                    - /url: "#biggest-updates-from-grafana-con"
+                    - img [ref=e377] [cursor=pointer]
+                  - text: Biggest updates from GrafanaCON
+                - paragraph [ref=e382]: AI-powered workflows, new Grafana capabilities, and what’s coming next in open source observability. Everything announced at GrafanaCON 2026 in one place.
+                - link "Learn more" [ref=e384] [cursor=pointer]:
+                  - /url: /blog/grafanacon-2026-announcements/?pg=hp&plcmt=feature-card-carousel-carousel-3-cta
+                  - text: Learn more
+                  - img
+          - group [ref=e387]:
+            - article [ref=e388]:
+              - generic [ref=e389]:
+                - 'heading "Link to section: Shaping the future of observability Shaping the future of observability" [level=3] [ref=e390]':
+                  - 'link "Link to section: Shaping the future of observability"':
+                    - /url: "#shaping-the-future-of-observability"
+                    - img [ref=e391] [cursor=pointer]
+                  - text: Shaping the future of observability
+                - paragraph [ref=e396]: Grafana Labs CEO Raj Dutt discusses how we're reimagining SaaS economics and simplifying complexity.
+                - link "Watch the keynote" [ref=e398] [cursor=pointer]:
+                  - /url: https://www.youtube.com/watch?v=MJXpfFgFCjg
+                  - text: Watch the keynote
+                  - img
+          - group [ref=e401]:
+            - article [ref=e402]:
+              - generic [ref=e403]:
+                - 'heading "Link to section: Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms" [level=3] [ref=e404]':
+                  - 'link "Link to section: Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms"':
+                    - /url: "#leader-in-the-2025-gartner-magic-quadrant-for-observability-"
+                    - img [ref=e405] [cursor=pointer]
+                  - text: Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms
+                - paragraph [ref=e410]: Gartner evaluated 20 vendors based on their Ability to Execute and Completeness of Vision, and Grafana Labs was positioned furthest in Completeness of Vision.
+                - link "Read more" [ref=e412] [cursor=pointer]:
+                  - /url: /resources/grafana-observability-platforms-gartner-magic-quadrant-2025/?pg=hp&plcmt=feature-card-carousel-carousel-1-cta
+                  - text: Read more
+                  - img
+        - generic [ref=e415]:
+          - button "Previous slide" [disabled]:
+            - img
+            - generic: Previous slide
+          - button "Next slide" [disabled]:
+            - img
+            - generic: Next slide
+    - generic [ref=e418]:
+      - 'heading "Link to section: Real stories from real customers Real stories from real customers" [level=2] [ref=e420]':
+        - 'link "Link to section: Real stories from real customers"':
+          - /url: "#real-stories-from-real-customers"
+          - img [ref=e421] [cursor=pointer]
+        - text: Real stories from real customers
+      - generic [ref=e424]:
+        - tablist [ref=e425]:
+          - tab "BlackRock" [selected] [ref=e426]:
+            - generic [ref=e427]: BlackRock
+          - tab "Pegasystems" [ref=e428]:
+            - generic [ref=e429]: Pegasystems
+          - tab "Lovable" [ref=e430]:
+            - generic [ref=e431]: Lovable
+          - tab "LATAM Airlines" [ref=e432]:
+            - generic [ref=e433]: LATAM Airlines
+          - tab "Delivery Hero" [ref=e434]:
+            - generic [ref=e435]: Delivery Hero
+        - tabpanel "BlackRock" [ref=e436]:
+          - generic [ref=e439]:
+            - paragraph [ref=e443]: "\"This platform is about extracting more information, more connectivity, more value...things that our SREs are beating down the door for us to do. [The constant product evolution] has kept us really excited and we continue to be excited.\""
+            - paragraph [ref=e447]:
+              - strong [ref=e448]: Olin Gay
+              - text: Head of Observability,
+              - link "BlackRock" [ref=e451] [cursor=pointer]:
+                - /url: https://www.youtube.com/live/GlIhZVhH48k?si=RqNcl9gTPmF4H93v&t=3955
+    - generic [ref=e456]:
+      - generic [ref=e457]:
+        - generic [ref=e458]:
+          - heading "Built on open source. Driven by community." [level=2] [ref=e459]
+          - paragraph [ref=e463]: Our community pushes the product forward, inspires new ideas, and helps us create better tools for everyone who cares about data and observability.
+        - generic [ref=e464]:
+          - link "OSS projects" [ref=e465] [cursor=pointer]:
+            - /url: /oss/?pg=hp&plcmt=feature-marquee-1
+            - text: OSS projects
+            - img
+          - link "Community" [ref=e466] [cursor=pointer]:
+            - /url: /community/?pg=hp&plcmt=feature-marquee-2
+            - text: Community
+            - img
+          - link "Company info" [ref=e467] [cursor=pointer]:
+            - /url: /about/grafana-labs/?pg=hp&plcmt=feature-marquee-3
+            - text: Company info
+            - img
+      - generic [ref=e468]:
+        - marquee "Scrolling content" [ref=e469]
+        - marquee "Scrolling content" [ref=e482]
+    - generic [ref=e496]:
+      - generic [ref=e498]:
+        - paragraph [ref=e499]: Welcome to
+        - 'heading "Link to section: The open observability cloud The open observability cloud" [level=2] [ref=e500]':
+          - 'link "Link to section: The open observability cloud"':
+            - /url: "#the-open-observability-cloud"
+            - img [ref=e501] [cursor=pointer]
+          - text: The open observability cloud
+        - paragraph [ref=e506]: Built on open source, open standards, and open ecosystems
+        - generic [ref=e507]:
+          - generic [ref=e508]:
+            - generic [ref=e509]:
+              - generic [ref=e510]: The Free Forever plan
+              - button "More information" [ref=e511]:
+                - generic [ref=e512]: i
+            - link "Create free account" [ref=e513] [cursor=pointer]:
+              - /url: /auth/sign-up/create-user/?pg=hp&plcmt=footer-btn-1&cta=free
+          - generic [ref=e514]:
+            - generic [ref=e515]:
+              - generic [ref=e516]: Plans to suit every scale
+              - button "More information" [ref=e517]:
+                - generic [ref=e518]: i
+            - link "Explore Cloud plans" [ref=e519] [cursor=pointer]:
+              - /url: /pricing/?pg=hp&plcmt=footer-btn-2&cta=plans
+      - img [ref=e521]
+  - contentinfo "Site footer" [ref=e523]:
+    - generic [ref=e524]:
+      - generic [ref=e526]:
+        - generic [ref=e528]:
+          - generic [ref=e529]:
+            - heading "Still have questions?" [level=3] [ref=e530]
+            - paragraph [ref=e531]: Ask your questions. Let AI do the heavy lifting.
+          - generic [ref=e532]:
+            - img "Ask AI icon" [ref=e533]
+            - textbox "How do I get started with Grafana?" [ref=e534]
+            - button "Submit" [ref=e535] [cursor=pointer]:
+              - img "Submit" [ref=e536]
+        - generic [ref=e538]:
+          - generic [ref=e539]:
+            - img "Newsletter icon" [ref=e540]
+            - generic [ref=e541]:
+              - heading "Get every update" [level=3] [ref=e542]
+              - paragraph [ref=e543]: Subscribe to our newsletter
+          - generic [ref=e545]:
+            - textbox "Email" [ref=e546]
+            - button "Subscribe" [ref=e547] [cursor=pointer]
+          - paragraph [ref=e549]:
+            - text: By submitting, you agree to our
+            - link "Privacy policy" [ref=e551] [cursor=pointer]:
+              - /url: /legal/privacy-policy/
+      - generic [ref=e553]:
+        - generic [ref=e554]:
+          - heading "Grafana Cloud" [level=3] [ref=e555]
+          - list [ref=e556]:
+            - listitem [ref=e557]:
+              - link "Overview" [ref=e558] [cursor=pointer]:
+                - /url: /products/cloud/
+            - listitem [ref=e559]:
+              - link "Pricing" [ref=e560] [cursor=pointer]:
+                - /url: /pricing/
+            - listitem [ref=e561]:
+              - link "What's in the free tier?" [ref=e562] [cursor=pointer]:
+                - /url: /products/cloud/free-tier/
+            - listitem [ref=e563]:
+              - link "AI Assistant" [ref=e564] [cursor=pointer]:
+                - /url: /products/cloud/ai-assistant/
+            - listitem [ref=e565]:
+              - link "Application Observability" [ref=e566] [cursor=pointer]:
+                - /url: /products/cloud/application-observability/
+            - listitem [ref=e567]:
+              - link "Kubernetes Monitoring" [ref=e568] [cursor=pointer]:
+                - /url: /products/cloud/kubernetes/
+            - listitem [ref=e569]:
+              - link "Dashboards & Visualization" [ref=e570] [cursor=pointer]:
+                - /url: /products/cloud/grafana/
+            - listitem [ref=e571]:
+              - link "Database Observability" [ref=e572] [cursor=pointer]:
+                - /url: /products/cloud/database-observability/
+            - listitem [ref=e573]:
+              - link "Frontend Observability" [ref=e574] [cursor=pointer]:
+                - /url: /products/cloud/frontend-observability/
+            - listitem [ref=e575]:
+              - link "Synthetic Monitoring" [ref=e576] [cursor=pointer]:
+                - /url: /products/cloud/synthetic-monitoring/
+            - listitem [ref=e577]:
+              - link "Performance & Load Testing" [ref=e578] [cursor=pointer]:
+                - /url: /products/cloud/performance-load-testing-k6/
+            - listitem [ref=e579]:
+              - link "Incident Response & Management" [ref=e580] [cursor=pointer]:
+                - /url: /products/cloud/irm/
+            - listitem [ref=e581]:
+              - link "What’s New" [ref=e582] [cursor=pointer]:
+                - /url: /whats-new/
+            - listitem [ref=e583]:
+              - link "Grafana Cloud Status" [ref=e584] [cursor=pointer]:
+                - /url: https://status.grafana.com/
+        - generic [ref=e585]:
+          - heading "Solutions" [level=3] [ref=e586]
+          - list [ref=e587]:
+            - listitem [ref=e588]:
+              - link "AI Observability" [ref=e589] [cursor=pointer]:
+                - /url: /products/cloud/ai-tools-for-observability/#ai-observability-for-llms-and-beyond
+            - listitem [ref=e590]:
+              - link "Full-Stack Observability" [ref=e591] [cursor=pointer]:
+                - /url: /solutions/full-stack-observability/
+            - listitem [ref=e592]:
+              - link "Infrastructure & Cloud Observability" [ref=e593] [cursor=pointer]:
+                - /url: /solutions/cloud-infrastructure-observability/
+            - listitem [ref=e594]:
+              - link "Digital Experience Monitoring" [ref=e595] [cursor=pointer]:
+                - /url: /solutions/digital-experience-monitoring/
+            - listitem [ref=e596]:
+              - link "Scaled Prometheus" [ref=e597] [cursor=pointer]:
+                - /url: /products/cloud/metrics/#why-scale-metrics-with-grafana-cloud
+            - listitem [ref=e598]:
+              - link "Cost Management & Optimization" [ref=e599] [cursor=pointer]:
+                - /url: /products/cloud/cost-management-optimization/
+            - listitem [ref=e600]:
+              - link "Site Reliability" [ref=e601] [cursor=pointer]:
+                - /url: /solutions/site-reliability/
+            - listitem [ref=e602]:
+              - link "Log Management" [ref=e603] [cursor=pointer]:
+                - /url: /products/cloud/logs/
+            - listitem [ref=e604]:
+              - link "Migrate to OpenTelemetry" [ref=e605] [cursor=pointer]:
+                - /url: /solutions/opentelemetry/#migrate-to-open-telemetry
+        - generic [ref=e606]:
+          - heading "Integrations" [level=3] [ref=e607]
+          - list [ref=e608]:
+            - listitem [ref=e609]:
+              - link "All Integrations" [ref=e610] [cursor=pointer]:
+                - /url: /integrations/
+            - listitem [ref=e611]:
+              - link "All Plugins" [ref=e612] [cursor=pointer]:
+                - /url: /plugins/
+            - listitem [ref=e613]:
+              - link "AWS" [ref=e614] [cursor=pointer]:
+                - /url: /integrations/cloud-monitoring-aws/
+            - listitem [ref=e615]:
+              - link "Google Cloud" [ref=e616] [cursor=pointer]:
+                - /url: /integrations/cloud-monitoring-google-cloud/
+            - listitem [ref=e617]:
+              - link "Microsoft Azure" [ref=e618] [cursor=pointer]:
+                - /url: /integrations/cloud-monitoring-microsoft-azure/
+            - listitem [ref=e619]:
+              - link "Kubernetes" [ref=e620] [cursor=pointer]:
+                - /url: /products/cloud/kubernetes/
+            - listitem [ref=e621]:
+              - link "Datadog" [ref=e622] [cursor=pointer]:
+                - /url: /integrations/datadog/visualize/
+            - listitem [ref=e623]:
+              - link "New Relic" [ref=e624] [cursor=pointer]:
+                - /url: /integrations/new-relic/visualize/
+        - generic [ref=e625]:
+          - heading "Open Source" [level=3] [ref=e626]
+          - list [ref=e627]:
+            - listitem [ref=e628]:
+              - link "Our Projects" [ref=e629] [cursor=pointer]:
+                - /url: /oss/
+            - listitem [ref=e630]:
+              - link "GitHub" [ref=e631] [cursor=pointer]:
+                - /url: https://github.com/grafana/
+            - listitem [ref=e632]:
+              - link "Downloads" [ref=e633] [cursor=pointer]:
+                - /url: /get/
+            - listitem [ref=e634]:
+              - link "Dashboard Templates" [ref=e635] [cursor=pointer]:
+                - /url: /grafana/dashboards/
+        - generic [ref=e636]:
+          - heading "Learn" [level=3] [ref=e637]
+          - list [ref=e638]:
+            - listitem [ref=e639]:
+              - link "Documentation" [ref=e640] [cursor=pointer]:
+                - /url: /docs/
+            - listitem [ref=e641]:
+              - link "Blog" [ref=e642] [cursor=pointer]:
+                - /url: /blog/
+            - listitem [ref=e643]:
+              - link "Community" [ref=e644] [cursor=pointer]:
+                - /url: /community/
+            - listitem [ref=e645]:
+              - link "Events" [ref=e646] [cursor=pointer]:
+                - /url: /events/
+            - listitem [ref=e647]:
+              - link "Observability Survey & Reports" [ref=e648] [cursor=pointer]:
+                - /url: /observability-benefits-for-business/
+        - generic [ref=e649]:
+          - generic [ref=e650]:
+            - heading "Company" [level=3] [ref=e651]
+            - list [ref=e652]:
+              - listitem [ref=e653]:
+                - link "About Grafana Labs" [ref=e654] [cursor=pointer]:
+                  - /url: /about/grafana-labs/
+              - listitem [ref=e655]:
+                - link "Careers" [ref=e656] [cursor=pointer]:
+                  - /url: /careers/
+              - listitem [ref=e657]:
+                - link "Partnerships" [ref=e658] [cursor=pointer]:
+                  - /url: /partnerships/
+              - listitem [ref=e659]:
+                - link "Newsroom" [ref=e660] [cursor=pointer]:
+                  - /url: /press/
+              - listitem [ref=e661]:
+                - link "Success Stories" [ref=e662] [cursor=pointer]:
+                  - /url: /success/
+              - listitem [ref=e663]:
+                - link "Contact Us" [ref=e664] [cursor=pointer]:
+                  - /url: /contact/
+              - listitem [ref=e665]:
+                - link "Getting Help" [ref=e666] [cursor=pointer]:
+                  - /url: /help/
+              - listitem [ref=e667]:
+                - link "Professional Services" [ref=e668] [cursor=pointer]:
+                  - /url: /professional-services/
+              - listitem [ref=e669]:
+                - link "Hey AI" [ref=e670] [cursor=pointer]:
+                  - /url: /ai-info/
+          - generic [ref=e671]:
+            - heading "Compare" [level=3] [ref=e672]
+            - list [ref=e673]:
+              - listitem [ref=e674]:
+                - link "Datadog vs. Grafana Cloud" [ref=e675] [cursor=pointer]:
+                  - /url: /compare/grafana-vs-datadog/
+              - listitem [ref=e676]:
+                - link "Dynatrace vs. Grafana Cloud" [ref=e677] [cursor=pointer]:
+                  - /url: /compare/grafana-vs-dynatrace/
+              - listitem [ref=e678]:
+                - link "Elasticsearch vs. Grafana Cloud" [ref=e679] [cursor=pointer]:
+                  - /url: /compare/grafana-vs-elastic/
+              - listitem [ref=e680]:
+                - link "New Relic vs. Grafana Cloud" [ref=e681] [cursor=pointer]:
+                  - /url: /compare/grafana-vs-new-relic/
+              - listitem [ref=e682]:
+                - link "PagerDuty vs. Grafana Cloud" [ref=e683] [cursor=pointer]:
+                  - /url: /compare/grafana-vs-pagerduty/
+              - listitem [ref=e684]:
+                - link "Splunk vs. Grafana Cloud" [ref=e685] [cursor=pointer]:
+                  - /url: /compare/grafana-vs-splunk/
+      - generic [ref=e686]:
+        - generic [ref=e687]:
+          - generic:
+            - img "Grafana Labs x unique logomark"
+          - paragraph [ref=e689]:
+            - text: Donut take our word for it. Try
+            - link "Grafana Cloud" [ref=e691] [cursor=pointer]:
+              - /url: /products/cloud/
+            - text: today.
+        - generic [ref=e692]:
+          - generic [ref=e693]:
+            - navigation "Footer navigation" [ref=e694]:
+              - link "Grafana Cloud Status" [ref=e695] [cursor=pointer]:
+                - /url: https://status.grafana.com/
+              - link "Legal & Security" [ref=e696] [cursor=pointer]:
+                - /url: /legal/
+              - link "Terms of Service" [ref=e697] [cursor=pointer]:
+                - /url: /legal/terms/
+              - link "Privacy Policy" [ref=e698] [cursor=pointer]:
+                - /url: /legal/privacy-policy/
+              - link "Trademark Policy" [ref=e699] [cursor=pointer]:
+                - /url: /trademark-policy/
+            - paragraph [ref=e701]: Copyright 2026 © Grafana Labs
+          - generic [ref=e702]:
+            - link "Facebook" [ref=e703] [cursor=pointer]:
+              - /url: https://www.facebook.com/grafana/
+              - img "Facebook" [ref=e704]
+            - link "X" [ref=e705] [cursor=pointer]:
+              - /url: https://twitter.com/grafana
+              - img "X" [ref=e706]
+            - link "Linkedin" [ref=e707] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/grafana-labs/
+              - img "Linkedin" [ref=e708]
+            - link "Github" [ref=e709] [cursor=pointer]:
+              - /url: https://github.com/grafana/
+              - img "Github" [ref=e710]
+            - link "Youtube" [ref=e711] [cursor=pointer]:
+              - /url: https://www.youtube.com/channel/UCYCwgQAMm9sTJv0rgwQLCxw
+              - img "Youtube" [ref=e712]
+            - link "Reddit" [ref=e713] [cursor=pointer]:
+              - /url: https://www.reddit.com/r/grafana/
+              - img "Reddit" [ref=e714]

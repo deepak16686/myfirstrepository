@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Java 21 RAG and LLM E2E Report</title>
+  <style>
+    body { margin: 0; background: #f6f8fb; color: #17202a; font-family: Arial, sans-serif; }
+    main { max-width: 1180px; margin: 0 auto; padding: 40px 28px; }
+    h1 { margin: 0 0 8px; font-size: 32px; }
+    h2 { margin-top: 30px; font-size: 22px; }
+    p { color: #4b5563; line-height: 1.5; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; background: #fff; border: 1px solid #d8dee8; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+    th { background: #111827; color: #fff; }
+    .pass { color: #047857; font-weight: 700; }
+    .partial { color: #b45309; font-weight: 700; }
+    code { background: #eef2f7; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Java 21 RAG and LLM E2E Report</h1>
+    <p><strong>Date:</strong> 2026-05-15<br><strong>Browser origin:</strong> https://deepaksharma.live/pipelines</p>
+    <p>GitLab RAG and forced LLM paths both produced successful pipelines. Java 21 templates are now present for GitLab, Jenkins, and Gitea Actions, with chat-route gaps documented for Jenkins and Gitea.</p>
+
+    <h2>Pipeline Results</h2>
+    <table>
+      <thead><tr><th>Flow</th><th>Source</th><th>Status</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>GitLab Java 21 Gradle</td><td>RAG direct</td><td class="pass">Pass</td><td>Pipeline 842 succeeded via <code>chromadb-direct</code>; template <code>success_java_gradle_be82e08494af</code>.</td></tr>
+        <tr><td>GitLab Java 21 Gradle</td><td>Forced LLM</td><td class="pass">Pass</td><td>Pipeline 843 succeeded after dry-run valid generation by <code>Codex Code (gpt-5.5)</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Template Inventory</h2>
+    <table>
+      <thead><tr><th>Provider</th><th>Collection</th><th>Count</th><th>Java 21 Records</th></tr></thead>
+      <tbody>
+        <tr><td>GitLab</td><td><code>gitlab_successful_template</code></td><td>12</td><td><code>success_java_gradle_be82e08494af</code>, <code>success_java_spring-boot_6c0dba7eb6b7</code>, <code>success_java_generic_661eae586040</code>, <code>success_java_maven_0baa9dbf0bd2</code></td></tr>
+        <tr><td>Jenkins</td><td><code>jenkins_successful_pipelines</code></td><td>2</td><td>Spring Boot, generic</td></tr>
+        <tr><td>Gitea</td><td><code>gitea_actions_successful_pipelines</code></td><td>2</td><td>Spring Boot, generic</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Browser Matrix</h2>
+    <table>
+      <thead><tr><th>Area</th><th>Status</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>GitLab RAG run</td><td class="pass">Pass</td><td>Pipeline 842 succeeded via <code>chromadb-direct</code>.</td></tr>
+        <tr><td>GitLab LLM run</td><td class="pass">Pass</td><td>Pipeline 843 succeeded after forced LLM generation.</td></tr>
+        <tr><td>GitLab Java 21 templates</td><td class="pass">Pass</td><td>Gradle proven plus Spring Boot, generic, and Maven reusable RAG records.</td></tr>
+        <tr><td>Jenkins Java 21 templates</td><td class="pass">Pass</td><td>Direct lookup returns Spring Boot and generic from <code>chromadb-successful</code>.</td></tr>
+        <tr><td>Gitea Java 21 templates</td><td class="pass">Pass</td><td>Direct lookup returns Spring Boot and generic from <code>chromadb-successful</code>.</td></tr>
+        <tr><td>Jenkins chat route</td><td class="partial">Partial</td><td>Chat missed RAG and generated Java 17 content.</td></tr>
+        <tr><td>Gitea chat route</td><td class="partial">Partial</td><td>Chat found RAG but returned stale Java 17 content.</td></tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

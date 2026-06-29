@@ -1,0 +1,42 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - heading "Error 1033" [level=1] [ref=e5]
+    - generic [ref=e6]: "Ray ID: 9f86c930cd0181ba •"
+    - generic [ref=e7]: 2026-05-08 07:35:07 UTC
+    - heading "Cloudflare Tunnel error" [level=2] [ref=e8]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - heading "What happened?" [level=2] [ref=e11]
+      - paragraph [ref=e12]:
+        - text: You've requested a page on a website (gitlab.deepaksharma.live) that is on the
+        - link "Cloudflare" [ref=e13] [cursor=pointer]:
+          - /url: https://www.cloudflare.com/5xx-error-landing/
+        - text: network. The host (gitlab.deepaksharma.live) is configured as a Cloudflare Tunnel, and Cloudflare is currently unable to resolve it.
+    - generic [ref=e14]:
+      - heading "What can I do?" [level=2] [ref=e15]
+      - paragraph [ref=e16]:
+        - strong [ref=e17]: "If you are a visitor of this website:"
+        - text: Please try again in a few minutes.
+      - paragraph [ref=e18]:
+        - strong [ref=e19]: "If you are the owner of this website:"
+        - text: Ensure that cloudflared is running and can reach the network. You may wish to enable
+        - link "load balancing" [ref=e20] [cursor=pointer]:
+          - /url: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/routing-to-tunnel/lb/
+        - text: for your tunnel.
+  - generic [ref=e22]:
+    - text: Was this page helpful?
+    - button "Yes" [ref=e23] [cursor=pointer]
+    - button "No" [ref=e24] [cursor=pointer]
+  - paragraph [ref=e26]:
+    - generic [ref=e27]:
+      - text: "Cloudflare Ray ID:"
+      - strong [ref=e28]: 9f86c930cd0181ba
+    - text: •
+    - generic [ref=e29]:
+      - text: "Your IP:"
+      - button "Click to reveal" [ref=e30] [cursor=pointer]
+      - text: •
+    - generic [ref=e31]:
+      - text: Performance & security by
+      - link "Cloudflare" [ref=e32] [cursor=pointer]:
+        - /url: https://www.cloudflare.com/5xx-error-landing

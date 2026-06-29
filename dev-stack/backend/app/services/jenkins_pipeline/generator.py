@@ -526,7 +526,7 @@ Requirements:
 - For Node.js: Use 'npm install' (NOT 'npm ci') to avoid lock file sync issues
 - For Go: Always run 'go mod tidy' before 'go build' or 'go mod download'
 - For Ruby: Use 'bundle install' (NOT 'bundle install --deployment') for initial builds
-- Notify stage: curl to Splunk HEC with success event (message, pipeline, project, status, image, sourcetype, source)
+- Notify stage: curl to Splunk HEC with success event (message, pipeline, project, status, image, sourcetype, source), and append '|| true' so notification transport errors do not block the Learn stage
 - Learn stage: curl to devops backend /api/v1/jenkins-pipeline/learn/record with job_name, build_number, status, image, tag
 - Post block: failure (Splunk notify failure as safety net) + always (cleanWs()). Do NOT put notify/learn in post block
 - Use Docker Pipeline plugin for building images (docker.withRegistry / docker.build)

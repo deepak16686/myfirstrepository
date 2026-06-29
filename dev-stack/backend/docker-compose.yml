@@ -40,7 +40,7 @@ services:
       # Nexus
       - NEXUS_URL=http://ai-nexus:8081
       - NEXUS_USERNAME=admin
-      - NEXUS_PASSWORD=${NEXUS_PASSWORD:-r}
+      - NEXUS_PASSWORD=${NEXUS_PASSWORD:-Hiagb@1234}
 
       # GitHub/Gitea (free self-hosted GitHub Actions alternative)
       - GITHUB_URL=http://gitea-server:3000

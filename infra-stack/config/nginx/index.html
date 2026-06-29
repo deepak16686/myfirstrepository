@@ -142,6 +142,23 @@
             background: var(--bg-card-hover);
         }
         .card:hover::before { opacity: 1; }
+        .card.health-up {
+            --card-accent: var(--accent-green) !important;
+            border: 1px solid rgba(34,197,94,0.35) !important;
+        }
+        .card.health-up::before { opacity: 1; }
+        .card.health-up .card-icon {
+            background: rgba(34,197,94,0.15) !important;
+            color: #4ade80 !important;
+        }
+        .card.health-down {
+            --card-accent: var(--accent-red) !important;
+            border: 1px solid rgba(239,68,68,0.35) !important;
+        }
+        .card.health-down::before { opacity: 1; }
+        .card.health-checking {
+            border-color: var(--border);
+        }
         .card-top { display: flex; align-items: center; justify-content: space-between; }
         .card-title-row { display: flex; align-items: center; gap: 0.625rem; }
         .card-icon {
@@ -590,7 +607,7 @@
                         <span class="card-port">:9001</span>
                     </div>
                 </a>
-                <div class="card" data-name="PostgreSQL" style="cursor: default;">
+                <div class="card health-up" data-name="PostgreSQL" style="cursor: default;">
                     <div class="card-top">
                         <div class="card-title-row">
                             <div class="card-icon">&#x1F418;</div>
@@ -604,7 +621,7 @@
                         <span class="card-port">:5432</span>
                     </div>
                 </div>
-                <div class="card" data-name="Redis" style="cursor: default;">
+                <div class="card health-up" data-name="Redis" style="cursor: default;">
                     <div class="card-top">
                         <div class="card-title-row">
                             <div class="card-icon">&#x26A1;</div>
@@ -735,6 +752,8 @@
             const url = card.getAttribute('data-health');
             const dot = card.querySelector('.status');
             if (!url || !dot) return;
+            card.classList.remove('health-up', 'health-down', 'health-checking');
+            card.classList.add('health-checking');
             try {
                 const controller = new AbortController();
                 const timeout = setTimeout(() => controller.abort(), 5000);
@@ -747,6 +766,8 @@
                 clearTimeout(timeout);
                 dot.className = 'status up';
                 dot.title = 'Online';
+                card.classList.remove('health-checking', 'health-down');
+                card.classList.add('health-up');
                 counts.up++;
             } catch (e) {
                 // no-cors mode always throws for cross-origin, try with HEAD
@@ -755,12 +776,17 @@
                     const timeout2 = setTimeout(() => controller2.abort(), 5000);
                     const res2 = await fetch(url, { signal: controller2.signal, cache: 'no-store' });
                     clearTimeout(timeout2);
-                    dot.className = res2.ok || res2.status < 500 ? 'status up' : 'status down';
+                    const isOnline = res2.ok || res2.status < 500;
+                    dot.className = isOnline ? 'status up' : 'status down';
                     dot.title = res2.ok ? 'Online' : `HTTP ${res2.status}`;
-                    if (res2.ok || res2.status < 500) counts.up++; else counts.down++;
+                    card.classList.remove('health-checking');
+                    card.classList.add(isOnline ? 'health-up' : 'health-down');
+                    if (isOnline) counts.up++; else counts.down++;
                 } catch (e2) {
                     dot.className = 'status down';
                     dot.title = 'Offline';
+                    card.classList.remove('health-checking', 'health-up');
+                    card.classList.add('health-down');
                     counts.down++;
                 }
             }
@@ -780,6 +806,8 @@
             cards.forEach((card, i) => {
                 const dot = card.querySelector('.status');
                 if (dot) dot.className = 'status checking';
+                card.classList.remove('health-up', 'health-down');
+                card.classList.add('health-checking');
                 setTimeout(() => checkHealth(card), i * 200);
             });
             document.getElementById('last-check').textContent =

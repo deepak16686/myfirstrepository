@@ -96,7 +96,7 @@ You must fix the following Jenkins Declarative Pipeline that has validation erro
 5. Use docker {{ }} agent blocks for compile stages with Nexus registry
 6. Use docker.withRegistry("http://${{NEXUS_REGISTRY}}", 'nexus-credentials') for Build Image stage (HTTP only, NEVER https)
 7. Notify and Learn MUST be explicit stages (NOT in post block). Post block only has failure (Splunk) + always (cleanWs)
-8. Notify stage: curl to Splunk HEC with success event. Learn stage: curl to backend /api/v1/jenkins-pipeline/learn/record
+8. Notify stage: curl to Splunk HEC with success event and append '|| true'. Learn stage: curl to backend /api/v1/jenkins-pipeline/learn/record
 8. Groovy syntax must be valid
 9. Dockerfile MUST use ARG BASE_REGISTRY=localhost:5001 (NOT ai-nexus:5001)
 10. docker.build() MUST include --build-arg: docker.build("...", "--build-arg BASE_REGISTRY=${{NEXUS_REGISTRY}} .")

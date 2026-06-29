@@ -1,0 +1,70 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+      - button "Collapse sidebar" [ref=e62]:
+        - img
+        - generic [ref=e63]: Collapse
+    - generic [ref=e64]:
+      - banner [ref=e65]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - searchbox "Search" [ref=e70]
+          - generic [ref=e71]:
+            - img [ref=e72]
+            - text: /
+        - button "Open command palette" [ref=e74]:
+          - generic [ref=e75]: Command
+          - generic [ref=e76]:
+            - generic [ref=e77]: Ctrl
+            - generic [ref=e78]: K
+        - generic [ref=e79]:
+          - button "Hide status rail" [pressed] [ref=e80]:
+            - img
+          - 'status "Public route status: Public route unavailable" [ref=e81]':
+            - img [ref=e83]
+            - generic [ref=e84]: Public route unavailable
+          - button "Notifications" [ref=e85]:
+            - img
+          - 'button "Theme: system (light)" [ref=e87]':
+            - img
+          - button "Account" [ref=e88]:
+            - generic [ref=e89]:
+              - img
+            - generic [ref=e90]: operator
+      - main [ref=e92]
+  - region "Notifications alt+T"

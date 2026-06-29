@@ -1,0 +1,654 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "Page Flows brand logo icon." [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Page Flows brand logo icon." [ref=e7]
+        - generic [ref=e8]:
+          - img [ref=e9]
+          - textbox "Search iOS Products, Screens, UI Elements, Flows" [ref=e12]
+      - list [ref=e14]:
+        - listitem [ref=e15]:
+          - link "iOS" [ref=e16] [cursor=pointer]:
+            - /url: /ios/
+        - listitem [ref=e17]:
+          - link "Android" [ref=e18] [cursor=pointer]:
+            - /url: /android/
+        - listitem [ref=e19]:
+          - link "Web" [ref=e20] [cursor=pointer]:
+            - /url: /web/
+        - listitem [ref=e21]:
+          - link "Emails" [ref=e22] [cursor=pointer]:
+            - /url: /emails/
+      - generic [ref=e25]:
+        - button "Login" [ref=e26] [cursor=pointer]:
+          - link "Login" [ref=e27]:
+            - /url: /login/
+        - button "Try 3 Days" [ref=e29] [cursor=pointer]
+  - generic [ref=e30]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - img "designers image" [ref=e35]
+          - img "designers image" [ref=e36]
+          - img "designers image" [ref=e37]
+        - paragraph [ref=e38]: Supporting over 100,000+ designers worldwide
+      - heading "UI/UX Inspiration from Real User Flows" [level=1] [ref=e39]
+      - paragraph [ref=e40]: Explore real-world user flows and design patterns from leading apps and websites.
+      - generic [ref=e41]:
+        - link "Try 3 Days" [ref=e42] [cursor=pointer]:
+          - /url: /signup/
+        - link "Explore Flows" [ref=e43] [cursor=pointer]:
+          - /url: /ios/
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - img "Vimeo logo" [ref=e48]
+          - img "Disney logo" [ref=e50]
+          - img "Booking.com logo" [ref=e52]
+          - img "app logo" [ref=e54]
+          - img "Gapp logo" [ref=e56]
+          - img "Gapp logo" [ref=e58]
+          - img "Gapp logo" [ref=e60]
+          - img "Gapp logo" [ref=e62]
+          - img "Gapp logo" [ref=e64]
+          - img "Gapp logo" [ref=e66]
+          - img "Gapp logo" [ref=e68]
+          - img "Gapp logo" [ref=e70]
+        - generic [ref=e71]:
+          - img "Vimeo logo" [ref=e73]
+          - img "Disney logo" [ref=e75]
+          - img "Booking.com logo" [ref=e77]
+          - img "app logo" [ref=e79]
+          - img "Gapp logo" [ref=e81]
+          - img "Gapp logo" [ref=e83]
+          - img "Gapp logo" [ref=e85]
+          - img "Gapp logo" [ref=e87]
+          - img "Gapp logo" [ref=e89]
+          - img "Gapp logo" [ref=e91]
+          - img "Gapp logo" [ref=e93]
+          - img "Gapp logo" [ref=e95]
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - img "Vimeo logo" [ref=e99]
+          - img "Disney logo" [ref=e101]
+          - img "Booking.com logo" [ref=e103]
+          - img "app logo" [ref=e105]
+          - img "Gapp logo" [ref=e107]
+          - img "Gapp logo" [ref=e109]
+          - img "Gapp logo" [ref=e111]
+          - img "Gapp logo" [ref=e113]
+          - img "Gapp logo" [ref=e115]
+          - img "Gapp logo" [ref=e117]
+          - img "Gapp logo" [ref=e119]
+          - img "Gapp logo" [ref=e121]
+          - img "Gapp logo" [ref=e123]
+        - generic [ref=e124]:
+          - img "Vimeo logo" [ref=e126]
+          - img "Disney logo" [ref=e128]
+          - img "Booking.com logo" [ref=e130]
+          - img "app logo" [ref=e132]
+          - img "Gapp logo" [ref=e134]
+          - img "Gapp logo" [ref=e136]
+          - img "Gapp logo" [ref=e138]
+          - img "Gapp logo" [ref=e140]
+          - img "Gapp logo" [ref=e142]
+          - img "Gapp logo" [ref=e144]
+          - img "Gapp logo" [ref=e146]
+          - img "Gapp logo" [ref=e148]
+          - img "Gapp logo" [ref=e150]
+      - generic [ref=e151]:
+        - generic [ref=e152]:
+          - img "Vimeo logo" [ref=e154]
+          - img "Disney logo" [ref=e156]
+          - img "Booking.com logo" [ref=e158]
+          - img "app logo" [ref=e160]
+          - img "Gapp logo" [ref=e162]
+          - img "Gapp logo" [ref=e164]
+          - img "Gapp logo" [ref=e166]
+          - img "Gapp logo" [ref=e168]
+          - img "Gapp logo" [ref=e170]
+          - img "Gapp logo" [ref=e172]
+          - img "Gapp logo" [ref=e174]
+          - img "Gapp logo" [ref=e176]
+        - generic [ref=e177]:
+          - img "Vimeo logo" [ref=e179]
+          - img "Disney logo" [ref=e181]
+          - img "Booking.com logo" [ref=e183]
+          - img "app logo" [ref=e185]
+          - img "Gapp logo" [ref=e187]
+          - img "Gapp logo" [ref=e189]
+          - img "Gapp logo" [ref=e191]
+          - img "Gapp logo" [ref=e193]
+          - img "Gapp logo" [ref=e195]
+          - img "Gapp logo" [ref=e197]
+          - img "Gapp logo" [ref=e199]
+          - img "Gapp logo" [ref=e201]
+    - generic [ref=e203]:
+      - generic [ref=e204]: Trusted by 10,000+ brands
+      - list [ref=e205]:
+        - listitem [ref=e206]:
+          - img "disney" [ref=e207]
+        - listitem [ref=e208]:
+          - img "booking" [ref=e209]
+        - listitem [ref=e210]:
+          - img "sonos" [ref=e211]
+        - listitem [ref=e212]:
+          - img "vimeo" [ref=e213]
+        - listitem [ref=e214]:
+          - img "google" [ref=e215]
+    - generic [ref=e217]:
+      - heading "Why Choose Page Flows?" [level=2] [ref=e219]
+      - generic [ref=e220]:
+        - generic [ref=e221]:
+          - generic [ref=e223]:
+            - heading "Real-World User Flow Examples" [level=4] [ref=e224]
+            - paragraph [ref=e225]: Gain insights into the user experiences of popular apps and websites. Browse through user onboarding processes, login pages, checkouts, search flows, and more to enhance your own designs.
+          - generic [ref=e228]: Your browser does not support the video tag.
+        - generic [ref=e229]:
+          - generic [ref=e232]: Your browser does not support the video tag.
+          - generic [ref=e234]:
+            - heading "Screen Recordings & Annotations" [level=4] [ref=e235]
+            - paragraph [ref=e236]: Watch detailed screen recordings with step-by-step annotations highlighting key UI/UX design elements & interactions. Understand exactly how top companies guide users through their digital experiences.
+        - generic [ref=e237]:
+          - generic [ref=e239]:
+            - heading "Filter and Search with Ease" [level=4] [ref=e240]
+            - paragraph [ref=e241]:
+              - text: Quickly find the screen flows you need with powerful
+              - text: filtering options for categories, industries, and UX patterns.
+              - text: Save time by accessing precisely what you’re looking for
+              - text: with just a few clicks.
+          - generic [ref=e244]: Your browser does not support the video tag.
+        - generic [ref=e245]:
+          - generic [ref=e248]: Your browser does not support the video tag.
+          - generic [ref=e250]:
+            - heading "Learn from the Best" [level=4] [ref=e251]
+            - paragraph [ref=e252]: Access a curated library of UX flows from top companies like Airbnb, Dropbox, and Slack. Discover how market leaders design intuitive, user-friendly experiences and apply these insights to your projects.
+    - generic [ref=e254]:
+      - heading "Page Flows Empowers UX Research for All" [level=2] [ref=e255]
+      - paragraph [ref=e256]: Discover how leading brands design, test, and implement user experiences, and apply these proven strategies to your UI/UX designs.
+      - generic [ref=e257]:
+        - generic [ref=e258]:
+          - heading "UX & UI Inspiration for Designers" [level=4] [ref=e259]:
+            - text: UX & UI Inspiration for
+            - text: Designers
+          - paragraph [ref=e260]: Page Flows showcases visual examples & case studies from industry leaders, helping create intuitive, engaging, & high-converting user interfaces & experiences.
+        - generic [ref=e261]:
+          - heading "Refine the User Journey for Product Managers" [level=4] [ref=e262]:
+            - text: Refine the User Journey for
+            - text: Product Managers
+          - paragraph [ref=e263]: Leverage Page Flows to uncover best practices for optimizing product onboarding, enhancing conversion funnels, & improving customer retention.
+        - generic [ref=e264]:
+          - heading "Perfect App Flows for Developers" [level=4] [ref=e265]:
+            - text: Perfect App Flows for
+            - text: Developers
+          - paragraph [ref=e266]: Page Flows equips developers with actionable insights & step-by-step examples to fine-tune UX design elements & ensure seamless app performance.
+    - generic [ref=e267]:
+      - generic [ref=e268]:
+        - heading "Trusted by Designers and Product Teams Worldwide" [level=2] [ref=e270]:
+          - text: Trusted by Designers and
+          - text: Product Teams Worldwide
+        - list [ref=e271]:
+          - listitem [ref=e272]:
+            - img "designers img" [ref=e273]
+          - listitem [ref=e274]:
+            - img "designers img" [ref=e275]
+          - listitem [ref=e276]:
+            - img "designers img" [ref=e277]
+      - generic [ref=e282]:
+        - generic [ref=e283]:
+          - generic [ref=e286]:
+            - paragraph [ref=e288]: Page Flows is an absolutely essential tool for product designers and founders!
+            - generic [ref=e289]:
+              - generic [ref=e290]: C
+              - generic [ref=e291]:
+                - heading [level=5] [ref=e292]: Chris S.
+                - paragraph [ref=e293]: Founder
+              - img [ref=e295]
+          - generic [ref=e298]:
+            - generic [ref=e299]:
+              - paragraph [ref=e300]: Just found Page Flows, they literally have vids of proven and successful website user flows.
+              - paragraph [ref=e301]: It’s not free but ideal for anyone stuck on things like user onboarding or user journeys.
+            - generic [ref=e302]:
+              - generic [ref=e303]: J
+              - generic [ref=e304]:
+                - heading [level=5] [ref=e305]: Jack O.
+                - paragraph [ref=e306]: Designer
+              - img [ref=e308]
+        - generic [ref=e309]:
+          - generic [ref=e312]:
+            - paragraph [ref=e314]: "Can’t say it enough: love love love Page Flows for real-life design inspiration. Massive timesaver."
+            - generic [ref=e315]:
+              - generic [ref=e316]: J
+              - generic [ref=e317]:
+                - heading [level=5] [ref=e318]: Jane P.
+                - paragraph [ref=e319]: Designer
+              - img [ref=e321]
+          - generic [ref=e324]:
+            - paragraph [ref=e326]: I find pageflows.com to be a really helpful resource for finding interaction design inspiration. They capture user flows from a wide range of web and mobile applications and patterns.
+            - generic [ref=e327]:
+              - generic [ref=e328]: S
+              - generic [ref=e329]:
+                - heading [level=5] [ref=e330]: Shankar S.
+                - paragraph [ref=e331]: UX/UI Designer
+              - img [ref=e333]
+        - generic [ref=e334]:
+          - generic [ref=e337]:
+            - generic [ref=e338]:
+              - paragraph [ref=e339]: Today I found that someone has recorded themself over 2,000 times going through different user flows on various apps and made them all available for $99 a year.
+              - paragraph [ref=e340]: Thank you Page Flows! This is a real timeaver!
+            - generic [ref=e341]:
+              - generic [ref=e342]: M
+              - generic [ref=e343]:
+                - heading [level=5] [ref=e344]: Matt N.
+                - paragraph [ref=e345]: UX/UI Designer
+              - img [ref=e347]
+          - generic [ref=e350]:
+            - paragraph [ref=e352]: This is one product -- done well.
+            - generic [ref=e353]:
+              - generic [ref=e354]: A
+              - generic [ref=e355]:
+                - heading [level=5] [ref=e356]: Aazar S.
+                - paragraph [ref=e357]: UI/UX Designer
+              - img [ref=e359]
+        - generic [ref=e360]:
+          - generic [ref=e363]:
+            - paragraph [ref=e365]: Page Flows has been a game changer for our design team. The ability to see how top companies craft their experiences is invaluable.
+            - generic [ref=e366]:
+              - generic [ref=e367]: J
+              - generic [ref=e368]:
+                - heading "Jessica K." [level=5] [ref=e369]
+                - paragraph [ref=e370]: Lead UX Designer
+              - img "star-rating" [ref=e372]
+          - generic [ref=e375]:
+            - paragraph [ref=e377]: Using Page Flows has drastically improved my workflow. Not only does it help me solve UX problems, it’s also super helpful to get validated by seeing what others are doing. I highly recommend
+            - generic [ref=e378]:
+              - generic [ref=e379]: A
+              - generic [ref=e380]:
+                - heading "Adam S." [level=5] [ref=e381]
+                - paragraph [ref=e382]: Head of Product
+              - img "star-rating" [ref=e384]
+        - generic [ref=e385]:
+          - generic [ref=e388]:
+            - paragraph [ref=e390]: Awesome tool!! Love it.
+            - generic [ref=e391]:
+              - generic [ref=e392]: K
+              - generic [ref=e393]:
+                - heading "Karo W." [level=5] [ref=e394]
+                - paragraph [ref=e395]: Designer
+              - img "star-rating" [ref=e397]
+          - generic [ref=e400]:
+            - paragraph [ref=e402]: A must-have tool for anyone serious about improving their product's user experience.
+            - generic [ref=e403]:
+              - generic [ref=e404]: M
+              - generic [ref=e405]:
+                - heading "Michael R." [level=5] [ref=e406]
+                - paragraph [ref=e407]: Product Manager
+              - img "star-rating" [ref=e409]
+        - generic [ref=e410]:
+          - generic [ref=e413]:
+            - paragraph [ref=e415]: Page Flows is an absolutely essential tool for product designers and founders!
+            - generic [ref=e416]:
+              - generic [ref=e417]: C
+              - generic [ref=e418]:
+                - heading "Chris S." [level=5] [ref=e419]
+                - paragraph [ref=e420]: Founder
+              - img "star-rating" [ref=e422]
+          - generic [ref=e425]:
+            - generic [ref=e426]:
+              - paragraph [ref=e427]: Just found Page Flows, they literally have vids of proven and successful website user flows.
+              - paragraph [ref=e428]: It’s not free but ideal for anyone stuck on things like user onboarding or user journeys.
+            - generic [ref=e429]:
+              - generic [ref=e430]: J
+              - generic [ref=e431]:
+                - heading "Jack O." [level=5] [ref=e432]
+                - paragraph [ref=e433]: Designer
+              - img "star-rating" [ref=e435]
+        - generic [ref=e436]:
+          - generic [ref=e439]:
+            - paragraph [ref=e441]: "Can’t say it enough: love love love Page Flows for real-life design inspiration. Massive timesaver."
+            - generic [ref=e442]:
+              - generic [ref=e443]: J
+              - generic [ref=e444]:
+                - heading [level=5] [ref=e445]: Jane P.
+                - paragraph [ref=e446]: Designer
+              - img [ref=e448]
+          - generic [ref=e451]:
+            - paragraph [ref=e453]: I find pageflows.com to be a really helpful resource for finding interaction design inspiration. They capture user flows from a wide range of web and mobile applications and patterns.
+            - generic [ref=e454]:
+              - generic [ref=e455]: S
+              - generic [ref=e456]:
+                - heading [level=5] [ref=e457]: Shankar S.
+                - paragraph [ref=e458]: UX/UI Designer
+              - img [ref=e460]
+        - generic [ref=e461]:
+          - generic [ref=e464]:
+            - generic [ref=e465]:
+              - paragraph [ref=e466]: Today I found that someone has recorded themself over 2,000 times going through different user flows on various apps and made them all available for $99 a year.
+              - paragraph [ref=e467]: Thank you Page Flows! This is a real timeaver!
+            - generic [ref=e468]:
+              - generic [ref=e469]: M
+              - generic [ref=e470]:
+                - heading [level=5] [ref=e471]: Matt N.
+                - paragraph [ref=e472]: UX/UI Designer
+              - img [ref=e474]
+          - generic [ref=e477]:
+            - paragraph [ref=e479]: This is one product -- done well.
+            - generic [ref=e480]:
+              - generic [ref=e481]: A
+              - generic [ref=e482]:
+                - heading [level=5] [ref=e483]: Aazar S.
+                - paragraph [ref=e484]: UI/UX Designer
+              - img [ref=e486]
+        - generic [ref=e487]:
+          - generic [ref=e490]:
+            - paragraph [ref=e492]: Page Flows has been a game changer for our design team. The ability to see how top companies craft their experiences is invaluable.
+            - generic [ref=e493]:
+              - generic [ref=e494]: J
+              - generic [ref=e495]:
+                - heading [level=5] [ref=e496]: Jessica K.
+                - paragraph [ref=e497]: Lead UX Designer
+              - img [ref=e499]
+          - generic [ref=e502]:
+            - paragraph [ref=e504]: Using Page Flows has drastically improved my workflow. Not only does it help me solve UX problems, it’s also super helpful to get validated by seeing what others are doing. I highly recommend
+            - generic [ref=e505]:
+              - generic [ref=e506]: A
+              - generic [ref=e507]:
+                - heading [level=5] [ref=e508]: Adam S.
+                - paragraph [ref=e509]: Head of Product
+              - img [ref=e511]
+        - generic [ref=e512]:
+          - generic [ref=e515]:
+            - paragraph [ref=e517]: Awesome tool!! Love it.
+            - generic [ref=e518]:
+              - generic [ref=e519]: K
+              - generic [ref=e520]:
+                - heading [level=5] [ref=e521]: Karo W.
+                - paragraph [ref=e522]: Designer
+              - img [ref=e524]
+          - generic [ref=e527]:
+            - paragraph [ref=e529]: A must-have tool for anyone serious about improving their product's user experience.
+            - generic [ref=e530]:
+              - generic [ref=e531]: M
+              - generic [ref=e532]:
+                - heading [level=5] [ref=e533]: Michael R.
+                - paragraph [ref=e534]: Product Manager
+              - img [ref=e536]
+        - generic [ref=e537]:
+          - generic [ref=e540]:
+            - paragraph [ref=e542]: Page Flows is an absolutely essential tool for product designers and founders!
+            - generic [ref=e543]:
+              - generic [ref=e544]: C
+              - generic [ref=e545]:
+                - heading [level=5] [ref=e546]: Chris S.
+                - paragraph [ref=e547]: Founder
+              - img [ref=e549]
+          - generic [ref=e552]:
+            - generic [ref=e553]:
+              - paragraph [ref=e554]: Just found Page Flows, they literally have vids of proven and successful website user flows.
+              - paragraph [ref=e555]: It’s not free but ideal for anyone stuck on things like user onboarding or user journeys.
+            - generic [ref=e556]:
+              - generic [ref=e557]: J
+              - generic [ref=e558]:
+                - heading [level=5] [ref=e559]: Jack O.
+                - paragraph [ref=e560]: Designer
+              - img [ref=e562]
+        - generic [ref=e563]:
+          - generic [ref=e566]:
+            - paragraph [ref=e568]: "Can’t say it enough: love love love Page Flows for real-life design inspiration. Massive timesaver."
+            - generic [ref=e569]:
+              - generic [ref=e570]: J
+              - generic [ref=e571]:
+                - heading [level=5] [ref=e572]: Jane P.
+                - paragraph [ref=e573]: Designer
+              - img [ref=e575]
+          - generic [ref=e578]:
+            - paragraph [ref=e580]: I find pageflows.com to be a really helpful resource for finding interaction design inspiration. They capture user flows from a wide range of web and mobile applications and patterns.
+            - generic [ref=e581]:
+              - generic [ref=e582]: S
+              - generic [ref=e583]:
+                - heading [level=5] [ref=e584]: Shankar S.
+                - paragraph [ref=e585]: UX/UI Designer
+              - img [ref=e587]
+        - generic [ref=e588]:
+          - generic [ref=e591]:
+            - generic [ref=e592]:
+              - paragraph [ref=e593]: Today I found that someone has recorded themself over 2,000 times going through different user flows on various apps and made them all available for $99 a year.
+              - paragraph [ref=e594]: Thank you Page Flows! This is a real timeaver!
+            - generic [ref=e595]:
+              - generic [ref=e596]: M
+              - generic [ref=e597]:
+                - heading [level=5] [ref=e598]: Matt N.
+                - paragraph [ref=e599]: UX/UI Designer
+              - img [ref=e601]
+          - generic [ref=e604]:
+            - paragraph [ref=e606]: This is one product -- done well.
+            - generic [ref=e607]:
+              - generic [ref=e608]: A
+              - generic [ref=e609]:
+                - heading [level=5] [ref=e610]: Aazar S.
+                - paragraph [ref=e611]: UI/UX Designer
+              - img [ref=e613]
+        - generic [ref=e614]:
+          - generic [ref=e617]:
+            - paragraph [ref=e619]: Page Flows has been a game changer for our design team. The ability to see how top companies craft their experiences is invaluable.
+            - generic [ref=e620]:
+              - generic [ref=e621]: J
+              - generic [ref=e622]:
+                - heading [level=5] [ref=e623]: Jessica K.
+                - paragraph [ref=e624]: Lead UX Designer
+              - img [ref=e626]
+          - generic [ref=e629]:
+            - paragraph [ref=e631]: Using Page Flows has drastically improved my workflow. Not only does it help me solve UX problems, it’s also super helpful to get validated by seeing what others are doing. I highly recommend
+            - generic [ref=e632]:
+              - generic [ref=e633]: A
+              - generic [ref=e634]:
+                - heading [level=5] [ref=e635]: Adam S.
+                - paragraph [ref=e636]: Head of Product
+              - img [ref=e638]
+        - generic [ref=e639]:
+          - generic [ref=e642]:
+            - paragraph [ref=e644]: Awesome tool!! Love it.
+            - generic [ref=e645]:
+              - generic [ref=e646]: K
+              - generic [ref=e647]:
+                - heading [level=5] [ref=e648]: Karo W.
+                - paragraph [ref=e649]: Designer
+              - img [ref=e651]
+          - generic [ref=e654]:
+            - paragraph [ref=e656]: A must-have tool for anyone serious about improving their product's user experience.
+            - generic [ref=e657]:
+              - generic [ref=e658]: M
+              - generic [ref=e659]:
+                - heading [level=5] [ref=e660]: Michael R.
+                - paragraph [ref=e661]: Product Manager
+              - img [ref=e663]
+    - generic [ref=e664]:
+      - generic [ref=e666]:
+        - heading "Choose the Plan That Fits Your Needs" [level=2] [ref=e667]
+        - paragraph [ref=e668]: Unlock full access to the Page Flows library with our affordable subscription plans. Start with a 3-day trial ($2.95) to explore top user flows, screen recordings, and detailed design annotations. See how they can elevate your website and mobile app designs.
+      - generic [ref=e671]:
+        - generic [ref=e672]:
+          - generic [ref=e673]: quarterly
+          - generic [ref=e674]: $13
+          - paragraph [ref=e675]: per user per month
+          - link "Try 3 Days" [ref=e676] [cursor=pointer]:
+            - /url: /signup/
+          - list [ref=e678]:
+            - listitem [ref=e679]:
+              - img [ref=e680]
+              - generic [ref=e682]: Start your 3-Day trial
+            - listitem [ref=e683]:
+              - img [ref=e684]
+              - generic [ref=e686]: Unlimited access to all user flow recordings
+            - listitem [ref=e687]:
+              - img [ref=e688]
+              - generic [ref=e690]: Unlimited access to emails
+            - listitem [ref=e691]:
+              - img [ref=e692]
+              - generic [ref=e694]: Unlimited access to screens and UI elements
+            - listitem [ref=e695]:
+              - img [ref=e696]
+              - generic [ref=e698]: Enhanced search + filtering
+            - listitem [ref=e699]:
+              - img [ref=e700]
+              - generic [ref=e702]: Batch download screens
+            - listitem [ref=e703]:
+              - img [ref=e704]
+              - generic [ref=e706]: Unlimited bookmarks
+          - generic [ref=e707]: Billed at $39 (USD) per quarter after your 3-day trial ends. Cancel anytime during the trial.
+        - generic [ref=e708]:
+          - generic [ref=e709]:
+            - text: yearly
+            - generic [ref=e710]: Popular
+          - generic [ref=e711]: $8.25
+          - paragraph [ref=e712]: per user per month
+          - link "Try 3 Days" [ref=e713] [cursor=pointer]:
+            - /url: /signup/
+          - generic [ref=e714]: Save 15% Best Value!
+          - list [ref=e716]:
+            - listitem [ref=e717]:
+              - img [ref=e718]
+              - generic [ref=e720]: Start your 3-Day trial
+            - listitem [ref=e721]:
+              - img [ref=e722]
+              - generic [ref=e724]: Unlimited access to all user flow recordings
+            - listitem [ref=e725]:
+              - img [ref=e726]
+              - generic [ref=e728]: Unlimited access to emails
+            - listitem [ref=e729]:
+              - img [ref=e730]
+              - generic [ref=e732]: Unlimited access to screens and UI elements
+            - listitem [ref=e733]:
+              - img [ref=e734]
+              - generic [ref=e736]: Enhanced search + filtering
+            - listitem [ref=e737]:
+              - img [ref=e738]
+              - generic [ref=e740]: Batch download screens
+            - listitem [ref=e741]:
+              - img [ref=e742]
+              - generic [ref=e744]: Unlimited bookmarks
+          - generic [ref=e745]: Billed at $99 (USD) per year after your 3-day trial ends. Cancel anytime during the trial.
+        - generic [ref=e747]:
+          - generic [ref=e748]:
+            - generic [ref=e749]: Team
+            - generic [ref=e750]: $199
+            - generic [ref=e753] [cursor=pointer]:
+              - generic [ref=e754]: 3 users per year
+              - img [ref=e755]
+            - button "Get Started" [ref=e757] [cursor=pointer]
+            - generic [ref=e758]: Billed at $199 (USD) per year
+          - list [ref=e760]:
+            - listitem [ref=e761]:
+              - img [ref=e762]
+              - generic [ref=e764]: Unlimited access to all user flow recordings
+            - listitem [ref=e765]:
+              - img [ref=e766]
+              - generic [ref=e768]: Unlimited access to emails
+            - listitem [ref=e769]:
+              - img [ref=e770]
+              - generic [ref=e772]: Unlimited access to screens and UI elements
+            - listitem [ref=e773]:
+              - img [ref=e774]
+              - generic [ref=e776]: Enhanced search + filtering
+            - listitem [ref=e777]:
+              - img [ref=e778]
+              - generic [ref=e780]: Batch download screens
+            - listitem [ref=e781]:
+              - img [ref=e782]
+              - generic [ref=e784]: Unlimited bookmarks
+  - generic [ref=e785]:
+    - generic [ref=e787]:
+      - heading "Stay Ahead in UX Design" [level=2] [ref=e789]
+      - paragraph [ref=e790]: Join thousands of top designers and product managers who trust Page Flows to craft exceptional user experiences. Subscribe today and unlock exclusive insights, user flow examples, and the latest UX design trends to elevate your skills and projects.
+      - generic [ref=e791]:
+        - link "Try 3 Days" [ref=e792] [cursor=pointer]:
+          - /url: /signup/
+        - link "Explore flows" [ref=e793] [cursor=pointer]:
+          - /url: /ios/
+    - generic [ref=e796]:
+      - img [ref=e798]
+      - img [ref=e800]
+      - img [ref=e802]
+      - img [ref=e804]
+      - img "stay ahead" [ref=e806]
+      - img "stay ahead" [ref=e808]
+      - img "stay ahead" [ref=e810]
+      - img "stay ahead" [ref=e812]
+      - img "stay ahead" [ref=e814]
+      - img [ref=e816]
+      - img [ref=e818]
+      - img [ref=e820]
+      - img [ref=e822]
+      - img [ref=e824]
+      - img [ref=e826]
+      - img [ref=e828]
+      - img [ref=e830]
+      - img [ref=e832]
+      - img [ref=e834]
+      - img [ref=e836]
+  - contentinfo [ref=e837]:
+    - generic [ref=e838]:
+      - link "Pageflows Logo" [ref=e841] [cursor=pointer]:
+        - /url: /
+        - img "Pageflows Logo" [ref=e842]
+      - list [ref=e844]:
+        - listitem [ref=e845]:
+          - link "User Flows" [ref=e846] [cursor=pointer]:
+            - /url: /user-flow/
+        - listitem [ref=e847]:
+          - link "UI/UX Design" [ref=e848] [cursor=pointer]:
+            - /url: /ui-ux-design/
+        - listitem [ref=e849]:
+          - link "Website Design" [ref=e850] [cursor=pointer]:
+            - /url: /website-design/
+        - listitem [ref=e851]:
+          - link "Landing Page Design" [ref=e852] [cursor=pointer]:
+            - /url: /landing-page-design/
+        - listitem [ref=e853]:
+          - link "Mobile App Design" [ref=e854] [cursor=pointer]:
+            - /url: /mobile-app-design/
+        - listitem [ref=e855]:
+          - link "UI Design" [ref=e856] [cursor=pointer]:
+            - /url: /ui-design/
+        - listitem [ref=e857]:
+          - link "Pricing" [ref=e858] [cursor=pointer]:
+            - /url: /pricing/
+        - listitem [ref=e859]:
+          - link "Blog" [ref=e860] [cursor=pointer]:
+            - /url: https://pageflows.com/resources/
+      - list [ref=e862]:
+        - listitem [ref=e863]:
+          - link [ref=e864] [cursor=pointer]:
+            - /url: https://www.x.com/pageflows
+            - img [ref=e865]
+        - listitem [ref=e868]:
+          - link [ref=e869] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/pageflows/posts/
+            - img [ref=e870]
+        - listitem [ref=e877]:
+          - link [ref=e878] [cursor=pointer]:
+            - /url: https://www.pinterest.com/pageflowsdesign/_created
+            - img [ref=e879]
+        - listitem [ref=e881]:
+          - link [ref=e882] [cursor=pointer]:
+            - /url: https://www.instagram.com/page_flows/
+            - img [ref=e883]
+        - listitem [ref=e888]:
+          - link [ref=e889] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@page.flows
+            - img [ref=e890]
+        - listitem [ref=e892]:
+          - link [ref=e893] [cursor=pointer]:
+            - /url: https://www.facebook.com/profile.php?id=61552806667723
+            - img [ref=e894]
+        - listitem [ref=e897]:
+          - link [ref=e898] [cursor=pointer]:
+            - /url: https://www.youtube.com/@PageFlows
+            - img [ref=e899]
+    - generic [ref=e901]:
+      - text: Page Flows © Copyright 2026. All rights reserved
+      - img [ref=e902]
+      - link "Terms & Privacy" [ref=e904] [cursor=pointer]:
+        - /url: /terms/

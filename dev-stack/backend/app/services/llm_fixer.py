@@ -266,6 +266,8 @@ Analyze the error and provide FIXED versions of the files.
 3. **build_failure**:
    - Check build commands match the language/framework
    - Java: mvn clean package -DskipTests
+   - Java Gradle: use a Gradle/JDK image such as gradle:8.12-jdk17 or gradle:8.12-jdk21; run `./gradlew` only if it exists, otherwise run `gradle`
+   - Never fix a Gradle project by adding `apk add --no-cache gradle` to amazoncorretto/eclipse-temurin. That can install a different JDK version.
    - Python: pip install -r requirements.txt
    - Node.js: npm install && npm run build
    - Go: go build -o app ./...
@@ -294,8 +296,9 @@ Analyze the error and provide FIXED versions of the files.
 - NEXUS_INTERNAL_REGISTRY (ai-nexus:5001) for Kaniko destination
 - All jobs need: tags: [docker]
 - Use only images that exist in the AVAILABLE NEXUS IMAGES list
-- The compile/build image MUST match the project language (e.g. rust image for Rust, maven for Java, node for Node.js)
+- The compile/build image MUST match both language and build tool (e.g. rust image for Rust, gradle image for Java Gradle, maven image for Java Maven, node for Node.js)
 - The Dockerfile MUST use the correct base image and build tools for the language (e.g. Cargo.toml → Rust, pom.xml → Java)
+- If a Gradle wrapper is not present, do not add `COPY gradle/ gradle/` or `COPY gradlew* ./` because Docker/Kaniko will fail before the build runs
 - Fix the ROOT CAUSE job, not just notification/downstream jobs
 
 ═══════════════════════════════════════════════════════════════════════════════

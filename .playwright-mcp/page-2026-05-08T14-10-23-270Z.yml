@@ -1,0 +1,1549 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - navigation:
+      - generic:
+        - link "Tines" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "Tines" [ref=e6]
+        - generic:
+          - generic [ref=e13]:
+            - link "Log in" [ref=e14] [cursor=pointer]:
+              - /url: https://login.tines.com
+              - generic [ref=e16]: Log in
+            - link "Sign up" [ref=e17] [cursor=pointer]:
+              - /url: https://login.tines.com/signup
+              - generic [ref=e19]: Sign up
+          - link "Book a demo" [ref=e23] [cursor=pointer]:
+            - /url: /book-a-demo/
+            - generic [ref=e25]: Book a demo
+        - generic [ref=e27]:
+          - link "Platform" [ref=e30] [cursor=pointer]:
+            - /url: /platform/
+            - generic [ref=e31]: Platform
+          - generic [ref=e32]:
+            - checkbox "Solutions" [ref=e33]
+            - button "Solutions" [ref=e34]:
+              - generic [ref=e35] [cursor=pointer]:
+                - generic [ref=e36]: Solutions
+                - img [ref=e37]
+              - img [ref=e39]
+          - generic [ref=e42]:
+            - checkbox "Resources" [ref=e43]
+            - button "Resources" [ref=e44]:
+              - generic [ref=e45] [cursor=pointer]:
+                - generic [ref=e46]: Resources
+                - img [ref=e47]
+              - img [ref=e49]
+          - generic [ref=e52]:
+            - checkbox "Company" [ref=e53]
+            - button "Company" [ref=e54]:
+              - generic [ref=e55] [cursor=pointer]:
+                - generic [ref=e56]: Company
+                - img [ref=e57]
+              - img [ref=e59]
+          - link "Pricing" [ref=e64] [cursor=pointer]:
+            - /url: /pricing/
+            - generic [ref=e65]: Pricing
+          - button "Open search" [ref=e67] [cursor=pointer]:
+            - img [ref=e68]
+    - generic [ref=e72]:
+      - generic [ref=e73]:
+        - generic:
+          - generic:
+            - img
+        - generic [ref=e75]:
+          - generic [ref=e77]:
+            - link "Go to https://www.tines.com/workflow-capability-matrix/" [ref=e79] [cursor=pointer]:
+              - /url: https://www.tines.com/workflow-capability-matrix/
+              - generic [ref=e80]: Explore
+              - generic [ref=e81]: Workflow capability matrix
+              - img [ref=e82]
+            - heading "The intelligent workflow platform" [level=1] [ref=e85]:
+              - generic [ref=e86]: The intelligent
+              - generic [ref=e87]: workflow platform
+            - paragraph [ref=e89]: Securely scale AI and automation. Integrate agents, teams, and tools with speed and control.
+            - generic [ref=e91]:
+              - link "Book a demo" [ref=e92] [cursor=pointer]:
+                - /url: /book-a-demo/
+                - generic [ref=e94]: Book a demo
+              - link "Sign up free" [ref=e95] [cursor=pointer]:
+                - /url: https://login.tines.com/signup
+                - generic [ref=e97]: Sign up free
+          - generic [ref=e102]:
+            - generic:
+              - generic:
+                - img "ASOS"
+              - generic:
+                - img "BEYON Cyber"
+              - generic:
+                - img "Canva"
+              - generic:
+                - img "Coinbase"
+              - generic:
+                - img "Cyera"
+              - generic:
+                - img "Databricks"
+              - generic:
+                - img "Dropbox"
+              - generic:
+                - img "Elastic"
+              - generic:
+                - img "Experian"
+              - generic:
+                - img "Fenergo"
+              - generic:
+                - img "Hims"
+              - generic:
+                - img
+              - generic:
+                - img "Kayak"
+              - generic:
+                - img "Lucid Motors"
+              - generic:
+                - img "Mars"
+              - generic:
+                - img "McKesson"
+              - generic:
+                - img "MongoDB"
+              - generic:
+                - img "MyFitnessPal"
+              - generic:
+                - img "Navan"
+              - generic:
+                - img "Notion"
+              - generic:
+                - img "Pinterest"
+              - generic:
+                - img "Plaid"
+              - generic:
+                - img "Ripple"
+              - generic:
+                - img "Reddit"
+              - generic:
+                - img "SAP"
+              - generic:
+                - img "SendBird"
+              - generic:
+                - img "Snowflake"
+              - generic:
+                - img "Sophos"
+              - generic:
+                - img "Sprinklr"
+              - generic:
+                - img "Zendesk"
+            - generic:
+              - generic:
+                - img "ASOS"
+              - generic:
+                - img "BEYON Cyber"
+              - generic:
+                - img "Canva"
+              - generic:
+                - img "Coinbase"
+              - generic:
+                - img "Cyera"
+              - generic:
+                - img "Databricks"
+              - generic:
+                - img "Dropbox"
+              - generic:
+                - img "Elastic"
+              - generic:
+                - img "Experian"
+              - generic:
+                - img "Fenergo"
+              - generic:
+                - img "Hims"
+              - generic:
+                - img
+              - generic:
+                - img "Kayak"
+              - generic:
+                - img "Lucid Motors"
+              - generic:
+                - img "Mars"
+              - generic:
+                - img "McKesson"
+              - generic:
+                - img "MongoDB"
+              - generic:
+                - img "MyFitnessPal"
+              - generic:
+                - img "Navan"
+              - generic:
+                - img "Notion"
+              - generic:
+                - img "Pinterest"
+              - generic:
+                - img "Plaid"
+              - generic:
+                - img "Ripple"
+              - generic:
+                - img "Reddit"
+              - generic:
+                - img "SAP"
+              - generic:
+                - img "SendBird"
+              - generic:
+                - img "Snowflake"
+              - generic:
+                - img "Sophos"
+              - generic:
+                - img "Sprinklr"
+              - generic:
+                - img "Zendesk"
+      - generic [ref=e105]:
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - paragraph [ref=e110]: The foundation for modern work, transforming failed pilots into successful deployments.
+              - link "Meet the platform" [ref=e112] [cursor=pointer]:
+                - /url: /platform/
+                - generic [ref=e114]: Meet the platform
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - generic:
+                  - img
+                  - link "New in Tines Build agents Learn more →" [ref=e118] [cursor=pointer]:
+                    - /url: /platform/agents/
+                    - generic [ref=e119]: New in Tines
+                    - strong [ref=e120]: Build agents
+                    - generic [ref=e121]: Learn more →
+              - generic [ref=e122]:
+                - link "Go to /platform/agents/" [ref=e124] [cursor=pointer]:
+                  - /url: /platform/agents/
+                - img [ref=e128]
+            - generic [ref=e153]:
+              - link "Go to /platform/cases/" [ref=e155] [cursor=pointer]:
+                - /url: /platform/cases/
+                - figure [ref=e156]:
+                  - generic [ref=e157]:
+                    - generic [ref=e158]:
+                      - generic [ref=e159]:
+                        - img [ref=e160]
+                        - generic [ref=e168]: Cases
+                      - generic [ref=e169]:
+                        - generic [ref=e170]:
+                          - generic [ref=e171]:
+                            - img [ref=e172]
+                            - generic [ref=e174]: High
+                          - img [ref=e175]
+                        - generic [ref=e182]:
+                          - paragraph [ref=e183]: Critical alert
+                          - generic [ref=e184]:
+                            - generic [ref=e187]: CrowdStrike
+                            - generic [ref=e190]: Incidents
+                          - generic [ref=e191]: Case metrics
+                          - table [ref=e193]:
+                            - rowgroup [ref=e194]:
+                              - row "Type Case time SLA time Met SLA?" [ref=e195]:
+                                - columnheader "Type" [ref=e196]
+                                - columnheader "Case time" [ref=e197]
+                                - columnheader "SLA time" [ref=e198]
+                                - columnheader "Met SLA?" [ref=e199]
+                            - rowgroup [ref=e200]:
+                              - row "TTD Ongoing 60 min –" [ref=e201]:
+                                - cell "TTD" [ref=e202]
+                                - cell "Ongoing" [ref=e203]
+                                - cell "60 min" [ref=e204]
+                                - cell "–" [ref=e205]
+                              - row "TTR Ongoing 4 hr –" [ref=e206]:
+                                - cell "TTR" [ref=e207]
+                                - cell "Ongoing" [ref=e208]
+                                - cell "4 hr" [ref=e209]
+                                - cell "–" [ref=e210]
+                          - generic [ref=e211]: View details below for further detection, behavior, and IP enrichment information.
+                          - generic [ref=e212]: Add a comment
+                    - generic [ref=e213]:
+                      - generic:
+                        - generic:
+                          - strong: Cases
+                          - generic: Powerful case management
+                        - generic: →
+              - img [ref=e216]
+            - generic [ref=e220]:
+              - img [ref=e223]
+              - generic [ref=e225]:
+                - img [ref=e227]
+                - link "Go to /platform/storyboard/" [ref=e249] [cursor=pointer]:
+                  - /url: /platform/storyboard/
+                  - figure [ref=e250]:
+                    - generic [ref=e251]:
+                      - generic [ref=e252]:
+                        - generic [ref=e253]:
+                          - img [ref=e254]
+                          - generic [ref=e267]: Storyboard
+                        - generic [ref=e268]:
+                          - generic [ref=e269]:
+                            - img [ref=e271]
+                            - img [ref=e274]
+                            - img [ref=e277]
+                            - img [ref=e280]
+                            - img [ref=e283]
+                            - img [ref=e286]
+                            - img [ref=e289]
+                            - img [ref=e292]
+                          - generic [ref=e294]:
+                            - img [ref=e296]
+                            - img [ref=e299]
+                        - img [ref=e302]
+                      - generic [ref=e303]:
+                        - generic:
+                          - generic:
+                            - strong: Storyboard
+                            - generic: Flexible workflow builder
+                          - generic: →
+            - generic [ref=e306]:
+              - link "Go to /platform/workbench/" [ref=e307] [cursor=pointer]:
+                - /url: /platform/workbench/
+                - figure [ref=e309]:
+                  - generic [ref=e310]:
+                    - generic [ref=e311]:
+                      - generic [ref=e312]:
+                        - img [ref=e313]
+                        - generic [ref=e318]: Workbench
+                      - generic [ref=e320]:
+                        - generic [ref=e321]:
+                          - generic [ref=e322]: Hi, can you reset Jennifer Browne’s Okta password?
+                          - generic [ref=e323]: Certainly! Firstly we need to confirm Jennifer Browne’s email address. Let me search for that in our systems.
+                          - generic [ref=e324]:
+                            - img [ref=e326]
+                            - generic [ref=e332]:
+                              - strong [ref=e333]: Lookup employee details
+                              - generic [ref=e334]: Security
+                            - img [ref=e336]
+                          - generic [ref=e339]: I see that her email is jbrowne@email.com. Let’s reset her password now.
+                          - generic [ref=e340]:
+                            - img [ref=e342]
+                            - generic [ref=e346]:
+                              - strong [ref=e347]: Reset Okta password
+                              - generic [ref=e348]: Security
+                            - img [ref=e350]
+                        - generic [ref=e353]:
+                          - generic [ref=e354]: Type your message
+                          - img [ref=e356]
+                    - generic [ref=e358]:
+                      - generic:
+                        - generic:
+                          - strong: Workbench
+                          - generic: Universal AI copilot
+                        - generic: →
+              - generic [ref=e360]:
+                - generic:
+                  - img
+                  - img [ref=e362] [cursor=pointer]
+            - generic [ref=e375]:
+              - img [ref=e376]
+              - img [ref=e391]
+              - img [ref=e400]
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+            - img [ref=e404]
+            - img [ref=e408]
+          - img [ref=e412]
+        - generic [ref=e417]:
+          - link "Virtual event · May 6 2026 workflow.live Watch on-demand ↗ One day. Six sessions. Live conversations with leaders transforming their organizations with AI." [ref=e418] [cursor=pointer]:
+            - /url: https://watch.workflow.live/
+            - generic [ref=e420]: Virtual event · May 6 2026
+            - img "workflow.live" [ref=e422]
+            - generic [ref=e423]:
+              - generic [ref=e424]:
+                - text: Watch on-demand
+                - superscript [ref=e425]: ↗
+              - img "One day. Six sessions. Live conversations with leaders transforming their organizations with AI." [ref=e427]
+          - link "What is an intelligent workflow? Read blog →" [ref=e428] [cursor=pointer]:
+            - /url: /blog/what-is-an-intelligent-workflow-platform-and-why-does-it-matter/
+            - heading "What is an intelligent workflow?" [level=3] [ref=e430]
+            - generic [ref=e431]: Read blog →
+          - 'link "Unlocking AI’s full value: How IT orchestrates secure, scalable innovation Read the Forrester study →" [ref=e432] [cursor=pointer]':
+            - /url: /access/whitepaper/forrester-it-ai-orchestration-2025/
+            - 'heading "Unlocking AI’s full value: How IT orchestrates secure, scalable innovation" [level=3] [ref=e434]':
+              - strong [ref=e435]: "Unlocking AI’s full value:"
+              - generic [ref=e436]: How IT orchestrates secure, scalable innovation
+            - figure [ref=e437]:
+              - img [ref=e438]
+            - generic [ref=e439]: Read the Forrester study →
+        - generic [ref=e440]:
+          - generic [ref=e441]:
+            - heading "Unmatched time to value" [level=2] [ref=e442]:
+              - generic [ref=e443]: Unmatched time to value
+            - paragraph [ref=e445]: Teams love Tines for our speed, power, and ease of use.
+          - generic [ref=e447]:
+            - link "G2 logo 200+ reviews 4.8 stars 4.8" [ref=e449] [cursor=pointer]:
+              - /url: https://www.g2.com/products/tines/reviews
+              - img "G2 logo" [ref=e450]
+              - generic [ref=e454]: 200+ reviews
+              - img "4.8 stars" [ref=e455]
+              - generic [ref=e462]: "4.8"
+            - separator [ref=e463]
+            - link "4.8 stars 4.8" [ref=e465] [cursor=pointer]:
+              - /url: https://www.gartner.com/reviews/market/security-orchestration-automation-and-response-solutions/vendor/tines/product/tines
+              - img [ref=e466]
+              - img "4.8 stars" [ref=e475]
+              - generic [ref=e482]: "4.8"
+          - generic [ref=e484]:
+            - generic [ref=e486]:
+              - generic [ref=e487]:
+                - paragraph [ref=e488]:
+                  - img [ref=e489]
+                  - text: An opportunity to bring automation into areas of the organization that just don’t have developers.
+                - img [ref=e491]
+                - link "Case study →":
+                  - /url: /case-studies/mars/
+                  - generic: Case study
+                  - generic: →
+                - figure [ref=e493]:
+                  - button "Play video" [ref=e495] [cursor=pointer]:
+                    - img [ref=e496]
+              - generic [ref=e498]:
+                - paragraph [ref=e499]:
+                  - img [ref=e500]
+                  - text: No matter how many tools you change, you can keep Tines in place.
+                - img [ref=e502]
+                - link "Case study →":
+                  - /url: /case-studies/intercom/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e512]:
+                - paragraph [ref=e513]:
+                  - img [ref=e514]
+                  - text: My favorite thing about Tines is how easy and user-friendly it is. For me, it feels like a game. Whenever I build in Tines, I feel like I'm solving a fun puzzle.
+                - img "GitLab" [ref=e516]
+                - link "Case study →":
+                  - /url: /case-studies/gitlab/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e524]:
+                - paragraph [ref=e525]:
+                  - emphasis [ref=e526]: 750 days
+                  - text: of work time saved
+                - img [ref=e527]
+                - link "Case study →":
+                  - /url: /case-studies/elastic/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e536]:
+                - paragraph [ref=e537]:
+                  - img [ref=e538]
+                  - text: Tines reminded us of Notion in that it’s highly flexible and customizable. It met our needs as opposed to forcing us to work inside the confines of the tool. And it met our needs for more than just a SOAR.
+                - img "Notion" [ref=e540]
+                - link "Case study →":
+                  - /url: /case-studies/notion/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e542]:
+                - paragraph [ref=e543]:
+                  - img [ref=e544]
+                  - text: Ease of use and time to effectiveness for new users is insanely low.
+                - generic [ref=e546]:
+                  - strong [ref=e547]: G2 verified user
+                  - generic [ref=e548]: "Industry: defense and space"
+                  - generic [ref=e549]: Mid‑market (51–1000 emp.)
+                - img "G2 5-star review" [ref=e550]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11024579
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e559]:
+                - paragraph [ref=e560]:
+                  - emphasis [ref=e561]: 10 hours
+                  - text: of work time saved every day
+                - img "Snowflake" [ref=e562]
+                - link "Case study →":
+                  - /url: /case-studies/snowflake/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e564]:
+                - paragraph [ref=e565]:
+                  - img [ref=e566]
+                  - text: An opportunity to bring automation into areas of the organization that just don’t have developers.
+                - img [ref=e568]
+                - link "Case study →":
+                  - /url: /case-studies/mars/
+                  - generic: Case study
+                  - generic: →
+                - figure [ref=e570]:
+                  - button "Play video" [ref=e572] [cursor=pointer]:
+                    - img [ref=e573]
+              - generic [ref=e575]:
+                - paragraph [ref=e576]:
+                  - img [ref=e577]
+                  - text: No matter how many tools you change, you can keep Tines in place.
+                - img [ref=e579]
+                - link "Case study →":
+                  - /url: /case-studies/intercom/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e589]:
+                - paragraph [ref=e590]:
+                  - img [ref=e591]
+                  - text: My favorite thing about Tines is how easy and user-friendly it is. For me, it feels like a game. Whenever I build in Tines, I feel like I'm solving a fun puzzle.
+                - img "GitLab" [ref=e593]
+                - link "Case study →":
+                  - /url: /case-studies/gitlab/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e601]:
+                - paragraph [ref=e602]:
+                  - emphasis [ref=e603]: 750 days
+                  - text: of work time saved
+                - img [ref=e604]
+                - link "Case study →":
+                  - /url: /case-studies/elastic/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e613]:
+                - paragraph [ref=e614]:
+                  - img [ref=e615]
+                  - text: Tines reminded us of Notion in that it’s highly flexible and customizable. It met our needs as opposed to forcing us to work inside the confines of the tool. And it met our needs for more than just a SOAR.
+                - img "Notion" [ref=e617]
+                - link "Case study →":
+                  - /url: /case-studies/notion/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e619]:
+                - paragraph [ref=e620]:
+                  - img [ref=e621]
+                  - text: Ease of use and time to effectiveness for new users is insanely low.
+                - generic [ref=e623]:
+                  - strong [ref=e624]: G2 verified user
+                  - generic [ref=e625]: "Industry: defense and space"
+                  - generic [ref=e626]: Mid‑market (51–1000 emp.)
+                - img "G2 5-star review" [ref=e627]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11024579
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e636]:
+                - paragraph [ref=e637]:
+                  - emphasis [ref=e638]: 10 hours
+                  - text: of work time saved every day
+                - img "Snowflake" [ref=e639]
+                - link "Case study →":
+                  - /url: /case-studies/snowflake/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e641]:
+                - paragraph [ref=e642]:
+                  - img [ref=e643]
+                  - text: An opportunity to bring automation into areas of the organization that just don’t have developers.
+                - img [ref=e645]
+                - link "Case study →":
+                  - /url: /case-studies/mars/
+                  - generic: Case study
+                  - generic: →
+                - figure [ref=e647]:
+                  - button "Play video" [ref=e649] [cursor=pointer]:
+                    - img [ref=e650]
+              - generic [ref=e652]:
+                - paragraph [ref=e653]:
+                  - img [ref=e654]
+                  - text: No matter how many tools you change, you can keep Tines in place.
+                - img [ref=e656]
+                - link "Case study →":
+                  - /url: /case-studies/intercom/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e666]:
+                - paragraph [ref=e667]:
+                  - img [ref=e668]
+                  - text: My favorite thing about Tines is how easy and user-friendly it is. For me, it feels like a game. Whenever I build in Tines, I feel like I'm solving a fun puzzle.
+                - img "GitLab" [ref=e670]
+                - link "Case study →":
+                  - /url: /case-studies/gitlab/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e678]:
+                - paragraph [ref=e679]:
+                  - emphasis [ref=e680]: 750 days
+                  - text: of work time saved
+                - img [ref=e681]
+                - link "Case study →":
+                  - /url: /case-studies/elastic/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e690]:
+                - paragraph [ref=e691]:
+                  - img [ref=e692]
+                  - text: Tines reminded us of Notion in that it’s highly flexible and customizable. It met our needs as opposed to forcing us to work inside the confines of the tool. And it met our needs for more than just a SOAR.
+                - img "Notion" [ref=e694]
+                - link "Case study →":
+                  - /url: /case-studies/notion/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e696]:
+                - paragraph [ref=e697]:
+                  - img [ref=e698]
+                  - text: Ease of use and time to effectiveness for new users is insanely low.
+                - generic [ref=e700]:
+                  - strong [ref=e701]: G2 verified user
+                  - generic [ref=e702]: "Industry: defense and space"
+                  - generic [ref=e703]: Mid‑market (51–1000 emp.)
+                - img "G2 5-star review" [ref=e704]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11024579
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e713]:
+                - paragraph [ref=e714]:
+                  - emphasis [ref=e715]: 10 hours
+                  - text: of work time saved every day
+                - img "Snowflake" [ref=e716]
+                - link "Case study →":
+                  - /url: /case-studies/snowflake/
+                  - generic: Case study
+                  - generic: →
+            - generic [ref=e719]:
+              - generic [ref=e720]:
+                - paragraph [ref=e721]:
+                  - img [ref=e722]
+                  - text: Beyond the product and product teams’ agility and speed, the level of support from Tines is the benchmark we hold all of our vendors to.
+                - img "Snowflake" [ref=e724]
+                - link "Case study →":
+                  - /url: /case-studies/snowflake/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e726]:
+                - paragraph [ref=e727]:
+                  - img [ref=e728]
+                  - text: After a year, I have not come across something I could not accomplish in Tines.
+                - generic [ref=e730]:
+                  - strong [ref=e731]: Tom P.
+                  - generic [ref=e732]: Cyber Security Analyst II
+                  - generic [ref=e733]: Enterprise (> 1000 emp.)
+                - img "G2 5-star review" [ref=e734]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11010815
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e743]:
+                - paragraph [ref=e744]:
+                  - img [ref=e745]
+                  - text: An opportunity to bring automation into areas of the organization that just don’t have developers.
+                - img [ref=e747]
+                - link "Case study →":
+                  - /url: /case-studies/mars/
+                  - generic: Case study
+                  - generic: →
+                - figure [ref=e749]:
+                  - button "Play video" [ref=e751] [cursor=pointer]:
+                    - img [ref=e752]
+              - generic [ref=e754]:
+                - paragraph [ref=e755]:
+                  - emphasis [ref=e756]: 50% reduction
+                  - text: in time spent per ticket
+                - img "KnowBe4" [ref=e757]
+                - link "Case study →":
+                  - /url: /case-studies/knowbe4/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e787]:
+                - paragraph [ref=e788]:
+                  - img [ref=e789]
+                  - text: (Tines) is not only great for cybersecurity teams who are likely already undersized and drowning in alerts, but also for the business at large.
+                - generic [ref=e791]:
+                  - strong [ref=e792]: James K.
+                  - generic [ref=e793]: Senior Manager Information Security
+                  - generic [ref=e794]: Mid‑market (51–1000 emp.)
+                - img "G2 5-star review" [ref=e795]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11013644
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e804]:
+                - paragraph [ref=e805]:
+                  - img [ref=e806]
+                  - text: The platform has played a pivotal role in helping us achieve our vision of a 24/7 SOC, ensuring that security alerts are streamlined and no critical notifications are missed.
+                - generic [ref=e808]:
+                  - strong [ref=e809]: Ajinkya Y.
+                  - generic [ref=e810]: Cyber Incident Analyst
+                  - generic [ref=e811]: Small-Business(50 or fewer emp.)
+                - img "G2 5-star review" [ref=e812]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-10622345
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e821]:
+                - paragraph [ref=e822]:
+                  - emphasis [ref=e823]: 30s
+                  - text: process time per request, reduced from 10-20 minutes
+                - img [ref=e824]
+                - link "Case study →":
+                  - /url: /case-studies/applied-systems/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e833]:
+                - paragraph [ref=e834]:
+                  - img [ref=e835]
+                  - text: Tines has given us the power to turn those “what if’s” into reality. The logical workflow makes it easy for beginners to immediately start building.
+                - generic [ref=e837]:
+                  - strong [ref=e838]: Christopher C.
+                  - generic [ref=e839]: Security Engineer
+                  - generic [ref=e840]: Enterprise (> 1000 emp.)
+                - img "G2 5-star review" [ref=e841]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-10553794
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e850]:
+                - paragraph [ref=e851]:
+                  - img [ref=e852]
+                  - text: Beyond the product and product teams’ agility and speed, the level of support from Tines is the benchmark we hold all of our vendors to.
+                - img "Snowflake" [ref=e854]
+                - link "Case study →":
+                  - /url: /case-studies/snowflake/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e856]:
+                - paragraph [ref=e857]:
+                  - img [ref=e858]
+                  - text: After a year, I have not come across something I could not accomplish in Tines.
+                - generic [ref=e860]:
+                  - strong [ref=e861]: Tom P.
+                  - generic [ref=e862]: Cyber Security Analyst II
+                  - generic [ref=e863]: Enterprise (> 1000 emp.)
+                - img "G2 5-star review" [ref=e864]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11010815
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e873]:
+                - paragraph [ref=e874]:
+                  - img [ref=e875]
+                  - text: An opportunity to bring automation into areas of the organization that just don’t have developers.
+                - img [ref=e877]
+                - link "Case study →":
+                  - /url: /case-studies/mars/
+                  - generic: Case study
+                  - generic: →
+                - figure [ref=e879]:
+                  - button "Play video" [ref=e881] [cursor=pointer]:
+                    - img [ref=e882]
+              - generic [ref=e884]:
+                - paragraph [ref=e885]:
+                  - emphasis [ref=e886]: 50% reduction
+                  - text: in time spent per ticket
+                - img "KnowBe4" [ref=e887]
+                - link "Case study →":
+                  - /url: /case-studies/knowbe4/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e917]:
+                - paragraph [ref=e918]:
+                  - img [ref=e919]
+                  - text: (Tines) is not only great for cybersecurity teams who are likely already undersized and drowning in alerts, but also for the business at large.
+                - generic [ref=e921]:
+                  - strong [ref=e922]: James K.
+                  - generic [ref=e923]: Senior Manager Information Security
+                  - generic [ref=e924]: Mid‑market (51–1000 emp.)
+                - img "G2 5-star review" [ref=e925]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11013644
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e934]:
+                - paragraph [ref=e935]:
+                  - img [ref=e936]
+                  - text: The platform has played a pivotal role in helping us achieve our vision of a 24/7 SOC, ensuring that security alerts are streamlined and no critical notifications are missed.
+                - generic [ref=e938]:
+                  - strong [ref=e939]: Ajinkya Y.
+                  - generic [ref=e940]: Cyber Incident Analyst
+                  - generic [ref=e941]: Small-Business(50 or fewer emp.)
+                - img "G2 5-star review" [ref=e942]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-10622345
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e951]:
+                - paragraph [ref=e952]:
+                  - emphasis [ref=e953]: 30s
+                  - text: process time per request, reduced from 10-20 minutes
+                - img [ref=e954]
+                - link "Case study →":
+                  - /url: /case-studies/applied-systems/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e963]:
+                - paragraph [ref=e964]:
+                  - img [ref=e965]
+                  - text: Tines has given us the power to turn those “what if’s” into reality. The logical workflow makes it easy for beginners to immediately start building.
+                - generic [ref=e967]:
+                  - strong [ref=e968]: Christopher C.
+                  - generic [ref=e969]: Security Engineer
+                  - generic [ref=e970]: Enterprise (> 1000 emp.)
+                - img "G2 5-star review" [ref=e971]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-10553794
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e980]:
+                - paragraph [ref=e981]:
+                  - img [ref=e982]
+                  - text: Beyond the product and product teams’ agility and speed, the level of support from Tines is the benchmark we hold all of our vendors to.
+                - img "Snowflake" [ref=e984]
+                - link "Case study →":
+                  - /url: /case-studies/snowflake/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e986]:
+                - paragraph [ref=e987]:
+                  - img [ref=e988]
+                  - text: After a year, I have not come across something I could not accomplish in Tines.
+                - generic [ref=e990]:
+                  - strong [ref=e991]: Tom P.
+                  - generic [ref=e992]: Cyber Security Analyst II
+                  - generic [ref=e993]: Enterprise (> 1000 emp.)
+                - img "G2 5-star review" [ref=e994]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11010815
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e1003]:
+                - paragraph [ref=e1004]:
+                  - img [ref=e1005]
+                  - text: An opportunity to bring automation into areas of the organization that just don’t have developers.
+                - img [ref=e1007]
+                - link "Case study →":
+                  - /url: /case-studies/mars/
+                  - generic: Case study
+                  - generic: →
+                - figure [ref=e1009]:
+                  - button "Play video" [ref=e1011] [cursor=pointer]:
+                    - img [ref=e1012]
+              - generic [ref=e1014]:
+                - paragraph [ref=e1015]:
+                  - emphasis [ref=e1016]: 50% reduction
+                  - text: in time spent per ticket
+                - img "KnowBe4" [ref=e1017]
+                - link "Case study →":
+                  - /url: /case-studies/knowbe4/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e1047]:
+                - paragraph [ref=e1048]:
+                  - img [ref=e1049]
+                  - text: (Tines) is not only great for cybersecurity teams who are likely already undersized and drowning in alerts, but also for the business at large.
+                - generic [ref=e1051]:
+                  - strong [ref=e1052]: James K.
+                  - generic [ref=e1053]: Senior Manager Information Security
+                  - generic [ref=e1054]: Mid‑market (51–1000 emp.)
+                - img "G2 5-star review" [ref=e1055]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-11013644
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e1064]:
+                - paragraph [ref=e1065]:
+                  - img [ref=e1066]
+                  - text: The platform has played a pivotal role in helping us achieve our vision of a 24/7 SOC, ensuring that security alerts are streamlined and no critical notifications are missed.
+                - generic [ref=e1068]:
+                  - strong [ref=e1069]: Ajinkya Y.
+                  - generic [ref=e1070]: Cyber Incident Analyst
+                  - generic [ref=e1071]: Small-Business(50 or fewer emp.)
+                - img "G2 5-star review" [ref=e1072]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-10622345
+                  - generic: G2 review
+                  - generic: ↗
+              - generic [ref=e1081]:
+                - paragraph [ref=e1082]:
+                  - emphasis [ref=e1083]: 30s
+                  - text: process time per request, reduced from 10-20 minutes
+                - img [ref=e1084]
+                - link "Case study →":
+                  - /url: /case-studies/applied-systems/
+                  - generic: Case study
+                  - generic: →
+              - generic [ref=e1093]:
+                - paragraph [ref=e1094]:
+                  - img [ref=e1095]
+                  - text: Tines has given us the power to turn those “what if’s” into reality. The logical workflow makes it easy for beginners to immediately start building.
+                - generic [ref=e1097]:
+                  - strong [ref=e1098]: Christopher C.
+                  - generic [ref=e1099]: Security Engineer
+                  - generic [ref=e1100]: Enterprise (> 1000 emp.)
+                - img "G2 5-star review" [ref=e1101]
+                - link "G2 review ↗":
+                  - /url: https://www.g2.com/products/tines/reviews/tines-review-10553794
+                  - generic: G2 review
+                  - generic: ↗
+          - link "See all case studies" [ref=e1112] [cursor=pointer]:
+            - /url: /case-studies/
+            - generic [ref=e1114]: See all case studies
+        - generic [ref=e1117]:
+          - generic [ref=e1118]:
+            - heading "The future of workflows is interconnected" [level=2] [ref=e1119]:
+              - generic [ref=e1120]: The future of workflows is interconnected
+            - img [ref=e1121]
+          - link "Read the interactive guide" [ref=e1123] [cursor=pointer]:
+            - /url: /history-and-future-of-workflows/
+            - generic [ref=e1125]: Read the interactive guide
+          - generic [ref=e1126]:
+            - generic [ref=e1128]:
+              - generic [ref=e1129]:
+                - heading "Human-led" [level=4] [ref=e1130]
+                - generic [ref=e1131]:
+                  - paragraph [ref=e1132]:
+                    - strong [ref=e1133]: Best for
+                    - text: ":"
+                  - paragraph [ref=e1134]: Strategy • judgement calls • communication • risk assessment • context-based decisions
+              - generic [ref=e1135]:
+                - heading "Deterministic" [level=4] [ref=e1136]
+                - generic [ref=e1137]:
+                  - paragraph [ref=e1138]:
+                    - strong [ref=e1139]: Best for
+                    - text: ":"
+                  - paragraph [ref=e1140]: Volume • mission-critical • predictability • compliance • provisioning • triage and routing • explainability
+              - generic [ref=e1141]:
+                - heading "Agentic" [level=4] [ref=e1142]
+                - generic [ref=e1143]:
+                  - paragraph [ref=e1144]:
+                    - strong [ref=e1145]: Best for
+                    - text: ":"
+                  - paragraph [ref=e1146]: Flexibility • ambiguity • simplicity • quick review and escalation • logical next steps and advice • taking safe actions
+              - paragraph [ref=e1148]:
+                - text: Pages and
+                - link "Build Apps →" [ref=e1149] [cursor=pointer]:
+                  - /url: /platform/build-apps/
+                  - text: Build Apps
+                  - generic [ref=e1150]: →
+              - paragraph [ref=e1152]:
+                - link "Storyboard →" [ref=e1153] [cursor=pointer]:
+                  - /url: /platform/storyboard/
+                  - text: Storyboard
+                  - generic [ref=e1154]: →
+              - generic [ref=e1155]:
+                - paragraph [ref=e1156]:
+                  - link "Story copilot →" [ref=e1157] [cursor=pointer]:
+                    - /url: /blog/introducing-story-copilot-a-new-build-tool/
+                    - text: Story copilot
+                    - generic [ref=e1158]: →
+                - paragraph [ref=e1159]:
+                  - link "Workbench →" [ref=e1160] [cursor=pointer]:
+                    - /url: /platform/workbench/
+                    - text: Workbench
+                    - generic [ref=e1161]: →
+              - img [ref=e1166]
+            - heading "The intelligent workflow difference" [level=3] [ref=e1169]
+            - paragraph [ref=e1171]: Too often, valuable work is constrained by outdated systems, fragmented tools, and inaccessible data. Tines creates the foundation to deploy intelligent workflows – from fully agentic to human-driven – that drive business impact.
+            - generic [ref=e1173]:
+              - figure "Intelligent workflows The secure, reliable integration layer that connects teams, tools, and data." [ref=e1174]:
+                - generic [ref=e1175]:
+                  - img [ref=e1177]
+                  - link "Learn more →" [ref=e1179] [cursor=pointer]:
+                    - /url: /blog/what-is-an-intelligent-workflow-platform-and-why-does-it-matter/
+                    - img [ref=e1180]
+                    - generic:
+                      - generic: Learn more
+                      - generic: →
+                - generic [ref=e1181]:
+                  - heading "Intelligent workflows" [level=4] [ref=e1182]
+                  - paragraph [ref=e1183]: The secure, reliable integration layer that connects teams, tools, and data.
+              - figure "Vendor-agnostic Secure integration across your stack including LLMs, MCPs, and internal tools." [ref=e1184]:
+                - link "Connect anything →" [ref=e1186] [cursor=pointer]:
+                  - /url: /solutions/products/
+                  - generic [ref=e1188]:
+                    - generic [ref=e1190]:
+                      - generic [ref=e1191]:
+                        - img
+                      - generic [ref=e1192]:
+                        - img
+                      - generic [ref=e1193]:
+                        - img
+                      - generic [ref=e1194]:
+                        - img
+                      - generic [ref=e1195]:
+                        - img
+                      - generic [ref=e1196]:
+                        - img
+                      - generic [ref=e1197]:
+                        - img
+                      - generic [ref=e1198]:
+                        - img
+                      - generic [ref=e1199]:
+                        - img
+                      - generic [ref=e1200]:
+                        - img
+                      - generic [ref=e1201]:
+                        - img
+                      - generic [ref=e1202]:
+                        - img
+                      - generic [ref=e1203]:
+                        - img
+                      - generic [ref=e1204]:
+                        - img
+                      - generic [ref=e1205]:
+                        - img
+                    - generic [ref=e1207]:
+                      - generic [ref=e1208]:
+                        - img
+                      - generic [ref=e1209]:
+                        - img
+                      - generic [ref=e1210]:
+                        - img
+                      - generic [ref=e1211]:
+                        - img
+                      - generic [ref=e1212]:
+                        - img
+                      - generic [ref=e1213]:
+                        - img
+                      - generic [ref=e1214]:
+                        - img
+                      - generic [ref=e1215]:
+                        - img
+                      - generic [ref=e1216]:
+                        - img
+                      - generic [ref=e1217]:
+                        - img
+                      - generic [ref=e1218]:
+                        - img
+                      - generic [ref=e1219]:
+                        - img
+                      - generic [ref=e1220]:
+                        - img
+                      - generic [ref=e1221]:
+                        - img
+                      - generic [ref=e1222]:
+                        - img
+                    - generic [ref=e1224]:
+                      - generic [ref=e1225]:
+                        - img
+                      - generic [ref=e1226]:
+                        - img
+                      - generic [ref=e1227]:
+                        - img
+                      - generic [ref=e1228]:
+                        - img
+                      - generic [ref=e1229]:
+                        - img
+                      - generic [ref=e1230]:
+                        - img
+                      - generic [ref=e1231]:
+                        - img
+                      - generic [ref=e1232]:
+                        - img
+                      - generic [ref=e1233]:
+                        - img
+                      - generic [ref=e1234]:
+                        - img
+                      - generic [ref=e1235]:
+                        - img
+                      - generic [ref=e1236]:
+                        - img
+                      - generic [ref=e1237]:
+                        - img
+                      - generic [ref=e1238]:
+                        - img
+                      - generic [ref=e1239]:
+                        - img
+                    - generic [ref=e1241]:
+                      - generic [ref=e1242]:
+                        - img
+                      - generic [ref=e1243]:
+                        - img
+                      - generic [ref=e1244]:
+                        - img
+                      - generic [ref=e1245]:
+                        - img
+                      - generic [ref=e1246]:
+                        - img
+                      - generic [ref=e1247]:
+                        - img
+                      - generic [ref=e1248]:
+                        - img
+                      - generic [ref=e1249]:
+                        - img
+                      - generic [ref=e1250]:
+                        - img
+                      - generic [ref=e1251]:
+                        - img
+                      - generic [ref=e1252]:
+                        - img
+                      - generic [ref=e1253]:
+                        - img
+                      - generic [ref=e1254]:
+                        - img
+                      - generic [ref=e1255]:
+                        - img
+                      - generic [ref=e1256]:
+                        - img
+                    - generic [ref=e1258]:
+                      - generic [ref=e1259]:
+                        - img
+                      - generic [ref=e1260]:
+                        - img
+                      - generic [ref=e1261]:
+                        - img
+                      - generic [ref=e1262]:
+                        - img
+                      - generic [ref=e1263]:
+                        - img
+                      - generic [ref=e1264]:
+                        - img
+                      - generic [ref=e1265]:
+                        - img
+                      - generic [ref=e1266]:
+                        - img
+                      - generic [ref=e1267]:
+                        - img
+                      - generic [ref=e1268]:
+                        - img
+                      - generic [ref=e1269]:
+                        - img
+                      - generic [ref=e1270]:
+                        - img
+                      - generic [ref=e1271]:
+                        - img
+                      - generic [ref=e1272]:
+                        - img
+                      - generic [ref=e1273]:
+                        - img
+                  - generic:
+                    - generic: Connect anything
+                    - generic: →
+                - generic [ref=e1274]:
+                  - heading "Vendor-agnostic" [level=4] [ref=e1275]
+                  - paragraph [ref=e1276]: Secure integration across your stack including LLMs, MCPs, and internal tools.
+              - figure "For the whole team Intuitive, flexible ways for the whole team to build and collaborate across workflows." [ref=e1277]:
+                - link "Webhook Incoming alerts Transform Extract email addresses Tines Storyboard →" [ref=e1279] [cursor=pointer]:
+                  - /url: /platform/storyboard/
+                  - generic [ref=e1280]:
+                    - img
+                    - generic:
+                      - img
+                    - generic:
+                      - img
+                    - generic:
+                      - img
+                    - generic [ref=e1281]:
+                      - generic [ref=e1282]:
+                        - generic [ref=e1283]:
+                          - img [ref=e1284]
+                          - img [ref=e1286]
+                          - img [ref=e1288]
+                        - generic [ref=e1292]: Webhook
+                        - generic [ref=e1293]: Incoming alerts
+                      - generic [ref=e1294]:
+                        - generic [ref=e1295]:
+                          - img [ref=e1296]
+                          - img [ref=e1298]
+                        - generic [ref=e1301]: Transform
+                        - generic [ref=e1302]: Extract email addresses
+                      - img
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - img
+                  - generic:
+                    - generic: Tines Storyboard
+                    - generic: →
+                - generic [ref=e1309]:
+                  - heading "For the whole team" [level=4] [ref=e1310]
+                  - paragraph [ref=e1311]: Intuitive, flexible ways for the whole team to build and collaborate across workflows.
+              - figure "Born in security Governance, guardrails, and monitoring across every surface of the workflow." [ref=e1312]:
+                - generic [ref=e1313]:
+                  - img [ref=e1315]
+                  - link "Tines platform →" [ref=e1317] [cursor=pointer]:
+                    - /url: /platform/
+                    - img [ref=e1318]
+                    - generic:
+                      - generic: Tines platform
+                      - generic: →
+                - generic [ref=e1319]:
+                  - heading "Born in security" [level=4] [ref=e1320]
+                  - paragraph [ref=e1321]: Governance, guardrails, and monitoring across every surface of the workflow.
+        - generic [ref=e1323]:
+          - generic [ref=e1324]:
+            - link "Tines for Security teams Learn more →" [ref=e1325] [cursor=pointer]:
+              - /url: /solutions/security/
+              - heading "Tines for Security teams" [level=3] [ref=e1326]:
+                - generic [ref=e1327]: Tines for
+                - strong [ref=e1328]: Security teams
+              - img
+              - paragraph [ref=e1330]:
+                - strong [ref=e1331]: Learn more →
+            - link "Tines for IT operations Learn more →" [ref=e1332] [cursor=pointer]:
+              - /url: /solutions/it-operations/
+              - heading "Tines for IT operations" [level=3] [ref=e1333]:
+                - generic [ref=e1334]: Tines for
+                - strong [ref=e1335]: IT operations
+              - img
+              - paragraph [ref=e1337]:
+                - strong [ref=e1338]: Learn more →
+            - 'link "Integrations: Connect anything If it offers an API, Tines connects with it. From mainstream solutions to niche and internal tools, Tines is an integrator across your entire stack. Learn more →" [ref=e1339] [cursor=pointer]':
+              - /url: /solutions/products/
+              - 'heading "Integrations: Connect anything" [level=3] [ref=e1340]':
+                - generic [ref=e1341]: "Integrations:"
+                - strong [ref=e1342]: Connect anything
+              - img
+              - generic [ref=e1343]:
+                - paragraph [ref=e1344]: If it offers an API, Tines connects with it. From mainstream solutions to niche and internal tools, Tines is an integrator across your entire stack.
+                - paragraph [ref=e1345]:
+                  - strong [ref=e1346]: Learn more →
+          - generic [ref=e1348]:
+            - generic [ref=e1349]: Explore Tines for
+            - link "Infrastructure" [ref=e1350] [cursor=pointer]:
+              - /url: /solutions/infrastructure/
+              - img [ref=e1352]
+              - strong [ref=e1365]: Infrastructure
+            - link "Engineering" [ref=e1366] [cursor=pointer]:
+              - /url: /solutions/engineering/
+              - img [ref=e1368]
+              - strong [ref=e1374]: Engineering
+            - link "Product" [ref=e1375] [cursor=pointer]:
+              - /url: /solutions/product/
+              - img [ref=e1377]
+              - strong [ref=e1382]: Product
+        - generic [ref=e1386]:
+          - link "Workflow Capability Matrix Expand your workflows Explore real-world examples of intelligent workflows across security, IT operations, and cross-functional teams. Learn more →" [ref=e1387] [cursor=pointer]:
+            - /url: /workflow-capability-matrix/
+            - generic [ref=e1389]:
+              - generic [ref=e1390]:
+                - paragraph [ref=e1391]:
+                  - strong [ref=e1392]: Workflow Capability Matrix
+                - heading "Expand your workflows" [level=4] [ref=e1393]
+                - paragraph [ref=e1394]: Explore real-world examples of intelligent workflows across security, IT operations, and cross-functional teams.
+              - paragraph [ref=e1395]:
+                - strong [ref=e1396]: Learn more →
+          - link "Case study Mars achieves coverage of 80-90% of sources for true positives in weeks Read now →" [ref=e1397] [cursor=pointer]:
+            - /url: /case-studies/mars/
+            - generic [ref=e1398]:
+              - generic [ref=e1399]:
+                - generic [ref=e1400]:
+                  - paragraph [ref=e1401]:
+                    - strong [ref=e1402]: Case study
+                  - heading "Mars achieves coverage of 80-90% of sources for true positives in weeks" [level=4] [ref=e1403]: Mars achieves coverage of 80-90% of sources for true positives in weeks
+                - paragraph [ref=e1405]:
+                  - strong [ref=e1406]: Read now →
+              - figure [ref=e1407]:
+                - img
+          - link "Library Get inspired with pre‑built workflows Inspiration for your next build with our library of pre-built examples of Tines in action. Explore the library →" [ref=e1408] [cursor=pointer]:
+            - /url: /library/
+            - generic [ref=e1410]:
+              - generic [ref=e1411]:
+                - paragraph [ref=e1412]:
+                  - strong [ref=e1413]: Library
+                - heading "Get inspired with pre‑built workflows" [level=4] [ref=e1414]
+                - paragraph [ref=e1415]: Inspiration for your next build with our library of pre-built examples of Tines in action.
+              - paragraph [ref=e1416]:
+                - strong [ref=e1417]: Explore the library →
+          - link "Learn Tines University Build your knowledge with dedicated learning paths at all levels. Start learning →" [ref=e1418] [cursor=pointer]:
+            - /url: /university/
+            - generic [ref=e1420]:
+              - generic [ref=e1421]:
+                - paragraph [ref=e1422]:
+                  - strong [ref=e1423]: Learn
+                - heading "Tines University" [level=4] [ref=e1424]
+                - paragraph [ref=e1425]: Build your knowledge with dedicated learning paths at all levels.
+              - paragraph [ref=e1426]:
+                - strong [ref=e1427]: Start learning →
+          - link "Guide The IT and security field guide to AI adoption Access the guide →" [ref=e1428] [cursor=pointer]:
+            - /url: /access/guide/the-it-and-security-field-guide-to-ai-adoption/
+            - generic [ref=e1429]:
+              - generic [ref=e1430]:
+                - generic [ref=e1431]:
+                  - paragraph [ref=e1432]:
+                    - strong [ref=e1433]: Guide
+                  - heading "The IT and security field guide to AI adoption" [level=4] [ref=e1434]
+                - paragraph [ref=e1435]:
+                  - strong [ref=e1436]: Access the guide →
+              - figure [ref=e1437]:
+                - generic:
+                  - generic:
+                    - img
+          - link "Podcast The Future of Security Automation Interviews and insights from leading voices in security. Listen now →" [ref=e1438] [cursor=pointer]:
+            - /url: /podcast/
+            - generic [ref=e1439]:
+              - generic [ref=e1440]:
+                - generic [ref=e1441]:
+                  - paragraph [ref=e1442]:
+                    - strong [ref=e1443]: Podcast
+                  - heading "The Future of Security Automation" [level=4] [ref=e1444]
+                  - paragraph [ref=e1445]: Interviews and insights from leading voices in security.
+                - paragraph [ref=e1446]:
+                  - strong [ref=e1447]: Listen now →
+              - figure [ref=e1448]:
+                - generic [ref=e1449]:
+                  - paragraph [ref=e1450]: Christofer Hoff
+                  - paragraph [ref=e1451]: CSTO, LastPass
+                - generic:
+                  - img
+          - link "Federal Tines for federal agencies Federal agencies rely on our workflow and automation platform to reach their zero trust goals and reinforce their security posture. Learn more →" [ref=e1452] [cursor=pointer]:
+            - /url: /federal/
+            - generic [ref=e1453]:
+              - generic [ref=e1454]:
+                - generic [ref=e1455]:
+                  - paragraph [ref=e1456]:
+                    - strong [ref=e1457]: Federal
+                  - heading "Tines for federal agencies" [level=4] [ref=e1458]
+                  - paragraph [ref=e1459]: Federal agencies rely on our workflow and automation platform to reach their zero trust goals and reinforce their security posture.
+                - paragraph [ref=e1460]:
+                  - strong [ref=e1461]: Learn more →
+              - figure [ref=e1462]:
+                - img [ref=e1463]
+      - generic [ref=e1470]:
+        - generic [ref=e1471]:
+          - img [ref=e1472]
+          - heading "Built by you, powered by Tines" [level=3] [ref=e1475]:
+            - text: Built by you,
+            - text: powered by Tines
+          - generic [ref=e1477]:
+            - link "Book a demo" [ref=e1478] [cursor=pointer]:
+              - /url: /book-a-demo/
+              - generic [ref=e1480]: Book a demo
+            - link "Sign up free" [ref=e1481] [cursor=pointer]:
+              - /url: https://login.tines.com/signup
+              - generic [ref=e1483]: Sign up free
+        - paragraph [ref=e1485]:
+          - text: Already have an account?
+          - link "Log in" [ref=e1486] [cursor=pointer]:
+            - /url: https://login.tines.com
+          - text: .
+    - contentinfo [ref=e1496]:
+      - generic [ref=e1499]:
+        - generic [ref=e1501]:
+          - generic [ref=e1502]:
+            - button "Platform":
+              - heading "Platform" [level=3]
+            - list [ref=e1503]:
+              - listitem [ref=e1504]:
+                - link "Meet the platform" [ref=e1505] [cursor=pointer]:
+                  - /url: /platform/
+              - listitem [ref=e1506]:
+                - link "Storyboard" [ref=e1507] [cursor=pointer]:
+                  - /url: /platform/storyboard/
+              - listitem [ref=e1508]:
+                - link "Cases" [ref=e1509] [cursor=pointer]:
+                  - /url: /platform/cases/
+              - listitem [ref=e1510]:
+                - link "Workbench" [ref=e1511] [cursor=pointer]:
+                  - /url: /platform/workbench/
+              - listitem [ref=e1512]:
+                - link "AI in Tines" [ref=e1513] [cursor=pointer]:
+                  - /url: /platform/ai/
+              - listitem [ref=e1514]:
+                - link "Build apps" [ref=e1515] [cursor=pointer]:
+                  - /url: /platform/build-apps/
+              - listitem [ref=e1516]:
+                - link "Formulas" [ref=e1517] [cursor=pointer]:
+                  - /url: /platform/formulas/
+              - listitem [ref=e1518]:
+                - link "What’s new" [ref=e1519] [cursor=pointer]:
+                  - /url: /whats-new/
+              - listitem [ref=e1520]:
+                - link "Pricing" [ref=e1521] [cursor=pointer]:
+                  - /url: /pricing/
+          - generic [ref=e1522]:
+            - button "Solutions":
+              - heading "Solutions" [level=3]
+            - list [ref=e1523]:
+              - listitem [ref=e1524]:
+                - link "By product" [ref=e1525] [cursor=pointer]:
+                  - /url: /solutions/products/
+              - listitem [ref=e1526]:
+                - link "Security" [ref=e1527] [cursor=pointer]:
+                  - /url: /solutions/security/
+              - listitem [ref=e1528]:
+                - link "IT operations" [ref=e1529] [cursor=pointer]:
+                  - /url: /solutions/it-operations/
+              - listitem [ref=e1530]:
+                - link "Infrastructure" [ref=e1531] [cursor=pointer]:
+                  - /url: /solutions/infrastructure/
+              - listitem [ref=e1532]:
+                - link "Engineering" [ref=e1533] [cursor=pointer]:
+                  - /url: /solutions/engineering/
+              - listitem [ref=e1534]:
+                - link "Product" [ref=e1535] [cursor=pointer]:
+                  - /url: /solutions/product/
+              - listitem [ref=e1536]:
+                - link "Partners" [ref=e1537] [cursor=pointer]:
+                  - /url: /partners/
+              - listitem [ref=e1538]:
+                - link "Professional services" [ref=e1539] [cursor=pointer]:
+                  - /url: /professional-services/
+              - listitem [ref=e1540]:
+                - link "Federal" [ref=e1541] [cursor=pointer]:
+                  - /url: /federal/
+              - listitem [ref=e1542]:
+                - link "Enterprise" [ref=e1543] [cursor=pointer]:
+                  - /url: /enterprise/
+              - listitem [ref=e1544]:
+                - link "Financial services" [ref=e1545] [cursor=pointer]:
+                  - /url: /financial-services/
+              - listitem [ref=e1546]:
+                - link "MSSPs" [ref=e1547] [cursor=pointer]:
+                  - /url: /mssps/
+          - generic [ref=e1548]:
+            - button "Resources":
+              - heading "Resources" [level=3]
+            - list [ref=e1549]:
+              - listitem [ref=e1550]:
+                - link "Blog" [ref=e1551] [cursor=pointer]:
+                  - /url: /blog/
+              - listitem [ref=e1552]:
+                - link "Case studies" [ref=e1553] [cursor=pointer]:
+                  - /url: /case-studies/
+              - listitem [ref=e1554]:
+                - link "Workflow capability matrix" [ref=e1555] [cursor=pointer]:
+                  - /url: /workflow-capability-matrix
+              - listitem [ref=e1556]:
+                - link "Library" [ref=e1557] [cursor=pointer]:
+                  - /url: /library/
+              - listitem [ref=e1558]:
+                - link "University" [ref=e1559] [cursor=pointer]:
+                  - /url: /university/
+              - listitem [ref=e1560]:
+                - link "Tines Explained↗" [ref=e1561] [cursor=pointer]:
+                  - /url: https://explained.tines.com/en/
+                  - text: Tines Explained
+                  - superscript [ref=e1562]: ↗
+              - listitem [ref=e1563]:
+                - link "Customer center" [ref=e1564] [cursor=pointer]:
+                  - /url: /customer-center/
+              - listitem [ref=e1565]:
+                - link "Events" [ref=e1566] [cursor=pointer]:
+                  - /url: /events/
+              - listitem [ref=e1567]:
+                - link "Podcast" [ref=e1568] [cursor=pointer]:
+                  - /url: /podcast/
+              - listitem [ref=e1569]:
+                - link "Webinars" [ref=e1570] [cursor=pointer]:
+                  - /url: /webinars/
+              - listitem [ref=e1571]:
+                - link "Bootcamps" [ref=e1572] [cursor=pointer]:
+                  - /url: /bootcamps/
+              - listitem [ref=e1573]:
+                - link "Docs" [ref=e1574] [cursor=pointer]:
+                  - /url: /docs/quickstart/
+              - listitem [ref=e1575]:
+                - link "API" [ref=e1576] [cursor=pointer]:
+                  - /url: /api/welcome/
+              - listitem [ref=e1577]:
+                - link "Get certified" [ref=e1578] [cursor=pointer]:
+                  - /url: /get-certified/
+              - listitem [ref=e1579]:
+                - link "Five-minute flows" [ref=e1580] [cursor=pointer]:
+                  - /url: /five-minute-flows/
+              - listitem [ref=e1581]:
+                - link "YDWWT" [ref=e1582] [cursor=pointer]:
+                  - /url: /you-did-what-with-tines/spring-2026/
+          - generic [ref=e1583]:
+            - button "Company":
+              - heading "Company" [level=3]
+            - list [ref=e1584]:
+              - listitem [ref=e1585]:
+                - link "About us" [ref=e1586] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e1587]:
+                - link "Careers" [ref=e1588] [cursor=pointer]:
+                  - /url: /careers/
+              - listitem [ref=e1589]:
+                - link "Tines Store↗" [ref=e1590] [cursor=pointer]:
+                  - /url: https://store.tines.com
+                  - text: Tines Store
+                  - superscript [ref=e1591]: ↗
+              - listitem [ref=e1592]:
+                - link "Contact" [ref=e1593] [cursor=pointer]:
+                  - /url: /contact
+              - listitem [ref=e1594]:
+                - link "Newsroom" [ref=e1595] [cursor=pointer]:
+                  - /url: /newsroom/
+              - listitem [ref=e1596]:
+                - link "Brand assets↗" [ref=e1597] [cursor=pointer]:
+                  - /url: https://live.standards.site/tines
+                  - text: Brand assets
+                  - superscript [ref=e1598]: ↗
+              - listitem [ref=e1599]:
+                - link "Legal and privacy" [ref=e1600] [cursor=pointer]:
+                  - /url: /legal/
+              - listitem [ref=e1601]:
+                - link "Cookies policy" [ref=e1602] [cursor=pointer]:
+                  - /url: /cookies-policy/
+              - listitem [ref=e1603]:
+                - link "Security" [ref=e1604] [cursor=pointer]:
+                  - /url: /security/
+              - listitem [ref=e1605]:
+                - link "Trust center↗" [ref=e1606] [cursor=pointer]:
+                  - /url: https://trust.tines.com/
+                  - text: Trust center
+                  - superscript [ref=e1607]: ↗
+              - listitem [ref=e1608]:
+                - link "Workflow.live↗" [ref=e1609] [cursor=pointer]:
+                  - /url: https://www.workflow.live/
+                  - text: Workflow.live
+                  - superscript [ref=e1610]: ↗
+          - generic [ref=e1611]:
+            - button "Connect":
+              - heading "Connect" [level=3]
+            - list [ref=e1612]:
+              - listitem [ref=e1613]:
+                - link "Slack Community↗" [ref=e1614] [cursor=pointer]:
+                  - /url: https://hq.tines.io/forms/6f8b122ccba3cb7e8e0d3531d1b70eb2
+                  - text: Slack Community
+                  - superscript [ref=e1615]: ↗
+              - listitem [ref=e1616]:
+                - link "LinkedIn↗" [ref=e1617] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/tines-io/
+                  - text: LinkedIn
+                  - superscript [ref=e1618]: ↗
+              - listitem [ref=e1619]:
+                - link "Twitter↗" [ref=e1620] [cursor=pointer]:
+                  - /url: https://twitter.com/tines_hq
+                  - text: Twitter
+                  - superscript [ref=e1621]: ↗
+              - listitem [ref=e1622]:
+                - link "YouTube↗" [ref=e1623] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@TinesHQ
+                  - text: YouTube
+                  - superscript [ref=e1624]: ↗
+          - generic [ref=e1625]:
+            - button "RSS":
+              - heading "RSS" [level=3]
+            - list [ref=e1626]:
+              - listitem [ref=e1627]:
+                - link "Blog↗" [ref=e1628] [cursor=pointer]:
+                  - /url: /rss/tines-blog.xml
+                  - text: Blog
+                  - superscript [ref=e1629]: ↗
+              - listitem [ref=e1630]:
+                - link "Product updates↗" [ref=e1631] [cursor=pointer]:
+                  - /url: /rss/tines-product-updates.xml
+                  - text: Product updates
+                  - superscript [ref=e1632]: ↗
+              - listitem [ref=e1633]:
+                - link "Library↗" [ref=e1634] [cursor=pointer]:
+                  - /url: /rss/tines-story-library.xml
+                  - text: Library
+                  - superscript [ref=e1635]: ↗
+              - listitem [ref=e1636]:
+                - link "Self-hosting releases↗" [ref=e1637] [cursor=pointer]:
+                  - /url: /rss/tines-self-hosting-release-notes.xml
+                  - text: Self-hosting releases
+                  - superscript [ref=e1638]: ↗
+        - contentinfo [ref=e1639]:
+          - link "Tines Homepage" [ref=e1640] [cursor=pointer]:
+            - /url: /
+            - img [ref=e1641]
+          - paragraph [ref=e1643]:
+            - text: ©
+            - link "Tines" [ref=e1644] [cursor=pointer]:
+              - /url: /
+          - button "Cookie settings" [ref=e1646] [cursor=pointer]
+  - iframe [ref=e1648]:
+    

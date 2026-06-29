@@ -89,6 +89,8 @@ You must fix the following GitLab CI/CD pipeline that has validation errors.
 - Language: {analysis.get('language', 'unknown')}
 - Framework: {analysis.get('framework', 'generic')}
 - Package Manager: {analysis.get('package_manager', 'unknown')}
+- Build Tool: {analysis.get('build_tool', analysis.get('package_manager', 'unknown'))}
+- Java Version: {analysis.get('java_version', analysis.get('language_version', 'unknown'))}
 
 {error_context}
 {warning_context}
@@ -114,6 +116,12 @@ You must fix the following GitLab CI/CD pipeline that has validation errors.
 ## AVAILABLE NEXUS IMAGES:
 - amazoncorretto:17-alpine-jdk (Java runtime)
 - maven:3.9-eclipse-temurin-17 (Maven/Java build - use for Scala too)
+- gradle:7.6-jdk8 (Gradle build with Java 8)
+- gradle:8.7-jdk11 (Gradle build with Java 11)
+- gradle:8.12-jdk17 (Gradle build with Java 17)
+- gradle:8.12-jdk21 (Gradle build with Java 21)
+- eclipse-temurin:17-jre (Java 17 runtime)
+- eclipse-temurin:21-jre (Java 21 runtime)
 - python:3.11-slim (Python)
 - node:18-alpine (Node.js)
 - golang:1.21-alpine (Go)
@@ -125,6 +133,10 @@ You must fix the following GitLab CI/CD pipeline that has validation errors.
 - sonarsource-sonar-scanner-cli:5 (SonarQube)
 
 ## LANGUAGE-SPECIFIC NOTES:
+- Java Gradle: use the matching gradle:<version>-jdk<java> image for compile/test/SAST and Dockerfile build stage. Do NOT install Gradle with `apk add gradle` inside amazoncorretto or eclipse-temurin images because Alpine can install a different JDK version.
+- Java Gradle 17: use gradle:8.12-jdk17 and eclipse-temurin:17-jre.
+- Java Gradle 21: use gradle:8.12-jdk21 and eclipse-temurin:21-jre.
+- Java Maven: use maven:3.9-eclipse-temurin-<java> and eclipse-temurin:<java>-jre.
 - Scala: No SBT image exists! Use maven:3.9-eclipse-temurin-17 and install SBT:
   script:
     - curl -fL "https://github.com/sbt/sbt/releases/download/v1.9.8/sbt-1.9.8.tgz" | tar xz -C /tmp

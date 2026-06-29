@@ -52,9 +52,17 @@ class GitLabDryRunValidator:
         'compile', 'build', 'test', 'sast', 'quality', 'security', 'push', 'notify'
     ]
 
+    REQUIRED_ARTIFACT_STAGES = [
+        'compile', 'test', 'sast', 'quality', 'security', 'publish', 'notify'
+    ]
+
     REQUIRED_VARIABLES = [
         'NEXUS_REGISTRY', 'NEXUS_PULL_REGISTRY', 'NEXUS_INTERNAL_REGISTRY',
         'IMAGE_NAME', 'IMAGE_TAG'
+    ]
+
+    REQUIRED_ARTIFACT_VARIABLES = [
+        'NEXUS_PULL_REGISTRY'
     ]
 
     NEXUS_PULL_REGISTRY = "localhost:5001"
@@ -69,7 +77,8 @@ class GitLabDryRunValidator:
         gitlab_ci: str,
         dockerfile: str,
         gitlab_token: str = None,
-        project_path: str = None
+        project_path: str = None,
+        require_dockerfile: bool = True
     ) -> Dict[str, ValidationResult]:
         """Run all validations and return comprehensive results."""
         token = gitlab_token or self.gitlab_token
@@ -78,11 +87,15 @@ class GitLabDryRunValidator:
         # 1. Validate YAML syntax
         results['yaml_syntax'] = self.validate_yaml_syntax(gitlab_ci)
 
-        # 2. Validate Dockerfile syntax
-        results['dockerfile_syntax'] = self.validate_dockerfile_syntax(dockerfile)
+        # 2. Validate Dockerfile syntax when this pipeline creates a container image.
+        if require_dockerfile:
+            results['dockerfile_syntax'] = self.validate_dockerfile_syntax(dockerfile)
 
         # 3. Validate pipeline structure
-        results['pipeline_structure'] = self.validate_pipeline_structure(gitlab_ci)
+        results['pipeline_structure'] = self.validate_pipeline_structure(
+            gitlab_ci,
+            require_dockerfile=require_dockerfile
+        )
 
         # 4. Validate stage dependencies
         results['stage_dependencies'] = self.validate_stage_dependencies(gitlab_ci)
@@ -177,7 +190,11 @@ class GitLabDryRunValidator:
             warnings=warnings
         )
 
-    def validate_pipeline_structure(self, gitlab_ci: str) -> ValidationResult:
+    def validate_pipeline_structure(
+        self,
+        gitlab_ci: str,
+        require_dockerfile: bool = True
+    ) -> ValidationResult:
         """Validate GitLab CI pipeline structure"""
         errors = []
         warnings = []
@@ -193,7 +210,12 @@ class GitLabDryRunValidator:
             if not stages:
                 errors.append("Missing 'stages' definition")
             else:
-                for required_stage in self.REQUIRED_STAGES:
+                required_stages = (
+                    self.REQUIRED_STAGES
+                    if require_dockerfile
+                    else self.REQUIRED_ARTIFACT_STAGES
+                )
+                for required_stage in required_stages:
                     if required_stage not in stages:
                         warnings.append(f"Missing recommended stage: '{required_stage}'")
 
@@ -202,7 +224,12 @@ class GitLabDryRunValidator:
             if not variables:
                 warnings.append("Missing 'variables' section")
             else:
-                for required_var in self.REQUIRED_VARIABLES:
+                required_variables = (
+                    self.REQUIRED_VARIABLES
+                    if require_dockerfile
+                    else self.REQUIRED_ARTIFACT_VARIABLES
+                )
+                for required_var in required_variables:
                     if required_var not in variables:
                         warnings.append(f"Missing recommended variable: '{required_var}'")
 

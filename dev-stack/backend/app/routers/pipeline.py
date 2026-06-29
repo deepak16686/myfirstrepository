@@ -279,7 +279,8 @@ async def generate_pipeline(request: GeneratePipelineRequest):
             gitlab_token=request.gitlab_token,
             additional_context=request.additional_context or "",
             model=request.model,
-            use_template_only=request.use_template_only
+            use_template_only=request.use_template_only,
+            pipeline_requirements=request.pipeline_requirements
         )
         return GeneratePipelineResponse(
             success=True,
@@ -303,7 +304,8 @@ async def generate_pipeline_with_validation(request: GenerateWithValidationReque
             additional_context=request.additional_context or "",
             model=request.model,
             max_fix_attempts=request.max_fix_attempts,
-            store_on_success=request.store_on_success
+            store_on_success=request.store_on_success,
+            pipeline_requirements=request.pipeline_requirements
         )
         return GenerateWithValidationResponse(
             success=True,
@@ -331,7 +333,8 @@ async def dry_run_validation(request: DryRunRequest):
             gitlab_ci=request.gitlab_ci,
             dockerfile=request.dockerfile,
             gitlab_token=request.gitlab_token,
-            project_path=request.project_path
+            project_path=request.project_path,
+            require_dockerfile=request.require_dockerfile
         )
 
         all_valid, summary = gitlab_dry_run_validator.get_validation_summary(results)
@@ -364,9 +367,10 @@ async def commit_pipeline(request: CommitRequest, background_tasks: BackgroundTa
             branch_name = f"feature/ai-pipeline-{timestamp}"
 
         files = {
-            ".gitlab-ci.yml": request.gitlab_ci,
-            "Dockerfile": request.dockerfile
+            ".gitlab-ci.yml": request.gitlab_ci
         }
+        if request.dockerfile and request.dockerfile.strip():
+            files["Dockerfile"] = request.dockerfile
 
         result = await pipeline_generator.commit_to_gitlab(
             repo_url=request.repo_url,

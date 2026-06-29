@@ -1,0 +1,201 @@
+- generic [ref=e1]:
+  - banner [active] [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#content-body"
+      - generic [ref=e4]: Skip to main content
+    - generic [ref=e5]:
+      - link "Homepage" [ref=e6] [cursor=pointer]:
+        - /url: /gitlab/
+        - generic [ref=e7]: Homepage
+        - img [ref=e9]
+      - button "Open navigation menu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+    - button "Search or go to… /" [ref=e17] [cursor=pointer]:
+      - generic [ref=e18]:
+        - img [ref=e19]
+        - generic [ref=e21]: Search or go to…
+        - generic [ref=e22]: /
+    - generic [ref=e23]:
+      - button "Create new…" [ref=e25] [cursor=pointer]:
+        - img [ref=e26]
+        - generic [ref=e28]: Create new…
+      - generic [ref=e30]:
+        - link "0 Assigned issues" [ref=e31] [cursor=pointer]:
+          - /url: /gitlab/dashboard/issues?assignee_username=root
+          - img [ref=e32]
+          - generic [ref=e34]: "0"
+        - link "0 Merge requests" [ref=e36] [cursor=pointer]:
+          - /url: /gitlab/dashboard/merge_requests
+          - img [ref=e37]
+          - generic [ref=e39]: "0"
+        - link "0 To-do items" [ref=e40] [cursor=pointer]:
+          - /url: /gitlab/dashboard/todos
+          - img [ref=e41]
+          - generic [ref=e43]: "0"
+      - link "Administrator user’s menu" [ref=e47] [cursor=pointer]:
+        - /url: /gitlab/root
+        - generic [ref=e48]:
+          - generic [ref=e49]: Administrator user’s menu
+          - img [ref=e50]
+  - generic [ref=e51]:
+    - navigation "Primary navigation" [ref=e52]:
+      - heading "Primary navigation" [level=2] [ref=e53]
+      - generic [ref=e54]:
+        - generic [ref=e55]: Project
+        - generic [ref=e57]:
+          - list [ref=e58]:
+            - listitem [ref=e59]:
+              - link "codex-e2e-gitlab-python-20260512-062337" [ref=e60] [cursor=pointer]:
+                - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337
+                - generic [ref=e62]: C
+                - generic [ref=e63]: codex-e2e-gitlab-python-20260512-062337
+          - generic [ref=e64]:
+            - button "Pinned" [expanded] [ref=e65] [cursor=pointer]:
+              - img [ref=e67]
+              - generic [ref=e69]: Pinned
+              - img [ref=e71]
+            - list [ref=e74]:
+              - listitem [ref=e75]:
+                - link "Issues" [ref=e76] [cursor=pointer]:
+                  - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/issues
+                  - img [ref=e78]
+                  - generic [ref=e80]: Issues
+                - button "Unpin Issues":
+                  - img
+              - listitem [ref=e81]:
+                - link "Merge requests" [ref=e82] [cursor=pointer]:
+                  - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/merge_requests
+                  - img [ref=e84]
+                  - generic [ref=e86]: Merge requests
+                - button "Unpin Merge requests":
+                  - img
+              - listitem [ref=e87]:
+                - link "Pipelines" [ref=e88] [cursor=pointer]:
+                  - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/pipelines
+                  - img [ref=e90]
+                  - generic [ref=e92]: Pipelines
+                - button "Unpin Pipelines":
+                  - img
+          - separator [ref=e93]
+          - list "Project" [ref=e94]:
+            - listitem [ref=e95]:
+              - button "Manage" [ref=e96] [cursor=pointer]:
+                - img [ref=e98]
+                - generic [ref=e100]: Manage
+                - img [ref=e102]
+            - listitem [ref=e104]:
+              - button "Plan" [ref=e105] [cursor=pointer]:
+                - img [ref=e107]
+                - generic [ref=e109]: Plan
+                - img [ref=e111]
+            - listitem [ref=e113]:
+              - button "Code" [ref=e114] [cursor=pointer]:
+                - img [ref=e116]
+                - generic [ref=e118]: Code
+                - img [ref=e120]
+            - listitem [ref=e122]:
+              - button "Build" [expanded] [ref=e123] [cursor=pointer]:
+                - img [ref=e125]
+                - generic [ref=e127]: Build
+                - img [ref=e129]
+              - list "Build" [ref=e132]:
+                - listitem [ref=e133]:
+                  - link "Pipelines" [ref=e134] [cursor=pointer]:
+                    - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/pipelines
+                    - generic [ref=e136]: Pipelines
+                  - button "Unpin Pipelines":
+                    - img
+                - listitem [ref=e137]:
+                  - link "Jobs" [ref=e138] [cursor=pointer]:
+                    - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/jobs
+                    - generic [ref=e140]: Jobs
+                  - button "Pin Jobs":
+                    - img
+                - listitem [ref=e141]:
+                  - link "Pipeline editor" [ref=e142] [cursor=pointer]:
+                    - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/ci/editor?branch_name=main
+                    - generic [ref=e144]: Pipeline editor
+                  - button "Pin Pipeline editor":
+                    - img
+                - listitem [ref=e145]:
+                  - link "Pipeline schedules" [ref=e146] [cursor=pointer]:
+                    - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/pipeline_schedules
+                    - generic [ref=e148]: Pipeline schedules
+                  - button "Pin Pipeline schedules":
+                    - img
+                - listitem [ref=e149]:
+                  - link "Artifacts" [ref=e150] [cursor=pointer]:
+                    - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/artifacts
+                    - generic [ref=e152]: Artifacts
+                  - button "Pin Artifacts":
+                    - img
+            - listitem [ref=e153]:
+              - button "Secure" [ref=e154] [cursor=pointer]:
+                - img [ref=e156]
+                - generic [ref=e158]: Secure
+                - img [ref=e160]
+            - listitem [ref=e162]:
+              - button "Deploy" [ref=e163] [cursor=pointer]:
+                - img [ref=e165]
+                - generic [ref=e167]: Deploy
+                - img [ref=e169]
+            - listitem [ref=e171]:
+              - button "Operate" [ref=e172] [cursor=pointer]:
+                - img [ref=e174]
+                - generic [ref=e176]: Operate
+                - img [ref=e178]
+            - listitem [ref=e180]:
+              - button "Monitor" [ref=e181] [cursor=pointer]:
+                - img [ref=e183]
+                - generic [ref=e185]: Monitor
+                - img [ref=e187]
+            - listitem [ref=e189]:
+              - button "Analyze" [ref=e190] [cursor=pointer]:
+                - img [ref=e192]
+                - generic [ref=e194]: Analyze
+                - img [ref=e196]
+            - listitem [ref=e198]:
+              - button "Settings" [ref=e199] [cursor=pointer]:
+                - img [ref=e201]
+                - generic [ref=e203]: Settings
+                - img [ref=e205]
+        - generic [ref=e209]:
+          - button "What's new" [ref=e210] [cursor=pointer]:
+            - img [ref=e211]
+            - generic [ref=e213]:
+              - text: What's new
+              - generic [ref=e216]: "5"
+          - button "Help" [ref=e219] [cursor=pointer]:
+            - img [ref=e220]
+            - generic [ref=e222]: Help
+    - generic [ref=e225]:
+      - navigation "Breadcrumb" [ref=e231]:
+        - list [ref=e232]:
+          - listitem [ref=e233]:
+            - link "Administrator" [ref=e234] [cursor=pointer]:
+              - /url: /gitlab/root
+            - text: /
+          - listitem [ref=e235]:
+            - link "codex-e2e-gitlab-python-20260512-062337" [ref=e236] [cursor=pointer]:
+              - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337
+            - text: /
+          - listitem [ref=e237]:
+            - link "Pipelines" [ref=e238] [cursor=pointer]:
+              - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/pipelines
+            - text: /
+          - listitem [ref=e239]:
+            - link "#759" [ref=e240] [cursor=pointer]:
+              - /url: /gitlab/root/codex-e2e-gitlab-python-20260512-062337/-/pipelines/759
+      - main [ref=e244]:
+        - status "Loading" [ref=e246]
+        - generic [ref=e248]:
+          - tablist [ref=e250]:
+            - tab "Pipeline" [selected] [ref=e251] [cursor=pointer]
+            - tab "Jobs 10" [ref=e252] [cursor=pointer]:
+              - generic [ref=e253]: Jobs
+              - generic [ref=e255]: "10"
+            - tab "Tests 0" [ref=e256] [cursor=pointer]:
+              - generic [ref=e257]: Tests
+              - generic [ref=e259]: "0"
+          - tabpanel "Pipeline" [ref=e261]:
+            - status "Loading" [ref=e263]

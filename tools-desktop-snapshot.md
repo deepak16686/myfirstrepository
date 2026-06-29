@@ -1,0 +1,34 @@
+- generic [ref=e2] [box=0,0,1430,1000]:
+  - generic [ref=e3] [box=0,0,1430,6824]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer] [box=8,-40,189,36]:
+      - /url: "#main-content"
+    - status [ref=e118] [box=-1,-1,1,1]
+    - complementary "Primary sidebar" [ref=e5] [box=0,0,256,1000]:
+      - generic [ref=e6] [box=0,0,255,56]:
+        - img [ref=e8] [box=24,20,16,16]
+        - generic [ref=e18] [box=58,12,181,32]
+      - navigation [ref=e21] [box=0,56,255,895]:
+        - list [ref=e22] [box=8,68,229,188]
+        - paragraph [ref=e59] [box=8,289,229,17]: Categories
+        - list [ref=e120] [box=8,314,229,474]
+        - paragraph [ref=e60] [box=8,821,229,17]: Health
+        - list [ref=e61] [box=8,847,229,134]
+      - button "Collapse sidebar" [ref=e75] [box=8,960,239,32]:
+        - img [box=16,968,16,16]
+        - generic [ref=e79] [box=40,968,49,16]: Collapse
+    - generic [ref=e80] [box=256,0,1174,6824]:
+      - banner [ref=e81] [box=256,0,1174,56]:
+        - generic [ref=e82] [box=280,10,420,36]
+        - button "Open command palette" [ref=e244] [box=712,12,119,32]
+        - generic [ref=e87] [box=843,12,495,32]
+      - region "Tool status rail" [ref=e252] [box=288,68,1110,31]:
+        - generic [ref=e253] [box=301,75,86,17]: Status rail
+        - generic [ref=e254] [box=399,78,918,12]
+        - generic [ref=e317] [box=1329,75,56,17]
+      - main [ref=e110] [box=256,99,1174,6725]:
+        - generic [ref=e323] [box=288,131,1110,6661]
+  - region "Notifications alt+T" [box=0,6824,1430,0]
+  - generic [ref=e3330] [box=12,940,48,48]:
+    - img [ref=e3332] [box=4,932,64,64]
+    - button "Open Tanstack query devtools" [ref=e3380] [cursor=pointer] [box=16,944,40,40]:
+      - img [ref=e3381] [box=16,944,40,40]

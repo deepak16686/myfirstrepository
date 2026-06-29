@@ -1,0 +1,309 @@
+- generic [ref=e3]:
+  - generic [ref=e6]:
+    - list [ref=e8]:
+      - listitem [ref=e9]:
+        - link "Godly UI inspiration library" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e12]
+          - generic [ref=e13]:
+            - generic [ref=e14]: Godly
+            - generic [ref=e15]: UI inspiration library
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]: Explore
+        - list [ref=e19]:
+          - listitem [ref=e20]:
+            - link "Sites" [ref=e21] [cursor=pointer]:
+              - /url: /sites
+              - img [ref=e22]
+              - generic [ref=e25]: Sites
+          - listitem [ref=e26]:
+            - link "Apps" [ref=e27] [cursor=pointer]:
+              - /url: /apps
+              - img [ref=e28]
+              - generic [ref=e30]: Apps
+      - generic [ref=e31]:
+        - generic [ref=e32]: Collections
+        - list [ref=e33]:
+          - listitem [ref=e34]:
+            - link "Logo" [ref=e35] [cursor=pointer]:
+              - /url: /logos
+              - img [ref=e36]
+              - generic [ref=e40]: Logo
+          - listitem [ref=e41]:
+            - link "OG Images" [ref=e42] [cursor=pointer]:
+              - /url: /og-images
+              - img [ref=e43]
+              - generic [ref=e45]: OG Images
+          - listitem [ref=e46]:
+            - link "Sections" [ref=e47] [cursor=pointer]:
+              - /url: /sections
+              - img [ref=e48]
+              - generic [ref=e50]: Sections
+          - listitem [ref=e51]:
+            - link "App Icons" [ref=e52] [cursor=pointer]:
+              - /url: /app-icons
+              - img [ref=e53]
+              - generic [ref=e57]: App Icons
+    - button "Toggle Sidebar" [ref=e58]
+  - main [ref=e59]:
+    - generic [ref=e60]:
+      - button "Toggle Sidebar" [ref=e61] [cursor=pointer]:
+        - img
+        - generic [ref=e62]: Toggle Sidebar
+      - navigation "breadcrumb" [ref=e63]:
+        - list [ref=e64]:
+          - listitem [ref=e65]:
+            - link "Godly" [disabled] [ref=e66]
+    - main [ref=e69]:
+      - generic [ref=e70]:
+        - paragraph [ref=e71]: Latest
+        - heading "The Ultimate UI & Web Design Inspiration Library" [level=1] [ref=e72]
+        - paragraph [ref=e73]: Explore thousands of real-world website, app, and UI design examples from top brands and products. Godly.design helps designers and developers find the best layout ideas, UX patterns, and interface inspiration faster than ever.
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - heading "Sites" [level=2] [ref=e78]
+            - link "See all" [ref=e79] [cursor=pointer]:
+              - /url: /sites
+          - generic [ref=e80]:
+            - link "Span Landing page (Home Desktop) Span logo Span Unify metrics, surveys, and context to unblock and boost engineering productivity." [ref=e82] [cursor=pointer]:
+              - /url: /sites/span
+              - img "Span Landing page (Home Desktop)" [ref=e85]
+              - generic [ref=e86]:
+                - img "Span logo" [ref=e88]
+                - generic [ref=e89]:
+                  - heading "Span" [level=3] [ref=e90]
+                  - paragraph [ref=e91]: Unify metrics, surveys, and context to unblock and boost engineering productivity.
+            - link "Searchable Landing page (Home Desktop) Searchable logo Searchable AI search optimization platform to track your brand across ChatGPT and Perplexity." [ref=e93] [cursor=pointer]:
+              - /url: /sites/searchable
+              - img "Searchable Landing page (Home Desktop)" [ref=e96]
+              - generic [ref=e97]:
+                - img "Searchable logo" [ref=e99]
+                - generic [ref=e100]:
+                  - heading "Searchable" [level=3] [ref=e101]
+                  - paragraph [ref=e102]: AI search optimization platform to track your brand across ChatGPT and Perplexity.
+            - link "Throxy Landing page (Home Desktop) Throxy logo Throxy Outbound sales partner using custom tech to book qualified meetings." [ref=e104] [cursor=pointer]:
+              - /url: /sites/throxy
+              - img "Throxy Landing page (Home Desktop)" [ref=e107]
+              - generic [ref=e108]:
+                - img "Throxy logo" [ref=e110]
+                - generic [ref=e111]:
+                  - heading "Throxy" [level=3] [ref=e112]
+                  - paragraph [ref=e113]: Outbound sales partner using custom tech to book qualified meetings.
+        - generic [ref=e114]:
+          - generic [ref=e115]:
+            - heading "Apps" [level=2] [ref=e117]
+            - link "See all" [ref=e118] [cursor=pointer]:
+              - /url: /apps
+          - generic [ref=e119]:
+            - link "Zoom Workplace iphone screenshot Zoom Workplace iphone screenshot Zoom Workplace icon Zoom Workplace AI-first collaboration" [ref=e121] [cursor=pointer]:
+              - /url: /apps/zoom-workplace
+              - generic [ref=e123]:
+                - img "Zoom Workplace iphone screenshot" [ref=e125]
+                - img "Zoom Workplace iphone screenshot" [ref=e127]
+              - generic [ref=e128]:
+                - img "Zoom Workplace icon" [ref=e130]
+                - generic [ref=e131]:
+                  - heading "Zoom Workplace" [level=3] [ref=e132]
+                  - paragraph [ref=e133]: AI-first collaboration
+            - link "Zolvy – Pocket Spreadsheet iphone screenshot Zolvy – Pocket Spreadsheet iphone screenshot Zolvy – Pocket Spreadsheet icon Zolvy – Pocket Spreadsheet Your Secret Math Weapon" [ref=e135] [cursor=pointer]:
+              - /url: /apps/zolvy
+              - generic [ref=e137]:
+                - img "Zolvy – Pocket Spreadsheet iphone screenshot" [ref=e139]
+                - img "Zolvy – Pocket Spreadsheet iphone screenshot" [ref=e141]
+              - generic [ref=e142]:
+                - img "Zolvy – Pocket Spreadsheet icon" [ref=e144]
+                - generic [ref=e145]:
+                  - heading "Zolvy – Pocket Spreadsheet" [level=3] [ref=e146]
+                  - paragraph [ref=e147]: Your Secret Math Weapon
+            - link "Zoho CRM - Sales & Marketing iphone screenshot Zoho CRM - Sales & Marketing iphone screenshot Zoho CRM - Sales & Marketing icon Zoho CRM - Sales & Marketing CRM for Every Business" [ref=e149] [cursor=pointer]:
+              - /url: /apps/zoho-crm
+              - generic [ref=e151]:
+                - img "Zoho CRM - Sales & Marketing iphone screenshot" [ref=e153]
+                - img "Zoho CRM - Sales & Marketing iphone screenshot" [ref=e155]
+              - generic [ref=e156]:
+                - img "Zoho CRM - Sales & Marketing icon" [ref=e158]
+                - generic [ref=e159]:
+                  - heading "Zoho CRM - Sales & Marketing" [level=3] [ref=e160]
+                  - paragraph [ref=e161]: CRM for Every Business
+        - generic [ref=e162]:
+          - generic [ref=e163]:
+            - heading "Sections" [level=2] [ref=e165]
+            - link "See all" [ref=e166] [cursor=pointer]:
+              - /url: /sections
+          - generic [ref=e167]:
+            - article [ref=e168]:
+              - link "Visitors Hero desktop section":
+                - /url: /sites/visitors
+                - generic:
+                  - img "Visitors Hero desktop section"
+              - generic [ref=e169]:
+                - img "Visitors logo" [ref=e171]
+                - generic [ref=e172]:
+                  - paragraph [ref=e173]:
+                    - text: Hero |
+                    - link "Visitors" [ref=e174] [cursor=pointer]:
+                      - /url: /sites/visitors
+                  - paragraph [ref=e175]: Privacy-friendly Google Analytics alternative with built-in revenue analytics.
+            - article [ref=e176]:
+              - link "Visitors Value Proposition desktop section":
+                - /url: /sites/visitors
+                - generic:
+                  - img "Visitors Value Proposition desktop section"
+              - generic [ref=e177]:
+                - img "Visitors logo" [ref=e179]
+                - generic [ref=e180]:
+                  - paragraph [ref=e181]:
+                    - text: Value Proposition |
+                    - link "Visitors" [ref=e182] [cursor=pointer]:
+                      - /url: /sites/visitors
+                  - paragraph [ref=e183]: Privacy-friendly Google Analytics alternative with built-in revenue analytics.
+            - article [ref=e184]:
+              - link "Visitors Features desktop section":
+                - /url: /sites/visitors
+                - generic:
+                  - img "Visitors Features desktop section"
+              - generic [ref=e185]:
+                - img "Visitors logo" [ref=e187]
+                - generic [ref=e188]:
+                  - paragraph [ref=e189]:
+                    - text: Features |
+                    - link "Visitors" [ref=e190] [cursor=pointer]:
+                      - /url: /sites/visitors
+                  - paragraph [ref=e191]: Privacy-friendly Google Analytics alternative with built-in revenue analytics.
+        - generic [ref=e192]:
+          - generic [ref=e193]:
+            - heading "Logos" [level=2] [ref=e195]
+            - link "See all" [ref=e196] [cursor=pointer]:
+              - /url: /logos
+          - generic [ref=e197]:
+            - article [ref=e198]:
+              - link "Open Span" [ref=e199] [cursor=pointer]:
+                - /url: /logo/span
+                - img "Span" [ref=e204]
+              - generic [ref=e205]:
+                - generic [ref=e206]:
+                  - link "Span" [ref=e207] [cursor=pointer]:
+                    - /url: /logo/span
+                    - generic [ref=e208]: Span
+                  - paragraph [ref=e209]: Unify metrics, surveys, and context to unblock and boost engineering productivity.
+                - link "Open source for Span" [ref=e210] [cursor=pointer]:
+                  - /url: https://span.app/
+                  - img [ref=e211]
+            - article [ref=e214]:
+              - link "Open Searchable" [ref=e215] [cursor=pointer]:
+                - /url: /logo/searchable
+                - img "Searchable" [ref=e220]
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - link "Searchable" [ref=e223] [cursor=pointer]:
+                    - /url: /logo/searchable
+                    - generic [ref=e224]: Searchable
+                  - paragraph [ref=e225]: AI search optimization platform to track your brand across ChatGPT and Perplexity.
+                - link "Open source for Searchable" [ref=e226] [cursor=pointer]:
+                  - /url: https://searchable.com/
+                  - img [ref=e227]
+            - article [ref=e230]:
+              - link "Open Throxy" [ref=e231] [cursor=pointer]:
+                - /url: /logo/throxy
+                - img "Throxy" [ref=e236]
+              - generic [ref=e237]:
+                - generic [ref=e238]:
+                  - link "Throxy" [ref=e239] [cursor=pointer]:
+                    - /url: /logo/throxy
+                    - generic [ref=e240]: Throxy
+                  - paragraph [ref=e241]: Outbound sales partner using custom tech to book qualified meetings.
+                - link "Open source for Throxy" [ref=e242] [cursor=pointer]:
+                  - /url: https://throxy.com/
+                  - img [ref=e243]
+        - generic [ref=e246]:
+          - generic [ref=e247]:
+            - heading "App Icons" [level=2] [ref=e249]
+            - link "See all" [ref=e250] [cursor=pointer]:
+              - /url: /app-icons
+          - generic [ref=e251]:
+            - article [ref=e252]:
+              - link "Open Zoom Workplace" [ref=e253] [cursor=pointer]:
+                - /url: /apps/zoom-workplace
+                - img "Zoom Workplace icon" [ref=e258]
+              - generic [ref=e259]:
+                - generic [ref=e260]:
+                  - link "Zoom Workplace" [ref=e261] [cursor=pointer]:
+                    - /url: /apps/zoom-workplace
+                    - generic [ref=e262]: Zoom Workplace
+                  - paragraph [ref=e263]: AI-first collaboration
+                - link "Open source for Zoom Workplace" [ref=e264] [cursor=pointer]:
+                  - /url: https://apps.apple.com/us/app/zoom-workplace/id546505307
+                  - img [ref=e265]
+            - article [ref=e268]:
+              - link "Open Zolvy – Pocket Spreadsheet" [ref=e269] [cursor=pointer]:
+                - /url: /apps/zolvy
+                - img "Zolvy – Pocket Spreadsheet icon" [ref=e274]
+              - generic [ref=e275]:
+                - generic [ref=e276]:
+                  - link "Zolvy – Pocket Spreadsheet" [ref=e277] [cursor=pointer]:
+                    - /url: /apps/zolvy
+                    - generic [ref=e278]: Zolvy – Pocket Spreadsheet
+                  - paragraph [ref=e279]: Your Secret Math Weapon
+                - link "Open source for Zolvy – Pocket Spreadsheet" [ref=e280] [cursor=pointer]:
+                  - /url: https://apps.apple.com/us/app/zolvy-pocket-spreadsheet/id1620524037
+                  - img [ref=e281]
+            - article [ref=e284]:
+              - link "Open Zoho CRM - Sales & Marketing" [ref=e285] [cursor=pointer]:
+                - /url: /apps/zoho-crm
+                - img "Zoho CRM - Sales & Marketing icon" [ref=e290]
+              - generic [ref=e291]:
+                - generic [ref=e292]:
+                  - link "Zoho CRM - Sales & Marketing" [ref=e293] [cursor=pointer]:
+                    - /url: /apps/zoho-crm
+                    - generic [ref=e294]: Zoho CRM - Sales & Marketing
+                  - paragraph [ref=e295]: CRM for Every Business
+                - link "Open source for Zoho CRM - Sales & Marketing" [ref=e296] [cursor=pointer]:
+                  - /url: https://apps.apple.com/us/app/zoho-crm-sales-marketing/id444908810
+                  - img [ref=e297]
+        - generic [ref=e300]:
+          - generic [ref=e301]:
+            - heading "OG Images" [level=2] [ref=e303]
+            - link "See all" [ref=e304] [cursor=pointer]:
+              - /url: /og-images
+          - generic [ref=e305]:
+            - article [ref=e306]:
+              - link "Open Span" [ref=e307] [cursor=pointer]:
+                - /url: /sites/span
+                - img "Span OG image" [ref=e313]
+              - generic [ref=e314]:
+                - generic [ref=e315]:
+                  - link "Span" [ref=e316] [cursor=pointer]:
+                    - /url: /sites/span
+                    - generic [ref=e317]: Span
+                  - paragraph [ref=e318]: Unify metrics, surveys, and context to unblock and boost engineering productivity.
+                - link "Open source for Span" [ref=e319] [cursor=pointer]:
+                  - /url: https://span.app/
+                  - img [ref=e320]
+            - article [ref=e323]:
+              - link "Open Searchable" [ref=e324] [cursor=pointer]:
+                - /url: /sites/searchable
+                - img "Searchable OG image" [ref=e330]
+              - generic [ref=e331]:
+                - generic [ref=e332]:
+                  - link "Searchable" [ref=e333] [cursor=pointer]:
+                    - /url: /sites/searchable
+                    - generic [ref=e334]: Searchable
+                  - paragraph [ref=e335]: AI search optimization platform to track your brand across ChatGPT and Perplexity.
+                - link "Open source for Searchable" [ref=e336] [cursor=pointer]:
+                  - /url: https://searchable.com/
+                  - img [ref=e337]
+            - article [ref=e340]:
+              - link "Open Throxy" [ref=e341] [cursor=pointer]:
+                - /url: /sites/throxy
+                - img "Throxy OG image" [ref=e347]
+              - generic [ref=e348]:
+                - generic [ref=e349]:
+                  - link "Throxy" [ref=e350] [cursor=pointer]:
+                    - /url: /sites/throxy
+                    - generic [ref=e351]: Throxy
+                  - paragraph [ref=e352]: Outbound sales partner using custom tech to book qualified meetings.
+                - link "Open source for Throxy" [ref=e353] [cursor=pointer]:
+                  - /url: https://throxy.com/
+                  - img [ref=e354]

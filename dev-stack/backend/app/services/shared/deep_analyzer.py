@@ -491,7 +491,13 @@ def resolve_compile_image(analysis: Dict[str, Any]) -> Optional[str]:
         java_ver = _normalize_java_version(java_ver)
         build_tool = analysis.get("build_tool", "maven")
         if build_tool == "gradle":
-            return f"gradle:8.7-jdk{java_ver}-alpine"
+            gradle_by_java = {
+                "8": "gradle:7.6-jdk8",
+                "11": "gradle:8.7-jdk11",
+                "17": "gradle:8.12-jdk17",
+                "21": "gradle:8.12-jdk21",
+            }
+            return gradle_by_java.get(java_ver, f"gradle:8.12-jdk{java_ver}")
         else:
             return f"maven:3.9-eclipse-temurin-{java_ver}"
 

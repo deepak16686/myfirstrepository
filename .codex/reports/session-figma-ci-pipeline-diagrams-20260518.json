@@ -1,0 +1,42 @@
+{
+  "date": "2026-05-18",
+  "project": "ai-folder",
+  "goal": "Create accurate Figma/FigJam diagrams for the GitLab, Jenkins, and GitHub pipeline generator system.",
+  "figma_outputs": [
+    {
+      "name": "Component Architecture",
+      "url": "https://www.figma.com/online-whiteboard/create-diagram/a0d731e1-b969-407c-9031-a958b459916c"
+    },
+    {
+      "name": "Infrastructure Runtime",
+      "url": "https://www.figma.com/online-whiteboard/create-diagram/24e63781-d88d-473f-aedc-506d71878870"
+    },
+    {
+      "name": "Request Sequence",
+      "url": "https://www.figma.com/online-whiteboard/create-diagram/36288c4f-a634-4261-a512-78643c59d0b0"
+    },
+    {
+      "name": "Data Flow and Learning Loops",
+      "url": "https://www.figma.com/online-whiteboard/create-diagram/e662a1ce-1023-40cc-80b3-5c2babb5022e"
+    },
+    {
+      "name": "Provider Stage Matrix",
+      "url": "https://www.figma.com/online-whiteboard/create-diagram/938bae0d-3ccf-44a1-9ee9-b7c4466ad6f6"
+    },
+    {
+      "name": "File Responsibility Map",
+      "url": "https://www.figma.com/online-whiteboard/create-diagram/e2a505bc-aed0-48ba-83fb-ffffcb9ae423"
+    }
+  ],
+  "accuracy_notes": [
+    "Current code uses max 10 self-healing or validation fix attempts in the main paths; 9 refers to generated stage/job structure.",
+    "GitHub Actions path targets Gitea Actions in this codebase."
+  ],
+  "blockers": [
+    {
+      "tool": "Figma whoami/create/use_figma path",
+      "error": "UNAUTHORIZED reauthentication required",
+      "impact": "Native FigJam table node could not be created."
+    }
+  ]
+}

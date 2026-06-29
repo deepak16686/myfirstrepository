@@ -1,0 +1,1098 @@
+{
+  "session_id": "multi-language-version-rag-e2e-20260515",
+  "date": "2026-05-15",
+  "origin": "https://deepaksharma.live/pipelines",
+  "summary": {
+    "total": 363,
+    "passed": 363,
+    "failed": 0,
+    "logical_combinations": 121
+  },
+  "by_provider": {
+    "GitLab": {
+      "passed": 121,
+      "total": 121
+    },
+    "Jenkins": {
+      "passed": 121,
+      "total": 121
+    },
+    "Gitea": {
+      "passed": 121,
+      "total": 121
+    }
+  },
+  "by_language": {
+    "java": {
+      "passed": 60,
+      "total": 60
+    },
+    "python": {
+      "passed": 126,
+      "total": 126
+    },
+    "javascript": {
+      "passed": 27,
+      "total": 27
+    },
+    "typescript": {
+      "passed": 27,
+      "total": 27
+    },
+    "go": {
+      "passed": 27,
+      "total": 27
+    },
+    "rust": {
+      "passed": 12,
+      "total": 12
+    },
+    "ruby": {
+      "passed": 18,
+      "total": 18
+    },
+    "php": {
+      "passed": 18,
+      "total": 18
+    },
+    "dotnet": {
+      "passed": 12,
+      "total": 12
+    },
+    "csharp": {
+      "passed": 12,
+      "total": 12
+    },
+    "kotlin": {
+      "passed": 12,
+      "total": 12
+    },
+    "scala": {
+      "passed": 12,
+      "total": 12
+    }
+  },
+  "chroma_summary": {
+    "GitLab successful": 121,
+    "Jenkins successful": 121,
+    "Jenkins templates": 121,
+    "Gitea successful": 121,
+    "Gitea templates": 121
+  },
+  "chroma_by_language_per_collection": {
+    "java": 20,
+    "python": 42,
+    "javascript": 9,
+    "typescript": 9,
+    "go": 9,
+    "rust": 4,
+    "ruby": 6,
+    "php": 6,
+    "dotnet": 4,
+    "csharp": 4,
+    "kotlin": 4,
+    "scala": 4
+  },
+  "issues_fixed": [
+    {
+      "issue": "GitLab reusable-template validator rejected version-qualified framework keys such as fastapi-python3.11 and generic-ruby3.2.",
+      "fix": "Added language-version alias normalization and compatibility matching in pipeline template validation.",
+      "verification": "GitLab improved from 0/121 to 116/121, then passed 121/121 after the Java generic fix."
+    },
+    {
+      "issue": "GitLab java/generic version templates were found but rejected because the generic Java compile gate only accepted Gradle by default.",
+      "fix": "Allowed Maven, Gradle, and javac compile commands when generic Java does not specify a build tool.",
+      "verification": "Final public Chrome matrix passed 363/363."
+    }
+  ],
+  "files_changed": [
+    "/mnt/c/Users/deepak/ai-folder/services/devops-tools-backend/app/services/pipeline/templates.py",
+    "/mnt/c/Users/deepak/ai-folder/services/devops-tools-backend/app/routers/pipeline.py",
+    "/mnt/d/Repos/ai-folder/.Codex/live-backend/app/services/pipeline/templates.py",
+    "/mnt/d/Repos/ai-folder/.Codex/live-backend/app/routers/pipeline.py"
+  ],
+  "commands": [
+    "Chrome/Playwright full matrix through https://deepaksharma.live/pipelines: 363 checks",
+    "docker.exe cp patched backend files into devops-tools-backend",
+    "docker.exe restart devops-tools-backend",
+    "curl -k https://deepaksharma.live/api/v1/pipeline/providers health check",
+    "ChromaDB matrix count query across GitLab/Jenkins/Gitea collections",
+    "python3 -m py_compile patched backend files"
+  ],
+  "rows": [
+    {
+      "language": "java",
+      "version": "8",
+      "framework": "gradle",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "8",
+      "framework": "maven",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "8",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "8",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "11",
+      "framework": "gradle",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "11",
+      "framework": "maven",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "11",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "11",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "17",
+      "framework": "gradle",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "17",
+      "framework": "maven",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "17",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "17",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "21",
+      "framework": "gradle",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "21",
+      "framework": "maven",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "21",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "21",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "26",
+      "framework": "gradle",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "26",
+      "framework": "maven",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "26",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "java",
+      "version": "26",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.8",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.8",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.8",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.8",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.8",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.8",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.9",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.9",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.9",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.9",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.9",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.9",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.10",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.10",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.10",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.10",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.10",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.10",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.11",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.11",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.11",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.11",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.11",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.11",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.12",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.12",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.12",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.12",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.12",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.12",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.13",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.13",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.13",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.13",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.13",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.13",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.14",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.14",
+      "framework": "fastapi",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.14",
+      "framework": "django",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.14",
+      "framework": "flask",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.14",
+      "framework": "streamlit",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "python",
+      "version": "3.14",
+      "framework": "celery",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "18",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "18",
+      "framework": "express",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "18",
+      "framework": "react",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "20",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "20",
+      "framework": "express",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "20",
+      "framework": "react",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "22",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "22",
+      "framework": "express",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "javascript",
+      "version": "22",
+      "framework": "react",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "18",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "18",
+      "framework": "nestjs",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "18",
+      "framework": "nextjs",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "20",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "20",
+      "framework": "nestjs",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "20",
+      "framework": "nextjs",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "22",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "22",
+      "framework": "nestjs",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "typescript",
+      "version": "22",
+      "framework": "nextjs",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.21",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.21",
+      "framework": "gin",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.21",
+      "framework": "fiber",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.22",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.22",
+      "framework": "gin",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.22",
+      "framework": "fiber",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.23",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.23",
+      "framework": "gin",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "go",
+      "version": "1.23",
+      "framework": "fiber",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "rust",
+      "version": "1.89",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "rust",
+      "version": "1.89",
+      "framework": "actix",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "rust",
+      "version": "1.93",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "rust",
+      "version": "1.93",
+      "framework": "actix",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "ruby",
+      "version": "3.2",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "ruby",
+      "version": "3.2",
+      "framework": "rails",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "ruby",
+      "version": "3.3",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "ruby",
+      "version": "3.3",
+      "framework": "rails",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "ruby",
+      "version": "3.4",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "ruby",
+      "version": "3.4",
+      "framework": "rails",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "php",
+      "version": "8.2",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "php",
+      "version": "8.2",
+      "framework": "laravel",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "php",
+      "version": "8.3",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "php",
+      "version": "8.3",
+      "framework": "laravel",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "php",
+      "version": "8.4",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "php",
+      "version": "8.4",
+      "framework": "laravel",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "dotnet",
+      "version": "8.0",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "dotnet",
+      "version": "8.0",
+      "framework": "aspnet",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "dotnet",
+      "version": "9.0",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "dotnet",
+      "version": "9.0",
+      "framework": "aspnet",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "csharp",
+      "version": "8.0",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "csharp",
+      "version": "8.0",
+      "framework": "aspnet",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "csharp",
+      "version": "9.0",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "csharp",
+      "version": "9.0",
+      "framework": "aspnet",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "kotlin",
+      "version": "1.9",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "kotlin",
+      "version": "1.9",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "kotlin",
+      "version": "2.0",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "kotlin",
+      "version": "2.0",
+      "framework": "spring-boot",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "scala",
+      "version": "2.13",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "scala",
+      "version": "2.13",
+      "framework": "sbt",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "scala",
+      "version": "3.3",
+      "framework": "generic",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    },
+    {
+      "language": "scala",
+      "version": "3.3",
+      "framework": "sbt",
+      "GitLab": "PASS",
+      "Jenkins": "PASS",
+      "Gitea": "PASS"
+    }
+  ],
+  "artifacts": {
+    "screenshot": "output/playwright/multi-language-version-matrix-summary.png",
+    "markdown": ".Codex/reports/session-multi-language-version-rag-e2e-20260515.md",
+    "json": ".Codex/reports/session-multi-language-version-rag-e2e-20260515.json",
+    "html": ".Codex/reports/session-multi-language-version-rag-e2e-20260515.html"
+  }
+}

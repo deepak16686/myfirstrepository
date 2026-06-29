@@ -1,0 +1,66 @@
+{
+  "date": "2026-05-15",
+  "project": "ai-folder",
+  "goal": "End-to-end test Java 21 pipeline generation through deepaksharma.live, validate LLM and RAG paths, append/reuse Java 21 templates in ChromaDB, and preserve results.",
+  "browser_origin": "https://deepaksharma.live/pipelines",
+  "pipelines": [
+    {
+      "flow": "GitLab Java 21 Gradle",
+      "source": "chromadb-direct",
+      "pipeline_id": 842,
+      "status": "success",
+      "template_id": "success_java_gradle_be82e08494af",
+      "url": "https://gitlab.deepaksharma.live/gitlab/mygroup/java21-gradle-sample/-/pipelines/842"
+    },
+    {
+      "flow": "GitLab Java 21 Gradle",
+      "source": "forced LLM",
+      "pipeline_id": 843,
+      "status": "success",
+      "model": "Codex Code (gpt-5.5)",
+      "commit_id": "16b99b5b3a8491bc89251069940aa523db0f1753",
+      "url": "https://gitlab.deepaksharma.live/gitlab/mygroup/java21-gradle-rag-consumer-clean-20260514-043537/-/pipelines/843"
+    }
+  ],
+  "template_inventory": [
+    {
+      "provider": "GitLab",
+      "collection": "gitlab_successful_template",
+      "count": 12,
+      "java21_ids": [
+        "success_java_gradle_be82e08494af",
+        "success_java_spring-boot_6c0dba7eb6b7",
+        "success_java_generic_661eae586040",
+        "success_java_maven_0baa9dbf0bd2"
+      ]
+    },
+    {
+      "provider": "Jenkins",
+      "collection": "jenkins_successful_pipelines",
+      "count": 2,
+      "java21_frameworks": ["spring-boot", "generic"]
+    },
+    {
+      "provider": "Gitea",
+      "collection": "gitea_actions_successful_pipelines",
+      "count": 2,
+      "java21_frameworks": ["spring-boot", "generic"]
+    }
+  ],
+  "tests": [
+    {"name": "GitLab RAG pipeline run", "status": "pass", "evidence": "Pipeline 842 succeeded via chromadb-direct"},
+    {"name": "GitLab forced LLM pipeline run", "status": "pass", "evidence": "Pipeline 843 succeeded"},
+    {"name": "GitLab Spring Boot RAG lookup", "status": "pass", "evidence": "Public browser lookup returned Java 21"},
+    {"name": "GitLab generic RAG lookup", "status": "pass", "evidence": "Public browser lookup returned Java 21"},
+    {"name": "GitLab Maven RAG lookup", "status": "pass", "evidence": "Public browser lookup returned Java 21"},
+    {"name": "Jenkins direct RAG lookup", "status": "pass", "evidence": "Spring Boot and generic returned Java 21"},
+    {"name": "Gitea direct RAG lookup", "status": "pass", "evidence": "Spring Boot and generic returned Java 21"},
+    {"name": "Jenkins chat route", "status": "partial", "evidence": "Chat missed RAG and generated Java 17"},
+    {"name": "Gitea chat route", "status": "partial", "evidence": "Chat hit RAG but returned stale Java 17 content"}
+  ],
+  "artifacts": {
+    "markdown": ".Codex/reports/session-java21-rag-e2e-20260515.md",
+    "html": ".Codex/reports/session-java21-rag-e2e-20260515.html",
+    "screenshot": "output/playwright/java21-rag-e2e-summary.png"
+  }
+}

@@ -1,0 +1,87 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+        - generic [ref=e61]:
+          - paragraph [ref=e62]: Categories
+          - list
+          - paragraph [ref=e63]: Health
+          - list [ref=e64]:
+            - listitem [ref=e65]:
+              - button "Healthy" [ref=e66]:
+                - generic [ref=e68]: Healthy
+            - listitem [ref=e69]:
+              - button "Degraded" [ref=e70]:
+                - generic [ref=e72]: Degraded
+            - listitem [ref=e73]:
+              - button "Down" [ref=e74]:
+                - generic [ref=e76]: Down
+            - listitem [ref=e77]:
+              - button "Unknown" [ref=e78]:
+                - generic [ref=e80]: Unknown
+      - button "Collapse sidebar" [ref=e82]:
+        - img
+        - generic [ref=e83]: Collapse
+    - generic [ref=e84]:
+      - banner [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e87]
+          - searchbox "Search" [ref=e90]
+          - generic [ref=e91]:
+            - img [ref=e92]
+            - text: /
+        - button "Open command palette" [ref=e94]:
+          - generic [ref=e95]: Command
+          - generic [ref=e96]:
+            - generic [ref=e97]: Ctrl
+            - generic [ref=e98]: K
+        - generic [ref=e99]:
+          - button "Hide status rail" [pressed] [ref=e100]:
+            - img
+          - 'status "Tailscale status: Public route unavailable" [ref=e101]':
+            - img [ref=e103]
+            - generic [ref=e104]: Public route unavailable
+          - button "Notifications" [ref=e105]:
+            - img
+          - 'button "Theme: system (light)" [ref=e107]':
+            - img
+          - button "Account" [ref=e108]:
+            - generic [ref=e109]:
+              - img
+            - generic [ref=e110]: operator
+      - main [ref=e112]
+  - region "Notifications alt+T"

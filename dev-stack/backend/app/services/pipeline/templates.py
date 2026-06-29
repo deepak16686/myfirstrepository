@@ -12,6 +12,7 @@ Why Created: Extracted from the monolithic pipeline_generator.py to consolidate 
     generation orchestration and validation logic.
 """
 import hashlib
+import re
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 
@@ -29,6 +30,21 @@ from .default_templates import _get_default_gitlab_ci
 def _get_chromadb() -> ChromaDBIntegration:
     chromadb_config = tools_manager.get_tool("chromadb")
     return ChromaDBIntegration(chromadb_config)
+
+
+def _document_has_dockerfile(document: str) -> bool:
+    """Return True when a stored template has non-empty Dockerfile content."""
+    if not document or "### Dockerfile" not in document:
+        return False
+    match = re.search(r"```dockerfile\s*(.*?)```", document, re.DOTALL | re.IGNORECASE)
+    return bool(match and match.group(1).strip())
+
+
+def _infer_output_mode(document: str, metadata: Dict[str, Any]) -> str:
+    output_mode = str(metadata.get("output_mode") or "").replace("_", "-").lower()
+    if output_mode:
+        return output_mode
+    return "docker-image" if _document_has_dockerfile(document) else "direct-artifact"
 
 
 async def get_reference_pipeline(language: str, framework: str, build_tool: str = "") -> tuple:
@@ -237,9 +253,14 @@ async def get_best_template_files(
                 result['dockerfile'] = doc[start:end].strip()
                 print(f"[RL-Direct] Extracted dockerfile: {len(result['dockerfile'])} chars")
 
-        # Only return if we have at least gitlab-ci
-        if 'gitlab_ci' in result:
+        # Only return Docker-image templates here. Direct-artifact templates have
+        # no Dockerfile and must not be reused as Docker-image references.
+        if 'gitlab_ci' in result and result.get('dockerfile'):
+            result['output_mode'] = best.get('output_mode', 'docker-image')
             return result
+
+        if 'gitlab_ci' in result:
+            print("[RL-Direct] Skipping template without Dockerfile for Docker-image generation")
 
         return None
 
@@ -389,6 +410,8 @@ Source: manual_upload
             "language": language.lower(),
             "framework": framework.lower(),
             "build_tool": build_tool.lower() if build_tool else "",
+            "output_mode": "docker-image" if dockerfile else "direct-artifact",
+            "has_dockerfile": "true" if dockerfile else "false",
             "source": "manual_upload",
             "stages_count": stages_count,
             "duration": 0,  # Unknown for manual templates
@@ -501,11 +524,16 @@ Stages Passed: {', '.join(stages_passed) if stages_passed else 'all'}
 ```
 """
 
+        has_dockerfile = bool(dockerfile_content and dockerfile_content.strip())
+        output_mode = "docker-image" if has_dockerfile else "direct-artifact"
+
         # Metadata for filtering
         metadata = {
             "language": language.lower(),
             "framework": framework.lower(),
             "build_tool": build_tool.lower() if build_tool else "",
+            "output_mode": output_mode,
+            "has_dockerfile": "true" if has_dockerfile else "false",
             "pipeline_id": str(pipeline_id),
             "duration": duration or 0,
             "stages_count": len(stages_passed) if stages_passed else 8,
@@ -635,12 +663,18 @@ async def get_successful_pipelines(
         successful_configs = []
         for i, doc in enumerate(results.get('documents', [])):
             metadata = results.get('metadatas', [{}])[i] if i < len(results.get('metadatas', [])) else {}
+            output_mode = _infer_output_mode(doc, metadata)
+            has_dockerfile = _document_has_dockerfile(doc)
+            if output_mode == "direct-artifact":
+                continue
             successful_configs.append({
                 "id": results['ids'][i],
                 "document": doc,
                 "language": metadata.get('language', ''),
                 "framework": metadata.get('framework', ''),
                 "build_tool": metadata.get('build_tool', ''),
+                "output_mode": output_mode,
+                "has_dockerfile": has_dockerfile,
                 "pipeline_id": metadata.get('pipeline_id', ''),
                 "duration": metadata.get('duration', 0),
                 "timestamp": metadata.get('timestamp', ''),

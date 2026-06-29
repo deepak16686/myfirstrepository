@@ -1,0 +1,1517 @@
+- generic [ref=e2]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e5]:
+    - generic [ref=e8]:
+      - link "Clerk Home Page" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - img [ref=e10]
+      - navigation "Main" [ref=e28]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - button "Products" [ref=e32] [cursor=pointer]:
+              - generic [ref=e33]:
+                - text: Products
+                - generic [ref=e34]:
+                  - img [ref=e35]
+                  - img [ref=e37]
+          - listitem [ref=e39]:
+            - button "Docs" [ref=e40] [cursor=pointer]:
+              - generic [ref=e41]:
+                - text: Docs
+                - generic [ref=e42]:
+                  - img [ref=e43]
+                  - img [ref=e45]
+          - listitem [ref=e47]:
+            - button "Changelog" [ref=e48] [cursor=pointer]:
+              - generic [ref=e49]:
+                - text: Changelog
+                - generic [ref=e50]:
+                  - img [ref=e51]
+                  - img [ref=e53]
+          - listitem [ref=e55]:
+            - button "Company" [ref=e56] [cursor=pointer]:
+              - generic [ref=e57]:
+                - text: Company
+                - generic [ref=e58]:
+                  - img [ref=e59]
+                  - img [ref=e61]
+          - listitem [ref=e63]:
+            - link "Pricing" [ref=e64] [cursor=pointer]:
+              - /url: /pricing
+              - generic [ref=e65]: Pricing
+      - generic [ref=e68]:
+        - button "Sign in" [ref=e69] [cursor=pointer]:
+          - generic: Sign in
+        - link "Start building" [ref=e71] [cursor=pointer]:
+          - /url: /docs/quickstart
+          - generic [ref=e72]: Start building
+          - img [ref=e73]
+          - img [ref=e75]
+  - main [ref=e77]:
+    - link "Clerk raises $50m Series C" [ref=e78] [cursor=pointer]:
+      - /url: /blog/series-c
+      - generic [ref=e80]: Clerk raises $50m Series C
+      - generic [ref=e83]:
+        - text: Learn more
+        - img [ref=e84]
+        - img [ref=e86]
+    - generic [ref=e89]:
+      - img
+      - generic [ref=e90]:
+        - heading "More than authentication, Complete User Management" [level=1] [ref=e91]
+        - paragraph [ref=e92]: Need more than sign-in? Clerk gives you full stack auth and user management — so you can launch faster, scale easier, and stay focused on building your business.
+        - generic [ref=e93]:
+          - link "Start building for free" [ref=e95] [cursor=pointer]:
+            - /url: /docs/quickstart
+          - button "Build with agents" [ref=e96] [cursor=pointer]:
+            - generic [ref=e97]: Build with agents
+            - img [ref=e98]
+    - generic [ref=e102]:
+      - paragraph [ref=e103]: Trusted by fast-growing companies around the world.
+      - list [ref=e104]:
+        - listitem [ref=e105]:
+          - list [ref=e107]:
+            - listitem [ref=e108]:
+              - img "Browserbase" [ref=e109]
+            - listitem [ref=e110]:
+              - img "Inngest" [ref=e111]
+            - listitem [ref=e112]:
+              - img "Profound" [ref=e113]
+            - listitem [ref=e114]:
+              - img "Browserbase" [ref=e115]
+        - listitem [ref=e116]:
+          - list [ref=e118]:
+            - listitem [ref=e119]:
+              - img "Braintrust" [ref=e120]
+            - listitem [ref=e121]:
+              - img "Durable" [ref=e122]
+            - listitem [ref=e123]:
+              - img "OpenRouter" [ref=e124]
+            - listitem [ref=e125]:
+              - img "Braintrust" [ref=e126]
+        - listitem [ref=e127]:
+          - list [ref=e129]:
+            - listitem [ref=e130]:
+              - img "Higgsfield" [ref=e131]
+            - listitem [ref=e132]:
+              - img "Upstash" [ref=e133]
+            - listitem [ref=e134]:
+              - img "Samaya AI" [ref=e135]
+            - listitem [ref=e136]:
+              - img "Higgsfield" [ref=e137]
+        - listitem [ref=e138]:
+          - list [ref=e140]:
+            - listitem [ref=e141]:
+              - img "Consensus" [ref=e142]
+            - listitem [ref=e143]:
+              - img "Cartesia" [ref=e144]
+            - listitem [ref=e145]:
+              - img "David AI" [ref=e146]
+            - listitem [ref=e147]:
+              - img "Consensus" [ref=e148]
+    - generic [ref=e152]:
+      - generic [ref=e153]:
+        - heading "Clerk Components" [level=2] [ref=e154]
+        - paragraph [ref=e155]: Pixel-perfect UIs, embedded in minutes
+        - paragraph [ref=e156]: Drop-in UI components for authentication, profile management, organization management, and billing. Match to your brand with any CSS library, then deploy to your own domain.
+        - link "Explore all components" [ref=e157] [cursor=pointer]:
+          - /url: /docs/reference/components/overview
+          - text: Explore all components
+          - img [ref=e158]
+          - img [ref=e160]
+      - generic [ref=e162]:
+        - generic [ref=e163]:
+          - heading "User Authentication" [level=3] [ref=e164]:
+            - button "User Authentication" [disabled] [expanded] [ref=e165]:
+              - text: User Authentication
+              - img [ref=e167]
+          - group "User Authentication" [ref=e169]:
+            - generic [ref=e171]:
+              - paragraph [ref=e172]:
+                - text: Add user
+                - code [ref=e173]: <SignUp/>
+                - text: and
+                - code [ref=e174]: <SignIn/>
+                - text: ", provide account access through a dropdown menu, and manage profile and security settings."
+              - list [ref=e175]:
+                - listitem [ref=e176]:
+                  - button "<SignUp />" [ref=e177] [cursor=pointer]
+                - listitem [ref=e178]:
+                  - button "<SignIn />" [ref=e179] [cursor=pointer]
+                - listitem [ref=e180]:
+                  - button "<UserButton />" [ref=e181] [cursor=pointer]
+                - listitem [ref=e182]:
+                  - button "<UserProfile />" [ref=e183] [cursor=pointer]
+                - listitem [ref=e184]:
+                  - button "<Waitlist />" [ref=e185] [cursor=pointer]
+        - generic [ref=e186]:
+          - heading "B2B Authentication" [level=3] [ref=e187]:
+            - button "B2B Authentication" [ref=e188] [cursor=pointer]:
+              - text: B2B Authentication
+              - img [ref=e190]
+          - generic [ref=e192]:
+            - paragraph [ref=e193]: Allow your users to create new organizations, switch between accounts, manage settings and billing, and view memberships and invitations.
+            - list [ref=e194]:
+              - listitem [ref=e195]:
+                - button [ref=e196] [cursor=pointer]: <CreateOrganization />
+              - listitem [ref=e197]:
+                - button [ref=e198] [cursor=pointer]: <OrganizationSwitcher />
+              - listitem [ref=e199]:
+                - button [ref=e200] [cursor=pointer]: <OrganizationProfile />
+              - listitem [ref=e201]:
+                - button [ref=e202] [cursor=pointer]: <OrganizationList />
+        - generic [ref=e203]:
+          - heading "Billing" [level=3] [ref=e204]:
+            - button "Billing" [ref=e205] [cursor=pointer]:
+              - text: Billing
+              - img [ref=e207]
+          - generic [ref=e209]:
+            - paragraph [ref=e210]: Display pricing plans with feature comparisons and subscription options to help your users choose the right plan for their needs.
+            - list [ref=e211]:
+              - listitem [ref=e212]:
+                - button [ref=e213] [cursor=pointer]: <PricingTable />
+              - listitem [ref=e214]:
+                - button [ref=e215] [cursor=pointer]:
+                  - generic [ref=e216]: <UserProfile />
+                  - generic [ref=e217]:
+                    - img [ref=e218]
+                    - img [ref=e220]
+                  - generic [ref=e223]: Billing
+              - listitem [ref=e224]:
+                - button [ref=e225] [cursor=pointer]:
+                  - generic [ref=e226]: <OrganizationProfile />
+                  - generic [ref=e227]:
+                    - img [ref=e228]
+                    - img [ref=e230]
+                  - generic [ref=e233]: Billing
+      - generic [ref=e236]:
+        - generic [ref=e239]:
+          - generic [ref=e240]:
+            - generic [ref=e244]:
+              - img "Clerk user button component displaying the profile picture of the signed-in user." [ref=e246]
+              - img "Clerk user button component expanded to display account switcher, manage account, and sign out options." [ref=e248]
+            - img "Clerk user profile component with options to manage profile and security settings." [ref=e250]
+            - img "Clerk create organization component with input fields for logo, name, and slug." [ref=e256]
+          - generic [ref=e258]:
+            - img "Clerk pricing table component displaying the name, price, and features for a plan, with a button to subscribe." [ref=e261]
+            - img "Clerk waitlist component with an input field for email address and a button to join the waitlist." [ref=e263]
+            - img "Clerk sign up component with input fields for first name, last name, username, email, phone number, and password." [ref=e266]
+            - img "Clerk sign in component with options to authenticate using Google, GitHub, or email." [ref=e268]
+          - generic [ref=e270]:
+            - img "Clerk organization switcher component expanded to display a list of available organizations and a button to create a new organization." [ref=e275]
+            - img "Clerk organization profile component with options to manage the profile and member settings." [ref=e280]
+            - img "Clerk organization list component showing a list of available organizations, with buttons to create a new organization or join an existing organization." [ref=e283]
+        - generic [ref=e289]:
+          - generic [ref=e290]:
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - img "User avatar" [ref=e300]
+                - generic [ref=e303]:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "User avatar"
+                          - generic:
+                            - generic: Cameron Walker
+                            - generic: cameron.walker@gmail.com
+                      - generic:
+                        - generic:
+                          - img
+                          - text: Manage Account
+                        - generic:
+                          - img
+                          - text: Sign out
+                      - separator
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "User avatar"
+                          - generic:
+                            - generic: Cameron Walker
+                            - generic: cameron@work.com
+                      - separator
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: CW
+                          - generic:
+                            - generic: Cameron Walker
+                            - generic: cameron@personal.com
+                        - img
+                      - separator
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                        - text: Add account
+                    - generic:
+                      - generic:
+                        - img
+                      - text: Sign out of all accounts
+                    - separator
+                    - generic:
+                      - generic: Secured by
+                      - img
+              - img [ref=e308]
+            - generic [ref=e314]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Account" [level=2]
+                      - paragraph: Manage your account info.
+                    - generic:
+                      - generic:
+                        - img
+                        - paragraph: Profile
+                      - generic:
+                        - img
+                        - paragraph: Security
+                      - generic:
+                        - img
+                        - paragraph: Billing
+                      - generic:
+                        - img
+                        - paragraph: API keys
+                  - generic:
+                    - text: Secured by
+                    - img
+                - generic:
+                  - generic:
+                    - heading "Profile details" [level=2]
+                    - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Profile
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "User avatar"
+                        - paragraph: Cameron Walker
+                        - paragraph: Update profile
+                  - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Email Addresses
+                    - generic:
+                      - generic:
+                        - paragraph: cameron@personal.com
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - paragraph: Add email address
+                  - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Phone number
+                    - generic:
+                      - generic:
+                        - paragraph: +1 (555) 123-4567
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - paragraph: Add phone number
+                  - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Connected accounts
+                    - generic:
+                      - generic:
+                        - img
+                        - paragraph: Google
+                        - paragraph: ·
+                        - paragraph: example@gmail.com
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - paragraph: Connect account
+              - img [ref=e318]
+            - generic [ref=e328]:
+              - generic:
+                - generic:
+                  - heading "Create Organization" [level=2]
+                  - generic:
+                    - generic:
+                      - generic: Logo
+                    - generic:
+                      - generic:
+                        - img
+                      - generic:
+                        - generic:
+                          - paragraph: Upload
+                        - paragraph: Recommended size 1:1, up to 10MB.
+                  - generic:
+                    - generic:
+                      - generic: Name
+                    - generic:
+                      - generic:
+                        - generic: Organization name
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: Slug URL
+                      - generic:
+                        - generic:
+                          - generic: my-org
+                    - generic: Create organization
+                - generic:
+                  - generic: Secured by
+                  - img
+              - img [ref=e332]
+          - generic [ref=e337]:
+            - generic [ref=e341]:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - generic:
+                      - paragraph: Silver
+                      - paragraph: For personal use
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "$19.99":
+                              - generic:
+                                - generic: $
+                              - generic:
+                                - generic:
+                                  - generic: "1"
+                                  - generic: "9"
+                                - generic:
+                                  - generic: .
+                                  - generic: "9"
+                                  - generic: "9"
+                        - paragraph: / month
+                      - generic:
+                        - generic: Billed annually
+                - generic:
+                  - generic: Start 14-day free trial
+                - generic:
+                  - generic:
+                    - img
+                    - paragraph: Handmade Rubber Fish
+                  - generic:
+                    - img
+                    - paragraph: Handmade Plastic Cheese
+                  - generic:
+                    - img
+                    - paragraph: Incredible Concrete Chair
+                  - generic:
+                    - img
+                    - paragraph: Tasty Steel Soap
+                  - generic:
+                    - img
+                    - paragraph: Fantastic Wooden Chips
+                - generic: Current plan
+              - img [ref=e345]
+            - generic [ref=e351]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - heading "Join the waitlist" [level=1]
+                      - paragraph: Enter your email address and we'll let you know when your spot is ready.
+                      - generic:
+                        - heading "Thanks for joining the waitlist" [level=1]
+                        - paragraph: We'll be in touch when your spot is ready
+                  - generic:
+                    - generic:
+                      - generic: Email address
+                      - generic:
+                        - generic:
+                          - generic: Enter your email address
+                    - generic: Join the waitlist
+                - generic:
+                  - text: Already have access?
+                  - generic: Sign in
+                - separator
+                - generic:
+                  - generic: Secured by
+                  - img
+              - img [ref=e355]
+            - generic [ref=e361]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - heading "Create your account" [level=1]
+                      - paragraph: Welcome! Please fill in the details to get started.
+                  - generic:
+                    - generic:
+                      - generic: Last used
+                      - img
+                      - paragraph: Continue with Google
+                    - generic:
+                      - img
+                      - paragraph: Continue with GitHub
+                  - generic:
+                    - separator
+                    - generic: or
+                    - separator
+                  - generic:
+                    - generic:
+                      - generic: Email address
+                      - generic: Last used
+                    - generic:
+                      - generic:
+                        - generic: Enter your email address
+                  - generic:
+                    - generic:
+                      - generic: Password
+                    - generic:
+                      - generic:
+                        - generic: Enter your password
+                  - generic:
+                    - text: Continue
+                    - generic:
+                      - img
+                      - generic:
+                        - img
+                - generic:
+                  - generic: Already have an account?
+                  - generic: Sign in
+                - generic:
+                  - generic: Secured by
+                  - img
+              - img [ref=e365]
+            - generic [ref=e371]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - heading "Sign in to your account" [level=1]
+                      - paragraph: Welcome back! Please sign in to continue
+                  - generic:
+                    - generic:
+                      - generic: Last used
+                      - img
+                      - paragraph: Continue with Google
+                    - generic:
+                      - img
+                      - paragraph: Continue with GitHub
+                  - generic:
+                    - separator
+                    - generic: or
+                    - separator
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: Email address
+                        - generic: Last used
+                      - generic:
+                        - generic:
+                          - generic: Enter your email address
+                    - generic:
+                      - text: Continue
+                      - generic:
+                        - img
+                        - generic:
+                          - img
+                - generic:
+                  - generic: Secured by
+                  - img
+              - img [ref=e375]
+          - generic [ref=e380]:
+            - generic [ref=e385]:
+              - generic [ref=e386]:
+                - generic [ref=e387]:
+                  - img [ref=e391]
+                  - generic [ref=e394]: Test Organization
+                  - img [ref=e395]
+                - generic [ref=e398]:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic:
+                            - generic: Test Organization
+                            - generic: Member
+                        - generic:
+                          - img
+                          - generic: Manage
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "User avatar"
+                          - generic:
+                            - generic: Personal account
+                        - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "User avatar"
+                          - generic:
+                            - generic: Clerk App
+                            - generic: Admin
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                        - text: Create organization
+                    - generic:
+                      - generic: Secured by
+                      - img
+              - img [ref=e403]
+            - generic [ref=e412]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Organization" [level=2]
+                      - paragraph: Manage your organization
+                    - generic:
+                      - generic:
+                        - img
+                        - paragraph: General
+                      - generic:
+                        - img
+                        - paragraph: Members
+                      - generic:
+                        - img
+                        - paragraph: Billing
+                      - generic:
+                        - img
+                        - paragraph: API keys
+                  - generic:
+                    - text: Secured by
+                    - img
+                - generic:
+                  - generic:
+                    - heading "General details" [level=2]
+                    - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Organization profile
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Organization avatar"
+                        - paragraph: Clerk Sample Apps
+                        - paragraph: Update profile
+                  - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Verified domains
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - paragraph: Add domain
+                          - paragraph: Allow users to join the organization automatically or request to join based on a verified email domain.
+                  - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Leave organization
+                    - generic:
+                      - generic:
+                        - paragraph: Leave organization
+                  - separator
+                  - generic:
+                    - generic:
+                      - paragraph: Delete organization
+                    - generic:
+                      - generic:
+                        - paragraph: Delete organization
+              - img [ref=e416]
+            - generic [ref=e423]:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - heading "Choose an account" [level=1]
+                    - paragraph: Select the account with which you wish to continue.
+                - generic:
+                  - generic:
+                    - generic:
+                      - img "User avatar"
+                    - generic:
+                      - generic: Personal account
+                  - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - img "User avatar"
+                    - generic:
+                      - generic: Clerk App
+                      - generic: Admin
+                  - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - img "User avatar"
+                    - generic:
+                      - generic: Clerk Sample Apps
+                      - generic: Admin
+                  - generic:
+                    - generic: Request to join
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic: Clerk Sample Apps
+                      - generic: Admin
+                  - generic:
+                    - generic: Join
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                  - text: Create organization
+              - generic:
+                - generic: Secured by
+                - img
+              - img [ref=e427]
+    - generic [ref=e434]:
+      - generic [ref=e437]:
+        - img [ref=e438]
+        - img [ref=e440]
+      - generic [ref=e444]:
+        - generic [ref=e445]:
+          - heading "User authentication" [level=2] [ref=e446]
+          - paragraph [ref=e447]: Everything you need for authentication
+          - paragraph [ref=e448]: Ever feel like authentication requirements change with the season? Clerk keeps up with the latest trends and security best practices.
+          - link "Explore user authentication" [ref=e449] [cursor=pointer]:
+            - /url: /user-authentication
+            - text: Explore user authentication
+            - img [ref=e450]
+            - img [ref=e452]
+        - generic [ref=e454]:
+          - generic [ref=e455]:
+            - generic [ref=e457]:
+              - heading "Multifactor Authentication" [level=3] [ref=e459]
+              - generic [ref=e461]: Each user's self-serve multifactor settings are enforced automatically during sign-in.
+            - generic [ref=e462]:
+              - generic [ref=e463]:
+                - heading "Fraud and Abuse Prevention" [level=3] [ref=e465]
+                - generic [ref=e467]: Reduce fraudulent sign-ups and free trial abuse by blocking high-risk disposable email domains and restricting the use of email subaddresses with the “+” separator.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                      - generic: Fraudulent sign-ups detected
+                      - generic: 14:09
+                    - generic:
+                      - generic:
+                        - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                          - generic:
+                            - generic: bad_actor+1@email.com
+                            - generic: Blocked Aug 4 at 14:09
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                          - generic:
+                            - generic: bad_actor+2@email.com
+                            - generic: Blocked Aug 4 at 14:10
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                          - generic:
+                            - generic: another.bad.actor@throwaway.com
+                            - generic: Blocked Aug 4 at 14:12
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                          - generic:
+                            - generic: bad_actor+3@email.com
+                            - generic: Blocked Aug 4 at 14:16
+            - generic [ref=e468]:
+              - generic [ref=e469]:
+                - heading "Advanced security" [level=3] [ref=e471]
+                - generic [ref=e473]: Clerk is SOC 2 type 2 compliant and CCPA compliant. We conduct regular third-party audits and penetration tests.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                    - generic:
+                      - generic:
+                        - img
+                    - img
+            - generic [ref=e474]:
+              - generic [ref=e475]:
+                - heading "Session Management" [level=3] [ref=e477]
+                - generic [ref=e479]: Clerk manages the full session lifecycle, including critical security functionality like active device monitoring and session revocation.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                      - generic:
+                        - generic: Device
+                        - generic: MacBook Pro
+                      - generic:
+                        - generic: Browser
+                        - generic: Chrome
+                      - generic:
+                        - generic: Location
+                        - generic: San Francisco, CA
+                      - generic: Sign out of device
+                    - img
+                    - img
+                    - generic:
+                      - img
+            - generic [ref=e480]:
+              - generic [ref=e481]:
+                - heading "Social Sign-On" [level=3] [ref=e483]
+                - generic [ref=e485]: Add high-conversion Social Sign-on (SSO) to your application in minutes. 20+ options and growing.
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - generic:
+                      - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                  - generic:
+                    - generic:
+                      - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                      - generic:
+                        - img
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                      - img
+            - generic [ref=e486]:
+              - generic [ref=e487]:
+                - heading "Bot Detection" [level=3] [ref=e489]
+                - generic [ref=e491]: Dramatically reduce fraudulent sign-ups with built-in, continually updated machine learning.
+              - generic:
+                - generic:
+                  - img
+                  - img
+                  - img
+                  - generic:
+                    - img
+            - generic [ref=e492]:
+              - generic [ref=e493]:
+                - heading "Email and SMS one-time passcodes" [level=3] [ref=e495]
+                - generic [ref=e497]: Fast and reliable one-time passcode delivery with built-in brute force prevention.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Security alert
+                          - generic: Your security passcode is 764676
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic: Phone
+                        - generic:
+                          - generic:
+                            - img
+                            - generic: "1"
+                          - generic: SMS
+                        - generic:
+                          - generic:
+                            - img
+                          - generic: Books
+                        - generic:
+                          - generic:
+                            - img
+                          - generic: TV
+                        - generic:
+                          - generic: Google
+                        - generic:
+                          - generic: X
+                        - generic:
+                          - generic: NatWest
+                        - generic:
+                          - generic: Clerk
+            - generic [ref=e498]:
+              - generic [ref=e499]:
+                - heading "Magic Links" [level=3] [ref=e501]
+                - generic [ref=e503]: Improve sign-up conversion rates and filter out spam/fraud with Magic Links.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Yb9WrnC5nFrvvz
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                      - generic:
+                        - generic: Joseph Cole
+                      - generic: j.cole@⁠example.com
+            - generic [ref=e504]:
+              - generic [ref=e505]:
+                - heading "Passwords" [level=3] [ref=e507]
+                - generic [ref=e509]: Simple and secure password authentication, complete with breach detection and recovery options.
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+          - generic [ref=e510]:
+            - generic [ref=e512]:
+              - generic [ref=e513]:
+                - heading "API Keys" [level=3] [ref=e515]
+                - generic [ref=e517]:
+                  - text: Give every user secure, production-ready API keys without
+                  - text: building any of the underlying boilerplate code or UI.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                          - generic: Authenticating...
+                      - generic:
+                        - generic:
+                          - img
+            - generic [ref=e519]:
+              - generic [ref=e520]:
+                - heading "MCP Server" [level=3] [ref=e522]
+                - generic [ref=e524]: Add secure, consent-driven access to your app with Clerk's MCP Server, all backed by Clerk's authentication and authorization.
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - img
+                  - generic:
+                    - generic:
+                      - img
+                      - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+    - generic [ref=e526]:
+      - img [ref=e527]
+      - img [ref=e530]
+    - generic [ref=e532]:
+      - generic [ref=e533]:
+        - heading "B2B Authentication" [level=2] [ref=e534]
+        - paragraph [ref=e535]: The easy solution to multi-tenancy
+        - paragraph [ref=e536]: Clerk has all the features you need to onboard and manage the users and organizations of your multi-tenant SaaS application.
+        - link "Explore B2B features" [ref=e537] [cursor=pointer]:
+          - /url: /organizations
+          - text: Explore B2B features
+          - img [ref=e538]
+          - img [ref=e540]
+      - generic [ref=e542]:
+        - generic [ref=e543]:
+          - generic [ref=e544]:
+            - heading "Custom roles and permissions" [level=3] [ref=e546]
+            - generic [ref=e548]: Powerful primitives to fully customize your app's authorization story.
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - img
+              - generic:
+                - generic:
+                  - generic: Product Member
+                  - generic: Administrator
+                  - generic: Editor
+                  - generic: QA Tester
+                  - generic: Owner
+                  - generic: Engineer
+                  - generic: Marketing
+                  - generic: Human Resources
+        - generic [ref=e549]:
+          - generic [ref=e550]:
+            - heading "Auto-join" [level=3] [ref=e552]
+            - generic [ref=e554]: Let your users discover and join organizations based on their email domain.
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - img
+                - text: Auto-join
+        - generic [ref=e555]:
+          - generic [ref=e556]:
+            - heading "Invitations" [level=3] [ref=e558]
+            - generic [ref=e560]: Fuel your application's growth by making it simple for your customers to invite their team.
+          - generic:
+            - generic:
+              - generic:
+                - img
+                - text: Invite this person
+                - generic:
+                  - img
+        - generic [ref=e561]:
+          - generic [ref=e562]:
+            - heading "Organization UI Components" [level=3] [ref=e564]
+            - generic [ref=e566]: Clerk's UI components add turn-key simplicity to complex Organization management tasks.
+          - generic:
+            - generic:
+              - generic:
+                - img
+                - text: Clerk
+                - img
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Bluth Company
+                          - generic: Mr. Manager
+                        - generic:
+                          - img
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Dunder Mifflin
+                          - generic: Asst (to the) Regional Manager
+                      - generic:
+                        - generic:
+                          - generic: Personal account
+                      - generic:
+                        - img
+                        - generic:
+                          - generic: Create organization
+                    - generic:
+                      - text: Secured by
+                      - img
+    - generic [ref=e569]:
+      - generic [ref=e570]:
+        - heading "Billing" [level=2] [ref=e571]
+        - paragraph [ref=e572]: Subscription billing, without the headache
+        - generic [ref=e573]:
+          - paragraph [ref=e574]: Add subscriptions to your B2C or B2B application without having to write payment code, custom UI, or wrangle webhooks. Just drop in React components and start earning recurring revenue.
+          - paragraph [ref=e575]: "Here’s what you can do out of the box:"
+          - list [ref=e576]:
+            - listitem [ref=e577]:
+              - img [ref=e578]
+              - text: Define and manage plans
+            - listitem [ref=e580]:
+              - img [ref=e581]
+              - text: Unify user and subscription data
+            - listitem [ref=e583]:
+              - img [ref=e584]
+              - text: Gate access to content
+        - link "Explore Billing features" [ref=e586] [cursor=pointer]:
+          - /url: /billing
+          - text: Explore Billing features
+          - img [ref=e587]
+          - img [ref=e589]
+      - generic [ref=e592]:
+        - generic [ref=e596]: Acme, Inc.
+        - generic [ref=e600]:
+          - generic [ref=e601]:
+            - generic [ref=e602]:
+              - img [ref=e603]
+              - generic [ref=e607]: Product
+              - generic [ref=e608]: Pricing
+              - generic [ref=e609]: Integrations
+              - generic [ref=e610]: Blog
+              - img [ref=e611]
+            - generic [ref=e615]: Tailor made pricing from Acme, Inc.
+            - generic [ref=e616]: Free 365-day trial, no credit-card required.
+            - generic [ref=e620]:
+              - generic [ref=e621]:
+                - generic [ref=e622]:
+                  - generic [ref=e623]: Starter Acme Plan
+                  - generic [ref=e624]:
+                    - generic [ref=e625]: $9
+                    - generic [ref=e626]: / month
+                  - generic [ref=e630]: Billed annually
+                - generic [ref=e632]: Get started
+                - generic [ref=e634]:
+                  - generic [ref=e635]:
+                    - img [ref=e636]
+                    - text: Custom branding
+                  - generic [ref=e638]:
+                    - img [ref=e639]
+                    - text: Mobile app integration
+                  - generic [ref=e641]:
+                    - img [ref=e642]
+                    - text: Daily backups
+                  - generic [ref=e644]:
+                    - img [ref=e645]
+                    - text: Collaboration tools
+                  - generic [ref=e647]:
+                    - img [ref=e648]
+                    - text: Basic design file inspection
+              - generic [ref=e650]:
+                - generic [ref=e651]:
+                  - generic [ref=e652]: Pro Acme Plan
+                  - generic [ref=e653]:
+                    - generic [ref=e654]: $19
+                    - generic [ref=e655]: / month
+                  - generic [ref=e659]: Billed annually
+                - generic [ref=e661]: Get started
+                - generic [ref=e663]:
+                  - generic [ref=e664]:
+                    - img [ref=e665]
+                    - text: Everything included in Starter
+                  - generic [ref=e667]:
+                    - img [ref=e668]
+                    - text: Unlimited projects
+                  - generic [ref=e670]:
+                    - img [ref=e671]
+                    - text: 24/7 priority support
+                  - generic [ref=e673]:
+                    - img [ref=e674]
+                    - text: Advanced analytics
+                  - generic [ref=e676]:
+                    - img [ref=e677]
+                    - text: Centralized admin tools
+          - generic [ref=e680]:
+            - generic [ref=e681]:
+              - text: Checkout
+              - img [ref=e682]
+            - generic [ref=e684]:
+              - generic [ref=e685]:
+                - generic [ref=e686]:
+                  - generic [ref=e687]:
+                    - generic [ref=e688]: Starter Acme Plan
+                    - generic [ref=e689]: $9.00
+                  - generic [ref=e690]: per month
+                  - separator [ref=e691]
+                  - generic [ref=e692]:
+                    - generic [ref=e693]: Tax
+                    - generic [ref=e694]: $5.00
+                  - generic [ref=e695]:
+                    - generic [ref=e696]: Total Due Today
+                    - generic [ref=e697]: USD
+                    - generic [ref=e698]: $14.00
+                - generic [ref=e699]:
+                  - generic [ref=e700]:
+                    - generic [ref=e701]:
+                      - text: Account Funds
+                      - img [ref=e702]
+                    - generic [ref=e704]:
+                      - generic [ref=e705]:
+                        - img [ref=e706]
+                        - text: Visa ⋯ 4242
+                        - img [ref=e709]
+                      - generic [ref=e711]: Pay $14.00
+                  - generic [ref=e715]: or
+                  - generic [ref=e717]:
+                    - generic [ref=e718]:
+                      - text: Add a New Payment Source
+                      - img [ref=e719]
+                    - generic [ref=e721]:
+                      - generic [ref=e722]:
+                        - text: Pay with
+                        - img [ref=e723]
+                      - generic [ref=e725]: More Payment Methods
+              - generic [ref=e726]:
+                - generic [ref=e727]:
+                  - img [ref=e731]
+                  - generic [ref=e737]: Payment was successful!
+                  - generic [ref=e738]: Your new subscription is all set.
+                - generic [ref=e739]:
+                  - generic [ref=e740]:
+                    - generic [ref=e741]: Total paid
+                    - generic [ref=e742]: $14.00
+                  - generic [ref=e743]:
+                    - generic [ref=e744]: Payment method
+                    - img [ref=e745]
+                    - generic [ref=e748]: Visa
+                  - generic [ref=e749]:
+                    - generic [ref=e750]: Payment ID
+                    - generic [ref=e751]: cinv-cpayer_393JW...J1938
+                    - img [ref=e752]
+                  - generic [ref=e754]: Go to app
+          - img [ref=e757]
+    - generic [ref=e759]:
+      - generic [ref=e762]:
+        - img [ref=e763]
+        - img [ref=e765]
+      - generic [ref=e769]:
+        - generic [ref=e770]:
+          - heading "Frameworks" [level=2] [ref=e771]
+          - paragraph [ref=e772]: Build with SDKs for modern frameworks
+          - paragraph [ref=e773]: Clerk keeps developer experience front-and-center by providing helpful SDKs for most modern frameworks on web and mobile.
+          - link "All frameworks" [ref=e774] [cursor=pointer]:
+            - /url: /docs#frontend-frameworks
+            - text: All frameworks
+            - img [ref=e775]
+            - img [ref=e777]
+        - generic [ref=e779]:
+          - link "Next.js" [ref=e780] [cursor=pointer]:
+            - /url: /docs/nextjs/getting-started/quickstart
+            - generic [ref=e785]: Next.js
+          - link "React" [ref=e786] [cursor=pointer]:
+            - /url: /docs/react/getting-started/quickstart
+            - generic [ref=e791]: React
+          - link "Expo" [ref=e792] [cursor=pointer]:
+            - /url: /docs/expo/getting-started/quickstart
+            - generic [ref=e797]: Expo
+          - link "React Router" [ref=e798] [cursor=pointer]:
+            - /url: /docs/react-router/getting-started/quickstart
+            - generic [ref=e803]: React Router
+          - link "TanStack React Start" [ref=e804] [cursor=pointer]:
+            - /url: /docs/tanstack-react-start/getting-started/quickstart
+            - generic [ref=e809]: TanStack React Start
+          - link "Astro" [ref=e810] [cursor=pointer]:
+            - /url: /docs/astro/getting-started/quickstart
+            - generic [ref=e815]: Astro
+        - generic [ref=e816]:
+          - heading "Integrations" [level=2] [ref=e817]
+          - paragraph [ref=e818]: Integrate with the tools you love
+          - paragraph [ref=e819]: Leverage Clerk as the source of truth for your user data and integrate with the tools that you already depend on.
+          - link "All integrations" [ref=e820] [cursor=pointer]:
+            - /url: /docs/guides/development/integrations/overview
+            - text: All integrations
+            - img [ref=e821]
+            - img [ref=e823]
+        - generic [ref=e825]:
+          - link "Supabase" [ref=e826] [cursor=pointer]:
+            - /url: /docs/guides/development/integrations/databases/supabase
+            - generic [ref=e831]: Supabase
+          - link "Convex" [ref=e832] [cursor=pointer]:
+            - /url: /docs/guides/development/integrations/databases/convex
+            - generic [ref=e837]: Convex
+          - link "Vercel" [ref=e838] [cursor=pointer]:
+            - /url: /docs/guides/development/integrations/platforms/vercel-marketplace
+            - generic [ref=e843]: Vercel
+    - generic [ref=e845]:
+      - img [ref=e846]
+      - img [ref=e849]
+    - generic [ref=e851]:
+      - generic [ref=e853]:
+        - generic [ref=e854]:
+          - heading "What people are saying" [level=2] [ref=e855]
+          - paragraph [ref=e856]: Trusted by startups and the world's largest companies
+          - paragraph [ref=e857]: Join the growing number of customers and champions who trust Clerk for authentication and user management.
+        - list [ref=e863]:
+          - listitem [ref=e864]:
+            - figure "Name Guillermo Rauch Role CEO Company Vercel" [ref=e865]:
+              - blockquote [ref=e866]:
+                - paragraph [ref=e867]: “ The best practices built-in to their <SignIn/> and <UserProfile/> components would take months to implement in-house, yet no sacrifice is made in terms of Enterprise extensibility or customization to your brand.”
+              - generic [ref=e869]:
+                - term [ref=e870]: Name
+                - definition [ref=e871]: Guillermo Rauch
+                - term [ref=e872]: Role
+                - definition [ref=e873]: CEO
+                - term [ref=e874]: Company
+                - definition [ref=e875]:
+                  - img [ref=e876]
+                  - text: Vercel
+          - listitem [ref=e880]:
+            - figure "Name Theo Browne Role CEO Company Ping Labs" [ref=e881]:
+              - blockquote [ref=e882]:
+                - paragraph [ref=e883]: “ Clerk feels like the first time I booted my computer with an SSD. It’s so much faster and simpler that it changed how I do things.”
+              - generic [ref=e885]:
+                - term [ref=e886]: Name
+                - definition [ref=e887]: Theo Browne
+                - term [ref=e888]: Role
+                - definition [ref=e889]: CEO
+                - term [ref=e890]: Company
+                - definition [ref=e891]:
+                  - img [ref=e892]
+                  - text: Ping Labs
+          - listitem [ref=e896]:
+            - figure "Name Julian Benegas Role CEO Company BaseHub" [ref=e897]:
+              - blockquote [ref=e898]:
+                - paragraph [ref=e899]: “ After spending many hours on auth issues that seemed simple (but were not), we moved to Clerk and all that burden was lifted. We kind of wish we’d made that decision earlier.”
+              - generic [ref=e901]:
+                - term [ref=e902]: Name
+                - definition [ref=e903]: Julian Benegas
+                - term [ref=e904]: Role
+                - definition [ref=e905]: CEO
+                - term [ref=e906]: Company
+                - definition [ref=e907]:
+                  - img [ref=e908]
+                  - text: BaseHub
+          - listitem [ref=e912]:
+            - figure "Name Kevin Van Gundy Role CEO Company Hypermode" [ref=e913]:
+              - blockquote [ref=e914]:
+                - paragraph [ref=e915]: “ Clerk let us spin up a new product in hours instead of weeks. As a company that deeply values developer velocity— Clerk is exactly what we needed.”
+              - generic [ref=e917]:
+                - term [ref=e918]: Name
+                - definition [ref=e919]: Kevin Van Gundy
+                - term [ref=e920]: Role
+                - definition [ref=e921]: CEO
+                - term [ref=e922]: Company
+                - definition [ref=e923]:
+                  - img [ref=e924]
+                  - text: Hypermode
+          - listitem [ref=e928]:
+            - figure "Name Patrick Collison Role CEO Company Stripe" [ref=e929]:
+              - blockquote [ref=e930]:
+                - paragraph [ref=e931]: “ We’re big admirers of what the @clerk team are building and looking forward to working more closely with them.”
+              - generic [ref=e933]:
+                - term [ref=e934]: Name
+                - definition [ref=e935]: Patrick Collison
+                - term [ref=e936]: Role
+                - definition [ref=e937]: CEO
+                - term [ref=e938]: Company
+                - definition [ref=e939]:
+                  - img [ref=e940]
+                  - text: Stripe
+          - listitem [ref=e944]:
+            - figure "Name Paul Copplestone Role CEO Company Supabase" [ref=e945]:
+              - blockquote [ref=e946]:
+                - paragraph [ref=e947]: “ Clerk’s integration gives Supabase developers another incredible option for handling authentication. And the Clerk team are a pleasure to work with.”
+              - generic [ref=e949]:
+                - term [ref=e950]: Name
+                - definition [ref=e951]: Paul Copplestone
+                - term [ref=e952]: Role
+                - definition [ref=e953]: CEO
+                - term [ref=e954]: Company
+                - definition [ref=e955]:
+                  - img [ref=e956]
+                  - text: Supabase
+          - listitem [ref=e960]:
+            - figure "Name Dan Farrelly Role CTO Company Inngest" [ref=e961]:
+              - blockquote [ref=e962]:
+                - paragraph [ref=e963]: “ We were able to ship MFA, SSO, and SAML for our customers in a fraction of the time. Now, we have improved security and must-haves for enterprise prospects.”
+              - generic [ref=e965]:
+                - term [ref=e966]: Name
+                - definition [ref=e967]: Dan Farrelly
+                - term [ref=e968]: Role
+                - definition [ref=e969]: CTO
+                - term [ref=e970]: Company
+                - definition [ref=e971]:
+                  - img [ref=e972]
+                  - text: Inngest
+          - text: “ ”
+      - generic [ref=e978]:
+        - generic:
+          - generic:
+            - generic:
+              - img
+        - generic [ref=e979]:
+          - paragraph [ref=e980]: Start now, no strings attached
+          - paragraph [ref=e981]:
+            - text: Integrate complete user management in minutes.
+            - strong [ref=e982]: Free
+            - text: for your first 50,000 monthly retained users and 100 monthly retained orgs. No credit card required.
+          - link "Start building" [ref=e984] [cursor=pointer]:
+            - /url: /docs/quickstart
+            - text: Start building
+            - img [ref=e985]
+            - img [ref=e987]
+  - contentinfo [ref=e989]:
+    - generic [ref=e990]:
+      - generic [ref=e991]:
+        - img [ref=e998]
+        - list [ref=e1003]:
+          - listitem [ref=e1004]:
+            - generic [ref=e1005]: Product
+            - list [ref=e1006]:
+              - listitem [ref=e1007]:
+                - link "Authentication" [ref=e1008] [cursor=pointer]:
+                  - /url: /user-authentication
+              - listitem [ref=e1009]:
+                - link "B2B Authentication" [ref=e1010] [cursor=pointer]:
+                  - /url: /organizations
+              - listitem [ref=e1011]:
+                - link "Billing" [ref=e1012] [cursor=pointer]:
+                  - /url: /billing
+              - listitem [ref=e1013]:
+                - link "CLI" [ref=e1014] [cursor=pointer]:
+                  - /url: /cli
+          - listitem [ref=e1015]:
+            - generic [ref=e1016]: SDKs
+            - list [ref=e1017]:
+              - listitem [ref=e1018]:
+                - link "React" [ref=e1019] [cursor=pointer]:
+                  - /url: /react-authentication
+              - listitem [ref=e1020]:
+                - link "Next.js" [ref=e1021] [cursor=pointer]:
+                  - /url: /nextjs-authentication
+              - listitem [ref=e1022]:
+                - link "Expo" [ref=e1023] [cursor=pointer]:
+                  - /url: /expo-authentication
+              - listitem [ref=e1024]:
+                - link "View all" [ref=e1025] [cursor=pointer]:
+                  - /url: /docs#explore-by-frontend-framework
+          - listitem [ref=e1026]:
+            - generic [ref=e1027]: Resources
+            - list [ref=e1028]:
+              - listitem [ref=e1029]:
+                - link "Documentation" [ref=e1030] [cursor=pointer]:
+                  - /url: /docs
+              - listitem [ref=e1031]:
+                - link "Changelog" [ref=e1032] [cursor=pointer]:
+                  - /url: /changelog
+              - listitem [ref=e1033]:
+                - link "Glossary" [ref=e1034] [cursor=pointer]:
+                  - /url: /glossary
+              - listitem [ref=e1035]:
+                - link "Feature requests" [ref=e1036] [cursor=pointer]:
+                  - /url: https://feedback.clerk.com/roadmap
+              - listitem [ref=e1037]:
+                - link "Startups" [ref=e1038] [cursor=pointer]:
+                  - /url: /startups
+              - listitem [ref=e1039]:
+                - link "LLM Leaderboard" [ref=e1040] [cursor=pointer]:
+                  - /url: /llm-leaderboard
+          - listitem [ref=e1041]:
+            - generic [ref=e1042]: Company
+            - list [ref=e1043]:
+              - listitem [ref=e1044]:
+                - link "About" [ref=e1045] [cursor=pointer]:
+                  - /url: /company
+              - listitem [ref=e1046]:
+                - link "Careers" [ref=e1047] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e1048]:
+                - link "Blog" [ref=e1049] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e1050]:
+                - link "Contact" [ref=e1051] [cursor=pointer]:
+                  - /url: /contact
+              - listitem [ref=e1052]:
+                - link "Brand assets" [ref=e1053] [cursor=pointer]:
+                  - /url: /brand-assets
+          - listitem [ref=e1054]:
+            - generic [ref=e1055]: Legal
+            - list [ref=e1056]:
+              - listitem [ref=e1057]:
+                - link "Terms and conditions" [ref=e1058] [cursor=pointer]:
+                  - /url: /legal/terms
+              - listitem [ref=e1059]:
+                - link "Terms of engagement" [ref=e1060] [cursor=pointer]:
+                  - /url: /legal/terms-of-engagement
+              - listitem [ref=e1061]:
+                - link "Privacy policy" [ref=e1062] [cursor=pointer]:
+                  - /url: /legal/privacy
+              - listitem [ref=e1063]:
+                - link "Data processing agreement" [ref=e1064] [cursor=pointer]:
+                  - /url: /legal/dpa
+              - listitem [ref=e1065]:
+                - link "Do not sell/share my info" [ref=e1066] [cursor=pointer]:
+                  - /url: mailto:privacy@clerk.com
+              - listitem [ref=e1067]:
+                - button "Cookie manager" [ref=e1068] [cursor=pointer]
+      - generic [ref=e1069]:
+        - paragraph [ref=e1071]: © 2026 Clerk, Inc.
+        - list [ref=e1072]:
+          - listitem [ref=e1073]:
+            - link "X" [ref=e1074] [cursor=pointer]:
+              - /url: https://twitter.com/clerk
+              - img [ref=e1075]
+          - listitem [ref=e1077]:
+            - link "LinkedIn" [ref=e1078] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/clerkinc
+              - img [ref=e1079]
+          - listitem [ref=e1081]:
+            - link "Discord" [ref=e1082] [cursor=pointer]:
+              - /url: https://clerk.com/discord
+              - img [ref=e1083]
+          - listitem [ref=e1085]:
+            - link "GitHub" [ref=e1086] [cursor=pointer]:
+              - /url: https://github.com/clerk
+              - img [ref=e1087]
+          - listitem [ref=e1089]:
+            - link "YouTube" [ref=e1090] [cursor=pointer]:
+              - /url: https://www.youtube.com/@clerkdev
+              - img [ref=e1091]
+  - button "Support" [ref=e1093] [cursor=pointer]:
+    - generic [ref=e1094]: Support
+    - img [ref=e1095]

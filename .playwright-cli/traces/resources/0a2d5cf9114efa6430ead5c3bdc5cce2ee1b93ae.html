@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta
+      name="description"
+      content="DevOps Portal — unified command center for locally-hosted DevOps, AI, CI/CD, observability, and data tools."
+    />
+    <title>DevOps Portal</title>
+    <script>
+      // FOUC-free theme boot. Runs before React paints.
+      (function () {
+        try {
+          var stored = localStorage.getItem('portal-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored === 'cyberpunk' ? 'cyberpunk' : (stored || (prefersDark ? 'dark' : 'light'));
+          var html = document.documentElement;
+          html.classList.remove('dark', 'light', 'theme-cyberpunk');
+          if (theme === 'cyberpunk') {
+            html.classList.add('dark', 'theme-cyberpunk');
+            html.style.colorScheme = 'dark';
+          } else {
+            html.classList.add(theme);
+            html.style.colorScheme = theme;
+          }
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-uVJG17Oy.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/query-CFcUs3Dh.js">
+    <link rel="modulepreload" crossorigin href="/assets/radix-VVLDt4Wa.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-B0Ub2_KH.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-rcFdmwh6.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-tedCrJhn.css">
+  </head>
+  <body class="bg-background text-foreground antialiased">
+    <div id="root"></div>
+  </body>
+</html>

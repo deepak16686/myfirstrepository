@@ -1,0 +1,155 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+      - button "Collapse sidebar" [ref=e62]:
+        - img
+        - generic [ref=e63]: Collapse
+    - generic [ref=e64]:
+      - banner [ref=e65]:
+        - generic [ref=e66]:
+          - searchbox "Search"
+          - generic [ref=e69]:
+            - img [ref=e70]
+            - text: /
+        - button "Open command palette" [ref=e72]:
+          - generic [ref=e73]: Command
+          - generic [ref=e74]:
+            - generic [ref=e75]: Ctrl
+            - generic [ref=e76]: K
+        - generic [ref=e77]:
+          - button "Show status rail" [ref=e78]:
+            - img
+          - 'status "Public route status: Public route live" [ref=e79]':
+            - img [ref=e81]
+          - button "Notifications" [ref=e84]:
+            - img
+          - 'button "Theme: system (light)" [ref=e86]':
+            - img
+          - button "Account" [ref=e87]:
+            - generic [ref=e88]:
+              - img
+            - generic [ref=e89]: operator
+      - main [ref=e91]:
+        - generic [ref=e93]:
+          - generic [ref=e97]:
+            - generic [ref=e98]:
+              - generic [ref=e99]:
+                - img [ref=e100]
+                - text: Portal control plane
+              - generic [ref=e102]:
+                - heading "Mission Control" [level=1] [ref=e103]
+                - paragraph [ref=e104]: A dense operating view for every registered AI, delivery, security, data, and observability service. Filter fast, inspect health, launch routes, and open embedded tools from one surface.
+              - generic [ref=e105]:
+                - button "Tools view" [ref=e106]:
+                  - img
+                  - text: Tools view
+                - button "Ask AI" [ref=e107]:
+                  - img
+                  - text: Ask AI
+            - generic [ref=e108]:
+              - generic [ref=e109]:
+                - generic [ref=e110]:
+                  - generic [ref=e111]: registered
+                  - img [ref=e112]
+                - generic [ref=e116]:
+                  - generic [ref=e117]: "0"
+                  - generic [ref=e118]: 0 categories
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - generic [ref=e121]: healthy
+                  - img [ref=e122]
+                - generic [ref=e125]:
+                  - generic [ref=e126]: "0"
+                  - generic [ref=e127]: live probes responding
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - generic [ref=e130]: failing
+                  - img [ref=e131]
+                - generic [ref=e134]:
+                  - generic [ref=e135]: "0"
+                  - generic [ref=e136]: down or degraded
+              - generic [ref=e137]:
+                - generic [ref=e138]:
+                  - generic [ref=e139]: visible
+                  - img [ref=e140]
+                - generic [ref=e142]:
+                  - generic [ref=e143]: "0"
+                  - generic [ref=e144]: after filters
+          - status "Portal health summary" [ref=e145]:
+            - generic [ref=e146]:
+              - img [ref=e147]
+              - generic [ref=e149]: Total
+              - generic [ref=e150]: "0"
+            - generic [ref=e151]:
+              - img [ref=e152]
+              - generic [ref=e155]: Healthy
+              - generic [ref=e157]:
+                - text: "0"
+                - generic [ref=e158]: · 0%
+            - generic [ref=e159]:
+              - img [ref=e160]
+              - generic [ref=e162]: Degraded
+              - generic [ref=e163]: "0"
+            - generic [ref=e164]:
+              - img [ref=e165]
+              - generic [ref=e168]: Down
+              - generic [ref=e169]: "0"
+            - generic [ref=e170]:
+              - generic [ref=e171]: Last probe
+              - generic [ref=e172]: never
+              - button "Refresh health probes" [ref=e173]:
+                - img
+          - generic [ref=e174]:
+            - toolbar "Filter by category" [ref=e175]:
+              - button "All 0" [pressed] [ref=e176]:
+                - img [ref=e177]
+                - generic [ref=e179]: All
+                - generic [ref=e180]: "0"
+            - generic [ref=e182]:
+              - generic [ref=e183]:
+                - searchbox "Filter tools"
+                - generic [ref=e186]: 0/0
+              - generic [ref=e187]:
+                - button "Healthy" [ref=e188]: Healthy
+                - button "Degraded" [ref=e190]: Degraded
+                - button "Down" [ref=e192]: Down
+                - button "Unknown" [ref=e194]: Unknown
+                - button "Failing only" [ref=e196]:
+                  - img [ref=e197]
+                  - text: Failing only
+  - region "Notifications alt+T"

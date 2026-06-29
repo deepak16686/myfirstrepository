@@ -1,0 +1,568 @@
+- generic [active] [ref=e1]:
+  - navigation "Main" [ref=e2]:
+    - generic [ref=e7]:
+      - link "Go to homepage" [ref=e10] [cursor=pointer]:
+        - /url: /
+        - img "Go to homepage" [ref=e11]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - button "Products" [ref=e18] [cursor=pointer]:
+            - text: Products
+            - img [ref=e19]
+        - listitem [ref=e21]:
+          - button "Solutions" [ref=e22] [cursor=pointer]:
+            - text: Solutions
+            - img [ref=e23]
+        - listitem [ref=e25]:
+          - link "Customers" [ref=e26] [cursor=pointer]:
+            - /url: /customers
+        - listitem [ref=e27]:
+          - button "Resources" [ref=e28] [cursor=pointer]:
+            - text: Resources
+            - img [ref=e29]
+        - listitem [ref=e31]:
+          - link "Pricing" [ref=e32] [cursor=pointer]:
+            - /url: /pricing
+      - generic [ref=e34]:
+        - button "Sign in" [ref=e35] [cursor=pointer]:
+          - link "Sign in" [ref=e37]:
+            - /url: https://app.ramp.com/sign-in
+        - link "See a demo" [ref=e38] [cursor=pointer]:
+          - /url: /see-a-demo
+  - main [ref=e39]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - generic [ref=e44]: "US corporate payments processed by Ramp:"
+        - img "0.6873499%" [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e50]: "0"
+            - generic [ref=e51]:
+              - generic [ref=e52]: .
+              - generic [ref=e53]: "6"
+              - generic [ref=e54]: "8"
+              - generic [ref=e55]: "7"
+              - generic [ref=e56]: "3"
+              - generic [ref=e57]: "4"
+              - generic [ref=e58]: "9"
+              - generic [ref=e59]: "9"
+          - generic [ref=e61]: "%"
+      - generic [ref=e62]:
+        - heading "Time is money. Save Both." [level=1] [ref=e63]
+        - paragraph [ref=e64]: Cards, expenses, bill payments, and banking – in the blink of AI.
+      - generic [ref=e67]:
+        - generic [ref=e68]: Email
+        - textbox "Enter your work email" [ref=e71]:
+          - /placeholder: What’s your work email?
+        - button "Get started for free" [ref=e73] [cursor=pointer]:
+          - generic [ref=e74]: Get started for free
+    - generic [ref=e77]:
+      - generic [ref=e80]:
+        - generic [ref=e85]:
+          - img [ref=e86]
+          - text: "AGENTS AT WORK TODAY:"
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - paragraph [ref=e106]: Join 50,000 of the world’s most ambitious companies growing 3.2x faster than the average American business.
+            - link "Read the report" [ref=e107] [cursor=pointer]:
+              - /url: https://ramp.com/blog/ramp-customers-grow-revenue-3x-faster
+              - text: Read the report
+              - img [ref=e109]
+          - button "notion" [ref=e116] [cursor=pointer]:
+            - generic [ref=e119]:
+              - img "notion" [ref=e120]
+              - generic:
+                - generic: add
+          - img "perplexity" [ref=e130]
+          - button [ref=e156] [cursor=pointer]:
+            - generic [ref=e159]:
+              - generic:
+                - generic: add
+          - img "shopify" [ref=e170]
+      - generic [ref=e172]:
+        - heading "One platform for your entire back office. Infinite agents that work 24/7." [level=2] [ref=e173]:
+          - text: One platform for your entire back office.
+          - text: Infinite agents that work 24/7.
+        - link "Make the switch" [ref=e175] [cursor=pointer]:
+          - /url: /switch
+          - generic [ref=e176]: Make the switch
+        - generic [ref=e177]:
+          - link "Cards & Expenses that handle themselves arrow_outward" [ref=e178] [cursor=pointer]:
+            - /url: /corporate-cards
+            - generic [ref=e179]:
+              - heading "Cards & Expenses that handle themselves" [level=3] [ref=e180]:
+                - text: Cards & Expenses
+                - generic [ref=e181]: that handle themselves
+              - generic [ref=e184]: arrow_outward
+            - generic:
+              - generic:
+                - figure
+          - link "Procure to pay without chasing approvals arrow_outward" [ref=e185] [cursor=pointer]:
+            - /url: /accounts-payable
+            - generic [ref=e186]:
+              - heading "Procure to pay without chasing approvals" [level=3] [ref=e187]:
+                - text: Procure to pay
+                - generic [ref=e188]: without chasing approvals
+              - generic [ref=e191]: arrow_outward
+            - generic:
+              - generic:
+                - figure
+        - generic [ref=e192]:
+          - link "Accounting automation eliminates month-end madness arrow_outward" [ref=e193] [cursor=pointer]:
+            - /url: /accounting-automation-software
+            - generic [ref=e194]:
+              - heading "Accounting automation eliminates month-end madness" [level=3] [ref=e195]:
+                - text: Accounting automation
+                - generic [ref=e196]: eliminates month-end madness
+              - generic [ref=e199]: arrow_outward
+            - generic:
+              - generic:
+                - figure
+          - link "Banking that flows money to the highest return arrow_outward" [ref=e200] [cursor=pointer]:
+            - /url: /treasury
+            - generic [ref=e201]:
+              - heading "Banking that flows money to the highest return" [level=3] [ref=e202]:
+                - text: Banking
+                - generic [ref=e203]: that flows money to the highest return
+              - generic [ref=e206]: arrow_outward
+          - link "200+ Integrations to the tools you already use arrow_outward" [ref=e207] [cursor=pointer]:
+            - /url: /integrations
+            - generic [ref=e208]:
+              - heading "200+ Integrations to the tools you already use" [level=3] [ref=e209]:
+                - text: 200+ Integrations
+                - generic [ref=e210]: to the tools you already use
+              - generic [ref=e213]: arrow_outward
+      - generic [ref=e217]:
+        - figure [ref=e219]
+        - figure [ref=e222]
+        - generic [ref=e225]:
+          - heading "Systems that never spoke" [level=2] [ref=e226]
+          - paragraph [ref=e227]: This is what five separate systems to reimburse a flight looks like.
+      - generic [ref=e230]:
+        - generic [ref=e231]:
+          - button "Play Perplexity customer story video" [ref=e233] [cursor=pointer]:
+            - generic:
+              - generic:
+                - generic: play_arrow
+                - generic: Watch Video
+          - generic [ref=e234]:
+            - heading "Keep your finance team focused on strategy. Let agents handle the busywork." [level=2] [ref=e235]
+            - link "Learn more about Ramp Intelligence" [ref=e237] [cursor=pointer]:
+              - /url: /intelligence
+              - text: Learn more about Ramp Intelligence
+              - img [ref=e239]
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - img "Perplexity wordmark over a glass sphere in a sunlit wildflower meadow" [ref=e244]
+              - generic [ref=e246]:
+                - paragraph [ref=e247]: Lauren Feeney
+                - paragraph [ref=e248]: Controller, Perplexity
+            - paragraph [ref=e249]: “Gone are the days of scrambling to chase receipts, manually coding really large data sets. All of that has been automatically addressed throughout the month in real time.”
+            - link "Read their story" [ref=e251] [cursor=pointer]:
+              - /url: /customers/perplexity
+              - text: Read their story
+              - img [ref=e253]
+        - generic [ref=e255]:
+          - figure [ref=e259]
+          - generic [ref=e260]:
+            - heading "AI that learns from your team. Powered by 50,000 others that came before you." [level=2] [ref=e261]:
+              - text: AI that learns from your team.
+              - generic [ref=e262]: Powered by 50,000 others that came before you.
+            - link "Learn about Policy Agents" [ref=e264] [cursor=pointer]:
+              - /url: /expense-management
+              - text: Learn about Policy Agents
+              - img [ref=e266]
+          - generic [ref=e268]:
+            - generic [ref=e269]:
+              - img "valence" [ref=e271]
+              - generic [ref=e272]:
+                - paragraph [ref=e273]: Neusha Sayadian
+                - paragraph [ref=e274]: Fractional CFO at Valence
+            - paragraph [ref=e275]: “We have thousands of transactions a month, and the number of manual edits I make has dropped drastically. Ramp's AI just keeps getting smarter every week.”
+      - generic [ref=e277]:
+        - generic [ref=e279]:
+          - heading "Scale the team. Shrink the paperwork." [level=2] [ref=e280]:
+            - generic [ref=e281]: Scale the team.
+            - generic [ref=e282]: Shrink the paperwork.
+          - paragraph [ref=e283]: You had a bureaucracy. Now you have a business again.
+        - generic [ref=e284]:
+          - link "Bill-creation workflow with amount threshold, department approvals, and vendor notification Set user access on autopilot. Provision cards, permissions, and limits automatically based on role, location, department and custom fields. Enterprise Solutions" [ref=e285] [cursor=pointer]:
+            - /url: /enterprise
+            - generic [ref=e286]:
+              - img "Bill-creation workflow with amount threshold, department approvals, and vendor notification" [ref=e288]
+              - generic [ref=e289]:
+                - heading "Set user access on autopilot." [level=2] [ref=e291]
+                - generic [ref=e292]: Provision cards, permissions, and limits automatically based on role, location, department and custom fields.
+                - generic [ref=e293]:
+                  - text: Enterprise Solutions
+                  - img [ref=e295]
+          - link "Stippled globe with sample card spend in Tokyo, London, Vancouver, New York, and Mexico City One platform for all your global spend. Issue cards in 30+ currencies and reimburse employees in local currencies, including pounds, euros, yen, and pesos. Global Spend Management" [ref=e297] [cursor=pointer]:
+            - /url: /global
+            - generic [ref=e298]:
+              - img "Stippled globe with sample card spend in Tokyo, London, Vancouver, New York, and Mexico City" [ref=e300]
+              - generic [ref=e301]:
+                - heading "One platform for all your global spend." [level=2] [ref=e303]
+                - generic [ref=e304]: Issue cards in 30+ currencies and reimburse employees in local currencies, including pounds, euros, yen, and pesos.
+                - generic [ref=e305]:
+                  - text: Global Spend Management
+                  - img [ref=e307]
+      - generic [ref=e310]:
+        - generic [ref=e312]:
+          - paragraph [ref=e313]: 50,000 teams and counting
+          - heading "We've got the receipts." [level=2] [ref=e314]
+        - generic [ref=e315]:
+          - group [ref=e318]:
+            - listitem [ref=e319]:
+              - article [ref=e320]:
+                - generic [ref=e321]:
+                  - img [ref=e323]
+                  - generic [ref=e324]:
+                    - paragraph [ref=e325]: Shannon McCormick
+                    - paragraph [ref=e326]: International Workplace Experience Lead, Notion
+                - paragraph [ref=e327]: As soon as I texted my first Ramp receipt, I realized Ramp is a game-changer. It’s incredibly intuitive.
+            - listitem [ref=e328]:
+              - article [ref=e329]:
+                - generic [ref=e330]:
+                  - img [ref=e332]
+                  - generic [ref=e333]:
+                    - paragraph [ref=e334]: Heather Bruzus
+                    - paragraph [ref=e335]: Principal Accountant, Mindbody & ClassPass
+                - paragraph [ref=e336]: We got positive feedback, which just doesn't happen very often. That proved this was the right decision.
+            - listitem [ref=e337]:
+              - article [ref=e338]:
+                - generic [ref=e339]:
+                  - img [ref=e341]
+                  - generic [ref=e342]:
+                    - paragraph [ref=e343]: Tzu-San Hung
+                    - paragraph [ref=e344]: Head of Strategic Finance, Notion
+                - paragraph [ref=e345]: Beautiful tools use beautiful tools.
+            - listitem [ref=e346]:
+              - article [ref=e347]:
+                - generic [ref=e348]:
+                  - img [ref=e350]
+                  - generic [ref=e351]:
+                    - paragraph [ref=e352]: Matteo Franceschetti
+                    - paragraph [ref=e353]: CEO, Eight Sleep
+                - paragraph [ref=e354]: Ramp was a complete game changer. It's a single platform that can handle every aspect of our spending.
+            - listitem [ref=e355]:
+              - article [ref=e356]:
+                - generic [ref=e357]:
+                  - img [ref=e359]
+                  - generic [ref=e360]:
+                    - paragraph [ref=e361]: Christine Mimnagh-Fleming
+                    - paragraph [ref=e362]: Sr. Manager, Finance Transformation, Shopify
+                - paragraph [ref=e363]: Ramp is so intuitive, people get it right away.
+            - listitem [ref=e364]:
+              - article [ref=e365]:
+                - generic [ref=e366]:
+                  - img [ref=e368]
+                  - generic [ref=e369]:
+                    - paragraph [ref=e370]: Carey Peek
+                    - paragraph [ref=e371]: CFO, KIPP Nashville Public Schools
+                - paragraph [ref=e372]: Implementing Ramp has been my biggest win as CFO. Employees love it and often go out of their way to tell me so.
+          - group [ref=e375]:
+            - listitem [ref=e376]:
+              - article [ref=e377]:
+                - generic [ref=e378]:
+                  - img [ref=e380]
+                  - generic [ref=e381]:
+                    - paragraph [ref=e382]: Mayor Neil Bradshaw
+                    - paragraph [ref=e383]: Mayor, City of Ketchum, ID
+                - paragraph [ref=e384]: Ramp gives us the ability to make more informed financial policy decisions. It was one of the best decisions we've ever made.
+            - listitem [ref=e385]:
+              - article [ref=e386]:
+                - generic [ref=e387]:
+                  - img [ref=e389]
+                  - generic [ref=e390]:
+                    - paragraph [ref=e391]: Bret Taylor
+                    - paragraph [ref=e392]: CEO, Sierra
+                - paragraph [ref=e393]: It's almost like we're a more self-actualized company because everyone is just working on what we do differently.
+            - listitem [ref=e394]:
+              - article [ref=e395]:
+                - generic [ref=e396]:
+                  - img [ref=e398]
+                  - generic [ref=e399]:
+                    - paragraph [ref=e400]: Michael Bohn
+                    - paragraph [ref=e401]: Head of Business Operations, Foursquare
+                - paragraph [ref=e402]: The average person can figure Ramp out without training. That’s what drives 100% adoption.
+            - listitem [ref=e403]:
+              - article [ref=e404]:
+                - generic [ref=e405]:
+                  - img [ref=e407]
+                  - generic [ref=e408]:
+                    - paragraph [ref=e409]: Ben Whipple
+                    - paragraph [ref=e410]: Director of Public Works, City of Ketchum, ID
+                - paragraph [ref=e411]: I snap a picture of the receipt, Ramp handles the rest like magic, and I move on.
+            - listitem [ref=e412]:
+              - article [ref=e413]:
+                - generic [ref=e414]:
+                  - img [ref=e416]
+                  - generic [ref=e417]:
+                    - paragraph [ref=e418]: Michael Litwin
+                    - paragraph [ref=e419]: VP Controller, Virgin Voyages
+                - paragraph [ref=e420]: Before Ramp it was a process from the dark ages. We had people just doing expenses full-time. It was miserable.
+            - listitem [ref=e421]:
+              - article [ref=e422]:
+                - generic [ref=e423]:
+                  - img [ref=e425]
+                  - generic [ref=e426]:
+                    - paragraph [ref=e427]: Staci Robinson
+                    - paragraph [ref=e428]: AP Manager, Pair Eyewear
+                - paragraph [ref=e429]: Ramp's AI has given me a better work-life balance. I have more time for my family now that the AI handles much of the work I used to do manually.
+          - group [ref=e432]:
+            - listitem [ref=e433]:
+              - article [ref=e434]:
+                - generic [ref=e435]:
+                  - img [ref=e437]
+                  - generic [ref=e438]:
+                    - paragraph [ref=e439]: Irish Rose
+                    - paragraph [ref=e440]: Controller, Eight Sleep
+                - paragraph [ref=e441]: Closing the books with Ramp is effortless.
+            - listitem [ref=e442]:
+              - article [ref=e443]:
+                - generic [ref=e444]:
+                  - img [ref=e446]
+                  - generic [ref=e447]:
+                    - paragraph [ref=e448]: Andrew Clarke
+                    - paragraph [ref=e449]: SVP Finance, Studs
+                - paragraph [ref=e450]: We've consolidated four platforms into one with Ramp.
+            - listitem [ref=e451]:
+              - article [ref=e452]:
+                - generic [ref=e453]:
+                  - img [ref=e455]
+                  - generic [ref=e456]:
+                    - paragraph [ref=e457]: Jason Penegar
+                    - paragraph [ref=e458]: VP Controller, Boys & Girls Clubs of America
+                - paragraph [ref=e459]: The Ramp journey has been incredible. A flawless implementation…
+            - listitem [ref=e460]:
+              - article [ref=e461]:
+                - generic [ref=e462]:
+                  - img [ref=e464]
+                  - generic [ref=e465]:
+                    - paragraph [ref=e466]: Sarah Bird
+                    - paragraph [ref=e467]: Controller, Seed Health
+                - paragraph [ref=e468]: It's rare to feel like a company and a team is a partner, and that they really want to understand what you need. That's what we've experienced with Ramp.
+            - listitem [ref=e469]:
+              - article [ref=e470]:
+                - generic [ref=e471]:
+                  - img [ref=e473]
+                  - generic [ref=e474]:
+                    - paragraph [ref=e475]: Carolynn Yipp
+                    - paragraph [ref=e476]: Assistant Controller, Poshmark
+                - paragraph [ref=e477]: It's very easy to use, very intuitive, and requires almost zero training.
+      - generic [ref=e480]:
+        - heading "Time is money. Save both." [level=2] [ref=e481]
+        - generic [ref=e485]:
+          - generic [ref=e486]: Email
+          - textbox "Enter your work email" [ref=e489]:
+            - /placeholder: What’s your work email?
+          - button "Get started for free" [ref=e491] [cursor=pointer]:
+            - generic [ref=e492]: Get started for free
+  - contentinfo [ref=e493]:
+    - generic [ref=e494]:
+      - img [ref=e495]
+      - img [ref=e497]
+    - generic [ref=e501]:
+      - generic [ref=e502]:
+        - generic [ref=e503]:
+          - link "About us" [ref=e504] [cursor=pointer]:
+            - /url: /about-us
+          - link "Careers" [ref=e505] [cursor=pointer]:
+            - /url: /careers
+          - link "Emerging talent" [ref=e506] [cursor=pointer]:
+            - /url: /emerging-talent
+          - link "Customers" [ref=e507] [cursor=pointer]:
+            - /url: /customers
+          - link "Help center" [ref=e508] [cursor=pointer]:
+            - /url: https://support.ramp.com/hc/en-us
+          - link "Product releases" [ref=e509] [cursor=pointer]:
+            - /url: /product-releases
+          - link "Ramp Agent for Cards" [ref=e510] [cursor=pointer]:
+            - /url: https://agents.ramp.com/cards
+          - link "Ramp Labs" [ref=e511] [cursor=pointer]:
+            - /url: https://labs.ramp.com
+          - link "API documentation" [ref=e512] [cursor=pointer]:
+            - /url: https://docs.ramp.com
+          - link "Versus" [ref=e513] [cursor=pointer]:
+            - /url: /versus
+        - generic [ref=e515]:
+          - link "Products" [ref=e517] [cursor=pointer]:
+            - /url: /products
+          - generic [ref=e520]:
+            - link "Corporate cards" [ref=e521] [cursor=pointer]:
+              - /url: /corporate-cards
+            - link "Expense management" [ref=e522] [cursor=pointer]:
+              - /url: /expense-management
+            - link "Spend management" [ref=e523] [cursor=pointer]:
+              - /url: /spend-management
+            - link "Budgets" [ref=e524] [cursor=pointer]:
+              - /url: /budgets
+            - link "Treasury" [ref=e525] [cursor=pointer]:
+              - /url: /treasury
+            - link "Travel" [ref=e526] [cursor=pointer]:
+              - /url: /travel
+            - link "Reimbursements" [ref=e527] [cursor=pointer]:
+              - /url: /reimbursements
+            - link "Procurement" [ref=e528] [cursor=pointer]:
+              - /url: /procurement
+            - link "Accounts payable" [ref=e529] [cursor=pointer]:
+              - /url: /accounts-payable
+            - link "Vendor management" [ref=e530] [cursor=pointer]:
+              - /url: /vendor-management
+            - link "Approvals" [ref=e531] [cursor=pointer]:
+              - /url: /streamlined-approvals
+            - link "Security" [ref=e532] [cursor=pointer]:
+              - /url: /security
+            - link "Trust" [ref=e533] [cursor=pointer]:
+              - /url: https://trust.ramp.com/
+            - link "Bank connections" [ref=e534] [cursor=pointer]:
+              - /url: /bank-connections
+            - link "Mobile app" [ref=e535] [cursor=pointer]:
+              - /url: /mobile-app
+            - link "Ramp Sheets" [ref=e536] [cursor=pointer]:
+              - /url: https://ramp.com/sheets
+      - generic [ref=e537]:
+        - generic [ref=e539]:
+          - generic [ref=e541]: Platform
+          - generic [ref=e544]:
+            - link "Platform overview" [ref=e545] [cursor=pointer]:
+              - /url: /platform
+            - link "Accounting automation" [ref=e546] [cursor=pointer]:
+              - /url: /accounting-automation-software
+            - link "Intelligence" [ref=e547] [cursor=pointer]:
+              - /url: /intelligence
+            - link "Reporting" [ref=e548] [cursor=pointer]:
+              - /url: /reporting
+            - link "Savings" [ref=e549] [cursor=pointer]:
+              - /url: /savings-calculator
+            - link "Integrations" [ref=e550] [cursor=pointer]:
+              - /url: /integrations
+            - link "Multi-entity" [ref=e551] [cursor=pointer]:
+              - /url: /multi-entity
+            - link "Global" [ref=e552] [cursor=pointer]:
+              - /url: /global
+            - link "AI Spend Intelligence" [ref=e553] [cursor=pointer]:
+              - /url: /ai-cost-monitoring?utm_source=web&utm_campaign=ai-token-spend-usage&utm_medium=footer
+        - generic [ref=e555]:
+          - link "Partners" [ref=e557] [cursor=pointer]:
+            - /url: /partnerships
+          - generic [ref=e560]:
+            - link "Accounting firms" [ref=e561] [cursor=pointer]:
+              - /url: /accounting-partnerships
+            - link "Private equity" [ref=e562] [cursor=pointer]:
+              - /url: /pe-partnerships
+            - link "Venture capital" [ref=e563] [cursor=pointer]:
+              - /url: /vc-partnerships
+            - link "Services providers" [ref=e564] [cursor=pointer]:
+              - /url: /services-partnerships
+            - link "Technology partners" [ref=e565] [cursor=pointer]:
+              - /url: /technology-partnerships
+      - generic [ref=e566]:
+        - generic [ref=e568]:
+          - generic [ref=e570]: Solutions
+          - generic [ref=e573]:
+            - link "Startups" [ref=e574] [cursor=pointer]:
+              - /url: /startups
+            - link "Small business" [ref=e575] [cursor=pointer]:
+              - /url: /small-business
+            - link "Mid market" [ref=e576] [cursor=pointer]:
+              - /url: /mid-market
+            - link "Enterprise" [ref=e577] [cursor=pointer]:
+              - /url: /enterprise
+        - generic [ref=e579]:
+          - link "Free tools and resources" [ref=e581] [cursor=pointer]:
+            - /url: /free-tools
+          - generic [ref=e584]:
+            - link "Perks and rewards" [ref=e585] [cursor=pointer]:
+              - /url: /rewards
+            - link "Find an accountant" [ref=e586] [cursor=pointer]:
+              - /url: https://accountants.ramp.com/
+            - link "Find a services partner" [ref=e587] [cursor=pointer]:
+              - /url: /services-partners
+            - link "Savings calculator" [ref=e588] [cursor=pointer]:
+              - /url: /savings-calculator
+            - link "Mission statement generator" [ref=e589] [cursor=pointer]:
+              - /url: /mission-statement-generator
+            - link "Charge finder" [ref=e590] [cursor=pointer]:
+              - /url: /charge-finder
+            - link "Per diem calculator" [ref=e591] [cursor=pointer]:
+              - /url: /per-diem-calculator
+            - link "Mileage reimbursement calculator" [ref=e592] [cursor=pointer]:
+              - /url: /mileage-reimbursement-calculator
+            - link "Card comparison tool" [ref=e593] [cursor=pointer]:
+              - /url: /business-credit-cards
+            - link "Investor database" [ref=e594] [cursor=pointer]:
+              - /url: /vc-database
+            - link "Expense categorization" [ref=e595] [cursor=pointer]:
+              - /url: /expense-category
+            - link "Vendor directory" [ref=e596] [cursor=pointer]:
+              - /url: /vendors
+            - link "Virtual cards" [ref=e597] [cursor=pointer]:
+              - /url: /virtual-cards
+            - link "Answers Hub" [ref=e598] [cursor=pointer]:
+              - /url: /answers
+      - separator [ref=e599]
+      - generic [ref=e600]:
+        - generic [ref=e602]:
+          - link "Terms of Service" [ref=e603] [cursor=pointer]:
+            - /url: /legal/platform-agreement
+            - generic [ref=e604]: Terms of Service
+          - link "Editorial Guidelines" [ref=e605] [cursor=pointer]:
+            - /url: /editorial-guidelines
+            - generic [ref=e606]: Editorial Guidelines
+          - link "Privacy Policy" [ref=e607] [cursor=pointer]:
+            - /url: /legal/privacy-policy
+            - generic [ref=e608]: Privacy Policy
+          - link "Your Privacy Choices" [ref=e609] [cursor=pointer]:
+            - /url: /data-privacy-opt-out
+            - generic [ref=e610]: Your Privacy Choices
+            - img [ref=e611]
+          - generic [ref=e618]: Manage Preferences
+        - generic [ref=e619]:
+          - generic [ref=e620]: © 2026 Ramp Business Corporation. "Ramp" and the Ramp logo are registered trademarks of the company.
+          - generic [ref=e621]: "California Residents: +1-855-206-7283"
+          - generic [ref=e622]: The Ramp Visa Corporate Card is issued in the U.S. by Celtic Bank, and to U.S. corporations operating globally by Column N.A., Member FDIC, and is subject to credit approval. The Ramp Visa Commercial Card is issued by Sutton Bank, Member FDIC. The Ramp Visa Business Card is issued by Lead Bank, Member FDIC. Each card is issued pursuant to a license from Visa USA Inc.
+          - generic [ref=e623]: Ramp cards are issued in Canada by Peoples Trust Company, pursuant to license by *Visa International. Visa Int./Peoples Trust Company, Licensed User.
+          - generic [ref=e624]: "Ramp cards are issued in the UK by Stripe Payments UK Limited, an electronic money institution authorized by the Financial Conduct Authority (firm reference number: 900461). Ramp cards are issued in the EEA by Stripe Technology Europe Limited, an electronic money institution authorized by the Central Bank of Ireland (firm reference number: C187865). Cards are issued under the Visa card scheme pursuant to a license from Visa Europe Limited."
+          - generic [ref=e625]: Visa is a registered trademark of Visa International Service Association. All other trademarks and service marks belong to their respective owners.
+          - generic [ref=e626]:
+            - generic [ref=e627]: "*Ramp Business Corporation is a financial technology company and is not a bank. Bank deposit services provided by First Internet Bank of Indiana, Member FDIC."
+            - generic [ref=e628]: Securities products and brokerage services are provided by Apex Clearing Corporation, an SEC registered broker dealer, member of FINRA & SIPC. The Investment Account is not a deposit product, not insured by the FDIC, and may lose value.
+          - generic [ref=e629]:
+            - text: Ramp Payments Corporation - NMLS 2371465
+            - link "Disclosures" [ref=e630] [cursor=pointer]:
+              - /url: https://ramp.com/legal/state-disclosures
+            - text: ", Ramp Financing Corporation - NMLS 2431387"
+        - generic [ref=e631]:
+          - generic [ref=e632]:
+            - text: Join the
+            - generic [ref=e633]: 50,000+ businesses
+            - text: simplifying their finances with Ramp.
+          - generic [ref=e636]:
+            - generic [ref=e637]: Email
+            - textbox "Enter your work email" [ref=e640]:
+              - /placeholder: What’s your work email?
+            - button "Get started for free" [ref=e642] [cursor=pointer]:
+              - generic [ref=e643]: Get started for free
+      - generic [ref=e645]:
+        - text: Ramp Business Corporation
+        - text: 28 West 23rd Street, Floor 2
+        - text: New York, NY 10010
+      - generic [ref=e646]:
+        - img "Obviously NYC" [ref=e648]
+        - generic [ref=e649]:
+          - link "App Store" [ref=e650] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/ramp/id1628197245?pt=125123265&ct=website-footer-11-17-22&mt=8
+            - img "App Store" [ref=e652]
+          - link "Google Play" [ref=e653] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.ramp.android.app
+            - img "Google Play" [ref=e655]
+        - generic [ref=e656]:
+          - link "LinkedIn" [ref=e657] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/ramp
+            - generic [ref=e658]: LinkedIn
+          - link "X" [ref=e659] [cursor=pointer]:
+            - /url: https://x.com/tryramp
+            - generic [ref=e660]: X
+          - link "Facebook" [ref=e661] [cursor=pointer]:
+            - /url: https://www.facebook.com/rampcard
+            - generic [ref=e662]: Facebook

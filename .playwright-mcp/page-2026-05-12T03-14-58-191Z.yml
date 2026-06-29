@@ -1,0 +1,47 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - img [ref=e9]
+      - navigation [ref=e20]:
+        - list [ref=e21]:
+          - listitem [ref=e22]:
+            - link "Portal" [ref=e23] [cursor=pointer]:
+              - /url: /
+              - img [ref=e24]
+          - listitem [ref=e26]:
+            - link "Analytics" [ref=e27] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e28]
+          - listitem [ref=e30]:
+            - link "Tools" [ref=e31] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e32]
+          - listitem [ref=e42]:
+            - link "Pipelines" [ref=e43] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e44]
+          - listitem [ref=e49]:
+            - link "AI Chat" [ref=e50] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e51]
+      - button "Collapse sidebar" [ref=e54]:
+        - img
+    - generic [ref=e55]:
+      - banner [ref=e56]:
+        - generic [ref=e57]:
+          - button "Show status rail" [ref=e58]:
+            - img
+          - 'status "Public route status: Public route unavailable" [ref=e59]':
+            - img [ref=e61]
+          - button "Notifications" [ref=e62]:
+            - img
+          - 'button "Theme: system (light)" [ref=e64]':
+            - img
+          - button "Account" [ref=e65]:
+            - generic [ref=e66]:
+              - img
+      - main [ref=e68]
+  - region "Notifications alt+T"

@@ -1,0 +1,393 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e5]:
+      - navigation [ref=e6]:
+        - link "Snyk home" [ref=e7] [cursor=pointer]:
+          - /url: /
+        - text: 
+        - generic [ref=e9]:
+          - list [ref=e10]:
+            - listitem [ref=e11]:
+              - button "Platform ":
+                - generic: Platform
+                - text: 
+            - listitem [ref=e12]:
+              - button "Resources ":
+                - generic: Resources
+                - text: 
+            - listitem [ref=e13]:
+              - button "Company ":
+                - generic: Company
+                - text: 
+            - listitem [ref=e14]:
+              - link "Pricing" [ref=e15] [cursor=pointer]:
+                - /url: /plans/
+                - generic [ref=e16]: Pricing
+            - listitem [ref=e17]:
+              - link "Evo New" [ref=e18] [cursor=pointer]:
+                - /url: https://evo.ai.snyk.io
+                - generic [ref=e19]: Evo
+                - generic [ref=e20]: New
+          - generic [ref=e21]:
+            - generic [ref=e22] [cursor=pointer]:
+              - generic [ref=e23]:
+                - text: 
+                - generic [ref=e24]: EN
+              - generic [ref=e25]: Select your language
+              - combobox "Select your language" [ref=e26]:
+                - option "English" [selected]
+                - option "Deutsch"
+                - option "Español"
+                - option "Français"
+                - option "日本語"
+                - option "Português"
+            - generic [ref=e27]:
+              - button "Login "
+              - text:           
+            - link "Sign up" [ref=e28] [cursor=pointer]:
+              - /url: https://app.snyk.io/signup
+            - link "Book a live demo" [ref=e29] [cursor=pointer]:
+              - /url: /schedule-a-demo/
+    - main [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - link "Using AI in your code? Evo AI-SPM helps you see and govern the risk before it ships. " [ref=e35] [cursor=pointer]:
+            - /url: /news/snyk-launches-agent-security-solution/
+          - generic [ref=e36]:
+            - generic [ref=e37]:
+              - heading "Introducing the AI Security Fabric" [level=1] [ref=e38]
+              - heading "Unleash AI Innovators Securely" [level=2] [ref=e39]
+            - paragraph [ref=e41]: A new autonomous defense architecture designed for an era where code creation has accelerated beyond human capacity. Weave an invisible, intelligent layer of defense into every creation.
+            - link "Explore the platform " [ref=e43] [cursor=pointer]:
+              - /url: /platform/
+        - 'button "Play Video: Snyk AI Security Fabric " [ref=e50] [cursor=pointer]':
+          - generic [ref=e51]: "Play Video: Snyk AI Security Fabric"
+          - text: 
+      - generic [ref=e54]:
+        - article [ref=e56]:
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: You're shipping risk at record speeds
+            - paragraph [ref=e61]: AI-driven development has put code velocity into overdrive, but 48% of AI-gen code is insecure. Speed without security means insecure code is being introduced faster than ever before.
+        - article [ref=e63]:
+          - generic [ref=e66]:
+            - paragraph [ref=e67]: Attackers are accelerating
+            - paragraph [ref=e68]: Time-to-exploit (TTE) is shrinking fast. AI-enabled attackers are exploiting vulnerabilities across traditional and emerging attack surfaces, and TTE is expected to accelerate by 50% by 2027.
+        - article [ref=e70]:
+          - generic [ref=e73]:
+            - paragraph [ref=e74]: Your AI features are now attack vectors
+            - paragraph [ref=e75]: AI-native components are being embedded into applications everywhere. Pair that with existing vulnerabilities, and attackers can exploit the access and power of AI itself — compounding risk in ways we've never seen.
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - heading "The Snyk AI Security Platform" [level=2] [ref=e79]
+          - paragraph [ref=e81]: Snyk’s AI-native and agentic platform helps organizations secure and govern development to unleash productivity, reduce business risk, and accelerate software delivery for the age of AI.
+          - link "Learn More" [ref=e83] [cursor=pointer]:
+            - /url: /platform/
+        - generic [ref=e85]:
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - paragraph [ref=e89]: 288%
+              - paragraph [ref=e90]: ROI
+            - paragraph [ref=e91]: from improved productivity, improved risk posture, and cost savings on consolidated solutions with Snyk
+          - generic [ref=e93]:
+            - generic [ref=e94]:
+              - paragraph [ref=e95]: 80%
+              - paragraph [ref=e96]: Faster scan time
+            - paragraph [ref=e97]: than solutions used prior to Snyk
+          - generic [ref=e99]:
+            - generic [ref=e100]:
+              - paragraph [ref=e101]: 75%
+              - paragraph [ref=e102]: Faster remediation
+            - paragraph [ref=e103]: for issues prevented upstream in development with Snyk
+          - generic [ref=e105]:
+            - generic [ref=e106]:
+              - paragraph [ref=e107]: 60%
+              - paragraph [ref=e108]: Faster remediation
+            - paragraph [ref=e109]: for issues found in runtime with Snyk compared to prior solutions
+          - generic [ref=e111]:
+            - generic [ref=e112]:
+              - paragraph [ref=e113]: "3"
+              - paragraph [ref=e114]: AppSec solutions
+            - paragraph [ref=e115]: that were redundant with Snyk, that customers consolidated onto Snyk’s platform
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - paragraph [ref=e119]: 52%
+              - paragraph [ref=e120]: Reduced risk
+            - paragraph [ref=e121]: of a data breach with Snyk compared to prior solutions
+      - generic [ref=e128]:
+        - paragraph [ref=e129]: Snyk is trusted by the world’s most innovative companies.
+        - generic [ref=e131]:
+          - generic:
+            - img "Twilio logo"
+          - generic:
+            - img "Yalo logo"
+          - generic:
+            - img "Snowflake logo"
+          - generic:
+            - img "Jaguar Land Rover logo"
+          - generic:
+            - img "LabelBox logo"
+          - generic:
+            - img "Manulife logo"
+          - generic:
+            - img "Spotify logo"
+          - generic:
+            - img "Kroger logo"
+          - generic:
+            - img "Wex logo"
+          - img "Twilio logo" [ref=e134]
+          - img "Yalo logo" [ref=e137]
+          - img "Snowflake logo" [ref=e140]
+          - img "Jaguar Land Rover logo" [ref=e143]
+          - img "LabelBox logo" [ref=e146]
+          - img "Manulife logo" [ref=e149]
+          - img "Spotify logo" [ref=e152]
+          - img "Kroger logo" [ref=e155]
+          - img "Wex logo" [ref=e158]
+          - img "Twilio logo" [ref=e161]
+          - img "Yalo logo" [ref=e164]
+          - img "Snowflake logo" [ref=e167]
+          - img "Jaguar Land Rover logo" [ref=e170]
+          - img "LabelBox logo" [ref=e173]
+          - img "Manulife logo" [ref=e176]
+          - img "Spotify logo" [ref=e179]
+          - img "Kroger logo" [ref=e182]
+          - img "Wex logo" [ref=e185]
+        - generic [ref=e186]:
+          - paragraph [ref=e187]: Named a leader by analysts & customers
+          - generic [ref=e188]:
+            - img "Forrester Badge" [ref=e189]
+            - img "Gartner Badge" [ref=e190]
+            - img "G2 Review" [ref=e191]
+      - generic [ref=e193]:
+        - heading "Why customers trust Snyk" [level=2] [ref=e195]
+        - generic [ref=e196]:
+          - tablist [ref=e197]:
+            - tab "Yalo" [selected]:
+              - paragraph: Yalo
+            - tab "Okta" [ref=e198] [cursor=pointer]:
+              - paragraph [ref=e199]: Okta
+            - tab "Seismic" [ref=e200] [cursor=pointer]:
+              - paragraph [ref=e201]: Seismic
+            - tab "Komatsu" [ref=e202] [cursor=pointer]:
+              - paragraph [ref=e203]: Komatsu
+            - tab "Revolut" [ref=e204] [cursor=pointer]:
+              - paragraph [ref=e205]: Revolut
+            - tab "Skechers" [ref=e206] [cursor=pointer]:
+              - paragraph [ref=e207]: Skechers
+          - generic [ref=e208]:
+            - generic [ref=e210]:
+              - button "Play Video " [ref=e217] [cursor=pointer]:
+                - generic [ref=e218]: Play Video
+                - text: 
+              - generic [ref=e219]:
+                - blockquote [ref=e220]:
+                  - paragraph [ref=e221]: “Every company is moving toward AI, and security has to move with it. Snyk is ready to support our AI initiatives by protecting us as we adopt and experiment with AI. That's exactly the kind of partner we want for this next phase.”
+                - generic [ref=e222]:
+                  - paragraph [ref=e223]: Leon Direito
+                  - paragraph [ref=e224]: CISO, Yalo
+            - generic: 
+            - generic: 
+      - generic [ref=e227]:
+        - figure [ref=e229]
+        - generic [ref=e232]:
+          - heading "No one solves for AI alone" [level=2] [ref=e233]
+          - paragraph [ref=e235]: It takes an ecosystem to bring secure AI solutions to life. Learn more about technology integrations with your existing tools and workflows.
+          - link "View all integrations" [ref=e237] [cursor=pointer]:
+            - /url: /integrations/
+      - generic [ref=e239]:
+        - generic [ref=e240]:
+          - heading "Explore resources" [level=2] [ref=e241]
+          - link "View all here" [ref=e243] [cursor=pointer]:
+            - /url: /resource-library/
+        - generic [ref=e244]:
+          - article [ref=e245]:
+            - generic [ref=e246]:
+              - paragraph [ref=e247]: Guide
+              - paragraph [ref=e248]: "CISO’s Guide to Evolving AppSec in the AI Era: From Reactive Fixing to Proactive Risk Reduction"
+              - link "Download Now " [ref=e249] [cursor=pointer]:
+                - /url: /lp/cisos-guide-appsec-ai-era/
+          - article [ref=e250]:
+            - generic [ref=e251]:
+              - paragraph [ref=e252]: Report
+              - paragraph [ref=e253]: 2026 State of Agentic AI Adoption
+              - link "Download Now " [ref=e254] [cursor=pointer]:
+                - /url: /lp/state-of-agentic-ai-adoption/
+          - article [ref=e255]:
+            - generic [ref=e256]:
+              - paragraph [ref=e257]: Forrester study
+              - paragraph [ref=e258]: The Total Economic Impact™ of The Snyk AI Trust Platform | Forrester Study
+              - link "Download now " [ref=e259] [cursor=pointer]:
+                - /url: /lp/total-economic-impact-snyk/
+      - generic [ref=e261]:
+        - generic [ref=e262]:
+          - heading "Snyk reduces app risk and unleashes developer productivity" [level=2] [ref=e263]
+          - paragraph [ref=e265]: Start securing AI-generated code in minutes, or book a demo to see how Snyk can fit your developer security use cases.
+        - generic [ref=e267]:
+          - generic [ref=e268]:
+            - heading "Try Snyk for free" [level=2] [ref=e269]
+            - generic [ref=e270]:
+              - paragraph [ref=e271]: Create your free Snyk account to start securing AI-generated code in minutes.
+              - paragraph [ref=e272]: No credit card required.
+            - link "Get Started" [ref=e273] [cursor=pointer]:
+              - /url: https://app.snyk.io/login
+          - generic [ref=e274]:
+            - generic [ref=e275]:
+              - heading "See Snyk in action" [level=2] [ref=e278]
+              - paragraph [ref=e280]: See why Snyk is the chosen AppSec solution for developers and security teams alike — and what it can do for your team.
+              - link "Book a live demo " [ref=e281] [cursor=pointer]:
+                - /url: /schedule-a-demo/
+            - generic [ref=e282]:
+              - heading "Get in touch" [level=2] [ref=e285]
+              - paragraph [ref=e287]: We would be happy to hear from you about any feedback or questions about Snyk and how it works.
+              - link "Contact us " [ref=e288] [cursor=pointer]:
+                - /url: /contact-us/
+    - contentinfo [ref=e290]:
+      - generic [ref=e291]:
+        - navigation [ref=e292]:
+          - generic [ref=e293]:
+            - heading "Platform" [level=2] [ref=e294]
+            - list [ref=e295]:
+              - listitem [ref=e296]:
+                - link "Snyk AI Security Platform" [ref=e297] [cursor=pointer]:
+                  - /url: /platform/
+              - listitem [ref=e298]:
+                - link "Snyk AI Workflows" [ref=e299] [cursor=pointer]:
+                  - /url: /platform/workflows/
+              - listitem [ref=e300]:
+                - link "DeepCode AI" [ref=e301] [cursor=pointer]:
+                  - /url: /platform/deepcode-ai/
+              - listitem [ref=e302]:
+                - link "Integrations" [ref=e303] [cursor=pointer]:
+                  - /url: /integrations/
+          - generic [ref=e304]:
+            - heading "Our Resources" [level=2] [ref=e305]
+            - list [ref=e306]:
+              - listitem [ref=e307]:
+                - link "Resource Library" [ref=e308] [cursor=pointer]:
+                  - /url: /resource-library/
+              - listitem [ref=e309]:
+                - link "Blog" [ref=e310] [cursor=pointer]:
+                  - /url: /blog/
+              - listitem [ref=e311]:
+                - link "Snyk’s Podcasts" [ref=e312] [cursor=pointer]:
+                  - /url: /podcasts/the-secure-developer/
+          - generic [ref=e313]:
+            - heading "Knowledge & Docs" [level=2] [ref=e314]
+            - list [ref=e315]:
+              - listitem [ref=e316]:
+                - link "Snyk Labs" [ref=e317] [cursor=pointer]:
+                  - /url: https://labs.snyk.io/
+              - listitem [ref=e318]:
+                - link "Snyk Learn" [ref=e319] [cursor=pointer]:
+                  - /url: /platform/learn/
+              - listitem [ref=e320]:
+                - link "Snyk User Docs" [ref=e321] [cursor=pointer]:
+                  - /url: https://docs.snyk.io/
+              - listitem [ref=e322]:
+                - link "Snyk Support" [ref=e323] [cursor=pointer]:
+                  - /url: https://support.snyk.io/s/
+              - listitem [ref=e324]:
+                - link "Snyk Vuln Database" [ref=e325] [cursor=pointer]:
+                  - /url: https://security.snyk.io/
+              - listitem [ref=e326]:
+                - link "Snyk Updates" [ref=e327] [cursor=pointer]:
+                  - /url: https://updates.snyk.io/
+              - listitem [ref=e328]:
+                - link "Snyk Trust Center" [ref=e329] [cursor=pointer]:
+                  - /url: https://trust.snyk.io/home
+          - generic [ref=e330]:
+            - heading "Company & Community" [level=2] [ref=e331]
+            - list [ref=e332]:
+              - listitem [ref=e333]:
+                - link "About Snyk" [ref=e334] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e335]:
+                - link "Contact Us" [ref=e336] [cursor=pointer]:
+                  - /url: /contact-us/
+              - listitem [ref=e337]:
+                - link "Book A Demo" [ref=e338] [cursor=pointer]:
+                  - /url: /schedule-a-demo/
+              - listitem [ref=e339]:
+                - link "Careers" [ref=e340] [cursor=pointer]:
+                  - /url: /careers/
+              - listitem [ref=e341]:
+                - link "Events & Webinars" [ref=e342] [cursor=pointer]:
+                  - /url: /events/
+              - listitem [ref=e343]:
+                - link "Ambassadors" [ref=e344] [cursor=pointer]:
+                  - /url: /snyk-ambassadors/
+          - generic [ref=e345]:
+            - heading "Why Snyk" [level=2] [ref=e346]
+            - list [ref=e347]:
+              - listitem [ref=e348]:
+                - link "Snyk vs GitHub Advanced Security" [ref=e349] [cursor=pointer]:
+                  - /url: /comparison/github-vs-snyk/
+              - listitem [ref=e350]:
+                - link "Snyk vs Veracode" [ref=e351] [cursor=pointer]:
+                  - /url: /comparison/snyk-vs-veracode/
+              - listitem [ref=e352]:
+                - link "Snyk vs Checkmarx" [ref=e353] [cursor=pointer]:
+                  - /url: /comparison/snyk-vs-checkmarx/
+              - listitem [ref=e354]:
+                - link "Snyk vs Black Duck" [ref=e355] [cursor=pointer]:
+                  - /url: /comparison/snyk-vs-blackduck/
+              - listitem [ref=e356]:
+                - link "Snyk vs Wiz" [ref=e357] [cursor=pointer]:
+                  - /url: /comparison/snyk-vs-wiz/
+              - listitem [ref=e358]:
+                - link "Snyk vs Aikido" [ref=e359] [cursor=pointer]:
+                  - /url: /comparison/snyk-vs-aikido/
+        - generic [ref=e360]:
+          - list "Social Media Links" [ref=e364]:
+            - listitem [ref=e365]:
+              - link "twitter" [ref=e366] [cursor=pointer]:
+                - /url: https://twitter.com/snyksec
+                - generic "twitter" [ref=e367]: 
+            - listitem [ref=e368]:
+              - link "youtube" [ref=e369] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCh4dJzctb0NhSibjU-e2P6w
+                - generic "youtube" [ref=e370]: 
+            - listitem [ref=e371]:
+              - link "linkedin" [ref=e372] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/snyk
+                - generic "linkedin" [ref=e373]: 
+            - listitem [ref=e374]:
+              - link "github" [ref=e375] [cursor=pointer]:
+                - /url: https://github.com/snyk/
+                - generic "github" [ref=e376]: 
+            - listitem [ref=e377]:
+              - link "npm" [ref=e378] [cursor=pointer]:
+                - /url: https://www.npmjs.com/package/snyk
+                - generic "npm" [ref=e379]: 
+            - listitem [ref=e380]:
+              - link "discord" [ref=e381] [cursor=pointer]:
+                - /url: https://snyk.co/discordcommunity
+                - generic "discord" [ref=e382]: 
+          - generic [ref=e384]:
+            - heading "Patched & Dispatched" [level=2] [ref=e385]
+            - paragraph [ref=e386]: Your monthly roundup of Snyk content – the latest insights patched in, dispatched straight to your inbox. No fluff. Just the good stuff.
+          - link "Subscribe to our newsletter" [ref=e388] [cursor=pointer]:
+            - /url: /newsletter/
+        - generic [ref=e389]:
+          - paragraph [ref=e391]:
+            - text: © 2026 Snyk Limited
+            - text: Registered in England and Wales
+          - list "Legal Links" [ref=e392]:
+            - listitem [ref=e393]:
+              - link "Legal terms" [ref=e394] [cursor=pointer]:
+                - /url: /policies/terms-of-service/
+            - listitem [ref=e395]:
+              - text: •
+              - link "Privacy Notice" [ref=e396] [cursor=pointer]:
+                - /url: /policies/privacy/
+            - listitem [ref=e397]:
+              - text: •
+              - link "Terms of use" [ref=e398] [cursor=pointer]:
+                - /url: /policies/website-terms-of-use/
+            - listitem [ref=e399]:
+              - text: •
+              - 'link "California residents: do not sell my information" [ref=e400] [cursor=pointer]':
+                - /url: https://preferences.snyk.io/dont_sell
+  - alert [ref=e401]

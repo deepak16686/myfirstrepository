@@ -1,0 +1,721 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - navigation "Global" [ref=e5]:
+      - link "Lapa Ninja - Go to homepage" [ref=e7] [cursor=pointer]:
+        - /url: https://www.lapa.ninja/
+        - generic [ref=e8]: Lapa Ninja
+        - img "Lapa Ninja" [ref=e9]
+      - generic [ref=e11]:
+        - button "Websites" [ref=e13]:
+          - text: Websites
+          - img [ref=e14]
+        - link "Open Graph Images" [ref=e16] [cursor=pointer]:
+          - /url: /og-images/
+          - text: OG Images
+        - link "Popular Website Typefaces" [ref=e17] [cursor=pointer]:
+          - /url: /typeface/
+          - text: Fonts
+        - link "Website Sections Inspiration" [ref=e18] [cursor=pointer]:
+          - /url: /elements/
+          - text: Sections
+        - link "Responsive website templates" [ref=e19] [cursor=pointer]:
+          - /url: /templates/
+          - text: Templates
+        - button "Build Websites" [ref=e21]:
+          - text: Build Websites
+          - img [ref=e22]
+        - button "Learn Design" [ref=e25]:
+          - text: Learn Design
+          - img [ref=e26]
+        - link "Lapa Blog (opens in new tab)" [ref=e28] [cursor=pointer]:
+          - /url: https://blog.lapa.ninja/
+          - text: Subscribe
+          - generic [ref=e29]: (opens in new tab)
+      - generic [ref=e30]:
+        - search "Site search" [ref=e31]:
+          - generic [ref=e32]:
+            - generic [ref=e33]: Search websites and design resources
+            - generic:
+              - img
+            - searchbox "Search websites and design resources" [ref=e34]
+        - button "Toggle dark mode" [ref=e35]:
+          - img [ref=e37]
+          - img [ref=e40]
+  - main [ref=e42]:
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e46]:
+          - heading "The Best Landing Page Design Inspiration" [level=1] [ref=e47]
+          - paragraph [ref=e48]: Browse through 7,300+ landing page designs and get inspired by real examples with full website screenshots and video recordings.
+        - insertion [ref=e52]:
+          - iframe [ref=e54]:
+            
+      - generic [ref=e56]:
+        - navigation "Category Navigation" [ref=e57]
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - generic [ref=e62]: WEBSITE
+                - generic [ref=e63]:
+                  - generic [ref=e64]: Multitask with agents, stay in control
+                  - link [ref=e65] [cursor=pointer]:
+                    - /url: https://air.dev/
+                    - img [ref=e66]
+              - link "JetBrains Air" [ref=e68] [cursor=pointer]:
+                - /url: /post/air-dev/
+            - generic [ref=e70]:
+              - heading "JetBrains Air JetBrains Air" [level=3] [ref=e71]:
+                - img "JetBrains Air" [ref=e73]
+                - link "JetBrains Air" [ref=e74] [cursor=pointer]:
+                  - /url: /post/air-dev/
+              - generic [ref=e76]: Development Tools
+          - generic [ref=e77]:
+            - generic [ref=e78]:
+              - generic [ref=e79]:
+                - generic [ref=e80]: NO-CODE
+                - generic [ref=e81]:
+                  - generic [ref=e82]: More than a website builder
+                  - link [ref=e83] [cursor=pointer]:
+                    - /url: https://try.webflow.com/lapa-post
+                    - img [ref=e84]
+              - link "Webflow" [ref=e86] [cursor=pointer]:
+                - /url: https://try.webflow.com/lapa-post
+            - generic [ref=e88]:
+              - heading "Webflow Webflow" [level=3] [ref=e89]:
+                - img "Webflow" [ref=e91]
+                - link "Webflow" [ref=e92] [cursor=pointer]:
+                  - /url: https://try.webflow.com/lapa-post
+              - generic [ref=e94]: WEBSITE BUILDER
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - generic [ref=e98]: WEBSITE
+                - generic [ref=e99]:
+                  - generic [ref=e100]: The Future of Beauty is Automated
+                  - link [ref=e101] [cursor=pointer]:
+                    - /url: https://www.overlay.com/
+                    - img [ref=e102]
+              - link "Overlay" [ref=e104] [cursor=pointer]:
+                - /url: /post/overlay/
+            - generic [ref=e106]:
+              - heading "Overlay Overlay" [level=3] [ref=e107]:
+                - img "Overlay" [ref=e109]
+                - link "Overlay" [ref=e110] [cursor=pointer]:
+                  - /url: /post/overlay/
+              - generic [ref=e112]: Beauty
+          - generic [ref=e113]:
+            - generic [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: Mobbin.com
+                - generic [ref=e117]:
+                  - generic [ref=e118]: The world's largest mobile & web design reference library.
+                  - link [ref=e119] [cursor=pointer]:
+                    - /url: https://www.mobbin.com/?via=sglove&utm_source=lapaninja&utm_medium=category-banner&utm_campaign=2025
+                    - img [ref=e120]
+              - link "Mobbin.com" [ref=e122] [cursor=pointer]:
+                - /url: https://www.mobbin.com/?via=sglove&utm_source=lapaninja&utm_medium=category-banner&utm_campaign=2025
+            - generic [ref=e124]:
+              - heading "Mobbin Mobbin.com" [level=3] [ref=e125]:
+                - img "Mobbin" [ref=e127]
+                - link "Mobbin.com" [ref=e128] [cursor=pointer]:
+                  - /url: https://www.mobbin.com/?via=sglove&utm_source=lapaninja&utm_medium=category-banner&utm_campaign=2025
+              - generic [ref=e130]: INSPIRATION
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - generic [ref=e133]:
+                - generic [ref=e134]: WEBSITE
+                - generic [ref=e135]:
+                  - generic [ref=e136]: Build software that never breaks
+                  - link [ref=e137] [cursor=pointer]:
+                    - /url: https://interfere.com/
+                    - img [ref=e138]
+              - link "Interfere" [ref=e140] [cursor=pointer]:
+                - /url: /post/interfere/
+            - generic [ref=e142]:
+              - heading "Interfere Interfere" [level=3] [ref=e143]:
+                - img "Interfere" [ref=e145]
+                - link "Interfere" [ref=e146] [cursor=pointer]:
+                  - /url: /post/interfere/
+              - generic [ref=e148]: Development Tools
+          - generic [ref=e149]:
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - generic [ref=e152]: WEBSITE
+                - generic [ref=e153]:
+                  - generic [ref=e154]: Your AI edge in every trade.
+                  - link [ref=e155] [cursor=pointer]:
+                    - /url: https://askape.com/
+                    - img [ref=e156]
+              - link "Ape AI" [ref=e158] [cursor=pointer]:
+                - /url: /post/askape/
+            - generic [ref=e160]:
+              - heading "Ape AI Ape AI" [level=3] [ref=e161]:
+                - img "Ape AI" [ref=e163]
+                - link "Ape AI" [ref=e164] [cursor=pointer]:
+                  - /url: /post/askape/
+              - generic [ref=e166]: Artificial Intelligence
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - img "Framer website builder banner" [ref=e169]
+              - generic [ref=e170]:
+                - generic [ref=e171]: NO-CODE
+                - generic [ref=e172]:
+                  - generic [ref=e173]: The web builder for stunning sites
+                  - link [ref=e174] [cursor=pointer]:
+                    - /url: https://framer.link/lapaninja
+                    - img [ref=e175]
+              - link "Framer" [ref=e177] [cursor=pointer]:
+                - /url: https://framer.link/lapaninja
+            - generic [ref=e179]:
+              - heading "Framer Framer" [level=3] [ref=e180]:
+                - img "Framer" [ref=e182]
+                - link "Framer" [ref=e183] [cursor=pointer]:
+                  - /url: https://framer.link/lapaninja
+              - generic [ref=e185]: WEBSITE BUILDER
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - generic [ref=e189]: WEBSITE
+                - generic [ref=e190]:
+                  - generic [ref=e191]: Open-source orchestration for zero-human companies
+                  - link [ref=e192] [cursor=pointer]:
+                    - /url: https://paperclip.ing/
+                    - img [ref=e193]
+              - link "Paperclip" [ref=e195] [cursor=pointer]:
+                - /url: /post/paperclip/
+            - generic [ref=e197]:
+              - heading "Paperclip Paperclip" [level=3] [ref=e198]:
+                - img "Paperclip" [ref=e200]
+                - link "Paperclip" [ref=e201] [cursor=pointer]:
+                  - /url: /post/paperclip/
+              - generic [ref=e203]: Open Source
+          - generic [ref=e204]:
+            - generic [ref=e205]:
+              - generic [ref=e206]:
+                - generic [ref=e207]: WEBSITE
+                - generic [ref=e208]:
+                  - generic [ref=e209]: Learn to Code with AI
+                  - link [ref=e210] [cursor=pointer]:
+                    - /url: https://www.vovy.ai/
+                    - img [ref=e211]
+              - link "Vovy" [ref=e213] [cursor=pointer]:
+                - /url: /post/vovy/
+            - generic [ref=e215]:
+              - heading "Vovy Vovy" [level=3] [ref=e216]:
+                - img "Vovy" [ref=e218]
+                - link "Vovy" [ref=e219] [cursor=pointer]:
+                  - /url: /post/vovy/
+              - generic [ref=e221]: Education
+          - generic [ref=e222]:
+            - generic [ref=e224]:
+              - insertion:
+                - generic:
+                  - iframe
+            - generic [ref=e226]:
+              - heading "Our Sponsor Featured Partner" [level=3] [ref=e227]:
+                - img "Our Sponsor" [ref=e229]
+                - link "Featured Partner" [ref=e230] [cursor=pointer]:
+                  - /url: "#"
+              - generic [ref=e232]: SPONSOR
+          - generic [ref=e233]:
+            - generic [ref=e234]:
+              - generic [ref=e235]:
+                - generic [ref=e236]: WEBSITE
+                - generic [ref=e237]:
+                  - generic [ref=e238]: CPG Brand Architect & Creative Director
+                  - link [ref=e239] [cursor=pointer]:
+                    - /url: https://isadeburgh.com/
+                    - img [ref=e240]
+              - link "Isa de Burgh" [ref=e242] [cursor=pointer]:
+                - /url: /post/isadeburgh/
+            - generic [ref=e244]:
+              - heading "Isa de Burgh Isa de Burgh" [level=3] [ref=e245]:
+                - img "Isa de Burgh" [ref=e247]
+                - link "Isa de Burgh" [ref=e248] [cursor=pointer]:
+                  - /url: /post/isadeburgh/
+              - generic [ref=e250]: Portfolio
+          - generic [ref=e251]:
+            - generic [ref=e252]:
+              - generic [ref=e253]:
+                - generic [ref=e254]: WEBSITE
+                - generic [ref=e255]:
+                  - generic [ref=e256]: 24/7 support for your mind
+                  - link [ref=e257] [cursor=pointer]:
+                    - /url: https://joindawn.com/
+                    - img [ref=e258]
+              - link "Dawn" [ref=e260] [cursor=pointer]:
+                - /url: /post/joindawn/
+            - generic [ref=e262]:
+              - heading "Dawn Dawn" [level=3] [ref=e263]:
+                - img "Dawn" [ref=e265]
+                - link "Dawn" [ref=e266] [cursor=pointer]:
+                  - /url: /post/joindawn/
+              - generic [ref=e268]: Health Fitness
+          - generic [ref=e269]:
+            - generic [ref=e270]:
+              - generic [ref=e271]:
+                - generic [ref=e272]: WEBSITE
+                - generic [ref=e273]:
+                  - generic [ref=e274]: Be Beautiful. Be Everywhere.
+                  - link [ref=e275] [cursor=pointer]:
+                    - /url: https://www.doodles.app/
+                    - img [ref=e276]
+              - link "Doodles" [ref=e278] [cursor=pointer]:
+                - /url: /post/doodles/
+            - generic [ref=e280]:
+              - heading "Doodles Doodles" [level=3] [ref=e281]:
+                - img "Doodles" [ref=e283]
+                - link "Doodles" [ref=e284] [cursor=pointer]:
+                  - /url: /post/doodles/
+              - generic [ref=e286]: Illustration
+          - generic [ref=e287]:
+            - generic [ref=e288]:
+              - generic [ref=e289]:
+                - generic [ref=e290]: WEBSITE
+                - generic [ref=e291]:
+                  - generic [ref=e292]: Send money on WhatsApp
+                  - link [ref=e293] [cursor=pointer]:
+                    - /url: https://owo.app/
+                    - img [ref=e294]
+              - link "OWO" [ref=e296] [cursor=pointer]:
+                - /url: /post/owo/
+            - generic [ref=e298]:
+              - heading "OWO OWO" [level=3] [ref=e299]:
+                - img "OWO" [ref=e301]
+                - link "OWO" [ref=e302] [cursor=pointer]:
+                  - /url: /post/owo/
+              - generic [ref=e304]: App
+          - generic [ref=e305]:
+            - generic [ref=e306]:
+              - generic [ref=e307]:
+                - generic [ref=e308]: WEBSITE
+                - generic [ref=e309]:
+                  - generic [ref=e310]: A design studio of skilled, passionate and talented friends
+                  - link [ref=e311] [cursor=pointer]:
+                    - /url: https://poch.studio/
+                    - img [ref=e312]
+              - link "Poch Studio" [ref=e314] [cursor=pointer]:
+                - /url: /post/poch/
+            - generic [ref=e316]:
+              - heading "Poch Studio Poch Studio" [level=3] [ref=e317]:
+                - img "Poch Studio" [ref=e319]
+                - link "Poch Studio" [ref=e320] [cursor=pointer]:
+                  - /url: /post/poch/
+              - generic [ref=e322]: Studio
+          - generic [ref=e329]:
+            - heading "Our Sponsor Featured Partner" [level=3] [ref=e330]:
+              - img "Our Sponsor" [ref=e332]
+              - link "Featured Partner" [ref=e333] [cursor=pointer]:
+                - /url: "#"
+            - generic [ref=e335]: SPONSOR
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - generic [ref=e338]:
+                - generic [ref=e339]: WEBSITE
+                - generic [ref=e340]:
+                  - generic [ref=e341]: The only interactive Museum of Money
+                  - link [ref=e342] [cursor=pointer]:
+                    - /url: https://www.museumofmoney.com/
+                    - img [ref=e343]
+              - link "MoMoney" [ref=e345] [cursor=pointer]:
+                - /url: /post/museumofmoney/
+            - generic [ref=e347]:
+              - heading "MoMoney MoMoney" [level=3] [ref=e348]:
+                - img "MoMoney" [ref=e350]
+                - link "MoMoney" [ref=e351] [cursor=pointer]:
+                  - /url: /post/museumofmoney/
+              - generic [ref=e353]: Corporate
+          - generic [ref=e354]:
+            - generic [ref=e356]:
+              - insertion:
+                - generic:
+                  - iframe
+            - generic [ref=e358]:
+              - heading "Our Sponsor Featured Partner" [level=3] [ref=e359]:
+                - img "Our Sponsor" [ref=e361]
+                - link "Featured Partner" [ref=e362] [cursor=pointer]:
+                  - /url: "#"
+              - generic [ref=e364]: SPONSOR
+          - generic [ref=e365]:
+            - generic [ref=e366]:
+              - generic [ref=e367]:
+                - generic [ref=e368]: WEBSITE
+                - generic [ref=e369]:
+                  - generic [ref=e370]: The search engine for creative people
+                  - link [ref=e371] [cursor=pointer]:
+                    - /url: https://flim.ai/
+                    - img [ref=e372]
+              - link "Flim" [ref=e374] [cursor=pointer]:
+                - /url: /post/flim/
+            - generic [ref=e376]:
+              - heading "Flim Flim" [level=3] [ref=e377]:
+                - img "Flim" [ref=e379]
+                - link "Flim" [ref=e380] [cursor=pointer]:
+                  - /url: /post/flim/
+              - generic [ref=e382]: Artificial Intelligence
+          - generic [ref=e383]:
+            - generic [ref=e384]:
+              - generic [ref=e385]:
+                - generic [ref=e386]: WEBSITE
+                - generic [ref=e387]:
+                  - generic [ref=e388]: Money that finally works for you
+                  - link [ref=e389] [cursor=pointer]:
+                    - /url: https://moneda.com/
+                    - img [ref=e390]
+              - link "Moneda" [ref=e392] [cursor=pointer]:
+                - /url: /post/moneda-2/
+            - generic [ref=e394]:
+              - heading "Moneda Moneda" [level=3] [ref=e395]:
+                - img "Moneda" [ref=e397]
+                - link "Moneda" [ref=e398] [cursor=pointer]:
+                  - /url: /post/moneda-2/
+              - generic [ref=e400]: Finance
+          - generic [ref=e401]:
+            - generic [ref=e402]:
+              - generic [ref=e403]:
+                - generic [ref=e404]: WEBSITE
+                - generic [ref=e405]:
+                  - generic [ref=e406]: The AI design tool built for code
+                  - link [ref=e407] [cursor=pointer]:
+                    - /url: https://www.subframe.com/
+                    - img [ref=e408]
+              - link "Subframe" [ref=e410] [cursor=pointer]:
+                - /url: /post/subframe/
+            - generic [ref=e412]:
+              - heading "Subframe Subframe" [level=3] [ref=e413]:
+                - img "Subframe" [ref=e415]
+                - link "Subframe" [ref=e416] [cursor=pointer]:
+                  - /url: /post/subframe/
+              - generic [ref=e418]: Artificial Intelligence
+          - generic [ref=e419]:
+            - generic [ref=e420]:
+              - generic [ref=e421]:
+                - generic [ref=e422]: WEBSITE
+                - generic [ref=e423]:
+                  - generic [ref=e424]: The product development system for teams and agents
+                  - link [ref=e425] [cursor=pointer]:
+                    - /url: https://linear.app/
+                    - img [ref=e426]
+              - link "Linear" [ref=e428] [cursor=pointer]:
+                - /url: /post/linear-5/
+            - generic [ref=e430]:
+              - heading "Linear Linear" [level=3] [ref=e431]:
+                - img "Linear" [ref=e433]
+                - link "Linear" [ref=e434] [cursor=pointer]:
+                  - /url: /post/linear-5/
+              - generic [ref=e436]: Product Management
+          - generic [ref=e443]:
+            - heading "Our Sponsor Featured Partner" [level=3] [ref=e444]:
+              - img "Our Sponsor" [ref=e446]
+              - link "Featured Partner" [ref=e447] [cursor=pointer]:
+                - /url: "#"
+            - generic [ref=e449]: SPONSOR
+          - generic [ref=e450]:
+            - generic [ref=e451]:
+              - generic [ref=e452]:
+                - generic [ref=e453]: WEBSITE
+                - generic [ref=e454]:
+                  - generic [ref=e455]: Next-generation gaming and interactive ecosystem
+                  - link [ref=e456] [cursor=pointer]:
+                    - /url: https://www.marblex.io/en
+                    - img [ref=e457]
+              - link "Marblex" [ref=e459] [cursor=pointer]:
+                - /url: /post/marblex/
+            - generic [ref=e461]:
+              - heading "Marblex Marblex" [level=3] [ref=e462]:
+                - img "Marblex" [ref=e464]
+                - link "Marblex" [ref=e465] [cursor=pointer]:
+                  - /url: /post/marblex/
+              - generic [ref=e467]: Illustration
+          - generic [ref=e468]:
+            - generic [ref=e469]:
+              - generic [ref=e470]:
+                - generic [ref=e471]: WEBSITE
+                - generic [ref=e472]:
+                  - generic [ref=e473]: Models built for coding agents
+                  - link [ref=e474] [cursor=pointer]:
+                    - /url: https://relace.ai/
+                    - img [ref=e475]
+              - link "Relace" [ref=e477] [cursor=pointer]:
+                - /url: /post/relace/
+            - generic [ref=e479]:
+              - heading "Relace Relace" [level=3] [ref=e480]:
+                - img "Relace" [ref=e482]
+                - link "Relace" [ref=e483] [cursor=pointer]:
+                  - /url: /post/relace/
+              - generic [ref=e485]: Artificial Intelligence
+          - generic [ref=e486]:
+            - generic [ref=e488]:
+              - insertion:
+                - generic:
+                  - iframe
+            - generic [ref=e490]:
+              - heading "Our Sponsor Featured Partner" [level=3] [ref=e491]:
+                - img "Our Sponsor" [ref=e493]
+                - link "Featured Partner" [ref=e494] [cursor=pointer]:
+                  - /url: "#"
+              - generic [ref=e496]: SPONSOR
+          - generic [ref=e497]:
+            - generic [ref=e498]:
+              - generic [ref=e499]:
+                - generic [ref=e500]: WEBSITE
+                - generic [ref=e501]:
+                  - generic [ref=e502]: Make everyone on your team a developer
+                  - link [ref=e503] [cursor=pointer]:
+                    - /url: https://sparkles.dev/
+                    - img [ref=e504]
+              - link "Sparkles" [ref=e506] [cursor=pointer]:
+                - /url: /post/sparkles/
+            - generic [ref=e508]:
+              - heading "Sparkles Sparkles" [level=3] [ref=e509]:
+                - img "Sparkles" [ref=e511]
+                - link "Sparkles" [ref=e512] [cursor=pointer]:
+                  - /url: /post/sparkles/
+              - generic [ref=e514]: SaaS
+          - generic [ref=e515]:
+            - generic [ref=e516]:
+              - generic [ref=e517]:
+                - generic [ref=e518]: WEBSITE
+                - generic [ref=e519]:
+                  - generic [ref=e520]: A creative developer & teacher from Amsterdam
+                  - link [ref=e521] [cursor=pointer]:
+                    - /url: https://cydstumpel.nl/
+                    - img [ref=e522]
+              - link "Cyd Stumpel" [ref=e524] [cursor=pointer]:
+                - /url: /post/cydstumpel-2/
+            - generic [ref=e526]:
+              - heading "Cyd Stumpel Cyd Stumpel" [level=3] [ref=e527]:
+                - img "Cyd Stumpel" [ref=e529]
+                - link "Cyd Stumpel" [ref=e530] [cursor=pointer]:
+                  - /url: /post/cydstumpel-2/
+              - generic [ref=e532]: Portfolio
+          - generic [ref=e533]:
+            - generic [ref=e534]:
+              - generic [ref=e535]:
+                - generic [ref=e536]: WEBSITE
+                - generic [ref=e537]:
+                  - generic [ref=e538]: Copywriting, Feature Writing, Editing & Communications
+                  - link [ref=e539] [cursor=pointer]:
+                    - /url: https://www.humaninterest.co.nz/
+                    - img [ref=e540]
+              - link "Human Interest" [ref=e542] [cursor=pointer]:
+                - /url: /post/humaninterest/
+            - generic [ref=e544]:
+              - heading "Human Interest Human Interest" [level=3] [ref=e545]:
+                - img "Human Interest" [ref=e547]
+                - link "Human Interest" [ref=e548] [cursor=pointer]:
+                  - /url: /post/humaninterest/
+              - generic [ref=e550]: Business
+          - generic [ref=e551]:
+            - generic [ref=e552]:
+              - generic [ref=e553]:
+                - generic [ref=e554]: WEBSITE
+                - generic [ref=e555]:
+                  - generic [ref=e556]: Presence without performance, connection without capture
+                  - link [ref=e557] [cursor=pointer]:
+                    - /url: https://interludeapp.net/
+                    - img [ref=e558]
+              - link "Interlude" [ref=e560] [cursor=pointer]:
+                - /url: /post/interludeapp/
+            - generic [ref=e562]:
+              - heading "Interlude Interlude" [level=3] [ref=e563]:
+                - img "Interlude" [ref=e565]
+                - link "Interlude" [ref=e566] [cursor=pointer]:
+                  - /url: /post/interludeapp/
+              - generic [ref=e568]: App
+          - generic [ref=e569]:
+            - generic [ref=e570]:
+              - generic [ref=e571]:
+                - generic [ref=e572]: WEBSITE
+                - generic [ref=e573]:
+                  - generic [ref=e574]: YC turns builders into formidable founders
+                  - link [ref=e575] [cursor=pointer]:
+                    - /url: https://www.ycombinator.com/
+                    - img [ref=e576]
+              - link "Y Combinator" [ref=e578] [cursor=pointer]:
+                - /url: /post/ycombinator/
+            - generic [ref=e580]:
+              - heading "Y Combinator Y Combinator" [level=3] [ref=e581]:
+                - img "Y Combinator" [ref=e583]
+                - link "Y Combinator" [ref=e584] [cursor=pointer]:
+                  - /url: /post/ycombinator/
+              - generic [ref=e586]: Ventures
+          - generic [ref=e587]:
+            - generic [ref=e588]:
+              - generic [ref=e589]:
+                - generic [ref=e590]: WEBSITE
+                - generic [ref=e591]:
+                  - generic [ref=e592]: Give plasma, get paid, and do good
+                  - link [ref=e593] [cursor=pointer]:
+                    - /url: https://www.riseplasma.com/
+                    - img [ref=e594]
+              - link "Rise Plasma" [ref=e596] [cursor=pointer]:
+                - /url: /post/riseplasma/
+            - generic [ref=e598]:
+              - heading "Rise Plasma Rise Plasma" [level=3] [ref=e599]:
+                - img "Rise Plasma" [ref=e601]
+                - link "Rise Plasma" [ref=e602] [cursor=pointer]:
+                  - /url: /post/riseplasma/
+              - generic [ref=e604]: Health Fitness
+        - navigation "Pagination Navigation" [ref=e608]:
+          - list [ref=e609]:
+            - listitem [ref=e610]:
+              - generic [ref=e611]:
+                - img [ref=e612]
+                - text: Previous
+            - listitem [ref=e614]:
+              - generic "Current page, page 1" [ref=e615]: "1"
+            - listitem [ref=e616]:
+              - link "Go to page 2" [ref=e617] [cursor=pointer]:
+                - /url: /post/page/2/
+                - text: "2"
+            - listitem [ref=e618]:
+              - link "Go to page 3" [ref=e619] [cursor=pointer]:
+                - /url: /post/page/3/
+                - text: "3"
+            - listitem [ref=e620]:
+              - link "Go to page 4" [ref=e621] [cursor=pointer]:
+                - /url: /post/page/4/
+                - text: "4"
+            - listitem [ref=e622]:
+              - link "Go to page 5" [ref=e623] [cursor=pointer]:
+                - /url: /post/page/5/
+                - text: "5"
+            - listitem [ref=e624]:
+              - generic [ref=e625]: …
+            - listitem [ref=e626]:
+              - link "Go to last page, page 307" [ref=e627] [cursor=pointer]:
+                - /url: /post/page/307/
+                - text: "307"
+            - listitem [ref=e628]:
+              - link "Go to next page" [ref=e629] [cursor=pointer]:
+                - /url: /post/page/2/
+                - text: Next
+                - img [ref=e630]
+        - generic [ref=e632]: Showing 24 of 7353 websites
+        - insertion [ref=e636]:
+          - iframe [ref=e638]:
+            
+  - contentinfo [ref=e639]:
+    - generic [ref=e642]:
+      - generic [ref=e644]:
+        - generic [ref=e645]:
+          - text: Lapa Ninja - your go-to destination for web design inspiration. Created to help designers find inspiration, learn, and sharpen their skills, the site showcases curated content from the best landing page designs on the web, updated daily. Featured on Product Hunt with over 1,600 votes, Lapa Ninja is a trusted resource in the design community. Show your support by
+          - link "Buy me a Coffee (opens in new tab)" [ref=e646] [cursor=pointer]:
+            - /url: https://www.buymeacoffee.com/lapaninja
+            - text: Buying me a Coffee ☕️
+            - generic [ref=e647]: (opens in new tab)
+        - generic [ref=e648]:
+          - text: Submit your websites
+          - link "Send email to hi@lapa.ninja" [ref=e649] [cursor=pointer]:
+            - /url: mailto:hi@lapa.ninja
+            - text: 💌 hi@lapa.ninja
+        - generic [ref=e650]:
+          - paragraph [ref=e651]: Stay Updated
+          - paragraph [ref=e652]: Get the latest design inspiration delivered to your inbox. Support our work and join the community!
+          - generic [ref=e653]:
+            - generic:
+              - iframe
+      - generic [ref=e655]:
+        - link "View our Product Hunt page (opens in new tab)" [ref=e657] [cursor=pointer]:
+          - /url: https://www.producthunt.com/posts/lapa-ninja?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-lapa-ninja
+          - img "Lapa Ninja - The Best Landing Page Inspiration | Product Hunt" [ref=e658]
+          - generic [ref=e659]: (opens in new tab)
+        - generic [ref=e660]:
+          - heading "Follow Us" [level=3] [ref=e661]
+          - navigation "Social media links" [ref=e662]:
+            - list [ref=e663]:
+              - listitem [ref=e664]:
+                - link "Follow us on Pinterest (opens in new tab)" [ref=e665] [cursor=pointer]:
+                  - /url: https://www.pinterest.com/lapaninja/
+                  - text: Pinterest
+                  - generic [ref=e666]: (opens in new tab)
+              - listitem [ref=e667]:
+                - link "Follow us on X / Twitter (opens in new tab)" [ref=e668] [cursor=pointer]:
+                  - /url: https://twitter.com/lapaninja
+                  - text: X / Twitter
+                  - generic [ref=e669]: (opens in new tab)
+              - listitem [ref=e670]:
+                - link "Follow us on Bluesky (opens in new tab)" [ref=e671] [cursor=pointer]:
+                  - /url: https://bsky.app/profile/lapa.ninja
+                  - text: Bluesky
+                  - generic [ref=e672]: (opens in new tab)
+              - listitem [ref=e673]:
+                - link "Follow us on LinkedIn (opens in new tab)" [ref=e674] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/lapa-ninja/
+                  - text: LinkedIn
+                  - generic [ref=e675]: (opens in new tab)
+              - listitem [ref=e676]:
+                - link "Follow us on Cosmos (opens in new tab)" [ref=e677] [cursor=pointer]:
+                  - /url: https://www.cosmos.so/lapaninja
+                  - text: Cosmos
+                  - generic [ref=e678]: (opens in new tab)
+              - listitem [ref=e679]:
+                - link "Subscribe to RSS feed (opens in new tab)" [ref=e680] [cursor=pointer]:
+                  - /url: /index.xml
+                  - text: RSS
+                  - generic [ref=e681]: (opens in new tab)
+    - generic:
+      - insertion:
+        - generic:
+          - iframe
+    - generic [ref=e689]:
+      - generic [ref=e690]:
+        - heading "Articles" [level=3] [ref=e691]:
+          - link "Articles" [ref=e692] [cursor=pointer]:
+            - /url: /articles/
+        - list [ref=e693]:
+          - listitem [ref=e694]:
+            - link "What is a Landing Page? Beginner's Guide to Designing High-Converting Pages" [ref=e695] [cursor=pointer]:
+              - /url: /articles/what-is-a-landing-page/
+          - listitem [ref=e696]:
+            - link "Free Illustrations Library for Your Project" [ref=e697] [cursor=pointer]:
+              - /url: /articles/free-illustrations-library-for-your-project/
+          - listitem [ref=e698]:
+            - link "Top Free Resources for SVG Patterns" [ref=e699] [cursor=pointer]:
+              - /url: /articles/the-best-free-svg-patterns/
+          - listitem [ref=e700]:
+            - link "The Best Free Stock Photo Sites" [ref=e701] [cursor=pointer]:
+              - /url: /articles/the-best-free-stock-photo-sites-to-use-in-2019/
+      - generic [ref=e702]:
+        - heading "Download Free Design Books" [level=3] [ref=e703]:
+          - link "Download Free Design Books" [ref=e704] [cursor=pointer]:
+            - /url: /books/
+        - list [ref=e705]:
+          - listitem [ref=e706]:
+            - link "The Ultimate UI Design Roadmap" [ref=e707] [cursor=pointer]:
+              - /url: /books/the-ultimate-ui-design-roadmap/
+          - listitem [ref=e708]:
+            - link "Law By Design" [ref=e709] [cursor=pointer]:
+              - /url: /books/lawbydesign/
+          - listitem [ref=e710]:
+            - link "Why Do We Interface?" [ref=e711] [cursor=pointer]:
+              - /url: /books/whydoweinterface/
+          - listitem [ref=e712]:
+            - link "Design Engineering Handbook" [ref=e713] [cursor=pointer]:
+              - /url: /books/design-engineering-handbook/
+          - listitem [ref=e714]:
+            - link "The Grit Season 2" [ref=e715] [cursor=pointer]:
+              - /url: /books/the-grit-season-2/
+      - generic [ref=e716]:
+        - heading "Free Design Resources" [level=3] [ref=e717]:
+          - link "Free Design Resources" [ref=e718] [cursor=pointer]:
+            - /url: /freebies/
+        - list [ref=e719]:
+          - listitem [ref=e720]:
+            - link "AI Startup Free Website Ui Kit" [ref=e721] [cursor=pointer]:
+              - /url: /freebies/ai-startup-free-website-ui-kit/
+          - listitem [ref=e722]:
+            - link "Instrument Design Studio Portfolio Free Template for Figma" [ref=e723] [cursor=pointer]:
+              - /url: /freebies/instrument-design-studio-portfolio-free-template-for-figma/
+          - listitem [ref=e724]:
+            - link "Cooking Free Template for Figma" [ref=e725] [cursor=pointer]:
+              - /url: /freebies/cooking-free-template-for-figma/
+          - listitem [ref=e726]:
+            - link "Open Fashion - Free eCommerce UI Kit for Figma" [ref=e727] [cursor=pointer]:
+              - /url: /freebies/open-fashion-free-ecommerce-ui-kit/
+          - listitem [ref=e728]:
+            - link "The Free No-code SaaS Website UI kit for Framer and Figma" [ref=e729] [cursor=pointer]:
+              - /url: /freebies/the-free-no-code-saas-website-ui-kit-for-framer-figma/
+    - generic [ref=e732]: All screenshots © of their respective owners.

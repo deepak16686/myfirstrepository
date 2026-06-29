@@ -64,6 +64,231 @@ class PipelineGeneratorService:
     def _get_chromadb(self) -> ChromaDBIntegration:
         return ChromaDBIntegration(self.chromadb_config)
 
+    def _apply_pipeline_requirements(
+        self,
+        analysis: Dict[str, Any],
+        pipeline_requirements: Optional[Dict[str, Any]]
+    ) -> None:
+        """Merge chatbot-confirmed pipeline requirements into repository analysis."""
+        if not pipeline_requirements:
+            return
+
+        clean_requirements = {
+            key: value
+            for key, value in pipeline_requirements.items()
+            if value not in (None, "", [], {})
+        }
+        analysis["pipeline_requirements"] = clean_requirements
+
+        for key in (
+            "output_mode",
+            "dockerfile_strategy",
+            "language_version",
+            "java_version",
+            "build_tool",
+            "build_tool_version",
+            "framework",
+            "framework_version",
+            "packaging",
+            "module_type",
+            "module_path",
+            "artifact_pattern",
+            "artifact_publish_target",
+            "registry_strategy",
+            "runner_type",
+        ):
+            if key in clean_requirements:
+                analysis[key] = clean_requirements[key]
+
+        if analysis.get("language") == "java" and analysis.get("language_version") and not analysis.get("java_version"):
+            analysis["java_version"] = analysis["language_version"]
+
+    def _is_direct_artifact_mode(self, analysis: Dict[str, Any]) -> bool:
+        output_mode = str(analysis.get("output_mode") or "").replace("_", "-").lower()
+        return output_mode in ("direct-artifact", "artifact", "artifact-only")
+
+    def _get_direct_artifact_gitlab_ci(self, analysis: Dict[str, Any]) -> str:
+        """Create a CI pipeline that publishes build artifacts without a Dockerfile/image build."""
+        language = str(analysis.get("language", "unknown")).lower()
+        build_tool = str(analysis.get("build_tool") or analysis.get("package_manager") or "").lower()
+        compile_image = analysis.get("resolved_compile_image") or LANGUAGE_COMPILE_IMAGES.get(language, "alpine:3.18")
+        image_ref = f"${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/{compile_image}"
+
+        compile_script, test_script, artifact_paths = self._get_direct_artifact_commands(analysis)
+        artifact_target = str(analysis.get("artifact_publish_target") or "gitlab-artifacts")
+
+        publish_script = [
+            'echo "Publishing artifacts through GitLab job artifacts"',
+            f'echo "Artifact target={artifact_target}"',
+            'find . -maxdepth 4 -type f \\( -name "*.jar" -o -name "*.war" -o -name "*.zip" -o -name "*.tgz" -o -name "*.whl" \\) || true',
+        ]
+        if artifact_target == "nexus":
+            publish_script = [
+                'echo "Nexus artifact publishing selected"',
+                'echo "Configure project-specific Nexus repository coordinates before enabling upload"',
+                'find . -maxdepth 4 -type f \\( -name "*.jar" -o -name "*.war" -o -name "*.zip" -o -name "*.tgz" -o -name "*.whl" \\) || true',
+            ]
+
+        def _yaml_list(items: List[str], indent: str = "    - ") -> str:
+            return "\n".join(f"{indent}{item}" for item in items)
+
+        return f"""stages:
+  - compile
+  - test
+  - sast
+  - quality
+  - security
+  - publish
+  - notify
+  - learn
+
+variables:
+  NEXUS_REGISTRY: "localhost:5001"
+  NEXUS_PULL_REGISTRY: "localhost:5001"
+  NEXUS_INTERNAL_REGISTRY: "ai-nexus:5001"
+  IMAGE_NAME: "${{CI_PROJECT_NAME}}"
+  IMAGE_TAG: "artifact-${{CI_PIPELINE_IID}}"
+  SONARQUBE_URL: "http://ai-sonarqube:9000"
+  SPLUNK_HEC_URL: "http://ai-splunk:8088"
+  DEVOPS_BACKEND_URL: "http://devops-tools-backend:8003"
+
+compile:
+  stage: compile
+  image: {image_ref}
+  tags: [docker]
+  script:
+{_yaml_list(compile_script)}
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths:
+{_yaml_list(artifact_paths, "      - ")}
+
+test:
+  stage: test
+  image: {image_ref}
+  tags: [docker]
+  needs: ["compile"]
+  script:
+{_yaml_list(test_script)}
+
+sast:
+  stage: sast
+  image: ${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/semgrep:latest
+  tags: [docker]
+  script:
+    - semgrep --config=auto --json --output=semgrep-report.json . || true
+  artifacts:
+    when: always
+    paths:
+      - semgrep-report.json
+
+quality:
+  stage: quality
+  image: ${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/sonarsource-sonar-scanner-cli:latest
+  tags: [docker]
+  script:
+    - sonar-scanner -Dsonar.projectKey=${{CI_PROJECT_NAME}} -Dsonar.sources=. -Dsonar.host.url=${{SONARQUBE_URL}} -Dsonar.login=${{SONAR_TOKEN}} || true
+
+security_scan:
+  stage: security
+  image: ${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/aquasec-trivy:latest
+  tags: [docker]
+  script:
+    - trivy fs --format json --output trivy-fs-report.json . || true
+  artifacts:
+    when: always
+    paths:
+      - trivy-fs-report.json
+
+publish_artifact:
+  stage: publish
+  image: {image_ref}
+  tags: [docker]
+  needs: ["compile"]
+  script:
+{_yaml_list(publish_script)}
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+{_yaml_list(artifact_paths, "      - ")}
+
+notify_success:
+  stage: notify
+  image: ${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/curl:8.5.0
+  tags: [docker]
+  when: on_success
+  script:
+    - 'curl -k -X POST "${{SPLUNK_HEC_URL}}/services/collector" -H "Authorization: Splunk ${{SPLUNK_HEC_TOKEN}}" -d "{{\\"event\\": \\"Direct artifact pipeline succeeded\\", \\"source\\": \\"${{CI_PROJECT_NAME}}\\"}}" || true'
+
+notify_failure:
+  stage: notify
+  image: ${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/curl:8.5.0
+  tags: [docker]
+  when: on_failure
+  script:
+    - 'curl -k -X POST "${{SPLUNK_HEC_URL}}/services/collector" -H "Authorization: Splunk ${{SPLUNK_HEC_TOKEN}}" -d "{{\\"event\\": \\"Direct artifact pipeline failed\\", \\"source\\": \\"${{CI_PROJECT_NAME}}\\"}}" || true'
+
+learn_record:
+  stage: learn
+  image: ${{NEXUS_PULL_REGISTRY}}/apm-repo/demo/curl:8.5.0
+  tags: [docker]
+  when: always
+  script:
+    - 'curl -X POST "${{DEVOPS_BACKEND_URL}}/api/v1/pipeline/learn/record" -H "Content-Type: application/json" -d "{{\\"repo_url\\":\\"${{CI_PROJECT_URL}}\\",\\"branch\\":\\"${{CI_COMMIT_REF_NAME}}\\",\\"pipeline_id\\":${{CI_PIPELINE_ID}},\\"gitlab_token\\":\\"${{GITLAB_TOKEN}}\\"}}" || true'
+"""
+
+    def _get_direct_artifact_commands(self, analysis: Dict[str, Any]) -> Tuple[List[str], List[str], List[str]]:
+        language = str(analysis.get("language", "unknown")).lower()
+        build_tool = str(analysis.get("build_tool") or analysis.get("package_manager") or "").lower()
+        packaging = str(analysis.get("packaging") or "jar").lower()
+
+        if language in ("java", "kotlin", "scala"):
+            artifact_pattern = analysis.get("artifact_pattern")
+            if not artifact_pattern:
+                artifact_pattern = "target/*.war" if packaging == "war" else "build/libs/*.jar"
+                if build_tool == "maven":
+                    artifact_pattern = "target/*.war" if packaging == "war" else "target/*.jar"
+            if build_tool == "gradle":
+                return (
+                    ["gradle clean assemble -x test || ./gradlew clean assemble -x test"],
+                    ["gradle test || ./gradlew test"],
+                    [artifact_pattern],
+                )
+            return (
+                ["mvn -B clean package -DskipTests"],
+                ["mvn -B test"],
+                [artifact_pattern],
+            )
+
+        if language in ("javascript", "typescript"):
+            package_manager = "yarn" if build_tool == "yarn" else "npm"
+            install_cmd = "yarn install --frozen-lockfile" if package_manager == "yarn" else "npm ci || npm install"
+            build_cmd = "yarn build || true" if package_manager == "yarn" else "npm run build || true"
+            test_cmd = "yarn test --watch=false || true" if package_manager == "yarn" else "npm test -- --watch=false || true"
+            return ([install_cmd, build_cmd], [test_cmd], ["dist/", "build/"])
+
+        if language == "python":
+            return (
+                ["python -m pip install --upgrade pip", "pip install -r requirements.txt || true", "python -m build || true"],
+                ["pytest || true"],
+                ["dist/"],
+            )
+
+        if language in ("go", "golang"):
+            return (
+                ["go mod download", "go build -o app ./..."],
+                ["go test ./..."],
+                ["app"],
+            )
+
+        return (
+            ["echo \"No compile command detected; add project-specific build command here\""],
+            ["echo \"No test command detected; add project-specific test command here\""],
+            ["dist/", "build/", "target/"],
+        )
+
     # ========================================================================
     # Delegated methods - these call standalone functions from sibling modules
     # ========================================================================
@@ -222,7 +447,8 @@ class PipelineGeneratorService:
         gitlab_token: str,
         additional_context: str = "",
         model: str = None,
-        use_template_only: bool = False
+        use_template_only: bool = False,
+        pipeline_requirements: Optional[Dict[str, Any]] = None
     ) -> Dict[str, str]:
         """
         Generate .gitlab-ci.yml and Dockerfile using Ollama with RL feedback.
@@ -236,6 +462,23 @@ class PipelineGeneratorService:
 
         # Analyze repository
         analysis = await self.analyze_repository(repo_url, gitlab_token)
+        self._apply_pipeline_requirements(analysis, pipeline_requirements)
+        if pipeline_requirements:
+            from app.services.shared.deep_analyzer import resolve_and_seed_images
+            await resolve_and_seed_images(analysis)
+
+        if self._is_direct_artifact_mode(analysis):
+            print(f"[Direct Artifact] Generating artifact-only pipeline for {analysis['language']}")
+            gitlab_ci = self._get_direct_artifact_gitlab_ci(analysis)
+            gitlab_ci = self._ensure_learn_stage(gitlab_ci)
+            return {
+                'gitlab_ci': gitlab_ci,
+                'dockerfile': '',
+                'analysis': analysis,
+                'model_used': 'direct-artifact-template',
+                'feedback_used': 0,
+                'template_source': 'direct_artifact'
+            }
 
         # If use_template_only, skip LLM and return default templates directly
         if use_template_only:
@@ -519,6 +762,15 @@ FROM ${{BASE_REGISTRY}}/apm-repo/demo/<image>:<tag>
 - ai-nexus:5001/apm-repo/demo/golang:1.21-alpine (Go)
 - ai-nexus:5001/apm-repo/demo/alpine:3.18 (Alpine base)
 - ai-nexus:5001/apm-repo/demo/nginx:alpine (Nginx)
+- ai-nexus:5001/apm-repo/demo/gradle:8.12-jdk17 (Java 17 Gradle build)
+- ai-nexus:5001/apm-repo/demo/gradle:8.12-jdk21 (Java 21 Gradle build)
+- ai-nexus:5001/apm-repo/demo/eclipse-temurin:17-jre (Java 17 runtime)
+- ai-nexus:5001/apm-repo/demo/eclipse-temurin:21-jre (Java 21 runtime)
+
+### RULE 11A: JAVA BUILD TOOL IMAGE MUST MATCH
+- Maven projects use maven:<version>-eclipse-temurin-<java>.
+- Gradle projects use gradle:<version>-jdk<java>. Do NOT use amazoncorretto/eclipse-temurin plus `apk add gradle`.
+- If no Gradle wrapper exists in the repository, do NOT copy `gradle/` or `gradlew*` in the Dockerfile.
 
 ### RULE 12: MULTI-STAGE BUILDS MUST USE NEXUS FOR ALL STAGES
 Example:
@@ -647,7 +899,8 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
         additional_context: str = "",
         model: str = None,
         max_fix_attempts: int = 3,
-        store_on_success: bool = True
+        store_on_success: bool = True,
+        pipeline_requirements: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
         Generate pipeline files with dry-run validation and automatic fixing.
@@ -681,13 +934,15 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             gitlab_token=gitlab_token,
             additional_context=additional_context,
             model=model,
-            use_template_only=False
+            use_template_only=False,
+            pipeline_requirements=pipeline_requirements
         )
 
         gitlab_ci = result.get('gitlab_ci', '')
         dockerfile = result.get('dockerfile', '')
         analysis = result.get('analysis', {})
         is_rag_template = result.get('template_source') == 'reinforcement_learning'
+        require_dockerfile = not self._is_direct_artifact_mode(analysis)
 
         if is_rag_template:
             print("[Validation Flow] RAG template found — still validating (templates can be stale or mismatched)")
@@ -700,7 +955,8 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             gitlab_ci=gitlab_ci,
             dockerfile=dockerfile,
             gitlab_token=gitlab_token,
-            project_path=project_path
+            project_path=project_path,
+            require_dockerfile=require_dockerfile
         )
 
         all_valid, _ = validator.get_validation_summary(validation_results)
@@ -746,6 +1002,11 @@ DO NOT generate generic pipelines. Use the template from ChromaDB.
             # Fixed successfully
             fixed_gitlab_ci = fix_result.get('gitlab_ci', gitlab_ci)
             fixed_dockerfile = fix_result.get('dockerfile', dockerfile)
+            fixed_gitlab_ci, fixed_dockerfile, img_corrections = self.validate_and_fix_pipeline_images(
+                fixed_gitlab_ci, fixed_dockerfile, analysis['language'], analysis
+            )
+            if img_corrections:
+                print(f"[Validation Flow] Image validator corrected {len(img_corrections)} issue(s): {img_corrections}")
 
             print(f"[Validation Flow] Pipeline fixed after {fix_result.get('attempts', 1)} attempt(s)")
 

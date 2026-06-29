@@ -1,0 +1,658 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - navigation "Main" [ref=e7]:
+      - link "Mercury logo" [ref=e11] [cursor=pointer]:
+        - /url: /
+        - img "Mercury logo" [ref=e12]
+      - list [ref=e17]:
+        - listitem [ref=e18]:
+          - button "Products" [ref=e19] [cursor=pointer]:
+            - text: Products
+            - img [ref=e21]
+        - listitem [ref=e24]:
+          - button "Solutions" [ref=e25] [cursor=pointer]:
+            - text: Solutions
+            - img [ref=e27]
+        - listitem [ref=e30]:
+          - button "Resources" [ref=e31] [cursor=pointer]:
+            - text: Resources
+            - img [ref=e33]
+        - listitem [ref=e36]:
+          - button "About" [ref=e37] [cursor=pointer]:
+            - text: About
+            - img [ref=e39]
+        - listitem [ref=e42]:
+          - link "Pricing" [ref=e43] [cursor=pointer]:
+            - /url: /pricing
+            - paragraph [ref=e44]: Pricing
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - link "Log in" [ref=e49] [cursor=pointer]:
+            - /url: https://app.mercury.com/login
+        - listitem [ref=e50]:
+          - link "Open account" [ref=e51] [cursor=pointer]:
+            - /url: https://app.mercury.com/signup
+            - generic: Open account
+    - main [ref=e56]:
+      - generic [ref=e57]:
+        - generic:
+          - generic:
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - heading "Radically different banking" [level=1] [ref=e60]:
+                  - generic [ref=e61]: Radically different banking
+                - generic [ref=e64]:
+                  - text: Apply online in 10 minutes to experience banking
+                  - link "1" [ref=e65] [cursor=pointer]:
+                    - /url: "#footnote-business-not-a-bank-2026"
+                    - superscript [ref=e66]: "1"
+                  - text: unlike anything that’s come before.
+              - generic [ref=e69]:
+                - generic [ref=e71]:
+                  - generic [ref=e72]: Enter your email
+                  - textbox "Enter your email" [ref=e73]
+                  - button "Open account" [ref=e74] [cursor=pointer]:
+                    - generic: Open account
+                - generic [ref=e80]:
+                  - paragraph [ref=e81]: Mercury will occasionally send you emails with offers, news, and promotions. Check this box if you do not want to receive them.
+                  - group [ref=e84]:
+                    - generic [ref=e86]:
+                      - checkbox "Opt out" [ref=e87] [cursor=pointer]
+                      - checkbox
+                      - generic [ref=e88] [cursor=pointer]: Opt out
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - paragraph: Mercury is a fintech company, not an FDIC-insured bank. Banking services provided through Choice Financial Group and Column N.A., Members FDIC.
+      - generic [ref=e92]:
+        - generic [ref=e99]:
+          - button "Play" [ref=e100] [cursor=pointer]:
+            - img [ref=e101]
+          - img
+        - generic [ref=e104]:
+          - paragraph [ref=e107]:
+            - generic [ref=e108]:
+              - text: Everything you do with money.
+              - text: All in one place.
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - heading "Business banking & more" [level=3] [ref=e111]:
+                - button "Business banking & more" [disabled] [expanded] [ref=e112] [cursor=pointer]:
+                  - generic [ref=e115]: Business banking & more
+              - region "Business banking & more" [ref=e116]:
+                - generic [ref=e120]:
+                  - text: Apply for free checking and savings accounts with zero minimums, earn up to 3.65% yield with Treasury by Mercury Advisory,
+                  - link "2" [ref=e121] [cursor=pointer]:
+                    - /url: "#footnote-business-treasury-rate-of-return-and-condensed-ria"
+                    - superscript [ref=e122]: "2"
+                  - text: and access loans
+                  - link "3" [ref=e123] [cursor=pointer]:
+                    - /url: "#footnote-mercury-venture-debt"
+                    - superscript [ref=e124]: "3"
+                  - text: to help you grow.
+            - generic [ref=e125]:
+              - heading "Cards & expense management" [level=3] [ref=e126]:
+                - button "Cards & expense management" [ref=e127] [cursor=pointer]:
+                  - generic [ref=e130]: Cards & expense management
+              - region "Cards & expense management":
+                - generic [ref=e132]:
+                  - text: Earn 1.5% cashback on credit card spend,
+                  - link "4" [ref=e133] [cursor=pointer]:
+                    - /url: "#footnote-business-io-cashback"
+                    - superscript [ref=e134]: "4"
+                  - text: and control team expenses with cards, reimbursements, limits, and approvals all in one place.
+            - generic [ref=e135]:
+              - heading "Payments & invoicing" [level=3] [ref=e136]:
+                - button "Payments & invoicing" [ref=e137] [cursor=pointer]:
+                  - generic [ref=e140]: Payments & invoicing
+              - region "Payments & invoicing":
+                - generic [ref=e142]: Send money around the world and pay bills with no fees on USD payments, create free invoices, and get paid directly into your Mercury account.
+            - generic [ref=e143]:
+              - heading "Accounting" [level=3] [ref=e144]:
+                - button "Accounting" [ref=e145] [cursor=pointer]:
+                  - generic [ref=e148]: Accounting
+              - region "Accounting":
+                - generic [ref=e150]: Sync with Quickbooks, Xero or NetSuite, and save hours with AI-powered automations to close your books faster.
+          - link "Launch demo" [ref=e152] [cursor=pointer]:
+            - /url: https://demo.mercury.com/dashboard
+      - generic [ref=e154]:
+        - heading "Loved by 300K+ of the most ambitious entrepreneurs on the planet" [level=2] [ref=e159]:
+          - generic [ref=e160]:
+            - text: Loved by 300K+ of the
+            - strong [ref=e161]
+            - text: most ambitious entrepreneurs on the planet
+        - list [ref=e165]:
+          - listitem [ref=e166]:
+            - generic "Supabase" [ref=e168]:
+              - img [ref=e169]
+          - listitem [ref=e183]:
+            - generic "Linear" [ref=e185]:
+              - img [ref=e186]
+          - listitem [ref=e198]:
+            - generic "Lovable" [ref=e200]:
+              - img [ref=e201]
+          - listitem [ref=e220]:
+            - generic "Partiful" [ref=e222]:
+              - img [ref=e223]
+          - listitem [ref=e225]:
+            - generic "ElevenLabs" [ref=e227]:
+              - img [ref=e228]
+          - listitem [ref=e243]:
+            - generic "Phantom Wallet" [ref=e245]:
+              - img [ref=e246]
+          - listitem [ref=e249]:
+            - generic "Bogey Bros" [ref=e251]:
+              - img [ref=e252]
+          - listitem [ref=e272]:
+            - generic "Linktree" [ref=e274]:
+              - img [ref=e275]
+          - listitem [ref=e279]:
+            - generic "Gainful" [ref=e281]:
+              - img [ref=e282]
+          - listitem [ref=e291]:
+            - img [ref=e294]
+          - listitem [ref=e308]:
+            - img [ref=e311]
+          - listitem [ref=e323]:
+            - img [ref=e326]
+          - listitem [ref=e345]:
+            - img [ref=e348]
+          - listitem [ref=e350]:
+            - img [ref=e353]
+          - listitem [ref=e368]:
+            - img [ref=e371]
+          - listitem [ref=e374]:
+            - img [ref=e377]
+          - listitem [ref=e397]:
+            - img [ref=e400]
+          - listitem [ref=e404]:
+            - img [ref=e407]
+      - generic [ref=e419]:
+        - tabpanel "Go to item 1" [ref=e420]:
+          - img "Portrait of a man sitting indoors next to a testimonial about Mercury’s speed and ease of use." [ref=e425]
+          - generic:
+            - generic [ref=e428]: SaaS
+            - figure "Karri Saarinen Founder, Linear" [ref=e429]:
+              - blockquote [ref=e430]: Unlike most financial institutions, Mercury is built on software. Everything can be done within the app in 1-2 minutes.
+              - generic [ref=e431]:
+                - paragraph [ref=e432]: Karri Saarinen
+                - paragraph [ref=e433]: Founder, Linear
+        - tabpanel:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img
+        - tabpanel:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img
+        - tablist [ref=e435]:
+          - generic [ref=e436]:
+            - tab "Go to item 1" [selected] [ref=e437] [cursor=pointer]
+            - tab "Go to item 2" [ref=e439] [cursor=pointer]
+            - tab "Go to item 3" [ref=e441] [cursor=pointer]
+          - generic [ref=e443]:
+            - tab [selected] [ref=e444] [cursor=pointer]
+            - tab [ref=e446] [cursor=pointer]
+            - tab [ref=e448] [cursor=pointer]
+      - generic [ref=e451]:
+        - paragraph [ref=e459]:
+          - generic [ref=e460]: Banking’s been a headache. Now, it’s a head start.
+        - generic [ref=e463]:
+          - generic [ref=e464]:
+            - img "Animation that rotates through multiple credit cards stacking." [ref=e468]
+            - generic [ref=e470]:
+              - paragraph [ref=e471]:
+                - generic [ref=e472]: Create cards in a couple of clicks
+              - generic [ref=e473]: Instantly spin up as many virtual cards as you need. Create cards for any purpose — ad spend, contractors, you name it.
+          - generic [ref=e479]:
+            - paragraph [ref=e480]:
+              - generic [ref=e481]: Watch bills pay themselves
+            - generic [ref=e482]: AI reads bills, populates details automatically, and remembers past recipients — so you can approve and pay in seconds.
+          - generic [ref=e483]:
+            - img "Illustration of the Invoicing flow with the date, payment terms, and repeat settings." [ref=e487]
+            - generic [ref=e489]:
+              - paragraph [ref=e490]:
+                - generic [ref=e491]: Get paid without a patchwork of tools
+              - generic [ref=e492]: Send manual and automatic invoices, accept flexible payment methods, and manage customer details right from your Mercury account.
+          - generic [ref=e498]:
+            - paragraph [ref=e499]:
+              - generic [ref=e500]: Reconcile receipts without the runaround
+            - generic [ref=e501]: Email or upload receipts and we’ll auto-attach them to the right card transaction. You don’t lift a finger.
+      - tabpanel [ref=e506]:
+        - figure "Paul Copplestone Founder and CEO, Supabase" [ref=e507]:
+          - blockquote [ref=e508]:
+            - generic [ref=e509]:
+              - text: Mercury has completely changed my expectations of what banking
+              - link "1" [ref=e510] [cursor=pointer]:
+                - /url: "#footnote-business-not-a-bank-2026"
+                - superscript [ref=e511]: "1"
+              - text: should do. The vision and craft is so far beyond what traditional banking can provide.
+          - generic [ref=e512]:
+            - paragraph [ref=e513]: Paul Copplestone
+            - paragraph [ref=e514]: Founder and CEO, Supabase
+      - generic [ref=e519]:
+        - generic [ref=e520]:
+          - paragraph [ref=e523]:
+            - generic [ref=e524]: Get started fast. And never stop moving.
+          - generic [ref=e525]:
+            - generic [ref=e526]:
+              - heading "Apply online in 10 minutes" [level=3] [ref=e527]:
+                - button "Apply online in 10 minutes" [disabled] [expanded] [ref=e528] [cursor=pointer]:
+                  - generic [ref=e531]: Apply online in 10 minutes
+              - region "Apply online in 10 minutes" [ref=e532]:
+                - generic [ref=e536]: Free checking and savings accounts — no in-person visits or paperwork.
+            - generic [ref=e537]:
+              - heading "Get a credit card instantly4" [level=3] [ref=e538]:
+                - button "Get a credit card instantly4" [ref=e539] [cursor=pointer]:
+                  - generic [ref=e543]:
+                    - text: Get a credit card instantly
+                    - link "4" [ref=e544]:
+                      - /url: "#footnote-business-io-cashback"
+                      - superscript [ref=e545]: "4"
+              - region "Get a credit card instantly4":
+                - generic [ref=e546]:
+                  - generic [ref=e547]: Access business credit cards as soon as day one — no minimums, credit checks, or personal guarantees.
+                  - link "Explore credit cards" [ref=e548] [cursor=pointer]:
+                    - /url: /credit
+            - generic [ref=e549]:
+              - heading "Tackle banking tasks in seconds" [level=3] [ref=e550]:
+                - button "Tackle banking tasks in seconds" [ref=e551] [cursor=pointer]:
+                  - generic [ref=e554]: Tackle banking tasks in seconds
+              - region "Tackle banking tasks in seconds":
+                - generic [ref=e556]: Find any transaction, vendor, or card, or jump straight to creating payments, transfers, and more — all from one universal search bar.
+        - generic [ref=e557]:
+          - img "Abstract illustration depicting multiple points converging into a single focal point, suggesting simplicity and streamlined finances." [ref=e562]
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img "Close-up, stylized image of the corner of a Mercury card."
+      - generic [ref=e567]:
+        - generic [ref=e568]:
+          - paragraph [ref=e571]:
+            - generic [ref=e572]: Stop losing money to fees. Start using it to fuel your growth.
+          - generic [ref=e573]:
+            - generic [ref=e574]:
+              - heading "Send no-fee USD payments around the globe" [level=3] [ref=e575]:
+                - button "Send no-fee USD payments around the globe" [disabled] [expanded] [ref=e576] [cursor=pointer]:
+                  - generic [ref=e579]: Send no-fee USD payments around the globe
+              - region "Send no-fee USD payments around the globe" [ref=e580]:
+                - generic [ref=e584]:
+                  - text: $0 USD wires and $0 maintenance fees can save you thousands of dollars per year.
+                  - link "5" [ref=e585] [cursor=pointer]:
+                    - /url: "#footnote-bb-pb-wires-and-maintenance-fee-savings"
+                    - superscript [ref=e586]: "5"
+            - generic [ref=e587]:
+              - heading "Earn 1.5% cashback on credit spend" [level=3] [ref=e588]:
+                - button "Earn 1.5% cashback on credit spend" [ref=e589] [cursor=pointer]:
+                  - generic [ref=e592]: Earn 1.5% cashback on credit spend
+              - region "Earn 1.5% cashback on credit spend":
+                - generic [ref=e593]:
+                  - generic [ref=e594]: Unlimited cashback automatically deposited into your account — no manual redemption or confusing points.
+                  - link "Explore credit cards" [ref=e595] [cursor=pointer]:
+                    - /url: /credit
+            - generic [ref=e596]:
+              - heading "Earn up to 3.65% yield with Mercury Treasury2" [level=3] [ref=e597]:
+                - button "Earn up to 3.65% yield with Mercury Treasury2" [ref=e598] [cursor=pointer]:
+                  - generic [ref=e602]:
+                    - text: Earn up to 3.65% yield with Mercury Treasury
+                    - link "2" [ref=e603]:
+                      - /url: "#footnote-business-treasury-rate-of-return-and-condensed-ria"
+                      - superscript [ref=e604]: "2"
+              - region "Earn up to 3.65% yield with Mercury Treasury2":
+                - generic [ref=e605]:
+                  - generic [ref=e606]: Access high-liquidity, lower-risk portfolios powered by J.P. Morgan Asset Management and Morgan Stanley.
+                  - link "Explore Treasury" [ref=e607] [cursor=pointer]:
+                    - /url: /treasury
+        - generic [ref=e608]:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img "Illustration of a credit card with points creating a ripple effect above and below, suggesting automatic cash back."
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img "Stylized graph with an upward trajectory, suggesting growth over time."
+      - generic [ref=e614]:
+        - paragraph [ref=e622]:
+          - generic [ref=e623]: Run your business like a seasoned pro
+        - generic [ref=e626]:
+          - generic [ref=e627]:
+            - img "Abstract illustration of overlapping circles, suggesting a unified view of incoming and outgoing funds." [ref=e631]
+            - generic [ref=e633]:
+              - paragraph [ref=e634]:
+                - generic [ref=e635]: Total visibility
+              - generic [ref=e636]: Get a clear view of all available funds and money in and out, in one snapshot.
+          - generic [ref=e642]:
+            - paragraph [ref=e643]:
+              - generic [ref=e644]: Automations
+            - generic [ref=e645]: Reduce busywork with automated transfers, approval flows, and AI-powered transaction categorization.
+          - generic [ref=e651]:
+            - paragraph [ref=e652]:
+              - generic [ref=e653]: Team management
+            - generic [ref=e654]: Curb team spend with card limits, spend controls, and granular user permissions.
+          - generic [ref=e655]:
+            - img "Abstract illustration with three dots at the center, suggesting conversation, guidance, and support." [ref=e659]
+            - generic [ref=e661]:
+              - paragraph [ref=e662]:
+                - generic [ref=e663]: Guidance
+              - generic [ref=e665]:
+                - text: Chat support for all customers, plus dedicated account management for those who qualify.
+                - link "6" [ref=e666] [cursor=pointer]:
+                  - /url: "#footnote-business-relationship-manager-disclaimer"
+                  - superscript [ref=e667]: "6"
+      - generic [ref=e669]:
+        - heading "You’re creating something to stand the test of time. So are we." [level=2] [ref=e674]:
+          - generic [ref=e675]: You’re creating something to stand the test of time. So are we.
+        - generic [ref=e679]:
+          - generic [ref=e680]:
+            - paragraph [ref=e681]:
+              - generic [ref=e682]: 300K+
+            - paragraph [ref=e683]: Entrepreneurs love us
+          - generic [ref=e684]:
+            - paragraph [ref=e685]: 1 in 3
+            - paragraph [ref=e686]:
+              - generic [ref=e687]:
+                - text: Startups choose Mercury
+                - link "7" [ref=e688] [cursor=pointer]:
+                  - /url: "#footnote-business-1-in-3-startups-use-mercury"
+                  - superscript [ref=e689]: "7"
+          - generic [ref=e690]:
+            - paragraph [ref=e691]: $20B+
+            - paragraph [ref=e692]: Monthly transaction volume
+          - generic [ref=e693]:
+            - paragraph [ref=e694]: "4.9"
+            - paragraph [ref=e695]: Apple App Store rating
+      - generic [ref=e697]:
+        - paragraph [ref=e705]:
+          - generic [ref=e706]: Standard protection stops short. Mercury goes further.
+        - generic [ref=e709]:
+          - generic [ref=e710]:
+            - img "Illustration of a bar graph demonstrating how much more FDIC coverage Mercury offers compared to traditional banks." [ref=e714]
+            - generic [ref=e716]:
+              - paragraph [ref=e717]:
+                - generic [ref=e718]: 20x the usual coverage
+              - generic [ref=e720]:
+                - text: Get up to $5M FDIC insurance through our partner banks and their sweep networks
+                - link "1" [ref=e721] [cursor=pointer]:
+                  - /url: "#footnote-business-not-a-bank-2026"
+                  - superscript [ref=e722]: "1"
+                - text: to ensure eligible deposits are protected.
+          - generic [ref=e728]:
+            - paragraph [ref=e729]:
+              - generic [ref=e730]: Next-level account security
+            - generic [ref=e731]: Know your account is safe with tech-forward fraud and phishing protection, MFA verification, dark web monitoring, and more.
+          - generic [ref=e732]:
+            - img "Illustration of three toggle switches, symbolizing controls for permissions, approvals, and access to funds." [ref=e736]
+            - generic [ref=e738]:
+              - paragraph [ref=e739]:
+                - generic [ref=e740]: Controls at your fingertips
+              - generic [ref=e741]: Decide who can view, move, or debit funds — with approval flows, locks, and permissions that keep you fully in control.
+      - generic [ref=e743]:
+        - paragraph [ref=e751]:
+          - generic [ref=e752]: Mercury in the spotlight
+        - generic [ref=e754]:
+          - generic [ref=e755]:
+            - img "Fortune logo" [ref=e759]
+            - generic [ref=e760]:
+              - heading "$650M in annual revenue and profitable" [level=2] [ref=e763]
+              - link "Read more" [ref=e764] [cursor=pointer]:
+                - /url: https://fortune.com/2025/11/07/exclusive-mercury-fintech-valuation-650-million-2025-annualized-revenue-immad-akhund-interview/
+                - img [ref=e765]
+          - generic [ref=e767]:
+            - img "Wall Street Journal logo" [ref=e771]
+            - generic [ref=e772]:
+              - heading "Mercury lands $300M Series C" [level=2] [ref=e775]
+              - link "Read more" [ref=e776] [cursor=pointer]:
+                - /url: https://www.wsj.com/livecoverage/stock-market-today-dow-nasdaq-sp500-03-26-2025/card/exclusive-fintech-banking-startup-mercury-raises-300-million-at-a-3-5-billion-valuation-vXq9qru1qLFSwNB1yyMw?gaa_at=eafs&gaa_n=AWEtsqeGgUxbivxMBJ4IlYbf01BwLEh-33mxGej8_pew5CFtOGMPfzCPkKAtiKJQSOo%3D&gaa_ts=6925d9fe&gaa_sig=gXoMFCpEEgtDuuAHvGY5RpsEHZGOFNHBtYzKmcKRt_1dA5B7RnEWWSD2SjOKFyOG9deVJdMeC3PonOU_1ROtfw%3D%3D
+                - img [ref=e777]
+          - generic [ref=e779]:
+            - img "Fast Company logo" [ref=e783]
+            - generic [ref=e784]:
+              - heading "Fast Company’s Most Innovative" [level=2] [ref=e787]
+              - link "Read more" [ref=e788] [cursor=pointer]:
+                - /url: https://www.fastcompany.com/91038807/mercury-most-innovative-companies-2024
+                - img [ref=e789]
+      - generic [ref=e792]:
+        - generic [ref=e795]:
+          - heading "Banking – redesigned from the ground up." [level=2] [ref=e797]:
+            - generic [ref=e798]: Banking – redesigned from the ground up.
+          - generic [ref=e799]:
+            - link "Open account" [ref=e800] [cursor=pointer]:
+              - /url: https://app.mercury.com/signup
+              - generic: Open account
+            - link "Contact sales" [ref=e805] [cursor=pointer]:
+              - /url: /contact/sales
+              - text: Contact sales
+              - img [ref=e806]
+        - generic [ref=e809]:
+          - generic [ref=e811]:
+            - generic [ref=e813]:
+              - heading "Mercury for business" [level=2] [ref=e814]
+              - paragraph [ref=e815]:
+                - generic [ref=e816]:
+                  - text: For $0/month, get started with business banking
+                  - link "1" [ref=e817] [cursor=pointer]:
+                    - /url: "#footnote-business-not-a-bank-2026"
+                    - superscript [ref=e818]: "1"
+                  - text: that helps you accomplish everything you want to do with your money.
+            - link "Explore demo" [ref=e819] [cursor=pointer]:
+              - /url: https://demo.mercury.com/dashboard
+              - text: Explore demo
+              - img [ref=e820]
+          - generic [ref=e823]:
+            - generic [ref=e825]:
+              - heading "Mercury for personal1" [level=2] [ref=e826]:
+                - generic [ref=e827]:
+                  - text: Mercury for personal
+                  - link "1" [ref=e828] [cursor=pointer]:
+                    - /url: "#footnote-business-not-a-bank-2026"
+                    - superscript [ref=e829]: "1"
+              - paragraph [ref=e830]:
+                - generic [ref=e831]:
+                  - text: Level up your personal finances with 3.25% APY
+                  - link "8" [ref=e832] [cursor=pointer]:
+                    - /url: "#footnote-personal-apy"
+                    - superscript [ref=e833]: "8"
+                  - text: on your savings account, joint accounts, unlimited free USD wires, and more.
+            - link "Learn more" [ref=e834] [cursor=pointer]:
+              - /url: /personal-banking
+    - contentinfo [ref=e837]:
+      - generic [ref=e838]:
+        - generic [ref=e839]:
+          - generic [ref=e840]: Banking
+          - link "Business Checking & Savings" [ref=e841] [cursor=pointer]:
+            - /url: /business-banking
+          - link "Treasury" [ref=e842] [cursor=pointer]:
+            - /url: /treasury
+          - link "Business Credit Cards" [ref=e843] [cursor=pointer]:
+            - /url: /credit
+          - link "Working Capital Loans" [ref=e844] [cursor=pointer]:
+            - /url: /working-capital-loans
+          - link "Venture Debt" [ref=e845] [cursor=pointer]:
+            - /url: /venture-debt
+          - link "Personal Banking" [ref=e846] [cursor=pointer]:
+            - /url: /personal-banking
+        - generic [ref=e847]:
+          - generic [ref=e848]: Platform
+          - link "Pricing" [ref=e849] [cursor=pointer]:
+            - /url: /pricing
+          - link "Switch to Mercury" [ref=e850] [cursor=pointer]:
+            - /url: /switch-to-mercury
+          - link "Security" [ref=e851] [cursor=pointer]:
+            - /url: /security
+          - link "API" [ref=e852] [cursor=pointer]:
+            - /url: /api
+          - link "Perks" [ref=e853] [cursor=pointer]:
+            - /url: /perks
+        - generic [ref=e854]:
+          - generic [ref=e855]: Resources
+          - link "Help Center" [ref=e856] [cursor=pointer]:
+            - /url: https://support.mercury.com/hc/en-us/sections/28736349558420-Getting-Started
+          - link "Meridian" [ref=e857] [cursor=pointer]:
+            - /url: /blog/categories/meridian
+          - link "Blog" [ref=e858] [cursor=pointer]:
+            - /url: /blog
+          - link "Tools" [ref=e859] [cursor=pointer]:
+            - /url: /tools
+          - link "Events" [ref=e860] [cursor=pointer]:
+            - /url: /events
+          - link "Business Formation Resources" [ref=e861] [cursor=pointer]:
+            - /url: /business-formation-resources
+          - link "Peak Season" [ref=e862] [cursor=pointer]:
+            - /url: /peak-season
+          - link "Product Releases" [ref=e863] [cursor=pointer]:
+            - /url: /releases
+        - generic [ref=e864]:
+          - generic [ref=e865]: Finance Ops
+          - link "Financial Workflows" [ref=e866] [cursor=pointer]:
+            - /url: /financial-workflows
+          - link "Payments" [ref=e867] [cursor=pointer]:
+            - /url: /business-payments
+          - link "Bill Pay" [ref=e868] [cursor=pointer]:
+            - /url: /bill-pay
+          - link "Invoicing" [ref=e869] [cursor=pointer]:
+            - /url: /invoicing
+          - link "Expense Management" [ref=e870] [cursor=pointer]:
+            - /url: /expense-management
+          - link "Accounting Automations" [ref=e871] [cursor=pointer]:
+            - /url: /accounting-automations
+          - link "SAFEs" [ref=e872] [cursor=pointer]:
+            - /url: /safe
+        - generic [ref=e873]:
+          - generic [ref=e874]: Solutions
+          - link "Ecommerce" [ref=e875] [cursor=pointer]:
+            - /url: /ecommerce
+          - link "Agencies, Consultants & Firms" [ref=e876] [cursor=pointer]:
+            - /url: /agencies-and-consultants
+          - link "SaaS" [ref=e877] [cursor=pointer]:
+            - /url: /saas
+          - link "VC Funds" [ref=e878] [cursor=pointer]:
+            - /url: /vc-funds
+          - link "Crypto" [ref=e879] [cursor=pointer]:
+            - /url: /web3
+          - link "LLCs" [ref=e880] [cursor=pointer]:
+            - /url: /llc-banking
+          - link "Life Science" [ref=e881] [cursor=pointer]:
+            - /url: /life-science
+          - link "Accounting Firms" [ref=e882] [cursor=pointer]:
+            - /url: /accounting-firms
+          - link "Climate" [ref=e883] [cursor=pointer]:
+            - /url: /climate
+          - link "Real Estate & Construction" [ref=e884] [cursor=pointer]:
+            - /url: /real-estate-and-construction
+          - link "Healthcare Services" [ref=e885] [cursor=pointer]:
+            - /url: /healthcare-services
+        - generic [ref=e886]:
+          - generic [ref=e887]: Account
+          - link "Open Account" [ref=e888] [cursor=pointer]:
+            - /url: https://app.mercury.com/signup
+          - link "Log In" [ref=e889] [cursor=pointer]:
+            - /url: https://app.mercury.com/login
+          - link "iOS" [ref=e890] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/mercury-powerful-banking/id1491984028
+          - link "Android" [ref=e891] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/dev?id=7011991507842528981&pli=1
+        - generic [ref=e892]:
+          - generic [ref=e893]: About
+          - link "How Mercury Works" [ref=e894] [cursor=pointer]:
+            - /url: /how-mercury-works
+          - link "Our Story" [ref=e895] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=e896] [cursor=pointer]:
+            - /url: /jobs
+          - link "Partnerships" [ref=e897] [cursor=pointer]:
+            - /url: /partnerships
+          - link "Contact" [ref=e898] [cursor=pointer]:
+            - /url: /contact
+          - link "Legal" [ref=e899] [cursor=pointer]:
+            - /url: /legal
+          - link "Privacy Policy" [ref=e900] [cursor=pointer]:
+            - /url: /legal/privacy
+        - generic [ref=e901]:
+          - generic [ref=e902]: Follow Us
+          - link "X" [ref=e903] [cursor=pointer]:
+            - /url: https://www.x.com/mercury
+          - link "LinkedIn" [ref=e904] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/mercuryhq
+          - link "YouTube" [ref=e905] [cursor=pointer]:
+            - /url: https://www.youtube.com/@Mercuryfi
+          - link "Instagram" [ref=e906] [cursor=pointer]:
+            - /url: https://www.instagram.com/mercuryfi/
+          - link "TikTok" [ref=e907] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@mercury.fi
+    - generic [ref=e910]:
+      - heading "Disclaimers and footnotes" [level=2] [ref=e911]
+      - generic [ref=e912]:
+        - paragraph [ref=e913]:
+          - text: Mercury is a fintech company,
+          - link "not an FDIC-insured bank" [ref=e914] [cursor=pointer]:
+            - /url: https://mercury.com/how-mercury-works
+          - text: . Banking services provided through
+          - link "Choice Financial Group" [ref=e915] [cursor=pointer]:
+            - /url: /legal/choice/sweep-program-deposit-placement-and-custodial-agreement
+          - text: and
+          - link "Column N.A." [ref=e916] [cursor=pointer]:
+            - /url: /legal/column/sweep-program-deposit-placement-and-custodial-agreements
+          - text: ", Members FDIC. Deposit insurance covers the failure of an insured bank."
+        - list [ref=e917]:
+          - listitem [ref=e918]:
+            - paragraph [ref=e919]:
+              - text: Mercury is a fintech company, not an FDIC-insured bank. Banking services provided through
+              - link "Choice Financial Group" [ref=e920] [cursor=pointer]:
+                - /url: https://rnt.com/files/ddm/bank-list/pbl-rtncu.pdf
+              - text: and
+              - link "Column N.A." [ref=e921] [cursor=pointer]:
+                - /url: https://column.com/legal/sweep-program-network-banks
+              - text: ", Members FDIC. FDIC deposit insurance covers the failure of an insured bank. Deposits in checking and savings accounts are FDIC-insured through Choice Financial Group and Column N.A. and their Sweep Program Network Banks. Certain conditions must be satisfied for pass-through FDIC insurance to apply. Learn more"
+              - link "here" [ref=e922] [cursor=pointer]:
+                - /url: https://mercury.com/blog/inside-mercury/how-mercury-works-with-partner-banks
+              - text: .
+          - listitem [ref=e923]:
+            - paragraph [ref=e924]:
+              - text: Mercury Treasury is designed to earn yield on idle cash up to 3.65% annually. This yield is based on the 30-day SEC Yield for
+              - link "MULSX" [ref=e925] [cursor=pointer]:
+                - /url: https://morganstanley.prospectus-express.com/summary.asp?doctype=spro&clientid=morganstll&fundid=617455696+
+              - text: as of 03/31/2026, and assumes total Mercury deposits of $20M+. Treasury accounts are subject to a monthly fee of 0.15%–0.60%, based on total Mercury balances.
+            - paragraph [ref=e926]:
+              - text: Mercury Treasury is offered by Mercury Advisory, LLC, an SEC-registered investment adviser (“Mercury Advisory”). This communication does not constitute an offer to sell or the solicitation of an offer to buy any security. All Brokerage and Clearing services are provided by, and securities are offered through
+              - link "Apex Clearing Corporation" [ref=e927] [cursor=pointer]:
+                - /url: https://apexfintechsolutions.com/legal/disclosures/
+              - text: ", an SEC-registered broker dealer and member FINRA/SIPC. Treasury accounts are not FDIC insured, are not bank deposits, and are not guaranteed by Choice Financial Group or Column N.A., and may lose value. Please review Mercury Advisory’s"
+              - link "ADV Wrap Fee Brochure" [ref=e928] [cursor=pointer]:
+                - /url: https://www.datocms-assets.com/115132/1761005074-oct-2025-mercury_adv-part-2a.pdf
+              - text: for more detail. Mercury Advisory is a wholly-owned subsidiary of Mercury Technologies, Inc.
+          - listitem [ref=e929]:
+            - paragraph [ref=e930]:
+              - text: Mercury’s Venture Debt and Working Capital loans are originated by Mercury Lending, LLC (
+              - link "NMLS" [ref=e931] [cursor=pointer]:
+                - /url: https://www.nmlsconsumeraccess.org/
+              - text: ": 2606284) and serviced by Mercury Servicing, LLC ("
+              - link "NMLS:" [ref=e932] [cursor=pointer]:
+                - /url: https://www.nmlsconsumeraccess.org/
+              - text: 2606285). Mercury Lending and Mercury Servicing are wholly-owned, separately managed subsidiaries of Mercury Technologies, Inc. At this time, we are unable to offer working capital or venture debt loans to businesses operating in California.
+          - listitem [ref=e933]:
+            - paragraph [ref=e934]:
+              - text: The IO Card is issued by Patriot Bank, N.A., Member FDIC, pursuant to a license from Mastercard International Incorporated. Eligible customers can access the IO card on day one of opening a Mercury account,
+              - link "limitations apply" [ref=e935] [cursor=pointer]:
+                - /url: https://support.mercury.com/hc/en-us/articles/28768794858772-Qualifying-for-IO
+              - text: . Cashback is automatically credited to your linked checking account when your monthly repayment is processed. If you make an early payment (full or partial), you’ll receive cashback proportional to the amount paid. Your Mercury accounts must be open and in good standing to receive cashback. Cashback rewards may be forfeited if your account is closed or pending closure based on a violation of any applicable terms. Mercury may modify or terminate the cashback program at any time, and any promotional offers or other changes will be communicated by email or on our website. If you have questions about your cashback, please contact Mercury at
+              - link "help@mercury.com" [ref=e936] [cursor=pointer]:
+                - /url: mailto:help@mercury.com
+              - text: .
+          - listitem [ref=e937]:
+            - paragraph [ref=e938]: Savings based on average monthly wire activity of Mercury business customers and industry-average fee data as of September 2025. Annual savings reflect the monthly average multiplied by twelve to illustrate a year’s worth of estimated savings. Estimates do not include annual subscription fees, which applies only to personal banking accounts and are for informational purposes only and do not guarantee savings; actual savings may vary based on account activity, transaction volumes, and applicable fee schedules.
+          - listitem [ref=e939]:
+            - paragraph [ref=e940]: Relationship Managers are available to Pro subscribers and for business accounts with $10M+ balance.
+          - listitem [ref=e941]:
+            - paragraph [ref=e942]: Calculation based on US-based companies that received an angel, pre-seed, seed, or Series A investment reported on Crunchbase in the most recent year.
+          - listitem [ref=e943]:
+            - paragraph [ref=e944]: Annual Percentage Yield (APY) is accurate as of 12/17/2025. This is a variable rate account. The interest rate and annual percentage yield may change at any time and without prior notice. Fees may reduce earnings.
+  - alert [ref=e945]

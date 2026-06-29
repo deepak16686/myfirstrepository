@@ -1,12 +1,18 @@
+import asyncio
 import unittest
+from types import SimpleNamespace
 
 from app.services.gitlab_dry_run_validator import GitLabDryRunValidator
+from app.services.chat_service import ChatService
 from app.services.pipeline.analyzer import parse_gitlab_url
 from app.services.pipeline.default_templates import (
     _get_default_dockerfile,
     _get_default_gitlab_ci,
 )
-from app.services.pipeline.validator import _ensure_learn_stage
+from app.services.pipeline.generator import PipelineGeneratorService
+from app.services.pipeline.templates import _document_has_dockerfile, _infer_output_mode
+from app.services.pipeline.validator import _ensure_learn_stage, validate_and_fix_pipeline_images
+from app.services.shared.deep_analyzer import resolve_compile_image
 
 
 class ParseGitLabUrlTests(unittest.TestCase):
@@ -131,6 +137,156 @@ class GitLabDryRunValidatorTests(unittest.TestCase):
         self.assertTrue(
             any("public registry 'docker.io'" in warning for warning in result.warnings)
         )
+
+
+class PipelineImageResolutionTests(unittest.TestCase):
+    def test_java17_gradle_resolves_to_gradle_jdk17_image(self):
+        image = resolve_compile_image({
+            "language": "java",
+            "build_tool": "gradle",
+            "java_version": "17",
+        })
+
+        self.assertEqual(image, "gradle:8.12-jdk17")
+
+    def test_gradle_project_rejects_apk_installed_gradle_image(self):
+        gitlab_ci = """stages:
+  - compile
+
+compile:
+  stage: compile
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/amazoncorretto:17-alpine-jdk
+  tags: [docker]
+  script:
+    - apk add --no-cache gradle
+    - if [ -f ./gradlew ]; then chmod +x ./gradlew && ./gradlew clean build -x test --no-daemon; else gradle clean build -x test --no-daemon; fi
+"""
+        dockerfile = """ARG BASE_REGISTRY=ai-nexus:5001
+FROM ${BASE_REGISTRY}/apm-repo/demo/amazoncorretto:17-alpine-jdk AS build
+WORKDIR /app
+RUN apk add --no-cache gradle
+COPY build.gradle settings.gradle gradle.properties* ./
+COPY gradle/ gradle/
+COPY gradlew* ./
+RUN if [ -f ./gradlew ]; then chmod +x ./gradlew && ./gradlew clean build -x test --no-daemon; else gradle clean build -x test --no-daemon; fi
+FROM ${BASE_REGISTRY}/apm-repo/demo/eclipse-temurin:17-jre
+CMD ["java", "-jar", "app.jar"]
+"""
+        analysis = {
+            "language": "java",
+            "build_tool": "gradle",
+            "java_version": "17",
+            "resolved_compile_image": "gradle:8.12-jdk17",
+            "resolved_runtime_image": "eclipse-temurin:17-jre",
+            "files": ["build.gradle", "settings.gradle"],
+            "all_paths": ["build.gradle", "settings.gradle", "src/main/java/App.java"],
+        }
+
+        fixed_ci, fixed_dockerfile, corrections = validate_and_fix_pipeline_images(
+            gitlab_ci, dockerfile, "java", analysis
+        )
+
+        self.assertIn("${NEXUS_PULL_REGISTRY}/apm-repo/demo/gradle:8.12-jdk17", fixed_ci)
+        self.assertNotIn("apk add --no-cache gradle", fixed_ci)
+        self.assertIn("FROM ${BASE_REGISTRY}/apm-repo/demo/gradle:8.12-jdk17 AS build", fixed_dockerfile)
+        self.assertIn("FROM ${BASE_REGISTRY}/apm-repo/demo/eclipse-temurin:17-jre", fixed_dockerfile)
+        self.assertNotIn("apk add --no-cache gradle", fixed_dockerfile)
+        self.assertNotIn("COPY gradle/ gradle/", fixed_dockerfile)
+        self.assertNotIn("COPY gradlew* ./", fixed_dockerfile)
+        self.assertTrue(corrections)
+
+
+class PipelineRequirementsChatTests(unittest.TestCase):
+    def setUp(self):
+        self.chat = ChatService(SimpleNamespace(ollama_url="http://ollama", gitlab_token="token"))
+
+    def test_java_requirements_ask_for_missing_generation_decisions(self):
+        values, sources = self.chat._build_initial_requirement_values({
+            "language": "java",
+            "framework": "gradle",
+            "build_tool": "gradle",
+            "files": ["build.gradle"],
+            "all_paths": ["build.gradle", "src/main/java/App.java"],
+            "has_dockerfile": False,
+        })
+        session = {"values": values, "sources": sources, "analysis": {"has_dockerfile": False}}
+
+        questions = self.chat._missing_requirement_questions(session)
+        question_fields = {item["field"] for item in questions}
+
+        self.assertIn("output_mode", question_fields)
+        self.assertIn("language_version", question_fields)
+        self.assertIn("framework", question_fields)
+        self.assertIn("packaging", question_fields)
+
+    def test_java_answers_resolve_to_confirmable_template_values(self):
+        values, sources = self.chat._build_initial_requirement_values({
+            "language": "java",
+            "framework": "generic",
+            "build_tool": "gradle",
+            "files": ["build.gradle"],
+            "all_paths": ["build.gradle"],
+            "has_dockerfile": False,
+        })
+        session = {"values": values, "sources": sources, "analysis": {"has_dockerfile": False}}
+
+        self.chat._apply_user_requirement_answers(
+            session,
+            "Use Java 21, Gradle, generic Java, JAR, Docker image"
+        )
+
+        self.assertEqual(session["values"]["language_version"], "21")
+        self.assertEqual(session["values"]["build_tool"], "gradle")
+        self.assertEqual(session["values"]["framework"], "generic")
+        self.assertEqual(session["values"]["packaging"], "jar")
+        self.assertEqual(session["values"]["output_mode"], "docker-image")
+        self.assertEqual(session["values"]["artifact_pattern"], "build/libs/*.jar")
+        self.assertEqual(self.chat._missing_requirement_questions(session), [])
+
+
+class DirectArtifactPipelineTests(unittest.TestCase):
+    def test_direct_artifact_pipeline_skips_dockerfile_validation(self):
+        service = PipelineGeneratorService()
+        validator = GitLabDryRunValidator()
+        validator.gitlab_token = ""
+        gitlab_ci = service._get_direct_artifact_gitlab_ci({
+            "language": "java",
+            "framework": "generic",
+            "build_tool": "gradle",
+            "java_version": "21",
+            "packaging": "jar",
+            "artifact_pattern": "build/libs/*.jar",
+            "output_mode": "direct-artifact",
+            "artifact_publish_target": "gitlab-artifacts",
+            "resolved_compile_image": "gradle:8.7-jdk21-alpine",
+        })
+
+        self.assertTrue(validator.validate_yaml_syntax(gitlab_ci).valid)
+        self.assertNotIn("Dockerfile", gitlab_ci)
+        structure = validator.validate_pipeline_structure(gitlab_ci, require_dockerfile=False)
+        self.assertTrue(structure.valid)
+        self.assertNotIn("Missing recommended stage: 'build'", structure.warnings)
+        self.assertNotIn("Missing recommended stage: 'push'", structure.warnings)
+        self.assertNotIn(
+            "dockerfile_syntax",
+            asyncio.run(validator.validate_all(gitlab_ci, "", require_dockerfile=False)),
+        )
+
+    def test_template_identity_infers_direct_artifact_without_dockerfile(self):
+        document = """## Successful Pipeline Configuration
+### .gitlab-ci.yml
+```yaml
+stages: [compile]
+```
+
+### Dockerfile
+```dockerfile
+
+```
+"""
+
+        self.assertFalse(_document_has_dockerfile(document))
+        self.assertEqual(_infer_output_mode(document, {}), "direct-artifact")
 
 
 if __name__ == "__main__":

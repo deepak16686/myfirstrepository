@@ -83,7 +83,7 @@ NEXUS_URL=http://ai-nexus:8081
 
 # Nexus admin credentials (for health checks)
 NEXUS_USERNAME=admin
-NEXUS_PASSWORD=admin123
+NEXUS_PASSWORD=Hiagb@1234
 
 # =============================================================================
 # SONARQUBE CONFIGURATION

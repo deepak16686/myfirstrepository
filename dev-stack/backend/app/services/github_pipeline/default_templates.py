@@ -55,7 +55,7 @@ def _env_block() -> str:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   SPLUNK_HEC_URL: http://ai-splunk:8088
   SPLUNK_HEC_TOKEN: ${{ secrets.SPLUNK_HEC_TOKEN }}
-  DEVOPS_BACKEND_URL: http://devops-backend:8003'''
+  DEVOPS_BACKEND_URL: http://devops-tools-backend:8003'''
 
 
 def _tail_jobs(runner_type: str, sonar_sources: str = "src") -> str:

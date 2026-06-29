@@ -1,0 +1,271 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - link "SaaSFrame logo" [ref=e8] [cursor=pointer]:
+            - /url: /
+            - img "SaaSFrame logo" [ref=e9]
+          - navigation [ref=e10]:
+            - generic [ref=e12]:
+              - button "Websites" [ref=e14] [cursor=pointer]:
+                - generic [ref=e15]: Websites
+                - img [ref=e17]
+              - button "Products" [ref=e20] [cursor=pointer]:
+                - generic [ref=e21]: Products
+                - img [ref=e23]
+              - link "SaaS" [ref=e25] [cursor=pointer]:
+                - /url: /saas
+                - generic [ref=e26]: SaaS
+          - text: 
+        - form "SaaS Filters" [ref=e28]:
+          - generic [ref=e29]:
+            - textbox "Search SaaS, patterns & categories" [ref=e30]
+            - img [ref=e32]
+            - generic [ref=e34]:
+              - generic [ref=e36]: ⌘
+              - generic [ref=e38]: K
+        - generic [ref=e39]:
+          - link "Pricing" [ref=e40] [cursor=pointer]:
+            - /url: /pricing
+            - generic [ref=e41]: Pricing
+          - link "Log in" [ref=e42] [cursor=pointer]:
+            - /url: /auth/login
+          - link "Get started" [ref=e43] [cursor=pointer]:
+            - /url: /auth/signup
+            - generic [ref=e45]: Get started
+    - region "Hero section" [ref=e46]:
+      - generic [ref=e47]:
+        - img "Raycast logo" [ref=e48]
+        - img "Notion logo" [ref=e49]
+        - img "Fullstory logo" [ref=e50]
+        - img "Stripe logo" [ref=e51]
+        - img "Narrative BI logo" [ref=e52]
+        - img "Linear logo" [ref=e53]
+      - generic [ref=e57]:
+        - heading "UI Design inspiration for SaaS builders" [level=1] [ref=e58]: UI Design inspiration for SaaS builders
+        - heading "Create websites, product interfaces and email sequences for your SaaS faster than ever with our library of 5,000+ real-world UX & UI design exemples." [level=2] [ref=e60]
+        - link "Explore all screens" [ref=e61] [cursor=pointer]:
+          - /url: /search-screens
+    - main [ref=e63]:
+      - generic [ref=e64]:
+        - heading "Discover" [level=2] [ref=e66]
+        - tablist "Browse content by category" [ref=e67]:
+          - tablist [ref=e68]:
+            - tab "Trending" [selected] [ref=e69] [cursor=pointer]:
+              - generic [ref=e70]:
+                - img [ref=e72]
+                - generic [ref=e74]: Trending
+            - tab "Websites" [ref=e75] [cursor=pointer]:
+              - generic [ref=e76]: Websites
+            - tab "Products" [ref=e77] [cursor=pointer]:
+              - generic [ref=e78]: Products
+          - tabpanel "Trending" [ref=e80]:
+            - list "Featured content" [ref=e82]:
+              - listitem [ref=e83]:
+                - link "✈️ Landing Page 284 screens Attio desktop screenshot Attio mobile screenshot" [ref=e84] [cursor=pointer]:
+                  - /url: /categories/landing-page
+                  - generic [ref=e86]: ✈️
+                  - heading "Landing Page" [level=3] [ref=e88]
+                  - generic [ref=e89]:
+                    - generic [ref=e90]: "284"
+                    - generic [ref=e91]: screens
+                  - generic [ref=e92]:
+                    - img "Attio desktop screenshot" [ref=e93]
+                    - img "Attio mobile screenshot" [ref=e94]
+              - listitem [ref=e95]:
+                - link "💵 Pricing Page 211 screens Attio desktop screenshot Attio mobile screenshot" [ref=e96] [cursor=pointer]:
+                  - /url: /categories/pricing-page
+                  - generic [ref=e98]: 💵
+                  - heading "Pricing Page" [level=3] [ref=e100]
+                  - generic [ref=e101]:
+                    - generic [ref=e102]: "211"
+                    - generic [ref=e103]: screens
+                  - generic [ref=e104]:
+                    - img "Attio desktop screenshot" [ref=e105]
+                    - img "Attio mobile screenshot" [ref=e106]
+              - listitem [ref=e107]:
+                - link "👨‍👩‍👧‍👦 About Page 125 screens Attio desktop screenshot Attio mobile screenshot" [ref=e108] [cursor=pointer]:
+                  - /url: /categories/about-page
+                  - generic [ref=e110]: 👨‍👩‍👧‍👦
+                  - heading "About Page" [level=3] [ref=e112]
+                  - generic [ref=e113]:
+                    - generic [ref=e114]: "125"
+                    - generic [ref=e115]: screens
+                  - generic [ref=e116]:
+                    - img "Attio desktop screenshot" [ref=e117]
+                    - img "Attio mobile screenshot" [ref=e118]
+              - listitem [ref=e119]:
+                - link "📊 Dashboard 166 screens Attio desktop screenshot Attio mobile screenshot" [ref=e120] [cursor=pointer]:
+                  - /url: /categories/dashboard
+                  - generic [ref=e122]: 📊
+                  - heading "Dashboard" [level=3] [ref=e124]
+                  - generic [ref=e125]:
+                    - generic [ref=e126]: "166"
+                    - generic [ref=e127]: screens
+                  - generic [ref=e128]:
+                    - img "Attio desktop screenshot" [ref=e129]
+                    - img "Attio mobile screenshot" [ref=e130]
+              - listitem [ref=e131]:
+                - link "➕ Add & Edit 366 screens Attio desktop screenshot Attio mobile screenshot" [ref=e132] [cursor=pointer]:
+                  - /url: /categories/create-element
+                  - generic [ref=e134]: ➕
+                  - heading "Add & Edit" [level=3] [ref=e136]
+                  - generic [ref=e137]:
+                    - generic [ref=e138]: "366"
+                    - generic [ref=e139]: screens
+                  - generic [ref=e140]:
+                    - img "Attio desktop screenshot" [ref=e141]
+                    - img "Attio mobile screenshot" [ref=e142]
+              - listitem [ref=e143]:
+                - link "🪄 Account Setup 620 screens Attio desktop screenshot Attio mobile screenshot" [ref=e144] [cursor=pointer]:
+                  - /url: /categories/account-setup
+                  - generic [ref=e146]: 🪄
+                  - heading "Account Setup" [level=3] [ref=e148]
+                  - generic [ref=e149]:
+                    - generic [ref=e150]: "620"
+                    - generic [ref=e151]: screens
+                  - generic [ref=e152]:
+                    - img "Attio desktop screenshot" [ref=e153]
+                    - img "Attio mobile screenshot" [ref=e154]
+    - region "Platform features" [ref=e155]:
+      - generic [ref=e157]:
+        - generic [ref=e159]:
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - heading "Biggest SaaS library." [level=3] [ref=e164]
+              - generic [ref=e165]: Browse website pages, product interfaces and emails from a growing library of hundreds of SaaS.
+            - generic [ref=e166]:
+              - generic [ref=e167] [cursor=pointer]:
+                - img "Raycast logo" [ref=e168]
+                - img "Notion logo" [ref=e169]
+                - img "Fullstory logo" [ref=e170]
+                - img "Stripe logo" [ref=e171]
+                - img "Narrative BI logo" [ref=e172]
+                - img "Linear logo" [ref=e173]
+              - img [ref=e174]
+          - generic [ref=e176]:
+            - generic [ref=e177]:
+              - heading "Desktop & mobile versions." [level=3] [ref=e179]
+              - generic [ref=e180]: Switch from desktop to mobile versions to see how the best designers make websites responsive.
+            - generic [ref=e181]:
+              - img "Attio desktop screenshot" [ref=e182]
+              - img "Attio mobile screenshot" [ref=e183]
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - heading "Access the Figma files." [level=3] [ref=e188]
+              - generic [ref=e189]: You like a design? Download the Figma file of any website page you see on SaaSFrame.
+            - generic [ref=e190]:
+              - img "Figma button" [ref=e191]
+              - img "Cursor icon" [ref=e192]
+          - generic [ref=e194]:
+            - generic [ref=e195]:
+              - heading "Advanced filtering." [level=3] [ref=e197]
+              - generic [ref=e198]: Use filters to find the design or copywriting inspiration that you need in seconds.
+            - search "Filter content" [ref=e200]:
+              - form "SaaS Filters" [ref=e201]:
+                - combobox "Filter by category" [ref=e202]:
+                  - button "Filter by Category" [ref=e203] [cursor=pointer]:
+                    - generic [ref=e204]: 
+                    - generic [ref=e205]: Filter by Category
+                - radiogroup "Theme filter" [ref=e206]:
+                  - generic [ref=e207]:
+                    - radio "Light" [ref=e209]
+                    - img [ref=e211]
+                    - generic: Light
+                  - generic [ref=e214]:
+                    - radio "Dark" [ref=e216]
+                    - img [ref=e218]
+                    - generic: Dark
+          - generic [ref=e221]:
+            - generic [ref=e222]:
+              - heading "Let it flow." [level=3] [ref=e224]
+              - generic [ref=e225]: Discover the user journey of the best SaaS with interfaces organized in flows.
+            - generic [ref=e227]:
+              - generic [ref=e228]:
+                - img "Mercury banking dashboard showing user welcome, recent transactions, account balances, and a menu dropdown under Move Money with options to pay someone, add or receive funds, request payment, and transfer between accounts."
+              - img "Payment interface showing recipient selection with options to add new, invite recipient, and recently paid names listed." [ref=e230]
+              - generic [ref=e231]:
+                - img "Payment method selection screen showing options ACH, Check, Wire, and International Wire with International Wire selected."
+              - generic [ref=e232]:
+                - img "International wire transfer interface showing $120 USD to Jason Green, with selected payment option 'Send as OUR' costing $15, and source account Ops / Payroll with balance $1,374,471.14."
+              - generic [ref=e233]:
+                - img "Confirmation screen showing a recurring international wire payment of $120 to Jason Green, scheduled monthly on the 27th with dates and amounts for April, May, and June, noting May 27 is a weekend."
+              - generic [ref=e234]:
+                - img "Mercury online banking dashboard showing account balances, recent transactions, and a graph of the Mercury balance."
+          - generic [ref=e236]:
+            - generic [ref=e237]:
+              - heading "Save design inspirations." [level=3] [ref=e239]
+              - generic [ref=e240]: You like a design? Download the Figma file of any website page you see on SaaSFrame.
+            - generic [ref=e241]:
+              - generic [ref=e242]:
+                - generic [ref=e243]:
+                  - generic: ⌘
+                - generic [ref=e244]:
+                  - generic: B
+              - generic [ref=e246]: BOOKMARK DESIGN
+        - region "Call to action" [ref=e248]:
+          - generic [ref=e249]:
+            - generic [ref=e251]:
+              - text: Start your design
+              - text: research
+            - generic [ref=e252]:
+              - link "Login or Sign Up" [ref=e253] [cursor=pointer]:
+                - /url: /auth/signup
+              - link "Explore for free" [ref=e254] [cursor=pointer]:
+                - /url: /search-screens
+          - generic [ref=e256]:
+            - img "Flight booking interface showing options to create a new order with journey type, origin, destination, departure and return dates, passenger count, and class selection." [ref=e257]
+            - 'img "Three adjacent software interface screenshots: Surfe CRM LinkedIn integration on left, Linear product development tool in center, and Mercury banking dashboard on right." [ref=e258]'
+            - 'img "Three screenshots of software websites: Copperx sign-in page on white background, Current workspace app with yellow background, and a dark-themed AI developer platform homepage." [ref=e259]'
+            - img "Three website screenshots showing a design tool and distribution dashboard for design tokens, promoting ease and automation." [ref=e260]
+            - 'img "Three website homepage screens: Copperx login page, Current''s team collaboration platform, and AI-powered developer platform with space theme." [ref=e261]'
+    - contentinfo [ref=e262]:
+      - generic [ref=e263]:
+        - generic [ref=e265]:
+          - link "SaaSFrame logo saasframe" [ref=e268] [cursor=pointer]:
+            - /url: "#"
+            - img "SaaSFrame logo" [ref=e269]
+            - generic [ref=e270]: saasframe
+          - generic [ref=e271]:
+            - heading "Navigation" [level=4] [ref=e273]
+            - generic [ref=e274]:
+              - link "Home" [ref=e275] [cursor=pointer]:
+                - /url: /
+              - link "Pricing" [ref=e276] [cursor=pointer]:
+                - /url: /pricing
+              - link "Blog" [ref=e277] [cursor=pointer]:
+                - /url: /blog
+              - link "Studio" [ref=e278] [cursor=pointer]:
+                - /url: /studio
+              - link "Affiliates - Earn 40%" [ref=e279] [cursor=pointer]:
+                - /url: https://saasframe.lemonsqueezy.com/affiliates
+          - generic [ref=e280]:
+            - heading "Product" [level=4] [ref=e282]:
+              - text: Product
+              - link:
+                - /url: https://webflow.com/about
+                - strong
+            - generic [ref=e283]:
+              - link "SaaS" [ref=e284] [cursor=pointer]:
+                - /url: /saas
+              - link "Patterns" [ref=e285] [cursor=pointer]:
+                - /url: /patterns
+              - link "Flows" [ref=e286] [cursor=pointer]:
+                - /url: /search-flows
+              - link "Version Comparisons" [ref=e287] [cursor=pointer]:
+                - /url: /search-updates
+              - link "Search Text in Screenshot" [ref=e288] [cursor=pointer]:
+                - /url: /search-text
+              - link "Best Landing Pages" [ref=e289] [cursor=pointer]:
+                - /url: /best-landing-pages
+        - generic [ref=e291]:
+          - generic [ref=e293]: © 2026 SaaSFrame
+          - generic [ref=e295]:
+            - link "Terms and Conditions" [ref=e296] [cursor=pointer]:
+              - /url: /terms
+            - text: ·
+            - link "Privacy Policy" [ref=e297] [cursor=pointer]:
+              - /url: https://www.privacyboard.co/company/saasframe-9
+  - link "Skip to main content" [ref=e298] [cursor=pointer]:
+    - /url: "#main-content"

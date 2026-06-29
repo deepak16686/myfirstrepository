@@ -38,7 +38,7 @@ const TOOL_REGISTRY = [
                 id: 'gitlab-pipeline',
                 name: 'GitLab Pipeline',
                 icon: '🦊',
-                desc: 'Generate .gitlab-ci.yml + Dockerfile for any project',
+                desc: 'Clarify requirements, then generate GitLab pipeline files',
                 endpoint: '/api/v1/chat/',
                 type: 'chat',
                 tags: ['GitLab', 'CI/CD'],
@@ -49,10 +49,10 @@ const TOOL_REGISTRY = [
                 ],
                 welcome: `## GitLab Pipeline Generator 🦊
 
-I analyze your repository and generate production-ready CI/CD files:
+I analyze your repository, ask for any missing pipeline decisions, then generate production-ready CI/CD files:
 
-- **\`.gitlab-ci.yml\`** — 9-stage pipeline (compile → build → test → sast → quality → security → push → notify → learn)
-- **\`Dockerfile\`** — Multi-stage build optimized for your stack
+- **\`.gitlab-ci.yml\`** — Docker image or direct artifact pipeline
+- **\`Dockerfile\`** — created only when Docker image mode is selected
 
 **Supported stacks:** Java/Spring Boot, Python/FastAPI, Node.js/Express, Go, Ruby
 
@@ -301,14 +301,28 @@ TOOL_REGISTRY.forEach(cat => cat.tools.forEach(t => { TOOL_MAP[t.id] = t; }));
 let currentTool = null;
 let isLoading = false;
 
-// Per-tool conversation state (persisted to localStorage)
+// Per-tool conversation state.
+// Most tools persist their conversation to localStorage so it is restored on
+// reload. The GitLab Pipeline generator intentionally does NOT save history —
+// it always starts fresh on each visit (kept in-memory only for the current
+// page session so multi-turn requirement clarification still works).
+const NO_PERSIST_TOOLS = new Set(['gitlab-pipeline']);
+const ephemeralConv = {};
+
 function getConvState(toolId) {
+    if (NO_PERSIST_TOOLS.has(toolId)) {
+        return ephemeralConv[toolId] || { conversationId: null, messages: [] };
+    }
     try {
         const raw = localStorage.getItem(`conv_${toolId}`);
         return raw ? JSON.parse(raw) : { conversationId: null, messages: [] };
     } catch { return { conversationId: null, messages: [] }; }
 }
 function setConvState(toolId, state) {
+    if (NO_PERSIST_TOOLS.has(toolId)) {
+        ephemeralConv[toolId] = state;
+        return;
+    }
     try { localStorage.setItem(`conv_${toolId}`, JSON.stringify(state)); } catch {}
 }
 
@@ -316,6 +330,9 @@ function setConvState(toolId, state) {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Purge any GitLab Pipeline conversation that was persisted by older builds —
+    // this tool no longer saves history (see NO_PERSIST_TOOLS).
+    NO_PERSIST_TOOLS.forEach(id => { try { localStorage.removeItem(`conv_${id}`); } catch {} });
     setupMarked();
     renderSidebar();
     renderQuickToolGrid();

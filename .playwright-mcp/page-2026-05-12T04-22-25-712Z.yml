@@ -1,0 +1,406 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation "Navigation Bar" [ref=e3]:
+      - generic [ref=e4]:
+        - link "Home" [ref=e5] [cursor=pointer]:
+          - /url: /gitea/
+          - img [ref=e6]
+        - link "Explore" [ref=e7] [cursor=pointer]:
+          - /url: /gitea/explore/repos
+        - link "Help" [ref=e8] [cursor=pointer]:
+          - /url: https://docs.gitea.com
+      - generic [ref=e9]:
+        - link "Register" [ref=e10] [cursor=pointer]:
+          - /url: /gitea/user/sign_up
+          - img [ref=e11]
+          - generic [ref=e13]: Register
+        - link "Sign In" [ref=e14] [cursor=pointer]:
+          - /url: /gitea/user/login?redirect_to=%2fgitea%2fgithub-projects%2fcodex-e2e-gitea-actions-python-20260512-062337%2factions
+          - img [ref=e15]
+          - generic [ref=e17]: Sign In
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - img [ref=e24]
+            - generic [ref=e27]:
+              - link "github-projects" [ref=e28] [cursor=pointer]:
+                - /url: /gitea/github-projects
+              - text: /
+              - link "codex-e2e-gitea-actions-python-20260512-062337" [ref=e29] [cursor=pointer]:
+                - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337
+          - generic [ref=e30]:
+            - link "RSS Feed" [ref=e31] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337.rss
+              - img [ref=e32]
+            - generic "Sign in to watch this repository." [ref=e35] [cursor=pointer]:
+              - button "Watch" [disabled]:
+                - img
+                - generic: Watch
+              - link "2" [ref=e36]:
+                - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/watchers
+            - generic "Sign in to star this repository." [ref=e38] [cursor=pointer]:
+              - button "Star" [disabled]:
+                - img
+                - generic: Star
+              - link "0" [ref=e39]:
+                - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/stars
+            - generic "Sign in to fork this repository.":
+              - generic:
+                - img
+                - generic: Fork
+              - link "0":
+                - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/forks
+        - navigation [ref=e41]:
+          - generic [ref=e42]:
+            - link "Code" [ref=e43] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/
+              - img [ref=e44]
+              - generic [ref=e46]: Code
+            - link "Issues" [ref=e47] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/issues
+              - img [ref=e48]
+              - generic [ref=e51]: Issues
+            - link "Pull Requests" [ref=e52] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/pulls
+              - img [ref=e53]
+              - generic [ref=e55]: Pull Requests
+            - link "Actions" [ref=e56] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions
+              - img [ref=e57]
+              - generic [ref=e59]: Actions
+            - link "Packages" [ref=e60] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/packages
+              - img [ref=e61]
+              - generic [ref=e63]: Packages
+            - link "Projects" [ref=e64] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/projects
+              - img [ref=e65]
+              - generic [ref=e67]: Projects
+            - link "Releases" [ref=e68] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/releases
+              - img [ref=e69]
+              - generic [ref=e71]: Releases
+            - link "Wiki" [ref=e72] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/wiki
+              - img [ref=e73]
+              - generic [ref=e75]: Wiki
+            - link "Activity" [ref=e76] [cursor=pointer]:
+              - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/activity
+              - img [ref=e77]
+              - generic [ref=e79]: Activity
+      - generic [ref=e82]:
+        - link "All Workflows" [ref=e85] [cursor=pointer]:
+          - /url: "?actor=0&status=0"
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - combobox [ref=e88] [cursor=pointer]:
+              - generic [ref=e89]: Actor
+              - img [ref=e90]: 
+            - combobox [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]: Status
+              - img [ref=e94]: 
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - generic "Success" [ref=e99]:
+                - img [ref=e100]
+              - generic [ref=e102]:
+                - link "Add CI/CD workflow + Dockerfile [Built-in Template] - Default python configuration" [ref=e103] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/11
+                - generic [ref=e104]:
+                  - generic [ref=e105]: "ci.yml #11:"
+                  - text: Commit
+                  - link "64a4068044" [ref=e106] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/64a4068044d38c976935f75e58ee6a46cc6e5387
+                  - text: pushed by
+                  - link "admin" [ref=e107] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e108]:
+                - link "ci-pipeline-20260512-031644" [ref=e109] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-031644
+                - generic [ref=e110]:
+                  - generic [ref=e111]:
+                    - img [ref=e112]
+                    - generic "May 12, 2026, 8:47 AM GMT+5:30" [ref=e114]: 2026-05-12 03:17:57 +00:001 hour ago
+                  - generic [ref=e115]:
+                    - img [ref=e116]
+                    - text: 1m8s
+                - menu [ref=e118] [cursor=pointer]:
+                  - img [ref=e119]
+            - generic [ref=e121]:
+              - generic "Success" [ref=e123]:
+                - img [ref=e124]
+              - generic [ref=e126]:
+                - link "Add CI/CD workflow + Dockerfile [Built-in Template] - Default python configuration" [ref=e127] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/10
+                - generic [ref=e128]:
+                  - generic [ref=e129]: "ci.yml #10:"
+                  - text: Commit
+                  - link "64a4068044" [ref=e130] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/64a4068044d38c976935f75e58ee6a46cc6e5387
+                  - text: pushed by
+                  - link "admin" [ref=e131] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e132]:
+                - link "ci-pipeline-20260512-031644" [ref=e133] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-031644
+                - generic [ref=e134]:
+                  - generic [ref=e135]:
+                    - img [ref=e136]
+                    - generic "May 12, 2026, 8:47 AM GMT+5:30" [ref=e138]: 2026-05-12 03:17:57 +00:001 hour ago
+                  - generic [ref=e139]:
+                    - img [ref=e140]
+                    - text: 1m10s
+                - menu [ref=e142] [cursor=pointer]:
+                  - img [ref=e143]
+            - generic [ref=e145]:
+              - generic "Canceled" [ref=e147]:
+                - img [ref=e148]
+              - generic [ref=e150]:
+                - link "Add CI/CD workflow + Dockerfile [Built-in Template] - Default python configuration" [ref=e151] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/9
+                - generic [ref=e152]:
+                  - generic [ref=e153]: "ci.yml #9:"
+                  - text: Commit
+                  - link "d0887ff75d" [ref=e154] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/d0887ff75d9793aad41e53af7446612e04cfd557
+                  - text: pushed by
+                  - link "admin" [ref=e155] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e156]:
+                - link "ci-pipeline-20260512-031644" [ref=e157] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-031644
+                - generic [ref=e158]:
+                  - generic [ref=e159]:
+                    - img [ref=e160]
+                    - generic "May 12, 2026, 8:46 AM GMT+5:30" [ref=e162]: 2026-05-12 03:16:45 +00:001 hour ago
+                  - generic [ref=e163]:
+                    - img [ref=e164]
+                    - text: 0s
+                - menu [ref=e166] [cursor=pointer]:
+                  - img [ref=e167]
+            - generic [ref=e169]:
+              - generic "Success" [ref=e171]:
+                - img [ref=e172]
+              - generic [ref=e174]:
+                - link "Add CI/CD pipeline configuration [AI Generated]" [ref=e175] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/8
+                - generic [ref=e176]:
+                  - generic [ref=e177]: "ci.yml #8:"
+                  - text: Commit
+                  - link "2e41c51b41" [ref=e178] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/2e41c51b4175ee1f7c8bc69bac80a664ee4bec18
+                  - text: pushed by
+                  - link "admin" [ref=e179] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e180]:
+                - link "ci-pipeline-20260512-020644" [ref=e181] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e182]:
+                  - generic [ref=e183]:
+                    - img [ref=e184]
+                    - generic "May 12, 2026, 7:43 AM GMT+5:30" [ref=e186]: 2026-05-12 02:13:00 +00:002 hours ago
+                  - generic [ref=e187]:
+                    - img [ref=e188]
+                    - text: 1m7s
+                - menu [ref=e190] [cursor=pointer]:
+                  - img [ref=e191]
+            - generic [ref=e193]:
+              - generic "Canceled" [ref=e195]:
+                - img [ref=e196]
+              - generic [ref=e198]:
+                - link "Add CI/CD pipeline configuration [AI Generated]" [ref=e199] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/7
+                - generic [ref=e200]:
+                  - generic [ref=e201]: "ci.yml #7:"
+                  - text: Commit
+                  - link "2e41c51b41" [ref=e202] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/2e41c51b4175ee1f7c8bc69bac80a664ee4bec18
+                  - text: pushed by
+                  - link "admin" [ref=e203] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e204]:
+                - link "ci-pipeline-20260512-020644" [ref=e205] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e206]:
+                  - generic [ref=e207]:
+                    - img [ref=e208]
+                    - generic "May 12, 2026, 7:41 AM GMT+5:30" [ref=e210]: 2026-05-12 02:11:53 +00:002 hours ago
+                  - generic [ref=e211]:
+                    - img [ref=e212]
+                    - text: 0s
+                - menu [ref=e214] [cursor=pointer]:
+                  - img [ref=e215]
+            - generic [ref=e217]:
+              - generic "Failure" [ref=e219]:
+                - img [ref=e220]
+              - generic [ref=e222]:
+                - link "Add CI/CD pipeline configuration [AI Generated]" [ref=e223] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/6
+                - generic [ref=e224]:
+                  - generic [ref=e225]: "ci.yml #6:"
+                  - text: Commit
+                  - link "895e0e52f7" [ref=e226] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/895e0e52f737bdb698faee22f726d96f74c9d798
+                  - text: pushed by
+                  - link "admin" [ref=e227] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e228]:
+                - link "ci-pipeline-20260512-020644" [ref=e229] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e230]:
+                  - generic [ref=e231]:
+                    - img [ref=e232]
+                    - generic "May 12, 2026, 7:39 AM GMT+5:30" [ref=e234]: 2026-05-12 02:09:48 +00:002 hours ago
+                  - generic [ref=e235]:
+                    - img [ref=e236]
+                    - text: 21s
+                - menu [ref=e238] [cursor=pointer]:
+                  - img [ref=e239]
+            - generic [ref=e241]:
+              - generic "Canceled" [ref=e243]:
+                - img [ref=e244]
+              - generic [ref=e246]:
+                - link "Add CI/CD pipeline configuration [AI Generated]" [ref=e247] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/5
+                - generic [ref=e248]:
+                  - generic [ref=e249]: "ci.yml #5:"
+                  - text: Commit
+                  - link "895e0e52f7" [ref=e250] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/895e0e52f737bdb698faee22f726d96f74c9d798
+                  - text: pushed by
+                  - link "admin" [ref=e251] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e252]:
+                - link "ci-pipeline-20260512-020644" [ref=e253] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e254]:
+                  - generic [ref=e255]:
+                    - img [ref=e256]
+                    - generic "May 12, 2026, 7:39 AM GMT+5:30" [ref=e258]: 2026-05-12 02:09:22 +00:002 hours ago
+                  - generic [ref=e259]:
+                    - img [ref=e260]
+                    - text: 0s
+                - menu [ref=e262] [cursor=pointer]:
+                  - img [ref=e263]
+            - generic [ref=e265]:
+              - generic "Canceled" [ref=e267]:
+                - img [ref=e268]
+              - generic [ref=e270]:
+                - link "Trigger Gitea Actions after Nexus secret refresh" [ref=e271] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/4
+                - generic [ref=e272]:
+                  - generic [ref=e273]: "ci.yml #4:"
+                  - text: Commit
+                  - link "172b342303" [ref=e274] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/172b34230320cb2ce9f6319443ba02e6b3fd3e15
+                  - text: pushed by
+                  - link "admin" [ref=e275] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e276]:
+                - link "ci-pipeline-20260512-020644" [ref=e277] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e278]:
+                  - generic [ref=e279]:
+                    - img [ref=e280]
+                    - generic "May 12, 2026, 7:39 AM GMT+5:30" [ref=e282]: 2026-05-12 02:09:22 +00:002 hours ago
+                  - generic [ref=e283]:
+                    - img [ref=e284]
+                    - text: 18s
+                - menu [ref=e286] [cursor=pointer]:
+                  - img [ref=e287]
+            - generic [ref=e289]:
+              - generic "Failure" [ref=e291]:
+                - img [ref=e292]
+              - generic [ref=e294]:
+                - link "Add CI/CD workflow + Dockerfile [Built-in Template] - Default python configuration" [ref=e295] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/3
+                - generic [ref=e296]:
+                  - generic [ref=e297]: "ci.yml #3:"
+                  - text: Commit
+                  - link "8afa6dfca2" [ref=e298] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/8afa6dfca209d15d8df09f1c654f4eacce512598
+                  - text: pushed by
+                  - link "admin" [ref=e299] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e300]:
+                - link "ci-pipeline-20260512-020644" [ref=e301] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e302]:
+                  - generic [ref=e303]:
+                    - img [ref=e304]
+                    - generic "May 12, 2026, 7:37 AM GMT+5:30" [ref=e306]: 2026-05-12 02:07:20 +00:002 hours ago
+                  - generic [ref=e307]:
+                    - img [ref=e308]
+                    - text: 25s
+                - menu [ref=e310] [cursor=pointer]:
+                  - img [ref=e311]
+            - generic [ref=e313]:
+              - generic "Canceled" [ref=e315]:
+                - img [ref=e316]
+              - generic [ref=e318]:
+                - link "Add CI/CD workflow + Dockerfile [Built-in Template] - Default python configuration" [ref=e319] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/2
+                - generic [ref=e320]:
+                  - generic [ref=e321]: "ci.yml #2:"
+                  - text: Commit
+                  - link "8afa6dfca2" [ref=e322] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/8afa6dfca209d15d8df09f1c654f4eacce512598
+                  - text: pushed by
+                  - link "admin" [ref=e323] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e324]:
+                - link "ci-pipeline-20260512-020644" [ref=e325] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e326]:
+                  - generic [ref=e327]:
+                    - img [ref=e328]
+                    - generic "May 12, 2026, 7:36 AM GMT+5:30" [ref=e330]: 2026-05-12 02:06:46 +00:002 hours ago
+                  - generic [ref=e331]:
+                    - img [ref=e332]
+                    - text: 0s
+                - menu [ref=e334] [cursor=pointer]:
+                  - img [ref=e335]
+            - generic [ref=e337]:
+              - generic "Canceled" [ref=e339]:
+                - img [ref=e340]
+              - generic [ref=e342]:
+                - link "Add CI/CD workflow + Dockerfile [Built-in Template] - Default python configuration" [ref=e343] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/actions/runs/1
+                - generic [ref=e344]:
+                  - generic [ref=e345]: "ci.yml #1:"
+                  - text: Commit
+                  - link "8afa6dfca2" [ref=e346] [cursor=pointer]:
+                    - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/commit/8afa6dfca209d15d8df09f1c654f4eacce512598
+                  - text: pushed by
+                  - link "admin" [ref=e347] [cursor=pointer]:
+                    - /url: /gitea/admin
+              - generic [ref=e348]:
+                - link "ci-pipeline-20260512-020644" [ref=e349] [cursor=pointer]:
+                  - /url: /gitea/github-projects/codex-e2e-gitea-actions-python-20260512-062337/src/branch/ci-pipeline-20260512-020644
+                - generic [ref=e350]:
+                  - generic [ref=e351]:
+                    - img [ref=e352]
+                    - generic "May 12, 2026, 7:36 AM GMT+5:30" [ref=e354]: 2026-05-12 02:06:45 +00:002 hours ago
+                  - generic [ref=e355]:
+                    - img [ref=e356]
+                    - text: 0s
+                - menu [ref=e358] [cursor=pointer]:
+                  - img [ref=e359]
+  - group "Footer" [ref=e361]:
+    - contentinfo "About Software" [ref=e362]:
+      - link "Powered by Gitea" [ref=e363] [cursor=pointer]:
+        - /url: https://about.gitea.com
+      - text: "Version: 1.25.4 Page:"
+      - strong [ref=e364]: 10ms
+      - text: "Template:"
+      - strong [ref=e365]: 2ms
+    - group "Links" [ref=e366]:
+      - menu [ref=e367] [cursor=pointer]:
+        - generic [ref=e368]:
+          - img [ref=e369]
+          - text: English
+      - link "Licenses" [ref=e371] [cursor=pointer]:
+        - /url: /gitea/assets/licenses.txt
+      - link "API" [ref=e372] [cursor=pointer]:
+        - /url: /gitea/api/swagger

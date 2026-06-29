@@ -1,0 +1,157 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#main-content"
+    - status [ref=e5]
+    - complementary "Primary sidebar" [ref=e6]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: DevOps Portal
+          - paragraph [ref=e22]: control plane
+      - navigation [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Portal" [ref=e26] [cursor=pointer]:
+              - /url: /
+              - img [ref=e27]
+              - generic [ref=e29]: Portal
+          - listitem [ref=e30]:
+            - link "Analytics" [ref=e31] [cursor=pointer]:
+              - /url: /analytics
+              - img [ref=e32]
+              - generic [ref=e34]: Analytics
+          - listitem [ref=e35]:
+            - link "Tools" [ref=e36] [cursor=pointer]:
+              - /url: /tools
+              - img [ref=e37]
+              - generic [ref=e47]: Tools
+          - listitem [ref=e48]:
+            - link "Pipelines" [ref=e49] [cursor=pointer]:
+              - /url: /pipelines
+              - img [ref=e50]
+              - generic [ref=e55]: Pipelines
+          - listitem [ref=e56]:
+            - link "AI Chat" [ref=e57] [cursor=pointer]:
+              - /url: /chat
+              - img [ref=e58]
+              - generic [ref=e60]: AI Chat
+        - generic [ref=e61]:
+          - paragraph [ref=e62]: Categories
+          - list [ref=e63]:
+            - listitem [ref=e64]:
+              - button "AI & LLM 4" [ref=e65]:
+                - img [ref=e66]
+                - generic [ref=e76]: AI & LLM
+                - generic [ref=e77]: "4"
+            - listitem [ref=e78]:
+              - button "CI/CD 3" [ref=e79]:
+                - img [ref=e80]
+                - generic [ref=e83]: CI/CD
+                - generic [ref=e84]: "3"
+            - listitem [ref=e85]:
+              - button "Source Control 2" [ref=e86]:
+                - img [ref=e87]
+                - generic [ref=e91]: Source Control
+                - generic [ref=e92]: "2"
+            - listitem [ref=e93]:
+              - button "Code Quality 1" [ref=e94]:
+                - img [ref=e95]
+                - generic [ref=e98]: Code Quality
+                - generic [ref=e99]: "1"
+            - listitem [ref=e100]:
+              - button "Security 1" [ref=e101]:
+                - img [ref=e102]
+                - generic [ref=e105]: Security
+                - generic [ref=e106]: "1"
+            - listitem [ref=e107]:
+              - button "Artifacts & Registry 2" [ref=e108]:
+                - img [ref=e109]
+                - generic [ref=e113]: Artifacts & Registry
+                - generic [ref=e114]: "2"
+            - listitem [ref=e115]:
+              - button "Observability 5" [ref=e116]:
+                - img [ref=e117]
+                - generic [ref=e120]: Observability
+                - generic [ref=e121]: "5"
+            - listitem [ref=e122]:
+              - button "Metrics & Exporters 3" [ref=e123]:
+                - img [ref=e124]
+                - generic [ref=e126]: Metrics & Exporters
+                - generic [ref=e127]: "3"
+            - listitem [ref=e128]:
+              - button "Logging 1" [ref=e129]:
+                - img [ref=e130]
+                - generic [ref=e133]: Logging
+                - generic [ref=e134]: "1"
+            - listitem [ref=e135]:
+              - button "Databases & Storage 3" [ref=e136]:
+                - img [ref=e137]
+                - generic [ref=e141]: Databases & Storage
+                - generic [ref=e142]: "3"
+            - listitem [ref=e143]:
+              - button "Project Management 2" [ref=e144]:
+                - img [ref=e145]
+                - generic [ref=e146]: Project Management
+                - generic [ref=e147]: "2"
+            - listitem [ref=e148]:
+              - button "Gateway & Proxy 1" [ref=e149]:
+                - img [ref=e150]
+                - generic [ref=e154]: Gateway & Proxy
+                - generic [ref=e155]: "1"
+            - listitem [ref=e156]:
+              - button "Platform API 2" [ref=e157]:
+                - img [ref=e158]
+                - generic [ref=e170]: Platform API
+                - generic [ref=e171]: "2"
+            - listitem [ref=e172]:
+              - button "Projects 32" [ref=e173]:
+                - img [ref=e174]
+                - generic [ref=e178]: Projects
+                - generic [ref=e179]: "32"
+          - paragraph [ref=e180]: Health
+          - list [ref=e181]:
+            - listitem [ref=e182]:
+              - button "Healthy" [ref=e183]:
+                - generic [ref=e185]: Healthy
+            - listitem [ref=e186]:
+              - button "Degraded" [ref=e187]:
+                - generic [ref=e189]: Degraded
+            - listitem [ref=e190]:
+              - button "Down" [ref=e191]:
+                - generic [ref=e193]: Down
+            - listitem [ref=e194]:
+              - button "Unknown" [ref=e195]:
+                - generic [ref=e197]: Unknown
+      - button "Collapse sidebar" [ref=e199]:
+        - img
+        - generic [ref=e200]: Collapse
+    - generic [ref=e201]:
+      - banner [ref=e202]:
+        - generic [ref=e203]:
+          - img [ref=e204]
+          - searchbox "Search" [ref=e207]
+          - generic [ref=e208]:
+            - img [ref=e209]
+            - text: /
+        - button "Open command palette" [ref=e211]:
+          - generic [ref=e212]: Command
+          - generic [ref=e213]:
+            - generic [ref=e214]: Ctrl
+            - generic [ref=e215]: K
+        - generic [ref=e216]:
+          - button "Show status rail" [ref=e217]:
+            - img
+          - 'status "Tailscale status: Public route unavailable" [ref=e218]':
+            - img [ref=e220]
+            - generic [ref=e221]: Public route unavailable
+          - button "Notifications" [ref=e222]:
+            - img
+          - 'button "Theme: system (light)" [ref=e224]':
+            - img
+          - button "Account" [ref=e225]:
+            - generic [ref=e226]:
+              - img
+            - generic [ref=e227]: operator
+      - main [ref=e229]
+  - region "Notifications alt+T"

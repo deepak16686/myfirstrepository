@@ -1,0 +1,1 @@
+{"conversation_id":"1f6426a9-e126-4b1a-b539-4b614da4e6ca","message":"Pipeline run failed: Client error '404 Not Found' for url 'http://gitlab-server/gitlab/api/v4/projects/root%2Fgolang-sample-app'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404","pending_pipeline":null,"monitoring":null,"generation":null}

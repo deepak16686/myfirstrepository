@@ -33,6 +33,10 @@ class GeneratePipelineRequest(BaseModel):
         default=False,
         description="If True, skip LLM and use default templates directly"
     )
+    pipeline_requirements: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Confirmed pipeline requirements from the chatbot clarification flow"
+    )
 
 
 class GeneratePipelineResponse(BaseModel):
@@ -65,6 +69,10 @@ class GenerateWithValidationRequest(BaseModel):
         default=True,
         description="Store successful templates in ChromaDB for future use"
     )
+    pipeline_requirements: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Confirmed pipeline requirements from the chatbot clarification flow"
+    )
 
 
 class GenerateWithValidationResponse(BaseModel):
@@ -92,7 +100,7 @@ class CommitRequest(BaseModel):
     repo_url: str
     gitlab_token: str
     gitlab_ci: str
-    dockerfile: str
+    dockerfile: str = ""
     branch_name: Optional[str] = Field(
         None,
         description="Branch name (auto-generated if not provided)"
@@ -125,9 +133,13 @@ class PipelineStatusRequest(BaseModel):
 class DryRunRequest(BaseModel):
     """Request to validate pipeline without committing"""
     gitlab_ci: str = Field(..., description="Pipeline YAML to validate")
-    dockerfile: str = Field(..., description="Dockerfile to validate")
+    dockerfile: str = Field(default="", description="Dockerfile to validate")
     gitlab_token: Optional[str] = Field(None, description="GitLab token for CI lint API (optional)")
     project_path: Optional[str] = Field(None, description="Project path for project-specific lint (optional)")
+    require_dockerfile: bool = Field(
+        default=True,
+        description="Set False for direct-artifact pipelines that intentionally do not create Docker images"
+    )
 
 
 class DryRunResponse(BaseModel):

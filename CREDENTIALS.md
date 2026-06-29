@@ -1,6 +1,6 @@
 # Infrastructure Stack Credentials
 > **All credentials are stored in HashiCorp Vault.**
-> Vault UI: http://localhost:8200/ui | Root Token: see Vault volume `/vault/file/.root-token`
+> Vault UI: Docker Desktop container only (not exposed as a shared portal URL) | Root Token: see Vault volume `/vault/file/.root-token`
 > Last verified: 2026-03-12
 
 ---
@@ -9,24 +9,24 @@
 
 | # | Service | Status | URL | Username | Password/Token |
 |---|---------|--------|-----|----------|----------------|
-| 1 | HashiCorp Vault | ✅ Healthy | http://localhost:8200 | root token | see below |
-| 2 | GitLab | ✅ Working | http://localhost:8929/gitlab | root | see Vault: `secret/gitlab` |
-| 3 | Gitea | ✅ Working | http://localhost:3002 | admin | see Vault: `secret/gitea` |
-| 4 | Jenkins | ✅ Working | http://localhost:8080/jenkins | admin | see Vault: `secret/jenkins` |
-| 5 | SonarQube | ✅ Working | http://localhost:9002 | admin | see Vault: `secret/sonarqube` |
-| 6 | Nexus | ✅ Working | http://localhost:8181 | admin | see Vault: `secret/nexus` |
-| 7 | Splunk | ✅ Working | http://localhost:10000/splunk | admin | see Vault: `secret/splunk` |
-| 8 | Grafana | ✅ Working | http://localhost:3000 | admin | see Vault: `secret/grafana` |
-| 9 | MinIO | ✅ Working | http://localhost:9001 | admin | see Vault: `secret/minio` |
-| 10 | Jira | ✅ Fixed | http://localhost:8180 | deepak16686 | see Vault: `secret/jira` |
-| 11 | Redmine | ✅ Working | http://localhost:8090 | admin | see Vault: `secret/redmine` |
-| 12 | PostgreSQL | ✅ Working | localhost:5432 | platform | see Vault: `secret/postgres` |
-| 13 | Redis | ✅ Working | localhost:6379 | — | no auth |
-| 14 | Prometheus | ✅ Working | http://localhost:9090 | — | no auth |
-| 15 | Jaeger | ✅ Working | http://localhost:16686 | — | no auth |
-| 16 | ChromaDB | ✅ Working | http://localhost:8005 | — | no auth (use /api/v2/) |
-| 17 | Qdrant | ✅ Working | http://localhost:6333 | — | no auth |
-| 18 | MailHog | ✅ Working | http://localhost:8025 | — | no auth |
+| 1 | HashiCorp Vault | ✅ Healthy | Docker Desktop container only (not exposed as a shared portal URL) | root token | see below |
+| 2 | GitLab | ✅ Working | https://gitlab.deepaksharma.live/gitlab | root | see Vault: `secret/gitlab` |
+| 3 | Gitea | ✅ Working | https://gitea.deepaksharma.live | admin | see Vault: `secret/gitea` |
+| 4 | Jenkins | ✅ Working | https://jenkins.deepaksharma.live/jenkins | admin | see Vault: `secret/jenkins` |
+| 5 | SonarQube | ✅ Working | https://sonarqube.deepaksharma.live | admin | see Vault: `secret/sonarqube` |
+| 6 | Nexus | ✅ Working | https://nexus.deepaksharma.live | admin | see Vault: `secret/nexus` |
+| 7 | Splunk | ✅ Working | https://splunk.deepaksharma.live/splunk | admin | see Vault: `secret/splunk` |
+| 8 | Grafana | ✅ Working | https://grafana.deepaksharma.live | admin | see Vault: `secret/grafana` |
+| 9 | MinIO | ✅ Working | https://minio.deepaksharma.live | admin | see Vault: `secret/minio` |
+| 10 | Jira | ✅ Fixed | https://jira.deepaksharma.live | deepak16686 | see Vault: `secret/jira` |
+| 11 | Redmine | ✅ Working | https://redmine.deepaksharma.live | admin | see Vault: `secret/redmine` |
+| 12 | PostgreSQL | ✅ Working | Docker Desktop/container network only | platform | see Vault: `secret/postgres` |
+| 13 | Redis | ✅ Working | Docker Desktop/container network only | — | no auth |
+| 14 | Prometheus | ✅ Working | https://prometheus.deepaksharma.live | — | no auth |
+| 15 | Jaeger | ✅ Working | https://jaeger.deepaksharma.live | — | no auth |
+| 16 | ChromaDB | ✅ Working | https://chromadb.deepaksharma.live | — | no auth (use /api/v2/) |
+| 17 | Qdrant | ✅ Working | https://qdrant.deepaksharma.live | — | no auth |
+| 18 | MailHog | ✅ Working | https://mailhog.deepaksharma.live | — | no auth |
 
 ---
 
@@ -34,14 +34,14 @@
 
 | Field | Value |
 |-------|-------|
-| **UI** | http://localhost:8200/ui |
-| **API** | http://localhost:8200 |
+| **UI** | Docker Desktop container only (not exposed as a shared portal URL) |
+| **API** | Docker Desktop container only (not exposed as a shared portal URL) |
 | **Root Token** | Stored in Docker volume: `docker exec vault sh -c "cat /vault/file/.root-token"` |
 | **Vault Path** | `secret/data/<service>` |
 | **Status** | Unsealed, healthy |
 | **Auto-unseal** | Yes (vault-unseal sidecar) |
 
-> **Read a secret:** `curl -H "X-Vault-Token: <token>" http://localhost:8200/v1/secret/data/<service>`
+> **Read a secret:** use Docker Desktop/container-only Vault access; no shared HTTP URL is published.
 
 ---
 
@@ -49,17 +49,17 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:8929/gitlab |
+| **URL** | https://gitlab.deepaksharma.live/gitlab |
 | **Username** | `root` |
 | **Password** | `${GITLAB_ROOT_PASSWORD}` |
 | **Personal Access Token** | `${GITLAB_TOKEN}` |
-| **API Base** | `http://localhost:8929/gitlab/api/v4` |
+| **API Base** | `https://gitlab.deepaksharma.live/gitlab/api/v4` |
 | **SSH Port** | 2224 |
 | **Vault Path** | `secret/data/gitlab` |
-| **Note** | External URL: `https://devstack.deepaksharma.live/gitlab` (use localhost for internal) |
+| **Note** | External URL: `https://devstack.deepaksharma.live/gitlab` |
 
 ```bash
-# Test: curl -H "PRIVATE-TOKEN: ${GITLAB_TOKEN}" http://localhost:8929/gitlab/api/v4/version
+# Test: curl -H "PRIVATE-TOKEN: ${GITLAB_TOKEN}" https://gitlab.deepaksharma.live/gitlab/api/v4/version
 ```
 
 ---
@@ -68,18 +68,18 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:3002 |
+| **URL** | https://gitea.deepaksharma.live |
 | **Username** | `admin` |
 | **Password** | `admin123` |
 | **API Token** | `${GITEA_TOKEN}` |
-| **API Base** | `http://localhost:3002/api/v1` |
+| **API Base** | `https://gitea.deepaksharma.live/api/v1` |
 | **SSH Port** | 2222 |
 | **Jenkins Org** | `jenkins-projects` |
 | **GitHub Actions Org** | `github-projects` |
 | **Vault Path** | `secret/data/gitea` |
 
 ```bash
-# Test: curl -H "Authorization: token ${GITEA_TOKEN}" http://localhost:3002/api/v1/user
+# Test: curl -H "Authorization: token ${GITEA_TOKEN}" https://gitea.deepaksharma.live/api/v1/user
 ```
 
 ---
@@ -88,16 +88,16 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:8080/jenkins |
+| **URL** | https://jenkins.deepaksharma.live/jenkins |
 | **Username** | `admin` |
 | **Password** | `admin123` |
-| **API Base** | `http://localhost:8080/jenkins/api/json` |
+| **API Base** | `https://jenkins.deepaksharma.live/jenkins/api/json` |
 | **Agents** | `jenkins-agent-1`, `jenkins-agent-2`, `jenkins-agent-3` |
 | **Agent Label** | `docker` |
 | **Vault Path** | `secret/data/jenkins` |
 
 ```bash
-# Test: curl -u admin:admin123 http://localhost:8080/jenkins/api/json?tree=jobs[name]
+# Test: curl -u admin:admin123 https://jenkins.deepaksharma.live/jenkins/api/json?tree=jobs[name]
 ```
 
 ---
@@ -106,7 +106,7 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:9002 |
+| **URL** | https://sonarqube.deepaksharma.live |
 | **Username** | `admin` |
 | **Password** | `${SONARQUBE_ADMIN_PASSWORD}` |
 | **API Token** | `${SONARQUBE_TOKEN}` |
@@ -114,8 +114,8 @@
 | **Vault Path** | `secret/data/sonarqube` |
 
 ```bash
-# Test: curl -u "admin:N7@qL9\!fR2#XwA8\$" http://localhost:9002/api/system/status
-# API: curl -H "Authorization: Bearer ${SONARQUBE_TOKEN}" http://localhost:9002/api/projects/search
+# Test: curl -u "admin:N7@qL9\!fR2#XwA8\$" https://sonarqube.deepaksharma.live/api/system/status
+# API: curl -H "Authorization: Bearer ${SONARQUBE_TOKEN}" https://sonarqube.deepaksharma.live/api/projects/search
 ```
 
 ---
@@ -124,15 +124,15 @@
 
 | Field | Value |
 |-------|-------|
-| **UI** | http://localhost:8181 |
+| **UI** | https://nexus.deepaksharma.live |
 | **Username** | `admin` |
-| **Password** | `r` |
-| **Docker Registry** | `localhost:5001` (host) / `ai-nexus:5001` (containers) |
+| **Password** | `Hiagb@1234` |
+| **Docker Registry** | `nexus-docker.deepaksharma.live` (host) / `ai-nexus:5001` (containers) |
 | **Vault Path** | `secret/data/nexus` |
 
 ```bash
-# Test: curl -u admin:r http://localhost:8181/service/rest/v1/repositories
-# Docker login: docker login localhost:5001 -u admin -p r
+# Test: curl -u admin:Hiagb@1234 https://nexus.deepaksharma.live/service/rest/v1/repositories
+# Docker login: docker login nexus-docker.deepaksharma.live -u admin -p Hiagb@1234
 ```
 
 ---
@@ -141,15 +141,15 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:10000/splunk |
+| **URL** | https://splunk.deepaksharma.live/splunk |
 | **Username** | `admin` |
 | **Password** | `${SPLUNK_PASSWORD}` |
-| **REST API** | `http://localhost:10000/splunk/en-US/splunkd/__raw/services` |
+| **REST API** | `https://splunk.deepaksharma.live/splunk/en-US/splunkd/__raw/services` |
 | **HEC Port** | 8088 |
 | **Vault Path** | `secret/data/splunk` |
 
 ```bash
-# Test login: curl -X POST http://localhost:10000/splunk/en-US/splunkd/__raw/services/auth/login -d "username=admin&password=Admin%401234&output_mode=json"
+# Test login: curl -X POST https://splunk.deepaksharma.live/splunk/en-US/splunkd/__raw/services/auth/login -d "username=admin&password=Admin%401234&output_mode=json"
 ```
 
 ---
@@ -158,13 +158,13 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:3000 |
+| **URL** | https://grafana.deepaksharma.live |
 | **Username** | `admin` |
 | **Password** | `admin123` |
 | **Vault Path** | `secret/data/grafana` |
 
 ```bash
-# Test: curl -u admin:admin123 http://localhost:3000/api/org
+# Test: curl -u admin:admin123 https://grafana.deepaksharma.live/api/org
 ```
 
 ---
@@ -173,15 +173,15 @@
 
 | Field | Value |
 |-------|-------|
-| **UI** | http://localhost:9001 |
-| **API** | http://localhost:9000 |
+| **UI** | https://minio.deepaksharma.live |
+| **API** | Docker Desktop/container network only |
 | **Access Key** | `admin` |
 | **Secret Key** | `admin123` |
 | **Vault Path** | `secret/data/minio` |
 
 ```bash
-# Test: curl http://localhost:9000/minio/health/live
-# mc alias set local http://localhost:9000 admin admin123
+# Test: curl https://minio.deepaksharma.live/minio/health/live
+# Public MinIO console: https://minio.deepaksharma.live/
 ```
 
 ---
@@ -190,14 +190,14 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:8180 |
+| **URL** | https://jira.deepaksharma.live |
 | **Username** | `deepak16686` |
 | **Password** | `admin123` |
 | **Email** | `deepakdce2009@gmail.com` |
 | **Groups** | `jira-administrators`, `jira-software-users` |
 | **DB** | `jira-postgres` — `jira/jira123@jiradb` |
 | **Vault Path** | `secret/data/jira` |
-| **Note** | Jira 9+ disables HTTP Basic Auth for REST API by default. UI login works fine. For REST API: generate a PAT at http://localhost:8180/secure/ViewProfile.jspa → Personal Access Tokens → Create Token |
+| **Note** | Jira 9+ disables HTTP Basic Auth for REST API by default. UI login works fine. For REST API: generate a PAT at https://jira.deepaksharma.live/secure/ViewProfile.jspa → Personal Access Tokens → Create Token |
 
 ---
 
@@ -205,14 +205,14 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | http://localhost:8090 |
+| **URL** | https://redmine.deepaksharma.live |
 | **Username** | `admin` |
 | **Password** | `${SPLUNK_PASSWORD}` |
 | **API Key** | `701b636febd66b8335cc485b671c27984d31a10b` |
 | **Vault Path** | `secret/data/redmine` |
 
 ```bash
-# Test: curl -H "X-Redmine-API-Key: 701b636febd66b8335cc485b671c27984d31a10b" http://localhost:8090/users/current.json
+# Test: curl -H "X-Redmine-API-Key: 701b636febd66b8335cc485b671c27984d31a10b" https://redmine.deepaksharma.live/users/current.json
 ```
 
 ---
@@ -221,11 +221,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Host** | `localhost:5432` |
+| **Host** | `Docker Desktop/container network only` |
 | **Username** | `platform` |
 | **Password** | `platform123` |
 | **Database** | `modernization_platform` |
-| **Connection String** | `postgresql://platform:platform123@localhost:5432/modernization_platform` |
+| **Connection String** | `postgresql://platform:platform123@ai-postgres:5432/modernization_platform (container network)` |
 | **Taskflow User** | `taskflow` — owns `taskflow_auth`, `taskflow_tasks` databases |
 | **Vault Path** | `secret/data/postgres` |
 
@@ -248,12 +248,12 @@
 
 | Service | URL | Notes |
 |---------|-----|-------|
-| **Redis** | `localhost:6379` | No password configured |
-| **Prometheus** | http://localhost:9090/prometheus/ | No auth — health: `/prometheus/-/healthy`, API: `/prometheus/api/v1/` |
-| **Jaeger** | http://localhost:16686 | No auth |
-| **ChromaDB** | http://localhost:8005 | No auth — use `/api/v2/` (v1 deprecated) |
-| **Qdrant** | http://localhost:6333 | No auth |
-| **MailHog** | http://localhost:8025 | No auth — SMTP on port 1025 (internal) |
+| **Redis** | `Docker Desktop/container network only` | No password configured |
+| **Prometheus** | https://prometheus.deepaksharma.live/prometheus/ | No auth — health: `/prometheus/-/healthy`, API: `/prometheus/api/v1/` |
+| **Jaeger** | https://jaeger.deepaksharma.live | No auth |
+| **ChromaDB** | https://chromadb.deepaksharma.live | No auth — use `/api/v2/` (v1 deprecated) |
+| **Qdrant** | https://qdrant.deepaksharma.live | No auth |
+| **MailHog** | https://mailhog.deepaksharma.live | No auth — SMTP on port 1025 (internal) |
 
 ---
 
@@ -261,10 +261,10 @@
 
 | Service | URL | Health |
 |---------|-----|--------|
-| **API Gateway** | http://localhost:18080 | `/health` |
-| **Auth Service** | http://localhost:18081 | `/health` |
-| **Task Service** | http://localhost:18082 | `/health` |
-| **Notification Service** | http://localhost:18083 | `/health` |
+| **API Gateway** | https://taskflow.deepaksharma.live/health | `/health` |
+| **Auth Service** | https://taskflow-auth.deepaksharma.live/health | `/health` |
+| **Task Service** | https://taskflow-task.deepaksharma.live/docs | `/health` |
+| **Notification Service** | https://taskflow-notify.deepaksharma.live/health | `/health` |
 
 ---
 
@@ -272,13 +272,13 @@
 
 | Service | URL | Notes |
 |---------|-----|-------|
-| **Grafana** | http://localhost:3000 | admin/admin123 |
-| **Prometheus** | http://localhost:9090 | No auth |
-| **Loki** | http://localhost:3100 | No auth (internal) |
-| **Jaeger** | http://localhost:16686 | No auth |
-| **cAdvisor** | http://localhost:8182 | No auth |
-| **Node Exporter** | http://localhost:9100 | No auth |
-| **DCGM Exporter** | http://localhost:9400 | No auth |
+| **Grafana** | https://grafana.deepaksharma.live | admin/admin123 |
+| **Prometheus** | https://prometheus.deepaksharma.live | No auth |
+| **Loki** | https://loki.deepaksharma.live | No auth (internal) |
+| **Jaeger** | https://jaeger.deepaksharma.live | No auth |
+| **cAdvisor** | https://cadvisor.deepaksharma.live | No auth |
+| **Node Exporter** | https://node-exporter.deepaksharma.live | No auth |
+| **DCGM Exporter** | https://dcgm-exporter.deepaksharma.live | No auth |
 
 ---
 
@@ -286,10 +286,10 @@
 
 | Service | URL | Notes |
 |---------|-----|-------|
-| **Ollama** | http://localhost:11434 | No auth |
-| **ChromaDB** | http://localhost:8005 | No auth, use `/api/v2/` |
-| **Qdrant** | http://localhost:6333 | No auth |
-| **ChromaDB Admin** | http://localhost:3001 | No auth (ARM image — may restart) |
+| **Ollama** | https://ollama.deepaksharma.live | No auth |
+| **ChromaDB** | https://chromadb.deepaksharma.live | No auth, use `/api/v2/` |
+| **Qdrant** | https://qdrant.deepaksharma.live | No auth |
+| **ChromaDB Admin** | https://chromadb-admin.deepaksharma.live | No auth (ARM image — may restart) |
 
 ---
 
@@ -300,7 +300,7 @@
 VAULT_TOKEN=$(docker exec vault sh -c "cat /vault/file/.root-token")
 
 # Read any secret
-curl -H "X-Vault-Token: $VAULT_TOKEN" http://localhost:8200/v1/secret/data/<service>
+# Vault secret reads are Docker Desktop/container-only; no shared HTTP URL is published.
 
 # Available secret paths:
 # secret/data/gitlab      → GitLab root credentials + PAT

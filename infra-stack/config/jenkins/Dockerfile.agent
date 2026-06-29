@@ -1,0 +1,10 @@
+FROM jenkins/inbound-agent@sha256:1d37cd31771659a176ed262db8f263e3d5f9947d13712aae878c180e196ba4ea
+
+USER root
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        docker-cli=26.1.5+dfsg1-9+b12 \
+    && rm -rf /var/lib/apt/lists/*
+
+USER root

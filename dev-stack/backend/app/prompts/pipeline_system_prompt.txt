@@ -34,7 +34,7 @@ Java/JVM Build Images:
 - maven:3.9-eclipse-temurin-21 (Maven builds with Java 21)
 - gradle:7.6-jdk8 (Gradle builds with Java 8)
 - gradle:8.7-jdk11 (Gradle builds with Java 11)
-- gradle:8.7-jdk17-alpine (Gradle builds with Java 17)
+- gradle:8.12-jdk17 (Gradle builds with Java 17)
 - gradle:8.12-jdk21 (Gradle builds with Java 21)
 
 Java/JVM Runtime Images:
@@ -42,7 +42,7 @@ Java/JVM Runtime Images:
 - eclipse-temurin:11-jre (Java 11 runtime)
 - eclipse-temurin:17-jre (Java 17 runtime)
 - eclipse-temurin:21-jre (Java 21 runtime)
-- amazoncorretto:17-alpine-jdk (Java 17 runtime - alternative)
+- amazoncorretto:17-alpine-jdk (Java 17 runtime - alternative, not a Gradle build image)
 - tomcat:10-jre17 (Tomcat 10 with Java 17 - for WAR deployments)
 
 JavaScript/Node.js:
@@ -270,12 +270,12 @@ CMD ["java", "-jar", "app.jar"]
 # Java version mapping:
 #   Java 8  -> gradle:7.6-jdk8           / eclipse-temurin:8-jre
 #   Java 11 -> gradle:8.7-jdk11          / eclipse-temurin:11-jre
-#   Java 17 -> gradle:8.7-jdk17-alpine   / eclipse-temurin:17-jre
+#   Java 17 -> gradle:8.12-jdk17         / eclipse-temurin:17-jre
 #   Java 21 -> gradle:8.12-jdk21         / eclipse-temurin:21-jre
 
 compile:
   stage: compile
-  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/gradle:8.7-jdk17-alpine
+  image: ${NEXUS_PULL_REGISTRY}/apm-repo/demo/gradle:8.12-jdk17
   script:
     - gradle build -x test --no-daemon
     - find build/libs -name '*.jar' ! -name '*-plain*' | head -1 | xargs -I {} cp {} build/libs/app.jar
@@ -286,7 +286,7 @@ compile:
 
 Dockerfile:
 ARG BASE_REGISTRY=ai-nexus:5001
-FROM ${BASE_REGISTRY}/apm-repo/demo/gradle:8.7-jdk17-alpine AS build
+FROM ${BASE_REGISTRY}/apm-repo/demo/gradle:8.12-jdk17 AS build
 WORKDIR /app
 COPY build.gradle* settings.gradle* gradlew* ./
 COPY gradle/ gradle/
